@@ -25,13 +25,13 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 image::OofWelcome.png[OofWelcome]
 
 === What is *OOF*?
-*OOF* (Oustanding Organisational Friend) is a Command Line Interface (CLI) program that allows you to save your tasks, assignments, modules taken, etc. *OOF* is catered towards university students who want to use a desktop application to manage their tasks in a friendly and efficient manner. *OOF* is optimized for users who prefer to work with the CLI.
+*OOF* (Outstanding Organisational Friend) is a Command Line Interface (CLI) program that allows you to save your tasks, assignments, modules taken, etc. *OOF* is catered towards university students who want to use a desktop application to manage their tasks in a friendly and efficient manner. *OOF* is optimized for users who prefer to work with the CLI.
 
 === What can *OOF* do?
-Besides saving your tasks very effectively in persistent storage, *OOF* allows your tasks to be displayed in friendly formats such as calendar format or a tabular format where your tasks are sorted chronologically for any particular week. You can also allow *OOF* to remind you of tasks that are expiring based on a customisable threshold. On top of that, you can track your progress and see if you are on track by using our tracking feature.
+Besides saving your tasks very effectively in persistent storage, *OOF* allows your tasks to be displayed in user-friendly formats such as a monthly calendar format or a tabular format where your tasks are sorted chronologically for any particular week. You can also allow *OOF* to remind you of tasks that are expiring based on a customisable threshold. On top of that, you can track your progress and see if you are on track by using our tracking feature.
 
 === How does *OOF* address our target audience?
-Most university students are often busy and *OOF* aims to reduce the time students spend on managing their tasks. *OOF* allows students to enter one-liner commands quickly into our program and hence spend less time logging down the tasks to be done. Furthermore, *OOF* allows tasks to be viewed in insightful formats and also provides timely reminders for tasks with their deadlines nearing.
+Most university students are often busy and *OOF* aims to reduce the time spent on managing their tasks. *OOF* allows students to enter one-liner commands quickly into our program and hence spend less time logging down the tasks to be done. Furthermore, *OOF* allows tasks to be viewed in insightful formats and also provides timely reminders for tasks with their deadlines nearing.
 
 === What is this guide for?
 This guide aims to educate you on how to use our application by providing example usages of all its features. The features can be found in <<Features>> section.
@@ -43,11 +43,11 @@ Jump to <<Quick Start>> to get started! Enjoy!
 
 === Setting up
 .  Ensure you have Java 11 or above installed on your computer.
-.. For `windows` users:
+.. For `Windows` users:
 ... Download the latest release link:{repoURL}/releases[here].
-... Open a `console` window.
+... Open a `cmd` window.
 ... Navigate to the directory containing our jar file.
-... Press `kbd:[ALT] + kbd:[ENTER]` to enter full-screen mode.
+... Press kbd:[ALT] + kbd:[ENTER] to enter full-screen mode.
 +
 [NOTE]
 If the output is large, windows will wrap the output by default. This makes the output unreadable and hence you should enter full-screen mode to prevent that from happening.
@@ -57,9 +57,9 @@ If the output is large, windows will wrap the output by default. This makes the 
 [NOTE]
 *_[X]_* refers to the name of our latest jar release.
 
-.. For `mac` users:
+.. For `Mac` users:
 ... Download the latest release link:{repoURL}/releases[here].
-... Open a `terminal`.
+... Open a `Terminal`.
 ... Navigate to the directory containing our jar file.
 ... Run the command `tput rmam`.
 +
@@ -71,9 +71,9 @@ This command disables line wrapping which is essential for our output to be sens
 [NOTE]
 *_[X]_* refers to the name of our latest jar release.
 
-.. For `linux` users:
+.. For `Linux` users:
 ... Download the latest release link:{repoURL}/releases[here].
-... Open a `terminal`.
+... Open a `Terminal`.
 ... Navigate to the directory containing our jar file.
 ... Run the command `setterm -linewrap off`.
 +
@@ -86,8 +86,7 @@ This command disables line wrapping which is essential for our output to be sens
 *_[X]_* refers to the name of our latest jar release.
 
 === Sample commands
-[[OofWelcome]]
-.OOF welcome screen
+.OOF Welcome Screen
 image::OofWelcome.png[OofWelcome]
 
 .  Type a task description in the terminal and press kbd:[Enter] to run it. +
@@ -96,7 +95,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
 
 * *`deadline homework /by 12-12-2019 11:11`* : adds a task called `homework` to the saved tasks with the deadline `12-12-2019 11:11`.
 * *`calendar`* : displays all saved tasks in a calendar view.
-* *`Bye`* : exits the application.
+* *`bye`* : exits the application.
 
 A summary of all the features available in *OOF* can be found in <<Command Summary>>.
 
@@ -109,12 +108,13 @@ In this section, the expected command format will be introduced, and you can exp
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
-e.g. `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
+e.g. `deadline DESCRIPTION /by DD-MM-YYYY`
 
-* The maximum length for a task's `description` is `20` characters.
+* The maximum length for a task's `DESCRIPTION` and a lesson's `NAME` is `20` characters.
 
-* The maximum lengths for a `module code` / `year` and `module name` / `semester` are `10` and `100` characters respectively.
+* The maximum length for a semester's `YEAR` and a module's `MODULE_CODE` is `10` characters.
 
+* The maximum length for a semester's `NAME` and a module's `MODULE_NAME` is `100` characters.
 
 [NOTE]
 
@@ -133,10 +133,10 @@ Example:
 * User enters `help`
 
 [[Help]]
-.Output of Help Command
+.Output of `help` command
 image::Help.png[Help]
 
-Usage of all the features is shown to you if `help` is entered.
+Usage of all commands is shown to you if `help` is entered.
 
 ==== Viewing the usage of individual commands: `help`
 Shows you the specific usage for the command you have entered.
@@ -145,13 +145,13 @@ Format: `help COMMAND`
 
 Example:
 
-* `help Deadline` +
+* `help deadline` +
 
 [[HelpCommand]]
-.Example of help COMMAND usage
+.Example of `help COMMAND` usage
 image::HelpCommand.png[HelpCommand]
 
-Correct syntax of adding a `deadline` is shown.
+Correct syntax for `deadline` command is shown.
 
 ==== Exiting the program: `bye`
 Exits the program.
@@ -166,7 +166,7 @@ You can add a `semester` to manage your modules.
 
 Format: `semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE`
 
-* `YEAR` represents name of the academic year, `SEMESTER` represents name of the `semester`, `START_DATE` and `END_DATE` represents the start and end date in `dd-MM-yyyy HH:mm` format.
+* `YEAR` represents name of the academic year, `SEMESTER` represents name of the semester, `START_DATE` and `END_DATE` represents the start and end date respectively in `DD-MM-YYYY` format.
 
 [NOTE]
 `YEAR` and `SEMESTER` have a character limit of 10 and 100 characters respectively.
@@ -179,7 +179,7 @@ Example:
 .Adding a `semester`
 image::SemesterAdd.png[SemesterAdd]
 
-Adds a `semester` for Academic Year 19/20, Semester 2 which lasts from 01-01-2020 to 05-05-2020.
+Adds a `semester` for "Academic Year 19/20, Semester 2" which lasts from "01-01-2020" to "05-05-2020".
 
 ==== Viewing semester data: `semester /view`
 You can use this command to display all the semesters you have added.
@@ -191,11 +191,11 @@ Format: `semester /view`
 image::SemesterView.png[SemesterView]
 
 ==== Removing semester data: `semester /delete`
-You can remove unwanted data if you have accidentally added an unwanted `semester`.
+You can remove unwanted data if you have added a wrong `semester` accidentally.
 
 Format: `semester /delete INDEX`
 
-* The `INDEX` refers to the index number displayed in the list of semesters recorded. (`semester /view` can be used to display the added semesters).
+* The `INDEX` refers to the index number displayed in the list of semesters recorded. (`semester /view` can be used to display the index of added semesters).
 
 Example:
 
@@ -208,11 +208,11 @@ image::SemesterDelete.png[SemesterDelete]
 Deletes the 2nd `semester` in the list of semesters.
 
 ==== Selecting a semester: `semester /select`
-You can select a `semester` in order to add modules to under that `semester`.
+You can select a `semester` in order to add modules to under that semester.
 
 Format: `semester /select INDEX`
 
-* The `INDEX` refers to the index number displayed in the list of semesters recorded. (`semester /view` can be used to display the added semesters).
+* The `INDEX` refers to the index number displayed in the list of semesters recorded. (`semester /view` can be used to display the index of added semesters).
 
 Example:
 
@@ -228,10 +228,10 @@ Selects the 1st `semester` in the list of semesters.
 You can keep track of your modules for each `semester` with the help of the `module` commands.
 
 [NOTE]
-All commands under modules require a `semester` to be selected using `semester /select`.
+All `module` commands require a `semester` to be selected using `semester /select`.
 
 ==== Adding module data: `module /add`
-You can add a `module` into `Oof` to manage `lesson`, `assignment` and `assessment` that you might have.
+You can add a `module` into `Oof` to manage any lessons, assignments or assessments that you might have.
 
 Format: `module /add MODULE_CODE /name MODULE_NAME`
 
@@ -248,7 +248,7 @@ Example:
 .Adding a `module`
 image::ModuleAdd.png[ModuleAdd]
 
-Adds a `module` with module code as "CS1010" and name as "Programming Methodology".
+Adds a `module` called "CS1010 Programming Methodology".
 
 ==== Viewing module data: `module /view`
 You can display all modules in order to have a quick overview of the modules you are taking this semester.
@@ -260,7 +260,7 @@ Format: `module /view`
 image::ModuleView.png[ModuleView]
 
 ==== Removing module data: `module /delete`
-You can remove unwanted data if you have accidentally added a wrong `module`.
+You can remove unwanted data if you have added a wrong `module` accidentally.
 
 Format: `module /delete INDEX`
 
@@ -274,10 +274,10 @@ Example:
 .Deleting a `module`
 image::ModuleDelete.png[ModuleDelete]
 
-Deletes the 4th `module` in the list of modules.
+Deletes the 6th `module` in the list of modules.
 
 ==== Selecting a module: `module /select`
-You can select a `module` in order to add `lesson`, `assignment` or `assessment` for that `module`.
+You can select a `module` in order to add any `lesson`, `assignment` or `assessment` for that module.
 
 Format: `module /select INDEX`
 
@@ -291,13 +291,13 @@ Example:
 .Selecting a `module`
 image::ModuleSelect.png[ModuleSelect]
 
-Selects the 1st `module` in the list of modules.
+Selects the 3rd `module` in the list of modules.
 
 === Lessons
 Keep track of your lessons for each `module` with the use of `lesson` commands!
 
 [NOTE]
-All commands under `lesson` require a `module` to be selected using `module /select`.
+All `lesson` commands require a `module` to be selected using `module /select`.
 
 ==== Viewing lesson data: `lesson`
 You can display all the lessons you have added for a `module`.
@@ -311,19 +311,19 @@ image::Lesson.png[Lesson]
 ==== Adding lesson data: `lesson /add`
 You can add a `lesson` into `Oof`.
 
-Format: `lesson /add NAME /day DAY /from START_TIME /to END_TIME`
+Format: `lesson /add NAME /day DAY /from HH:MM /to HH:MM`
 
 [NOTE]
 `NAME` has a character limit of 20 characters.
 
 * `NAME` of the `lesson` can have multiple words, not just limited to single-word descriptions.
 * `DAY` of the `lesson` ranges from `MONDAY` to `SUNDAY`.
-* `START_TIME` and `END_TIME` have to *strictly* be in the `HH:MM` format.
+* Start and end time of a `lesson` have to *strictly* be in the `HH:MM` format.
 
 Example:
 
 * `lesson /add lecture /day FRIDAY /from 14:00 /to 16:00` +
-Adds a lecture on Friday from 14:00 to 16:00 for the selected `module`.
+Adds "Lecture" on "Friday" from "14:00" to "16:00" for the selected `module`.
 
 [[LessonAdd]]
 .Adding a `lesson`
@@ -354,7 +354,7 @@ You can keep track of all your assessments by using the `assessment` command.
 [NOTE]
 Requires a `module` to be selected using `module /select`.
 
-Format: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+Format: `assessment DESCRIPTION /from DD-MM-YYYY /to DD-MM-YYYY`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
@@ -367,7 +367,7 @@ Example:
 
 * `assessment Finals /from 31-10-2019 16:00 /to 31-10-2019 18:00`
 
-Adds an `assessment` for selected `module` (`CS2106` in the example above) with name, start and end time as `Finals`, `31-10-2019 13:00`, `31-10-2019 15:00` respectively.
+Adds an `assessment` for selected `module` (`CS2106` in the example above) with name, start and end time as "Finals", "31-10-2019 13:00", "31-10-2019 15:00" respectively.
 
 [[AssessmentAdd]]
 .Adding an `assessment` task
@@ -379,7 +379,7 @@ You can use this command to keep track of an `assignment` for a particular modul
 [NOTE]
 Requires a `module` to be selected using `module /select`.
 
-Format: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM`
+Format: `assignment DESCRIPTION /by DD-MM-YYYY`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
@@ -395,12 +395,12 @@ Example:
 .Adding an `assignment` task
 image::AssignmentAdd.png[AssignmentAdd]
 
-Adds an `assignment` for selected `module` (`CS2106` in the example above) with name and due date as `Lab` and `23-11-2019 23:59` respectively.
+Adds an `assignment` for selected `module` (`CS2106` in the example above) with name and due date as "Lab" and "23-11-2019 23:59" respectively.
 
 ==== Adding a deadline: `deadline`
 You can choose to add a task with a `deadline`. +
 
-Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
+Format: `deadline DESCRIPTION /by DD-MM-YYYY`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
@@ -416,12 +416,12 @@ Example:
 .Adding a `deadline` task
 image::Deadline.png[Deadline]
 
-Adds a `deadline` task with description and deadline as `homework` and `20-11-2019 13:00` respectively.
+Adds a `deadline` task with description and deadline as "homework" and "20-11-2019 13:00" respectively.
 
 ==== Adding an event: `event`
 You can add an `event` with a scheduled starting and ending time. +
 
-Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+Format: `event DESCRIPTION /from DD-MM-YYYY /to DD-MM-YYYY`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
@@ -437,7 +437,7 @@ Example:
 .Adding an `event` task
 image::Event.png[Event]
 
-Adds an `event` task with description, start and end time as `project meeting`, `20-11-2019 13:00` and `20-11-2019 17:00` respectively.
+Adds an `event` task with description, start and end time as "project meeting", "20-11-2019 13:00" and `20-11-2019 17:00` respectively.
 
 ==== Adding a todo: `todo`
 You can choose to add a `todo` task to be done on a specific day.
@@ -532,7 +532,7 @@ You can quickly find anything you have inputted by providing *OOF* with a keywor
 
 Format: `find DESCRIPTION`
 
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `DESCRIPTION` of the task to be done can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -547,34 +547,28 @@ Finds tasks with `complete` in the description.
 ==== Viewing free time slots: `free`
 You can view the time slots you are available on a specific day so that you can plan project meetings with your friends. You can also receive suggestions on which deadlines to complete in your free time if they are due one week from the date specified. 
 
-Format: `free DATE`
+Format: `free DD-MM-YYYY`
 
 * `DATE` has to *strictly* be in the format `DD-MM-YYYY`.
 
 Example:
 
-+1.+ Type `free 08-11-2019` as a command press kbd:[ENTER]
-
-[[FreeTimeExample]]
-.Typing free 08-11-2019 into OOF
-image::FreeTimeExample.png[FreeTimeExample, width="890"]
-
-+2.+ `OOF` displays all the free time slots that you have followed by a suggestion if there are upcoming deadlines due.
+* `free 08-11-2019` +
 
 [[FreeTimeDisplay]]
-.Typing free with a valid date in the valid format of DD-MM-YYYY
+.Viewing free time slots for "08-11-2019"
 image::FreeTimeDisplay.png[FreeTimeDisplay, width="890"]
 
 ==== Setting reminders for upcoming deadlines: `NIL`
-You can get timely reminders for the tasks that are expiring.
+You can get reminders for any upcoming `deadline`.
 
 [[Reminder]]
-.Output of reminder command
+.Reminder for upcoming deadlines
 image::Reminder.png[Reminder]
 
 [NOTE]
 This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program. +
-You can customise the `threshold` to tell *OOF* when to remind you to complete your tasks. +
+You can set the `threshold` for *OOF* to remind you to complete your tasks. +
 View the detailed description on the usage of `threshold` below.
 
 ==== Choosing a threshold for tasks: `threshold`
@@ -582,7 +576,7 @@ You can set a comfortable threshold to tell *OOF* when to remind you to complete
 
 Format: `threshold HH`
 
-* `HH` represents the minimum number of hours from the `current time` to the `deadline` of tasks before *OOF* reminds you of those tasks.
+* `HH` represents the minimum number of hours from the current time to the `deadline` of tasks before *OOF* reminds you of those tasks.
 
 Example:
 
@@ -594,7 +588,7 @@ Example:
 .Output of threshold command
 image::Threshold.png[Threshold]
 
-Tasks that have `deadlines` within 48 hours from the `current time` will be in the reminders.
+Tasks that have `deadline` within 48 hours from the current time will be in the reminders.
 
 ==== Starting/Stopping/Pausing Task Tracker: `tracker`
 You can track a task from the current time.
@@ -700,7 +694,7 @@ You can view a summary of all the tasks and events on a specific day of your cho
 
 Format: `schedule DD-MM-YYYY`
 
-* `Date` has to strictly be in the format as stated above.
+* `DATE` has to strictly be in the format as stated above.
 
 Example:
 
@@ -775,7 +769,7 @@ You can filter tasks by matching the category given.
 
 Format: `filter CATEGORY`
 
-* `Category` of the task can be any one of the following: todo, deadline, event, recurring.
+* `CATEGORY` of the task can be any one of the following: todo, deadline, event, recurring.
 
 Example:
 
@@ -800,7 +794,7 @@ You can add a task that needs to be done after a specified task.
 Format: `do-after INDEX DESCRIPTION`
 
 * The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `DESCRIPTION` of the task to be done can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -810,10 +804,10 @@ Adds a do-after task called `buy groceries` that will be displayed once the 1st 
 ==== Adding a task: `range`
 You can add a task that needs to be completed within a certain time period
 
-Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+Format: `range DESCRIPTION /from DD-MM-YYYY /to DD-MM-YYYY`
 
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
+* `DESCRIPTION` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `DATE` and `TIME` have to *strictly* be in the format as stated above.
 
 Example:
 
@@ -850,12 +844,12 @@ View the list of features and their usages.
 * *Help*: `help`
 
 [NOTE]
-You can view the usage of a specific command by typing `help COMMAND`, where `COMMAND` is the name of the feature.
+You can view the usage of a specific command by typing `help COMMAND`, where `COMMAND` is the name of the command.
 e.g. `help calendar`
 
 Managing Semesters.
 
-* Adding a *Semester*: `semester /add YEAR /name SEMESTER /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
+* Adding a *Semester*: `semester /add YEAR /name SEMESTER /from DD-MM-YYYY /to DD-MM-YYYY` +
 e.g. `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020`
 
 * Deleting a *Semester*: `semester /delete INDEX` +
@@ -895,23 +889,23 @@ e.g. `lesson /delete 1`
 
 Add an assignment task.
 
-* *Assignment*: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM` +
+* *Assignment*: `assignment DESCRIPTION /by DD-MM-YYYY` +
 e.g. `assignment Assignment 1 /by 31-10-2019 23:59`
 
 Add an assessment task.
 
-* *Assessment*: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
+* *Assessment*: `assessment DESCRIPTION /from DD-MM-YYYY /to DD-MM-YYYY` +
 e.g. `assessment Finals /from 01-12-2019 10:00 /to 01-12-2019 12:00`
 
 Add a deadline task.
 
-* *Deadline*: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM` +
+* *Deadline*: `deadline DESCRIPTION /by DD-MM-YYYY` +
 e.g. `deadline homework /by 20-09-2019 13:00`
 
 
 Add an event with start and end time.
 
-* *Event*: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
+* *Event*: `event DESCRIPTION /from DD-MM-YYYY /to DD-MM-YYYY` +
 e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00`
 
 
@@ -925,7 +919,7 @@ Set a recurring task.
 * *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY` +
 e.g. `recurring 1 1 1`
 
-List all the task you have saved in *OOF*
+List all the tasks you have saved in *OOF*
 
 * *List*: `list`
 
@@ -939,7 +933,7 @@ Delete a specific task.
 * *Delete*: `delete INDEX` +
 e.g. `delete 1`
 
-Find anything using keywords.
+Find any task using keywords.
 
 * *Find*: `find DESCRIPTION` +
 e.g. `find withdraw money`
@@ -979,12 +973,12 @@ e.g. `calendar 10 2019`
 [NOTE]
 Note that the parameters `MM YYYY` are optional and the command will automatically show tasks for the current month if these parameters are not shown. The tasks in each day is chronologically sorted.
 
-View reminder based on the threshold set.
+View reminder for `deadlines` based on the threshold set.
 
 * *Reminder*: `NIL`
 
 [NOTE]
-This feature runs on startup thus no input is needed from you.
+This feature runs on startup.
 
 Starts Task tracker.
 
@@ -1019,7 +1013,7 @@ Exit *OOF* by using this command.
 
 * *Tentative*: `tentative DESCRIPTION`
 
-* *Do-after*: `Do-after INDEX DESCRIPTION`
+* *Do-after*: `do-after INDEX DESCRIPTION`
 
 * *Filter*: `filter CATEGORY`
 

@@ -67,7 +67,9 @@ public class AddLessonCommand extends Command {
         } else if (arguments.size() < ARRAY_SIZE_END_TIME || arguments.get(INDEX_END_TIME).isEmpty()) {
             throw new MissingArgumentException("OOPS!!! The lesson needs an end time.");
         }
+        System.out.println(arguments.get(INDEX_START_TIME));
         String startTime = parseTime(arguments.get(INDEX_START_TIME));
+        System.out.println();
         String endTime = parseTime(arguments.get(INDEX_END_TIME));
         String day = arguments.get(INDEX_DAY);
         if (!isDayValid(day.toUpperCase())) {
