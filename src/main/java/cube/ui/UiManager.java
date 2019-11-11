@@ -1,6 +1,5 @@
 /**
  * Manages several GUI related functions such as loading fxml, get root classes etc.
- *
  * Some design has been referenced from Address Book (Level 3).
  * https://github.com/se-edu/addressbook-level3
  */
