@@ -870,15 +870,15 @@ Finding an ingredient in the Fridge
 
 1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`.
 
-   Test case 1: `find beef` 
+   Test case 1: `find` `beef` 
 
    Expected: Find and list all ingredients that have the keyword `beef` to the user, regardless of their amount or expiry date
 
-​	   Test case 2: `find cockroach`
+​	   Test case 2: `find` `cockroach`
 
 ​	   Expected: Ingredient is not found and program outputs `No such ingredient found!`
 
-​	   Test case 3: `find be ef`
+​	   Test case 3: `find` `be ef`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
@@ -892,7 +892,7 @@ Listing all ingredients in the `Fridge` that expires today
 
    Expected: Find and list all ingredients in the `Fridge` that expires today, which is the **chicken**.
 
-   Test case 2: `list today`
+   Test case 2: `list` `today`
 
    Expected: Program outputs to user the proper syntax to use the command
 
@@ -902,15 +902,15 @@ Changing the name of an ingredient in the `Fridge`
 
 1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`, with index of 1 and 2 respectively.
 
-   Test case 1: `changename 1 pork` 
+   Test case 1: `changename` `1` `pork` 
 
    Expected: Changes the **beef** to **pork** and output its new name, amount and expiry date to the user.
 
-​	   Test case 2: `changename 3 pork`
+​	   Test case 2: `changename` `3` `pork`
 
-​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+​	   Expected:  User is prompted by the program to enter a valid range of ingredient index number, depending on the `IngredienstLists` size.
 
-​	   Test case 3: `changename chicken pork`
+​	   Test case 3: `changename` `chicken` `pork`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
@@ -920,15 +920,15 @@ Changing the amount of an ingredient in the `Fridge`
 
 1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **30 beef** and **20 chicken** in the `Fridge`, with index of 1 and 2 respectively.
 
-   Test case 1: `changeamount 1 20` 
+   Test case 1: `changeamount` `1` `20` 
 
    Expected: Changes the amount of **beef** from 30 to 20 and output its name, new amount and expiry date to the user.
 
-​	   Test case 2: `changeamount 3 20`
+​	   Test case 2: `changeamount` `3` `20`
 
 ​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
 
-​	   Test case 3: `changeamount chicken 7`
+​	   Test case 3: `changeamount` `chicken` `7`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 

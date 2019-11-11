@@ -472,7 +472,7 @@ Examples:
 - `changeamount` `7` `22`   
 
 ```
-	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of     ingredients in the fridge>  
+	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of ingredients in the fridge>  
 ```
 
 Otherwise,
@@ -508,7 +508,7 @@ Examples:
 - `changename` `7` `beef`   
 
 ```
-	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of     ingredients in the fridge>  
+	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of ingredients in the fridge>  
 ```
 
 Otherwise,
