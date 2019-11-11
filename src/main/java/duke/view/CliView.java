@@ -200,16 +200,6 @@ public class CliView {
         System.out.println("Choose only options 1, 2 and 3 for training plans");
     }
 
-    /**
-     * Displays student from student list that is matching to search.
-     *
-     * @param foundStudent Name of student that has been found.
-     * @return Student that has been found
-     */
-
-    public String printFoundStudent(final String foundStudent) {
-        return "Here are the matching names in your list: " + foundStudent;
-    }
 
     /**
      * Prints message when asking for date for goal.

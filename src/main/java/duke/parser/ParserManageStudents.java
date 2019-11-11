@@ -140,21 +140,6 @@ public final class ParserManageStudents {
     }
 
     /**
-     * Method to parse add command.
-     */
-    public void addCommand() {
-        new CliView().addStudentFormat();
-        String newStudent = sc.nextLine();
-        String[] splitByComma = newStudent.split(",");
-        String name = splitByComma[0];
-        String age = splitByComma[1];
-        String address = splitByComma[2];
-        Student myNewStudent = new Student(
-                name, age, address);
-        students.addStudent(myNewStudent);
-    }
-
-    /**
      * Method to parse student progress commands.
      */
     public void studentProgressParser() {
