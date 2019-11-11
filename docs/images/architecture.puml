@@ -7,7 +7,7 @@ Package " "<<Rectangle>> {
     Class JsonWrapper MODEL_COLOR
     Class PlannerUi UI_COLOR
     Class ModDetailedMap #111
-    Class "Profile" as User #777
+    Class User #777
     Class Logs UI_COLOR_T2
 }
 
@@ -27,5 +27,4 @@ User <--> Storage
 Logs --> File
 Storage <--> File
 Storage -> ModDetailedMap
-
 @enduml

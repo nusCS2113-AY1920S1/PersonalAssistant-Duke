@@ -72,7 +72,7 @@ In that way, our implementation approach would also be incremental as oppose to 
 
 The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 
-image::ArchitectureDiagram.png[]
+image::architecture.png[]
 
 As seen here, the user interacts with the *Parser* through the command line interface (CLI), which sorts through the user input and calls various commands under the *Command* section. 
 
@@ -579,6 +579,19 @@ but will read the data downloaded locally by the `update module` command.
 ****
 =======
 
+=== Logger
+
+The follow dependency diagram shows the relationship Logger has with the rest of the other classes.
+
+image::Logger.png[]
+
+`LoggerFormatter` formats the logging standard which all logging entries uses. `PlannerLogger` is called on every exception handling errors which occurs in `Parser`, `JsonWrapper` and the main `CliLauncher` class.
+
+It is present to capture all `ModException` errors as `WARNING`, while any other unhandled exceptions would be deemed as `SEVERE`.
+
+The logging data is written to the `logging.log` file found in the data folder when the application is started.
+
+
 // tag::Cca[]
 
 === Cca
@@ -660,7 +673,11 @@ and observe that the application runs as intended.
 
 Type `show module` and observe that the following output is obtained:
 
+image::SampleShowModule.PNG[]
+
 The following should be obtained after running `show cca`:
+
+image::SampleShowCCA.PNG[]
 
 Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
 is operational.
