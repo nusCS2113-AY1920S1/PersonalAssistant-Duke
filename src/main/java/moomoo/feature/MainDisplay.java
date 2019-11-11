@@ -4,10 +4,14 @@ import moomoo.feature.category.CategoryList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.text.DecimalFormat;
 
 
 public class MainDisplay {
 
+    private static DecimalFormat df = new DecimalFormat("0.00");
+
+    // Colours to be used for Linux only
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
     private static final String ANSI_RED = "\u001B[31m";
@@ -18,13 +22,10 @@ public class MainDisplay {
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_WHITE = "\u001B[37m";
 
-
-    //private final String TOP_BORDER_NEW_COLUMN = "-------------.";
+    // Short cut for Bars used to build table
     private static final String TOP_BORDERLEFT = ".-------------------.";
     private static final String TOP_BORDERRIGHT = "--------------------------";
     private static final String BORDER_LEFT = "|                   |";
-    private static final String BORDER_RIGHT = "              |                        |                |"
-            + "                   |\n";
     private static final String MONTH_LEFT = "|Month: ";
     private static final String YEAR_LEFT = "|Year: ";
     private static final String BUDGET_LEFT = "|" + ANSI_CYAN + "Budget" + ANSI_RESET + ":            |";
@@ -44,33 +45,6 @@ public class MainDisplay {
 
     public MainDisplay() {
 
-    }
-
-    /**
-     * This function is called when user specifies a month and year.
-     * We want to find out the amount of Categories that has expenditures as this will be the number of columns
-     * in our table output.
-     * @param categoryList  categoryList to be passed into the function.
-     * @param month month that the user wants to see a summary of.
-     * @param year  year that the user wants to see a summary of.
-     * @return an Integer corresponding to the number of columns.
-     */
-    public int getMonthsCatListSize(CategoryList categoryList, int month, int year) throws MooMooException {
-        int monthsCatSize = 0;
-        int catGotExp;
-        for (int i = 0; i < categoryList.size(); i++) {
-            catGotExp = 0;
-            for (int j = 0; j < categoryList.get(i).size(); j++) {
-                if (categoryList.get(i).get(j).getDate().getMonthValue() == month
-                        && categoryList.get(i).get(j).getDate().getYear() == year) {
-                    catGotExp += 1;
-                }
-            }
-            if (catGotExp >= 1) {
-                monthsCatSize += 1;      // if this Category has an expenditure, it is valid so count it
-            }
-        }
-        return monthsCatSize;
     }
 
     /**
@@ -158,7 +132,6 @@ public class MainDisplay {
     private String blankSpaceCost = "";
     private String blankSpaceTot = "";
 
-
     /**
      * This function takes in several parameters in order to append together a final string to be printed out as a
      * table as final output.
@@ -238,10 +211,15 @@ public class MainDisplay {
                 // Printing out the line with all the categories
                 for (int i = 0; i < cols; i++) {
                     blankSpaceCat = "";
-                    for (int j = 0; j < (26 - categoryList.get(i).name().length()); j++) {
-                        blankSpaceCat += " ";
+                    String catName = categoryList.get(i).name();
+                    if (catName.length() > 26) {
+                        catName = catName.substring(0, 23) + "...";
+                    } else {
+                        for (int j = 0; j < (26 - categoryList.get(i).name().length()); j++) {
+                            blankSpaceCat += " ";
+                        }
                     }
-                    output += ANSI_BLACK + categoryList.get(i).name() + ANSI_RESET + blankSpaceCat + "|";
+                    output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
 
@@ -250,21 +228,33 @@ public class MainDisplay {
                     output += BORDER_LEFT;
                     for (int j = 0; j < cols; j++) {
                         if (i < categoryList.get(j).size()) {
+                            String expenditureName = categoryList.get(j).get(i).getName();
+                            String amountString = df.format(categoryList.get(j).get(i).getCost());
                             // prints out each individual expenditureName if it exists
-                            blankSpaceExp = "";
-                            for (int h = 0; h < (17 - categoryList.get(j).get(i).getName().length()); h++) {
-                                blankSpaceExp += " ";
+                            if (expenditureName.length() > 14) {
+                                expenditureName = expenditureName.substring(0, 11) + "...";
+                            } else {
+                                blankSpaceExp = "";
+                                for (int h = 0; h < (14 - categoryList.get(j).get(i).getName().length()); h++) {
+                                    blankSpaceExp += " ";
+                                }
                             }
-                            blankSpaceCost = "";
-                            // prints out each individual expenditure Cost if it exists
-                            for (int k = 0; k < (7 - categoryList.get(j).get(i).getCostString().length()); k++) {
-                                blankSpaceCost += " ";
+                            if (amountString.length() > 10) {
+                                amountString = amountString.substring(0, 7) + "...";
+                            } else {
+                                blankSpaceCost = "";
+                                // prints out each individual expenditure Cost if it exists
+                                for (int k = 0; k < (10 - amountString.length()); k++) {
+                                    blankSpaceCost += " ";
+                                }
                             }
-                            output += categoryList.get(j).get(i).getName() + blankSpaceExp + "|$"
-                                + categoryList.get(j).get(i).getCostString() + blankSpaceCost + "|";
+                            output += expenditureName + blankSpaceExp + "|"
+                                    //+ ANSI_GREEN + "$" + ANSI_RESET
+                                    + "$"
+                                    + amountString + blankSpaceCost + "|";
                         } else {
                             // if expenditure dosen't exist, print out the filler space
-                            output += "                 |        |";
+                            output += "              " + "|" + "           |";
                         }
                     }
                     output += "\n";
@@ -273,20 +263,29 @@ public class MainDisplay {
                 output += TOTAL_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceTot = "";
-                    for (int j = 0; j < (25 - Double.toString(categoryList.get(i).getOverallAmount()).length()); j++) {
-                        blankSpaceTot += " ";
+                    String totString = df.format(categoryList.get(i).getOverallAmount());
+                    if (totString.length() > 25) {
+                        totString = totString.substring(0, 22) + "...";
+                    } else {
+                        for (int j = 0; j < (25 - totString.length()); j++) {
+                            blankSpaceTot += " ";
+                        }
                     }
-                    output += "$" + categoryList.get(i).getOverallAmount() + blankSpaceTot + "|";
+                    output += "$" + totString + blankSpaceTot + "|";
                 }
 
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
                 output += BUDGET_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceBud = "";
-                    String budName = Double.toString(budget.getBudgetFromCategory(categoryList.get(i).name()));
+                    String budName = df.format(budget.getBudgetFromCategory(categoryList.get(i).name()));
                     int budLen = 25 - budName.length();
-                    for (int j = 0; j < budLen; j++) {
-                        blankSpaceBud += " ";
+                    if (budName.length() > 25) {
+                        budName = budName.substring(0, 22) + "...";
+                    } else {
+                        for (int j = 0; j < budLen; j++) {
+                            blankSpaceBud += " ";
+                        }
                     }
                     output += "$" + budName + blankSpaceBud + "|";
                 }
@@ -299,13 +298,18 @@ public class MainDisplay {
                     double tot = categoryList.get(i).getOverallAmount();
                     double bud = budget.getBudgetFromCategory(categoryList.get(i).name());
                     double sav = bud - tot;
-                    for (int j = 0; j < (25 - Double.toString(sav).length()); j++) {
-                        blankSpaceSav += " ";
+                    String savString = df.format(sav);
+                    if (savString.length() > 25) {
+                        savString = savString.substring(0, 22) + "...";
+                    } else {
+                        for (int j = 0; j < (25 - savString.length()); j++) {
+                            blankSpaceSav += " ";
+                        }
                     }
                     if (sav < 0) {
-                        output += "$" + ANSI_RED + sav + ANSI_RESET + blankSpaceSav + "|";
+                        output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
                     } else {
-                        output += "$" + sav + blankSpaceSav + "|";
+                        output += "$" + savString + blankSpaceSav + "|";
                     }
                 }
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
@@ -331,7 +335,7 @@ public class MainDisplay {
                         if (categoryList.get(i).get(j).getDate().getMonthValue() == month
                                 && categoryList.get(i).get(j).getDate().getYear() == year) {
                             stringList.add(categoryList.get(i).get(j).getName());
-                            stringList.add(categoryList.get(i).get(j).getCostString());
+                            stringList.add(df.format(categoryList.get(i).get(j).getCost()));
                         }
                     }
                     newCategoryList.put(categoryList.get(i).name(), stringList);
@@ -356,11 +360,16 @@ public class MainDisplay {
 
                 // Printing out the line with all the categories
                 for (int i = 0; i < cols; i++) {
+                    String catName = categoryList.get(i).name();
                     blankSpaceCat = "";
-                    for (int j = 0; j < (26 - categoryList.get(i).name().length()); j++) {
-                        blankSpaceCat += " ";
+                    if (catName.length() > 26) {
+                        catName = catName.substring(0, 23) + "...";
+                    } else {
+                        for (int j = 0; j < (26 - categoryList.get(i).name().length()); j++) {
+                            blankSpaceCat += " ";
+                        }
                     }
-                    output += ANSI_BLACK + categoryList.get(i).name() + ANSI_RESET + blankSpaceCat + "|";
+                    output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
 
@@ -368,15 +377,13 @@ public class MainDisplay {
                 for (int i = 0; i < rows; i++) {
                     output += BORDER_LEFT;
                     for (int j = 0; j < cols; j++) {
-                        //if (i < categoryList.get(j).size()) {
                         String categoryName = categoryList.get(j).name();
-                        //if (i < (newCategoryList.get(categoryName).size() / 2)) {
                         if (i < categoryList.get(j).size()) {
                             String expenditureName = "";
                             String amountString = "";
                             if (!newCategoryList.get(categoryName).isEmpty()) {
                                 // for nth row, nth category, extract the expenditure name (odd no in array list)
-                                expenditureName = (i + 1) + ". " + newCategoryList.get(categoryName).get(0);
+                                expenditureName = newCategoryList.get(categoryName).get(0);
                                 // for nth row, nth category, extract the expenditure cost (even no in array list)
                                 amountString = newCategoryList.get(categoryName).get(1);
                             }
@@ -385,20 +392,32 @@ public class MainDisplay {
                                     newCategoryList.get(categoryName).remove(0);
                                 }
                             }
-                            blankSpaceExp = "";
-                            for (int h = 0; h < (17 - expenditureName.length()); h++) {
-                                blankSpaceExp += " ";
+                            if (expenditureName.length() > 14) {
+                                expenditureName = expenditureName.substring(0, 11) + "...";
+                            } else {
+                                blankSpaceExp = "";
+                                // prints out each individual expenditure Name if it exists
+                                for (int h = 0; h < (14 - expenditureName.length()); h++) {
+                                    blankSpaceExp += " ";
+                                }
                             }
-                            blankSpaceCost = "";
-                            // prints out each individual expenditure Cost if it exists
-                            for (int g = 0; g < (7 - amountString.length()); g++) {
-                                blankSpaceCost += " ";
+                            if (amountString.length() > 10) {
+                                amountString = amountString.substring(0, 7) + "...";
+                            } else {
+                                blankSpaceCost = "";
+                                // prints out each individual expenditure Cost if it exists
+                                for (int g = 0; g < (10 - amountString.length()); g++) {
+                                    blankSpaceCost += " ";
+                                }
                             }
 
-                            output += expenditureName + blankSpaceExp + "|$" + amountString + blankSpaceCost + "|";
+                            output += expenditureName + blankSpaceExp + "|"
+                                    //+ ANSI_GREEN + "$" + ANSI_RESET
+                                    + "$"
+                                    + amountString + blankSpaceCost + "|";
                         } else {
                             // if expenditure dosen't exist, print out the filler space
-                            output += "                 |        |";
+                            output += "              " + "|" + "           |";
                         }
                     }
                     output += "\n";
@@ -409,11 +428,16 @@ public class MainDisplay {
                 output += TOTAL_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceTot = "";
-                    int totalLen = Double.toString(categoryList.get(i).getTotal(month, year)).length();
-                    for (int j = 0; j < (25 - totalLen); j++) {
-                        blankSpaceTot += " ";
+                    int totalLen = df.format(categoryList.get(i).getTotal(month, year)).length();
+                    String totalString = df.format(categoryList.get(i).getTotal(month, year));
+                    if (totalString.length() > 25) {
+                        totalString = totalString.substring(0, 22) + "...";
+                    } else {
+                        for (int j = 0; j < (25 - totalLen); j++) {
+                            blankSpaceTot += " ";
+                        }
                     }
-                    output += "$" + categoryList.get(i).getTotal(month, year) + blankSpaceTot + "|";
+                    output += "$" + totalString + blankSpaceTot + "|";
                 }
 
                 // Prints out the line that contains all the budgets for each category
@@ -421,10 +445,14 @@ public class MainDisplay {
                 output += BUDGET_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceBud = "";
-                    String budName = Double.toString(budget.getBudgetFromCategory(categoryList.get(i).name()));
+                    String budName = df.format(budget.getBudgetFromCategory(categoryList.get(i).name()));
                     int budLen = 25 - budName.length();
-                    for (int j = 0; j < budLen; j++) {
-                        blankSpaceBud += " ";
+                    if (budName.length() > 25) {
+                        budName = budName.substring(0, 22) + "...";
+                    } else {
+                        for (int j = 0; j < budLen; j++) {
+                            blankSpaceBud += " ";
+                        }
                     }
                     output += "$" + budName + blankSpaceBud + "|";
                 }
@@ -437,13 +465,18 @@ public class MainDisplay {
                     double tot = categoryList.get(i).getTotal(month, year);
                     double bud = budget.getBudgetFromCategory(categoryList.get(i).name());
                     double sav = bud - tot;
-                    for (int j = 0; j < (25 - Double.toString(sav).length()); j++) {
-                        blankSpaceSav += " ";
+                    String savString = df.format(sav);
+                    if (savString.length() > 25) {
+                        savString = savString.substring(0, 22) + "...";
+                    } else {
+                        for (int j = 0; j < (25 - df.format(sav).length()); j++) {
+                            blankSpaceSav += " ";
+                        }
                     }
                     if (sav < 0) {
-                        output += "$" + ANSI_RED + sav + ANSI_RESET + blankSpaceSav + "|";
+                        output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
                     } else {
-                        output += "$" + sav + blankSpaceSav + "|";
+                        output += "$" + savString + blankSpaceSav + "|";
                     }
                 }
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
@@ -451,31 +484,4 @@ public class MainDisplay {
         }
         return output;
     }
-
-
-    private static final String DEFAULT =
-                      ".------------------.------------------------------------------------------------------------.\n"
-                    + "|Month: All        |                              <Categories>                              |\n"
-                    + "|Year: All         |------------------------------------------------------------------------.\n"
-                    + "|Budget:           |Food                   |Transport              |Logistics               |\n"
-                    + "|Savings:          |------------------------------------------------------------------------.\n"
-                    + "|                  |Laska         |$5.00   |Bus           |$2.90   |Props          |$24.50  |\n"
-                    + "|                  |------------------------------------------------------------------------.\n"
-                    + "|                  |Pizza         |$20.00  |              |        |               |        |\n"
-                    + "|                  |------------------------------------------------------------------------.\n"
-                    + "|                  |KFC           |$3.50   |              |        |               |        |\n"
-                    + "|                  |------------------------------------------------------------------------.\n"
-                    + "|                  |              |        |              |        |               |        |\n"
-                    + "|                  |------------------------------------------------------------------------.\n"
-                    + "|                  |              |        |              |        |               |        |\n"
-                    + "|                  |------------------------------------------------------------------------.\n"
-                    + "|                  |              |        |              |        |               |        |\n"
-                    + ".------------------.------------------------------------------------------------------------.\n"
-                    + "|Total:            |                       |                       |                        |\n"
-                    + ".------------------.------------------------------------------------------------------------.\n"
-                    + "|Budget:           |                       |                       |                        |\n"
-                    + ".------------------.------------------------------------------------------------------------.\n"
-                    + "|Savings:          |                       |                       |                        |\n"
-                    + ".------------------.------------------------------------------------------------------------.\n"
-                    + "\n";         // Testing Final Output Appearance AND default table
 }
