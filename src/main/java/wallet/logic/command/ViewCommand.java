@@ -25,6 +25,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_NICE_TRY_MONTH = "Nice try, but month runs from 1 to 12 :)";
     public static final String MESSAGE_NICE_TRY_YEAR = "zero or negative years does not exist.";
     public static final String MESSAGE_NO_EXPENSE_IN_MONTH = "There are no expenses in this month.";
+    public static final String MESSAGE_NO_EXPENSE = "There are no expenses in your wallet.";
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " budget 01/2019"
             + "\nExample: " + COMMAND_WORD + " stats"
@@ -115,6 +116,10 @@ public class ViewCommand extends Command {
             }
         } else if (type.length == 1 && type[0].equals("stats")) {
             ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
+            if (expenseList.isEmpty()) {
+                System.out.println(MESSAGE_NO_EXPENSE);
+                return false;
+            }
             ui.drawPieChart(expenseList);
             return false;
         } else {
