@@ -327,6 +327,14 @@ Firstly, a new `Scanner` will be created to continue reading in the module that 
 After taking in the user input, ModPlan will check if the module is a legitimate module in the `detailedMap` pulled from NUSMODS API. +
 If it is invalid, a new `ModNotFoundException` will be thrown. Otherwise the prerequisite tree (if any) will be scanned for that particular module using the `parsePrerequisiteTree` method. +
 
+For the `cap module` command, we came up with two ways to go about parsing the prerequisite tree of the module whose CAP is to be predicted. 
+
+*Alternative 1: Array of Module Codes* (currently implemented)
+Currently in v1.4 the `cap module` method only parses the first level of prerequisites that a module has, as well as their preclusions, and checks against the user's module task list. 
+
+If there are any prerequisite modules taken for the predicted module, their grades will be taken to predict the CAP for the inputted module. The array of module codes is rechecked again for any remaining preclusions that may have been omitted, before finally calculating and printing the CAP for the user.
+
+*Alternative 2: List of List of Strings* (coming in v2.0)
 This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS). 
 
 Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken. 
@@ -508,7 +516,7 @@ Since `UpdateModuleInfo` inherits the `ModuleCommand` class, it must override th
 
 Below is a Sequence Diagram showing how `UpdateModuleInfo` works. +
 
-image::UpdateModuleCommandSequenceDiagram.png[width="800"]
+image::UpdateModuleInfoSequenceDiagram.png[width="800"]
 
 === JsonWrapper
 
