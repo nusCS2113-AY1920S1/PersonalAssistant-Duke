@@ -218,7 +218,7 @@ Examples:
 OR
 
 * Enter `schedule` +
-Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
+Enter a list of 'enter key' separated words: `happy[Enter] elated[Enter]` +
 Enter a date and time for the reminder: `12-02-2020 1400` +
 
 Reminder is then set. Summary of reminder details is shown. Reminder pop up will be shown on 12 Feb 2020 2pm.
