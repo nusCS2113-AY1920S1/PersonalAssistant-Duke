@@ -44,7 +44,6 @@ public class AddGoalCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        ui.showLine();
         try {
             user.setGoal(goal);
             ui.showMessage("The set goal Command is successful!");

@@ -40,7 +40,7 @@ public class AddCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        ui.showLine();
+
         try {
             meals.addMeals(this.meal);
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
@@ -49,6 +49,5 @@ public class AddCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showLine();
     }
 }

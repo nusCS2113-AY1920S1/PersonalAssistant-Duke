@@ -6,9 +6,15 @@
     "sprinting": 23,
     "Soccer, casual, general": 7,
     "Martial arts, different types, moderate pace (taichi, taekwondo, etc)": 10,
+    "Rock climbing": 10,
     "Cycling, 10 - 12mph (light effort)": 7,
     "Cycling, 14 - 16mph (heavy effort)": 10,
     "Running, 10 mph (6 min/mile)": 10
   },
-  "exercisePlan": {}
+  "exercisePlan": {
+    "2019-11-10": {
+      "key": "Cycling, 10 - 12mph (light effort)",
+      "value": 71
+    }
+  }
 }

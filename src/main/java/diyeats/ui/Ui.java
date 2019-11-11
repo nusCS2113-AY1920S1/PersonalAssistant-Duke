@@ -86,8 +86,9 @@ public class Ui {
         showCaloriesLeft(meals, user, dateStr);
     }
 
-    public void showUpdated(Meal newMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
-        System.out.println(UI_PADDING + "Got it. I've updated this old meal with this: " + newMeal);
+    public void showUpdated(Meal oldMeal, Meal newMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
+        System.out.println(UI_PADDING + "Got it. I've updated this old meal: " + oldMeal);
+        System.out.println(UI_PADDING + "With this: " + newMeal);
         showCaloriesLeft(meals, user, dateStr);
     }
 
@@ -304,6 +305,7 @@ public class Ui {
     }
 
     public void showDeleteCandidateKeys(ArrayList<String> deleteCandidateKeys) {
+        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Here are the items associated with the keyword provided:");
         int counter = 1;
         for (String itr : deleteCandidateKeys) {
@@ -335,7 +337,7 @@ public class Ui {
         System.out.println(UI_PADDING + "Your current account balance is: " + wallet.getAccountBalance());
     }
 
-    public void showInsufficientBalance(Payment payment) {
+    public void showInsufficientBalance(Transaction payment) {
         System.out.println(UI_PADDING + "Account Balance insufficient for a " + payment.getTransactionAmount()
                 + "SGD withdrawal");
     }
