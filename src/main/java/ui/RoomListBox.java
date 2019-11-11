@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
+//@@author AmosChan97
 public class RoomListBox extends HBox {
 
     @FXML
@@ -17,24 +18,16 @@ public class RoomListBox extends HBox {
     private Label roomLabel;
 
     @FXML
-    private Label dateLabel;
-
-    @FXML
-    private Label timeStartLabel;
-
-    @FXML
-    private Label timeEndLabel;
+    private Label capacityLabel;
 
     /**
      * For displaying room related information.
      * @param index Index of room in the list
      * @param room room code
-     * @param date active date
-     * @param timeStart active time start
-     * @param timeEnd active time end
+     * @param capacity number of people able to use the room at the same time
      * @throws DukeException when input does not exist or invalid
      */
-    public RoomListBox(String index, String room, String date, String timeStart, String timeEnd) throws DukeException {
+    public RoomListBox(String index, String room, String capacity) throws DukeException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/RoomListBox.fxml"));
             fxmlLoader.setController(this);
@@ -45,9 +38,7 @@ public class RoomListBox extends HBox {
         }
         indexLabel.setText(index + ".");
         roomLabel.setText(room);
-        dateLabel.setText(date);
-        timeStartLabel.setText(timeStart);
-        timeEndLabel.setText(timeEnd);
+        capacityLabel.setText(capacity);
     }
 
 }
