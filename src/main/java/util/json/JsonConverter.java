@@ -72,7 +72,19 @@ public class JsonConverter {
                 return allProjects;
             }
         }
-
+        ArrayList<Project> projectsFromResource = getResourcesInJar();
+        for (Project jsonProject : allProjects) {
+            for (Project jarProject : projectsFromResource) {
+                if (jsonProject.getName().equals(jarProject.getName())) {
+                    projectsFromResource.remove(jarProject);
+                    break;
+                }
+            }
+        }
+        for (Project jarProject : projectsFromResource) {
+            saveProject(jarProject);
+        }
+        allProjects.addAll(projectsFromResource);
         return allProjects;
     }
 
@@ -82,16 +94,24 @@ public class JsonConverter {
      * @return : Returns an ArrayList of Project representing all Projects packaged in the jar file.
      */
     public ArrayList<Project> getResourcesInJar() {
-        Gson gson = new Gson();
         ArrayList<Project> allProjects = new ArrayList<>();
         try {
-            InputStream is = getClass().getResourceAsStream("/initdata/avengers.json");
-            InputStreamReader isr = new InputStreamReader(is);
-            Project newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
-            allProjects.add(newProject);
+            allProjects.add(getProjectJsonFromJar("avengers.json"));
+            allProjects.add(getProjectJsonFromJar("CS1010.json"));
         } catch (NullPointerException err) {
             return allProjects;
         }
         return allProjects;
+    }
+
+    /**
+     * Function to pull Projects Json packaged inside Jar file.
+     * @param nameOfJsonFile : name of JSON file you wish to pull from resources/initdata folder.
+     */
+    private Project getProjectJsonFromJar(String nameOfJsonFile) {
+        Gson gson = new Gson();
+        InputStream is = getClass().getResourceAsStream("/initdata/" + nameOfJsonFile);
+        InputStreamReader isr = new InputStreamReader(is);
+        return gson.fromJson(isr, new TypeToken<Project>(){}.getType());
     }
 }

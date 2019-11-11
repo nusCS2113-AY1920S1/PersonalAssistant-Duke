@@ -385,7 +385,7 @@ public class TaskList {
         String currentMonth = dateTimeHelper.getCurrentMonth();
         for (Task task : this.taskList) {
             Date taskDate = task.getDueDate();
-            if (dateTimeHelper.getMonthFromDateObject(taskDate).equals(currentMonth)) {
+            if (taskDate != null && dateTimeHelper.getMonthFromDateObject(taskDate).equals(currentMonth)) {
                 int dayOfTaskDueDate = dateTimeHelper.getDayFromDateObject(taskDate);
                 allTasksWithinCurrentMonth.merge(dayOfTaskDueDate, 1, Integer::sum);
             }
