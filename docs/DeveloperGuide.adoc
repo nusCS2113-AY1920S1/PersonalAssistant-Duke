@@ -1673,6 +1673,15 @@ The command is in the format `recurring INDEX NUMBER_OF_RECURRENCES FREQUENCY`. 
 `FREQUENCY` refers to the number you have chosen in step `4`. +
 You are free to test out this command with variations of the three parameters.
 
+. Test case: `recurring 1 1 1` +
+Expected: `1` task is added to the list of tasks with a date that is `1` day later than the date of the `1st` task in the list of tasks. +
+. Test case: `recurring -1 1 1` +
+Expected: Error displayed to warn you to select a valid task. +
+. Test case: `recurring 1 -1 1` +
+Expected: Error displayed to warn you to enter a valid number of recurrences. +
+. Test case: `recurring 1 1 a` +
+Expected: Error displayed to warn you to enter valid numbers. 
+
 === Finding free time slots
 
 ==== Understanding the parameters 
@@ -1703,4 +1712,9 @@ The date parameters `DD`, `MM` and `YYYY` are optional. If the date is not enter
 
 ==== Testing the command
 You can enter the command `viewweek` to view `tasks` for the current week. +
-You are free to enter a `date` of your choice and observe the output of this command.
+You are free to enter a `date` of your choice and observe the output of this command. 
+
+. Test case: `viewweek 32 12 2019` +
+Expected: The `tasks` for the current week are shown. +
+. Test case: `viewweek 30 12 2019` +
+Expected: The `tasks` in the week of `30-12-2019` are shown. +
