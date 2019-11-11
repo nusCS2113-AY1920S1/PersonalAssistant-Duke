@@ -28,7 +28,7 @@ Responsibilities: Contact Management
 
 === Yu Xuan
 image::maxxyx96.png[width="150", align="left"]
-{empty}[https://github.com/maxxyx96[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/team/maxxyx96.adoc[portfolio]]
+{empty}[https://github.com/maxxyx96[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/team/maxxyx96.pdf[portfolio]]
 
 Role: Developer +
 Responsibilities: Budget Management
