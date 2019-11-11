@@ -192,6 +192,15 @@ View a table-format calendar which shows when items/rooms are in use.
 .*Format*:
 . `calendar`
 
+==== View stats: `stats`
+View how many resources are in used between two dates with interval less than 15 in the form of a simple bar graph.
+
+.*Format*:
+. `stats /from DATE /till DATE`
+
+.*Example*:
+. `stats /from 20/11/2019 1000 /till 29/11/2019 1000`
+
 === Others
 
 ==== Undo last command: `undo`
@@ -231,6 +240,8 @@ e.g. `return /item frisbee /qty 3`
 e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
 * *View deadline of resource*: `due DATE` +
 	e.g. `due 04/05/2019`
+* *View stats*: `stats /from DATE /till DATE` +
+	e.g. `stats /from 20/11/2019 1000 /till 29/11/2019 1000`
 * *List resources and their status*: `list`
 * *View calendar*: `calendar`
 * *Exiting the program*: `bye`
