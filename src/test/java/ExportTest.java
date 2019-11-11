@@ -42,7 +42,7 @@ class ExportTest {
      * Setups the necessary base to carry out the test operations.
      */
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
