@@ -23,10 +23,7 @@ public class ProjectRepository implements IRepository<Project> {
      * Lastly, it adds any resources found in packaged jar into the data found in current working directory.
      */
     public ProjectRepository() {
-        ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
         allProjects = jsonConverter.loadAllProjectsData();
-        allProjects.addAll(projectsFromResource);
-        allProjects.forEach((i) -> jsonConverter.saveProject(i));
     }
 
     @Override
