@@ -5,6 +5,7 @@ package wallet.thread;
 import wallet.logic.command.CurrencyCommand;
 import wallet.model.Wallet;
 import wallet.model.currency.Currency;
+import wallet.model.record.Budget;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 
@@ -67,6 +68,13 @@ public class CurrencyThread implements Runnable {
                         / wallet.getCurrencyList().getCurrentCurrency().getValue()
                         * newCurrency.getValue());
             }
+
+            for (Budget b : wallet.getBudgetList().getBudgetList()) {
+                b.setAmount(b.getAmount()
+                        / wallet.getCurrencyList().getCurrentCurrency().getValue()
+                        * newCurrency.getValue());
+            }
+
             wallet.getCurrencyList().getCurrentCurrency().setCurrentCurrency(false);
             newCurrency.setCurrentCurrency(true);
             wallet.getCurrencyList().setCurrentCurrency(newCurrency);
