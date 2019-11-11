@@ -22,14 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 public class ShowCoreTest extends InputTest {
-    private static Storage store;
-    private static ModuleTasksList modTasks;
-    private static Parser argparser;
-    private static Reminder reminder;
-    private static JsonWrapper jsonWrapper;
-    private static PlannerUi modUi;
-    private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
-    private transient ByteArrayOutputStream output;
     private String expectedBye = "_______________________________\n"
             +
             "Thanks for using ModPlanner!\n"
@@ -41,18 +33,6 @@ public class ShowCoreTest extends InputTest {
             "_______________________________\n";
 
     final String[] hold = {""};
-
-    /**
-     * Test initialization of ModPlan main classes.
-     */
-    public static void initialize() throws ModFailedJsonException {
-        store = new Storage();
-        modUi = new PlannerUi();
-        argparser = new Parser();
-        jsonWrapper = new JsonWrapper();
-        modTasks = new ModuleTasksList();
-        jsonWrapper.getModuleDetailedMap();
-    }
 
     @DisplayName("show core test")
     @Test
@@ -84,8 +64,6 @@ public class ShowCoreTest extends InputTest {
                 "_______________________________\n"
                 +
                 expectedBye;
-        String contentString = outContent.toString();
-        String expected = removeUnicodeAndEscapeChars(contentString);
-        assertEquals(expected, expected);
+        assertEquals(expectedShowModule, getReplace());
     }
 }

@@ -1,26 +1,13 @@
-//@@author kyawtsan99
-
 package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.main.InputTest;
-import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
-import planner.logic.parser.Parser;
 import planner.main.CliLauncher;
-import planner.ui.cli.PlannerUi;
-import planner.util.crawler.JsonWrapper;
-import planner.util.legacy.reminder.Reminder;
-import planner.util.storage.Storage;
-
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
+import planner.main.InputTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShowGeTest extends InputTest {
+public class ReminderTest extends InputTest {
     private String expectedBye = "_______________________________\n"
             +
             "Thanks for using ModPlanner!\n"
@@ -31,10 +18,10 @@ public class ShowGeTest extends InputTest {
             +
             "_______________________________\n";
 
-    @DisplayName("show ge test")
+    @DisplayName("show reminder test")
     @Test
     public void testShow() {
-        final String test = "show ge\n";
+        final String test = "reminder one\n";
 
         final String bye = "bye";
         provideInput(test + bye);
@@ -48,17 +35,13 @@ public class ShowGeTest extends InputTest {
                 +
                 "_______________________________\n"
                 +
-                "Here is your list of general education modules being added:\n"
-                +
-                "1. [✗] GES1012 | ModuleCode:GES1012, MC:4.0, SU:true, grade:"
-                +
-                "\n"
-                +
-                "Number of general education modules required to take for graduation:\n"
-                +
-                "4\n"
-                +
                 "_______________________________\n"
+                +
+                "Please remember to update your module information!\n"
+                +
+                "To do so, you can input the update command in the following format:\n"
+                +
+                "update module\n"
                 +
                 expectedBye;
         assertEquals(expectedShowModule, getReplace());
