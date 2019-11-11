@@ -1,10 +1,5 @@
 package factorytests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.text.ParseException;
-import java.util.ArrayList;
 import models.task.ITask;
 import models.task.NullTask;
 import models.task.Task;
@@ -12,6 +7,12 @@ import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 import util.factories.TaskFactory;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 //@@author Lucria
 class TaskFactoryTests {
@@ -34,7 +35,7 @@ class TaskFactoryTests {
 
     @Test
     void taskCreation_fullCorrectInputs_creationSuccess() {
-        simulatedFactoryInput = "-t Killing Thanos -p 1 -d 28/09/2019 -c 100 -s done -r Use Iron Man";
+        simulatedFactoryInput = "-n Killing Thanos -p 1 -d 28/09/2019 -c 100 -s done -r Use Iron Man";
         try {
             ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
             ArrayList<String> expectedRequirements = new ArrayList<>();
@@ -52,7 +53,7 @@ class TaskFactoryTests {
 
     @Test
     void taskCreation_correctPartialInputs_creationSuccess() {
-        simulatedFactoryInput = "-t Turning back time -p 5 -c 5";
+        simulatedFactoryInput = "-n Turning back time -p 5 -c 5";
         ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
         Task expectedTask = new Task("Turning back time", 5,
                 null, 5, TaskState.OPEN, null);
@@ -64,7 +65,7 @@ class TaskFactoryTests {
 
     @Test
     void taskCreation_wrongInputs_creationFailed() {
-        simulatedFactoryInput = "-t Missing priority -c 5";
+        simulatedFactoryInput = "-n Missing priority -c 5";
         ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
         NullTask expectedTask = new NullTask();
         assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());

@@ -515,12 +515,12 @@ public class ProjectInputController implements IController {
             HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
             ArrayList<ArrayList<String>> allTaskDetailsForTable = new ArrayList<>();
-            if (("view tasks").equals(projectCommand)) {
+            if (("view tasks").equals(projectCommand.trim())) {
                 allTaskDetailsForTable = projectToManage.getTaskList().getAllTaskDetailsForTable(
                         tasksAndAssignedMembers,"-priority", projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
             } else if (projectCommand.length() >= COMMAND_VIEW_TASKS.length()) {
-                String sortCriteria = projectCommand.substring(COMMAND_VIEW_TASKS.length());
+                String sortCriteria = projectCommand.substring(COMMAND_VIEW_TASKS.length()).trim();
                 allTaskDetailsForTable =
                     projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);

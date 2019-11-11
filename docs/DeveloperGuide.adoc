@@ -379,10 +379,10 @@ function and call the relevant methods in `TaskFactory` And `ParserHelper`.
 
 It implements the following commands:
 
-* `add task -t TASK_NAME  -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE] [-r TASK_REQUIREMENTS]` -- Creates a
+* `add task -n TASK_NAME  -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE] [-r TASK_REQUIREMENTS]` -- Creates a
 new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any).
 
-* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE]` -- Updates existing task attributes with the new input
+* `edit task TASK_INDEX -n TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE]` -- Updates existing task attributes with the new input
 values.
 
 * `view tasks` -- Displays all tasks in current project.
@@ -401,7 +401,7 @@ functions with regards to a `Task` object.
 
 Step 1) Assuming Project have been created and the user is currently managing a specific project.
 
-Step 2) The user execute the command `add task -t kill thanos! -p 100 -c 100` to create a new task with the task
+Step 2) The user execute the command `add task -n kill thanos! -p 100 -c 100` to create a new task with the task
 name “kill thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
 
 Step 3) The `ProjectInputController.manageProject()` will trigger the `TaskFactory` which will do a  validation to ensure the
