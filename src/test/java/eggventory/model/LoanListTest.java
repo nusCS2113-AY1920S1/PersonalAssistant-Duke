@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 //@@author Deculsion
+
 public class LoanListTest {
 
     private final String testStockCode = "R5";

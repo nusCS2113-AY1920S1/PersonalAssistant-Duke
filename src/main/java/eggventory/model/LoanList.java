@@ -49,11 +49,11 @@ public final class LoanList {
         }
 
         StringBuilder output = new StringBuilder(String.format(
-                "The following loans have been added to %s:", matricNo));
+                "The following loans have been added to %s:\n", matricNo));
 
         for (Loan loan : loans) {
             addLoan(matricNo, loan.getStockCode(), loan.getQuantity());
-            output.append(String.format("%s: %d", loan.getStockCode(), loan.getQuantity()));
+            output.append(String.format("%s: %d\n", loan.getStockCode(), loan.getQuantity()));
         }
 
         return output.toString();
