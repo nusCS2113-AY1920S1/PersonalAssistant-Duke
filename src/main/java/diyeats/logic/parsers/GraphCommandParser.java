@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class GraphCommandParser implements ParserInterface<GraphCommand> {
 
     /**
-     * Parses user input and returns a GraphCommand encapulsating the desired data
+     * Parses user input and returns a GraphCommand encapsulating the desired data.
      * @param userInputStr String input by user.
      * @return <code>GraphCommand</code> Command object encapsulating the graph information to be executed
      * @throws ProgramException when the user input cannot be parsed
