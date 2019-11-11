@@ -119,7 +119,7 @@ public class ParserHelper {
                     newTaskCredit = trimmedString.substring(2);
                     break;
                 case "s ":
-                    newTaskState = trimmedString.substring(2);
+                    newTaskState = trimmedString.substring(2).toLowerCase();
                     break;
                 default:
                     errorMessages.add("An invalid flag is used here: -" + trimmedString);
