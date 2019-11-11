@@ -121,6 +121,41 @@ Examples:
 * `addLocker s/123 a/Com1 Level2 z/A`
 
 
+==== Finding and searching for lockers: `find`
+
+Finds lockers based on their serial number, area, zone and tags +
+Format: `find s/SERIALNUMBER a/AREA z/zone c/tags`
+
+Additionally you could find lockers based on a student's particulars. +
+Format: `find n/name i/studentid m/major e/email`
+
+
+****
+* The search is case insensitive. e.g `computer` will match `Computer`
+* SERIAL NUMBER will only accept numeric characters such as s/12345
+* AREA will only accept alphanumeric characters such as a/COM1
+* ZONE will only accept alphanumeric characters such as z/A1
+* Tags can accept characters such as c/in-use
+****
+
+Examples:
+
+* `find s/1234` +
+* `find a/COM2 z/B2` +
+* `find c/in-use` +
+* `find n/Kevin` +
+
+Returns a list of lockers(s) that contains those parameters.
+
+
+==== Finding and searching for lockers: `find`
+
+Finds lockers based on their serial number, area and zone +
+Format: `find s/SERIALNUMBER a/AREA z/zone`
+
+=======
+
+
 ==== Adding a batch of lockers : `addBatch`
 Adds a batch of unique lockers with serial numbers starting from `STARTINGSERIALNUMBER`. +
 Format: `addBatch s/STARTINGSERIALNUMBER u/SIZE a/AREA z/ZONE` +

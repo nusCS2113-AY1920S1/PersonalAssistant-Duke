@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
+import duke.logic.commands.FindCommand;
+import duke.models.student.Student;
 import duke.models.tag.Tag;
 
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.Optional;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -190,4 +197,79 @@ public class Locker {
     public int hashCode() {
         return Objects.hash(serialNumber, address, zone, tag);
     }
+
+    /**
+     * This function is used to compare the locker info with a locker that was searched.
+     * This is used in conjunction with Java in-streams.
+     * @param findLocker has all or some the attributes the locker that was searched for.
+     * @param findStudent has all or some the details of the student that was searched for.
+     * @return refers to a boolean value to check if the comparison was true or false.
+     */
+
+    public boolean compare(FindCommand.FindLocker findLocker, FindCommand.FindStudent findStudent) {
+
+        if (findLocker.getSerialNumber() != null && findLocker.getSerialNumber().equals(this.getSerialNumber())) {
+            return true;
+        } else if (findLocker.getAddress() != null && findLocker.getAddress().equals(this.getAddress())) {
+            return true;
+        } else if (findLocker.getZone() != null && findLocker.getZone().equals(this.getZone())) {
+            return true;
+        } else if (findLocker.getTag() != null && findLocker.getTag().equals(this.getTag())) {
+            return true;
+        }
+
+        try {
+
+            Student student = this.usage.getStudent();
+
+            if (findStudent.getName() != null && findStudent.getName().equals(student.getName())) {
+                return true;
+            } else if (findStudent.getStudentID() != null && findStudent.getStudentID()
+                    .equals(student.getStudentId())) {
+                return true;
+            } else if (findStudent.getEmail() != null && findStudent.getEmail()
+                    .equals(student.getEmail())) {
+                return true;
+            } else if (findStudent.getMajor() != null && findStudent.getMajor()
+                    .equals(student.getMajor())) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+
+    }
+
+    /**
+     * This function checks if the expiry date is within 3 days of the current date.
+     * @param now which refers to the current date.
+     * @return refers to a boolean value to check if the comparison was true or false.
+     */
+
+    public boolean findExpiryDate(LocalDate now) {
+
+        try {
+            String endDate = this.usage.getEndDate().getDate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+            LocalDate expiryDate = LocalDate.parse(endDate,formatter);
+            int daysBetween = (int) DAYS.between(now, (Temporal) expiryDate);
+
+            if (daysBetween <= 7) {
+
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+        } catch (NullPointerException e) {
+
+            return false;
+
+        }
+    }
+
 }
