@@ -27,7 +27,7 @@ class FindCommandParserTest {
             new FindCommandParser().parse(inputs);
             fail("Fail to detect invalid number");
         } catch (ParserException e) {
-            assertEquals(ParserErrorMessage.INVALID_NUMBER, e.getMessage());
+            assertEquals(ParserErrorMessage.INVALID_INTEGER, e.getMessage());
         }
     }
 
