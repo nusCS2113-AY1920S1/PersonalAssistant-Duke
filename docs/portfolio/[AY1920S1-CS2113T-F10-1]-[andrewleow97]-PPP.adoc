@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-1
 
-== PROJECT: ModPlan v1.3
+== PROJECT: ModPlan v1.4
 
 ---
 
@@ -18,7 +18,7 @@ ModPlan is a command line based application that extends the functionality of NU
 
 Below is a sample image of how ModPlan looks
 
-image::Ui.png[]
+image::Ui.png[width=600]
 
 == Summary of contributions
 
@@ -139,6 +139,7 @@ Example: +
 `CS2040C`
 
 image::CapModuleSample.png[width="450"]
+
 == Contributions to the Developer Guide
 
 |===
@@ -173,7 +174,7 @@ Upon construction of the `CapCommand` class, a few variables involved in calcula
 
 The user's CAP is calculated according to NUS guidelines, following the below specifications: +
 
-image::CAPchart.png[align="center"]
+image::CAPchart.png[align="center" width=600]
 
 image::CAPformula.png[align="center"]
 
@@ -215,7 +216,7 @@ If the entire LLS is empty at the end of the execution, it means that the user h
 
 The diagram below shows the example more clearly, where only one of the prerequisites within a LS need to be taken, while all of prerequisites across the LLS need to be taken. +
 
-image::CapCommandLLS.png[align="center"] 
+image::CapCommandLLS.png[align="center" width=500]
 
 In this case, the modules the user needs to take are: +
 
@@ -226,7 +227,7 @@ In this case, the modules the user needs to take are: +
 
 Below is a sequence diagram showing how `CapCommand` works. +
 
-image::CapCommandSequenceDiagram.png[]
+image::CapCommandSequenceDiagram.png[width=600]
 
 As seen `CapCommand` uses three different CAP calculation methods contained within itself to generate the CAP reports, in addition to all the sub-methods such as `letterGradeToCap` and `parsePrerequisiteTree`, and then pushes the information to `PlannerUi` for printing. 
 It also instantiates different `Exception` classes to feedback to the user if anything is wrong.
