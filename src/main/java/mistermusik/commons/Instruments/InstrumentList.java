@@ -1,7 +1,7 @@
-package mistermusik.commons.instruments;
+package mistermusik.commons.Instruments;
 
 import mistermusik.commons.events.formatting.EventDate;
-import mistermusik.commons.instruments.Instrument;
+import mistermusik.commons.Instruments.Instrument;
 
 import java.util.ArrayList;
 

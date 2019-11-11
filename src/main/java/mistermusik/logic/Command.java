@@ -2,7 +2,7 @@ package mistermusik.logic;
 
 import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
-import mistermusik.commons.instruments.InstrumentList;
+import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
