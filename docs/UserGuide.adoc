@@ -173,7 +173,7 @@ Adds a task to the project.
 Task name should not contain any hyphens (eg. Task-1) or the details will be truncated and not recorded properly.
 
 [NOTE]
-Task priority is represented by an integer from 1-5 which denotes how important a task is, with a higher number meaning higher priority.
+Task priority is represented by an integer from 1-5 which denotes how important a task is, with a smaller number meaning higher priority.
 
 [NOTE]
 Task credit is represented by an integer from 0 to 100, which denotes the amount of credit a person would receive for completing a task (eg. a more difficult task which requires more work would receive higher credit.)
@@ -195,6 +195,148 @@ State refers to whether the task is in OPEN, TODO, DOING, DONE. If no state is s
 
 [NOTE]
 Any number of task requirements can be added to give specific requirements for the task so that the member will be clear of what to do
+
+==== Edit a task : `edit task`
+Edits the details of a task: task name, priority, credit and due date.
+Only fields that need to be edited must be filled in. Fields that are not filled will not be changed.
+
+[NOTE]
+Task requirements cannot be edited through this command.
+
+* Format: `edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]`
+* Examples:
+** `edit task 12 -p 5 -c 80`
+** `edit task 4 -s doing`
+
+==== Delete a task : `delete task`
+Removes a task from the current selected project.
+All details regarding the task will be removed. If the task is assigned to any member, the member will automatically be unassigned.
+Multiple index numbers may be used in 1 command to delete more than 1 task.
+
+[NOTE]
+The keyword `all` may be used to delete all members in the project. Please use this command
+with caution to avoid losing work.
+
+* Format: `delete task INDEX1 [INDEX2]`
+* Examples:
+** `delete task 1`
+** `delete task 1 2 3`
+** `delete task all`
+
+[NOTE]
+Index numbers of the remaining tasks may be changed after deletion.
+(All task index numbers after the deleted member will be shifted up by 1.
+For example, if there are 4 tasks in the group and task 2 is deleted, then the current tasks 3 and 4
+will become tasks 2 and 3 respectively).
+
+[NOTE]
+If multiple index numbers are used, then members will be deleted in descending order of task numbers.
+This is to prevent any errors caused by possible shifting of index numbers during the deletion process.
+
+==== View tasks : `view tasks`
+Shows user a list of all tasks in the current project, sorted based on certain criteria as chosen by the user.
+By default, the tasks are displayed in the order that they are added to the project.
+The criteria can be changed by using a different `[MODIFIER]` suffix added in the command.
+
+* Format: `view tasks [MODIFIER]`
+
+[width="100%",cols="25%,<75%,options="header",]
+|=======================================================================
+|MODIFIER | Sorting criteria
+|`-index` | (Default) 1-based indexing based on the data structure tasks are stored in.
+| `-name` | Sort based on task name, lexicographically.
+| `-date` | Sort based on the deadline/due date of the task: from earliest to latest.
+Tasks without a deadline will be classified as the latest.
+| `-priority` | Sort based on task priority from highest to lowest priority (ascending).
+| `-credits` | Sort based on task credit from highest to lowest credit (descending).
+|`-who {name}` | Sort based on the name of member assigned to all tasks in alphabetical order.
+| `-state {state}` | Sort based on task State: List from `OPEN, TODO, DOING, DONE` in a Kanban board style
+|=======================================================================
+
+* Examples
+** `view tasks -name` //shows all the tasks sorted lexicographically
+** `view tasks -date` //show all the dates sorted by the due date
+** `view tasks -priority` //shows all the dates sorted by priority
+** `view tasks -credits` //shows all the tasks sorted by credits
+** `view tasks -who Dillen` //shows all the tasks assigned to “Dillen”
+** `view tasks -state doing` //shows all the tasks with the state “DOING”
+
+==== View task requirements : `view task requirements`
+Shows user a list of task requirements for a specific task in the current project:
+
+* Format: `view task requirements TASK_INDEX`
+** Example: `view task requirements 2`
+
+==== Edit task requirements : `edit task requirements`
+Adds or removes a list of task requirements to a specific task in the current project.
+The flag `-r` indicates a task requirement that can be added to the task
+The flag `-rm`  indicates the index numbers of existing requirements to be removed.
+
+* Format: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] [-rm TASK_REQUIREMENT_INDEX]`
+* Examples:
+** `edit task requirements 2 -r do something -r do another thing`
+** `edit task requirements 2 -rm 1 2 4 -r do something`
+
+[NOTE]
+The user may input multiple requirements to be added and multiple requirements to be removed.
+
+
+=== Assignment Commands
+
+==== Assign/Remove tasks to/from members: `assign task`
+Delegates the task to a member/several members in the group.
+Assignments to the task can be added or removed simultaneously.
+
+* Flags:
+** `-i`: Task index numbers
+** `-to`: Assignee index numbers
+** `-rm`: Unassignee index numbers
+
+[NOTE]
+Multiple tasks may be assigned or unassigned to multiple members in 1 command.
+
+[NOTE]
+A task may be assigned to multiple members. The task credit will then be split evenly between them.
+
+[NOTE]
+The keyword `all' may be used after any of the flags to represent all task or member index numbers.
+This allows the user to assign/unassign all tasks to members, or assign/unassign a task to all members.
+
+* Format: `assign task -i TASK_INDEX [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
+* Examples:
+** `assign task -i 1 -to 3 4`      | assign task 1 to members 3 and 4
+** `assign task -i 1 -rm 1 2`      | unassign task 1 to members 1 and 2
+** `assign task -i 1 -to 5 -rm 3`  | simultaneously assign task 1 to member 5, unassign member 3
+** `assign task -i 2 3 -to 1`      | assign tasks 2 and 3 to member 1
+** `assign task -i all -to 1 2`    | assign all tasks to members 1 and 2
+** `assign task -i 1 -rm all`      | unassign task 1 from all members
+
+==== View task assignments : `view assignments`
+Shows user the task assignments based on certain specifications.
+This allows the user to check which task is assigned to who, and vice versa.
+
+A modifier suffix must be added behind the command to specify the format to display the task assignments.
+
+[width="100%",cols="25%,<75%,options="header",]
+|=======================================================================
+|MODIFIER | Display
+|`-m INDEX_NUMBERS` | Shows the list of tasks assigned to the specified members.
+| `t INDEX_NUMBERS` | Shows the members who are assigned to the specified tasks.
+|=======================================================================
+
+[NOTE]
+The keyword `all` can be used to show the assignments for all members, or all tasks. It is recommended
+to use this keyword if the user would like to get an overview of all the assignments in the project.
+
+* Format: view assignments MODIFIER
+* Examples:
+** `view assignments -m all`    | view tasks assigned to all members.
+** `view assignments -m 1 2 3`  | view tasks assigned to members 1, 2 and 3.
+** `view assignments -t all`    | view members assigned to all tasks.
+** `view assignments -t 4 5 6`  | view members assigned to tasks 1, 2 and 3.
+
+
+
 
 
 
