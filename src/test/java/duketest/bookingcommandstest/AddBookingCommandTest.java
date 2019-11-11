@@ -36,14 +36,15 @@ public class AddBookingCommandTest {
                 "Now you have 4 bookings in the list.";
         arrExpectedOutput.add(expectedOutput);
 
+        DeleteBookingCommand deleteBookingCommand1 = new DeleteBookingCommand("deletebooking 4");
+        deleteBookingCommand1.execute(bookingList, ui, bookingStorage);
+
         AddBookingCommand addBookingCommand = new AddBookingCommand(testCase);
         ArrayList<String> arrActualOutput = new ArrayList<>(addBookingCommand.execute(bookingList, ui, bookingStorage));
 
-
         assertEquals(arrExpectedOutput, arrActualOutput);
         System.out.println("Test passed.");
-
-        DeleteBookingCommand deleteBookingCommand1 = new DeleteBookingCommand("deletebooking 4");
+        
         deleteBookingCommand1.execute(bookingList, ui, bookingStorage);
 
     }
