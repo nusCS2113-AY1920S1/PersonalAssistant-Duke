@@ -34,16 +34,32 @@ public class CommandFormat {
         return "delete payment p/PAYEE i/ITEM";
     }
 
+    public String editPayeeFormat() {
+        return "edit p/PAYEE f/FIELD r/REPLACEMENT";
+    }
+    
     public String editPaymentFormat() {
         return "edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT";
     }
 
-    public String listPaymentFormat() {
+    public String listPaymentCurrFormat() {
         return "list payments";
+    }
+
+    public String listPaymentProjectFormat() {
+        return "list payments pr/PROJECT";
+    }
+
+    public String listPaymentPayeeFormat() {
+        return "list payments p/PAYEE";
     }
 
     public String findPayeeFormat() {
         return "find payee p/PAYEE";
+    }
+
+    public String findPaymentFormat() {
+        return "find payment p/PAYEE i/ITEM";
     }
 
     public String deletePayeeFormat() {

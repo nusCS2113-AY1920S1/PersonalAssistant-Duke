@@ -1,0 +1,258 @@
+= Karan Sarat - Project Portfolio for AlphaNUS
+
+== Overview
+
+NUS treasurers often come face to face with piles of payment forms filled with payments for claims and also need to
+keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
+may find it a chore to keep up to date with their finances.
+
+*AlphaNUS* is a financial management assistant for treasurers to manage their payment forms made by payees as well as manage the club's funds for projects. The application is CLI-based and aims to help treasurers save time in carrying out their duties.
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions
+to the team project.
+
+* *Enhancement feature added*: The ability to manage mulitple payees and payments within a project.
+** What it does: I added functionality to add, delete, edit, find and list both payees and payments.
+** Justification: This is a core functionality to the project as without this, financial management is not possible. The structure which I created made it easy for iteration through the different payees and payments within a project, meaning it was easy to locate payments or payees in the project.
+** Highlights: The payments owed to a payee are stored as a list in the Payee object itself, which means that it is difficult to misplace payments within the project, as well as allowing the user to have quick and easy access to their payments.
+
+* *Enhancement feature added*: The ability to suggest a modified command to the user when they make a mistake
+** What it does: I added functionality such that once a command throws a certain exception and I know where the user likely made a mistake, I would take their input and process it to suggest a new input that may be what they intended to use. The algorithim references a dictionary consisting of words used in the payments, payees and projects classes.
+** Justification: This is a simple enhancement that would make it easier to use the product as if you had typed in a long input, only to misspell a key argument, the suggestion would mean the user could simply copy and paste the suggestion as a new input instead of having to retype the input. It also serves as a unique way to remind the user of the correct expected format.
+** Highlights: The algorithm used is a simple edit distance function and performs relatively well when the user makes typos. For example, `delete payment p/Karan Saaratt i/Venue Rental` would be corrected to `delete payment p/Karan Sarat i/Venue Rental`.
+
+* *Code contributed*:
+Samples of my code contributions can be found here
+https://nuscs2113-ay1920s1.github.io/dashboard/#search=karansarat
+
+* *Other notable contributions*:
+
+** Project management:
+*** Thought of and created the project concept
+*** Assigned members the division of workflow
+** Enhancements to existing features:
+*** Created the initial Payments Class. Served as the base payment object that would be used in conjuction with the Payee object. https://github.com[#63]
+*** Wrote add, delete and list functionalities to manage the Payments objects in a Payee object. https://github.com[#65]
+*** Added edit functionalites for Payee and Payment objects https://github.com[#67] https://github.com[#130] https://github.com[#134]
+*** Assisted in the restructuring of product when Project class was introduced, migrated functionalites inherent to Payee's Manager class into a Project Manager class.https://github.com[#69]
+*** Resolved the entire projects check style issues (over 100 issues) https://github.com[#75] https://github.com[#135] https://github.com[#200]
+*** Added the payee feature to Developer Guide, along with all the payee and payment related methods. https://github.com[#116]
+*** Added suggestions enhancement, which would prompt users with a new command when they add in incorrect commands https://github.com[#194]
+
+
+== Contributions to the User Guide
+|===
+|_We updated the User Guide according to the features that we each implemented. Below is an excerpt of our User Guide, displaying the additions that I added for the project functionality._
+|===
+
+=== Payments and Payee
+==== Adding a new payee: `add payee`
+
+Adds a new payee named `PAYEE` to project with details of `PAYEE` such as their email address `EMAIL`, matriculation number `MATRICNUM` and phone number `PHONENUM`. +
+Format: `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
+
+[TIP]
+You may use more than one word for all fields.
+
+[TIP]
+You may not add a new `PAYEE` if a payee named `PAYEE` already exists.
+
+Examples:
+
+* GOOD: `add payee p/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
+* BAD: `add payee e/johndoe@u.nus.edu p/John Doe m/A0112301A ph/999`
+
+=== Delete a payee: `delete payee`
+
+Delete a payee and their details +
+Format: `delete payee p/payee`
+
+Examples:
+
+* `delete payee p/John Doe`
+
+==== Adding a new payment: `add payment`
+
+Adds a new payment under a specified `PAYEE` with payment name `ITEM` that incurs cost `COST` and have an invoice number `INVOICE`. +
+Format: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
+
+For any payment to a specified payee, the same ITEM description may not be used more than once.
+
+[TIP]
+You may use more than one word for all fields except `COST`.
+[TIP]
+`COST` must be a number, omit any other characters. Decimals are allowed.
+
+Examples:
+
+* GOOD: `add payment p/John Doe i/Welcome Tea c/12.00 v/INV-001`
+* BAD: `add payment p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
+
+=== Edit the payment details: `edit`
+
+Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
+The following payee fields are acceptable: `PAYEE`, `EMAIL`, `MATRIC`, `PHONE` +
+The following payment fields are acceptable: `ITEM`, `COST`, `INVOICE`, `DEADLINE`, `STATUS` +
+
+When editing Payee details; +
+Format: `edit p/PAYEE f/FIELD r/REPLACEMENT`
+
+When editing Payment details; +
+Format: `edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT`
+
+[TIP]
+Ensure `FIELD` supplied matches one of the acceptable fields above!
+[TIP]
+`DEADLINE` should be specified in `dd-mm-yyyy` format
+
+Examples:
+
+* `edit p/John Doe f/EMAIL r/johnyy@u.nus.edu`
+* `edit p/John Doe i/Voucher f/COST r/10.00`
+
+=== Find a payee based on its description: `find payee`
+
+Find a payment or deadline based on its description +
+Format: `find payee p/PAYEE`
+
+[TIP]
+the description may contain spaces
+
+Examples:
+
+* `find payee p/John Doe`
+
+=== Find a payment based on its description: `find payment`
+
+This function can find payments across projects, user does not have to switch projects
+and use `find payment` on each project till they are successful. +
+Format: `find payment p/PAYEE i/ITEM`
+
+[TIP]
+If you forgot the `ITEM` description, you can use `list payments` (Section 3.16) instead!
+
+* `find payment p/John Doe i/Venue Booking`
+
+
+=== List all payments in payee or project: `list payments`
+
+This command can take 3 ways of input to give different outputs. +
+
+In order to list payments in current project; +
+Format: `list payments`
+
+In order to list payments in a specific project; +
+Format: `list payments pr/PROJECT`
+
+In order to list payments to a specific payee; +
+Format: `list payments p/PAYEE`
+
+=== List all payees in project: `list payees`
+
+This command can take 2 ways of input to give different outputs. +
+
+In order to list all payees in current project; +
+Format: `list payments`
+
+In order to list all payees in a specific project; +
+Format: `list payments pr/PROJECT`
+
+[TIP] 
+If you wish to list the payee details of a specific payee, use `find payee` (Section 3.14) instead!
+
+//Jiayu
+==== Get total cost of a payee in current project: `total cost`
+This command calculates the total cost of all payments under a certain payee's name in the current project. +
+Format: `total cost p/PAYEE_NAME`
+
+Example:
+
+* `total cost p/John`
+
+== Contributions to the Developer Guide
+
+|===
+|_I was in charge of creating and managing the Developer Guide. In addition to adding the implementation for my project functionality, I also wrote the Design section of the guide. Below is an excerpt of our Developer Guide, displaying the additions that I added._
+|===
+
+=== Payee Feature
+==== Payee Class
+The `Payee` Class object holds all information regarding the identity of the payee, as well as an ArrayList `payments` of `Payment` objects.
+When a new `Payee` object is created, it is stored in the respective HashMap `managerMap` for the specific project the payee is being paid for. +
+The following are the class members storing the payee's identity information.
+
+** Project Name : `project`
+** Payee Name : `name`
+** Email Address : `email`
+** Matriculation Number : `matricNum`
+** Phone Number : `phoneNum`
+
+==== Payments Class
+The `Payments` Class object stores the details of the payment being made. A `Payments` object once constructed will be added to the ArrayList `payments` member of the specified payee the payment is being made to.
+The following are the class members storing the payment's details.
+
+** Project : `project`
+** Payee Name : `name`
+** Description of Payment : `item`
+** Amount being paid : `cost`
+** Invoice Number : `inv`
+** Due date for payment : `deadline`
+
+Note that the due date is automatically set to 30 days after the creation of the `Payments` object.
+
+==== Field and Status Enums
+The feature is also supported by 2 enum objects, `Field`; +
+
+** PAYEE
+** EMAIL
+** MATRIC
+** PHONE
+** ITEM
+** COST
+** INVOICE
+** DEADLINE
+** STATUS
+
+and `Status`: +
+
+** PENDING
+** APPROVED
+** OVERDUE
+
+==== Payee Feature Commands
+The payee feature supports the following commands:
+
+* `add payee p/name e/email m/matricNum ph/phoneNum` -- Adds a new payee to the record.
+* `add payment p/name i/item c/cost v/inv` -- Adds a new payee to the record.
+* `delete payee p/name` -- Deletes a payee from the record.
+* `delete payment p/name v/inv` -- Deletes a payment from the record.
+* `edit p/name f/field r/replacement` -- Edits data for an existing payee in the record.
+* `find payee p/name` -- Finds details of a specified payee in the record, across all projects.
+* `find payment p/name i/item` -- Finds details of a specified payment in the record, across all projects.
+* `list payments` -- Lists all payments for the current project in the record.
+* `list payments pr/name` -- Lists all payments for specified project in the record.
+* `list payments p/name` -- Lists all payments for specified payee in the record.
+
+==== PaymentManager
+The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the payee feature commands (Section 4.2.4). The `PaymentManager` class implements the following methods:
+
+* PaymentManager#addPayee
+* PaymentManager#addPayments
+* PaymentManager#deletePayee
+* PaymentManager#deletePayments
+* PaymentManager#editPayee
+* PaymentManager#findPayee
+* PaymentManager#checkStatus
+
+[[fig-AddPayeeSeqDiagram]]
+.Sequence Diagram of the add payee command
+image::AddPayeeSeqDiagram.png[]
+
+A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other. +
+1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Parser where the input will be parsed to determine the command to execute. It then invokes Process, which splits the user input and breaks down the user's intended answer into information our classes can interact with. +
+2. The PaymentManager is invoked, and in this case, the addPayee method is called. The method checks which project is currently selected and constructs a new Payee object. The Payee object is pushed into the current project's managerMap, a HashMap of all the project's payees. +
+3. Assuming a valid input was passed from the user, a confirmation message showing the summary of the details of the newly created Payee would be printed. Else, an error will prompt the user to try again and provide the correct template for the command they attempted. In Process, most of the Exception handling is done to catch all possible user error cases. +
+
+The Payment Manager handles most other commands the same way, given that all payee information is stored within a single project LinkedHashMap, and all payment information is stored in an ArrayList in each Payee. The only method in Payment Manger that is different is the helper function 

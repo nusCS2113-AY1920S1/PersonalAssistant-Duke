@@ -686,7 +686,7 @@ public class Ui {
         System.out.println("Fund:");
         System.out.println("\tSet Fund:            " + commandFormat.setFundFormat());
         System.out.println("\tAdd Fund:            " + commandFormat.addFundFormat());
-        System.out.println("\tAssign budget:         " + commandFormat.assignFundFormat());
+        System.out.println("\tAssign budget:       " + commandFormat.assignFundFormat());
         System.out.println("\tChange Fund:         " + commandFormat.resetFundFormat());
         System.out.println("\tShow Fund:           " + commandFormat.showFundFormat());
         System.out.println("Payment and Payee:");
@@ -694,11 +694,14 @@ public class Ui {
         System.out.println("\tAdd Payment:         " + commandFormat.addPaymentFormat());
         System.out.println("\tDelete Payee:        " + commandFormat.deletePayeeFormat());
         System.out.println("\tDelete Payment:      " + commandFormat.deletePaymentFormat());
+        System.out.println("\tList Current Project Payments: " + commandFormat.listPaymentCurrFormat());
+        System.out.println("\tList Specific Project Payments:" + commandFormat.listPaymentProjectFormat());
+        System.out.println("\tList Payee Payments: " + commandFormat.listPaymentPayeeFormat());
         System.out.println("\tFind Payee:          " + commandFormat.findPayeeFormat());
-        System.out.println("\tList Payments:       " + commandFormat.listPaymentFormat());
-        System.out.println("\tFind Payee:          " + commandFormat.findPayeeFormat());
-        System.out.println("\tTotal cost:          " + commandFormat.totalCostFormat());
-        System.out.println("\tEdit Payment/Payee:  " + commandFormat.editPaymentFormat());
+        System.out.println("\tFind Payment:        " + commandFormat.findPaymentFormat());
+        System.out.println("\tEdit Payment:        " + commandFormat.editPaymentFormat());
+        System.out.println("\tEdit Payee:          " + commandFormat.editPayeeFormat());
+        System.out.println("\tTotal Cost:          " + commandFormat.totalCostFormat());
         System.out.println("\tReminder:            " + commandFormat.reminderFormat());
         System.out.println("Tasks:");
         System.out.println("\tAdd Todo:            " + commandFormat.addTodoFormat());
