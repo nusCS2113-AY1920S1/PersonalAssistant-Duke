@@ -13,7 +13,7 @@ Here are the steps to create a new release.
 
 1. Update the archiveVersion number in `build.gradle` shadowJar section.
 
-2.  Generate a JAR file using Graddle.
+2.  Generate a JAR file using Gradle.
 
 3. Create a Tag to the current repo release with the version number e.g v.1.4.
 
