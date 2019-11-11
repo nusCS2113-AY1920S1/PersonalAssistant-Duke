@@ -636,20 +636,20 @@ Provided below is an example scenario of use and how `TrackerCommand` class beha
 
 *Step 1:* +
 The user enters `tracker`.
-The `execute` method of `TrackerCommand` class will read and save all `TrackerList` objects saved in persistent storage, `tracker.csv` through the `Storage.readTrackerList()` method in the `Storage` class.
+The `execute` method of `TrackerCommand` class will read and save all `Tracker` objects stored in persistent storage, `tracker.csv` through the `readTrackerList` method in the `StorageManager` class.
 
 * *Step 1a:* +
-The `readTrackerList` method in `Storage` class will retrieve and read `tracker.csv` from persistent storage by using `FileReader` on `File`.
+The `readTrackerList` method in `StorageManager` class will retrieve and read `tracker.csv` from persistent storage through the `loadFile` method in `Storage` class.
 
 * *Step 1b:* +
-The `BufferedReader` will then be performed upon `FileReader` to allow `tracker.csv` to be read line-by-line, calling the `processLine` method each time.
+The `loadFile` method calls the `dataToTrackerList` method in `StorageParser` class, which in turns calls the `processLine` method.
 
 * *Step 1c:* +
-The `processLine` method of `Storage` class will split each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
-A new `Tracker` object will be created with the processed data and returned to the `readTrackerList` method.
+The `processLine` method of `StorageParser` class will split each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
+A new `Tracker` object will be created with the processed data and returned to the `dataToTrackerList` method.
 
 * *Step 1d:* +
-The `Tracker` object returned to `readTrackerList` will be added into the ArrayList `Tracker` objects and upon completing the entire `tracker.txt` file, the ArrayList will be returned to the `execute` method of `TrackerCommand`.
+The `Tracker` object returned to `readTrackerList` will be added into the ArrayList `Tracker` objects and upon completing the entire `tracker.csv` file, the ArrayList will be returned to the `execute` method of `TrackerCommand`.
 The `execute` method of `TrackerCommand` class will then detect what instructions the user has indicated.
 
 [WARNING]
