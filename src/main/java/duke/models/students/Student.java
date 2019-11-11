@@ -3,7 +3,6 @@ package duke.models.students;
 import java.util.ArrayList;
 
 //@@ danisheddie
-
 public class Student implements IStudent {
 
     private String name;

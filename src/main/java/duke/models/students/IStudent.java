@@ -1,5 +1,6 @@
 package duke.models.students;
 
+//@@ danisheddie
 public interface IStudent {
 
     String getName();

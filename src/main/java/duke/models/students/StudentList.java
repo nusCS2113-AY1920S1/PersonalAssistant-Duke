@@ -2,11 +2,7 @@ package duke.models.students;
 
 import java.util.ArrayList;
 
-/**
- * This class is called when option 2 is chosen.
- * All commands related to students will be managed by this class
- * @author danisheddie
- */
+//@@ danisheddie
 public class StudentList implements IStudentList {
     /**
      * An array list for the list of students.
