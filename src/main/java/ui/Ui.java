@@ -317,7 +317,7 @@ public class Ui {
         } else {
             return "Here are the commands for WordUp.\n"
                     + "add, addsyn, add_example, delete, edit, exit, freq, help, history, list, list_tags"
-                    + " schedule, search, search_begin, search_syn, search_tag, tag, quiz\n"
+                    + ", schedule, search, search_begin, search_syn, search_tag, tag, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
