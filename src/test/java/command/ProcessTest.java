@@ -441,21 +441,45 @@ class ProcessTest {
     void within() {
     }
 
-    //@@author
+    //@@karansarat
     @Test
     void edit() {
     }
 
     @Test
-    void deletePayment() {
+    void deletePayment() throws AlphaNUSException {
+        addPayee();
+        addPayment();
+        ProjectManager projectManager = new ProjectManager();        
+        assertFalse(projectManager.projectmap.get("rag").managermap.get("test").payments.isEmpty());
+        input = "delete payment p/test      i/CS2113T";
+        process.deletePayment(input, ui, storage, dict);
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").payments.isEmpty());
     }
 
     @Test
-    void addPayment() {
+    void addPayment() throws AlphaNUSException {
+        ProjectManager projectManager = new ProjectManager();
+        addPayee();
+        input = "add payment p/   test i/ CS2113T  c/11.11 v/IM-DED";
+        process.addPayment(input, ui, storage, dict);
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").payments.get(0).item.equals("CS2113T"));
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").payments.get(0).cost == 11.11);
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").payments.get(0).inv.equals("IM-DED"));
+
     }
 
     @Test
-    void addPayee() {
+    void addPayee() throws AlphaNUSException {
+        fund.loadFund(2000, 500, 1500);
+        ProjectManager projectManager = new ProjectManager();
+        projectManager.addProject("rag", 1500);
+        input = "add payee p/   test e/  email@address.com    m/A100000A ph/838484904";
+        process.addPayee(input, ui, storage);
+        assertTrue(projectManager.projectmap.get("rag").managermap.containsKey("test"));
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").email.equals("email@address.com"));
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").matricNum.equals("A100000A"));
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").phoneNum.equals("838484904"));
     }
 
     @Test

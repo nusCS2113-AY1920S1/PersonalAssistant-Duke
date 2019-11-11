@@ -1,0 +1,45 @@
+= Karan Sarat - Project Portfolio for AlphaNUS
+
+== Overview
+
+NUS treasurers often come face to face with piles of payment forms filled with payments for claims and also need to
+keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
+may find it a chore to keep up to date with their finances.
+
+*AlphaNUS* is a financial management assistant for treasurers to manage their payment forms made by payees as well as manage the club's funds for projects. The application is CLI-based and aims to help treasurers save time in carrying out their duties.
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions
+to the team project.
+
+* *Enhancement feature added*: The ability to manage mulitple payees and payments within a project.
+** What it does: I added functionality to add, delete, edit, find and list both payees and payments.
+** Justification: This is a core functionality to the project as without this, financial management is not possible. The structure which I created made it easy for iteration through the different payees and payments within a project, meaning it was easy to locate payments or payees in the project.
+** Highlights: The payments owed to a payee are stored as a list in the Payee object itself, which means that it is difficult to misplace payments within the project, as well as allowing the user to have quick and easy access to their payments.
+
+* *Enhancement feature added*: The ability to suggest a modified command to the user when they make a mistake
+** What it does: I added functionality such that once a command throws a certain exception and I know where the user likely made a mistake, I would take their input and process it to suggest a new input that may be what they intended to use. The algorithim references a dictionary consisting of words used in the payments, payees and projects classes.
+** Justification: This is a simple enhancement that would make it easier to use the product as if you had typed in a long input, only to misspell a key argument, the suggestion would mean the user could simply copy and paste the suggestion as a new input instead of having to retype the input. It also serves as a unique way to remind the user of the correct expected format.
+** Highlights: The algorithm used is a simple edit distance function and performs relatively well when the user makes typos. For example, `delete payment p/Karan Saaratt i/Venue Rental` would be corrected to `delete payment p/Karan Sarat i/Venue Rental`.
+
+* *Code contributed*:
+Samples of my code contributions can be found here
+https://nuscs2113-ay1920s1.github.io/dashboard/#search=karansarat
+
+* *Other notable contributions*:
+
+** Project management:
+*** Thought of and created the project concept
+*** Assigned members the division of workflow
+** Enhancements to existing features:
+*** Created the initial Payments Class. Served as the base payment object that would be used in conjuction with the Payee object. https://github.com[#63]
+*** Wrote add, delete and list functionalities to manage the Payments objects in a Payee object. https://github.com[#65]
+*** Added edit functionalites for Payee and Payment objects https://github.com[#67] https://github.com[#130] https://github.com[#134]
+*** Assisted in the restructuring of product when Project class was introduced, migrated functionalites inherent to Payee's Manager class into a Project Manager class.https://github.com[#69]
+*** Resolved the entire projects check style issues (over 100 issues) https://github.com[#75] https://github.com[#135] https://github.com[#200]
+*** Added the payee feature to Developer Guide, along with all the payee and payment related methods. https://github.com[#116]
+*** Added suggestions enhancement, which would prompt users with a new command when they add in incorrect commands https://github.com[#194]
+
+
+== Contributions to the User Guide
