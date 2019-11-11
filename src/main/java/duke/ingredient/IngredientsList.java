@@ -117,12 +117,8 @@ public class IngredientsList extends GenericList<Ingredient> {
      * @return the sorted {@link IngredientsList}
      */
     public IngredientsList sortByExpiryDate() {
-        genList.sort(new Comparator<Ingredient>() { // sorting the ingredients descending by amount
-            @Override
-            public int compare(Ingredient o1, Ingredient o2) {
-                return o1.getExpiryDate().before(o2.getExpiryDate()) ? -1 : 1;
-            }
-        });
+        // sorting the ingredients descending by amount
+        genList.sort((o1, o2) -> o1.getExpiryDate().before(o2.getExpiryDate()) ? -1 : 1);
         return this;
     }
 

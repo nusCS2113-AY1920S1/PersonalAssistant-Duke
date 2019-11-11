@@ -277,6 +277,8 @@ To add an ingredient to the `Fridge`, the user needs to execute the command belo
 
 Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
 
+*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese
+
 If the ingredient already exist in the `IngredientList` of the `Fridge`, but **does not have the same expiry date as the ingredient to be added**, another entry of the ingredient will be created in the ingredient list, differing from the existing one by the expiry date. **However**, if the ingredient to be added also **has the same expiry date as an existing ingredient in the ingredient list with the same name**, the amount of the ingredient to be added will be added onto the amount of the existing ingredient and no new entry will be created in the `IngredientList` of the `Fridge`.
 
 Examples: 
@@ -382,6 +384,8 @@ These are the ingredients you searched for!
 To use an ingredient from the `Fridge`, the user needs to execute the command below:
 
 Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` 
+
+*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese
 
 A warning:  `*always use most recently expiring ingredients first, to prevent food waste!*` is printed when showing the example use of this command. This notifies the chef that he should be using the ingredients with the most recent expiry date first. This command will look through all the ingredients matching the ingredient name, sorted by ascending expiry date, and continue removing them (considering the amount of the ingredient they contain ) until the total  `INGREDIENT_AMOUNT` is used/reached. Furthermore, if the `Fridge` contains expired ingredients matching the  `INGREDIENT_NAME`, they are not taken into consideration, since the Chef should not be able to use an expired ingredient in his dishes!
 
