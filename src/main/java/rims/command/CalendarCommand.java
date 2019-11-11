@@ -22,8 +22,11 @@ import java.util.Date;
 public class CalendarCommand extends Command {
     private static int cellLength = 15;
     private static int cellHeight = 6;
+
     private static int calHeight = 5;
     private static int calWidth = 7;
+
+    private static int minHeight = 5;
 
     private int daysInMonth = getDaysInMonth(LocalDateTime.now());
 
@@ -59,6 +62,10 @@ public class CalendarCommand extends Command {
 
     public void printCal() throws ParseException, RimsException {
         getData();
+    
+
+
+
         printTopCells();
         for (int row = 2; row < calHeight; row++) {
             printMidCells(row);
@@ -253,17 +260,7 @@ public class CalendarCommand extends Command {
         return daysInMonth;
     }
 
-    public void increaseSize() throws ParseException, RimsException {
-        cellHeight++;
-        cellLength++;
-        printCal();
-    }
 
-    public void decreaseSize() throws ParseException, RimsException {
-        cellHeight--;
-        cellLength--;
-        printCal();
-    }
 
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
@@ -279,6 +276,25 @@ public class CalendarCommand extends Command {
         } catch (ParseException e) {
             throw new RimsException("Invalid calendar size!");
         }
+
+           
+        
+        public static void increaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
+            cellHeight ++;
+            cellLength += 3;
+            printCal();
+        }
+
+        public static void decreaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
+        if (!(cellHeight <= minHeight)) {
+            cellHeight--;
+            cellLength -= 3;
+        }
+        else {
+            System.out.println("You have reached the minimum calendar size! \n" +
+                    "The calender will be printed at this minimum size.");
+        }
+        printCal();
     }
 
 }
