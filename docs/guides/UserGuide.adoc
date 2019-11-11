@@ -214,6 +214,12 @@ These parameters are a 'doafter' task, a priority level and multiple tags.
 To learn more about these parameters, go to their respective sections:
 <<doafter>>, <<priority>>.
 
+[NOTE]
+We do not want our product to restrict the user's behaviour too much, we allow tasks with duplicated names
+and date time. The user might choose to have multiple tasks of the same name, for example `assignment`, and
+wants to mark the assignment as done one by one. Our program is to assist the user to manage their tasks,
+not to tell them what they should do. 
+
 [TIP]
 For the following commands, you are able to enter the optional parameters in any order
 as long as they are entered after the compulsory parameters.
