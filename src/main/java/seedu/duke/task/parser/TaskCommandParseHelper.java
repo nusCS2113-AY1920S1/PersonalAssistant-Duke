@@ -3,7 +3,7 @@ package seedu.duke.task.parser;
 import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.common.command.LinkCommand;
+import seedu.duke.task.command.TaskLinkCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.FlipCommand;
@@ -308,8 +308,10 @@ public class TaskCommandParseHelper {
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
                     + "than the number of tasks)");
+        } catch (TaskParseException e) {
+            return new InvalidCommand(e.getMessage());
         } catch (CommandParseHelper.CommandParseException e) {
-            return new InvalidCommand("Index out of bound");
+            return new InvalidCommand("Index out of bounds");
         }
     }
 
@@ -328,7 +330,9 @@ public class TaskCommandParseHelper {
                                                   ArrayList<String> descriptions)
             throws TaskParseException {
         if (!extractDoAfter(optionList).equals("")) {
-            descriptions.add(extractDoAfter(optionList));
+            String doafter = extractDoAfter(optionList);
+            System.out.println(doafter);
+            descriptions.add(doafter);
             attributes.add(TaskUpdateCommand.Attributes.DO_AFTER);
         }
     }
@@ -432,9 +436,15 @@ public class TaskCommandParseHelper {
             ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
             ArrayList<String> links = extractLinks(optionList);
+            String timeString = extractTime(optionList);
+            if (input.startsWith("todo") && !"".equals(timeString)) {
+                return new InvalidCommand("Date Time not allowed in todo tasks");
+            }
             return constructAddCommandByType(input, doAfter, time, tags, priority, links);
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
+        } catch (CommandParseHelper.CommandParseException e) {
+            return null;
         }
     }
 
@@ -444,8 +454,7 @@ public class TaskCommandParseHelper {
      * @param optionList contains all options specified in input command
      * @return time in LocalDateTime format
      */
-    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) throws
-            TaskParseException {
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
             String timeString = extractTime(optionList);
             LocalDateTime dateTime = TaskParseNaturalDateHelper.getDate(timeString);
@@ -502,8 +511,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'deadline\'");
         }
         if (time == null) {
-            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) after "
-                    + "\'-time\'");
+            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) or "
+                    + "(day HHMM) after \'-time\'");
         }
         String name = deadlineMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.DEADLINE, name, time, doAfter, tags, priority, links);
@@ -517,8 +526,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'event\'");
         }
         if (time == null) {
-            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) after "
-                    + "\'-time\'");
+            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) or "
+                    + "(day HHMM) after \'-time\'");
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
@@ -531,11 +540,10 @@ public class TaskCommandParseHelper {
                     + "the number of tasks) and email indexes (optional)");
         }
         try {
-            int index = parseTaskIndex(linkCommandMatcher.group("index"));
+            int taskIndex = parseTaskIndex(linkCommandMatcher.group("index"));
             ArrayList<Integer> emailIndexList = extractEmails(optionList);
-            ArrayList<Integer> taskIndexList = new ArrayList<>();
-            taskIndexList.add(index);
-            return new LinkCommand(taskIndexList, emailIndexList);
+            ArrayList<Integer> deleteIndexList = extractDelete(optionList);
+            return new TaskLinkCommand(taskIndex, emailIndexList, deleteIndexList);
         } catch (TaskParseException e) {
             return new InvalidCommand("Please enter a valid task index");
         } catch (EmailParseException e) {
@@ -562,6 +570,23 @@ public class TaskCommandParseHelper {
             }
         }
         return emailList;
+    }
+
+    /**
+     * Extracts email index from the option list.
+     *
+     * @param optionList the list of options where the parameters are extracted
+     * @return the ArrayList of email index
+     */
+    public static ArrayList<Integer> extractDelete(ArrayList<Command.Option> optionList) {
+        ArrayList<Integer> deleteList = new ArrayList<>();
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("delete")) {
+                int index = Integer.parseInt(option.getValue().strip()) - 1;
+                deleteList.add(index);
+            }
+        }
+        return deleteList;
     }
 
     /**
