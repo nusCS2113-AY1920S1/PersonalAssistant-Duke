@@ -64,7 +64,7 @@ This is assuming you have a JDK version of `11` and above.
 
 Our integration approach would be bottom-up, as some of the components we have utilised from a previous project can be adapted and reused of other purposes. +
 
-In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
+In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlan.
 
 The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 

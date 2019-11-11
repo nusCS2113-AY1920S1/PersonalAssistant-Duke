@@ -144,6 +144,11 @@ Format: `show ge`
 
 image::ShowGeSample.png[width="450"]
 
+****
+* If more than one type of GE module is being added, the programme will inform you and prompt you to add only one type of GE module.
+* image::showGeDuplicate.png[width="450"]
+****
+
 ==== Giving a report on Unrestricted Electives modules: `show ue`
 
 Prints out a report on all the Unrestricted Electives(UE) modules taken in the semester, together with the number of UE modules left to take for graduation. +
