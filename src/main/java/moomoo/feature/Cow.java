@@ -1,15 +1,15 @@
 package moomoo.feature;
 
 public class Cow {
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_WHITE = "\u001B[37m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_BLACK = "\u001B[30m";
+    private String ANSI_RESET = "\u001B[0m";
+    private String ANSI_WHITE = "\u001B[37m";
+    private String ANSI_RED = "\u001B[31m";
+    private String ANSI_GREEN = "\u001B[32m";
+    private String ANSI_YELLOW = "\u001B[33m";
+    private String ANSI_BLUE = "\u001B[34m";
+    private String ANSI_PURPLE = "\u001B[35m";
+    private String ANSI_CYAN = "\u001B[36m";
+    private String ANSI_BLACK = "\u001B[30m";
     final String fullBlock = "\u2588" + "\u2588";
     final String lineOne = "        ";
     final String lineTwo = "      ";
@@ -19,6 +19,8 @@ public class Cow {
     private String blackCow = "";
     
     String generateHappyCow() {
+        
+        
         String model = lineOne + ANSI_BLUE; //line 1
         for (int i = 0; i < 27; i += 1) {
             model += fullBlock;
