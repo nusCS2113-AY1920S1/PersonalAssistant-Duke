@@ -27,8 +27,8 @@ import java.util.Date;
  */
 
 public class CalendarCommand extends Command {
-    private int cellLength = 18;
-    private int cellHeight = 6;
+    private static int cellLength = 18;
+    private static int cellHeight = 6;
     private int calHeight = 5;
     private int calWidth = 7;
     private int minCellHeight = 5;
@@ -477,5 +477,3 @@ public class CalendarCommand extends Command {
         return result;
     }
 }
-
-
