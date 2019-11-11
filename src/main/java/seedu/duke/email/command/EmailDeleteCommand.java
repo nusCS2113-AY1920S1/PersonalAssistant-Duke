@@ -16,7 +16,7 @@ public class EmailDeleteCommand extends Command {
     @Override
     public boolean execute(Model model) {
         EmailList emailList = model.getEmailList();
-        responseMsg = emailList.delete(index);
+        responseMsg = emailList.deleteLocalEmail(index);
         UI.getInstance().showResponse(responseMsg);
         return true;
     }

@@ -86,6 +86,8 @@ public class EmailCommandParseHelperTest {
             //negative cases
             //no index
             assertTrue(method.invoke(null, "delete") instanceof InvalidCommand);
+            //index out of bound
+            assertTrue(method.invoke(null, "delete 0") instanceof InvalidCommand);
             //space before command
             assertTrue(method.invoke(null, " delete 2") instanceof InvalidCommand);
             //non-integer index
