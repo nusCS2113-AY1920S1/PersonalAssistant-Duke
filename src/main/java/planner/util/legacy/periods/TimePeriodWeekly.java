@@ -183,6 +183,10 @@ public class TimePeriodWeekly implements TimePeriod {
         if (other == null) {
             return false;
         }
+        DayOfWeek dayOfWeekTmp = this.dayOfWeek;
+        if (this.isUntilNextDay) {
+            dayOfWeekTmp = dayOfWeekTmp.plus(1);
+        }
         if (other.isUntilNextDay) {
             return isClashing(new TimePeriodWeekly(other.begin, LocalTime.MAX, other.dayOfWeek))
                 || isClashing(new TimePeriodWeekly(LocalTime.MIN, other.end, other.dayOfWeek.plus(1)));
@@ -193,7 +197,7 @@ public class TimePeriodWeekly implements TimePeriod {
                 || this.isClashing(other.begin, other.dayOfWeek)
                 || this.isClashing(other.end, other.dayOfWeek)
                 || other.isClashing(this.begin, this.dayOfWeek)
-                || other.isClashing(this.end, this.dayOfWeek);
+                || other.isClashing(this.end, dayOfWeekTmp);
         }
     }
 
