@@ -14,6 +14,7 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
+import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.legacy.reminder.Reminder;
@@ -22,6 +23,7 @@ import planner.util.storage.Storage;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -62,6 +64,15 @@ public class ReminderTest extends CommandTest {
         user = new User();
     }
 
+    /**
+     * Stops the reminder message.
+     */
+    private void killAllTimers() {
+        for (Timer timer: CliLauncher.timerPool) {
+            timer.cancel();
+        }
+    }
+
     @DisplayName("Reminder Message Output Test")
     @Test
     public void reminderMessageOutputShouldMatchExpectedOutput() {
@@ -85,7 +96,7 @@ public class ReminderTest extends CommandTest {
                 "\n";
         assertEquals(expectedOutput, getOut());
 
-        execute("reminder one");
+        /*execute("reminder one");
         expectedOutput = "_______________________________\n"
                 +
                 "Please remember to update your module information!\n"
@@ -96,6 +107,8 @@ public class ReminderTest extends CommandTest {
                 +
                 "\n";
         assertEquals(expectedOutput, getOut());
+        killAllTimers();
+        resetAll();*/
 
         execute("reminder two");
         expectedOutput = "_______________________________\n"
@@ -108,6 +121,8 @@ public class ReminderTest extends CommandTest {
                 +
                 "\n";
         assertEquals(expectedOutput, getOut());
+        killAllTimers();
+        resetAll();
 
         execute("reminder three");
         expectedOutput = "_______________________________\n"
@@ -120,6 +135,8 @@ public class ReminderTest extends CommandTest {
                 +
                 "\n";
         assertEquals(expectedOutput, getOut());
+        killAllTimers();
+        resetAll();
 
         execute("reminder four");
         expectedOutput = "_______________________________\n"
@@ -132,6 +149,8 @@ public class ReminderTest extends CommandTest {
                 +
                 "\n";
         assertEquals(expectedOutput, getOut());
+        killAllTimers();
+        resetAll();
 
         execute("reminder stop");
         expectedOutput = "_______________________________\n"
