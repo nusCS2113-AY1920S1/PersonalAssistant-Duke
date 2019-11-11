@@ -19,7 +19,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class deleteModuleCommandTest {
+class deleteModuleCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -32,19 +32,19 @@ public class deleteModuleCommandTest {
     public void restoreStreams() {
         System.setOut(originalOut);
     }
+
     @Test
     void deleteModule_emptyException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        oldStudyPlan.push(StudyPlan.StudyPlan);
+        oldStudyPlan.push(studyPlan.StudyPlan);
         ui.fullCommand = "delete";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
-//            fail();
-        } catch (DukeException e){
+            new DeleteModuleCommand().execute(studyPlan,studyAssistPageStorage,ui,oldStudyPlan);
+        } catch (DukeException e) {
             assertEquals("Please follow the correct input format~",e.getMessage());
         }
     }
@@ -54,105 +54,104 @@ public class deleteModuleCommandTest {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        oldStudyPlan.push(StudyPlan.StudyPlan);
+        oldStudyPlan.push(studyPlan.StudyPlan);
         ui.fullCommand = "delete CD1234 from 5";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
-//            fail();
-        } catch (DukeException e){
+            new DeleteModuleCommand().execute(studyPlan,studyAssistPageStorage,ui,oldStudyPlan);
+        } catch (DukeException e) {
             assertEquals("We currently do not have this module.",e.getMessage());
         }
     }
+
     @Test
     void addModule_wrongSemesterException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        oldStudyPlan.push(StudyPlan.StudyPlan);
+        oldStudyPlan.push(studyPlan.StudyPlan);
         ui.fullCommand = "delete CS2040C from 9";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
-//            fail();
-        } catch (DukeException | IOException e){
+            new DeleteModuleCommand().execute(studyPlan,studyAssistPageStorage,ui,oldStudyPlan);
+        } catch (DukeException | IOException e) {
             assertEquals("Please input correct Semester number.",e.getMessage());
         }
     }
+
     @Test
     void addModule_wrongFormatException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        oldStudyPlan.push(StudyPlan.StudyPlan);
+        oldStudyPlan.push(studyPlan.StudyPlan);
         ui.fullCommand = "delete CS2040C from";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
-//            fail();
-        } catch (DukeException | IOException e){
+            new DeleteModuleCommand().execute(studyPlan,studyAssistPageStorage,ui,oldStudyPlan);
+        } catch (DukeException | IOException e) {
             assertEquals("Please follow the correct input format~",e.getMessage());
         }
     }
+
     @Test
     void addModule_not_existModuleException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        oldStudyPlan.push(StudyPlan.StudyPlan);
+        oldStudyPlan.push(studyPlan.StudyPlan);
         ui.fullCommand = "delete CS3230 sem 5";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
-//            fail();
-        } catch (DukeException | IOException e){
+            new DeleteModuleCommand().execute(studyPlan,studyAssistPageStorage,ui,oldStudyPlan);
+        } catch (DukeException | IOException e) {
             assertEquals("This module is not inside the study plan",e.getMessage());
         }
     }
+
     @Test
     void deleteModuleTest() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        oldStudyPlan.push(StudyPlan.StudyPlan);
+        oldStudyPlan.push(studyPlan.StudyPlan);
         ui.fullCommand = "delete CS2040C from 5";
-        String ModuleCode = "CS2040C";
-        int Semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
+        String moduleCode = "CS2040C";
+        int semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
         boolean flag = false;
         int semester_number = -1;
-        for(int i=0;i<StudyPlan.StudyPlan.size()&& !flag;i++){
-            if(StudyPlan.StudyPlan.get(i).contains(ModuleCode)) {
+        for (int i = 0;i < studyPlan.StudyPlan.size() && !flag;i++) {
+            if (studyPlan.StudyPlan.get(i).contains(moduleCode)) {
                 flag = true;
                 semester_number = i;
             }
         }
-        if(!flag){
+        if (!flag) {
             try {
-                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui,oldStudyPlan);
-//            fail();
+                new DeleteModuleCommand().execute(studyPlan, studyAssistPageStorage, ui,oldStudyPlan);
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not inside the study plan", e.getMessage());
             }
-        }else if(flag && semester_number != Semester){
+        } else if (flag && semester_number != semester) {
             try {
-                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui, oldStudyPlan);
-//            fail();
+                new DeleteModuleCommand().execute(studyPlan, studyAssistPageStorage, ui, oldStudyPlan);
             } catch (DukeException | IOException e) {
-                assertEquals("This module is not in Sem "+(Semester+1)+" but inside Sem "+(semester_number+1), e.getMessage());
+                assertEquals("This module is not in Sem " + (semester + 1) + " but inside Sem "
+                        + (semester_number + 1), e.getMessage());
             }
 
-        }else {
+        } else {
             try {
-                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui,oldStudyPlan);
-//            fail();
+                new DeleteModuleCommand().execute(studyPlan, studyAssistPageStorage, ui,oldStudyPlan);
             } catch (DukeException | IOException e) {
-                assertEquals("This module " + ModuleCode + " has been successfully deleted from Sem" + 5+".", e.getMessage());
+                assertEquals("This module " + moduleCode + " has been successfully deleted from Sem" + 5
+                        + ".", e.getMessage());
             }
         }
     }

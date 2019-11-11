@@ -44,23 +44,27 @@ public class EditCommand extends Command {
         try {
             String[] input = ui.fullCommand.split(" ");
             int listnoIndex = Integer.parseInt(input[1]) - 1;
-            System.out.println("Edit description/time/both ?");
-            ui.readCommand();
-            if (ui.fullCommand.equals("description")) {
-                new EditDescriptionCommand(list, ui, listnoIndex);
-            } else if (ui.fullCommand.equals("time")) {
-                new EditTimeCommand(list, ui, listnoIndex);
-            } else if (ui.fullCommand.equals("both")) {
-                new EditBothCommand(list, ui, listnoIndex);
+            if (listnoIndex < list.size()) {
+                System.out.println("Edit description/time/both ?");
+                ui.readCommand();
+                if (ui.fullCommand.equals("description")) {
+                    new EditDescriptionCommand(list, ui, listnoIndex);
+                } else if (ui.fullCommand.equals("time")) {
+                    new EditTimeCommand(list, ui, listnoIndex);
+                } else if (ui.fullCommand.equals("both")) {
+                    new EditBothCommand(list, ui, listnoIndex);
+                } else {
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < list.size(); i++) {
+                    sb.append(list.get(i).toString() + "\n");
+                }
+                TasksPageStorage tasksPageStorage = new TasksPageStorage();
+                tasksPageStorage.writeToSaveFile(sb.toString());
             } else {
                 throw new ArrayIndexOutOfBoundsException();
             }
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            TasksPageStorage tasksPageStorage = new TasksPageStorage();
-            tasksPageStorage.writeToSaveFile(sb.toString());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Please input the correct format.");
         }

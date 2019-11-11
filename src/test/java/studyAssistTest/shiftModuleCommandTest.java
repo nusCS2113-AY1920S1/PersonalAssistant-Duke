@@ -1,4 +1,5 @@
 //@@author mononokehime14
+
 package studyAssistTest;
 
 import gazeeebo.ui.Ui;
@@ -17,7 +18,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class shiftModuleCommandTest {
+class shiftModuleCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -30,17 +31,17 @@ public class shiftModuleCommandTest {
     public void restoreStreams() {
         System.setOut(originalOut);
     }
+
     @Test
     void shiftModule_emptyException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift";
         try {
-            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
-//            fail();
-        } catch (DukeException e){
+            new ShiftModuleCommand().execute(studyPlan,studyAssistPageStorage,ui);
+        } catch (DukeException e) {
             assertEquals("Please follow the correct input format~",e.getMessage());
         }
     }
@@ -50,94 +51,93 @@ public class shiftModuleCommandTest {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CD1234 to 5";
         try {
-            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
-//            fail();
-        } catch (DukeException e){
+            new ShiftModuleCommand().execute(studyPlan,studyAssistPageStorage,ui);
+        } catch (DukeException e) {
             assertEquals("We currently do not support this module.",e.getMessage());
         }
     }
+
     @Test
     void shiftModule_wrongSemesterException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C to 9";
         try {
-            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
-//            fail();
-        } catch (DukeException | IOException e){
+            new ShiftModuleCommand().execute(studyPlan,studyAssistPageStorage,ui);
+        } catch (DukeException | IOException e) {
             assertEquals("Please input correct Semester number.",e.getMessage());
         }
     }
+
     @Test
     void shiftModule_wrongFormatException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C to";
         try {
-            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
-//            fail();
-        } catch (DukeException | IOException e){
+            new ShiftModuleCommand().execute(studyPlan,studyAssistPageStorage,ui);
+        } catch (DukeException | IOException e) {
             assertEquals("Please follow the correct input format~",e.getMessage());
         }
     }
+
     @Test
     void shiftModule_existedModuleException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C to 2";
         try {
-            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
-//            fail();
-        } catch (DukeException | IOException e){
-            assertEquals("This module is already inside Sem "+(Integer.parseInt(ui.fullCommand.split(" ")[3]))+".",e.getMessage());
+            new ShiftModuleCommand().execute(studyPlan,studyAssistPageStorage,ui);
+        } catch (DukeException | IOException e) {
+            assertEquals("This module is already inside Sem "
+                    + (Integer.parseInt(ui.fullCommand.split(" ")[3])) + ".",e.getMessage());
         }
     }
+
     @Test
     void shiftModuleTest() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        StudyPlannerCommand studyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C sem 2";
-        String ModuleCode = "CS2040C";
+        String moduleCode = "CS2040C";
         int Semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
         boolean flag = false;
-        int semester_number = -1;
-        for(int i=0;i<StudyPlan.StudyPlan.size()&& !flag;i++){
-            if(StudyPlan.StudyPlan.get(i).contains(ModuleCode)) {
+        int semesterNumber = -1;
+        for (int i = 0;i < studyPlan.StudyPlan.size() && !flag; i++) {
+            if (studyPlan.StudyPlan.get(i).contains(moduleCode)) {
                 flag = true;
-                semester_number = i;
+                semesterNumber = i;
             }
         }
-        if(!flag){
+        if (!flag) {
             try {
-                new ShiftModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
-//            fail();
+                new ShiftModuleCommand().execute(studyPlan, studyAssistPageStorage, ui);
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not inside the study plan", e.getMessage());
             }
-        }else if(Semester==semester_number) {
+        } else if (Semester == semesterNumber) {
             try {
-                new ShiftModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
-//            fail();
+                new ShiftModuleCommand().execute(studyPlan, studyAssistPageStorage, ui);
             } catch (DukeException | IOException e) {
-                assertEquals("This module is already inside Sem "+(Semester+1)+".", e.getMessage());
+                assertEquals("This module is already inside Sem " + (Semester+1) + ".", e.getMessage());
             }
-        }else {
+        } else {
             try {
-                new ShiftModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
-//            fail();
+                new ShiftModuleCommand().execute(studyPlan, studyAssistPageStorage, ui);
             } catch (DukeException | IOException e) {
-                assertEquals("This module " + ModuleCode + " has been successfully shifted to Sem" + (Semester + 1) + ".", e.getMessage());
+                assertEquals("This module " + moduleCode + " has been successfully shifted to Sem"
+                        + (Semester + 1) + ".", e.getMessage());
             }
         }
     }

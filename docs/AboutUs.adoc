@@ -21,7 +21,7 @@ Responsibilities: Integrate the different functions together.
 
 === Jason Lee
 image::jasonleeweihern.png[width="150", align="left"]
-{empty}[https://github.com/JasonLeeWeiHern[github]][<<JasonLeeWeiHern#, portfolio>>]
+{empty}[https://github.com/JasonLeeWeiHern[github]][https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/docs/team/JasonLeeWeiHern.pdf[portfolio]]
 
 Role: Team Lead +
 Responsibilities: UI/UX designer
@@ -30,7 +30,7 @@ Responsibilities: UI/UX designer
 
 === Janel Ang
 image::e0323290.png[width="150", align="left"]
-{empty}[http://github.com/e0323290[github]][<<JanelAng#, portfolio>>]
+{empty}[http://github.com/e0323290[github]][https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/docs/team/JanelAngYeeHuey.pdf[portfolio]]
 
 Role: Testing, Scheduling and Tracking +
 Responsibilities: Data Handling and regular testing of functions
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 
 === Lee Yueyu
 image::yueyuu.png[width="150", align="left"]
-{empty}[https://github.com/yueyuu[github]][https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/docs/team/LeeYueyu.pdf[portfolio]]
+{empty}[https://github.com/yueyuu[github]][https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/docs/team/leeyueyu.pdf[portfolio]]
 
 Role: Code quality +
 Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.

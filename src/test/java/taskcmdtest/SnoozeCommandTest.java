@@ -33,25 +33,25 @@ public class SnoozeCommandTest {
         Storage storage = new Storage();
         TriviaStorage triviaStorage = new TriviaStorage();
         TriviaManager triviaManager = new TriviaManager(triviaStorage);
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         ui.fullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
-            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask,triviaManager);
-        } catch (DukeException | ParseException |IOException e) {
+            deadlineCommand.execute(tasks,ui,storage, commandStack, deletedTask,triviaManager);
+        } catch (DukeException | ParseException | IOException e) {
             e.printStackTrace();
         }
         int index = 0;
         int year = 1;
-        int day =1;
-        int month =1;
+        int day = 1;
+        int month = 1;
         int hour = 1;
-        String Description = tasks.get(index).description;
+        String description = tasks.get(index).description;
         String date = tasks.get(index).toString().split("\\|")[3].substring(4);
         LocalDateTime newDate  = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         newDate = newDate.plusYears(year).plusMonths(month).plusDays(day).plusHours(hour);
-        String newBy= newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Task snoozedDeadline = new Deadline(Description,newBy);
+        String newBy = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Task snoozedDeadline = new Deadline(description,newBy);
         tasks.remove(index);
         tasks.add(snoozedDeadline);
 
