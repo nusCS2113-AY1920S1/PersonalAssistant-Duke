@@ -235,27 +235,28 @@ It models an *Interface*, implemented by all the classes that have the feature t
 
 Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
 
-#### 2.6 GenericList
+#### 2.6 List Component
+
+![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/ListComponent.png)
+
+Figure. Structure of the List Component
 
 API: `GenericList.java` 
 
-This *generic, abstract* class allows for the creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
-
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
+This *generic, abstract* class `GenericList.java` allows for the creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `OrderList.java` and `DishList.java`. The three classes inherit the basic methods from the `GenericList` class and extend it with their own specific methods (e.g. `getAllUndoneOrders()` in`OrderList` class,  `changeAmount()` in `IngredientsList` class), as shown in the UML Class Diagram above.
 
 ##### 2.6.1 IngredientList
 
 API: `IngredientList.java` 
 
-A child class of `GenericList` , using the `Ingredient` as a generic type. Inherits and further extends the attributes and methods of this superclass. 
+Child class of `GenericList` , using the `Ingredient` as a generic type. Inherits and further extends the attributes and methods of this superclass. 
 
 Below is a table of the methods implemented in this class.
 
-| Constructor                                       | Description                                               |
-| ------------------------------------------------- | --------------------------------------------------------- |
-| IngredientsList(List<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List<Ingredient> |
-
-
+| Constructor                                        | Description                                                |
+| -------------------------------------------------- | ---------------------------------------------------------- |
+| IngredientsList(List\<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List\<Ingredient> |
+| IngredientsList()                                  | Initializes the IngredientsList as an empty list           |
 
 | Methods                                                      | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -265,47 +266,62 @@ Below is a table of the methods implemented in this class.
 | getNonExpiredEntry(Ingredient ingredient): Ingredient Object | Looks for the queried Ingredient in the list that is not expired and returns it |
 | sortByExpiryDate(): Ingredient Object                        | Sorts the Ingredient lists accordingly by a descending amount |
 | removeEntry(Ingredient Object):  Boolean                     | Looks for the queried Ingredient in the list and remove the amount that we want to use.<br />True:  Enough amount of the queried ingredient<br />False: Not enough amount  of the queriedingredient |
-
-
+| toString()                                                   | Generate description of the ingredient list as string        |
 
 ##### 2.6.2 OrderList
 
 API: `OrderList.java` 
 
-A child class of `GenericList` , using the `Order` as a generic type. Inherits and further extends the attributes and methods of this superclass. 
+Child class of `GenericList` , using the `Order` as a generic type. Inherits and further extends the attributes and methods of this superclass. 
 
-Below is a table of the methods implemented in this class.
+Below are tables of the attributes and the methods implemented in `OrderList` class.
 
-| Atrributes             | Description |
-| ---------------------- | ----------- |
-| orderList: List<Order> |             |
+| Atrributes              | Decription                                                |
+| ----------------------- | --------------------------------------------------------- |
+| orderList: List\<Order> | List of all orders (history, current and future orders)   |
+| todoList: TodayTodoList | Chef's today todo dishes with corresponding dishes amount |
 
+| Constructor             | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| OrderList()             | nitalize the empty order list and the todo list              |
+| OrderList(List\<Order>) | Initalize the order list with a list of orders, update the todo list according to the list of orders given |
 
+| Methods                                 | Description                                        |
+| --------------------------------------- | -------------------------------------------------- |
+| initTodoList()                          | Initialize chef's today Todo list                  |
+| updateTodoList()                        | Update chef's today todoList                       |
+| markOrderDone(int)                      | Mark a order as done                               |
+| findOrderByDate(Date): List\<Order>     | Returns a list of orders on some date              |
+| findOrderByDishes(String): List\<Order> | Returns a list of orders that contains that dishes |
+| getAllUndoneOrders(): List\<Order>      | Return all undone orders                           |
+| getTodayOrders(): List\<Order>          | Return all today's orders                          |
+| getTodayUndoneOrders(): List\<Order>    | Return all today's orders which is undone          |
+| todoListToString(): String              | Return the content of the todo list as string      |
 
-| Constructor            | Description                                        |
-| ---------------------- | -------------------------------------------------- |
-| OrderList()            | initalize the empty orderLIst as a new ArrayList<> |
-| OrderList(List<Order>) | Assign a list of orders to the orderList           |
+###### 2.6.2.1 TodayTodoList
 
+As seen in the attributes of `OrderList` class, there is one attribute `todoList`. Its type is `TodayTodoList`. `TodayTodoList` is not a child of `GenericList` since today todo list varies a lot from day to day. There is no need to read out of and write into the hard disk. The `todoList` will be updated when the program starts, by parsing todo dishes from the order list. The `todoList` may also change with the changes of orders in the order list.
 
+To look into the `TodayTodoList` class, it has private field tasks which consisting of dishes and the amount of the dishes need to be finished today.
 
-| Methods                              | Description                                                  |
-| ------------------------------------ | ------------------------------------------------------------ |
-| size(): int                          | returns the number of orders in the orderList                |
-| markOrderDone(int): void             | mark a order as completed                                    |
-| getOrder(int): Order                 | return the order at the position indexed by number           |
-| getAllUndoneOrders(): List<Order>    | return all undone orders in the orderList                    |
-| getTodayOrders(): List<Order>        | return all today's orders in the orderList                   |
-| getTodayUndoneOrders(): List<Order>  | return all today's orders which is undone in the orderList   |
-| findOrderByDate(String): List<Order> | returns a list of orders on that date                        |
-| findOrderByDishes(Dish): List<Order> | returns a list of orders that contains that dishes           |
-| changeOrderDate(int, String): void   | alter the serving date of the order in the orderList         |
-| getDishesTodayAmount(Dishes): int    | return required amount of the dishes that needed to be done before the end of today |
-| addOrderDish(int, Dishes): void      | add dishes to the order in the orderList                     |
-| addOrderDish(int, Dishes, int): void | add dishes with amount to the order in the orderList         |
-| findDishesAmont(int, Dishes): int    | find dishes amount in the order among the orderList          |
+Below are tables of the attributes and the methods implemented in `TodayTodoList` class.
 
+| Atrributes                   | Decription                                                   |
+| ---------------------------- | ------------------------------------------------------------ |
+| tasks: Map\<String, Integer> | A map with key as dishes name, value as the mount of the dishes need to be done before the end of today |
 
+| Constructor                 | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| TodayTodoList()             | Initalize the empty todo list                                |
+| TodayTodoList(List\<Order>) | Initalize the todo list with a list of orders, update the todo list according to the list of orders given |
+
+| Methods                    | Description                                                  |
+| -------------------------- | ------------------------------------------------------------ |
+| addTodo(String, int)       | Add dishes with its amount into the todo list                |
+| deleteTodo(String, int)    | Remove dishes with its amount out of the todo list           |
+| addTodoFromOrder(Order)    | Add all ordered dishes in a new order of today               |
+| deleteTodoFromOrder(Order) | After an order be cancelled or done, remove dishes in the order out of the todo list |
+| toString(): String         | Return the content of the todo list as string                |
 
 ##### 2.6.3 DishList
 
@@ -320,8 +336,6 @@ Below is a table of the methods implemented in this class.
 | DishList(List<Dish>) | assigns a list of dishes to dishList             |
 | DishList()           | assigns an empty ArrayList<>() to dishList       |
 | toString(): String   | returns all the dishes in the dishList in String |
-
-
 
 #### 2.7 Exception Component
 
