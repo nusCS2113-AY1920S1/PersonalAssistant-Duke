@@ -198,7 +198,7 @@ public class TimePeriodSpanning implements TimePeriod {
      */
     public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
         if (end != null && begin != null && end.isBefore(begin)) {
-            throw new ModInvalidTimePeriodException("End before begin!");
+            throw new ModInvalidTimePeriodException();
         }
         this.begin = begin;
         this.end = end;

@@ -96,7 +96,7 @@ public class ParserTest {
         assertSame(parser.parseCommand("grade test grade").getClass(), GradeCommand.class);
     }
 
-    @DisplayName("Remindere Command Parser Test")
+    @DisplayName("Reminder Command Parser Test")
     @Test
     public void validReminderCommandInputShouldReturnReminderCommand() throws ModException {
         assertSame(parser.parseCommand("reminder list").getClass(), ReminderCommand.class);
