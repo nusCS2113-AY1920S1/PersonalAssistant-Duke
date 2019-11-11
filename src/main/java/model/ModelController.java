@@ -432,7 +432,8 @@ public class ModelController implements Model {
             ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             String subResult = tasksManager.check(tasksName);
             if (!subResult.equals("")) {
-                result += "\n" + memberName + ": " + tasksManager.check(tasksName);
+                result += "\n" + memberName + ": " + tasksManager.check(tasksName) + "\n"
+                        + "[END OF " + memberName + " ]";
             }
         }
         return result;

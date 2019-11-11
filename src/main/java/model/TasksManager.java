@@ -570,7 +570,7 @@ public class TasksManager implements Serializable {
                         index = i;
                     } else {
                         if (count != 1) {
-                            result += getTimeCrashString(count, i, date2, sorted);
+                            result += getTimeCrashString(count, i + 1, date1, sorted);
                         }
                         count = 1;
                         continue;
@@ -599,9 +599,9 @@ public class TasksManager implements Serializable {
         String name = "";
         for (int j = count; j > 0; j--) {
             Task task = sorted.get(end - j);
-            name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+            name += "\n" + getIndexInListByTask(task) + ". " + getNameByTask(task);
         }
-        return "\n" + date + " " + count + "tasks:" + name;
+        return "\n" + date + " " + count + " tasks:" + name;
     }
 
     //@@author yuyanglin28
