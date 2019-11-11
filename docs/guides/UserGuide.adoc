@@ -1,5 +1,5 @@
 = Email Manager - User Guide
-:site-section: DeveloperGuide
+:site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -21,9 +21,7 @@ Since: `Nov 2019`
 == Introduction
 
 
-.GUI Interface
-[#gui]
-[caption="Figure 1: GUI interface of Email Manager"]
+.GUI interface of Email Manager
 image::Ui.png[Gui, 800]
 
 Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules.
@@ -114,9 +112,7 @@ Any hanging or "not responding" when first launch the app is normal, please wait
 
 === Introducing the Interface
 
-.Main Window
-[#main-window]
-[caption="Figure 2: Main window of Email Manager"]
+.Main window of Email Manager
 image::annotatedUI.png[Main Window, 800]
 
 As shown in Figure 2, the main window of Email Manager has three sections.
@@ -192,6 +188,7 @@ Format: `flip`
 Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
 changed.
 
+[NOTE]
 In task mode, the text box will display `task` as a prefix.
 In email mode, the text box will display `email` as a prefix.
 
@@ -491,7 +488,8 @@ Format: `show INDEX_NUMBER`
 Show the email content of the email at the index number in the email list.
 
 Example:
-`show 3`
+
+`show 3`: shows content of the 3rd email in the email list.
 
 [TIP]
 You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
@@ -598,7 +596,7 @@ Gives a list of all keywords with the relevant expressions.
 
 ==== Delete keyword (coming in v1.4)
 
-==== Tagging Email: `update`
+==== Tagging an email: `update`
 Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
 
 Tags the specified item with the tag(s) minimum number of tags is 1. Tags without duplication will be added.
@@ -614,40 +612,86 @@ Format: `listTag`
 
 Gives a list of all existing tags in the list of emails.
 
-==== Filtering email: `list`
-Format: `list [-tag TAG1] [-tag TAG2]...`
+==== Filtering email by tags: `list`
+Format: `list [-tag TAG1] [-tag TAG2]`
 
-Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
+Gives a list of emails with the tags given. Minimum number of tags is 1, and the maximum number of tags is 2.
+
+[NOTE]
+`TAG1` *exists* if there is at least an email tagged with `TAG1`.
+
+[NOTE]
+`TAG1` and `TAG2` *co-exist* if there is at least an email tagged with both tags at the same time.
+
+[NOTE]
+Both `TAG1` and `TAG2` *exist but not co-exist* means that there is at least one email with `TAG1` and
+another email with `TAG2`, but no email is tagged with both `TAG1` and `TAG2`.
+
+Explanation:
+
+* User input: `list [-tag TAG1]`
+** Case 1: `TAG1` exists, for each tag *co-existing* with `TAG1`, the program shows a list of emails
+tagged with both `TAG1` and the `co-existing tag`.
+** Case 2: `TAG1` does not exit, the program returns an error message.
+
+* User input: `list [-tag TAG1] [-tag TAG2]`
+** Case 1: Both `TAG1` and `TAG2` do not exist, the program returns an error message.
+** Case 2: Either `TAG1` or `TAG2` exists, the program shows a list of emails with either `TAG1` or
+`TAG2`.
+** Case 3: `TAG1` and `TAG2` exist but do not co-exist, the program shows two separate list of emails with
+`TAG1` and
+`TAG2` respectively.
+** Case 4: `TAG1` and `TAG2` co-exist, the program shows a list of emails with both `TAG1` and `TAG2`.
+
 
 Examples:
 
-`list -tag CS2113T -tag Tutorial`
+`list -tag Spam`: If `Spam` does not exist, an error will be returned. If `Spam` exists, for *each* tag
+co-existing with `Spam`, a list of emails tagged with the `co-existing tag` and `Spam` will be listed out.
 
-`list -tag Spam`
+`list -tag CS2113T -tag Tutorial`: If `CS2113T` and `Tutorial` co-exist, emails tagged with both
+`CS2113T` and `Tutorial` will be listed out. If no email is tagged with both tags (`CS2113T` and `Tutorial`
+do not co-exist), emails tagged with each of the tags will be listed out respectively.
 
-==== Deleting email: `delete`
+[TIP]
+After obtaining the list of emails with the tags, you can enter `show ITEM_NUMBER` to view the content
+of email, `ITEM_NUMBER` of an email is the index number of the email in the list.
+
+
+==== Deleting a local email: `delete`
 Format: `delete ITEM_NUMBER`
 
-Deletes the item specified.
+Deletes the email specified from local storage.
 
 Examples:
 
-`delete 1`: deletes the first email
+`delete 1`: deletes the first email in the email list from local storage.
 
 [NOTE]
 If you enter `show ITEM_NUMBER`, then followed with `delete ITEM_NUMBER`, the content of email at
 `ITEM_NUMBER` will still remains displayed although the email has been deleted.
 
-==== Clear email list: `clear`
+[NOTE]
+This command will only delete email from local storage. If you enter `delete 1`, after that you enter `fetch`
+command or relaunch the program, provided that the deleted email is present in your remote server, that
+particular email will be loaded into your local storage again even if you have deleted it before.
+
+==== Clear local email list: `clear`
 Format: `clear`
 
-This command deletes all emails in the list.
+This command deletes all emails in the list from local storage.
+
+When you have accumulate too many emails in the email list, auto-parsing function will take
+longer time to complete, if you do not need the older emails in your list, this function can `clear` your
+email list.
 
 [WARNING]
 Once executed, you will not be able to undo this command.
 
 [TIP]
-After clearing all the emails, you can enter `fetch` to retrieve latest emails from server.
+After clearing all the emails from local storage, you can enter `fetch` to retrieve latest 60 emails from
+server. Those cleared email will be loaded into your local storage again provided that it is present in your
+remote server.
 
 ==== Sending email (coming in v2.0)
 
