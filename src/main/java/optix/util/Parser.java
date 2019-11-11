@@ -97,7 +97,6 @@ public class Parser {
                 return new ListAliasCommand();
             case "help":
             case "archive":
-            case "show":
             case "finance":
                 return new TabCommand(commandName);
             default:

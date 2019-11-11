@@ -27,23 +27,21 @@ public class TabCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        StringBuilder message = new StringBuilder();
         OPTIXLOGGER.log(Level.INFO, "executing command");
         try {
             switch (commandWord) {
             case "archive":
                 OPTIXLOGGER.log(Level.INFO, "archive case");
-                model.setShowsGui(model.getShowsHistory());
-                ui.setMessage(MESSAGE_ARCHIVE);
-                break;
-            case "show":
-                OPTIXLOGGER.log(Level.INFO, "show case");
-                model.setShowsGui(model.getShows());
-                ui.setMessage(MESSAGE_SHOW);
+                message.append(MESSAGE_ARCHIVE);
+                message.append(model.listShowHistory());
+                ui.setMessage(message.toString());
                 break;
             case "finance":
                 OPTIXLOGGER.log(Level.INFO, "finance case");
-                model.setShowsGui(model.getShows());
-                ui.setMessage(MESSAGE_FINANCE);
+                message.append(MESSAGE_FINANCE);
+                message.append(model.listFinance());
+                ui.setMessage(message.toString());
                 break;
             case "help":
                 OPTIXLOGGER.log(Level.INFO, "help case");

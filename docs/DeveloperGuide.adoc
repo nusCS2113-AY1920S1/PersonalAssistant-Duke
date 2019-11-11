@@ -966,28 +966,34 @@ A feature that is declared as nice-to-have is viewed as a non- priority. The fea
 A feature that is declared as unlikely-to-have is viewed as the least priority. The features with this label are likely to be ignored and only be done should they be viewed as extensions that could add on to the functionality of the program.
 
 [appendix]
-== Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+== Instructions for manual testing
+
+The instructions to test the program manually are given below.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions are meant to provide a starting point for testers to work on.
+Testers are expected to conduct more _exploratory_ testing.
+
+[NOTE]
+All commands, show names and parameters are case insensitive.
 
 === Launch and Shutdown
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder.
+.. Download the latest `optix.jar` link:{repoURL}/releases[here] and copy it into an empty folder.
 .. Double-click the jar file +
    Expected: Shows the GUI with the display window on the left(empty) and Chat Box on the right.
 
-. Loading save data
+. Loading saved data
 
-.. Add some shows using the following format `add SHOW_NAME|SEAT_BASEPRICE|SHOWDATE1|...`. Input bye or close the window.
+.. Add some shows using the following format `add SHOW_NAME|SEAT_BASEPRICE|SHOWDATE1|...`. Input bye or close the
+   window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The display window on the left retained the shows added before shutting down the app.
 
-. Transferring save data
+. Transferring saved data
 
 .. Move your jar file into another empty folder.
 .. Create new folder and name it src. Double-click the folder.
@@ -996,33 +1002,279 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file. +
    Expected: The display window on the left retained the shows added before it was transferred to the new directory.
 
+=== Adding a show
+
+. Add new shows to the current list of shows with `SHOW_NAME`, `SEAT BASE PRICE` and `SHOW_DATES`
+
+.. Test case: `add aladdin|36|5/5/2020|30/5/2020|4/6/2020` +
+   Expected: A show where `SHOW_NAME` is aladdin with `SHOW_DATES` on 28/5/2020, 30/5/2020 and 4/6/2020 and
+   `SEAT BASE PRICE` of $36 is added to the GUI. Chat box displays a message indicating the shows that have been
+   added to the list.
+
+.. Test case: `add just-dance|40|5/5/2020` +
+   Prerequisites: Test case above(G.2.1.a) has been executed. +
+   Expected: No show added since there is already a show on 5/5/2020. Chat box displays a message showing failure to
+   add show.
+
+. Invalid price
+
+.. Test case: `add just-dance|-20 | 10/10/2022` +
+   Expected: No show added. Chat box displays a message showing that a negative pricing is used.
+
+. Date related errors
+
+.. Test case: `add just-dance|40| 5th may 2022` +
+   Expected: No show added since date format is incorrect. Chat box displays a message showing failure to
+   add show.
+
+.. Test case: `add just-dance|40|5/5/2017` +
+   Expected: No show added since the date of the show is already in the past. Chat box displays a message showing
+   failure to add show.
+
+.. Test case: `add just-dance|40|5/5/2122` +
+   Expected: No show added since the date of the show is more than 100 years into the future. Chat box displays a
+   message showing failure to add show.
+
+
+=== Deleting shows
+. Delete shows from the current list of shows with `SHOW_NAME` and `SHOW_DATE`.
+
+.. Prerequisites: List all shows using the `list` command. There should be multiple shows in the list.
+
+.. Test case: `delete aladdin|30/5/2020`
+... Prerequisites: There must be a show called aladdin on 30/5/2020 in the list. +
+    Expected: aladdin on 30/5/2020 is removed from the GUI. Chat box also shows that aladdin on 30/5/2020 is deleted
+    from the list.
+
+.. Test case: `delete lion king|1/1/2022|3/3/2022`
+... Prerequisites: There must be a show called lion king on 1/1/2022 and 3/3/2022 in the list. +
+    Expected: lion king on 1/1/2022 and 3/3/2022 are removed from the GUI. Chat box also shows that lion king on
+    1/1/2022 and 3/3/2022 are deleted from the list.ox.
+
+. Non-existent show
+
+.. Test case: `delete non-existent show|4/4/2024` where `non-existent show` is any show that does not exist in the
+   current list.
+   Expected: No show deleted since there is no show called "non-existent show". Chat box displays a message showing
+   failure to delete show.
+
+. Date related errors
+
+.. Test case: `delete any show|5 may 2020` where `any show` is any show that is present in the list. +
+   Expected: No show deleted since the date format is incorrect. Chat box displays a message showing
+   failure to delete show.
+
+.. Test case: `delete any show|incorrect date` where `any show is any show that is present in the list and
+   `incorrect date` a date is in the format dd/mm/yyyy and does not match the date of that show in the list. +
+   Expected: No show deleted since the date format is incorrect. Chat box displays a message showing
+   failure to delete show.
+
+=== Listing dates for a specific show.
+. List the available dates for the specified show with `SHOW_NAME`
+
+.. Prerequisites: List all shows using the `list` command. There should be multiple shows in the list.
+
+.. Test case: `list aladdin`
+... There should be a show called aladdin in the list. +
+    Expected: The available dates for aladdin is displayed in the GUI. Chat box displays a message showing the
+    available dates for aladdin.
+
+. Non-existent show
+
+.. Test case: `list non-existent show` where `non-existent show` is a show that does not exist in the list. +
+   Expected: Chat box displays a message showing failure to find show of that `SHOW_NAME`.
+
+=== Listing shows for a specific month.
+. List the available shows for the specified month with `MONTH YEAR`
+
+.. Prerequisites: List all shows using the `list` command. There should be multiple shows in the list.
+
+.. Test case: `list 12 2020` or `list dec 2020` or `list december 2020`
+... Prerequisites: There should be at least one show in december 2020. +
+    Expected: The shows in December 2020 is displayed in the GUI. Chat box displays a message showing the list of shows
+    in December 2020.
+
 === Selling a Seat
+. Sell `SEATS` from a show with `SHOW_DATE`
 
-. Date input is incorrect.
+.. Prerequisites: +
+   List all shows using the `list` command. There should be multiple shows in the list. +
+   There should be a show of the specified `SHOW_NAME` and `SHOW_DATE` in the list.
 
-.. Test case: `sell Lion King | 29/2/2021 | A1 A2` +
-   Expected: Display window does not change. Chat Box replies that it is an invalid date.
+.. Test case: `sell aladdin|5/5/2020|A1 A2 D5`
+... Prerequisites: +
+    Seats A1, A2 and D5 are still available for aladdin on 5/5/2020. +
+    Expected: Seats A1, A2 and D5 are changed from blue to red in the GUI to indicate they are booked. Chat box
+    displays a message showing that A1, A2 and D5 are purchased and the cost of the purchase.
 
-. Selling a seat to a non-existent show.
+. Seat related errors
 
-.. Test case: `sell Lion King | 11/10/2020 | A1 A2` +
-   Expected: Display window does not change. Chat Box replies that show cannot be found.
+.. Test case: `sell Lion King|11/10/2020|A11 G1`
+... Prerequisites: There should be a show called lion king on 11/10/2020 in the list. +
+    Expected: The seat layout of lion king on 11/10/2020 is displayed in the GUI. Chat Box displays a message showing
+    that the seats do not exist.
 
-[NOTE]
-The following test cases should have some shows added before attempting. +
-`add Lion King | 20 | 11/10/2020`
+.. Test case: `sell Lion King|11/10/2020|A1 G2`
+... Prerequisites: There should be a show called lion king on 11/10/2020 in the list. +
+    Expected: Seat A1 is changed from blue to red in the GUI to indicate it is booked. Chat box displays a message
+    showing that A1 is purchased and the cost of the purchase. Chat box also displays a message showing that seat
+    G1 does not exist.
 
-.. Test case: Wrong show name. `sell Lion Kingg | 11/10/2020 | A1 A2` +
-   Expected: Display window does not change. Chat Box replies that the show cannot be found.
+. Non-existent show
 
-. Selling a non-existent seat.
+.. Test case: `sell non-existent show|any date|A1 A2` where `non-existent show` is a show not found in the list and
+   `any date` is any date in the format dd/mm/yyyy. +
+   Expected: Display window does not change. Chat Box displays a message showing that the show cannot be found.
 
-.. Test case: All of the seats are non-existent. `sell Lion King | 11/10/2020 | A11 G1` +
-   Expected: Display window changes to the seat display for the user input show. Chat Box replies that the seat does not exist.
+. Date related errors
 
-.. Test case: Some of the seats can be purchased some are non-existent. `sell Lion King | 11/10/2020 | A1 F10 A11 G1`. +
-   Expected: Seats that are purchased successfully changed to red. Chat Box displays seat number that are successfully purchased and the price followed by informing users which seats are non-existent.
+.. Test case: `sell Lion King|31/2/2021| A1 A2` +
+   Expected: Display window does not change. Chat Box displays a message showing that it is an invalid date.
 
-_{ more test cases ... }_
+=== Rescheduling shows
+
+. Changes the date of a show with `SHOW_NAME` from `OLD_DATE` to `NEW_DATE`
+
+.. Prerequisites: List all shows using the `list` command. There should be multiple shows in the list.
+
+.. Test case: `reschedule lion king|11/10/2020|20/10/2020` +
+   Expected: Display window shows that the date of lion king has been changed from 11/10/2020 to 20/10/2020. Chat box
+   displays a message showing that lion king on 11/10/2020 has been rescheduled to 20/10/2020.
+
+. Date related errors
+
+.. Test case: `reschedule lion king|20/10/2020|6/2/2018` +
+   Expected: Display window does not change since the date to change to is in the past. Chat box displays a message
+   showing failure to reschedule show.
+
+.. Test case: `reschedule lion king|20/10/2020|6/20/2018` +
+   Expected: Display window does not change since the date is invalid. Chat box displays a message  showing that the
+   date is invalid.
+
+=== Editing a show name.
+
+. Changes the name of a show with `SHOW_NAME` from `OLD_SHOW_NAME` to `NEW_SHOW_NAME`
+
+.. Prerequisites: +
+   List all shows using the `list` command. There should be multiple shows in the list. +
+   There should be a show with the specified `SHOW_NAME` on `SHOW_DATE` in the list.
+
+.. Test case: `edit lioness king|5/11/2020|lion king` +
+   Expected: Display window changes the name of lioness king on 5/11/2020 to lion king. Chat box displays a message
+   showing that the name of the show has been successfully changed to lion king.
+
+=== Viewing a show
+
+. Display the layout of a show with `SHOW_NAME` on `SHOW_DATE`
+
+.. Prerequisites: +
+   List all shows using the `list` command. There should be multiple shows in the list. +
+   There should be a show with the specified `SHOW_NAME` on `SHOW_DATE` in the list.
+
+.. Test case: `view aladdin|5/5/2020` +
+   Expected: Display window shows the seat layout of aladdin on 5/5/2020. The red seats indicate they are booked while
+   the blue seats indicate they are available. Chat box displays a message showing the layout of the show with
+   a ✓ indicating the seats are booked and a ✘ indicating the seats are available.
+
+. Non-existent show
+
+.. Test case: `view non-existent show|11/5/2020` +
+   Expected: Display window does not change. Chat box displays a message showing that the show cannot be found.
+
+=== Re-assigning seats of a show
+
+. Changes the `SEAT` of a customer for a show with `SHOW_NAME` and `SHOW_DATE`
+
+.. Prerequisites: +
+   List all shows using the `list` command. There should be multiple shows in the list. +
+   There should be a show with the specified `SHOW_NAME` on `SHOW_DATE` in the list.
+
+.. Test case: `reassign-seat aladdin|5/5/2020|A1|F8`
+... Prerequisites: +
+    Seat A1 of aladdin on 5/5/2020 should be booked. +
+    Seat F8 of aladdin on 5/5/2020 should be available. +
+    Expected: Display window shows the layout of the show and changes seat A1 to blue (available) and seat F8 to
+    red(booked). Chat box displays a message showing the seat has been re-assigned and the cost difference between
+    the changed seats.
+
+. Non-existent seat
+
+.. Test case: `reassign-seat aladdin|5/5/2020|A1|A12` +
+   Expected: Display window shows the layout of aladdin on 5/5/2020. No change in seating is made since seat A12
+   does not exist. Chat box displays a message showing that the seat numbers are invalid.
+
+. Reassigning to an unavailable seat
+
+.. Test case: `reassign-seat aladdin|5/5/2020|A2|F8`
+... Prerequisites: Seats A2 and F8 should be booked. +
+    Expected: Display window shows the layout of aladdin on 5/5/2020. No change in seating is made since seat F8 has
+    already been booked.
+
+=== Viewing profit of a show
+
+. Displays the revenue earned from a show with `SHOW_NAME` on `SHOW_DATE`
+
+.. Prerequisites: +
+   List all shows using the `list` command. There should be multiple shows in the list. +
+   List all archived shows using the `archive` command. There should be multiple shows in the archive list. +
+   There should be a show with the specified `SHOW_NAME` on `SHOW_DATE` in either of the lists.
+
+.. Test case: `view-profit aladdin|5/5/2020` +
+   Expected: Display window shows the list of shows and their respective profits. Chat box displays a message showing
+   the projected earnings for aladdin on 5/5/2020.
+
+.. Test case: `view-profit just-dance|17/7/2017`
+... Prerequisites: There should be a show called just-dance on 17/7/2017 in the archive list. +
+    Expected: Display window does not change. Chat box displays a message showing the revenue earned
+    from just-dance on 17/7/2017.
+
+=== Viewing monthly revenue
+
+. Displays the revenue earned in a particular `MONTH YEAR`
+
+.. Prerequisites: +
+   List all shows using the `list` command. There should be multiple shows in the list. +
+   List all archived shows using the `archive` command. There should be multiple shows in the archive list. +
+   There should be a show with the specified `MONTH YEAR` in either of the lists.
+
+.. Test case: `view-monthly May 2020` +
+   Expected: Display window shows the list of shows and their profits. Chat box displays a message showing the
+   projected earnings for May 2020.
+
+. No show in the month
+
+.. Test case: 'view-monthly July 2024'
+... Prerequisites: There should be no show in July 2024 +
+    Expected: Display window shows the list of shows and their profits. Chat box displays a message showing that there
+    are no shows in July 2024.
+
+=== Adding alias
+
+. Adds a new alias to an existing `command`
+
+.. Test case: `add-alias q|add` +
+   Expected: Chat box displays a message showing that the `add` command has a new alias `q`.
+
+.. Test case: `add-alias l|add`
+... Prerequisites: Another command has `l` as its alias (list command has alias `l` by default) +
+    Expected: Chat box displays a message showing failure in adding alias since the alias is already in use.
+
+=== Removing alias
+
+. Removes alias from an existing `command`
+
+.. Test case: `remove-alias t|add`
+... Prerequisites: `add` command has an alias `t` +
+    Expected: Chat box displays a message showing that the alias `t` has been removed from the `add` command.
+
+. Non-matching aliad
+
+.. Test case: `remove-alias f|delete`
+... Prerequisites: `delete` command has an alias other than `f` +
+    Expected: Chat box displays a message showing failure in removing alias since the alias for `delete` does not match
+    `f`
+
+
+
 
 

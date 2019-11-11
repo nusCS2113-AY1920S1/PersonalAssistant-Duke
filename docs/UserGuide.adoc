@@ -87,8 +87,9 @@ use `DATE1|DATE2|...` to easily add multiple dates for the show
 * `SEATS_BASE_PRICE` represents the lowest cost of a seat in the venue.
 * There must be no other show on that `DATE`.
 * The `DATE` must be in the future.
+* The `DATE` must be no further than 100 years from the current date.
 * The format of `DATE` must be dd/mm/yyyy
-* Shows of the same name can be added.
+* Shows of the same name but on different dates can be added.
 
 Examples:
 *Add a single show*: +

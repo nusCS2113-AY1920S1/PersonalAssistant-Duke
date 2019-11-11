@@ -40,14 +40,15 @@ class TabCommandTest {
     @Test
     @DisplayName("Valid Command parameter")
     void testExecute() {
-        new TabCommand("show").execute(model, ui, storage);
-        assertEquals("Here is your list of scheduled shows.\n", ui.getMessage());
-        assertEquals(model.getShows(), model.getShowsGui());
         new TabCommand("archive").execute(model, ui, storage);
-        assertEquals("Here is your list of archived shows.\n", ui.getMessage());
+        assertEquals("Here is your list of archived shows.\n"
+                + model.listShowHistory(), ui.getMessage());
         assertEquals(model.getShowsHistory(), model.getShowsGui());
         new TabCommand("finance").execute(model, ui, storage);
-        assertEquals("Here is your list of projected earnings.\n", ui.getMessage());
+        assertEquals("Here is your list of projected earnings.\n"
+                + "1. Test Show (on: 05/05/2020): $0.00\n"
+                + "2. Test Show (on: 06/05/2020): $0.00\n"
+                + "3. Test Show (on: 07/05/2020): $0.00\n", ui.getMessage());
         new TabCommand("help").execute(model, ui, storage);
         assertEquals("Here are the list of commands you can use.\n", ui.getMessage());
         assertEquals(model.getShows(), model.getShowsGui());

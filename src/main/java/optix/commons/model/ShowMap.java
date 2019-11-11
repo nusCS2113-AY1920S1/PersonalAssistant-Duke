@@ -59,6 +59,25 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
     }
 
     /**
+     * Get all the shows that are scheduled and their earnings.
+     * @return String message of all the shows and their earnings.
+     */
+    public String listFinance() {
+        StringBuilder message = new StringBuilder();
+
+        int counter = 1;
+
+        for (Map.Entry<LocalDate, Theatre> entry : this.entrySet()) {
+            String date = formatter.toStringDate(entry.getKey());
+            String showName = entry.getValue().getShowName();
+            double earnings = entry.getValue().getProfit();
+            message.append(String.format("%d. %s (on: %s): $%.2f\n", counter, showName, date, earnings));
+            counter++;
+        }
+        return message.toString();
+    }
+
+    /**
      * Get all the shows that are scheduled and their dates.
      *
      * @return String message of all the shows that are registered.

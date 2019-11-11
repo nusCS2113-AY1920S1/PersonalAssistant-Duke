@@ -145,6 +145,16 @@ public class Model {
         return message.toString();
     }
 
+    public String listShowHistory() {
+        this.setShowsGui(showsHistory);
+        return showsHistory.listShow();
+    }
+
+    public String listFinance() {
+        this.setShowsGui(shows);
+        return shows.listFinance();
+    }
+
     /**
      * Calculates the earnings for a certain month from the Optix file.
      *

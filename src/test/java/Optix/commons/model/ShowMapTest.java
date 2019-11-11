@@ -41,6 +41,12 @@ class ShowMapTest {
     }
 
     @Test
+    void testListFinance() {
+        String expected = "1. Test Show (on: 10/10/2020): $0.00\n";
+        assertEquals(expected, shows.listFinance());
+    }
+
+    @Test
     void testDeleteShow() {
         shows.deleteShow(date1);
         assertTrue(shows.isEmpty());

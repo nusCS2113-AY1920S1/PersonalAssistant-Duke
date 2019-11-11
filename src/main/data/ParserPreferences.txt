@@ -1,9 +1,7 @@
-a|add
 b|bye
 shw|show
 d|delete
 e|edit
-abcde|list
 h|help
 fin|finance
 l|list
@@ -11,5 +9,9 @@ rd|reschedule
 re|reassign-seat
 arc|archive
 s|sell
-qe|add
+a-a|add-alias
 v|view
+vm|view-monthly
+vp|view-profit
+rm-a|remove-alias
+rst-a|reset-alias
