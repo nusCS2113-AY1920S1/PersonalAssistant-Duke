@@ -292,10 +292,11 @@ Format: `search_syn w/WORD` +
 Synonyms are chained together, so even new words will be recognize.
 
 //end::search_synonyms[]
-=== Adding tags to a word : `tag`
 
+// tag::tag[]
+=== Adding tags to a word : `tag`
 Assigns a tag to an existing word in the database. +
-Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+Format: `tag w/WORD_TO_BE_TAGGED [t/NEW_TAG]`
 
 If there are more than one tag to be added, please use `t/` for each tag
 
@@ -303,18 +304,43 @@ Examples:
 
 * `tag w/banana t/fruit` +
 Assigns the word banana with tag fruit.
+//end::tag[]
 
 image:tag.PNG[]
 
-=== Adding tags to a word : `search_tag`
+// tag::search_tag[]
+=== Searching for tags of a word or words of a tag: `search_tag`
+There are 2 ways of using it, one is to search for all tags of a specific word, one is to search for add words tagged by a tag.
+If users want to search for tags of a word: +
+[]
+Format: `search_tag w/WORD`
 
-Search for a word using t/TAG or w/WORD in the database. +
-Format: `search_tag w/WORD` or `search_tag t/TAG` +
+Examples:
 
-`search_tag w/WORD` will output all the tags associated with the WORD
-`search_tag t/TAG` will output all words associated with the TAG
+* `search_tag w/happy` +
+Output: emotions, adjective, etc. +
+This command lists out all tags of word `happy`. +
 
 image:search_tag.PNG[]
+
+If users want to search for all words of a tag: +
+Format: `search_tag t/TAG`
+
+Examples:
+
+* `search_tag t/numbers` +
+Output: one, two, three, etc. +
+This command lists out all words that are tagged by tag `numbers`
+
+image::search_word_of_tag.PNG[align='center']
+//end::search_tag[]
+
+// tag::list_tags[]
+=== Listing all tags inside dictionary : `list_tags`
+ 
+Shows a list of all tags that users have input +
+Format: `list_tags`
+//end::list_tags[]
 
 === Adding example sentence : `add_example`
 
@@ -354,6 +380,8 @@ e.g. `addsyn w/water s/liquid beverage drink`
 * *Add Example* : `add_example w/WORD e/EXAMPLE` 
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
+* *Delete tag* : `delete w/WORD t/TAG` +
+e.g. `delete w/one t/number`
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
 * *Exit* : `exit`
@@ -370,15 +398,22 @@ e.g. `schedule` -> `happy[Enter] unhappy[Enter] bipolar[Enter][Enter]` -> `29-10
 * *Search* : `search w/WORD` +
 e.g. `search w/life`
 * *Search Prefix* : `search_begin w/WORD` +
-e.g. `search_begin w/d`
-* *Search Synonym* : `search_syn w/WORD` +
-e.g. `search_syn w/life`
-* *Search Tag* : `search_tag [w/WORD]/[t/TAG]` +
-e.g. `search_tag w/life`
+e.g. `search_begin w/a` 
 * *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
 e.g. `tag w/happy t/emotion t/delight`
+* *Search tag* : +
+`search_tag w/WORD` +
+e.g. `search_tag w/one` +
+`search_tag t/TAG` +
+e.g search_tag t/number` +
+* *List tags* : `list_tags` +
+* *History* : `history INTEGER` +
+e.g. `history 5`
+* *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
+e.g. `schedule` -> `happy[Enter] unhappy[Enter] bipolar[Enter][Enter]` -> `29-10-2019 2359`
+* *Search Frequency* : `freq o/ORDER` +
+e.g. `freq o/asc`
+* *Exit* : `exit`
+* *Search Synonym* : `search_syn w/WORD` +
+e.g. `search_syn w/life`
 * *Quiz* : `quiz` -> `start`
-
-
-
-
