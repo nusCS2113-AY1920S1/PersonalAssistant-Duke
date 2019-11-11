@@ -1,14 +1,22 @@
-set nutritional goal to be met at the end of a time period.
+Setting a nutritional goal to be met : `setgoal`
 
-    goal END_DATE [/TAGS] <QUANTITY>
+Format: `setgoal /start START_DATE /end END_DATE /activity ACTIVITY /weight WEIGHT`
 
-For example:
+TIP:
+- This command is a prerequisite for many other features in the application. Please try to set this up as soon as possible
+  to enjoy the full capabilities of our application.
 
-    goal 1/2/2019 /calories 3000 /sodium 800
+Want to set a nutritional goal to be met at the end of a set timeframe, e.g: consuming at most a certain amount of
+calories worth of foods by the end of the month? Use the `setgoal` command!
 
-will set a nutritional goal of 3000 calories and 800 grams of sodium to be completed by 1st of February 2019
+NOTE:
+* Dates should be entered in the following format: dd/mm/yyyy.
+* Activity level is a range between 1 to 5 inclusive, from 1 being sedentary to 5 being very active.
+* The command will only accept activity levels that are higher or equal to the activity level indicated during user setup.
 
-Note:
-- The nutritional goal must be at least 1
-- The current date is obtained from the system date in your comptuer.
-- Dates should be entered in the following format: day/month/year
+WARNING:
+
+* All parameters specified in the format must be specified, or the command will be rendered invalid.
+* Unrealistic weight loss goals will be discarded (e.g. trying to lose more than 40% of static calorie expenditure per day).
+* Updating weight to a value that renders the set goal unrealistic will cause the goal to be discarded next time the
+  application is loaded.

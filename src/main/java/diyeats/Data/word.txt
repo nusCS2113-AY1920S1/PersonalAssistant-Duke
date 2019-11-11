@@ -60,3 +60,5 @@ calorieAscending
 calorieDescending
 costAscending
 costDescending
+listtransaction
+deletetransaction
