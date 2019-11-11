@@ -165,7 +165,8 @@ Simply enter the `clear` command followed by a start date and the end date, and 
 
 [NOTE]
 ====
-The dates entered which are marked for deletion are *inclusive*. E.g `clear 1/1/2019 3/1/2019` will delete all meals inclusive of 1/1/2019 and 3/1/2019.
+* The dates entered which are marked for deletion are *inclusive*. E.g `clear /startdate 1/1/2019 /enddate 3/1/2019` will delete all meals inclusive of 1/1/2019 and 3/1/2019.
+* To delete all meals on 1 particular day, simply enter `clear /startdate 1/1/2019 /enddate 1/1/2019` to clear all meals on 1st Jan 2019.
 ====
 
 ==== Exiting the application: `exit`
