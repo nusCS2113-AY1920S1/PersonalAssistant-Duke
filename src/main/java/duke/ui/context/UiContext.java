@@ -1,3 +1,4 @@
+//@@author gowgos5
 package duke.ui.context;
 
 import duke.data.DukeObject;
@@ -8,7 +9,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Stack;
 
-//@@author gowgos5
 /**
  * UI context of the application.
  */

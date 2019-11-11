@@ -1,3 +1,4 @@
+/* @@author JeremyKwok */
 package duke.data;
 
 import duke.exception.DukeException;

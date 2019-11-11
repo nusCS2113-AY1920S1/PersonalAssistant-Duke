@@ -1,10 +1,11 @@
+/* @@author JeremyKwok */
 package duke.data;
 
 import duke.exception.DukeFatalException;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
-/*
+/**
  * Highest level of abstraction for all DukeObjects storing Patient related Data
  * A Duke object has a relevant name specifying what it is.
  *
