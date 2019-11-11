@@ -13,7 +13,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-T12-1/main
 
-By: `Team AY1920S1-CS2113T-T12-1`      Since: `Oct 2019`
+By: `Team AY1920S1-CS2113T-T12-1`      Since: `Aug 2019`
 
 
 == Introduction
@@ -82,6 +82,7 @@ This section documents the system architecture for Optix and noteworthy componen
 
 === Architecture
 
+.Architecture Diagram
 image::images/devguide/DG_SystemArch.png[width ="600", align="center"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick
@@ -103,20 +104,23 @@ The rest of the App consists of 3 components.
 The Sequence Diagram below shows how the components interact with each other for the scenario where user issues the command
 `list Nov 2020`
 
+.Component interactions for `list Nov 2020` command
 image::images/devguide/DG_Design_SequenceDiagram.png[width ="600", align="center"]
 
 The sections below give more details of each component.
 
 === GUI Component
 
+.Class Diagram of the GUI Component
 image::images/devguide/DG_GUI_ClassDiagram.png[width ="600", align="center"]
 
-*API*: link:{repoURL}/src/main/java/optix/ui/windows/MainWindow.java[`MainWindow.java`]
+*API*: link:{repoURL}/tree/master/src/main/java/optix/ui/windows[`GUI`]
 
 The `GUI` consists of a `MainWindow` that is made up of parts e.g `DialogBox`, `HelpWindow`, `SeatDisplayController`, etc.
 `MainWindow` is split into two segment, on the left the display window and on the right the chat box, as show
 in the GUI diagram.
 
+.Optix GUI
 image::images/Ui.png[width ="600", align="center"]
 
 The display window consists of 5 different viewing mode.
@@ -139,7 +143,7 @@ The `GUI` component,
 
 === Optix Component
 
-*API*: link:{repoURL}/src/main/java/optix/Optix.java[`Optix.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/optix/Optix.java[`Optix.java`]
 
 `Optix` is the backend software that acts as the intermediary between `GUI` and `Command` logic.
 `Optix`,
@@ -153,9 +157,10 @@ The sections below give more details of each component in `Optix`.
 
 ==== Model Component
 
-image::images/devguide/DG_Model_Structure_Diagram.png[width ="600", align="center"]
+*API* : link:{repoURL}/tree/master/src/main/java/optix/commons[`Model`]
 
-*API*: link:{repoURL}/src/main/java/optix/commons/Model.java[`Model.java`]
+.Class Diagram of the Model Component
+image::images/devguide/DG_Model_Structure_Diagram.png[width ="600", align="center"]
 
 `Model`,
 
@@ -172,7 +177,7 @@ For *showsHistory*, the multiplicity of `Seat` within `Theatre` is 0 as it is ir
 
 ==== Storage Component
 
-*API*: link:{repoURL}/src/main/java/optix/commons/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/optix/commons/Storage.java[`Storage.java`]
 
 `Storage` reads and writes to its respective .txt files so that information can be loaded on the
 following app launch. The .txt files are saved in `{currDir}/src/main/data`. There is a total of 2
@@ -184,14 +189,15 @@ following app launch. The .txt files are saved in `{currDir}/src/main/data`. The
 
 ==== UI Component
 
-*API*: link:{repoURL}/src/main/java/optix/ui/Ui.java[`Ui.java`]
+
+*API* : link:{repoURL}/tree/master/src/main/java/optix/ui/Ui.java[`Ui.java`]
 
 The `UI` component handles all of `Optix` response. `Optix` response is determined by `Command` component
 and subsequently displayed using `GUI` component.
 
 ==== Parser Component
 
-API: `Link for Parser file`
+*API* : link:{repoURL}/tree/master/src/main/java/optix/util/Parser.java[`Parser.java`]
 
 The `Parser`,
 
@@ -202,7 +208,7 @@ The `Parser`,
 
 === Command Component
 
-*API*: link:{repoURL}/src/main/java/optix/commands[`Command` folder]
+*API* : link:{repoURL}/tree/master/src/main/java/optix/commands[`Command`]
 
 All commands found in commands package extends `Command`. The `Command` for the different data structures
 are stored under different subpackages. Currently the commands package consists of 4 different subpackages.
@@ -211,7 +217,6 @@ are stored under different subpackages. Currently the commands package consists 
 * *seats*: Commands that deal with the management of seats within the theatre.
 * *finance*: Commands that manage finances within the theatre.
 * *parser*: Commands that deal with command aliases.
-
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
@@ -251,10 +256,12 @@ The profit for each of the shows in the remaining list is then added up in `Mode
 
 The following sequence diagram shows how the view-monthly operation works:
 
+.Sequence Diagram of `ViewMonthlyCommand`
 image::images/devguide/DG_ViewMonthly_SequenceDiagram.png[width ="600", align="center"]
 
 The following activity diagram summarizes what happens when a user executes the ViewMonthly Command:
 
+.Activity Diagram of `ViewMonthlyCommand`
 image::images/devguide/DG_ViewMonthly_ActivityDiagram.png[width ="300", align="center"]
 
 ==== Design Considerations
@@ -302,6 +309,7 @@ the show will then be updated accordingly.
 
 The following activity diagram summarizes what happens when a user executes sell seat command.
 
+.Activity Diagram of `SellSeatCommand`
 image::images/devguide/DG_SellSeat_ActivityDiagram.png[width ="300", align="center"]
 
 ==== Design Considerations
@@ -334,6 +342,7 @@ image::images/devguide/DG_SellSeat_ActivityDiagram.png[width ="300", align="cent
 
 Below is the code snippet for our previous implementation:
 
+.Previous Implementation of `SellSeatCommand`
 image::images/devguide/DG_SellSeat_CodeBlock.png[align="center"]
 
 *Choice for current implementation:* +
@@ -363,6 +372,7 @@ The user inputs `delete Phantom of the Opera|5/5/2020|6/5/2020`, with the intent
 and 6th May 2020. The `DeleteCommand` is initialised with `Phantom of the Opera|5/5/2020|6/5/2020` as the `details`
 attribute. The `details` string is parsed into the show name, and the individual dates.
 
+.Class Diagram of `DeleteCommand`
 image::images/devguide/DG_Delete_ObjectDiagram.png[width ="300", align="center"]
 
 *Step 2* +
@@ -384,10 +394,12 @@ also appended to message to record the successful deletion. If it does not exist
 
 The activity diagram below illustrates the logic process of the `DeleteCommand`:
 
+.Activity Diagram of `DeleteCommand`
 image::images/devguide/DG_Delete_ActivityDiagram.png[width ="300", align="center"]
 
 The following code snippet highlights the key logic of the `DeleteCommand`.
 
+.Code snippet for `DeleteCommand`
 image::images/devguide/DG_Delete_CodeBlock.png[align="center"]
 
 ==== Design Considerations
@@ -465,6 +477,7 @@ to reset his aliases to the default settings, with the input `reset-alias`. This
 clears all existing aliases, and adds in the default aliases, which are defined in the `resetPreferences()` method in
 the `Parser` class.
 
+.Code snippet for Alias
 image::images/devguide/DG_Alias_CodeBlock.png[align="center"]
 
 == Documentation

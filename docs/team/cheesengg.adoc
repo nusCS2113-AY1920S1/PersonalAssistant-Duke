@@ -1,0 +1,101 @@
+= Brian Lim -- Project Portfolio for Optix
+:imagesDir: ../images
+:repoURL: https://github.com/AY1920S1-CS2113T-T12-1/main
+
+== About the project
+
+My team of 3 software engineering students and I were tasked with enhancing a basic command line interface desktop task manager application for our Software Engineering project. We chose to morph it into a show and ticketing management system called Optix. This enhanced application enables theatre and concert hall managers to schedule shows, manage ticket purchase and account for their finance all within a single application. +
+
+This is what our project looks like:
+
+.The Graphical User Interface of Optix
+image::{imagesDir}/Ui.png[GUI Optix]
+
+My role was to design Commands and Models that manages ticket purchase and to ensure that my team adheres to the coding standards. Two prominent features that I have designed are the sell seat and view seat features. Once the main features were up, I took on the additional role of designing and implementing the Graphical User Interface for Optix. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project. +
+
+*Enhancement added*: I added the ability for user to sell seats and view seating arrangements.
+
+* *What it does*: The sell command allows the user to manage ticket purchase and the view command allows user to see the seating arrangement for a show.
+* *Justification*: For the application to fulfil its purpose, it is necessary for it to be able to keep track of the number of tickets that can be sold for each showing instead of just scheduling shows.
+* *Highlights*: This enhancement works with existing as well as future commands. The sell feature implementation was particularly challenging because there were several implementations that we could explore but each implementation has their own challenges which will be discussed in the Contributions to the Developer Guide section.
+* *Code contributed*:  Please click the link to see a sample of my code: link:{repoURL}/tree/master/src/main/java/optix/commands/seats/SellSeatCommand.java[[Functional Code\]] link:{repoURL}/tree/master/src/test/java/Optix/commands/seats/SellSeatCommandTest.java[[Test Code\]]
+
+*Other Code contributions*: I helped to set up the base code for Optix (Pull request: link:{repoURL}/pull/10[#10]) and subsequently added most of the basic command so that my group could work on the features for Optix.
+
+*Other contributions*:
+
+*	Project management:
+**	Ensured that coding standards were adhered to. (Pull request: link:{repoURL}/pull/87[#87], link:{repoURL}/pull/96[#96])
+**	Updated and managed issue tracker by assigning issues to ensure milestones are met.
+**	Structured Command Class and Test code guidelines for my team so that the code is standardised. (Pull request: link:{repoURL}/pull/87[#87], link:{repoURL}/pull/97[#97])
+*	Enhancements to existing features:
+**	AddCommand and DeleteCommand to enable bulk process. (Pull request: link:{repoURL}/pull/87[#87])
+***	Justification: Shows are normally scheduled for consecutive days, hence the enhancement to allow bulk process reduces the amount of work for managers to schedule the shows. Similarly, if the trope is unable to perform due to unforeseen circumstances, the manager can bulk delete the shows that cannot be performed.
+**	ListShowCommand and ListDateCommand. (Pull request: link:{repoURL}/pull/14[#14] and link:{repoURL}/pull/75[#75] respectively)
+***	Justification: To act as filters when shows scheduled increases.
+**	Added Graphical User Interface for Optix. (Pull request: link:{repoURL}/pull/89[#89])
+***	Justification: To make the application more user-friendly as Graphical User Interface is more interactive as compared to command line.
+*	Documentation:
+**	Ensured that the stylings of the user guide are aligned and separated commands into various headers to make it reader-friendly.
+*	Tools:
+**	Integrated a third-party library (JFoenix) to the project. (Pull request: link:{repoURL}/pull/87[#87])
+
+== Contributions to User Guide
+
+The following section shows my contribution to the user guide. +
+
+While updating the user guide, I noticed that as more commands were added it made locating a specific command within the user guide to be extremely tedious. This made it non-user-friendly. +
+
+Below is a screenshot of the previous version of our user guide:
+
+.Old User Guide Format
+image::{imagesDir}/team/cheesengg_UG_Old.png[]
+
+Since there was no structure to how the commands were listed in our user guide, I noticed that it is hard for the user to find specific commands to use. I also noticed that as the user guide was not updated constantly after every feature, it posed as a challenge for us when we were trying to update the user guide since the commands were not categorised properly. +
+
+Since each Optix’s command deals with a specific component in the program, I categorised the commands to be representative of the different components that they deal with in the program. +
+
+Below is the screenshot of the changes that I made for the user guide:
+
+.New User Guide Format
+image::{imagesDir}/team/cheesengg_UG_New.png[]
+
+== Contributions to Developer Guide
+
+The following section shows my contribution to the developer guide. +
+
+Below details my contributions for Section 2 of developer guide. +
+
+.Architecture Diagram
+image::{imagesDir}/devguide/DG_SystemArch.png[]
+
+I drew the System Architecture for the developer guide to show the general overview for the relationship between components in Optix. +
+
+Additionally, I color-coded the main components that will be discussed and will be drawn in subsequent subsections. This allows readers to recognise which component is being discussed  in the subsection and its role in the system easily.
+
+Next the following details my documentation of the enhancement feature for Optix, SellSeatCommand.
+
+.SellSeatCommand Overview
+image::{imagesDir}/team/cheesengg_Overview_of_Feature.png[]
+
+The first part of the section states clearly the location of the feature and the relevant components to take note of so that developers reading the guide can zoom in on these components and take note of them when looking at the code.
+
+.Flow of Algorithmn
+image::{imagesDir}/team/cheesengg_Activity_Diagram.png[]
+
+Next, the flow of the feature is described in a logical manner so that when they read the code they will be able to visualise what is happening in the code. An activity diagram is then used to give a summary for the flow of the Command which enhances the developers understanding for the feature.
+
+.Design Considerations
+image::{imagesDir}/team/cheesengg_Design_Consideration.png[]
+
+Lastly, design considerations were included in the documentations, so that future developers would be able to understand the thought process for the implementations of the program as well as the various possibilities that the program could be structured. They would also be able to understand the strengths and weaknesses of the different design implementations and work on improving them. The code block at the very bottom of Figure 3 was included in the documentation so that if they would like to improve on our current design they would have a basic codebase to work with.
+
+== Conclusion
+
+This portfolio provides a brief overview of my contributions to the code, User Guide and Developer Guide of the Optix software. Steps were taken to justify my design choices for the guide and code. Most of my contributions were towards designing a suitable model for our application such that there is high cohesion between our model and features implemented. It is designed with considerations of expanding it into a much larger projects in the future in mind. +
+
+My main takeaway for this project is that it is important to have a good domain knowledge of the problem that we want to solve. As none of us have any experience or knowledge on how ticketing is like in the real world, it was hard for us to come up with suitable data structure and model to manage the entire system and this led to constant refactoring of our model to suit the features. By having a strong understanding, we would then be able to design a model that is compatible with all the features that we have discussed in our user stories and be more efficient when coding the program.
