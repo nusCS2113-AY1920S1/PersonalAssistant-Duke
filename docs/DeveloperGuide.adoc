@@ -22,7 +22,7 @@ Amateur musicians find it difficult to start with music theory as they are unabl
 practical method and quit. Our application allows amateur musicians to learn music theory and apply their learning by
 creating songs.
 
-This application allows you to learn what you have learnt through:
+This application allows you to apply what you have learnt through:
 
 * Ease of adding, deleting components to the songs
 
@@ -35,9 +35,9 @@ the  basics of creating a song.
 print it in command line.
 
 This document describes the coding style and the architecture of the Ducats project built by Team CS2113T F09-4.
-This document is intended for our major release v1.3.
+This document is intended for our major release v1.4.
 
-The documentation will allow any developer to start to work on the project by first learning about the system
+The documentat will allow any developer to start to work on the project by first learning about the system
 architecture, then the implementation and lastly on how to document the code that is written.
 
 
@@ -162,7 +162,7 @@ findSongIndex(songName) conducts a linear search on the SongList to return the i
 
     songList.setActiveIndex(songList.findSongIndex(songName));
 
-For future CRUD commands, the specific SongList method invoked by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
+For future CRUD commands, the specific SongList method invoked by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below. This means that you can utilize the SongList API function `setActiveIndex()` in other created components to achieve the same functionality.
 
 image::songlist_activeIndex3.png[]
 
@@ -220,26 +220,54 @@ image::overlay_demo.png[]
 
 Allows the users to overlay a bar from the same song to another bar on the same song. This feature is really useful when the song is really big and we just need to get the index of the bars to be overlayed and the overlaying bar. 
 
+*How to go about it?* 
+
 The `overlay` command gets the command from the Parser and checks if all the required parameters are provided by spliting the string by spaces. For instance if the user inputs 1 number instead of 2, then a DucatsException is thrown. 
 
-The index of the current Song is obtained by calling the getActiveIndex() function of SongList. After which the required song is obtained by calling the 
-getSongIndex(songIndex) function of SongList. 
+The index of the current Song is obtained by calling the `getActiveIndex()` function of SongList. 
 
-The list of bars of the song are obtained by calling the getter function .getBars() 
+    songList.getActiveIndex();
+
+After which the required song is obtained by calling the `getSongIndex(songIndex)` function of SongList: 
+
+    songList.getSongIndex(songIndex);
+
+The list of bars of the song are obtained by calling the getter function 
+
+    song.getBars(); 
 
 After which, we try to get the bar depending on the user's input (user's input - 1 because in Ducats we use a 1 based indexing) 
 
-We make a copy of the overlayingBar by calling the copy function of the bar. This allows us to pass the bar by value rather than reference and hence any modification does not affect the overlaying bar. 
+We make a copy of the overlayingBar by calling the `copy` function of the bar. 
 
-We create a combiner class, which combines 2 same components of a song. 
+    Bar.copy(bar_to_be_copied); 
 
-After copying, we check if there is any 3rd parameter (repeat) to repeat the overlaying throughout the song from the bar that needs to be copied to. 
+This function returns a bar and hence allows us to pass the bar by value rather than reference. Therefore,any modification does not affect the overlaying bar. 
 
-If there is a repeat parameter. We use a iterator to loop through the array of bars and a variable for the numbers to check if the required index has been reached. If it has then we call the combiner's combineBar() function. We repeat this process till the end of the array list. 
+We create a `Combiner` class, which combines 2 same components of a song. 
 
-If there is no repeat function, then we just get the bar to be overlayed from the array and call the combiner's combineBar() function. 
+    combiner = new Combiner(); 
 
-After which, we call the updatefile function of storage to store the new song and then return the string from the execute function of ascii to properly display the new song to the user through the UI. 
+After creating the combiner, we check if there is any 3rd parameter (`repeat`) to repeat the overlaying throughout the song from the bar that needs to be overlayed to.
+
+
+
+If there is a `repeat` parameter. We use a iterator to loop through the array of bars as an iterator allows us to modify the object in the array while looping through it. The current index of the loop is stored in the form of a variable.
+
+If the condition is fulfilled,  we call the combiner's `combineBar` function.
+
+    combiner.combineBar(Bar_to_be_combined_on, Bar_to_be_combined_to);
+
+We repeat this process till the end of the array list. 
+
+If there is no repeat function, then we just get the bar to be overlayed from the array and call the combiner's `combineBar` function. 
+
+After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function: 
+
+
+image::overlaysequencediagram.png[]
+
+==== overlay_bar_song
 
 
 `overlay_bar_song`: 
@@ -248,17 +276,33 @@ After which, we call the updatefile function of storage to store the new song an
  
 Allows the users to overlay a bar from a different song to another bar from another song. This especially useful when the composer has already made a song or liked a part of a song from another composer. 
 
-The command is sent from the parser class and appropriate checking of the command is done to check if the user has inputed the right number of parameters. 
 
-This command allows the user to input the song name rather than by index and hence once the command message has been split. The exact song is obtained by calling the findSong function of songList. If the array sent by songList is smaller than 1, then the song doesnt exists and a Ducats exception is thrown. 
+*How to go about it?* 
 
-The respective bar array is obtained by calling the .getBars() function for each song obtained and the combiner class is invoked. 
+
+The command is sent from the parser class and appropriate checking of the command is done to check if the user has inputed the right number of parameters by splitting the message space by a ` `.
+
+
+This command allows the user to input the song name rather than by index and hence once the command message has been split. The splitting is performed by the  `message.split(" ")`. 
+
+The exact song is obtained by calling the `findSong` function of songList. If the array sent by songList is smaller than 1, then the song doesnt exists and a Ducats exception is thrown. 
+
+    songList.findSong(songName); 
+
+The respective bar array is obtained by calling the `getBars()` function for each song obtained and the combiner class is invoked. 
 
 If there is a repeat parameter, an iterator is used to loop through the bar list and check if the current index is greater than or equal to the required index and perform the combineBar function, which splits each bar into chords and combines the chords using the arrayList combination. 
 
 If there isnt a repeat parameter,then we just get the bar to be overlayed from the array and call the combiner's combineBar() function. 
 
 After which, we call the updatefile function of storage to store the new song and then return the string from the execute function of ascii to properly display the new song to the user through the UI. 
+
+Below is the action sequence diagram: 
+
+
+image::overlay_bar_song_actionsequence.png[]
+
+==== overlay_group_group
 
 `overlay_group_group`: 
 
@@ -268,13 +312,10 @@ After which, we call the updatefile function of storage to store the new song an
 Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
 
 
-Group 1: {Bar X Bar Y} 
-Group 2 : {Bar A Bar B Bar C Bar D}
-
-Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
-
-Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
-
+* Group 1: {Bar X Bar Y} 
+* Group 2 : {Bar A Bar B Bar C Bar D}
+* Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
+* Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
 
 
 
