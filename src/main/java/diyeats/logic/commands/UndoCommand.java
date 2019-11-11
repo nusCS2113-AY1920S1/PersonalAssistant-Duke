@@ -36,7 +36,8 @@ public class UndoCommand extends Command {
      */
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         try {
-            undo.execute(meals, storage, user, wallet);
+            String answer = undo.execute(meals, storage, user, wallet);
+            ui.showMessage("Your " + answer + " has been cleared!");
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

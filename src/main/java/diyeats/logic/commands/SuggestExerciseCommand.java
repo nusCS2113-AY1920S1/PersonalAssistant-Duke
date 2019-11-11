@@ -31,6 +31,32 @@ public class SuggestExerciseCommand extends Command {
     private LocalDate date;
     private String keyword = null;
     private ExerciseSuggestionHandler exerciseSuggestionHandler;
+    private Pair revertExercise = null;
+
+    /**This constructor is to construct an empty SuggestExerciseCommand.
+     */
+    public SuggestExerciseCommand() {
+    }
+
+    /**This constructor is to construct SuggestExerciseCommand to
+     * facilitate undo
+     * @param date the date of the exercise to be removed
+     */
+
+    public SuggestExerciseCommand(LocalDate date) {
+        this.date = date;
+    }
+
+    /**This constructor is to construct SuggestExerciseCommand to
+     * facilitate undo
+     * @param date the date of the exercise to be reverted
+     * @param revertExercise the reverted exercise
+     */
+
+    public SuggestExerciseCommand(LocalDate date, Pair revertExercise) {
+        this.date = date;
+        this.revertExercise = revertExercise;
+    }
 
     /**
      * Constructor for suggestExerciseCommand.
@@ -67,7 +93,7 @@ public class SuggestExerciseCommand extends Command {
                 break;
             case 1:
                 //Adds the selected exercise routine to exerciseList
-                execute_stage_1(meals, storage);
+                execute_stage_1(meals, storage, undo);
                 break;
             default:
                 //Exits execute loop if command enters invalid state
@@ -108,7 +134,7 @@ public class SuggestExerciseCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      */
-    private void execute_stage_1(MealList meals, Storage storage) {
+    private void execute_stage_1(MealList meals, Storage storage, Undo undo) {
         int exerciseIdx;
         try {
             exerciseIdx = Integer.parseInt(this.responseStr);
@@ -129,6 +155,7 @@ public class SuggestExerciseCommand extends Command {
         }
 
         Pair selectedExercise = exerciseSuggestionHandler.getExercise(exerciseIdx);
+        undo.undoSuggestExercise(date, meals.getExerciseList().getExerciseAtDate(date));
         meals.getExerciseList().addExerciseAtDate(date, selectedExercise);
         ui.showMessage("Got it!, I have set the chosen exercise for the date "
                 + date.format(LOCAL_DATE_FORMATTER) + ".");
@@ -139,5 +166,13 @@ public class SuggestExerciseCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         isDone = true;
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        if (revertExercise == null) {
+            meals.getExerciseList().revertExerciseAtDate(date);
+        } else {
+            meals.getExerciseList().revertExerciseAtDate(date, revertExercise);
+        }
     }
 }

@@ -22,6 +22,9 @@ import java.util.HashMap;
 public class AddGoalCommand extends Command {
     private Goal goal;
 
+    public AddGoalCommand() {
+    }
+
     /**
      * Constructor for addGoalCommand.
      *
@@ -49,9 +52,19 @@ public class AddGoalCommand extends Command {
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         try {
             user.setGoal(goal);
+            undo.undoSetGoal();
             ui.showMessage("The set goal Command is successful!");
             storage.writeGoal(user);
             stage++;
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        user.clearGoal();
+        try {
+            storage.writeGoal(user);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

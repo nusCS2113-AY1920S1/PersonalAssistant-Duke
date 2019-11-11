@@ -33,3 +33,4 @@ edit
 pay
 deposit
 bye
+type

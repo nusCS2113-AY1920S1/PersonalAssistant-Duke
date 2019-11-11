@@ -107,6 +107,10 @@ public class User {
         }
     }
 
+    public void clearGoal() {
+        this.goal = null;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

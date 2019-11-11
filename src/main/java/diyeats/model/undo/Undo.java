@@ -1,5 +1,6 @@
 package diyeats.model.undo;
 
+import diyeats.commons.datatypes.Pair;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.*;
 import diyeats.logic.parsers.*;
@@ -32,6 +33,7 @@ public class Undo {
             throw new ProgramException("There is no previous command to undo.");
         }
         String temp = history.pop();
+        System.out.println(temp);
         String[] execution = temp.split(" ",2);
         String type = execution[0];
         String info = execution[1];
@@ -78,7 +80,17 @@ public class Undo {
                 delDefault(meals, storage, user, wallet, info);
                 break;
             case "setGoal":
-                //setgoal(meals, storage, user, wallet, info);
+                setGoal(meals, storage, user, wallet, info);
+                break;
+            case "suggestExercise":
+                suggestExercise(meals, storage, user, wallet, info);
+                break;
+            case "addExercise":
+                addExercise(meals, storage, user, wallet, info);
+                break;
+            case "deleteExercise":
+                deleteExercise(meals, storage, user, wallet, info);
+                break;
             default:
                 break;
         }
@@ -219,6 +231,29 @@ public class Undo {
         history.push("setGoal ");
     }
 
+    public void undoSuggestExercise(LocalDate date, Pair selectedExercise) {
+        String temp = "suggestExercise ";
+        temp += date.format(dateFormat);
+        if (selectedExercise == null) {
+            temp += "|null";
+        } else {
+            temp += "|" + selectedExercise.getKey() + "|" + selectedExercise.getValue();
+        }
+        history.push(temp);
+    }
+
+    public void undoAddExercise(String name, int MET) {
+        String temp = "addExercise ";
+        temp += name + "|" + MET;
+        history.push(temp);
+    }
+
+    public void undoDeleteExercise(String name, int MET) {
+        String temp = "deleteExercise ";
+        temp += name + " /value " + MET;
+        history.push(temp);
+    }
+
     public void deleteFood(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         LocalDate date = LocalDate.parse(toBeParsed, dateFormat);
         ArrayList<Meal> temp = mealListHistory.pop();
@@ -314,6 +349,44 @@ public class Undo {
     }
 
     public void setGoal(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
+        AddGoalCommand c = new AddGoalCommand();
+        c.undo(meals, storage, user, wallet);
+    }
 
+    public void suggestExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) throws ProgramException{
+        SuggestExerciseCommand c;
+        String[] lineSplit = toBeParsed.split("\\|");
+        LocalDate date = LocalDate.parse(lineSplit[0], dateFormat);
+        String type = lineSplit[1];
+        if (type.equals("null")) {
+            c = new SuggestExerciseCommand(date);
+        } else {
+            int rep = 0;
+            try {
+                rep = Integer.parseInt(lineSplit[2]);
+            } catch (NumberFormatException e) {
+                throw new ProgramException(e.getMessage());
+            }
+            c = new SuggestExerciseCommand(date, new Pair(type, rep));
+        }
+        c.undo(meals, storage, user, wallet);
+    }
+
+    public void addExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) throws ProgramException{
+        String[] lineSplit = toBeParsed.split("\\|");
+        String name = lineSplit[0];
+        int MET = -1;
+        try {
+            MET = Integer.parseInt(lineSplit[1]);
+        } catch (NumberFormatException e) {
+            throw new ProgramException(e.getMessage());
+        }
+        AddExerciseCommand c = new AddExerciseCommand(name, MET);
+        c.undo(meals, storage, user, wallet);
+    }
+
+    public void deleteExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
+        AddExerciseCommand c = new AddExerciseCommandParser().parse(toBeParsed);
+        c.undoForDelete(meals, storage, user, wallet);
     }
 }
