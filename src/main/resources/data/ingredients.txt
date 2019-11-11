@@ -1,3 +1,0 @@
-apple | 14012.0 | G | No additional information.
-orange | 1010.0 | G | No additional information.
-
