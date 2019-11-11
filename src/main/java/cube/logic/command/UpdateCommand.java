@@ -13,13 +13,14 @@ public class UpdateCommand extends Command {
     private Food newFood;
     private int[] changeBit;
     public static final String MESSAGE_SUCCESS = "Food updated: \n"
-            + "You have updated:\n"
-            + "%1$s\n"
-            + "to: \n"
-            + "%2$s.\n";
+        + "You have updated:\n"
+        + "%1$s\n"
+        + "to: \n"
+        + "%2$s.\n";
 
     /**
      * Default constructor.
+     *
      * @param food the food to be added.
      */
     public UpdateCommand(Food food, int[] changeBit) {
@@ -48,10 +49,14 @@ public class UpdateCommand extends Command {
             list.get(newFood.getName()).setPrice(newFood.getPrice());
         }
         if (changeBit[2] == 1) {
+            //cost
+            list.get(newFood.getName()).setCost(newFood.getCost());
+        }
+        if (changeBit[3] == 1) {
             //stock
             list.get(newFood.getName()).setStock(newFood.getStock());
         }
-        if (changeBit[1] == 1) {
+        if (changeBit[4] == 1) {
             //expiry date
             list.get(newFood.getName()).setExpiryDate(newFood.getExpiryDate());
         }

@@ -27,7 +27,8 @@ public class DeletePromotionCommandTest {
         CommandResult result = command.execute(model, new StorageManager());
 
         PromotionList expectedList = new PromotionList();
-        CommandResult expectedResult = new CommandResult(String.format(DeletePromotionCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
+        CommandResult expectedResult = new CommandResult(
+                String.format(DeletePromotionCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
         assertEquals(model.getPromotionList(), expectedList);
         assertEquals(result, expectedResult);
     }
@@ -35,9 +36,15 @@ public class DeletePromotionCommandTest {
     @Test
     public void execute_invalid_index() {
         DeletePromotionCommand deleteTooLargeIndex = new DeletePromotionCommand(1, "INDEX");
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_INDEX, () -> {deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_INDEX, () -> {
+            deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());
+        });
         DeletePromotionCommand deleteNegativeIndex = new DeletePromotionCommand(-1, "INDEX");
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_INDEX, () -> {deleteNegativeIndex.execute(new ModelManager(), new StorageManager());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_INDEX, () -> {
+            deleteNegativeIndex.execute(new ModelManager(), new StorageManager());
+        });
     }
 
 }

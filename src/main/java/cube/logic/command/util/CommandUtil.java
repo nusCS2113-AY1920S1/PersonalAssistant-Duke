@@ -143,7 +143,6 @@ public class CommandUtil {
     }
 
     //@@author ZKathrynx
-
     /**
      * Checks that the same food does not have two different promotions at the same time.
      * @param promotionList the list of existing promotions.
@@ -158,11 +157,15 @@ public class CommandUtil {
         if (!promotionList.existsName(foodName)) {
             return;
         }
-        if (end.before(promotionList.get(foodName).getStartDate())
-                || start.after(promotionList.get(foodName).getEndDate())) {
-            return;
+        for (int i = 0; i < promotionList.size(); i++) {
+            if (promotionList.get(i).getName().equals(foodName)) {
+                if (!(end.before(promotionList.get(i).getStartDate())
+                        || start.after(promotionList.get(i).getEndDate()))) {
+                    throw new CommandException(CommandErrorMessage.PROMOTION_ALREADY_EXISTS);
+                }
+            }
         }
-        throw new CommandException(CommandErrorMessage.PROMOTION_ALREADY_EXISTS);
+
     }
 
     /**

@@ -1,5 +1,5 @@
 /**
- * Testing for ConfigCommand utilities
+ * Testing for ConfigCommand utilities.
  *
  * @author kuromono
  */
@@ -66,7 +66,8 @@ public class ConfigCommandTest {
         CommandResult result = command.execute(model, storage);
         UiConfig resultUiConfig = storage.getConfig().getUiConfig();
 
-        CommandResult expectedResult = new CommandResult(String.format(ConfigCommand.MESSAGE_SUCCESS, ConfigCommand.ConfigType.UI.toString()));
+        CommandResult expectedResult = new CommandResult(String.format(
+                ConfigCommand.MESSAGE_SUCCESS, ConfigCommand.ConfigType.UI.toString()));
         assertEquals(result, expectedResult);
         assertEquals(resultUiConfig, uiConfig);
     }
@@ -81,7 +82,8 @@ public class ConfigCommandTest {
         CommandResult result = command.execute(model, storage);
         LogConfig resultLogConfig = storage.getConfig().getLogConfig();
 
-        CommandResult expectedResult = new CommandResult(String.format(ConfigCommand.MESSAGE_SUCCESS, ConfigCommand.ConfigType.LOG.toString()));
+        CommandResult expectedResult = new CommandResult(String.format(
+                ConfigCommand.MESSAGE_SUCCESS, ConfigCommand.ConfigType.LOG.toString()));
         assertEquals(result, expectedResult);
         assertEquals(resultLogConfig, logConfig);
     }

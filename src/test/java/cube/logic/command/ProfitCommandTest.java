@@ -3,6 +3,7 @@
  * ProfitCommandTest.java
  * Tests on the functionality of ProfitCommand.
  */
+
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
@@ -37,7 +38,7 @@ public class ProfitCommandTest extends ProfitCommand {
         ModelManager model = new ModelManager();
         StorageManager storage = new StorageManager();
         SalesHistory salesHistory = new SalesHistory();
-        FoodList list = new FoodList();
+        final FoodList list = new FoodList();
 
         //create a new dummy sales record
         String foodName = "food1Name";
@@ -50,19 +51,19 @@ public class ProfitCommandTest extends ProfitCommand {
 
         //specify the period to search for in the saleshistory, inclusive of the sold date of
         //the dummy sales record created above
-        Date date_i = ParserUtil.parseStringToDate("23/03/1998");
-        Date date_f = ParserUtil.parseStringToDate("23/03/2028");
+        Date dateI = ParserUtil.parseStringToDate("23/03/1998");
+        Date dateF = ParserUtil.parseStringToDate("23/03/2028");
 
         //search all
         //should only have the one sales record created above
-        ProfitCommand commandAll = new ProfitCommand(date_i, date_f, "ALL");
+        ProfitCommand commandAll = new ProfitCommand(dateI, dateF, "ALL");
         CommandResult resultAll = commandAll.execute(model, storage);
         CommandResult expectedResultAll = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_ALL,
                 profit, revenue, 0));
         assertEquals(resultAll, expectedResultAll);
 
         //search by name
-        ProfitCommand commandName = new ProfitCommand(date_i, date_f, "food1Name", "NAME");
+        ProfitCommand commandName = new ProfitCommand(dateI, dateF, "food1Name", "NAME");
         CommandResult resultName = commandName.execute(model, storage);
         CommandResult expectedResultName = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_SINGLE,
                 profit, revenue, 0));
@@ -77,14 +78,14 @@ public class ProfitCommandTest extends ProfitCommand {
 
         //search by index
         //since it is the only one in the list, it is indexed 0
-        ProfitCommand commandIndex = new ProfitCommand(date_i, date_f, 0, "INDEX");
+        ProfitCommand commandIndex = new ProfitCommand(dateI, dateF, 0, "INDEX");
         CommandResult resultIndex = commandIndex.execute(model, storage);
         CommandResult expectedResultIndex = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_SINGLE,
                 profit, revenue, 1)); //now list has one entry
         assertEquals(resultIndex, expectedResultIndex);
 
         //search by type
-        ProfitCommand commandType = new ProfitCommand(date_i, date_f, "dummyType", "TYPE");
+        ProfitCommand commandType = new ProfitCommand(dateI, dateF, "dummyType", "TYPE");
         CommandResult resultType = commandType.execute(model, storage);
         CommandResult expectedResultType = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_MULTIPLE,
                 profit, revenue, 1)); //now list has one entry

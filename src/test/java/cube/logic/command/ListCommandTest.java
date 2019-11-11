@@ -1,6 +1,5 @@
 package cube.logic.command;
 
-import cube.model.food.Food;
 import cube.model.food.FoodList.SortType;
 import cube.model.food.FoodList;
 import cube.model.ModelManager;
@@ -8,18 +7,14 @@ import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.exception.CommandException;
-import cube.logic.command.exception.CommandErrorMessage;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static cube.testutil.Assert.assertThrowEquals;
 
 public class ListCommandTest {
-    private class FoodListStub extends FoodList {
+    class FoodListStub extends FoodList {
     }
-	private class ModelStub extends ModelManager{
+
+	private class ModelStub extends ModelManager {
         FoodListStub list = new FoodListStub();
         /*
         @Override
@@ -28,6 +23,7 @@ public class ListCommandTest {
         }
          */
 	}
+
     @Test
     public void construct_sortType_successful() {
         SortType type = SortType.EXPIRY;
@@ -47,8 +43,9 @@ public class ListCommandTest {
 
     	ListCommand command = new ListCommand();
     	CommandResult result = command.execute(model, new StorageManager());
-        
-    	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, ProfitStorage.getAnnualRevenue()), false, false);
+    	CommandResult expectedResult = new CommandResult(
+    	        String.format(ListCommand.MESSAGE_SUCCESS, list,
+                        ProfitStorage.getAnnualRevenue()), false, false);
     	assertEquals(result, expectedResult);
     }
 }

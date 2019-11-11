@@ -28,6 +28,8 @@ public class FoodListCard extends UiManager<HBox> {
     @FXML
     private Label price;
     @FXML
+    private Label cost;
+    @FXML
     private Label stock;
     @FXML
     private Label expiry;
@@ -59,6 +61,7 @@ public class FoodListCard extends UiManager<HBox> {
         }
 
         price.setText("Price: $" + food.getPrice());
+        cost.setText("Cost: $" + food.getCost());
         stock.setText("Stock: " + food.getStock());
         expiry.setText("Expiry: " + "Not Specified");
 

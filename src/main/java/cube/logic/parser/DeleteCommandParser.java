@@ -28,7 +28,9 @@ public class DeleteCommandParser implements ParserPrototype<DeleteCommand> {
 		if (ParserUtil.hasRepetitiveParameters(args)) {
 			throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
 		}
-		if (args.length == 1 || (args.length == 2 && !args[1].equals("-all"))) {
+		boolean isOnlyCommand = (args.length == 1);
+		boolean isNotAll = (args.length == 2 && !args[1].equals("-all"));
+		if (isOnlyCommand || isNotAll) {
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
 

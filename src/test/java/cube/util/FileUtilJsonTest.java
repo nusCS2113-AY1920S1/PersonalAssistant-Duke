@@ -1,5 +1,5 @@
 /**
- * Testing for FileUtilJson utilities
+ * Testing for FileUtilJson utilities.
  *
  * @author kuromono
  */
@@ -74,30 +74,37 @@ public class FileUtilJsonTest {
         StorageManager resultStorageManager = storage.load();
 
         assertTrue(StorageUtil.checkFileAvailable(fileName));
-        assertEquals(resultStorageManager.getFoodList().toString(), storageManager.getFoodList().toString());
-        assertEquals(resultStorageManager.getConfig().getUiConfig().toString(), storageManager.getConfig().getUiConfig().toString());
-        assertEquals(resultStorageManager.getConfig().getLogConfig().toString(), storageManager.getConfig().getLogConfig().toString());
-        assertEquals(resultStorageManager.getPromotionList().getPromotionList().toString(), storageManager.getPromotionList().getPromotionList().toString());
+        assertEquals(resultStorageManager.getFoodList().toString(),
+                storageManager.getFoodList().toString());
+        assertEquals(resultStorageManager.getConfig().getUiConfig().toString(),
+                storageManager.getConfig().getUiConfig().toString());
+        assertEquals(resultStorageManager.getConfig().getLogConfig().toString(),
+                storageManager.getConfig().getLogConfig().toString());
+        assertEquals(resultStorageManager.getPromotionList().getPromotionList().toString(),
+                storageManager.getPromotionList().getPromotionList().toString());
     }
 
     /**
-     * Optional test : load/save performance by calculating elapsed time
+     * Optional test : load/save performance by calculating elapsed time.
      */
     @Test
     @Order(3)
     public void performance_test() throws CubeException {
         storageManager.storeFoodList(SampleUtil.generateSampleData(5));
-        System.out.println(String.format("--- Testing performance for %1$s products ---", storageManager.getFoodList().size()));
+        System.out.println(String.format("--- Testing performance for %1$s products ---",
+                storageManager.getFoodList().size()));
         testSaveTime();
         testLoadTime();
 
         storageManager.storeFoodList(SampleUtil.generateSampleData(50));
-        System.out.println(String.format("--- Testing performance for %1$s products ---", storageManager.getFoodList().size()));
+        System.out.println(String.format("--- Testing performance for %1$s products ---",
+                storageManager.getFoodList().size()));
         testSaveTime();
         testLoadTime();
 
         storageManager.storeFoodList(SampleUtil.generateSampleData(500));
-        System.out.println(String.format("--- Testing performance for %1$s products ---", storageManager.getFoodList().size()));
+        System.out.println(String.format("--- Testing performance for %1$s products ---",
+                storageManager.getFoodList().size()));
         testSaveTime();
         testLoadTime();
     }
