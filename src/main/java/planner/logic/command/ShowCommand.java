@@ -82,12 +82,12 @@ public class ShowCommand extends ModuleCommand {
                 for (ModuleTask task : profile.getModules()) {
                     String moduleCode = task.getModuleCode();
                     if (coreModList.contains(moduleCode)) {
-                        System.out.println(count++ + ". " + task);
+                        plannerUi.println(count++ + ". " + task);
                     }
                 }
                 plannerUi.coreModLeft();
                 int numOfCoreMods = 22;
-                System.out.println(numOfCoreMods - count + 1);
+                plannerUi.println(numOfCoreMods - count + 1);
                 break;
             }
 
@@ -97,12 +97,12 @@ public class ShowCommand extends ModuleCommand {
                 for (ModuleTask task : profile.getModules()) {
                     String moduleCode = task.getModuleInfoDetailed().getModuleCode();
                     if (moduleCode.startsWith("GE")) {
-                        System.out.println(count++ + ". " + task);
+                        plannerUi.println(count++ + ". " + task);
                     }
                 }
                 plannerUi.geModLeft();
                 int numOfGeMods = 5;
-                System.out.println(numOfGeMods - count + 1);
+                plannerUi.println(numOfGeMods - count + 1);
                 break;
             }
 
@@ -113,12 +113,12 @@ public class ShowCommand extends ModuleCommand {
                 for (ModuleTask task : profile.getModules()) {
                     String moduleCode = task.getModuleInfoDetailed().getModuleCode();
                     if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
-                        System.out.println(count++ + ". " + task);
+                        plannerUi.println(count++ + ". " + task);
                     }
                 }
                 plannerUi.ueModLeft();
                 int numOfUeMods = 8;
-                System.out.println(numOfUeMods - count + 1);
+                plannerUi.println(numOfUeMods - count + 1);
                 break;
             }
 
@@ -127,7 +127,7 @@ public class ShowCommand extends ModuleCommand {
                 plannerUi.listMsg();
                 int count = 1;
                 for (ModuleTask temp : profile.getModules()) {
-                    System.out.print(count++ + ". ");
+                    plannerUi.print(count++ + ". ");
                     plannerUi.showObject(temp);
                 }
                 break;

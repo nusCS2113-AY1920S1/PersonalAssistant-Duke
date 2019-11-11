@@ -38,6 +38,7 @@ public class SearchThenAddCommand extends ModuleCommand {
                 }
                 profile.getCcas().add(cca);
                 plannerUi.addedMsg(cca);
+                jsonWrapper.storeCcaListAsJson(profile.getCcas(), store);
                 break;
             }
 
