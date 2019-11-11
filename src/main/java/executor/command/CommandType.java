@@ -26,7 +26,6 @@ public enum CommandType {
     TODO(CommandNewTask.class),
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
-    TAGLIST(CommandTagList.class),
     EXPENDEDDAY(CommandGetSpendingByDay.class),
     EXPENDEDWEEK(CommandGetSpendingByWeek.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
