@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 public class PlaylistCommand extends CommandSuper {
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public PlaylistCommand(Controller uicontroller) {
-        super(CommandKeys.PLAYLIST, CommandStructure.cmdStructure.get(CommandKeys.PLAYLIST), uicontroller);
+    public PlaylistCommand(Controller uiController) {
+        super(CommandKeys.PLAYLIST, CommandStructure.cmdStructure.get(CommandKeys.PLAYLIST), uiController);
     }
 
     @Override
@@ -70,15 +70,14 @@ public class PlaylistCommand extends CommandSuper {
     private void executeCreatePlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String createPlaylistName = this.getPayload();
-        EditProfileJson editProfileJson = new EditProfileJson();
-        UserProfile userProfile = editProfileJson.load();
-        ProfileCommands profileCommands = new ProfileCommands(userProfile);
+        UserProfile userProfile = movieHandler.getUserProfile();
         try {
             PlaylistExceptions.checkCreateCommand(createPlaylistName, userProfile);
+            PlaylistCommands command = new PlaylistCommands(createPlaylistName);
+            command.create();
+            ProfileCommands profileCommands = new ProfileCommands(userProfile);
             userProfile = profileCommands.addPlaylist(createPlaylistName);
-            PlaylistCommands playlistCommands = new PlaylistCommands(createPlaylistName);
-            playlistCommands.create();
-            editProfileJson.updateProfile(userProfile);
+            new EditProfileJson().updateProfile(userProfile);
             movieHandler.setLabels();
             movieHandler.refresh();
             logger.log(Level.INFO, PromptMessages.PLAYLIST_CREATED);
@@ -99,15 +98,14 @@ public class PlaylistCommand extends CommandSuper {
     private void executeDeletePlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String deletePlaylistName = this.getPayload();
-        EditProfileJson editProfileJson = new EditProfileJson();
-        UserProfile userProfile = editProfileJson.load();
-        ProfileCommands profileCommands = new ProfileCommands(userProfile);
+        UserProfile userProfile = movieHandler.getUserProfile();
         try {
             PlaylistExceptions.checkDeleteCommand(deletePlaylistName, userProfile);
+            ProfileCommands profileCommands = new ProfileCommands(userProfile);
             userProfile = profileCommands.deletePlaylist(deletePlaylistName);
             PlaylistCommands playlistCommands = new PlaylistCommands(deletePlaylistName);
             playlistCommands.delete();
-            editProfileJson.updateProfile(userProfile);
+            new EditProfileJson().updateProfile(userProfile);
             movieHandler.setLabels();
             movieHandler.refresh();
             logger.log(Level.INFO, PromptMessages.PLAYLIST_DELETED);
@@ -125,10 +123,10 @@ public class PlaylistCommand extends CommandSuper {
      * payload: playlist name
      * flag: -m (movie number -- not movie ID)
      */
-    private void executeAddToPlaylist() throws IOException {
+    private void executeAddToPlaylist() {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String playlistName = this.getPayload();
-        UserProfile userProfile = new EditProfileJson().load();
+        UserProfile userProfile = movieHandler.getUserProfile();
         if (movieHandler.getPageTracker().isMainPage()) {
             try {
                 PlaylistExceptions.checkAddCommand(playlistName, this.getFlagMap(),
@@ -159,7 +157,7 @@ public class PlaylistCommand extends CommandSuper {
     private void executeRemoveFromPlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String playlistName = this.getPayload();
-        UserProfile userProfile = new EditProfileJson().load();
+        UserProfile userProfile = movieHandler.getUserProfile();
         if (movieHandler.getPageTracker().isPlaylistInfo()) {
             try {
                 PlaylistExceptions.checkRemoveCommand(playlistName, this.getFlagMap(),
@@ -179,7 +177,7 @@ public class PlaylistCommand extends CommandSuper {
             }
         } else {
             movieHandler.setGeneralFeedbackText("there are not shows here to be removed :( "
-                    + "try going into the playlist first using the command: \n playlist list");
+                    + "try going into the playlist first using the command: playlist list");
         }
         movieHandler.clearSearchTextField();
     }
@@ -195,8 +193,7 @@ public class PlaylistCommand extends CommandSuper {
     private void executeSetToPlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String playlistName = this.getPayload();
-        EditProfileJson editProfileJson = new EditProfileJson();
-        UserProfile userProfile = editProfileJson.load();
+        UserProfile userProfile = movieHandler.getUserProfile();
         try {
             PlaylistExceptions.checkSetCommand(playlistName, this.getFlagMap(), userProfile);
             PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
@@ -205,7 +202,7 @@ public class PlaylistCommand extends CommandSuper {
             if (this.getFlagMap().containsKey("-n")) {
                 String newName = appendFlagMap(this.getFlagMap().get("-n"));
                 userProfile.renamePlaylist(playlistName, newName);
-                editProfileJson.updateProfile(userProfile);
+                new EditProfileJson().updateProfile(userProfile);
                 if (movieHandler.getPlaylistName().equals(playlistName)) {
                     movieHandler.setPlaylistName(newName);
                 }
@@ -234,13 +231,13 @@ public class PlaylistCommand extends CommandSuper {
     private void executeClearPlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String playlistName = this.getPayload();
-        UserProfile userProfile = new EditProfileJson().load();
+        UserProfile userProfile = movieHandler.getUserProfile();
         try {
             PlaylistExceptions.checkClearCommand(playlistName, userProfile);
             PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
             Playlist playlist = editPlaylistJson.load();
-            playlistCommands.clear(playlist);
+            playlist = playlistCommands.clear(playlist);
             editPlaylistJson.editPlaylist(playlist);
             movieHandler.refresh();
             logger.log(Level.INFO, PromptMessages.PLAYLIST_CLEARED);
@@ -277,7 +274,6 @@ public class PlaylistCommand extends CommandSuper {
      * flag: none
      */
     private void executeBackToPlaylistInfo() throws IOException {
-        System.out.println("yeboi we here");
         MovieHandler movieHandler = ((MovieHandler)this.getUiController());
         if (movieHandler.getPageTracker().isPlaylistMovieInfo()) {
             movieHandler.backToPlaylistInfo();

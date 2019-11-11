@@ -34,7 +34,7 @@ public class ProfileCommandsTest {
     }
 
     @Test
-    public void addPreferenceTest_valid_genre_pref() throws InvalidFormatCommandException, IOException {
+    public void addPreferenceTest_valid_genre_pref() {
         profileCommands.clearGenrePreference();
         profileCommands.clearGenreRestrict();
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();

@@ -1,7 +1,5 @@
 package entertainment.pro.model;
 
-import entertainment.pro.logic.parsers.commands.SearchCommand;
-
 import java.util.ArrayList;
 
 public class SearchProfile extends UserProfile {
@@ -27,44 +25,19 @@ public class SearchProfile extends UserProfile {
                          ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames,
                          boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
                          String name, boolean isMovie) {
-//        super.setUserName(userName);
-//        super.setUserAge(userAge);
-//        super.setGenreIdPreference(genreIdPreference);
-//        super.setGenreIdRestriction(genreIdRestriction);
-//        super.setAdult(adult);
-//        super.setPlaylistNames(playlistNames);
-//        super.setSortByAlphabetical(sortByAlphabetical);
-//        super.setSortByHighestRating(sortByHighestRating);
-//        super.setSortByLatestRelease(sortByLatestRelease);
         super(userName, userAge, genreIdPreference, genreIdRestriction, adult, playlistNames, sortByAlphabetical,
                 sortByHighestRating, sortByLatestRelease);
         this.name = name;
         this.isMovie = isMovie;
     }
 
-    public SearchProfile() {
+    /**
+     * constructor to initialise search profile to initial state.
+     */
+    private SearchProfile() {
         this.name = "";
         this.isMovie = true;
     }
-
-
-    /**
-     * Set up another constructor for searchprofile
-     */
-    public SearchProfile(ArrayList<Integer> genreIdPreference,
-                         ArrayList<Integer> genreIdRestriction, boolean adult,
-                         boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
-                         String name, boolean isMovie) {
-        super.setGenreIdPreference(genreIdPreference);
-        super.setGenreIdRestriction(genreIdRestriction);
-        super.setAdult(adult);
-        super.setSortByAlphabetical(sortByAlphabetical);
-        super.setSortByHighestRating(sortByHighestRating);
-        super.setSortByLatestRelease(sortByLatestRelease);
-        this.name = name;
-        this.isMovie = isMovie;
-    }
-
 
     /**
      * Responsible for returning the name of movie/TV show that user want search results to be based on.
@@ -179,7 +152,7 @@ public class SearchProfile extends UserProfile {
         SearchProfile searchProfile = new SearchProfile();
         ArrayList<Integer> newEmptyGenrePref = new ArrayList<>();
         ArrayList<Integer> newEmptyGenreRestrict = new ArrayList<>();
-        String newEmptyEntry = "";
+        final String newEmptyEntry = "";
         searchProfile = searchProfile.setGenreIdPreference(newEmptyGenrePref);
         searchProfile = searchProfile.setGenreIdRestriction(newEmptyGenreRestrict);
         searchProfile = searchProfile.setAdult(false);

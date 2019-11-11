@@ -16,12 +16,13 @@ import java.util.ArrayList;
 /**
  * This class is responsible for calling the appropriate functions when the root command is 'view'.
  */
- public class ViewCommand extends CommandSuper {
+public class ViewCommand extends CommandSuper {
     private Controller controller;
     private int constant = 5;
 
     /**
      * Constructor for Command Super class.
+     *
      * @param uicontroller Ui controller class.
      */
     public ViewCommand(Controller uicontroller) {
@@ -70,7 +71,6 @@ import java.util.ArrayList;
      * Called when user is viewing list of movies/TV shows from a search request and want to know more information.
      *
      * @param num The number of the movie or TV show in the list indicated below the title.
-     * @throws Exceptions
      */
     private void executeEntryCommands(int num) throws Exceptions {
         ((MovieHandler) this.getUiController()).showMovie(num);
@@ -78,19 +78,19 @@ import java.util.ArrayList;
 
     /**
      * prints out a list of recommendations based on the users set preferences.
+     *
      * @throws IOException file was not able to be found
      */
     private void executeRecommendationCommand() throws Exceptions {
         String feedback = "Your recommended movies are: \n";
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         ArrayList<Integer> preferenceIndices = movieHandler.getUserProfile().getGenreIdPreference();
-        ArrayList<MovieInfoObject>  movies = movieHandler.getAPIRequester()
+        ArrayList<MovieInfoObject> movies = movieHandler.getAPIRequester()
                 .beginSearchGenre(Integer.toString(preferenceIndices.get(0)), movieHandler.getUserProfile().isAdult());
         for (int i = 0; i < constant; i++) {
             feedback += i + 1 + ". " + movies.get(i).getTitle() + "\n";
         }
         movieHandler.setGeneralFeedbackText(feedback);
     }
-
 }
 

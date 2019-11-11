@@ -24,8 +24,6 @@ import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.storage.utils.EditPlaylistJson;
 import entertainment.pro.storage.utils.BlacklistStorage;
 import entertainment.pro.storage.utils.HelpStorage;
-//import entertainment.pro.xtra.PastCommands;
-//import entertainment.pro.storage.utils.PastUserCommands;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -100,7 +98,6 @@ public class MovieHandler extends Controller implements RequestListener {
 
     private static final Logger logger = Logger.getLogger(MovieHandler.class.getName());
     private boolean isViewMoreInfoPage = false;
-    private AnchorPane anchorPane;
     UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
@@ -153,17 +150,14 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @FXML
     public void setLabels() throws IOException {
-        //System.out.println("called setlabels");
         logger.log(Level.INFO, PromptMessages.SETTING_LABELS_UI);
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
-        System.out.println("hehehehehahahahaha" + userProfile.getUserName());
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
         userPlaylistsLabel.setText(Integer.toString(userProfile.getPlaylistNames().size()));
-        //System.out.println("changed age");
 
         //setting adult label
         if (command.getAdultLabel().equals("allow")) {
@@ -173,6 +167,7 @@ public class MovieHandler extends Controller implements RequestListener {
             userAdultLabel2.setStyle("-fx-text-fill: \"#EC7063\";");
         }
         userAdultLabel2.setText(command.getAdultLabel());
+
         //setting text for preference & restrictions
         Text preferences = new Text(command.convertToLabel(userProfile.getGenreIdPreference()));
         preferences.setFill(Paint.valueOf("#48C9B0"));
@@ -198,7 +193,6 @@ public class MovieHandler extends Controller implements RequestListener {
         logger.log(Level.INFO, "MAIN UI INITIALISED");
         CommandContext.initialiseContext();
         BlacklistStorage bp = new BlacklistStorage();
-        //System.out.println("Tgt we are winners");
         bp.load();
         HelpStorage.initialiseAllHelp();
         setUpEventSearchField();
@@ -212,11 +206,9 @@ public class MovieHandler extends Controller implements RequestListener {
     private void setUpEventSearchField() {
         searchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
-                //System.out.println("Tab pressed");
                 setAutoCompleteText(ContextHelper.getAllHints(searchTextField.getText(), this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
-                //System.out.println("I pressed bit");
                 searchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
@@ -298,7 +290,6 @@ public class MovieHandler extends Controller implements RequestListener {
                         }
                     }
                 } else if (event.getCode().equals(KeyCode.LEFT)) {
-                    System.out.println("yesssx");
                     if (pageTracker.getCurrentPage().equals("playlistList")) {
                         if (index != 0) {
                             playlistVBox.getChildren().get(index - 1).requestFocus();
@@ -394,11 +385,6 @@ public class MovieHandler extends Controller implements RequestListener {
         final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
         System.out.println("cleared");
-        for (MovieInfoObject mf : MoviesFinal) {
-            //mMovies.add(mf);
-            System.out.println("yaaz" + mf.getTitle());
-        }
-        //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
         try {
@@ -483,7 +469,6 @@ public class MovieHandler extends Controller implements RequestListener {
             MoviePosterController controller = loader.getController();
             try {
                 if (movie.getFullPosterPathInfo() != null) {
-                    //System.out.println("sianz");
                     Image posterImage = new Image(movie.getFullPosterPathInfo(), true);
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
@@ -495,11 +480,8 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
 
                 } else {
-                    System.out.println("hi1");
                     File fakePoster = new File("./data/FakeMoviePoster.png");
                     Image posterImage = new Image(fakePoster.toURI().toString());
-                    System.out.println("hi2");
-
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -507,9 +489,7 @@ public class MovieHandler extends Controller implements RequestListener {
                             exceptions.printStackTrace();
                         }
                     });
-                    System.out.println("hi3");
                     controller.getPosterImageView().setImage(posterImage);
-                    System.out.println("sianzzzzz");
                 }
             } catch (NullPointerException ex) {
                 ex.printStackTrace();
@@ -542,7 +522,6 @@ public class MovieHandler extends Controller implements RequestListener {
             currentTotalProgress += value;
         }
 
-        //System.out.println("Current total progress: " + currentTotalProgress);
         progressBar.setProgress((currentTotalProgress / mMovies.size()));
 
         if (currentTotalProgress >= mMovies.size()) {
@@ -561,7 +540,6 @@ public class MovieHandler extends Controller implements RequestListener {
         try {
             MovieInfoObject movie = mMovies.get(num - 1);
             moviePosterClicked(movie);
-            System.out.println("this is it 4");
             } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
             setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
@@ -587,8 +565,6 @@ public class MovieHandler extends Controller implements RequestListener {
         } else {
             for (String log : playlists) {
                 Playlist playlist = new EditPlaylistJson(log).load();
-                System.out.println(playlist.getPlaylistName());
-                System.out.println(playlist.getMovies().size());
                 AnchorPane playlistPane = buildPlaylistPane(playlist, count);
                 playlistVBox.getChildren().add(playlistPane);
                 count++;
@@ -619,13 +595,10 @@ public class MovieHandler extends Controller implements RequestListener {
             }
             controller.getPlaylistMoviesLabel()
                     .setText("No. of movies: " + Integer.toString(playlist.getMovies().size()));
-            System.out.println("no lei here");
             return playlistPane;
         } catch (IOException ex) {
             ex.printStackTrace();
-            //Ui.printLine();
         }
-        //System.out.println("fk lah here");
         return null;
     }
 
@@ -725,16 +698,6 @@ public class MovieHandler extends Controller implements RequestListener {
      * @@author nwenhui
      */
     public void showPlaylistList() throws IOException {
-        ////        PlaylistUi playlistUi = new PlaylistUi(playlistName);
-        // playlistVBox.getChildren().clear();
-        // mMoviesScrollPane.setHvalue(0.5);
-        // mMoviesScrollPane.setVvalue(0.5);
-        // playlistVBox = playlistUi.buildPlaylistVBox(playlists, mProgressBar, mStatusLabel);
-        // mMoviesScrollPane.setContent(playlistVBox);
-        // mMoviesScrollPane.setVvalue(0);
-        // pageTracker.setToPlaylistList();
-        // playlistUi playlistUi = new PlaylistUi(playlistName, playlists);
-        // mMoviesScrollPane.setContent(playlistUi.getPlaylistScrollPaneContent());
         playlist = userProfile.getPlaylistNames();
         buildPlaylistVBox(playlists);
     }
@@ -783,9 +746,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getMovieReleaseDateLabel().setText("N/A");
             }
             try {
-                System.out.println(movie.getFullBackdropPathInfo());
                 Image posterImage = new Image(movie.getFullBackdropPathInfo(), true);
-                System.out.println(movie.getFullBackdropPathInfo());
                 controller.getMovieBackdropImageView().setImage(posterImage);
             } catch (NullPointerException ex) {
                 ex.printStackTrace();

@@ -72,7 +72,7 @@ public class RestrictionCommand extends CommandSuper {
     private void executeClearRestriction() throws IOException {
         MovieHandler movieHandler = ((MovieHandler)this.getUiController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.clearRestriction(this.getFlagMap());
+        command.clearRestriction();
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }
