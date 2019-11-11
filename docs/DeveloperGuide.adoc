@@ -51,7 +51,6 @@ with the `BUILD SUCCESSFUL` message. This will generate the resources required b
 This image shows the overall architecture of our program
 
 image::Architecture main.png[width = 500%]
-There are three main components in the overall architecture of the application.
 
 === Main component
 Main component has one class called `Duke`. It is responsible for the following: +
@@ -183,7 +182,7 @@ This deletes an item from the checklist of an event.
 ==== Activity diagram
 The following activity diagram represents a typical clash handling scenario
 
-image::ActivityDiagramClashHandling.png[Clash Handling, 1600, align=center]
+image::Activity Diagram Clash handling.png[Clash Handling, 1600, align=center]
 
 ==== How is it implemented
 The program is able to *detect clashes when creating new events*. When the user enters the command
@@ -259,7 +258,7 @@ Pros: Much more flexible, and even more scalable than the current implementation
 to do anything regarding changes to the list, and then later check for clashes.
 
 Cons: Much more room for error, since clashes are allowed to exist within the list normally, and are not
-automatically detected. This could lead to major bugs related to events that overlap eac other.
+automatically detected. This could lead to major bugs related to events that overlap each other.
 
 |How relevant information is passed up the chain|
 Simply returning the relevant event that caused the clash as a part of the method call. +
