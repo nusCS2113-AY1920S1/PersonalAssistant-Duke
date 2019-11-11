@@ -230,7 +230,7 @@ Figure. Structure of Printable
 
 API: `Printable.java` 
 
-It models an *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
+It models a *public* *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
 
 Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
 
@@ -481,7 +481,9 @@ The Order Command classes inherits from the `Command` class. They overwrite the 
 #### 2.12 Fridge Component
 API: `Fridge.java` ,`Ingredient.java`
 
-The `Fridge` component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring coming first. Furthermore, it allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
+The `Fridge` component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring  ingredients coming first. Hence, this allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
+
+Upon (re)booting the program, the `Fridge` gets initialized with the current `IngredientList` (the attribute `entries`) stored in the `FridgeStorage`, passed as a parameter to it's main constructor. In all subsequent Ingredient manipulations, these two components are accessing/modifying the same `IngredientList`, meaning modifications made in the `Fridge`, are immediately seen in the `entries` attribute (an inherited `GenericList`) of the `FridgeStorage` , therefore, consistency among these classes is guaranteed. 
 
 ![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
 
@@ -527,17 +529,15 @@ API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.jav
 
 The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
 
-
-- **AddCommand** This command adds an `Ingredient` to the `Fridge`, passed as an argument when creating this command. The `IngredientsList` used by the `Fridge` can also be read from the file when initializing. When adding an ingredient, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the new amount to be added. Otherwise, a new ingredient entry is created in the `IngredientList`. 
-- **DeteleCommand**: This command deletes an ingredient from the `IngredientList` of the `Fridge`, indicated by it's index in the list, passed as a parameter when creating this command. 
-- **FindToday**: This command is used to look for expired ingredients on the date itself.
-- **ListCommand**: This command is used to show the chef's entire IngredientsList.
+- **AddCommand** This command adds an `Ingredient` to the `Fridge` passed as an argument upon creating this command.  When adding an `Ingredient`, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the amount of the `Ingredient` to be added. Otherwise, a new `Ingredient` entry is created in the `IngredientList`. 
+- **DeteleCommand**: This command deletes an `Ingredient` from the `IngredientList` of the `Fridge`. The `Ingredient` to be removed is indicated by it's index in the `IngredientList`, passed as a parameter when creating this command. 
+- **FindToday**: This command is used to look for expired ingredients from the `IngredientsList` of the `Fridge`, on the date itself.
+- **ListCommand**: This command is used to show the chef's entire `IngredientsList`.
 - **RemoveAllExpired**: The command is used to remove all expired ingredients from the  `IngredientList` of the `Fridge`.
-- **FindIngredientCommand**: This command is used to find all ingredients with the queried keyword entered by the chef.
-- **UseCommand**: This command is executed to use and remove the specified amount of an ingredient stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the most recently expiring ingredients, matching the ingredient indicated by the chef, are used first. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will prompt it to the chef. 
-- ChangeAmountCommand: This command is used to change the amount of an ingredient given the index number of the ingredient
-- ChangeNameCommand: This command is used to change the name of an ingredient given the index number of the ingredient
-
+- **FindIngredientCommand**: This command is used to find all the `Ingredient`, with the queried keyword entered by the chef, in the `Fridge`.
+- **UseCommand**: This command is executed to use and remove the specified amount of a **non-expired** `Ingredient` stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the **most recently expiring ingredients**, matching the ingredient name indicated by the chef, **are used first**. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will output a message notifying the Chef. 
+- **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
+- **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
 
 ### 3. Implementation
@@ -545,6 +545,21 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 ### 4. Documentation
 
 ### 5. Testing
+
+
+- There are two ways to run our tests.
+
+  **Method 1: Using IntelliJ JUnit test runner**
+
+  - To run all tests, right-click on the `src/test/java` folder and choose `Run 'Tests in 'duke.test'`
+  - To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'test...'`
+
+**Method 2: Using Gradle**
+
+- Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` component, provided in the `DishTest.java` and `FridgeTest.java`
+
 
 ### 6. Dev Ops 
 

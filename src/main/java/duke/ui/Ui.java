@@ -228,6 +228,7 @@ public class Ui {
      * @param ingredientsList the {@link IngredientsList} whose ingredients are to be shown
      */
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
+        showLine();
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
         else {
@@ -238,6 +239,7 @@ public class Ui {
                 i++;
             }
         }
+        showLine();
     }
 
     /**

@@ -109,7 +109,7 @@ public class Ingredient implements Printable {
      * Different output for an expired ingredient as compared to an non-expired ingredient
      */
     public String toString() {
-        return !this.isExpired() ? name + ", amount is: " + amount + " expiring on " + Convert.getDateString(expiryDate, dateAsString) : "WARNING! expired ingredient: " + name + ", amount is: " + amount + " expired on " + Convert.getDateString(expiryDate, dateAsString);
+        return !this.isExpired() ? name + ", amount is: " + amount + ", expiring on " + Convert.getDateString(expiryDate, dateAsString) : "WARNING! expired ingredient: " + name + ", amount is: " + amount + ", expired on " + Convert.getDateString(expiryDate, dateAsString);
     }
 
     /**

@@ -287,15 +287,16 @@ Examples:
 ```
          _________________________________________________________________________________________
 add chicken 3 1/2/2020
+         _________________________________________________________________________________________
      Got it. I've added chicken to the fridge, you currently have:
-	 chicken, amount is: 3 expiring on 1st of February 2020
-	 
-add chicken 2 1/2/2020
+	 chicken, amount is: 3 expiring on 1st of February 2020          _________________________________________________________________________________________
+
+add chicken 2 1/2/2020        ______________________________________________________________________________________
 
 	Got it. I've added chicken to the fridge, you currently have:
-	chicken, amount is: 5 expiring on 1st of February 2020
+	chicken, amount is: 5 expiring on 1st of February 2020        _________________________________________________________________________________________
 	
-add chicken 4 2/3/2020
+add chicken 4 2/3/2020         _________________________________________________________________________________________
 
 	Got it. I've added chicken to the fridge, you currently have:
 	chicken, amount is: 4 expiring on 2nd of March 2020
@@ -306,12 +307,14 @@ Furthermore, if the user adds an expired ingredient, he gets a `WARNING!!! Addin
 
 ```
          _________________________________________________________________________________________
-add milk 250 9/11/2019
+add milk 250 9/11/2019       _________________________________________________________________________________________
 
  	WARNING!!! Adding an expired ingredient in the fridge, do you want to proceed adding     it? 
     Type yes to confirm, typing anything else will result in not adding the ingredient
-    
-yes
+           _________________________________________________________________________________________
+  
+yes        _________________________________________________________________________________________
+
 		Got it. I've added milk to the fridge, you currently have:
 		WARNING! expired ingredient: milk, amount is: 250 expired on 9th of November 2019
 	 _________________________________________________________________________________________
