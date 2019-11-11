@@ -149,6 +149,106 @@ image::Command_Parser_UML.png[width="800" align="left"]
 
 The command parser functionality enables the user commands to be processed effectively. Its implementation also allows for greater flexibility for developers to be able to introduce new commands to the program without having to deal with the underlying implementation of the command parser itself. This is made possible by giving each root command a class of its own. They inherit the CommandSuper class which contains member variables and functions that can be used to conveniently get the details (see section 1.1) from the user input. There is also an abstract function that needs to be implemented in the child classes. This function is named the executeCommand() , which defines the logic that needs to be implemented for each subroot command that is associated with the particular root command.
 
+*Command Structure breakdown*
+Every command that the program accepts has a defined command structure to it. Every command that is accepted by the program can be broken down into 4 parts. Namely , the root command, sub root command, the payload and the input flags and values.
+
+.Command structure used in the app
+image::Command_Structure.png[width="800" align="left"]
+
+** Root Command: The root command refers to the first word of the command input. There is a fixed set of root commands that the program accepts.
+** Subroot command: The sub root command refers to the 2nd word of the command input. For every root command, there are a fixed set of accepted subroot commands
+** Payload: The payload refers to the main user input argument for the particular command. 
+** Input flags and values: The input flags refer to additional information that the command would require to be processed. Each input flag can be accompanied by a value or list of values separated by commas.
+
+In the CommandDebugger class, a few helper functions are defined to do the spell checking of mistyped commands. The JaccardSimilarity Algorithm was employed to score the similarity between command keywords and the user input to derive the most probable command.
+
+In the CommandStructure class, the overall structure of the commands is defined. It specifies what are the possible sub root commands that are available for each particular root command.
+
+The UML diagram below summarises the relationship:
+
+.UML diagram of command parser
+image::Command_Parser_UML_2.png[width="800" align="left"]
+
+When the user enters a command, the command parser in the command parser class takes in the input and performs a few validation checks listed below:
+
+** Determining the root command
+* The Command parser class first determines what the root command is, from the list of all possible root commands listed in the CommandStructure class
+* If there is a spelling error in the root command, the spell checker from the CommandDebugger class is run to determine which is the closest possible root command using the JaccardSimilarity algorithm
+* An object of the determined RootCommand class is then created.Every root command has a class of its own which inherits methods from the CommandSuper class. These methods include functions to getPayload, get input flag values among other functions 
+
+Upon instantiation of the Root command object, the input is processed to determine other crucial factors of the input command, namely,
+
+** SubRootCommand
+* The possible list of subRoot commands for the particular Root command is obtained from the CommandStructure class. 
+* The Subroot command is then determined
+* If there is a spelling error in the subroot command, the spell checker function from the CommandDebugger class is once again used to determine the closest possible subRoot command using the JaccardSimilarity algorithm
+** Payload
+* The payload of the input command everything else less the root, subroot and input flags of the command.
+** Input flags
+* The input flags are processed and stored in a map of key to values.
+
+** An input command of the following format:
+* -a flag_value1 , flag_value2 -b flag_value3 will be processed into a map of flag keys to arraylist of values as such: 
+*** -a : [flag_value1 , flag_value2]
+*** -b : [flag_value3
+
+
+After the instantiation of the command, the command is then added to a command list which is maintained as an arraylist of commands for convenience. This command list is a static command variable in the CommandStack class. This class exposes methods dealing with the execution and displaying of user commands that were entered in the past. Upon adding to this command list, the command is executed if no spelling error was done in the process of inputting the command. If there was a spelling error, the command is still added but is not executed. The user is instead prompted to decide if the deciphered command is what they meant it to be. If they type a ‘yes’ , the command is then executed. The Diagram below illustrates this process:
+
+.Activity diagram of command parser
+image::Command_Parser_Activity_Diagram.png[width="800" align="left"]
+
+.Activity diagram of command parser
+image::Command_Parser_Activity_Diagram_2.png[width="800" align="left"]
+
+This command parser feature is implemented as such to allow for more flexibility for developers to include their own new features and their associated commands without having to change the command parser implementation. To introduce a new command for a new feature that the developer is hoping to add, he/she just has to add the necessary root and subroot command into the commandStructure class and then the necessary logic for the feature in the execute command class of the RootCommand Class. There is no need to change the implementation in the CommandDebugger, CommandParser and CommandStack classes to accommodate the newly added commands. 
+
+
+*Design Considerations:* +
+The alternative design that was considered was a nested switch statements. Each layer of nesting would  aim to determine one more crucial portion input command. In other words, the outermost nested switch statement would attempt to determine the root command, the next nested switch statement would attempt to determine the subRoot command and so on. 
+
+*Pros*: For simpler applications with very limited commands, this structure may be advantageous as it reduces the source lines of code for the project and contains the entire command parser to a single file.
+
+*Cons*:  Doing so would introduce a lot of possibilities for error.  The complexity of the command parser would also quickly blow out of proportions once the command structure gets bigger and more complicated. This would therefore indicate an unscalable code. Additionally, this would also mean the logic in the spellchecker and other commandDebugger functions has to be changed to accommodate the additional commands added.
+
+== Autocomplete:
+The auto complete functionality enables greater convenience for the users by auto completing the input for them based on its predictions derived by the input of the user. This functionality is invoked by the [tab] button. 
+
+*Current implementation:* +
+The autocomplete functionality feature is facilitated mainly by the ContextHelper class in the contexts package. This class contains the functions necessary for the correct predictions to be retrieved. This includes the following few processes:
+
+** Deducing the incomplete portion of the command
+* Accurately determines the correct portion of the user input that is incomplete and needs autocompletion.
+* For example, for the given input search mov ,  the incomplete portion is mov while for the input search movies Harry potter an, the incomplete portion of the user input is Harry potter an. Determining this will allow the program to provide accurate and highly contextual predictions for the user
+* This process is handled by the getLastIncompleteWords()  function
+
+** Determining at which stage the user pressed the 
+* This allows the program to decide what type of help the user needs. 
+* For example if the user were to press the  button while he/she is still typing the first word, this indicates that the user needs help with the completion of the root command
+* This process is handled by the getAllHints() function.
+
+** Completing the user input based on the list of possible predictions for the user input
+* If the number of possible predictions for the given input is only 1, the entire command is auto-completed to that one prediction. * Otherwise, the program auto completes the user input up to the point where the common substring of the returned predictions end.
+* For example, for a given user input search movies Batman Begi, if the prediction returns one single possibility Batman Begins, then the user input is auto-completed to search movies Batman Begins. If instead for the user input, search movies Harr returns a few possible predictions 
+[Harry Potter and the Chamber of Secrets ,  Harry Potter and the Order of the Phoenix , Harry Potter and the Goblet of Fire ], the program auto completes the user input to search movies Harry potter and the  as beyond this point, the program is unable to decide which of the list of possibilities accurately reflect the intentions of the user.
+* This process is handled by the completeCommand() function. 
+
+In addition, a few other functions from various relevant classes are used to facilitate the retrieval of the actual predictions. These classes include SearchresultContext, CommandContext , Blacklist and Watchlisthandler. The searchresultContext maintains the search results in its data structures so that the movies that the users search for can be used for predictions too. The commandcontext maintains the list of root commands and sub root commands so that they can be used for predictions and auto completion. In each of the classes, Blacklist and watchlistandler, there are helper functions implemented to retrieve possible predictions from the blacklist and watchlist respectively so that items in these lists can be a part of the search space when the program is doing its predictions. 
+
+Given below is an example usage scenario and how this auto completion and prediction mechanism behaves on a high level.
+
+* User launches the program. The CommandContext class instantiates and populates its data structures with all the command keywords. A default search query is performed to retrieve all current movies showing in theatres. The SearchResultContext class instantiates its data structures with the titles of the search results.
+* The user enters bla into the command textfield and presses the tab. This invokes the getAllHints() function. This in turns invokes the getLastIncompleteWords() function to first determine the incomplete portion of the command
+* The program then determines at which stage of the user input the  was invoked. In this case, it was invoked midway as the user was typing the root command
+the getPossibilitiesForRoot() function from the CommandContext class is then called to return a list of possible root command that the program predicts the user might be intending to type 
+* As there is only one possible root command  (‘blacklist’) predicted, the command input field is auto-completed to blacklist
+* The user presses the ‘tab’ again. This once again repeats steps 2 and 3. However this time round, the program determines that the user is currently trying to get help for the subRoot command.
+* The  getPossibilitiesSubRootGivenRoot() function and the list of possible subRootCommand is for the search command is returned in the form of an arraylist.
+* Since there are 2 different types of subroot commands that are possible for the root command ‘blacklist’, namely add and remove, these 4 possibilities are displayed on the UI for the user to see.
+* Since these 2 possibilities do not start with any common substring, the command input field is not auto-completed to anything.
+* The user may now continue to type an additional r into the command input field and press the tab again. Steps 7 and 8 are repeated. But this time, there is only one possibility for the sub Root command that the user may be trying to type (‘remove’). Hence the command input field is auto-completed to blacklist remove
+* Carrying on, if the user were to press  again, the program deduces that the user has already completed typing the root and sub root commands and is requesting autocompletion for the payload. 
+* The commandSpecificHints() function is invoked and this in turn invokes the getBlacklistHints() function from the Blacklist class. The contents of the blacklist is then returned as possible options to the user for the user to choose and conveniently have auto-completed.
 
 
 
