@@ -70,7 +70,7 @@ public class ListCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals,  Storage storage, User user, Wallet wallet, Undo undo) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ui.showLine();
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);

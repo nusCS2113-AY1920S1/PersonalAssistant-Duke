@@ -1,7 +1,18 @@
 {
   "2019-11-11": [
     {
-      "description": "kueh",
+      "description": "roti",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "7.5"
+    },
+    {
+      "description": "curry puff",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
@@ -9,38 +20,27 @@
       "nutritionValue": {
         "calorie": 300
       },
-      "costStr": "0"
+      "costStr": "7.0"
     },
     {
-      "description": "fried rice",
-      "type": "B",
-      "mealType": "BREAKFAST",
-      "isDone": true,
+      "description": "crab",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 300
+        "calorie": 100
       },
-      "costStr": "0"
+      "costStr": "10.0"
     },
     {
-      "description": "casdasd",
+      "description": "tomyam",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 300
-      },
-      "costStr": "0"
-    },
-    {
-      "description": "fried rice",
-      "type": "B",
-      "mealType": "BREAKFAST",
-      "isDone": false,
-      "date": "2019-11-11",
-      "nutritionValue": {
-        "calorie": 50000000
+        "calorie": 3000
       },
       "costStr": "0"
     },

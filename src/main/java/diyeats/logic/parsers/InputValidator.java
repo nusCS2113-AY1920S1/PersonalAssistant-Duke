@@ -24,6 +24,7 @@ public class InputValidator {
      * @throws ProgramException If the userInput is empty.
      */
     public static void validate(String userInputStr) throws ProgramException {
+        logger.setLevel(Level.OFF);
         if (userInputStr.trim().length() == 0) {
             logger.log(Level.WARNING, "user input is empty");
             throw new ProgramException("OOPS!!! The description of the command cannot be empty.");
@@ -37,6 +38,7 @@ public class InputValidator {
      * @throws ProgramException If the amount input by the user is not numeric or not positive.
      */
     public static void validateAmount(String amountInputStr) throws ProgramException {
+        logger.setLevel(Level.OFF);
         if (!amountInputStr.matches(numericValidator)) {
             logger.log(Level.WARNING, "food cost is not specified or it is not numeric");
             throw new ProgramException("The food cost must be specified and must be numeric.");
@@ -54,6 +56,7 @@ public class InputValidator {
      * @throws ProgramException if <code>LocalDate</code> is after <code>LocalDate.now()</code>.
      */
     public static void validateDate(LocalDate localDate) throws ProgramException {
+        logger.setLevel(Level.OFF);
         if (localDate.isAfter(LocalDate.now())) {
             logger.log(Level.WARNING, "date specified is in the future");
             throw new ProgramException("Cannot add transaction that happens in the future.");
@@ -67,6 +70,7 @@ public class InputValidator {
      * @throws ProgramException if the value is not a positive integer with no leading zeroes.
      */
     public static void validatePositiveInteger(String valueInput) throws ProgramException {
+        logger.setLevel(Level.OFF);
         if (!valueInput.matches(positiveIntegerValidator)) {
             logger.log(Level.WARNING, "the value is not positive whole number");
             throw new ProgramException("The value must be a positive integer with no leading zeroes");
@@ -79,6 +83,7 @@ public class InputValidator {
      * @throws ProgramException if the value is not a whole number.
      */
     public static void validateNutritionalValue(String valueInput) throws ProgramException {
+        logger.setLevel(Level.OFF);
         if (!valueInput.matches(wholeNumberValidator)) {
             logger.log(Level.WARNING, "the value is not a whole number");
             throw new ProgramException("The value must be a whole number");

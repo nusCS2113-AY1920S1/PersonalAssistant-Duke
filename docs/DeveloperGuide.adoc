@@ -209,7 +209,7 @@ The following step describes the flow of the initialisation:
 
 image::Autocorrect_Sequence_Diagram.png[width="800"]
 
-=== Add Default command: `default`
+=== Add Default value command
 
 The `default` command gives the user the ability to assign default nutritional values associated with certain meal names.
 
@@ -357,11 +357,11 @@ Problem 2: *How to order meals in breakfast, lunch, dinner (in that order)*
 ** Pros: Based on the knowledge that enum class has a comparable property and compares the ordinal value of the enum instances.
 We could order the enum class such that it will be breakfast, lunch, and dinner then assign it to the mealType and sort accordingly.
 
-=== Suggest  command
+=== Suggestmeal Command
 
-The Suggest command provides the user the ability to get personalized meal recommendations from our application based on the current database of food available in our application as well as the food habits of the user, all while ensuring the user has a healthy meal that matches his/her lifestyle and calorie limit.
+The `suggestmeal` command provides the user the ability to get personalized meal recommendations from our application based on the current database of food available in our application as well as the food habits of the user, all while ensuring the user has a healthy meal that matches his/her lifestyle and calorie limit.
 
-The following section describes the implementation and design considerations involved in the Suggest feature, and how the Suggest feature facilitates meal recommendations.
+The following section describes the implementation and design considerations involved in the `suggestmeal` feature, and how the `suggestmeal` feature facilitates meal recommendations.
 
 ==== Current implementation
 The Suggest command assumes that there is a pre-existing list of food items from which it can suggest food from and that this list contains food parameters such as cost, calories, nutrients, etc. This is a sample of how this feature will work in principle:
@@ -376,35 +376,26 @@ The Suggest command assumes that there is a pre-existing list of food items from
 . The `SuggestMealCommand#execute()` function then moves on to the next stage of data enquiry from user for meal selection and passes the input choice to `SuggestMealCommand#execute_stage_1` function, which then invokes the `AddCommand#execute` to add the selected meal to the application.
 
 
+.Suggest Meal Command sequence diagram
+image::SuggestMealCommand_Sequence_Diagram.png[]
+
+
 ==== Design considerations
 
 Problem 1: *How to determine most suitable meal for user*
 
-* Solution 1: Assign total meal preference score of each meal in a list and provide meal suggestion based on the overall lowest cost of meal preferance score.
+* Solution 1: Use the calories as the determining factor and sort the calories from highest to lowest and suggest meals that meet the calorie limit left for the day.
 
-** Pros: Provides a way to compare various meal parameters together in which a total preference cost can be computed by by summing all the normalized parameter values.
+** Pros: Easy to implement and deterministic behaviour.
 
-** Cons: Requires a non-trivial way to normalize all the different parameter values. Example: Is a $1 cheaper meal worth 100 more calories to the user?
+** Cons: Does not consider other factors such as cost and other food nutrients (calcium, etc).
 
-* Solution 2: Calculate the ranking of each parameter of each meal with the rest of the meals and provide meal suggestion based on the meal with the lowest ranking in as many of the parameters specified by the user.
+* Solution 2 : Calculate the ranking of each parameter of each meal with the rest of the meals and provide meal suggestion based on the meal with the lowest ranking in as many of the parameters specified by the user.
 
-** Pros: Simple to implement as it performs a static ranking of all the parameters of each meal.
+** Pros: Allows comparison among multiple meal parameters for a more holistic meal suggestion.
 
-** Cons: Has no way to objectify the difference across different parameter categories. Example: A very healthy meal that is very nutritious but costs $30 will likely be suggested to the user as it performs the best in all categories except price, giving it the lowest overall ranking although it costs 3 times as much as any other meal.
+** Cons: Not all meals have all the tags specified as only `calorie` tag is common for all the meals.
 
-Problem 2: *How to prevent excessive repeated meal suggestions*
-
-* Solution 1: Add another parameter to each meal that tracks the number of times the user has eaten that meal over a week and ensure the number does not cross a threshold maximum.
-
-** Pros: New parameter created is easy to implement and is objectively able to limit the meal suggestions based on a threshold amount of times the food has been eaten.
-
-** Cons: Arbitary threshold number may not work well for different users who have different preferences of how often they mind eating the same meal over a week.
-
-* Solution 2: Provide a random meal suggestion based on the top few meals ranked by the preference score (within some tolerance to prevent low scoring meals from being accidentally suggested).
-
-** Pros: Very easy to implement and allows for a (somewhat) guaranteed way to mix up the meal suggestions such that the meal is not consumed too often.
-
-** Cons: Undeterministic meal suggestion that provides different meal suggestion given the same input parameters. There is still a small chance that the same meals can be suggested repeatedly.
 
 
 === Update Command
@@ -471,6 +462,48 @@ Problem 2: *Preventing data from being too large and taking too much space*
 
 .CGraph command sequence diagram
 image::Graph_Command.png[width="800"]
+
+
+=== Edit Command
+
+The `edit` command provides the user the ability to update existing meals in their food tracker on any date instead of deleting and re-adding a meal with a slightly different description.
+
+The following section describes the implementation and design considerations involved in the edit feature, and how the edit feature facilitates seamless meal tracking via intuitive meal updates.
+
+==== Current implementation
+The edit command assumes that there is a pre-existing list of food items being tracked by the user This is a sample of how this feature will work in principle:
+
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
+
+. After parsing, the data is then used to create an instance of the `EditCommand` object, which is then returned to the `Main` function.
+. The `Main` function would then invoke the `EditCommand#execute()` function.
+. During execution, the `EditCommand#getUpdatedMeal()` gets the updated meal details and `MealList#updateMealList()` updates the meal data for the `MealList` model.
+. The updated meal data is saved to storage via `Storage#writeFile()`.
+
+
+.Edit Command sequence diagram
+image::EditCommand_Sequence_Diagram.png[]
+
+
+==== Design considerations
+
+Problem 1: *How should meals be updated?*
+
+* Solution 1: Update the meal by the meal name on the date specified.
+
+** Pros: It is easier for the user to remember the meal that they had just input recently that they want to update.
+
+** Cons: It will face issues if there are multiple meals on the same day with the same name.
+
+* Solution 2 (Current Implementation): Update the meal by the meal index as shown via list command.
+
+** Pros: No issues faced in dealing with multiple meals with the same names or tags.
+
+** Cons: Requires user to type `list` before editing the meal as they need to know the index at which the meal must be updated.
+
+
+
+
 
 == Documentation
 === Introduction
@@ -938,7 +971,7 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-1. Student requests for the graph of the amount of nutrients that have been eaten in a specific time frame.
+1. Student requests for the graph of the amount of nusugtrients that have been eaten in a specific time frame.
 
 2. DIYeats displays the graph, accompanied by the goal intake that is set by the student.
 

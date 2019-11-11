@@ -40,7 +40,6 @@ public class FileUtil {
                 return readResourceFile(fileStr);
             } else {
                 createMissingFile(file);
-                // TODO: Better Exception handling for non existing file
                 return new BufferedReader(new StringReader(""));
             }
         }
@@ -58,7 +57,6 @@ public class FileUtil {
             InputStream is = FileUtil.class.getClassLoader().getResourceAsStream(fileStr);
             return new BufferedReader(new InputStreamReader(is));
         } catch (NullPointerException e) {
-            // TODO: Better Exception handling for invalid resource file.
             return new BufferedReader(new StringReader(""));
         }
     }

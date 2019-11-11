@@ -32,6 +32,7 @@ public class MarkDoneCommand extends Command {
      */
     public MarkDoneCommand(String indexStr, String dateStr) {
         this(indexStr);
+        logger.setLevel(Level.OFF);
         if (!dateStr.isBlank()) {
             try {
                 currentDate = LocalDate.parse(dateStr, dateFormat);
@@ -49,6 +50,7 @@ public class MarkDoneCommand extends Command {
      * @throws NumberFormatException when parseInt is unable to parse the index.
      */
     public MarkDoneCommand(String indexStr) {
+        logger.setLevel(Level.OFF);
         try {
             this.index = Integer.parseInt(indexStr.trim());
             logger.log(Level.FINE, "index is a valid int");
@@ -72,6 +74,7 @@ public class MarkDoneCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        logger.setLevel(Level.OFF);
         ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             logger.log(Level.WARNING, "the index " + index + " is out of bound");

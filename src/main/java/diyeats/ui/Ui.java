@@ -215,6 +215,7 @@ public class Ui {
      * @param wallet the wallet in which account balance is extracted.
      */
     public void showTransactions(ArrayList<Transaction> transactions, LocalDate date, Wallet wallet) {
+        logger.setLevel(Level.OFF);
         if (transactions.isEmpty()) {
             logger.log(Level.INFO, "There is no transaction on " + date + ".");
             System.out.println(UI_PADDING + "There is no transaction on " + date + ".");

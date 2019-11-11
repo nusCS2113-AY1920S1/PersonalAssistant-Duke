@@ -33,6 +33,7 @@ edit
 edit
 end
 enddate
+fats
 find
 gender
 height
@@ -48,10 +49,14 @@ startdate
 stats
 suggestmeal
 type
+deletetransaction
 undo
 update
 wallet
 weight
 year
+sort
 calorieAscending
 calorieDescending
+costAscending
+costDescending

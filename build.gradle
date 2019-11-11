@@ -27,19 +27,26 @@ shadowJar {
     archiveAppendix = null
     archiveAppendix = null
 }
+
 sourceSets {
     main {
+        java {
+            srcDir 'src/main/java'
+        }
         resources {
-            srcDirs = ['./src']
+            srcDirs = ["src/"]; exclude "**/*.java"
         }
     }
 }
+
 repositories {
     mavenCentral()
 }
+
 run {
     standardInput = System.in;
 }
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }

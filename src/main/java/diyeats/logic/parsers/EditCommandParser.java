@@ -57,7 +57,11 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
         for (String detailsStr : nutritionInfoMap.keySet()) {
             String valueStr = nutritionInfoMap.get(detailsStr);
             try {
-                InputValidator.validateNutritionalValue(valueStr);
+                if (detailsStr.trim().equalsIgnoreCase("name")) {
+                    InputValidator.validate(valueStr);
+                } else {
+                    InputValidator.validateNutritionalValue(valueStr);
+                }
             } catch (ProgramException e) {
                 return new EditCommand(false, "Unable to parse tag " + detailsStr + " with value "
                         + valueStr + " as an integer. Please enter values as integers larger than or equal to 0");

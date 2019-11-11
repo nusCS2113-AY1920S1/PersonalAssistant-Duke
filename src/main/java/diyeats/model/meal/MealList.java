@@ -95,6 +95,16 @@ public class MealList {
     }
 
     /**
+     * Update a meal in the meal list.
+     * @param localDate Date of meal at which to update.
+     * @param mealIndex Index of the meal as seen in the list command.
+     * @param updatedMeal Updated meal to be inserted into the meal list.
+     */
+    public void updateMealList(LocalDate localDate, int mealIndex, Meal updatedMeal) {
+        getMealsList(localDate).set(mealIndex, updatedMeal);
+    }
+
+    /**
      * This function is used to mark done the task of a particular index.
      * @param date date of the meal to be marked done.
      * @param index the index of task to be marked done.

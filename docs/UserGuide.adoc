@@ -174,13 +174,16 @@ Lost track of your commands in the middle of a session? Use the history command 
 You can only view commands that were entered in the *current session* of the application.
 ====
 
-==== Clear all data in a time period: `clear /startdate START_DATE /enddate END_DATE`
+==== Clear all data in a time period: `clear`
+Format: `/startdate START_DATE /enddate END_DATE`
+
 Need to clear all the data from a single month without the hassle of entering the delete command multiple times?
 Simply enter the `clear` command followed by a start date and the end date, and the application will take care of the rest!
 
 [NOTE]
 ====
-The dates entered which are marked for deletion are *inclusive*. E.g `clear 1/1/2019 3/1/2019` will delete all meals inclusive of 1/1/2019 and 3/1/2019.
+* The dates entered which are marked for deletion are *inclusive*. E.g `clear /startdate 1/1/2019 /enddate 3/1/2019` will delete all meals inclusive of 1/1/2019 and 3/1/2019.
+* To delete all meals on 1 particular day, simply enter `clear /startdate 1/1/2019 /enddate 1/1/2019` to clear all meals on 1st Jan 2019.
 ====
 
 ==== Exiting the application: `exit`
@@ -201,9 +204,9 @@ Examples:
 ** `list`
 * You want to view your data from 26th of December, 2019:
 ** `list /date 26/12/2019`
-* You want to view your data from 1st of January, 2018 based on calorie:
-** `list /date 1/1/2018 /sort calorie`
-* You want to view your data from 31th of December, 2019 based on their cost:
+* You want to view your data from 1st of January, 2018 based on calorie (from largest calorie):
+** `list /date 1/1/2018 /sort calorieDescending`
+* You want to view your data from 31th of December, 2019 based on their cost (from cheapest):
 ** `list /sort costAscending /date 31/12/2019`
 
 [NOTE]
@@ -323,12 +326,19 @@ The command also supports the editing of data in other dates: simply specify the
 
 Examples:
 
-* You have a breakfast item in the database today called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
-** You want to change the value of fats to 50g:
+* Suppose your current meal list via the `list` command looks like this:
+
++
+image::Edit_Command_List.png[]
+
+
+** You accidentally added kueh to your meal list with an extra 0 for calories (i.e. 1800 instead of 180). To update the calories from 1800 to 180:
+*** `edit 1 /calorie 180`
+** You want to add the value of fats (50g) to the kueh:
 *** `edit 1 /fats 50`
-** You want to change the value of fats and calcium to 50g
-*** `edit 1 /fats 50 /calcium 50`
-* You have a breakfast item in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the name of the meal from `Kueh` to `Cocunut Kueh`:
+*** `edit 1 /name Cocunut Kueh`
+* You have a breakfast item (with index 2) in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
 ** You want to change the value of fats to 50g:
 *** `edit 2 /fats 50 /date 1/1/2019`
 
@@ -336,6 +346,7 @@ Examples:
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: dd/mm/yyyy.
+* Ensure integer values follow each meal tag (except for `name` tag, which allows string input and `cost` tag, which allows float input).
 ====
 ==== Locating a meal by keyword: `find`
 Perhaps you want to refer to the nutritional value of a meal you have had in the past, but cant seem to recall the date?
@@ -535,7 +546,9 @@ image::Deposit_2.png[]
 * Dates should be entered in the following format: day/month/year.
 * Adding deposit in the future does not work.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
-* The `AMOUNT` can only go up to two decimal points (e.g. 2.50, 150.75)
+* The `AMOUNT` should only go up to two decimal points (e.g. 2.50, 150.75)
+* The Account Balance must not exceed the max value of BigDecimal data type
+
 ====
 
 ==== Pay money from your account: `pay`
@@ -548,7 +561,7 @@ The command also supports the addition of the transaction to other dates: simply
 
 Examples:
 
-* You pay 100SGD today
+* You pay 100SGD today (assuming original account balance of 400SGD)
 ** `pay 100`
 +
 image::Pay_1.png[]
@@ -564,7 +577,7 @@ image::Pay_2.png[]
 * Adding payment in the future does not work.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
 * The `AMOUNT` can only go up to two decimal points (e.g. 2.50, 150.75)
-* If `AMOUNT` exceeds the current account balance. It is possible for the account balance to become negative.
+* The `AMOUNT` should not exceed the current account balance. If it does, the payment transaction will not be made.
 ====
 
 
