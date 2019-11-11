@@ -1,9 +1,3 @@
-//@@author LL-Pengfei
-/**
- * HelpCommand.java
- * Generate information about supported commands.
- */
-
 package cube.logic.command;
 
 import cube.logic.command.util.CommandResult;
