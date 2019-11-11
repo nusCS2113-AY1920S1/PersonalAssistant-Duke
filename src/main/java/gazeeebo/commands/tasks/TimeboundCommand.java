@@ -5,7 +5,7 @@ package gazeeebo.commands.tasks;
 import gazeeebo.commands.Command;
 import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 
@@ -32,7 +32,7 @@ public class TimeboundCommand extends Command {
      *                      storing data to the Save.txt file.
      * @param commandStack  Stores the stack of previous commands
      * @param deletedTask   Stores the list of deleted tasks
-     * @param triviaManager The object for TriviaManager
+     * @param triviaManager The object for triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of fixed duration command is wrong
      * @throws ParseException Catch error if parsing of command fails

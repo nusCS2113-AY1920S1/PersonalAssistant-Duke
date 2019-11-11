@@ -9,7 +9,7 @@ import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
@@ -54,11 +54,17 @@ public class SnoozeCommand extends Command {
                 TriviaStorage triviaStorage = new TriviaStorage();
                 triviaManager.learnInput(ui.fullCommand, triviaStorage);
                 int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
+                if (index > list.size() - 1 || index < 0) {
+                    throw new DukeException("Please input correct task index");
+                }
                 String description = list.get(index).description;
                 System.out.println("You are snoozing this task: "
                         + list.get(index).description);
                 System.out.println("Please indicate how much time you want to snooze");
                 ui.readCommand();
+                if (ui.fullCommand.split(" ").length != 4) {
+                    throw new DukeException("Please follow th correct input format");
+                }
                 int year = Integer.parseInt(ui.fullCommand.split(" ")[0]);
                 int day = Integer.parseInt(ui.fullCommand.split(" ")[2]);
                 int month = Integer.parseInt(ui.fullCommand.split(" ")[1]);

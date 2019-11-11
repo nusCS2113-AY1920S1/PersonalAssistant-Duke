@@ -8,7 +8,7 @@ import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
@@ -47,6 +47,9 @@ public class RescheduleCommand extends Command {
                 throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
             } else {
                 int index = Integer.parseInt(ui.fullCommand.split(" ")[1]) - 1;
+                if (index > list.size() - 1 || index < 0) {
+                    throw new DukeException("Please input correct task index");
+                }
                 String decription = list.get(index).description;
                 ;
                 System.out.println("You are rescheduling this task: " + decription);
@@ -62,12 +65,14 @@ public class RescheduleCommand extends Command {
                         list.add(rescheduledDeadline);
                         System.out.println("Noted. I've changed this task's timeline: ");
                         System.out.println(rescheduledDeadline.listFormat());
-                    } else {
+                    } else if (ui.fullCommand.equals("no")) {
                         Event rescheduledEvent = new Event(decription, time);
                         list.remove(index);
                         list.add(rescheduledEvent);
                         System.out.println("Noted. I've changed this task's timeline: ");
                         System.out.println(rescheduledEvent.listFormat());
+                    } else {
+                        throw new DukeException("Please follow correct input format");
                     }
 
                     StringBuilder sb = new StringBuilder();

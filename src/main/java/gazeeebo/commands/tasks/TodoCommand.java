@@ -6,7 +6,7 @@ import gazeeebo.commands.Command;
 import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.tasks.Todo;
 import gazeeebo.storage.Storage;

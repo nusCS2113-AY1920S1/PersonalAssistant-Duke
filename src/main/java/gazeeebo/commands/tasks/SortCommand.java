@@ -7,7 +7,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import java.io.IOException;
 import gazeeebo.exception.DukeException;
@@ -43,6 +43,9 @@ public class SortCommand extends Command {
             if (ui.fullCommand.length() == 4) {
                 throw new DukeException("OOPS!!! Please enter method of sorting.");
             } else {
+                if (ui.fullCommand.split(" ").length != 2) {
+                    throw new DukeException("Please follow the correct input format");
+                }
                 ArrayList<Task> sortedList = new ArrayList<Task>(list);
                 if (ui.fullCommand.split(" ")[1].equals("name")) {
                     Collections.sort(sortedList, new CustomNameComparator());

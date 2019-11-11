@@ -1,6 +1,6 @@
 package gazeeebo.commands.tasks;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.exception.DukeException;

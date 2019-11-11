@@ -1,10 +1,11 @@
 //@@author mononokehime14
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;

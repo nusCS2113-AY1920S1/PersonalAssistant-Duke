@@ -66,11 +66,16 @@ public class ShiftModuleCommand {
             studyPlan.StudyPlan.get(semester).add(moduleCode);
             String toStore = "";
             for (int i = 0; i < studyPlan.StudyPlan.size(); i++) {
-                toStore += studyPlan.StudyPlan.get(i).stream().map(Object::toString).collect(Collectors.joining(" "));
+                toStore += studyPlan.StudyPlan
+                        .get(i)
+                        .stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(" "));
                 toStore += "\n";
             }
             storage.writeToStudyPlanFile(toStore);
-            System.out.println("This module " + moduleCode + " has been successfully shifted to Sem" + (semester + 1) + ".");
+            System.out.println("This module " + moduleCode
+                    + " has been successfully shifted to Sem" + (semester + 1) + ".");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (IOException | ArrayIndexOutOfBoundsException e) {

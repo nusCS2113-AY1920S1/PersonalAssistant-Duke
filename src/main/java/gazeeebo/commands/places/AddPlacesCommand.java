@@ -20,7 +20,7 @@ public class AddPlacesCommand {
         try {
             String room;
             String location;
-            if(ui.fullCommand.equals("1")) {
+            if (ui.fullCommand.equals("1")) {
                 System.out.println("Input in this format: Room,Location");
                 ui.readCommand();
                 String[] splitInfo = ui.fullCommand.split(",");

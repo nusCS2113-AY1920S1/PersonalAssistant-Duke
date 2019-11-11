@@ -6,7 +6,7 @@ package gazeeebo.commands.tasks;
 import gazeeebo.commands.Command;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 
 import gazeeebo.exception.DukeException;
@@ -30,7 +30,7 @@ public class TagCommand extends Command {
      * @param storage       The object that deals with storing data.
      * @param commandStack  Stores the stack of previous commands
      * @param deletedTask   Stores the list of deleted tasks
-     * @param triviaManager The object for TriviaManager
+     * @param triviaManager The object for triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of tag command is wrong
      * @throws ParseException Catch error if parsing of commands fails

@@ -1,15 +1,12 @@
 //@@author mononokehime14
 
-package gazeeebo.TriviaManager;
+package gazeeebo.triviaManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.Storage;
 import gazeeebo.storage.TriviaStorage;
 
 public class TriviaManager {

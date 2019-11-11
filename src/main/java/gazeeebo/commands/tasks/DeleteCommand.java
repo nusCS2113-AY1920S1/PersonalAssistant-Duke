@@ -4,7 +4,7 @@ import gazeeebo.commands.Command;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
