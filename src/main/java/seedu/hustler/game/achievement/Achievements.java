@@ -1,5 +1,7 @@
 package seedu.hustler.game.achievement;
 
+//@@author jingkang97
+
 /**
  * Achievements that the user can achieve in Hustler.
  */

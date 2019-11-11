@@ -19,7 +19,7 @@ public class AchievementListTest {
         AchievementList achievementList = new AchievementList();
 
         //Checks if all achievements other than "fresh off the boat" is locked
-        for(int i = 0; i < achievementList.size() - 1; i += 1) {
+        for (int i = 0; i < achievementList.size() - 1; i += 1) {
             assertEquals(true, new AchievementList().get(i).checkLock());
         }
         //Checks if "fresh off the boat" is unlocked from the start
@@ -36,7 +36,7 @@ public class AchievementListTest {
     @Test
     public void checkFixedAchievementListSize() {
         AchievementList fiftyAchievementsList = new AchievementList();
-        for(int i = 0; i < 40; i += 1) {
+        for (int i = 0; i < 40; i += 1) {
             fiftyAchievementsList.add(new AchievementsStub());
         }
         assertEquals(50,fiftyAchievementsList.size());
@@ -137,7 +137,9 @@ public class AchievementListTest {
          * @return correct format.
          */
         @Override
-        public String toTxt() { throw new AssertionError("This method should not be called."); }
+        public String toTxt() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
 }

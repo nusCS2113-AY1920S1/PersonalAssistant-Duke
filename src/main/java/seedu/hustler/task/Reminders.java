@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+//@@author jingkang97
 /**
  * Display reminders list when the app first start
  * and user can type command "remind" to bring up reminders after that.

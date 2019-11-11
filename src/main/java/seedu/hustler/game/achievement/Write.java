@@ -1,5 +1,7 @@
 package seedu.hustler.game.achievement;
 
+//@@author jingkang97
+
 /**
  * The interface that all classes in achievement must inherit to
  * convert them to proper format before storing them in a txtfile.

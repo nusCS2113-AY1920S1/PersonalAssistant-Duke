@@ -20,6 +20,8 @@ import static seedu.hustler.game.achievement.ConsecutiveLogin.reset;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.checkLogin;
 import static seedu.hustler.game.achievement.DoneTask.numberOfDone;
 
+//@@author jingkang97
+
 /**
  * A class that stores User's achievements and loads it on request from disc.
  */

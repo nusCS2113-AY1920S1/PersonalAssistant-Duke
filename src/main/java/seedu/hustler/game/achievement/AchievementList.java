@@ -11,6 +11,8 @@ import static seedu.hustler.game.achievement.ConsecutiveLogin.loginAchievementLe
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.donePoints;
 
+//@@author jingkang97
+
 /**
  * Deals with addition of achievements and unlocking of achievements.
  * Also prints out achievement list.

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+//@@author jingkang97
+
 /**
  * Test class for BusyBee.
  */
@@ -116,7 +118,7 @@ public class BusyBeeTest {
          */
         @Override
         public String getDescription() {
-           return "Busybee";
+            return "Busybee";
         }
 
         /**
@@ -125,7 +127,7 @@ public class BusyBeeTest {
          */
         @Override
         public String getInformation() {
-            switch(this.achievementLevel) {
+            switch (this.achievementLevel) {
             case "Bronze" : {
                 return "(User adds 5 tasks)";
             }
@@ -186,7 +188,8 @@ public class BusyBeeTest {
          */
         @Override
         public String toTxt() {
-            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation();
+            return checkLock() + "|" + this.points + "|" + achievementLevel
+                    + "|" + getDescription() + "|" + getInformation();
         }
 
         /**

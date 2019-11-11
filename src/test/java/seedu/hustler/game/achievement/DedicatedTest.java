@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+//@@author jingkang97
+
 /**
  * Test for "Dedicated to the art".
  */
@@ -67,7 +69,8 @@ public class DedicatedTest {
         AchievementsStub lockedBronze = new AchievementsStub("Bronze");
 
         //String should represents the current status of Busybee.
-        assertEquals("Gained: 0 Dedicated to the art Bronze (User logs in 5 days consecutively) Progress: [0%]", lockedBronze.toString());
+        assertEquals("Gained: 0 Dedicated to the art Bronze (User logs in 5 days consecutively) Progress: [0%]",
+                lockedBronze.toString());
     }
 
     /**
@@ -123,18 +126,18 @@ public class DedicatedTest {
          */
         @Override
         public String getInformation() {
-            switch(this.achievementLevel) {
-                case "Bronze" : {
-                    return "(User logs in 5 days consecutively)";
-                }
-                case "Silver" : {
-                    return "(User logs in 10 days consecutively)";
-                }
-                case "Gold" : {
-                    return "(User logs in 15 days consecutively)";
-                }
-                default:
-                    break;
+            switch (this.achievementLevel) {
+            case "Bronze" : {
+                return "(User logs in 5 days consecutively)";
+            }
+            case "Silver" : {
+                return "(User logs in 10 days consecutively)";
+            }
+            case "Gold" : {
+                return "(User logs in 15 days consecutively)";
+            }
+            default:
+                break;
             }
             return "(User logs in 0 days consecutively.)";
         }
@@ -184,7 +187,8 @@ public class DedicatedTest {
          */
         @Override
         public String toTxt() {
-            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation();
+            return checkLock() + "|" + this.points + "|" + achievementLevel
+                    + "|" + getDescription() + "|" + getInformation();
         }
 
         /**
@@ -193,7 +197,8 @@ public class DedicatedTest {
          */
         @Override
         public String toString() {
-            return super.toString() + " 0 Dedicated to the art Bronze (User logs in 5 days consecutively) Progress: [0%]";
+            return super.toString() + " 0 Dedicated to the art Bronze "
+                    + "(User logs in 5 days consecutively) Progress: [0%]";
         }
     }
 

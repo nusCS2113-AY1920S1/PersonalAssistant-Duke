@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author jingkang97
+
 /**
  * Test for "Fresh off the boat".
  */
@@ -39,7 +41,8 @@ public class FirstLoginTest {
         AchievementsStub unlockedGold = new AchievementsStub("Gold");
 
         //String should represents the current status of Busybee.
-        assertEquals("false|15|Gold|Fresh off the boat|(User use Hustler for the first time) Progress: [100%]", unlockedGold.toTxt());
+        assertEquals("false|15|Gold|Fresh off the boat|(User use Hustler for the first time) "
+                + "Progress: [100%]", unlockedGold.toTxt());
 
     }
 
@@ -52,7 +55,8 @@ public class FirstLoginTest {
         AchievementsStub lockedGold = new AchievementsStub("Gold");
 
         //String should represents the current status of Busybee.
-        assertEquals("Gained: 15 Fresh off the boat Gold(User use Hustler for the first time) Progress: [100%]", lockedGold.toString());
+        assertEquals("Gained: 15 Fresh off the boat Gold(User use Hustler "
+                + "for the first time) Progress: [100%]", lockedGold.toString());
     }
 
     /**
@@ -156,7 +160,8 @@ public class FirstLoginTest {
          */
         @Override
         public String toTxt() {
-            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation() + " Progress: [100%]";
+            return checkLock() + "|" + this.points + "|" + achievementLevel + "|"
+                    + getDescription() + "|" + getInformation() + " Progress: [100%]";
         }
 
         /**
@@ -165,7 +170,8 @@ public class FirstLoginTest {
          */
         @Override
         public String toString() {
-            return super.toString() + " 15 Fresh off the boat Gold(User use Hustler for the first time) Progress: [100%]";
+            return super.toString() + " 15 Fresh off the boat Gold(User "
+                    + "use Hustler for the first time) Progress: [100%]";
         }
     }
 
