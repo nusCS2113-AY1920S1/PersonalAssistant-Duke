@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.model.calendar.CalendarEntry;
 import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Task;
@@ -10,12 +11,15 @@ import duchess.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Command to remove given task from the tasklist.
  */
 public class DeleteTaskCommand extends Command {
     private final int taskNo;
+    private final Logger logger = Log.getLogger();
 
     public DeleteTaskCommand(int taskNo) {
         this.taskNo = taskNo - 1;
@@ -40,7 +44,9 @@ public class DeleteTaskCommand extends Command {
                 LocalDate date = toRemove.getTimeFrame().getStart().toLocalDate();
                 update = CalendarManager.deleteEntry(update, toRemove, date);
                 store.setDuchessCalendar(update);
+                logger.log(Level.INFO, "Deleted event from calendar: " + toRemove.toString());
             }
+            logger.log(Level.INFO, "Deleted event: " + toRemove.toString());
             storage.save(store);
         } catch (IndexOutOfBoundsException e) {
             throw new DuchessException("Please supply a valid number.");

@@ -1,7 +1,9 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.model.calendar.CalendarEntry;
+import duchess.model.calendar.CalendarManager;
 import duchess.model.calendar.CalendarUtil;
 import duchess.parser.Util;
 import duchess.storage.Storage;
@@ -10,7 +12,8 @@ import duchess.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Command to display calendar in either the week or day view.
@@ -19,6 +22,7 @@ public class DisplayCalendarCommand extends Command {
     private LocalDate start;
     private LocalDate end;
     private boolean isWeek;
+    private final Logger logger = Log.getLogger();
 
     /**
      * Initialises start and end (where applicable) dates of calendar week view.
@@ -43,20 +47,12 @@ public class DisplayCalendarCommand extends Command {
         List<CalendarEntry> currCalendar = store.getDuchessCalendar();
         String context = CalendarUtil.toString(start);
         if (isWeek) {
-            List<CalendarEntry> query = currCalendar
-                    .stream()
-                    .filter(ce -> ce.getDate().compareTo(start) >= 0 && ce.getDate().compareTo(end) <= 0)
-                    .collect(Collectors.toList());
+            List<CalendarEntry> query = CalendarManager.findEntries(currCalendar, start, end);
+            logger.log(Level.INFO, "Display week in calendar from " + start.toString() + " to " + end.toString());
             ui.displayCalendar(query, context);
         } else {
-            CalendarEntry ce = currCalendar
-                    .stream()
-                    .filter(e -> e.getDate().equals(start))
-                    .findFirst()
-                    .orElse(null);
-            if (ce == null) {
-                throw new DuchessException("You have no events scheduled on " + start.toString());
-            }
+            CalendarEntry ce = CalendarManager.findEntry(currCalendar, start);
+            logger.log(Level.INFO, "Display day in calendar on " + start.toString());
             ui.displayCalendar(ce, context);
         }
     }

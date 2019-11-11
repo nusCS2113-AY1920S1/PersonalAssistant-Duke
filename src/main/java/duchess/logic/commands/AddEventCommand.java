@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.model.Grade;
 import duchess.model.Module;
 import duchess.model.calendar.CalendarEntry;
@@ -13,6 +14,8 @@ import duchess.ui.Ui;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Command to add a given event task to the tasklist.
@@ -23,6 +26,7 @@ public class AddEventCommand extends Command {
     private LocalDateTime start;
     private String moduleCode;
     private double weightage;
+    private final Logger logger = Log.getLogger();
 
     /**
      * Creates a command to add an event.
@@ -70,7 +74,9 @@ public class AddEventCommand extends Command {
             List<CalendarEntry> ce = store.getDuchessCalendar();
             CalendarManager.addEntry(ce, task, start.toLocalDate());
             store.setDuchessCalendar(ce);
+            logger.log(Level.INFO, "Add event to calendar: " + task.toString());
         }
+        logger.log(Level.INFO, "Adding event: " + task.toString());
         ui.showTaskAdded(store.getTaskList(), task);
         storage.save(store);
     }

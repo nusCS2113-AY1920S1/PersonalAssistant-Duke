@@ -1,7 +1,9 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.model.calendar.CalendarEntry;
+import duchess.model.calendar.CalendarManager;
 import duchess.model.calendar.CalendarUtil;
 import duchess.parser.Util;
 import duchess.storage.Storage;
@@ -11,7 +13,8 @@ import duchess.ui.Ui;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Command to export calendar in either the week or day view.
@@ -22,6 +25,7 @@ public class ExportCommand extends Command {
     private PrintStream file;
     private String filepath;
     private boolean isWeek;
+    private final Logger logger = Log.getLogger();
 
     /**
      * Initialises start and end dates, file and filepath of export.
@@ -51,21 +55,13 @@ public class ExportCommand extends Command {
         String context = CalendarUtil.toString(start);
         List<String> display;
         if (isWeek) {
-            List<CalendarEntry> query = currCalendar
-                    .stream()
-                    .filter(ce -> ce.getDate().compareTo(start) >= 0 && ce.getDate().compareTo(end) <= 0)
-                    .collect(Collectors.toList());
+            List<CalendarEntry> query = CalendarManager.findEntries(currCalendar, start, end);
             display = ui.stringCalendar(query, context);
+            logger.log(Level.INFO, "Export week in calendar from " + start.toString() + " to " + end.toString());
         } else {
-            CalendarEntry ce = currCalendar
-                    .stream()
-                    .filter(e -> e.getDate().equals(start))
-                    .findFirst()
-                    .orElse(null);
-            if (ce == null) {
-                throw new DuchessException("You have no events scheduled on " + start.toString());
-            }
+            CalendarEntry ce = CalendarManager.findEntry(currCalendar, start);
             display = ui.stringCalendar(ce, context);
+            logger.log(Level.INFO, "Export day in calendar on " + start.toString());
         }
         for (String s : display) {
             file.println(s);
