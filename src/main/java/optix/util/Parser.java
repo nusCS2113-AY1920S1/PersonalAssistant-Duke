@@ -33,6 +33,7 @@ import java.util.Map;
 
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -268,6 +269,7 @@ public class Parser {
     }
 
     private void initLogger() {
+        LogManager.getLogManager().reset();
         OPTIXLOGGER.setLevel(Level.ALL);
         try {
             // do not append here to avoid

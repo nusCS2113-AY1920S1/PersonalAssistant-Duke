@@ -472,6 +472,25 @@ We chose asciidoc over Markdown because asciidoc, although a bit more complex th
 
 Download the AsciiDoc plugin for IntelliJ, this allows you to preview the changes you have made to your `.adoc` files in real-time.
 
+== Logging
+
+Logs are written and saved into `OptixLogger.txt` files. Loggers are created and called in classes that interact with
+user input, such as `Parser`, and the various `Commands`. It only logs the latest user session,
+and any previous log data is overwritten once a new session is begun. This is to avoid clutter and a needlessl
+number of logs. When there is no log file, a new log file is created automatically.
+
+
+[NOTE]
+Different logging levels are used in logging. This is to differentiate the severity level of the log.
+Logger level of `Level.INFO` is primarily used for marking instantiations of classes ,
+and logger level of `Level.Warning` is used for marking Exceptions.
+
+
+=== Editing Logging Configurations
+Edit the specific log configurations in the `initLogger()` function in the desired class.
+Learn more about logging link:{loggingBasicsURL}[here].
+
+:loggingBasicsURL: https://www.loggly.com/ultimate-guide/java-logging-basics/
 
 
 == Testing
@@ -1267,7 +1286,7 @@ All commands, show names and parameters are case insensitive.
 ... Prerequisites: `add` command has an alias `t` +
     Expected: Chat box displays a message showing that the alias `t` has been removed from the `add` command.
 
-. Non-matching aliad
+. Non-matching alias
 
 .. Test case: `remove-alias f|delete`
 ... Prerequisites: `delete` command has an alias other than `f` +
