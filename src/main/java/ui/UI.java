@@ -89,9 +89,10 @@ public class UI {
 
         //view_employment Command.
         helpMap.put("view_employment", "Displays employment rate for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Format: view_employment <Degree>\n"
-                + "Examples: view_employment bme | view_employment ise\n");
+                + "Examples: view_employment BME | view_employment ISE\n");
 
         //compare Command.
         helpMap.put("compare", "Compares 2 degrees together and displays the differences in modules and their credits.\n"
@@ -129,9 +130,10 @@ public class UI {
 
         //cohort_size Command.
         helpMap.put("cohort_size", "Displays cohort size for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Format: cohort_size <Degree>\n"
-                + "Examples: cohort_size bme | cohort_size ise\n");
+                + "Examples: cohort_size BME | cohort_size ISE\n");
 
         //find Command.
         helpMap.put("find", "Checks your task list and searches for a tasks matching the input string.\n"

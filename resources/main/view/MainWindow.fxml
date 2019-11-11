@@ -68,22 +68,22 @@
                                                         <PropertyValueFactory property="number" />
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                                <TableColumn maxWidth="80.0" minWidth="80.0" resizable="false" text="Task Type">
+                                                <TableColumn maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="Type">
                                                     <cellValueFactory>
                                                         <PropertyValueFactory property="taskType" />
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                                <TableColumn maxWidth="59.0" minWidth="59.0" prefWidth="59.0" resizable="false" text="Status">
+                                                <TableColumn maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="Status">
                                                     <cellValueFactory>
                                                         <PropertyValueFactory property="isDone" />
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                                <TableColumn maxWidth="60.0" minWidth="60.0" prefWidth="60.0" resizable="false" text="Priority">
+                                                <TableColumn maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" text="Priority">
                                                     <cellValueFactory>
                                                         <PropertyValueFactory property="priority" />
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                                <TableColumn maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" text="Date">
+                                                <TableColumn maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Date">
                                                     <cellValueFactory>
                                                         <PropertyValueFactory property="deadline" />
                                                     </cellValueFactory>

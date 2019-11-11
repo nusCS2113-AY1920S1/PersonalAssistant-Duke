@@ -177,7 +177,8 @@ Adds a degree programme you are interested in into your personalised degree list
 This will also add tasks related to your degree to your task list. +
 Will switch to the `[Degree Choices]` tab. +
 
-`<DEGREE>` accepts keywords and aliases and is case insensitive. 
+[NOTE]
+`<DEGREE>` accepts keywords and aliases and is case insensitive, but there are exceptions with the `view_employment` and `cohort_size` commands. 
 
 Format: `add <DEGREE>` +
 
@@ -186,7 +187,7 @@ Examples: +
 * `add bme` +
 Adds Biomedical Engineering to your degree list and faculty events to your task list.
 * `add Material Science Engineering` +
-Adds Material Science Engineering to your degree list and faculty events to your task list.
+Adds Materials Science and Engineering to your degree list and faculty events to your task list.
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
@@ -407,29 +408,31 @@ Displays all tasks whose description contains the word "Sleep".
 === Find employment rate of a given degree: `view_employment <DEGREE>`
 
 You can view the employment rates and basic mean salary of the recent graduates of your specified degree. +
+Only works with keywords and is case-sensitive. +
 This will produce a bar graph in another window. +
 
-Format: `view_employment <DEGREE>` (The degree entered MUST be the keyword of that particular degree)
+Format: `view_employment <DEGREE>` +
 
 Examples: +
 
-* `view_employment bme` +
+* `view_employment BME` +
 Displays the employment rate of graduates of the Biomedical Engineering course.
-* `view_employment ise` +
+* `view_employment ISE` +
 Displays the employment rate of graduates of the Industrial and Systems Engineering course.
 
 === Find cohort size of a given degree: `cohort_size <DEGREE>`
 
 You can view past cohort sizes of your specified degree. +
+Only works with keywords and is case-sensitive. +
 This will produce a bar graph in another window. +
 
-Format: `cohort_size <DEGREE>` (The degree entered MUST be the keyword of that particular degree)
+Format: `cohort_size <DEGREE>` +
 
 Examples: +
 
-* `cohort_size ee` +
+* `cohort_size EE` +
 Displays the past cohort sizes of the Electrical Engineering course.
-* `cohort_size me` +
+* `cohort_size ME` +
 Displays the past cohort sizes of the Mechanical Engineering course.
 
 === Display keywords and aliases that are compatible with <DEGREE>: `keywords`
@@ -543,9 +546,9 @@ e.g. `schedule 01-01-1970`
 * *Find tasks* : `find <STRING>` +
 e.g. `find r`, `find Work`
 * *Find employment rate* : `view_employment <DEGREE>` +
-e.g. `view_employment bme`
+e.g. `view_employment BME`
 * *Find past cohort sizes* : `cohort_size <DEGREE>` +
-e.g. `cohort_size ise`
+e.g. `cohort_size ISE`
 * *Display keywords and aliases* : `keywords` +
 * *Undo command* : `undo` +
 * *Redo command* : `redo` +
