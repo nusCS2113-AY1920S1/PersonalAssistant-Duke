@@ -163,7 +163,7 @@ public class Process {
                 return;
             } //TODO refactor
             double budget = projectManager.projectmap.get(projectname).budget;
-            fund.addFund(budget);
+            fund.retrieveFund(budget);
             Project deletedProject = projectManager.deleteProject(projectname);
             int projectsize = projectManager.projectmap.size();
             ui.printDeleteProject(deletedProject, projectsize, fund);
@@ -230,7 +230,7 @@ public class Process {
                     ui.printSetFundMessage(fund);
                 } else {
                     ui.exceptionMessage("     :( OOPS!!! The fund is set already. "
-                            + "Please use reset fund command instead.");
+                            + "Please use change fund command to modify instead.");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -330,9 +330,9 @@ public class Process {
 
     //@@author lijiayu980606
     /**
-     * Process the reset fund command to add fund value to all projects.
+     * Process the change fund command to add fund value to all projects.
      * TODO future implementation: user need to key in password to enable this action.
-     * Command format: reset fund new/AMOUNT_OF_FUND.
+     * Command format: change fund new/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param fund the total fund the that the organisation owns
@@ -799,8 +799,8 @@ public class Process {
     }
 
     /**
-     * Processes the delete command. INPUT FORMAT: delete payment p/payee i/item
-     * 
+     * Processes the delete command.
+     * INPUT FORMAT: delete payment p/payee i/item.
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      * @throws AlphaNUSException for reading errors from json file
@@ -817,7 +817,7 @@ public class Process {
             payeename = split[1];
             String itemname = split[2];
             Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap);
-            projectManager.projectmap.get(payeename).addBudget(deleted.cost);
+            projectManager.projectmap.get(payeename).retrieveBudget(deleted.cost);
             ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
             BeforeAfterCommand.afterCommand(storage, projectManager);
         } catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
@@ -930,7 +930,7 @@ public class Process {
             for (Payments p : payee.payments) {
                 totalspending += p.cost;
             }
-            projectManager.projectmap.get(currentprojectname).addBudget(totalspending);
+            projectManager.projectmap.get(currentprojectname).retrieveBudget(totalspending);
         } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
                     + "The correct format is [delete payee p/PAYEE_NAME]");
@@ -1003,6 +1003,10 @@ public class Process {
             HashMap<String, Payee> managerMap = projectManager.getCurrentProjectManagerMap();
             ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listOfPayments(managerMap);
             prName = projectManager.currentprojectname;
+            if (listOfPayments.get(0).isEmpty() && listOfPayments.get(1).isEmpty() && listOfPayments.get(2).isEmpty()) {
+                ui.exceptionMessage("     ☹ OOPS!!! There are no payments yet!");
+                return;
+            }
             for (ArrayList<Payments> lists : listOfPayments) {
                 if (lists.isEmpty()) {
                     continue;

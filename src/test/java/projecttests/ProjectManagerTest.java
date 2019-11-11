@@ -107,9 +107,12 @@ class ProjectManagerTest {
         assertEquals(project2.giveProject(), outputprojectslist.get(1).giveProject());
     }
 
-    //TODO jiayu
+    //@@author lijiayu980606
     @Test
     void testAssignBudget() {
+        projectmanager.addProject("Flag", 100.0);
+        projectmanager.assignBudget("Flag", 200.0);
+        assertEquals(projectmanager.projectmap.get("Flag").getBudget(), 300);
     }
 
     @Test
