@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SortTimeTest extends CommandTestFramework {
+public class SortTimeTest extends CommandTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
