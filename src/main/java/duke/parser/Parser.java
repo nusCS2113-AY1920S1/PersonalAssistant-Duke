@@ -187,7 +187,7 @@ public class Parser {
                     case 3:
                         throw new DukeException("must specify expiry date as well, eg: add chicken 3 12/2/2020");
                     case 4:
-                        return new AddCommand(new Ingredient(part[1], checkInt(part[2]), part[3]));
+                        return new AddCommand(new Ingredient(checkIngNameLength(part[1].trim()), checkInt(part[2]), part[3]));
                     default:
                         throw new DukeException("must specify ingredient name (no spaces, use underscore '_'), amount and expiry date,\n\t add only takes 3 arguments!");
                 }
@@ -198,7 +198,7 @@ public class Parser {
             case "use":
                 if (part.length != 3)           // input error handling for use ingredient!
                     throw new DukeException("follow the template: use <ingredient name> <amount>");
-                return new UseCommand(new Ingredient(part[1], checkInt(part[2]), new Date()));
+                return new UseCommand(new Ingredient(checkIngNameLength(part[1].trim()), checkInt(part[2]), new Date()));
             case "listtoday":
                 if (part.length != 1)
                     throw new DukeException("follow the template: listtoday");
@@ -206,7 +206,7 @@ public class Parser {
             case "find":
                 if (part.length != 2)
                     throw new DukeException("follow the template: find <ingredient name>");
-                return new FindIngredientCommand(part[1]);
+                return new FindIngredientCommand(checkIngNameLength(part[1].trim()));
             case "changename":
                 if (part.length != 3)
                     throw new DukeException("follow the template: change <ingredient index> <new ingredient name>");
@@ -218,6 +218,17 @@ public class Parser {
             default:
                 throw new DukeException("not a valid command for an Ingredient");
         }
+    }
+
+    //@@author saradj
+    private static String checkIngNameLength(String name) throws DukeException {
+        if(name.length()==0){
+            throw new DukeException("Must enter a name for the ingredient, only space is not allowed :)");
+        }
+        if (name.length() > 30) {
+            throw new DukeException("Seems like the ingredient name you entered is too long, it has " + name.length() + " letters, MAX name length is 30 letters!");
+        }
+        return name;
     }
 
     //@@author CEGLincoln
