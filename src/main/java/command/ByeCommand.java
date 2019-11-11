@@ -5,7 +5,6 @@ import inventory.Inventory;
 
 import exception.DukeException;
 import room.RoomList;
-import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
 import booking.BookingList;
