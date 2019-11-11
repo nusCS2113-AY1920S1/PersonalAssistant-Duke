@@ -790,7 +790,7 @@ public class Process {
             payeename = split[1];
             String itemname = split[2];
             Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap);
-            projectManager.projectmap.get(payeename).addBudget(deleted.cost);
+            //projectManager.projectmap.get(deleted.project).addBudget(deleted.cost);
             ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
             BeforeAfterCommand.afterCommand(storage, projectManager);
         } catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
@@ -798,10 +798,12 @@ public class Process {
                 + "     The correct input format is:[delete payment p/PAYEE i/ITEM]");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Payment not found, check item field again!");
-        } catch (NullPointerException e) {
+        } catch (IllegalAccessError e) {
             ui.exceptionMessage("     ☹ OOPS!!! Payee name provided is not correct!");
             Set<String> dict = storage.readFromDictFile();
             ui.printSuggestion(dict, input, payeename);
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!!");
         }
 
     }
@@ -930,7 +932,6 @@ public class Process {
             String[] splitpayments = splitspace[1].split("p/");
             splitpayments = cleanStrStr(splitpayments);
             payee = splitpayments[1];
-            ui.exceptionMessage(payee);
             LinkedHashMap<String, Project> projectMapClone = (LinkedHashMap<String, Project>) 
                 projectManager.projectmap.clone();
             Payee found = PaymentManager.findPayee(projectMapClone, projectManager.currentprojectname, payee);
@@ -976,11 +977,16 @@ public class Process {
             HashMap<String, Payee> managerMap = projectManager.getCurrentProjectManagerMap();
             ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listOfPayments(managerMap);
             prName = projectManager.currentprojectname;
+            int count = 0;
             for (ArrayList<Payments> lists : listOfPayments) {
                 if (lists.isEmpty()) {
+                    count++;
                     continue;
                 }
                 ui.printPaymentList(prName, lists, lists.get(0).status);
+            }
+            if (count == 3) {
+                throw new ArrayIndexOutOfBoundsException();
             }
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There are no payees with that name!");
@@ -992,6 +998,8 @@ public class Process {
             ui.printSuggestion(dict, input, prName);
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please select a project using the goto command first!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
         }
     }
 

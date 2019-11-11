@@ -230,6 +230,9 @@ public class Ui {
      * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(String name, ArrayList<Payments> paymentList) {
+        if (paymentList.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         System.out.print(line);
         System.out.println("Here are your payments in" + name + ":");
         int i = 0;

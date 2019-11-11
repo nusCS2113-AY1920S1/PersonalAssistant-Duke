@@ -31,7 +31,7 @@ public class Instruction {
     }
 
     public boolean isFind(String input) {
-        return input.startsWith("find");
+        return input.startsWith("find payee");
     }
 
     public boolean isFindTask(String input) {

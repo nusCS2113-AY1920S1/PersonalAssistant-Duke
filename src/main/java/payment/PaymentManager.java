@@ -185,6 +185,9 @@ public abstract class PaymentManager {
      */
     public static Payments deletePayments(String payee, String item, 
         HashMap<String, Payee> managermap) {
+        if (!managermap.containsKey(payee)) {
+            throw new IllegalAccessError();
+        }
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
