@@ -252,7 +252,7 @@ After creating the combiner, we check if there is any 3rd parameter (`repeat`) t
 
 
 
-If there is a `repeat` parameter. We use a iterator to loop through the array of bars as an iterator allows us to modify the object in the array while looping through it. The current index of the loop is stored in the form of a variable.
+If there is a `repeat` parameter, we will call the `repeatLoop` function. This uses an iterator to loop through the array of bars. An iterator was used as it allows us to modify the object in the array while looping through it. The current index of the loop is stored in the form of a variable.
 
 If the condition is fulfilled,  we call the combiner's `combineBar` function.
 
@@ -291,7 +291,7 @@ The exact song is obtained by calling the `findSong` function of songList. If th
 
 The respective bar array is obtained by calling the `getBars()` function for each song obtained and the combiner class is invoked. 
 
-If there is a repeat parameter, an iterator is used to loop through the bar list and check if the current index is greater than or equal to the required index and perform the combineBar function, which splits each bar into chords and combines the chords using the arrayList combination. 
+If there is a repeat parameter, we will call the `repeatLoop` function. This uses an iterator is used to loop through the bar list and check if the current index is greater than or equal to the required index and perform the combineBar function, which splits each bar into chords and combines the chords using the arrayList combination. 
 
 If there isnt a repeat parameter,then we just get the bar to be overlayed from the array and call the combiner's combineBar() function. 
 
@@ -317,6 +317,21 @@ Allows the users to overlay a group from one song to another. The interesting as
 * Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
 * Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
 
+It works similarly to the above two commands but the only difference is the way it handles unequal groups as it gets ratio of the two groups (i.e. the number of bars in group_1): 
+
+    int numberOfTimes = (int) Math.ceil(barCopiedTo.size() / (barBeCopiedFrom.size() * 1.0));
+
+The value is rounded up using the `Math.ceil` function as this gives us the upper bound for the number of times the barBeCopiedFrom needs to be repeated. After which we loop through the tobeCopiedFrom array and combine it with the toCopiedTo bars. A variable is used to keep count to ensure one doesnt access. 
+
+
+==== overlay_bar_group 
+
+
+Allows the users to overlay a  bar onto a group from the same song. It works in the similar way as the `overlay` commands. The repeat parameter allows the user to overlay through all the groups from the specified starting group. 
+
+`overlay_bar_group <bar_number> <group_number>`
+
+The group number can be obtained from the `list_group` function. 
 
 
 ==== Group and Copy
@@ -338,6 +353,14 @@ Following this, the `TimerTask` of generating the appropriate output to the cons
 <insert seq diagram specific to Metronome>
 
 === Autosuggest
+
+This feature was built to ensure that the system can autocorrect for minor mistakes while typing the commands such as helo instead of help. There is no need to call a command to get the closest command but rather it will automatically try to understand the command that is being typed. 
+
+image::autosuggest.png[]
+
+
+The feature works on the basis of the Jaccard theorem that finds the intersection between the 2 words and divides it by the union of the 2 words and hence gets the word with the highest ratio and is above a threshold as to account for random inputs. The intersection function is a custom function and uses hashmaps to keep count of the number of common alphabets between the 2 commands. Hahsmaps were choosen to help increase the efficiency. 
+
 
 === Storage and StorageParser
 
