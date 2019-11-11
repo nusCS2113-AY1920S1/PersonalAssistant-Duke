@@ -340,7 +340,7 @@ keyword specified by the user. This enables the user to have *great flexibility*
 without the need of memorising each of their savings account names within *OwlMoney*. By allowing the user to search for
  a specific savings account, it also aids in the operation of editing or deleting of savings account.
 
-===== Current Implementation
+===== 9.2.1.1. Current Implementation
 The current implementation of finding savings account only allows the user to search through the name of the account.
 The reason to only allows the user to search through the account name was that searching through parameters such as
 income may be inaccurate, as a user's income may change over time resulting in inconsistency in the search.
@@ -382,7 +382,7 @@ application:
 . Once the search has been completed, the details of all matching savings account will be displayed to inform the
 user of the *successful* matches.
 
-=== Design Considerations
+===== 9.2.1.2. Design Considerations
 
 This section describes the various design considerations taken when implementing the `find` feature (e.g. `/find
 /savings` or `/find /banktransaction`).
