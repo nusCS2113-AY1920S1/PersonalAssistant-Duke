@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 
 public class Expenditure {
 
-    private double cost;
     private String name;
+    private double cost;
     private LocalDate date;
     private String category;
     private static DecimalFormat df = new DecimalFormat("#.##");
@@ -33,16 +33,12 @@ public class Expenditure {
         return name;
     }
 
-    String dateToString() {
-        return "0";
+    public String dateToString() {
+        return date.toString();
     }
 
     public double getCost() {
         return this.cost;
-    }
-
-    public String getCostString() {
-        return df.format(this.cost);
     }
 
     public int getLength() {
