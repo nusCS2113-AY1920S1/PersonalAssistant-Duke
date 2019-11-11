@@ -19,7 +19,6 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.DukeLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +75,7 @@ public class Duke {
             ui.showLoadingError();
             logger.log(Level.SEVERE,"Storage text file is not found");
             createEmptyTaskList();
-            Storage.writeSample(sampleTaskFilePath);
+            storage.writeSample(sampleTaskFilePath);
             sampleTaskFileUsed = true;
             readStorage();
         }
@@ -86,7 +85,7 @@ public class Duke {
             ui.showLoadingError();
             logger.log(Level.SEVERE,"Priority storage text file is not found");
             createEmptyPriorityList();
-            PriorityStorage.writeSample(samplePriorityFilePath);
+            priorityStorage.writeSample(samplePriorityFilePath);
             samplePriorityFileUsed = true;
             readPriorityStorage();
         }
@@ -96,7 +95,7 @@ public class Duke {
             ui.showLoadingError();
             logger.log(Level.SEVERE,"Contact list text file is not found");
             createEmptyContactList();
-            ContactStorage.writeSample(sampleContactsFilePath);
+            contactStorage.writeSample(sampleContactsFilePath);
             sampleContactsFileUsed = true;
             readContactStorage();
         }
@@ -106,7 +105,7 @@ public class Duke {
             ui.showLoadingError();
             logger.log(Level.SEVERE,"Budget list text file is not found");
             createEmptyBudgetList();
-            BudgetStorage.writeSample(sampleBudgetFilePath);
+            budgetStorage.writeSample(sampleBudgetFilePath);
             sampleBudgetFileUsed = true;
             readBudgetStorage();
         }
@@ -188,17 +187,6 @@ public class Duke {
         return str;
     }
     //@@author
-
-    /**
-     * Echoes the user input back the the user.
-     * (Not in use)
-     *
-     * @param input The user input.
-     * @return String of the response.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
 
     //@@author maxxyx96
     /**

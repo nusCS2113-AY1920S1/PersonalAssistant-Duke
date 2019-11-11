@@ -1,8 +1,5 @@
 package duke.storage;
 
-import duke.Duke;
-import duke.dukeexception.DukeException;
-import duke.enums.Numbers;
 import duke.task.BudgetList;
 
 import java.io.BufferedReader;
@@ -17,7 +14,7 @@ import java.util.ArrayList;
 
 //@@author maxxyx96
 public class BudgetStorage {
-    protected static String filePath = System.getProperty("user.dir") + "/";
+    private String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with path pointing to the file in the system.
@@ -109,7 +106,7 @@ public class BudgetStorage {
      * @param samplePath path of the sample data set for budget.
      * @throws IOException When there is an error writing to the text file.
      */
-    public static void writeSample(String samplePath) throws IOException {
+    public void writeSample(String samplePath) throws IOException {
         String fileContent = "";
         InputStream in = BudgetStorage.class.getResourceAsStream(samplePath);
         if (in == null) {

@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    protected static String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
+    private String filePath = System.getProperty("user.dir") + "/";
     private static final String CREDITS_PATH = "credits/credits.txt";
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -156,7 +156,7 @@ public class Storage {
      * @param samplePath path of the sample data set for tasks.
      * @throws IOException When there is an error writing to the text file.
      */
-    public static void writeSample(String samplePath) throws IOException {
+    public void writeSample(String samplePath) throws IOException {
         String fileContent = "";
         InputStream in = Storage.class.getResourceAsStream(samplePath);
         if (in == null) {

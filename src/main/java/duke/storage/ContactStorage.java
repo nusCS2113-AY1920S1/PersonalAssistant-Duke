@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    protected static String filePathForContacts = System.getProperty("user.dir") + "/";
+    private String filePathForContacts = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -88,14 +88,14 @@ public class ContactStorage {
      * @param samplePath path of the sample data set for contacts.
      * @throws IOException When there is an error writing to the text file.
      */
-    public static void writeSample(String samplePath) throws IOException {
+    public void writeSample(String samplePath) throws IOException {
         String fileContent = "";
         InputStream in = ContactStorage.class.getResourceAsStream(samplePath);
         if (in == null) {
             in = ContactStorage.class.getClassLoader().getResourceAsStream(samplePath);
         }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-        String input = "";
+        String input;
         while ((input = bufferedReader.readLine()) != null) {
             fileContent += input + "\n";
         }

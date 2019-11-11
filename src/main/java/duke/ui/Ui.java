@@ -1,16 +1,13 @@
 package duke.ui;
 
-import duke.Duke;
 import duke.enums.Numbers;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
 import duke.task.FixedDuration;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.PriorityList;
 
-import javafx.scene.control.ListView;
 import javafx.util.Pair;
 
 import java.io.InputStream;
@@ -23,13 +20,9 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    protected static final String BACKUP_FILENAME = "duke.txt";
     protected static final String LINE = "    ____________________________________________________________";
     protected final Scanner in;
     protected final PrintStream out;
-
-    private Duke duke;
-    private ListView<Task> listT;
 
     /**
      * Creates an empty ui using default scanner and print stream.
@@ -49,13 +42,6 @@ public class Ui {
         this.out = out;
     }
 
-    /**
-     * Outputs an horizontal line to the user.
-     */
-    public void showLine() {
-        out.println(LINE);
-    }
-
     //@@author gervaiseang
     /**
      * Show the help page.
@@ -67,31 +53,7 @@ public class Ui {
         return str;
     }
 
-    /**
-     * Reads the user input, and converts it into string.
-     *
-     * @return String of the user input.
-     */
-    public String readCommand() {
-        return in.nextLine();
-    }
-
     //@@author Dou-Maokang
-    /**
-     * Outputs all the tasks of the task list to the user.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param priorities The list of priorities associated with each task.
-     */
-    public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
-        ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
-        out.println("     Here are the tasks in your list with priority shown:\n");
-        out.printf("     Priority |\tTask\n");
-        for (int i = Numbers.ZERO.value; i < items.size() || i < priorities.getSize(); i++) {
-            out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
-        }
-    }
-
     /**
      * Outputs all the tasks of the task list to the user (GUI).
      *
@@ -193,18 +155,6 @@ public class Ui {
     }
 
     /**
-     * Outputs task that is deleted to the user.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param deletedTask The task that is deleted.
-     */
-    public void showDelete(TaskList items, String deletedTask) {
-        out.println("     Noted. I've removed this task:");
-        out.println(deletedTask);
-        out.println("     Now you have " + items.size() + " tasks in the list.");
-    }
-
-    /**
      * Outputs task that is deleted to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
@@ -231,16 +181,6 @@ public class Ui {
     }
 
     /**
-     * Outputs a welcome message to the user.
-     */
-    public void showWelcome() {
-        showLine();
-        out.println("     Hello! I'm Duke");
-        out.println("     What can I do for you?");
-        showLine();
-    }
-
-    /**
      * Outputs a welcome message to the user (GUI).
      *
      * @return String of the welcome message.
@@ -249,13 +189,6 @@ public class Ui {
         String str = LINE + "\n     Hello! I'm Duke\n     What can I do for you?\n"
                 + LINE + "\n    Upcoming Reminders in 3 days,\n     refer to Chat Box below:";
         return str;
-    }
-
-    /**
-     * Outputs a bye message to the user.
-     */
-    public void showBye() {
-        out.println("     Bye. Hope to see you again soon!");
     }
 
     /**
@@ -269,27 +202,6 @@ public class Ui {
     }
 
     //@@author Dou-Maokang
-    //    /**
-    //     * Outputs the tasks with the target priority.
-    //     *
-    //     * @param items The task list that contains a list of tasks.
-    //     * @param priorities The list of priorities associated with the task list.
-    //     * @param targetPriority The target priority to search.
-    //     */
-    //    public void showFindTasksByPriority(TaskList items, PriorityList priorities, int targetPriority) {
-    //        out.println("     Here are the matching tasks in your list:");
-    //        int numFound = Numbers.ZERO.value;
-    //        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
-    //            if (priorities.getPriority(i + 1) == targetPriority) {
-    //                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
-    //                numFound++;
-    //            }
-    //        }
-    //        if (numFound == Numbers.ZERO.value) {
-    //            out.println("     No matching tasks found.");
-    //        }
-    //    }
-
     /**
      * Outputs the tasks with the target priority (GUI).
      *
@@ -315,25 +227,6 @@ public class Ui {
     //@@author
 
     //@@author Dou-Maokang
-    //    /**
-    //     * Outputs the tasks with the target date.
-    //     *
-    //     * @param items The task list that contains a list of tasks.
-    //     * @param targetDate The target date to search.
-    //     */
-    //    public void showFindTasksByDate(TaskList items, String targetDate) {
-    //        out.println("     Here are the tasks on " + targetDate + " :");
-    //        int numFound = Numbers.ZERO.value;
-    //        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
-    //            if (items.get(i).toString().contains(targetDate)) {
-    //                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
-    //                numFound++;
-    //            }
-    //        }
-    //        if (numFound == Numbers.ZERO.value) {
-    //            out.println("     There're no tasks on " + targetDate + ".");
-    //        }
-    //    }
     /**
      * Outputs the tasks with the target date (GUI).
      *
@@ -454,18 +347,6 @@ public class Ui {
     //@@author
 
     //@@author Dou-Maokang
-    /**
-     * Outputs a message to the user to let it know that it has changed the priority of a task.
-     *
-     * @param taskList The task list that contains a list of tasks.
-     * @param taskNum The index of the task in the task list.
-     * @param priority The index of the priority.
-     */
-    public void showSetPriority(TaskList taskList, int taskNum, int priority) {
-        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - Numbers.ONE.value));
-        out.println("     Current priority: " + priority);
-    }
-
     /**
      * Outputs a message to the user to let it know that it has changed the priority of a task.
      *

@@ -52,10 +52,6 @@ public abstract class Command {
         return null;
     }
 
-    public String executeGui(TaskList items, ContactList contactList,Ui ui) {
-        return null;
-    }
-
     //@@author talesrune
     /**
      * Executes a command that overwrites existing storage with the updated task list.
@@ -68,18 +64,6 @@ public abstract class Command {
     public abstract void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException;
 
     //@@author
-    /**
-     * Executes a command that overwrites existing storage with the updated contact list.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     * @param contactStorage Contacts stored in storage.
-     * @param contactList The list of contacts.
-     * @throws IOException If there is an error reading the file.
-     */
-    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
-                                ContactList contactList) throws IOException {
-    }
 
     //@@author maxxyx96
     /**

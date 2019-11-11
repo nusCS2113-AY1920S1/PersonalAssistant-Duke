@@ -11,18 +11,6 @@ import duke.task.TaskList;
  */
 public class ListPriorityCommand extends Command {
 
-    //    /**
-    //     * Executes a command that gathers all tasks from task list and outputs the result.
-    //     *
-    //     * @param items The task list that contains a list of tasks.
-    //     * @param priorities The list of priorities.
-    //     * @param ui To tell the user the list of tasks stored in task list.
-    //     *
-    //     */
-    //    public void execute(TaskList items, PriorityList priorities, Ui ui) {
-    //        ui.showTaskListWithPriority(items, priorities);
-    //    }
-
     /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).
      *

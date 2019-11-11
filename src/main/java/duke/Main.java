@@ -8,9 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +32,7 @@ public class Main extends Application {
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
             stage.setTitle("DUKE Manager");
+            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {

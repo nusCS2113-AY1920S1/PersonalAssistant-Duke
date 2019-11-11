@@ -19,7 +19,6 @@ public class ContactsWindow extends AnchorPane {
      */
     @FXML
     public void setContactsWindow(String contactsDesc) {
-        //contactsDesc = "     Your current contactst is : $" + contactst + "\n" + contactstDesc;
         taContactsList.setText(contactsDesc);
     }
 }

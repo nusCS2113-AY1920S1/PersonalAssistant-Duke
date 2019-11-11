@@ -33,6 +33,6 @@ class ListCommTest {
         assertEquals("     Here are the tasks in your list:\n"
                 + "     1.[T]" + taskdummy.getStatusIconGui() + " Hello\n"
                 + "     2.[T]" + taskdummy.getStatusIconGui() + " world\n"
-                + "     3.[T]" + taskdummy.getStatusIconGui() + " !\n", cmd.executeGui(items, ui)); // \u2718 or ✗
+                + "     3.[T]" + taskdummy.getStatusIconGui() + " !\n", cmd.executeGui(items, ui));
     }
 }

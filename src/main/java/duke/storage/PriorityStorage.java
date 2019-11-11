@@ -1,7 +1,6 @@
 package duke.storage;
 
 import duke.dukeexception.DukeException;
-import duke.enums.ErrorMessages;
 import duke.enums.Numbers;
 import duke.task.PriorityList;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  * Representing a class to store the list of priorities.
  */
 public class PriorityStorage {
-    protected static String filePath = System.getProperty("user.dir") + "/";
+    private String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePath.
@@ -90,14 +89,14 @@ public class PriorityStorage {
      * @param samplePath path of the sample data set for priority.
      * @throws IOException When there is an error writing to the text file.
      */
-    public static void writeSample(String samplePath) throws IOException {
+    public void writeSample(String samplePath) throws IOException {
         String fileContent = "";
         InputStream in = PriorityStorage.class.getResourceAsStream(samplePath);
         if (in == null) {
             in = PriorityStorage.class.getClassLoader().getResourceAsStream(samplePath);
         }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-        String input = "";
+        String input;
         while ((input = bufferedReader.readLine()) != null) {
             fileContent += input
                     + "\n";

@@ -54,7 +54,7 @@ class ParserTest {
     public void parserTest_exceptionThrown() {
         try {
             Parser.parse("invalid", items, budgetList, contactList);
-            fail(); // the test should not reach this line
+            fail();
         } catch (Exception e) {
             assertEquals("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
@@ -67,7 +67,7 @@ class ParserTest {
         Command cmd;
         try {
             Parser.parse("deadline soccer /by 19/04/2019 1900", items, budgetList, contactList);
-            fail(); // the test should not reach this line
+            fail();
         } catch (Exception e) {
             assertEquals("     (>_<) OOPS!!! The date/time for deadline clashes with "
                     + "[D][X] basketball (by: 19th of April 2019, 7PM)\n"

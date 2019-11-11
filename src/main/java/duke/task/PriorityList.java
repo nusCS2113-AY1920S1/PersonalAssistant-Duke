@@ -45,18 +45,6 @@ public class PriorityList {
         return new PriorityList(priorityList);
     }
 
-    //    /**
-    //     * Add a default priority associated with a task into the list when the task is generated.
-    //     *
-    //     * @param cmd The command used to generate a new task;
-    //     * @return The updated Priority List.
-    //     */
-    //    public PriorityList addDefaultPriority(duke.command.Command cmd) {
-    //        if (cmd instanceof AddCommand) {
-    //            priorityList.add(defaultPriority);
-    //        }
-    //        return new PriorityList(priorityList);
-    //    }
     /**
      * Add a default priority associated with a task into the list when the task is generated.
      *

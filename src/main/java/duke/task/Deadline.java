@@ -19,6 +19,9 @@ public class Deadline extends Task {
     protected String[] suf = { "st", "nd", "rd", "th" };
     protected SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy, h:mm a");
+    private SimpleDateFormat datetimeFormat3 = new SimpleDateFormat("MMMMM yyyy, ha");
+    private String displayDT;
 
     /**
      * Creates a deadline with the specified description and date/time.
@@ -46,10 +49,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy, h:mm a");
-        SimpleDateFormat datetimeFormat3 = new SimpleDateFormat("MMMMM yyyy, ha");
-        String displayDT = "";
-
+        displayDT = "";
         int day = Integer.parseInt(new SimpleDateFormat("d").format(by));
         int min = Integer.parseInt(new SimpleDateFormat("m").format(by));
         if (min > Numbers.ZERO.value) {
@@ -80,9 +80,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStringGui() {
-        SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy, h:mm a");
-        SimpleDateFormat datetimeFormat3 = new SimpleDateFormat("MMMMM yyyy, ha");
-        String displayDT = "";
+        displayDT = "";
 
         int day = Integer.parseInt(new SimpleDateFormat("d").format(by));
         int min = Integer.parseInt(new SimpleDateFormat("m").format(by));

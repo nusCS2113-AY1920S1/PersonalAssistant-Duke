@@ -5,7 +5,6 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.task.BudgetList;
 
-import java.io.IOException;
 
 //@@author maxxyx96
 
@@ -66,10 +65,9 @@ public class ResetBudgetCommand extends Command {
      * @param items   The task list that contains a list of tasks.
      * @param ui      To tell the user that it is executed successfully.
      * @param storage The storage to be overwritten.
-     * @throws IOException If there is an error reading the file.
      */
     @Override
-    public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
+    public void executeStorage(TaskList items, Ui ui, Storage storage) {
 
     }
 }

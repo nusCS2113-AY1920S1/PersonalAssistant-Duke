@@ -93,18 +93,19 @@ public class MainWindow extends AnchorPane {
     private static final int VBOX_WIDTH = 200;
     private static final double TOOLTIP_SHOWDELAY = 70.0;
     private static final double TOOLTIP_SHOWDURATION = 0.001;
+    private static final double COORD_OFFSET = 120;
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/myUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/myBot.png"));
 
+    //@@author talesrune-reused
+    //Reused from https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md with minor modifications
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    //@@author talesrune-reused
-    //Reused from https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md with minor modifications
     /**
      * Setting up Duke GUI.
      * @param d The object of Duke.
@@ -125,7 +126,7 @@ public class MainWindow extends AnchorPane {
 
         TaskList items = duke.getTaskList();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(remind.getReminders(Numbers.THREE.value, items).getList(), dukeImage)
+                DialogBox.getDukeDialog(remind.getReminders(Numbers.THREE.value, items).getListGui(), dukeImage)
         );
     }
 
@@ -240,7 +241,7 @@ public class MainWindow extends AnchorPane {
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         toolTip.setText("Notes: " + taskObj.getNotes());
         Node node = (Node) mouseEvent.getSource();
-        toolTip.show(node, mouseEvent.getScreenX() + 120, mouseEvent.getScreenY());
+        toolTip.show(node, mouseEvent.getScreenX() + COORD_OFFSET, mouseEvent.getScreenY());
 
 
         if (taskObj.isDone()) {
@@ -583,7 +584,7 @@ public class MainWindow extends AnchorPane {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
-            fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
+            fxmlLoader.<HelpWindow>getController().setHelpWindow();
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load help window", e);

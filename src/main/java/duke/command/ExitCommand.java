@@ -68,7 +68,6 @@ public class ExitCommand extends Command {
         budgetStorage.write(budgetList);
         contactStorage.write(contactList);
         storage.write(items);
-        ui.showBye();
         new DukeLogger().stopLogger(logger);
     }
 }
