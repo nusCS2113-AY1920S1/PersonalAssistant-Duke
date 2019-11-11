@@ -1,2 +1,1 @@
 dummy1 aminor 120 
-[[UAs],[UA],[UA],[UA],[UA],[UA],[UA],[UA]]
