@@ -10,16 +10,16 @@ import duke.model.ExpenseList;
 import duke.model.Model;
 import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
-import duke.storage.IncomeListStorage;
+import duke.storage.BudgetStorage;
+import duke.storage.BudgetViewStorage;
 import duke.storage.ExpenseListStorage;
-import duke.storage.PlanAttributesStorage;
-import duke.storage.IncomeListStorageManager;
 import duke.storage.ExpenseListStorageManager;
+import duke.storage.IncomeListStorage;
+import duke.storage.IncomeListStorageManager;
+import duke.storage.PlanAttributesStorage;
+import duke.storage.PlanAttributesStorageManager;
 import duke.storage.Storage;
 import duke.storage.StorageManager;
-import duke.storage.BudgetViewStorage;
-import duke.storage.BudgetStorage;
-import duke.storage.PlanAttributesStorageManager;
 import duke.storage.payment.PaymentListStorage;
 import duke.storage.payment.PaymentListStorageManager;
 import duke.ui.Ui;
@@ -55,11 +55,11 @@ public class Main extends Application {
         PaymentListStorage paymentListStorage = new PaymentListStorageManager();
 
         storage = new StorageManager(expenseListStorage,
-                                     planAttributesStorage,
-                                     incomeListStorage,
-                                     budgetStorage,
-                                     budgetViewStorage,
-                                     paymentListStorage);
+                planAttributesStorage,
+                incomeListStorage,
+                budgetStorage,
+                budgetViewStorage,
+                paymentListStorage);
 
         logger.info("Initialized the storage");
 
@@ -168,6 +168,7 @@ public class Main extends Application {
             storage.savePlanAttributes(planAttributes);
 
             // loading payment demo data
+            @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
             PaymentList paymentList = storage.loadPaymentList().get();
             paymentBuilder.setDescription("Raffles Hall Orientation Fee");
             paymentBuilder.setAmount("60").setTag("school life").setDue("05/01/2020");
@@ -225,7 +226,7 @@ public class Main extends Application {
         } catch (DukeException e) {
             e.printStackTrace();
         }
-        return  storage;
+        return storage;
     }
 
 }
