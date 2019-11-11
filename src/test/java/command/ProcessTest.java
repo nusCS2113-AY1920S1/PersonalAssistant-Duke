@@ -57,7 +57,7 @@ class ProcessTest {
     void testSetFund() {
         try {
             input = "set fund am/2000";
-            process.setFund(input, ui, fund);
+            process.setFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 2000);
             assertTrue(fund.getFundTaken() == 0);
             assertEquals(fund.getFundRemaining(), fund.getFund());
@@ -70,7 +70,7 @@ class ProcessTest {
     void testSetFundWithNegaticeInput() {
         try {
             input = "set fund am/-2000";
-            process.setFund(input, ui, fund);
+            process.setFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 0);
             assertTrue(fund.getFundTaken() == 0);
         } catch (Exception e) {
@@ -82,7 +82,7 @@ class ProcessTest {
     void testSetFundWithOversizeInput() {
         try {
             input = "set fund am/7000000";
-            process.setFund(input, ui, fund);
+            process.setFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 0);
             assertTrue(fund.getFundTaken() == 0);
         } catch (Exception e) {
@@ -95,7 +95,7 @@ class ProcessTest {
         try {
             fund.loadFund(1800, 0, 1800);
             input = "set fund am/2000";
-            process.setFund(input, ui, fund);
+            process.setFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 1800);
             assertTrue(fund.getFundTaken() == 0);
             assertEquals(fund.getFundRemaining(), fund.getFund());
@@ -109,7 +109,7 @@ class ProcessTest {
         try {
             fund.loadFund(2000, 0, 2000);
             input = "add fund add/200";
-            process.addFund(input, ui, fund);
+            process.addFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 2200);
             assertTrue(fund.getFundTaken() == 0);
             assertEquals(fund.getFundRemaining(), fund.getFund());
@@ -123,7 +123,7 @@ class ProcessTest {
         try {
             fund.loadFund(2000, 0, 2000);
             input = "add fund add/-200";
-            process.addFund(input, ui, fund);
+            process.addFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 2000);
             assertTrue(fund.getFundTaken() == 0);
             assertEquals(fund.getFundRemaining(), fund.getFund());
@@ -137,7 +137,7 @@ class ProcessTest {
         try {
             fund.loadFund(2000, 0, 2000);
             String input = "add fund add/7000000";
-            process.addFund(input, ui, fund);
+            process.addFund(input, ui, fund, storage);
             assertEquals(fund.getFund(), 2000);
             assertTrue(fund.getFundTaken() == 0);
             assertEquals(fund.getFundRemaining(), fund.getFund());

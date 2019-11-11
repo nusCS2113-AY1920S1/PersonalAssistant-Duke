@@ -7,6 +7,7 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import payment.Status;
 import project.Fund;
 import project.Project;
 import project.ProjectManager;
@@ -33,7 +34,6 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectManager = new ProjectManager();
-    private payment.Status status;
 
     private static final int MAX_FUND = 500000;
     private static final int MIN_FUND = 0;
@@ -530,10 +530,8 @@ public class Process {
             String[] split = input.split("key/", 2);
             String keyword = split[1];
             TaskList resultList = new TaskList();
-            int count = 0;
             for (int i = 0; i < taskList.size(); i++) {
                 if (taskList.get(i).getDescription().contains(keyword)) {
-                    count++;
                     resultList.addTask(taskList.get(i));
                 }
             }
@@ -808,31 +806,30 @@ public class Process {
      * @throws AlphaNUSException for reading errors from json file
      *
      */
-    public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
+    public void deletePayment(String input, Ui ui, Storage storage, Set<String> dict) throws AlphaNUSException {
         String payeename = new String();
-        try{
-        BeforeAfterCommand.beforeCommand(projectManager, storage);
-        HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
-        String currentProjectName = projectManager.currentprojectname;
-        String currentprojectname = projectManager.currentprojectname;
-        String[] arr = input.split("payment ", 2);
-        String[] split = arr[1].split("p/|i/");
-        split = cleanStrStr(split);
-        payeename = split[1];
-        String itemname = split[2];
-        Payee payee = managermap.get(payeename);
-        Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap);
-        ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
-        BeforeAfterCommand.afterCommand(projectManager, storage);
-    }catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
+        try {
+            BeforeAfterCommand.beforeCommand(projectManager, storage);
+            HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
+            String[] arr = input.split("payment ", 2);
+            String[] split = arr[1].split("p/|i/");
+            split = cleanStrStr(split);
+            payeename = split[1];
+            String itemname = split[2];
+            Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap, dict);
+            projectManager.projectmap.get(deleted.project).retrieveBudget(deleted.cost);
+            ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
+            BeforeAfterCommand.afterCommand(projectManager, storage);
+        } catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format\n"
                 + "     The correct input format is:[delete payment p/PAYEE i/ITEM]");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Payment not found, check item field again!");
-        } catch (NullPointerException e) {
+        } catch (IllegalAccessError e) {
             ui.exceptionMessage("     ☹ OOPS!!! Payee name provided is not correct!");
-            Set<String> dict = storage.readFromDictFile();
             ui.printSuggestion(dict, input, payeename);
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!!");
         }
     }
 
@@ -884,10 +881,14 @@ public class Process {
      * @param storage used to read from dict.json.
      */
     public void addPayee(String input, Ui ui, Storage storage) {
+        String currProjectName = new String();
         try {
             BeforeAfterCommand.beforeCommand(projectManager, storage);
+            currProjectName = projectManager.currentprojectname;
+            if (currProjectName == null) {
+                throw new IllegalAccessError();
+            }
             HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
-            String currentProjectName = projectManager.currentprojectname;
             String[] splitspace = input.split("payee ", 2);
             String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
             splitpayments = cleanStrStr(splitpayments);
@@ -895,15 +896,18 @@ public class Process {
             String email = splitpayments[2];
             String matricNum = splitpayments[3];
             String phoneNum = splitpayments[4];
-            Payee payee = PaymentManager.addPayee(currentProjectName, payeename, 
+            Payee payee = PaymentManager.addPayee(currProjectName, payeename, 
                 email, matricNum, phoneNum, managermap);
             int payeesize = managermap.size();
-            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
+            ui.printAddPayeeMessage(payee, payeesize);
             BeforeAfterCommand.afterCommand(projectManager, storage);
         } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (IllegalAccessError e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please select a project using the goto command first!");
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     :( OOPS!!! There is no payee with that name yet, please add the payee first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no payee with that name in Project " 
+                + currProjectName + " yet, please add the payee first!");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is a payee with that name in the record!");
         }
@@ -934,7 +938,7 @@ public class Process {
             for (Payments p : payee.payments) {
                 totalspending += p.cost;
             }
-            projectManager.projectmap.get(currentprojectname).addBudget(totalspending);//the total spending paid by a payee is released as budget
+            projectManager.projectmap.get(currentprojectname).addBudget(totalspending);
             projectManager.projectmap.get(currentprojectname).retrieveBudget(totalspending);
             Set<String> dict = storage.readFromDictFile();
             ui.printSuggestion(dict, input, payeename);
@@ -943,7 +947,7 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
-        }catch (AlphaNUSException e) {
+        } catch (AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
                     + "The correct format is [delete payee p/PAYEE_NAME]");
         } catch (IllegalArgumentException e) {
@@ -968,7 +972,6 @@ public class Process {
             String[] splitpayments = splitspace[1].split("p/");
             splitpayments = cleanStrStr(splitpayments);
             payee = splitpayments[1];
-            ui.exceptionMessage(payee);
             LinkedHashMap<String, Project> projectMapClone = (LinkedHashMap<String, Project>) 
                 projectManager.projectmap.clone();
             Payee found = PaymentManager.findPayee(projectMapClone, projectManager.currentprojectname, payee);
@@ -1014,15 +1017,16 @@ public class Process {
             HashMap<String, Payee> managerMap = projectManager.getCurrentProjectManagerMap();
             ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listOfPayments(managerMap);
             prName = projectManager.currentprojectname;
-            if (listOfPayments.get(0).isEmpty() && listOfPayments.get(1).isEmpty() && listOfPayments.get(2).isEmpty()) {
-                ui.exceptionMessage("     ☹ OOPS!!! There are no payments yet!");
-                return;
-            }
+            int count = 0;
             for (ArrayList<Payments> lists : listOfPayments) {
                 if (lists.isEmpty()) {
+                    count++;
                     continue;
                 }
                 ui.printPaymentList(prName, lists, lists.get(0).status);
+            }
+            if (count == 3) {
+                throw new ArrayIndexOutOfBoundsException();
             }
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There are no payees with that name!");
@@ -1034,6 +1038,8 @@ public class Process {
             ui.printSuggestion(dict, input, prName);
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please select a project using the goto command first!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
         }
     }
 
@@ -1088,9 +1094,9 @@ public class Process {
             HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
             String currentprojectname = projectManager.currentprojectname;
             double totalcost = 0;
-            // for (Payments p:PaymentManager.findPayee(payeeName, managermap)) {
-            //     totalcost += p.cost;
-            // }
+            for (Payments p : managermap.get(payeeName).payments) {
+                totalcost += p.cost;
+            }
             ui.printTotalCostMessage(payeeName, totalcost, currentprojectname);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct input format: total cost p/PAYEE_NAME");
@@ -1115,7 +1121,7 @@ public class Process {
             HashMap<String, Payee> managermap = project.managermap;
             for (Payee payee : managermap.values()) { // iterate through the payees
                 for (Payments payment : payee.payments) { // iterate through the payments
-                    if (payment.status == status.APPROVED) {
+                    if (payment.status == Status.APPROVED) {
                         approved.add(payment);
                     } else {
                         tobesorted.add(payment);
@@ -1193,10 +1199,10 @@ public class Process {
         }
     }
     //===========================* Command History *================================
-
+    //@@author E0373902
     /**
-     * @author E0373902
      * processes the input command and stores it in a json file.
+     * @author E0373902
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the input commands entered by the user.
@@ -1212,8 +1218,8 @@ public class Process {
     }
 
     /**
-     * @author E0373902
      * prints all the input commands stored in the json file.
+     * @author E0373902
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the input commands entered by the user.
      */
@@ -1224,8 +1230,8 @@ public class Process {
     }
 
     /**
-     * @author E0373902
      * prints the input commands within the period given by the user.
+     * @author E0373902
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the input commands entered by the user.
@@ -1271,8 +1277,8 @@ public class Process {
     }
 
     /**
-     * @author E0373902
      * undoes the previous command entered by the user.
+     * @author E0373902
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the project map.
      */
@@ -1283,9 +1289,10 @@ public class Process {
         ui.undoMessage();
     }
 
+    
     /**
-     * @author E0373902
      * redoes the previous command entered by the user.
+     * @author E0373902
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the project map.
      */
