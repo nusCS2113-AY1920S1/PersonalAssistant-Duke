@@ -417,6 +417,16 @@ public class GoalsListTest {
         GoalsList testGoals = new GoalsList(storage);
         Ui testUi = new Ui();
         testGoals.reminderForGoals(testUi);
-        assertEquals("NO OVERDUE / REMINDER FOR GOALS" + NEWLINE, outContent.toString());
+        assertEquals("NO REMINDER FOR GOALS" + NEWLINE, outContent.toString());
+    }
+
+    @Test
+    void goalsList_overdueGoalsEmptyList_printMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        testGoals.overdueGoals(testUi);
+        assertEquals("NO OVERDUE FOR GOALS" + NEWLINE, outContent.toString());
     }
 }

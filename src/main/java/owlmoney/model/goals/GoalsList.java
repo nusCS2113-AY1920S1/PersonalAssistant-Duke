@@ -430,7 +430,7 @@ public class GoalsList {
     public void reminderForGoals(Ui ui) {
         int count = 0;
         if (goalList.size() <= ISZERO) {
-            ui.printMessage("NO OVERDUE / REMINDER FOR GOALS");
+            ui.printMessage("NO REMINDER FOR GOALS");
         } else {
             ui.printMessage("\nREMINDER FOR GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
@@ -462,7 +462,7 @@ public class GoalsList {
     public void overdueGoals(Ui ui) {
         int count = 0;
         if (goalList.size() <= ISZERO) {
-            ui.printMessage("");
+            ui.printMessage("NO OVERDUE FOR GOALS");
         } else {
             ui.printMessage("\nOVERDUE GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
