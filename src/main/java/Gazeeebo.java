@@ -1,15 +1,12 @@
 import gazeeebo.logger.LogCenter;
-import gazeeebo.storage.NotePageStorage;
-import gazeeebo.storage.TasksPageStorage;
+import gazeeebo.storage.*;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
 import gazeeebo.parser.ParserManager;
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.NoteStorage;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -34,7 +31,8 @@ public class Gazeeebo {
         Storage store = new Storage();
         store.startUp();
         TasksPageStorage tasksPageStorage = new TasksPageStorage();
-        TriviaManager triviaManager = new TriviaManager(store);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         boolean isExit = false;
         Ui ui = new Ui();
         try {

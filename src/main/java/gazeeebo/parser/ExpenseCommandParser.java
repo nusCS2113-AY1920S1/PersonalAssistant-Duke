@@ -11,7 +11,7 @@ import gazeeebo.exception.DukeException;
 import gazeeebo.storage.ExpensePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 
@@ -58,7 +58,7 @@ public class ExpenseCommandParser extends Command {
      * @param storage       The object that deals with storing data
      * @param commandStack  Stores the stack of previous commands
      * @param deletedTask   Stores the list of deleted tasks
-     * @param triviaManager The object for TriviaManager
+     * @param triviaManager The object for triviaManager
      * @throws IOException    Catch error if the read file fails
      * @throws ParseException Catch error if parsing of command fails
      */

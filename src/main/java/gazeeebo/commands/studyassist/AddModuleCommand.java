@@ -8,14 +8,15 @@ import gazeeebo.storage.StudyAssistPageStorage;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-public class DeleteModuleCommand {
-    /**
-     * This method allows users to delete certain module out of the module plan,
-     * store changes in data structure and also external txt files.
-     * @param studyPlan The object that holds data structure of module plan.
-     * @param storage The object that deals with access, modify and save files.
-     * @param ui The object that deals with interaction with users and the system.
-     * @throws IOException if user input is in wrong format
+public class AddModuleCommand {
+    /** This method allows user to add module code into study plan,
+     * store changes in data structure and external txt files.
+     *
+     * @param studyPlan The object contain all needed modules
+     *                 data structure and a showplan method to display plan table
+     * @param storage The object that deals with access,modify and save files
+     * @param ui The object that deals with interaction between users and the system.
+     * @throws IOException if the user input is in wrong format.
      */
     public void execute(StudyPlannerCommand studyPlan,
                         StudyAssistPageStorage storage,
@@ -29,46 +30,39 @@ public class DeleteModuleCommand {
                 throw new DukeException("Module code could not be null");
             }
             if (studyPlan.MCMap.get(moduleCode) == null) {
-                throw new DukeException("We currently do not have this module.");
+                throw new DukeException("We currently do not support this module.");
             }
             int semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
             if (semester >= 8 || semester < 0) {
                 throw new ArrayIndexOutOfBoundsException();
             }
             boolean flag = false;
-            int semesterNumber = -1;
             for (int i = 0;i < studyPlan.StudyPlan.size() && !flag;i++) {
                 if (studyPlan.StudyPlan.get(i).contains(moduleCode)) {
                     flag = true;
-                    semesterNumber = i;
                 }
             }
-            if (!flag) {
-                throw new DukeException("This module is not inside the study plan");
+            if (flag) {
+                throw new DukeException("This module is "
+                        + "already inside the study plan");
             }
-            if (semesterNumber != semester) {
-                throw new DukeException("This module is not in Sem "
-                    + (semester + 1) + " but inside Sem " + (semesterNumber + 1));
-            }
-            studyPlan.StudyPlan
-                    .get(semester)
-                    .remove(studyPlan.StudyPlan.get(semester).indexOf(moduleCode));
+            studyPlan.StudyPlan.get(semester).add(moduleCode);
             String toStore = "";
             for (int i = 0; i < studyPlan.StudyPlan.size(); i++) {
-                toStore += studyPlan.StudyPlan
-                        .get(i).stream()
-                        .map(Object::toString)
+                toStore += studyPlan.StudyPlan.get(i)
+                        .stream().map(Object::toString)
                         .collect(Collectors.joining(" "));
                 toStore += "\n";
             }
             storage.writeToStudyPlanFile(toStore);
-            System.out.println("This module " + moduleCode
-                    + " has been successfully deleted from Sem" + (semester + 1) + ".");
+            System.out.println("This module "
+                    + moduleCode
+                    + " has been successfully added to Sem"
+                    + (semester + 1) + ".");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please input correct Semester number");
         }
     }
 }
-

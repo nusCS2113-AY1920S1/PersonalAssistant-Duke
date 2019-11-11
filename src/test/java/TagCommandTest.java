@@ -1,6 +1,7 @@
 //@@author e0323290
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.TagCommand;
 import gazeeebo.exception.DukeException;
@@ -74,7 +75,8 @@ public class TagCommandTest {
         tasks.add(td);
         tasks.add(dl);
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         TagCommand tc = new TagCommand();
@@ -111,7 +113,8 @@ public class TagCommandTest {
         tasks.add(td);
         tasks.add(dl);
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         TagCommand tc = new TagCommand();

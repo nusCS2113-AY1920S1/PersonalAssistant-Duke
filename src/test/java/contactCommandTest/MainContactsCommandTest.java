@@ -2,7 +2,8 @@
 
 package contactCommandTest;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.parser.ContactCommandParser;
 import gazeeebo.exception.DukeException;
@@ -45,7 +46,8 @@ public class MainContactsCommandTest {
 
     @Test
     void testWelcome() throws IOException, DukeException {
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ContactCommandParser test = new ContactCommandParser();
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);

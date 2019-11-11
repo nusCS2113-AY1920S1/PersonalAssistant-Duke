@@ -4,9 +4,10 @@ package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.TasksPageStorage;
+import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 
@@ -56,13 +57,14 @@ public class DeadlineCommand extends Command {
             throws DukeException, ParseException, IOException {
         String description;
         try {
+            TriviaStorage triviaStorage = new TriviaStorage();
             if (ui.fullCommand.length() == DEADLINE_CHAR_COUNT) {
                 throw new DukeException("OOPS!!! The description"
                         + "of a deadline cannot be empty.");
             } else {
                 description = ui.fullCommand.split("/by ")[0]
                         .substring(DEADLINE_AND_SPACE_CHAR_COUNT);
-                triviaManager.learnInput(ui.fullCommand, storage);
+                triviaManager.learnInput(ui.fullCommand, triviaStorage);
             }
             Deadline d = new Deadline(description,
                     ui.fullCommand.split("/by ")[1]);
