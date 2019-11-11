@@ -38,7 +38,6 @@ class CategoryCommandTest {
                 + "\\ Added category named : food                      /\n"
                 + " --------------------------------------------------\n", Ui.getTestOutput());
 
-
         command = new AddCategoryCommand("2271    CG");
         command.execute(calendar, budget, categoryList, storage);
 

@@ -145,7 +145,6 @@ public class MainDisplay {
      */
     public String newToPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget)
             throws MooMooException {
-        //System.out.println(DEFAULT);
         String output = "";
 
         for (int i = 0; i < ((27 * cols - 12) / 2); i++) {          // Condition for Category Space Set
@@ -384,7 +383,7 @@ public class MainDisplay {
                             String amountString = "";
                             if (!newCategoryList.get(categoryName).isEmpty()) {
                                 // for nth row, nth category, extract the expenditure name (odd no in array list)
-                                expenditureName = (i + 1) + ". " + newCategoryList.get(categoryName).get(0);
+                                expenditureName = newCategoryList.get(categoryName).get(0);
                                 // for nth row, nth category, extract the expenditure cost (even no in array list)
                                 amountString = newCategoryList.get(categoryName).get(1);
                             }
