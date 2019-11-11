@@ -10,7 +10,6 @@ public class CommandSub extends Command {
 
     /**
      * Constructor for CommandSub subCommand Class.
-     *
      * @param userInput String is the user input from the CLI
      */
     public CommandSub(String userInput) {
