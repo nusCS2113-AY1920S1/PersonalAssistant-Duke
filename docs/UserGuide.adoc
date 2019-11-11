@@ -399,7 +399,7 @@ An itinerary with multiple venues in 1 day.
 ====
 Single step command does not allow for locations with spaces in between them. +
 This *is* intended and is not a bug. +
-It is to encourage user to use the faster and more powerful newItinerary command. +
+It is to encourage user to use the more powerful recommend command. +
 It will be treated as invalid format if user attempts to introduce spaces.
 ====
 
