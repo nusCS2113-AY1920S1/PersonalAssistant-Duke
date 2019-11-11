@@ -2,10 +2,7 @@ package command;
 
 import dictionary.Bank;
 import dictionary.Word;
-<<<<<<< HEAD
 
-=======
->>>>>>> ef82c5c9c74edba8784ed6bcda4398a683dc7e5c
 import exception.WordAlreadyExistsException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
