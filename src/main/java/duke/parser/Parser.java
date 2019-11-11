@@ -17,8 +17,6 @@ import duke.logic.commands.ExportLockerCommand;
 import duke.logic.commands.ExportLockerSelectCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
-import duke.logic.commands.ExportLockerCommand;
-import duke.logic.commands.ByeCommand;
 import duke.logic.commands.Command;
 
 import java.util.regex.Matcher;
