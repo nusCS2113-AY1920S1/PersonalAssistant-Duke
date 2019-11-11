@@ -5,6 +5,7 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
+import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -212,6 +213,9 @@ public interface CommandParser {
             } else {
                 throw new ParserException("Invalid " + token.substring(1) + " input!");
             }
+            if (scanner.hasNext() && (scanner.next().charAt(0) != TOKEN_SLASH_CHAR)) {
+                throw new ParserException(MESSAGE_INVALID_PARAM);
+            }
             return intInput;
         } else {
             throw new ParserException("ArgumentError: Missing " + token);
@@ -289,7 +293,6 @@ public interface CommandParser {
 
 
     //@@author yueyeah
-
     /**
      * Parses user input for optional interval token, and returns the interval specified.
      *

@@ -12,8 +12,8 @@ import java.util.logging.Logger;
  * Parses input arguments and creates a new DoneCommand object.
  */
 //@@author SholihinK
-public class DoneParser implements CommandParser {
-    private static final Logger logger = LogUtils.getLogger(DoneParser.class);
+public class DoneCommandParser implements CommandParser {
+    private static final Logger logger = LogUtils.getLogger(DoneCommandParser.class);
     public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like that's an invalid command!\n"
         + "This is how you use the done command:\n\n" + DoneCommand.MESSAGE_USAGE;
 
