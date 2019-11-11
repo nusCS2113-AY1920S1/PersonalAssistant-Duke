@@ -206,6 +206,8 @@ The `Storage` component is responsible for:
 
 === Common classes
 
+Classes used by multiple components are in the `oof.commons` package.
+
 == Implementation
 
 === Recurring task feature
