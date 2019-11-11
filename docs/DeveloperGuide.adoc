@@ -394,7 +394,7 @@ As both the modules and ccas inherit from the class `TaskWithMultipleWeeklyPerio
 
 image::SortCommandSequentialDiagram.png[width="800"]
 
-=== ShowCommand
+=== Showing Module Reports
 
 ==== Current implementation
 
@@ -447,7 +447,7 @@ image::ShowCommandSequenceDiagram.png[width="600"]
 
 ****
 
-=== ReminderCommand
+=== Update Reminders
 
 ==== Current implementation
 
@@ -498,7 +498,7 @@ image::ReminderCommandSequenceDiagram.png[width="600"]
 
 ****
 
-=== UpdateModuleInfo
+=== Update Module Info
 
 ==== Current implementation
 
