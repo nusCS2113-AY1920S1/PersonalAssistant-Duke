@@ -24,20 +24,9 @@ public class Duchess {
      * @param filePath name of file to store tasks
      */
     private Duchess(String filePath) throws DuchessException {
-        Logger logger = Logger.getLogger("Duchess");
-        logger.setUseParentHandlers(false);
-
-        try {
-            FileHandler logFileHandler = new FileHandler("duchess.log");
-            logFileHandler.setFormatter(new SimpleFormatter());
-            logger.addHandler(logFileHandler);
-        } catch (IOException e) {
-            System.out.println("Unable to start logger, continuing without logging.");
-        }
-
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser(logger);
+        parser = new Parser();
 
         try {
             store = storage.load();

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,7 +50,7 @@ public class Storage {
      * @param fileName filename for duchess.storage
      */
     public Storage(String fileName) {
-        this.logger = Logger.getLogger("Duchess");
+        this.logger = Log.getLogger();
         this.fileName = fileName;
         undoStack = new LinkedList<>();
         redoStack = new LinkedList<>();

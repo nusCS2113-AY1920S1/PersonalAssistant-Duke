@@ -1,6 +1,7 @@
 package duchess.parser;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.logic.commands.Command;
 import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
@@ -93,19 +94,11 @@ public class Parser {
     private ParserState parserState;
 
     /**
-     * Initializes the duchess parser with a logger.
-     */
-    public Parser(Logger logger) {
-        this.parserState = new DefaultState(this);
-        this.logger = logger;
-    }
-
-    /**
      * Initializes the duchess parser with a default logger.
      */
     public Parser() {
         this.parserState = new DefaultState(this);
-        this.logger = Logger.getLogger("Duchess");
+        this.logger = Log.getLogger();
     }
 
     /**
