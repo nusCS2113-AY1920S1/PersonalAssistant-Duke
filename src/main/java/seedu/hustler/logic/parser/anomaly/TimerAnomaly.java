@@ -40,9 +40,9 @@ public class TimerAnomaly extends DetectAnomaly {
             int minutes = Integer.parseInt(timeParts[1]);
             int seconds = Integer.parseInt(timeParts[2]);
         } catch (NumberFormatException e) {
-            throw new CommandLineException("Timer commands should follow this format: 'timer <integer> <integer> <integer>'!");
-        }
-	
+            throw new CommandLineException("Timer commands only accept integers as hours, minutes and seconds!");
+	}
+
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);
         int seconds = Integer.parseInt(timeParts[2]);
