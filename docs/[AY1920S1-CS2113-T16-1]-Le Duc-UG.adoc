@@ -243,7 +243,7 @@ Example:
 
 === Reminder for upcoming tasks : `remind`
 
-Reminds the user of the 3 most upcoming tasks : `remind`
+Reminds the user of the 3 most early, unfinished tasks : `remind`
 
 Example:
 
@@ -596,7 +596,7 @@ Be careful :
 
 * There can't be 2 same shortcut name.
 * The shortcut name can't be the same as one of the default command name (for example, the shortcut name can't be todo because it is a default command name).
-
+* By writting `bye` during the multi-step customize all command, you can exit the configuration mode. All the shortcut set before will be saved.
 
 
 Example (One line command) :

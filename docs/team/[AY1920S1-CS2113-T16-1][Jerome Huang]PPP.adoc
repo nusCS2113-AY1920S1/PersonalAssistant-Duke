@@ -31,18 +31,21 @@ Le Duc is a task management application geared to help high school students mana
 
 * *Other contributions*:
 
-** Project management:
+** *Project management*:
 *** Managed releases `v1.1` `v1.3`
-** Review the code:
+** *Review the code*:
 *** Review the code and modify a big part of it (Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/commit/c7a66a8343e6830f7bd7c4437f73b4570bfe70fe[#10])
-*** PR review(Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/pull/73[#73])
-** Write test:
+*** PR review(Pull request https://github.com/AY1920S1-CS2113-T16-1/main/pull/73[#73])(Pull request https://github.com/AY1920S1-CS2113-T16-1/main/pull/145[#145])
+*** Debugging after the PE (Pull request https://github.com/AY1920S1-CS2113-T16-1/main/pull/144[#144])
+** *Write test*:
 *** Junit EventCommandTest (https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/EventCommandTest.java[test])
 *** Junit ShowCommandTest (https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/ShowCommandTest.java[test])
+*** Junit UiEn (https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/UiEnTest.java[test])
+*** Junit UiEn (https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/UiFrTest.java[test])
 ***
-** Documentation:
-*** Wrote contents of the User Guide (most part of the feature)
-*** Wrote the Developer Guide (after a meet up)
+** *Documentation*:
+*** Wrote contents of the User Guide (see below)
+*** Wrote the Developer Guide (see below)
 *** Wrote the AboutUs
 
 == Contributions to the User Guide
@@ -176,7 +179,7 @@ or
 
 == Contributions to the Developer Guide
 
-Overview: For the developper guide I wrote the `Target User`, `User Stories`, `Use Cases`, `Non-functional requirements` and the `Glossary` after brainstorming with the team. I also wrote `Class Diagram` part and the `Customization` part.
+Overview: For the developper guide I wrote the `Target User`, `User Stories`, `Use Cases`, `Non-functional requirements` and the `Glossary` after brainstorming with the team. I also wrote `Class Diagram` part (the interaction between all classes, and the central class Duke) and the `Customization` part. I also wrote `Instructions for Manual Testing G.12 - G.17`
 
 * *A part of `Class Diagram`:*
 

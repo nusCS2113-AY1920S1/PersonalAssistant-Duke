@@ -6,6 +6,7 @@
 == Product Name: Le Duc
 
 == Overview
+
 Le Duc is a schedule management software aiming to assist high school students manage their academic and extracurricular tasks, with the goal of increasing their time management/productivity. User-Software interaction occurs on the command line, from which they have access to a variety of commands/operations.
 
 == Contributions Summary
@@ -240,7 +241,7 @@ Example:
 
 == Contributions to the Developer Guide
 
-Overview: I have added the implementations of my features to the Developer Guide : remind, statistics, and find. I also created all of the Appendix Sections. Our Developer Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-DG.pdf[here].
+Overview: I have added the implementations of my features to the Developer Guide : remind, statistics, and find. I also created Appendix Sections A-F and G1-G11. Our Developer Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-DG.pdf[here].
 
 === Remind
 
