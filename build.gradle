@@ -10,8 +10,6 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
-version '0.1.0'
-
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
@@ -20,8 +18,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "Planner"
-    archiveVersion = "v1.4.0"
+    archiveBaseName = "[CS2113T-F10-1][ModPlan]"
     archiveClassifier = null
     archiveAppendix = null
 }

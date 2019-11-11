@@ -40,10 +40,10 @@ public class Parser {
      * Constructor for parser.
      */
     public Parser() {
-        this.parser = ArgumentParsers.newFor("ModPlanner")
+        this.parser = ArgumentParsers.newFor("ModPlan")
                 .build()
                 .defaultHelp(true)
-                .description("ModPlanner Argument Parser")
+                .description("ModPlan Argument Parser")
                 .version("1.0");
         this.init();
     }
@@ -122,7 +122,7 @@ public class Parser {
                 .help("What to show");
 
         getSubParser("bye")
-                .help("Exit ModPlanner");
+                .help("Exit ModPlan");
 
         Subparser removeParser = getSubParser("remove")
                 .help("Remove a module or cca");
