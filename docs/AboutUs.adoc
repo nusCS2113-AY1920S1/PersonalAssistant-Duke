@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-NAME was developed by team https://github.com/AY1920S1-CS2113T-F11-4[CS2113T-F11-4]. +
+MisterMusik was developed by team https://github.com/AY1920S1-CS2113T-F11-4[CS2113T-F11-4]. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -23,7 +23,7 @@ Responsibilities: Implementation of Reminder, Documentation
 === Wong Ren-Wei, Ryan
 image::ryan-wong-ren-wei.png[width="150", align="left"]
 {empty}[https://github.com/Ryan-Wong-Ren-Wei[github]]
-{empty}[https://github.com/Ryan-Wong-Ren-Wei[portfolio]]
+{empty}[https://github.com/AY1920S1-CS2113T-F11-4/main/blob/master/docs/%5BAT1920S1-CS2113T-F11-4%5D%5BRyan-Wong-Ren-Wei%5DPPP.pdf[portfolio]]
 
 Role: Developer
 Responsibilities: Implementation of Clash Handling, Architecture of MisterMusik, Documentation, Refactoring
@@ -33,10 +33,10 @@ Responsibilities: Implementation of Clash Handling, Architecture of MisterMusik,
 === Yen Pei Chih
 image::yenpeichih.png[width="150", align="left"]
 {empty}[https://github.com/yenpeichih[github]]
-{empty}[https://github.com/yenpeichih[portfolio]]
+{empty}[https://github.com/yenpeichih/main/blob/master/docs/%5BAY1920S1-CS2113T-F11-4%5D%5BYen%20Pei%20Chih%5DPPP.pdf[portfolio]]
 
 Role: Developer
-Responsibilities: Releases Management, Implementation of Goal Management, Documentation
+Responsibilities: Releases Management, Implementation of Goal Management and Past Event Management, Documentation
 
 '''
 

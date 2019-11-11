@@ -74,6 +74,9 @@ Note: The number of days must be an integer.
 Adds a task defined by the user to the to-do list with a deadline. +
 
 Format: `todo <name of task> /dd-MM-yyyy [HHmm]` +
+
+NOTE: Reminder that the bracketed input is optional. +
+
 E.g. `todo complete theory homework /10-10-2019`
 adds a deadline to complete the user's theory homework by 10 October 2019.
 
@@ -97,8 +100,9 @@ Format: `exam <exam description> /dd-MM-yyyy HHmm HHmm`
 Format: `recital <recital description> /dd-MM-yyyy HHmm HHmm`
 +
 . Concerts : `concert` +
-Format: `concert <concert description> /dd-MM-yyyy HHmm HHmm [/<cost of concert>]` +
-Note: Cost of concert must be an integer (for simplicity regarding budgeting).
+Format: `concert <concert description> /dd-MM-yyyy HHmm HHmm /[<cost of concert>]` +
+
+NOTE: Cost of concert must be an integer (for simplicity regarding budgeting).
 
 
 === Recurring events :
@@ -127,11 +131,14 @@ starting from a specified day, including the events within this time period. +
 
 === Viewing schedules : `view`
 
-Brings up a list of tasks for a particular date. +
+Brings up a list of events for a particular date. +
+
+Note: This only displays the schedule for events. Viewing of todo tasks on a particular date will be
+implemented in v2.0.
 
 Format: `view dd-MM-yyyy` +
 E.g. “view 18-09-2019”
-displays all events/todos on/by the date 18 September 2019.
+displays all events on the date 18 September 2019.
 
 
 === Checking for free days : `check`
@@ -262,6 +269,8 @@ The user is able to set the budget for concerts of each month by using the `budg
 
 Format: `budget set <new budget>` +
 FOR example, `budget set 87` will set the budget for every month to $87.
+
+NOTE: Storing the user-defined budget to a txt file upon shutdown will be added in [v2.0]
 
 === Instruments handling : `instruments`
 This function allows the user to store maintenance information about the instruments that the user possesses.
