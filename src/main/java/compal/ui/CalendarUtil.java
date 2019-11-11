@@ -4,14 +4,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 //@@author SholihinK
-public class CalenderUtil {
+public class CalendarUtil {
     public TabPane tabWindow;
 
     /**
      * Constructor for Calender Util.
      */
 
-    public CalenderUtil() {
+    public CalendarUtil() {
         this.tabWindow = compal.ui.UiUtil.tabWindow;
     }
 

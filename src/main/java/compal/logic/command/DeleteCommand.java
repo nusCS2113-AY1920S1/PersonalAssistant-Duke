@@ -41,6 +41,7 @@ public class DeleteCommand extends Command {
      * @throws CommandException If no task in the tasklist corresponds to the taskID.
      */
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
+        System.out.println();
         Task task;
         try {
             task = taskList.getTaskById(taskID);

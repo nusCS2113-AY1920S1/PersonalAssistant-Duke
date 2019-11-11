@@ -1,18 +1,13 @@
 package compal.model.tasks;
 
-
-import compal.commons.LogUtils;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Logger;
+import java.util.Comparator;
 
 
 public class TaskList {
 
     private ArrayList<Task> arrlist;
     private TaskIdManager taskIdManager;
-    private static final Logger logger = LogUtils.getLogger(TaskList.class);
 
     /**
      * Constructs TaskList object.
@@ -37,6 +32,7 @@ public class TaskList {
     }
 
     //@@author jaedonkey
+
     /**
      * Handles the adding of the tasks.
      * It tests for the task type, then parses it according to the correct syntax.
@@ -51,6 +47,7 @@ public class TaskList {
     }
 
     //@@author jaedonkey
+
     /**
      * Returns a task that has an id value of id.
      */
@@ -65,6 +62,7 @@ public class TaskList {
     }
 
     //@@author jaedonkey
+
     /**
      * Removes a task that has an id value of id.
      */
@@ -78,104 +76,17 @@ public class TaskList {
         }
     }
 
-
-    public ArrayList<Task> returnTaskList() {
-        return this.arrlist;
-    }
-
     //@@author SholihinK
+
     /**
      * Sorts all the tasks in arrlist by date.
      *
      * @param arrlist sorted
      */
     public void sortTask(ArrayList<Task> arrlist) {
-        boolean sorted = false;
-        int arraySize = arrlist.size();
-        while (!sorted) {
-            sorted = true;
-            for (int i = 0; i < arraySize - 1; i++) {
-                Date task1Date = arrlist.get(i).getMainDate();
-                Date task2Date = arrlist.get(i + 1).getMainDate();
-                Task.Priority priority1 = arrlist.get(i).getPriority();
-                Task.Priority priority2 = arrlist.get(i + 1).getPriority();
-
-                if (task1Date.after(task2Date)) {
-                    Task temp = arrlist.get(i);
-                    arrlist.set(i, arrlist.get(i + 1));
-                    arrlist.set(i + 1, temp);
-                    sorted = false;
-                }
-
-                if (task1Date.equals(task2Date)) {
-                    Date task1StartTime = arrlist.get(i).getStartTime();
-                    Date task2StartTime = arrlist.get(i + 1).getStartTime();
-
-                    Date task1EndTime = arrlist.get(i).getEndTime();
-                    Date task2EndTime = arrlist.get(i + 1).getEndTime();
-
-                    boolean prio1IsLow = priority1.equals(Task.Priority.low)
-                        && (priority2.equals(Task.Priority.high)
-                        || priority2.equals(Task.Priority.medium));
-
-
-                    boolean prio1isMed = priority1.equals(Task.Priority.medium)
-                        && priority2.equals(Task.Priority.high);
-
-
-                    if ((task1StartTime == null && task2StartTime == null)
-                        || (task1StartTime == null && task2StartTime != null)
-                        || (task1StartTime != null && task2StartTime == null)) {
-                        if (task1EndTime.after(task2EndTime)) {
-                            Task temp = arrlist.get(i);
-                            arrlist.set(i, arrlist.get(i + 1));
-                            arrlist.set(i + 1, temp);
-                            sorted = false;
-                        }
-
-                        if (task1EndTime.equals(task2EndTime)) {
-                            if (prio1IsLow) {
-                                Task temp = arrlist.get(i);
-                                arrlist.set(i, arrlist.get(i + 1));
-                                arrlist.set(i + 1, temp);
-                                sorted = false;
-                            } else if (prio1isMed) {
-                                Task temp = arrlist.get(i);
-                                arrlist.set(i, arrlist.get(i + 1));
-                                arrlist.set(i + 1, temp);
-                                sorted = false;
-                            }
-                        }
-                    } else if (task1StartTime != null && task2StartTime != null) {
-                        if (task1StartTime.after(task2StartTime)) {
-                            Task temp = arrlist.get(i);
-                            arrlist.set(i, arrlist.get(i + 1));
-                            arrlist.set(i + 1, temp);
-                            sorted = false;
-                        } else if (task1StartTime.equals(task2StartTime) && task1EndTime.after(task1EndTime)) {
-                            Task temp = arrlist.get(i);
-                            arrlist.set(i, arrlist.get(i + 1));
-                            arrlist.set(i + 1, temp);
-                            sorted = false;
-                        }
-
-                        if (task1StartTime.equals(task2StartTime) && task1EndTime.equals(task2EndTime)) {
-                            if (prio1IsLow) {
-                                Task temp = arrlist.get(i);
-                                arrlist.set(i, arrlist.get(i + 1));
-                                arrlist.set(i + 1, temp);
-                                sorted = false;
-                            } else if (prio1isMed) {
-                                Task temp = arrlist.get(i);
-                                arrlist.set(i, arrlist.get(i + 1));
-                                arrlist.set(i + 1, temp);
-                                sorted = false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        Comparator<Task> compareByPriority = Comparator.comparing(Task::getDateObgMainDateAndStartOrEndTime)
+            .thenComparing(Task::getStringMainOrTrailingDateAndEndTime).thenComparing(Task::getPriority);
+        arrlist.sort(compareByPriority);
     }
 
 

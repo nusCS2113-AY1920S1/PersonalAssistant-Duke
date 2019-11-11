@@ -1,7 +1,6 @@
 package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
-import compal.logic.parser.FindFreeSlotCommandParser;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -18,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author Catherinetan99
 public class FindFreeSlotCommandTest {
-    private FindFreeSlotCommandParser parser = new FindFreeSlotCommandParser();
     private ArrayList<Task> taskArrList = new ArrayList<>();
     private TaskList taskList = new TaskList();
 

@@ -4,7 +4,7 @@ import compal.commons.CompalUtils;
 import compal.commons.LogUtils;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
-import compal.ui.CalenderUtil;
+import compal.ui.CalendarUtil;
 
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
@@ -37,7 +37,7 @@ public class ViewCommand extends Command {
         + "view day /date 01/01/2019 /type deadline:\n\t\t"
         + "show the list containing all deadline type tasks on 01/01/2019";
 
-    private CalenderUtil calenderUtil;
+    private CalendarUtil calenderUtil;
     private String viewType;
     private String dateInput;
     private String type;
@@ -53,7 +53,7 @@ public class ViewCommand extends Command {
         this.viewType = viewType;
         this.dateInput = dateInput;
         this.type = "";
-        calenderUtil = new CalenderUtil();
+        calenderUtil = new CalendarUtil();
     }
 
     /**
@@ -73,7 +73,7 @@ public class ViewCommand extends Command {
         }
 
 
-        calenderUtil = new CalenderUtil();
+        calenderUtil = new CalendarUtil();
     }
 
     @Override
@@ -202,9 +202,9 @@ public class ViewCommand extends Command {
             }
 
             if (t.getStringMainDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t, dateInput));
+                allTask.append(getAsStringView(t));
             } else if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t, dateInput));
+                allTask.append(getAsStringView(t));
             }
         }
 
@@ -222,7 +222,7 @@ public class ViewCommand extends Command {
 
     }
 
-    private String getAsStringView(Task t, String dateInput) {
+    private String getAsStringView(Task t) {
 
 
         StringBuilder taskDetails = new StringBuilder();
@@ -237,10 +237,23 @@ public class ViewCommand extends Command {
             status = "\u274C";
         }
 
-        String startTime = "";
-        String endTime = "";
+        String startTime = "-";
+        String endTime = "-";
 
-        if (dateInput.equals(t.getStringMainDate())) {
+        if (t.getSymbol().equals("E")) {
+            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                startTime = t.getStringStartTime();
+                endTime = t.getStringEndTime();
+            } else {
+                startTime = t.getStringStartTime();
+                endTime = "2359";
+            }
+        } else if (t.getSymbol().equals("D")) {
+            endTime = t.getStringEndTime();
+        }
+
+
+        /*if (dateInput.equals(t.getStringMainDate())) {
             //if date same
             if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
                 startTime = t.getStringStartTime();
@@ -257,7 +270,7 @@ public class ViewCommand extends Command {
                 startTime = "0000";
                 endTime = t.getStringEndTime();
             }
-        }
+        }*/
 
 
         if ("-".equals(startTime)) {
