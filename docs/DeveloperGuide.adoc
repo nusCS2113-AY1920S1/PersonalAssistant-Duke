@@ -64,7 +64,7 @@ This is assuming you have a JDK version of `11` and above.
 
 Our integration approach would be bottom-up, as some of the components we have utilised from a previous project can be adapted and reused of other purposes. +
 
-In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
+In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlan.
 
 The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 
@@ -104,7 +104,7 @@ This class was adapted from the existing Duke storage to suit the needs of ModPl
 
 === Parser
 
-Parser is implemented as `Parser` class (formerly named `Argparse4jWrapper`, hence the name in the diagrams) which is a wrapper for the `argparse4j` library to handle user input and manage internal command mapping.
+Parser is implemented as `Parser` class (formerly named `Argparse4jWrapper`) which is a wrapper for the `argparse4j` library to handle user input and manage internal command mapping.
 
 image::Parser.png[]
 
@@ -120,8 +120,8 @@ Commands are the main classes with which we execute our features. All of the spe
 
 The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
 
-The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. 
-+
+The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. +
+
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
 image::Command.png[]
@@ -277,7 +277,8 @@ Other alternatives would be to have the checks directly in the `GradeCommand` cl
 
 === Cap Calculation
 ==== Overview
-This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways.
+This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways. +
+
 ==== Current Implementation
 The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
@@ -350,7 +351,7 @@ image::CapCommandSequenceDiagram.png[]
 As seen `CapCommand` uses three different CAP calculation methods contained within itself to generate the CAP reports, in addition to all the sub-methods such as `letterGradeToCap` and `parsePrerequisiteTree`, and then pushes the information to `PlannerUi` for printing. 
 It also instantiates different `Exception` classes to feedback to the user if anything is wrong.
 
-=== SortCommand
+=== Sorting
 
 ==== Current implementation
 
@@ -820,6 +821,8 @@ Use case ends.
 
 1a. User can specify additional parameters to check MCs completed for specific periods +
 eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
+
+(Use case will be tackled in v2.0 with multiple semester support)
 
 [appendix]
 == Non-Functional Requirements
