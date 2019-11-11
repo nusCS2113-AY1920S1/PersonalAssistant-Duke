@@ -2,6 +2,18 @@
 
 package planner.credential.user;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import planner.credential.cryptography.Cipher;
+import planner.credential.cryptography.CipherState;
 import planner.logic.command.Arguments;
 import planner.logic.command.ClearCommand;
 import planner.logic.exceptions.planner.ModTamperedDataException;
@@ -12,6 +24,7 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
+import planner.util.cryptography.CryptographyUtils;
 import planner.util.storage.Storage;
 
 import java.lang.reflect.Field;
@@ -26,6 +39,7 @@ public class User {
     private static int LOGIN_LIMITS = 5;
     private static final String defaultPath = "data/userProfile.json";
     private static String path = "data/userProfile.json";
+    private static boolean resourceRead = Files.isRegularFile(Path.of(defaultPath));
 
     public User(int semester) {
         currentSemester = semester;
@@ -57,12 +71,39 @@ public class User {
 
     private static Profile readUserData() {
         try {
-            return User.storage.readGsonSecure(User.path, Profile.class);
+            if (resourceRead) {
+                return User.storage.readGsonSecure(User.path, Profile.class);
+            } else {
+                InputStream in = User.class
+                        .getClassLoader()
+                        .getResourceAsStream("data/userProfile.json");
+                InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
+                Gson gson = new Gson();
+                Cipher cipher = new Cipher();
+                CipherState state = gson.fromJson(inputStreamReader, CipherState.class);
+                try {
+                    state = cipher.decode(state, credentialManager.getEncryptionLayers());
+                } catch (Throwable ex) {
+                    throw new ModTamperedDataException();
+                }
+                int hashLength = credentialManager.getHashLength();
+                if (!CryptographyUtils.isOriginal(state.getMessage(), hashLength)) {
+                    throw new ModTamperedDataException();
+                }
+                return gson.fromJson(
+                        CryptographyUtils.removeTrailingHash(
+                                state.getMessage(), hashLength),
+                        Profile.class);
+            }
         } catch (ModTamperedDataException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
     }
+
+
+
+
 
     /**
      * Load user profile.

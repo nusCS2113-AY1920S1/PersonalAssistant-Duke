@@ -35,7 +35,7 @@ public class GradeTest extends InputTest {
     private static User user;
     private String expectedBye = "_______________________________\n"
         +
-        "Thanks for using ModPlanner!\n"
+        "Thanks for using ModPlan!\n"
         +
         "Your data will be stored in file shortly!\n"
         +
@@ -73,7 +73,7 @@ public class GradeTest extends InputTest {
         CliLauncher.main(hold);
         String temp = "_______________________________\n"
             +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            "Welcome to ModPlan, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -87,7 +87,7 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n"
             +
-            "Thanks for using ModPlanner!\n"
+            "Thanks for using ModPlan!\n"
             +
             "Your data will be stored in file shortly!\n"
             +
@@ -96,7 +96,7 @@ public class GradeTest extends InputTest {
             "_______________________________";
         String expectedAddModule = "_______________________________\n"
             +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            "Welcome to ModPlan, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -123,7 +123,7 @@ public class GradeTest extends InputTest {
         CliLauncher.main(hold);
         String expectedErrorModule = "_______________________________\n"
             +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            "Welcome to ModPlan, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -135,7 +135,7 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n"
             +
-            "Thanks for using ModPlanner!\n"
+            "Thanks for using ModPlan!\n"
             +
             "Your data will be stored in file shortly!\n"
             +
@@ -162,7 +162,7 @@ public class GradeTest extends InputTest {
         CliLauncher.main(hold);
         String expectedMultipleGrade = "_______________________________\n"
             +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            "Welcome to ModPlan, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -200,7 +200,7 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n"
             +
-            "Thanks for using ModPlanner!\n"
+            "Thanks for using ModPlan!\n"
             +
             "Your data will be stored in file shortly!\n"
             +
