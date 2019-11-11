@@ -104,7 +104,7 @@ public class EditUsageCommand extends Command {
         DateTimeFormatter checkDateFormat =
                 DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
         return LockerDate.isDifferenceBetweenDatesValid(startDate, endDate)
-                && LockerDate.isEndDateBeforeCurrentDate(endDate, checkDateFormat.format(currentDate));
+                && !LockerDate.isEndDateBeforeCurrentDate(endDate, checkDateFormat.format(currentDate));
 
     }
 
