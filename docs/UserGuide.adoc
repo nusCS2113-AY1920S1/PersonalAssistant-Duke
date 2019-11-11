@@ -44,7 +44,7 @@ image::Ui.png[width="939", align="left"]
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 . Some example commands you can try:
-* `list tasks` : lists all tasks
+* `list tasks all` : lists all tasks
 * `add task complete event banners /at 12/12/2019 1000` : adds a task to the list
 * `done 1` : marks the 1st task shown in the current list as done
 * `delete task 1` : removes the 1st task shown in the current list
@@ -98,6 +98,11 @@ e.g `add task restructure parsers /to Alice, Bob, Carol`
 `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...` +
 e.g `add task restructure parsers /at 30/10/2019 2359 /to Alice` +
 e.g `add task restructure parsers /at 30/10/2019 2359 /to Alice Bob Carol`
+
+* task with skill(s): add task whilst assigning skill(s). skills are separated by whitespaces +
+`add task [TASK_NAME] /skill [skill 1] [skill 2] etc.` +
+e.g `add task website /skill coding` +
+e.g `add task 2113 /skill teamwork coding`: this will add the 2 skills, teamwork and coding.
 
 ==== Finding a task with key word : `find`
 
@@ -176,6 +181,24 @@ e.g `reminder 1 2d`
 * `TIME_BEFORE` is specified by a numeric value followed by `m` for minutes, `h` for hours, `d` for days
 ****
 
+==== Matching a task to members : `match task`
+
+Finds members who possess skills required by a task +
+`match task [INDEX]` +
+
+****
+* Finds members who possess skills required by specified INDEX of task
+* The index refers to the index number shown in the displayed schedule list.
+* The index must be a positive integer 1, 2, 3, …
+* The gui will show members with the relevant skills and rank them.
+* Ranking works in descending order.
+* e.g
+* These are the members with the relevant skills:
+* 1. James
+* 2. Alan
+* This would mean James has more skills that the specified task requires as compared to Alan
+****
+
 === Commands related to members
 
 ==== Adding a new team member: `member`
@@ -212,9 +235,28 @@ e.g `show member 1`
 
 image::showMemberDetails.png[width="939", align="left"]
 
+==== Matching a member to tasks : `match member`
+
+Finds members who possess skills required by a task +
+`match member [NAME]` +
+
+****
+* Finds tasks which require skills of the member with the specified name
+* The name refers to the name tied to a member.
+* The name can be alphanumeric.
+* The gui will show tasks which require the member's skills
+* Ranking works in descending order.
+* e.g
+* These are the tasks that require the skills of [NAME]:
+* 1. Website Design
+* 2. Website Wireframe
+* This would website design has more skill matches with member [NAME] as compared to website wireframe
+* If tasks have the same number of skill matches, there will be no order.
+****
+
 === Commands related to both tasks and members
 
-====  Listing task(s) or member(s): `list`
+====  Listing task(s), member(s) or reminder(s): `list`
 lists all the task in the CLI output and switches to task view +
 `list tasks all`
 
@@ -235,6 +277,9 @@ lists all the members in order of progress from high to low in the CLI output an
 
 lists all the members in order of todo task num from low to high in the CLI output and switches to members view +
 `list members todonum`
+
+lists all reminders +
+`list reminders`
 
 ****
 * For listing task in order of time, please refer to `schedule`
@@ -280,6 +325,7 @@ A: Copy and replace the /data folder to the other Team Manager
 * Removing a member: `delete member [MEMBER_NAME],...`
 * Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
 * Listing for members: `list members (todonum/progress)`
+* Listing for reminders: `list reminders`
 * View Schedule: `schedule tasks {all/todo}`
 * View Schedule for a member: `schedule member {all/todo} [MEMBER_NAME]`
 * Find Task by Name: `find [KEYWORD]`
