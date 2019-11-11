@@ -27,6 +27,8 @@ public class OverlayBarSong  extends Command<SongList>  {
     private int songIndex;
 
 
+
+
     /**
      * Constructor for the command to overlay a bar from one song to another.
      * @param message the input message that resulted in the creation of the ducats.Commands.Command
