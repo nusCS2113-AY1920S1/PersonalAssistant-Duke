@@ -1,4 +1,4 @@
-package com.algosenpai.app.logic.command.utility;
+package com.algosenpai.app.logic.command.utility.print;
 
 import com.algosenpai.app.stats.UserStats;
 import com.itextpdf.text.DocumentException;
@@ -23,7 +23,7 @@ public class PrintUserCommand extends PrintCommand {
      * @param inputs user inputs.
      * @param userStats user stats to write to pdf.
      */
-    public PrintUserCommand(ArrayList<String> inputs, UserStats userStats) {
+    PrintUserCommand(ArrayList<String> inputs, UserStats userStats) {
         super(inputs);
         this.userStats = userStats;
         this.paragraphs = new ArrayList<>();

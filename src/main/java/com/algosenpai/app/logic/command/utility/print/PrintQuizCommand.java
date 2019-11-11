@@ -1,4 +1,4 @@
-package com.algosenpai.app.logic.command.utility;
+package com.algosenpai.app.logic.command.utility.print;
 
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.itextpdf.text.DocumentException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class PrintQuizCommand extends PrintCommand {
 
     /**
-     * List of questions and answers.
+     * List of questions and answers in quiz.
      */
     private ArrayList<QuestionModel> quizList;
 
@@ -23,7 +23,7 @@ public class PrintQuizCommand extends PrintCommand {
      * @param inputs user inputs.
      * @param quizList list of questions to write to pdf.
      */
-    public PrintQuizCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList) {
+    PrintQuizCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList) {
         super(inputs);
         this.quizList = quizList;
         this.paragraphs = new ArrayList<>();

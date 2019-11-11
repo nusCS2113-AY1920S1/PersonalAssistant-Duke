@@ -20,7 +20,7 @@ import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.utility.HistoryCommand;
 import com.algosenpai.app.logic.command.utility.LoadCommand;
 import com.algosenpai.app.logic.command.utility.MenuCommand;
-import com.algosenpai.app.logic.command.utility.PrintCommand;
+import com.algosenpai.app.logic.command.utility.print.PrintCommandFactory;
 import com.algosenpai.app.logic.command.utility.ResultCommand;
 import com.algosenpai.app.logic.command.utility.ReviewCommand;
 import com.algosenpai.app.logic.command.utility.SaveCommand;
@@ -151,7 +151,7 @@ public class Logic {
         case "stats":
             return new ShowStatsCommand(parsedUserInputs, userStats);
         case "print":
-            return new PrintCommand(parsedUserInputs, userStats, archiveList, quizList);
+            return new PrintCommandFactory(parsedUserInputs, userStats, archiveList, quizList);
         case "archive":
             return new ArchiveCommand(parsedUserInputs, quizList, archiveList);
         case "review":

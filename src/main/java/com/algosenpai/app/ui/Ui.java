@@ -66,8 +66,8 @@ public class Ui extends AnchorPane {
     private UserStats stats;
     private int maxuserExp = 8;
     private int userExp = 0;
-    private int idleMinutesMax = 180;
-    private int idleMinutes = 180;
+    private int idleMinutesMax = 60;
+    private int idleMinutes = 60;
     private int userLevel = 1;
 
     // A flag to prevent a key *held down* from being interpreted as multiple key Presses.
@@ -151,7 +151,7 @@ public class Ui extends AnchorPane {
 
         if (commandGenerated instanceof UndoCommand) {
             if (dialogContainer.getChildren().isEmpty()) {
-                idleMinutes = 180;
+                idleMinutes = 60;
                 printSenpaiText("There are no more chats to undo!", senpaiImage);
                 handleUndoAfterClear();
             } else {
@@ -259,7 +259,7 @@ public class Ui extends AnchorPane {
      * Resets the idleMinutesMax variable.
      */
     private void resetIdle() {
-        idleMinutesMax = 180;
+        idleMinutesMax = 60;
     }
 
     /**
@@ -310,7 +310,7 @@ public class Ui extends AnchorPane {
                 if (idleMinutesMax > 0) {
                     idleMinutesMax--;
                 } else {
-                    idleMinutesMax = 180;
+                    idleMinutesMax = 60;
                     printSenpaiText(HELP_MESSAGE, senpaiImage);
                 }
             }
@@ -322,9 +322,9 @@ public class Ui extends AnchorPane {
         AnimationTimerController animationTimerController = new AnimationTimerController(1000) {
             @Override
             public void handle() {
-                if (idleMinutes > 178) {
+                if (idleMinutes > 58) {
                     idleMinutes--;
-                } else if (idleMinutes == 178) {
+                } else if (idleMinutes == 58) {
                     idleMinutes = 0;
                     clearChat();
                 }

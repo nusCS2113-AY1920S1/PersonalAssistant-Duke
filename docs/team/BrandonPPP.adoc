@@ -16,8 +16,8 @@ application useful.
 
 
 == Summary of contributions
-* *Major enhancement*: Created functionality for users to review their
-quizzes, mistakes, and progress.
+* *Major enhancement*: Created functionality for users to review, archive, and
+print their quizzes, mistakes, and progress.
 ** `print user <filename>.pdf`: Prints user's stats and learning progress.
 ** `print archive <filename>.pdf`: Prints archived questions.
 ** `print quiz <filename>.pdf`: Prints the last attempted quiz.
@@ -25,9 +25,9 @@ quizzes, mistakes, and progress.
 ** `archive <x>`: Archives select question in the last attempted quiz.
 
 
-** Justification: This feature differentiates the product from other
+** Justification: These features differentiate the product from other
 competitors' because a user can learn from their mistakes immediately
-after taking a quiz and save a record of the questions attempted for
+after taking a quiz and save a record of the attempted questions for
 his/her revision.
 ** Highlights: This feature is the final integration and depends on the
 implementation on other features.The implementation was challenging due to:
@@ -70,7 +70,7 @@ to select the chapter for the quiz.
 *** Reviewed PRs (with non-trivial review comments):
 https://github.com/AY1920S1-CS2113T-T09-3/main/pull/238[#238],
 https://github.com/AY1920S1-CS2113T-T09-3/main/pull/239[#239])
-*** Setup test case that was adopted and followed by other teammates
+*** Setup code and test cases that was adopted and followed by other teammates
 (https://github.com/AY1920S1-CS2113T-T09-3/main/pull/129[#129])
 
 == Contributions to the User Guide
@@ -216,4 +216,135 @@ the software at our https://github.com/AY1920S1-CS2113T-T09-3/main/releases[rele
 *Q*: How to get in touch? +
 *A*: You can contact us at contact@algosenpaiadventures.com.
 
+
+
 == Contributions to the Developer Guide
+
+
+
+// tag::print[]
+=== Print Feature
+The Print Feature allows users to print his/her quiz, archived questions, or user information into a PDF to review.
+
+`PrintCommand` class extends the `Command` abstract class, which contains an abstract method `execute` to
+process the user inputs. `PrintArchiveCommand`, `PrintQuizCommand`, and `PrintUserCommand` extends the
+`PrintCommand` class to process the archived questions, quiz, and user information respectively before writing the
+contents to PDF. The `PrintCommand` contains the shared methods `isPdfFileExtension` and `isEmpty` to check
+that the user enters a filename with the correct extension type and that the contents printed is not empty.
+
+As shown in the diagram below, `PrintCommand`
+
+As shown in the diagram below, group and person classes are associated. Each group contains a
+UniqueList<Person>, a list of its members. Likewise, each person contains a UniqueList<Group>,
+a list of all groups he is in. Due to these mutual association, commands editing/deleting
+instances of group or person may have to edit the corresponding member/group lists respectively.
+(Refer to DeleteGroupCommand example below.)
+
+.Class Diagram of Group and Person
+image::GroupPersonClassDiagram.png[width="400", align="center"]
+
+`Group` features make use of `Storage` to load information on groups added by the user before the
+UI is closed. `XmlAdaptedGroup` class helps the convert groups detail from xml files to the
+`AddressBook` when `MainApp` starts and similarly convert `Group` objects into xml files.
+
+`Group` features also updates the Group Panel inside the `UI` using a predicate.
+
+==== Current Implementation
+The current print commands added are:
+
+* `print user <filename>.pdf` -- writes the user learning progress into PDF.
+* `print archive <filename>.pdf` -- writes the archived questions into PDF.
+* `print quiz <filename>.pdf` -- writes the quiz questions into PDF.
+
+These functions and their parsers are handled in `Logic`, before updating `Model` and `Storage`
+and displaying the updated result on the `UI`.
+
+==== An Example: DeleteGroupCommand
+The DeleteGroupCommand is a good example of how Group and Person classes are interacting
+(dependent and associated with each other). An example usage scenario of how `delete_group`
+behaves at each stop is explained below.
+:
+Step 1: The user launches the application. (We assume that the user has already added a group
+and person.) `VersionedAddressBook` will be loaded with the final addressbook state before the
+application was closed. Lists of groups and persons added previously will be loaded from
+`addressbook.xml` file into `Model` using `XmlAdaptedPerson` and `XmlAdaptedGroup` classes.
+Updated lists will be displayed in the `UI`.
+
+.Sequence Diagram of DeleteGroupCommand (Logic component)
+image::DeleteGroupCommandLogicSD.png[width="400", align="center"]
+
+Step 2: The user enters the command `dg n/Family` to delete the existing group with group name
+Family.
+
+* The `LogicManager` class parses the command to `AddressBookParser`. `AddressBookParser`
+creates a `DeleteGroupCommandParser` instance which parses the String "Family" into a `Name`
+name. The parser creates a `Group` gr with the name (Family). This group is needed for the
+function below.
+
+* The parser creates a `DeleteGroupCommand` object with parameters gr. Subsequently,
+`retrieveGroupFromName(m, gr.getName())` is called to the Model component in order to retrieve
+the actual group with the name "Family".
+
+.Sequence Diagram of DeleteGroupCommand (Model component)
+image::DeleteGroupCommandModelSD.png[width="400", align="center"]
+* After retrieving the actual group `g` with name "Family" from Model `m`, the model performs
+deletion of the group using an internal function `delete(g)`.
+
+* However, the group still has to be deleted from the groupList from all of its members.
+_(Refer to GroupPersonClassDiagram above.)_ `deleteGroupFromMembers(m, g)` is called from
+DeleteGroupCommand object to do so. This method calls the `UnModifiableObservableList()` method
+in its UniqueList<Person> to return a list of `members` in `g`. For every `member` in the list
+of `members` (for loop), `updatePersonDeleteGroupFromGroupList(m, g, member)` deletes the
+reference to `g` in `member`.
+
+* Finally, the address book is committed with all the changes.
+
+Step 4: `FilteredPersonList` and `FilteredGroupList` is also updated correspondingly to display
+the new groups and persons in the `UI`. A successful message is also displayed to the user below
+the UI's command box.
+
+Step 5: Before the application is closed, all groups and persons are stored in `addressbook.xml`
+using `XmlAdaptedGroup` and `XmlAdaptedPerson` classes. _(Refer to High level sequence diagrams
+Figure 3 and 4 for a similar illustration of the concept.)_
+
+==== Design Considerations
+
+===== Aspect: How to implement `Group` class
+
+*Alternative 1 (current choice):* `Group` as an immutable class.
+
+Pros: Immutable objects are good Map keys and Set elements, since these typically do not change
+once created. Immutability makes it easier to write, use and reason about the code.
+
+Cons: Doing so might restrict the way one can call the class and its methods. It may be slower
+as you have to create new objects with every command.
+
+*Alternative 2:* Setter methods for Groups
+
+Pros: Easier and less code for methods involving groups. Faster as do not have to create new
+objects each time you change a Group (e.g. edit its description or group members).
+
+Cons: Miss out on the advantages of immutable object (above). Good practice to use immutable
+objects.
+
+===== Aspect: Interactions between person and groups
+
+Deleting a person from a group will affect the person's reference to that group and vice versa
+(similar for adding and editing).
+
+*Alternative 1 (current choice):* Having a `UniqueList<Groups>` in `Person` and
+`UniqueList<Person>` in `Group`.
+
+Pros: Easy to retrieve groups from Person and persons from Group. Existing `UniqueList`
+class available (since already used in `Model`).
+
+Cons: Have to update both lists in most group commands (e.g. registering a new member in a group).
+Issue of enforcing referential integrity - defensive programming.
+
+*Alternative 2* Just update the list of groups in `Model` and have person refer to that list of
+group as to whether it is a member of the group.
+
+Pros: Less issues with enforcing referential integrity (see alternative 1).
+
+Cons: Can be more expensive to look for groups for a particular person.
+// end::print[]
