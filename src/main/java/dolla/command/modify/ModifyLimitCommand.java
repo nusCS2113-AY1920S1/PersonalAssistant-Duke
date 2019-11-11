@@ -8,6 +8,8 @@ import dolla.command.action.state.UndoStateList;
 import dolla.model.DollaData;
 import dolla.model.LimitList;
 
+import static dolla.model.RecordList.recordDoesNotExist;
+
 public abstract class ModifyLimitCommand extends Command {
 
     protected String type;

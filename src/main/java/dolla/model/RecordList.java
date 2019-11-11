@@ -67,20 +67,7 @@ public class RecordList {
         return recordArrayList.isEmpty();
     }
 
-    /**
-     * Method checks to see if the specified record already exists.
-     * @param inputRecord The record to be compared against.
-     * @return index of the currently existing record (is - 1 if not found)
-     */
-    public int findExistingRecordIndex(Record inputRecord) {
-        for (int i = 0; i < recordArrayList.size(); i += 1) {
-            Record cmpRecord = recordArrayList.get(i);
-            System.out.println(inputRecord.getRecordDetail());
-            System.out.println(cmpRecord.getRecordDetail());
-            if (inputRecord.getRecordDetail().equals(cmpRecord.getRecordDetail())) {
-                return i;
-            }
-        }
-        return -1;
+    public static Boolean recordDoesNotExist(int recordIndex) {
+        return (recordIndex == - 1);
     }
 }

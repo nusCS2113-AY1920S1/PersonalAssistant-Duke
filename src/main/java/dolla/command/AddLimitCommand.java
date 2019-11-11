@@ -8,6 +8,7 @@ import dolla.model.LimitList;
 import dolla.model.Record;
 import dolla.ui.LimitUi;
 
+import static dolla.model.RecordList.recordDoesNotExist;
 import static dolla.parser.ParserStringList.SPACE;
 
 //@@author Weng-Kexin
@@ -17,7 +18,6 @@ public class AddLimitCommand extends Command {
     private double amount;
     private String duration;
     private static final String mode = MODE_LIMIT;
-    private int nonExistingIndex = - 1;
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -38,12 +38,14 @@ public class AddLimitCommand extends Command {
         Undo.addToStateList(mode,limitList.get());
         Redo.clearRedoState(mode);
 
+        int nonExistingIndex = - 1;
         int duplicateLimitIndex = limitList.findExistingLimitIndex(dollaData, newLimit, mode);
         if (recordDoesNotExist(duplicateLimitIndex)) {
             assert (duplicateLimitIndex == nonExistingIndex);
             dollaData.addToRecordList(mode, newLimit);
             LimitUi.echoAddRecord(newLimit);
         } else {
+            assert (duplicateLimitIndex != nonExistingIndex);
             Record existingLimit = limitList.getFromList(duplicateLimitIndex);
             LimitUi.existingLimitPrinter(existingLimit);
         }

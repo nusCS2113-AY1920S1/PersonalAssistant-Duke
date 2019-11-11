@@ -2,3 +2,17 @@ E | 100.0 | Expense Description | 03/12/2011
 E | 100.0 | Expense Description | 03/12/2051
 E | 100.0 | Expense Description | 03/12/2021
 E | 100.0 | Expense Description | 03/12/2031
+O | tata | 12.0 | bubble tea | 12/12/2019
+B | XX | 10.0 | lunch | 11/11/2019
+O | AP | 50.0 | text books | 25/11/2019
+B | KX | 100.0 | tickets | 24/12/2019
+O | YT | 30.0 | dinner | 30/11/2019
+BI | 2 | 12.0 | 6.0 | tata, xx
+BI | 3 | 60.0 | 20.0 | aa, bb, cc
+BI | 4 | 30.0 | 7.5 | ap, kx, xx, yt
+BI | 2 | 15.0 | 7.5 | tata, lili
+BI | 3 | 10.5 | 3.5 | xx, yy, zz
+BU | 10.0 | daily
+S | 100.0 | weekly
+BU | 1000.0 | monthly
+BU | 100.0 | weekly

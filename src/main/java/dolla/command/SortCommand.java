@@ -2,21 +2,19 @@ package dolla.command;
 
 import dolla.model.DollaData;
 import dolla.model.Record;
+import dolla.parser.ParserStringList;
 import dolla.ui.ListUi;
 import dolla.ui.SortUi;
-import dolla.command.sort.SortAmount;
 import dolla.model.RecordList;
+import dolla.command.sort.SortAmount;
 import dolla.command.sort.SortDate;
 import dolla.command.sort.SortDescription;
 import dolla.command.sort.SortName;
 
 import java.util.ArrayList;
 
-public class SortCommand extends Command {
-    private static final String TYPE_AMOUNT = "amount";
-    private static final String TYPE_DATE = "date";
-    private static final String TYPE_DESC = "description";
-    private static final String TYPE_NAME = "name";
+public class SortCommand extends Command implements ParserStringList {
+
     private String mode;
     private String type;
 
@@ -38,13 +36,13 @@ public class SortCommand extends Command {
             switch (mode) {
             case MODE_ENTRY:
                 switch (type) {
-                case TYPE_AMOUNT:
+                case SORT_TYPE_AMOUNT:
                     new SortAmount(list);
                     break;
-                case TYPE_DATE:
+                case SORT_TYPE_DATE:
                     new SortDate(list);
                     break;
-                case TYPE_DESC:
+                case SORT_TYPE_DESC:
                     new SortDescription(list);
                     break;
                 default:
@@ -54,16 +52,16 @@ public class SortCommand extends Command {
                 break;
             case MODE_DEBT:
                 switch (type) {
-                case TYPE_AMOUNT:
+                case SORT_TYPE_AMOUNT:
                     new SortAmount(list);
                     break;
-                case TYPE_DATE:
+                case SORT_TYPE_DATE:
                     new SortDate(list);
                     break;
-                case TYPE_DESC:
+                case SORT_TYPE_DESC:
                     new SortDescription(list);
                     break;
-                case TYPE_NAME:
+                case SORT_TYPE_NAME:
                     new SortName(list);
                     break;
                 default:
@@ -71,10 +69,17 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-            case MODE_SHORTCUT:
-                if (type.equals(TYPE_AMOUNT)) {
+            case MODE_LIMIT:
+                if (type.equals(SORT_TYPE_AMOUNT)) {
                     new SortAmount(list);
-                } else if (type.equals(TYPE_DESC)) {
+                } else {
+                    SortUi.printInvalidSort(mode);
+                }
+                break;
+            case MODE_SHORTCUT:
+                if (type.equals(SORT_TYPE_AMOUNT)) {
+                    new SortAmount(list);
+                } else if (type.equals(SORT_TYPE_DESC)) {
                     new SortDescription(list);
                 }
                 break;

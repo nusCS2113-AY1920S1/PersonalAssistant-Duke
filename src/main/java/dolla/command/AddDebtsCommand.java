@@ -11,6 +11,8 @@ import dolla.model.Debt;
 
 import java.time.LocalDate;
 
+import static dolla.model.RecordList.recordDoesNotExist;
+
 public class AddDebtsCommand extends Command {
 
     private String type;
@@ -44,7 +46,7 @@ public class AddDebtsCommand extends Command {
         Undo.addToStateList(mode,debtList.get());
         Redo.clearRedoState(mode);
         Debt newDebt = new Debt(type, name, amount, description, date);
-        int duplicateDebtIndex = debtList.findExistingRecordIndex(newDebt);
+        int duplicateDebtIndex = debtList.findExistingDebtIndex(newDebt);
         if (recordDoesNotExist(duplicateDebtIndex)) {
             dollaData.addToRecordList(mode, newDebt);
             Ui.echoAddRecord(newDebt);

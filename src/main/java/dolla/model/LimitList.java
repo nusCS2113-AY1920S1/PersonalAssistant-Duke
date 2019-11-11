@@ -41,12 +41,11 @@ public class LimitList extends RecordList {
     /**
      * Method checks to see if the input limit already exists.
      * @param dollaData The storage container for all the lists.
-     * @param inputRecord The limit being input by user.
+     * @param inputLimit The limit being input by user.
      * @param mode The mode the user is on.
      * @return index of the currently existing limit (is - 1 if not found)
      */
-    public int findExistingLimitIndex(DollaData dollaData, Record inputRecord, String mode) {
-        Limit inputLimit = (Limit) inputRecord;
+    public int findExistingLimitIndex(DollaData dollaData, Limit inputLimit, String mode) {
         int index = - 1;
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
         Limit currLimit;
