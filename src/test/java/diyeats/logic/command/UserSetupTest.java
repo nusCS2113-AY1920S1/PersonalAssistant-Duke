@@ -14,6 +14,10 @@ public class UserSetupTest {
     private User user = new User();
     private UserSetup setup = new UserSetup(user);
 
+    /**
+     * This test tests for userSetup.
+     */
+
     @Test
     void userSetupTest() {
         setup.initialise("/name Foo Chi Hen /age 22 /gender Male");
@@ -32,6 +36,10 @@ public class UserSetupTest {
         assertEquals(user.getGender(), Gender.MALE);
     }
 
+    /**
+     * This test tests for boundaries, invalid inputs and acceptance for age.
+     */
+
     @Test
     void userSetupTestAge() {
         user = new User();
@@ -48,6 +56,10 @@ public class UserSetupTest {
         assertEquals(setup.getIsDone(),true);
     }
 
+    /**
+     * This test tests for boundaries, invalid inputs and acceptance for weight.
+     */
+
     @Test
     void userSetupTestWeight() {
         user = new User();
@@ -61,6 +73,10 @@ public class UserSetupTest {
         setup.initialise("/weight 100");
         assertEquals(setup.getIsDone(),true);
     }
+
+    /**
+     * This test tests for boundaries, invalid inputs and acceptance for height.
+     */
 
     @Test
     void userSetupTestHeight() {
@@ -78,6 +94,10 @@ public class UserSetupTest {
         assertEquals(setup.getIsDone(),true);
     }
 
+    /**
+     * This test tests for boundaries, invalid inputs and acceptance for activity.
+     */
+
     @Test
     void userSetupTestActivity() {
         user = new User();
@@ -93,6 +113,10 @@ public class UserSetupTest {
         setup.initialise("/activity 3");
         assertEquals(setup.getIsDone(),true);
     }
+
+    /**
+     * This test tests for boundaries, invalid inputs and acceptance for gender.
+     */
 
     @Test
     void userSetupTestGender() {
