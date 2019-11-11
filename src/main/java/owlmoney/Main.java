@@ -82,7 +82,7 @@ class Main {
             String userName = importData.get(0)[0];
             profile = new Profile(userName, ui);
             try {
-                profile.profileUpdate(ui, true);
+                profile.profileUpdate(ui);
             } catch (BankException exceptionMessage) {
                 ui.printError("Error updating outdated recurring transactions");
             }

@@ -1,5 +1,9 @@
 package owlmoney.logic.command.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
@@ -10,6 +14,7 @@ import owlmoney.ui.Ui;
  */
 public class ListSavingsCommand extends Command {
     private static final String SAVING_BANK_TYPE = "saving";
+    private static final Logger logger = getLogger(ListSavingsCommand.class);
 
     /**
      * Executes the function to list savings in the profile.
@@ -22,6 +27,7 @@ public class ListSavingsCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.profileListBanks(SAVING_BANK_TYPE, ui);
+        logger.info("Successful execution of ListSavingsCommand");
         return this.isExit;
     }
 }

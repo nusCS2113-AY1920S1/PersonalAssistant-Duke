@@ -1,5 +1,7 @@
 package owlmoney.logic.parser;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
@@ -55,6 +57,7 @@ import owlmoney.logic.parser.transfer.ParseTransfer;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -98,6 +101,7 @@ class ParseType extends Parser {
     private static final String CARDTRANSACTION_COMMANDTYPE = "/cardtransaction";
     private static final String CARDBILL_COMMANDTYPE = "/cardbill";
     private static final String ACHIEVEMENT_COMMANDTYPE = "/achievement";
+    private static final Logger logger = getLogger(ParseType.class);
 
     /**
      * Determines the type of command and checks if it is of valid type.
@@ -112,6 +116,7 @@ class ParseType extends Parser {
     Command parseData(String command, String data) throws ParserException {
         String type = parseFirstField(data);
         if (!TYPE_KEYWORD_LISTS.contains(type)) {
+            logger.warning(type + " is an invalid type");
             throw new ParserException(type + " is an invalid type");
         }
         String rawData;
@@ -129,8 +134,9 @@ class ParseType extends Parser {
      * @param command The extracted first field from the initial user input that determines the command.
      * @throws ParserException if the user wants to delete his profile.
      */
-    private void isDeleteProfile(String command) throws ParserException {
+    private void checkDeleteProfile(String command) throws ParserException {
         if (DELETE_COMMAND.equals(command)) {
+            logger.warning("Profile cannot be deleted");
             throw new ParserException("Profile cannot be deleted");
         }
     }
@@ -150,8 +156,9 @@ class ParseType extends Parser {
             parseEditProfile.checkParameter();
             return parseEditProfile.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            isDeleteProfile(command);
+            checkDeleteProfile(command);
         }
+        logger.warning("You entered an invalid type for profile");
         throw new ParserException("You entered an invalid type for profile");
     }
 
@@ -187,6 +194,7 @@ class ParseType extends Parser {
             parseFindSaving.checkParameter();
             return parseFindSaving.getCommand();
         }
+        logger.warning("You entered an invalid type for savings");
         throw new ParserException("You entered an invalid type for savings");
     }
 
@@ -222,6 +230,7 @@ class ParseType extends Parser {
             parseFindInvestment.checkParameter();
             return parseFindInvestment.getCommand();
         }
+        logger.warning("You entered an invalid type for investment");
         throw new ParserException("You entered an invalid type for investment");
     }
 
@@ -260,6 +269,7 @@ class ParseType extends Parser {
             parseFindBond.checkParameter();
             return parseFindBond.getCommand();
         }
+        logger.warning("You entered an invalid type for bond");
         throw new ParserException("You entered an invalid type for bond");
     }
 
@@ -293,6 +303,7 @@ class ParseType extends Parser {
             parseEditExpenditure.checkParameter();
             return parseEditExpenditure.getCommand();
         }
+        logger.warning("You entered an invalid type for bank expenditure");
         throw new ParserException("You entered an invalid type for bank expenditure");
     }
 
@@ -326,6 +337,7 @@ class ParseType extends Parser {
             parseEditExpenditure.checkParameter();
             return parseEditExpenditure.getCommand();
         }
+        logger.warning("You entered an invalid type for card expenditure");
         throw new ParserException("You entered an invalid type for card expenditure");
     }
 
@@ -359,6 +371,7 @@ class ParseType extends Parser {
             parseEditDeposit.checkParameter();
             return parseEditDeposit.getCommand();
         }
+        logger.warning("You entered an invalid type for deposit");
         throw new ParserException("You entered an invalid type for deposit");
     }
 
@@ -394,6 +407,7 @@ class ParseType extends Parser {
             parseFindCard.checkParameter();
             return parseFindCard.getCommand();
         }
+        logger.warning("You entered an invalid type for card");
         throw new ParserException("You entered an invalid type for card");
     }
 
@@ -424,6 +438,7 @@ class ParseType extends Parser {
         } else if (LIST_COMMAND.equals(command)) {
             return new ListGoalsCommand();
         }
+        logger.warning("You entered an invalid type for goals");
         throw new ParserException("You entered an invalid type for goals");
     }
 
@@ -463,6 +478,7 @@ class ParseType extends Parser {
             parseFindRecurringExpenditure.checkParameter();
             return parseFindRecurringExpenditure.getCommand();
         }
+        logger.warning("You entered an invalid type for recurbankexp");
         throw new ParserException("You entered an invalid type for recurbankexp");
     }
 
@@ -481,6 +497,7 @@ class ParseType extends Parser {
             parseTransfer.checkParameter();
             return parseTransfer.getCommand();
         }
+        logger.warning("You entered an invalid type for fund");
         throw new ParserException("You entered an invalid type for fund");
     }
 
@@ -499,6 +516,7 @@ class ParseType extends Parser {
             parseFindBankTransaction.checkParameter();
             return parseFindBankTransaction.getCommand();
         }
+        logger.warning("You entered an invalid type for banktransaction");
         throw new ParserException("You entered an invalid type for banktransaction");
     }
 
@@ -517,6 +535,7 @@ class ParseType extends Parser {
             parseFindCardTransaction.checkParameter();
             return parseFindCardTransaction.getCommand();
         }
+        logger.warning("You entered an invalid type for cardtransaction");
         throw new ParserException("You entered an invalid type for cardtransaction");
     }
 
@@ -540,6 +559,7 @@ class ParseType extends Parser {
             parseDeleteCardBill.checkParameter();
             return parseDeleteCardBill.getCommand();
         }
+        logger.warning("You entered an invalid type for cardbill");
         throw new ParserException("You entered an invalid type for cardbill");
     }
 
@@ -554,6 +574,7 @@ class ParseType extends Parser {
         if (LIST_COMMAND.equals(command)) {
             return new ListAchievementCommand();
         }
+        logger.warning("You entered an invalid type for achievements");
         throw new ParserException("You entered an invalid type for achievements");
     }
 
@@ -599,6 +620,7 @@ class ParseType extends Parser {
         case ACHIEVEMENT_COMMANDTYPE:
             return menuForAchievement(command);
         default:
+            logger.warning("You entered an invalid type");
             throw new ParserException("You entered an invalid type");
         }
     }

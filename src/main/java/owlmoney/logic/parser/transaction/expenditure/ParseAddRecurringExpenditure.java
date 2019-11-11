@@ -1,9 +1,12 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddRecurringExpenditureCommand;
@@ -22,6 +25,7 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String[] RESERVED_CATEGORY = new String[] {
         DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
     private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
+    private static final Logger logger = getLogger(ParseAddRecurringExpenditure.class);
 
     /**
      * Creates an instance of ParseAddRecurringExpenditure.
@@ -48,6 +52,7 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
             String value = expendituresParameters.get(key);
             if (CATEGORY_PARAMETER.equals(key) && value != null
                     && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+                logger.warning(key + " cannot be " + value + " when adding a new recurring expenditure");
                 throw new ParserException(key + " cannot be " + value + " when adding a new recurring expenditure");
             } else if (CATEGORY_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 expendituresParameters.put(CATEGORY_PARAMETER, "Miscellaneous");
@@ -55,16 +60,19 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
                 checkCategory(value);
             }
             if (AMOUNT_PARAMETER.equals(key) && value.isBlank()) {
+                logger.warning(key + " cannot be empty when adding a new recurring expenditure");
                 throw new ParserException(key + " cannot be empty when adding a new recurring expenditure");
             } else if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
             if (DESCRIPTION_PARAMETER.equals(key) && value.isBlank()) {
+                logger.warning(key + " cannot be empty when adding a new recurring expenditure");
                 throw new ParserException(key + " cannot be empty when adding a new recurring expenditure");
             } else if (DESCRIPTION_PARAMETER.equals(key)) {
                 checkDescription(value, key);
             }
             if (FROM_PARAMETER.equals(key) && value.isBlank()) {
+                logger.warning(key + " cannot be empty when adding a new recurring expenditure");
                 throw new ParserException(key + " cannot be empty when adding a new recurring expenditure");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);

@@ -1,5 +1,7 @@
 package owlmoney.logic.parser;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.ExitCommand;
 import owlmoney.logic.command.UpdateCommand;
@@ -9,6 +11,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Represents the first instance of parsing user input.
@@ -32,6 +35,7 @@ public class ParseCommand extends Parser {
         EDIT_COMMAND, DELETE_COMMAND, LIST_COMMAND,
         FIND_COMMAND, TRANSFER_COMMAND, EXIT_COMMAND, UPDATE_COMMAND};
     private static final List<String> COMMAND_KEYWORD_LISTS = Arrays.asList(COMMAND_KEYWORDS);
+    private static final Logger logger = getLogger(ParseCommand.class);
 
     /**
      * Checks if there are any more user input if using I/O redirection.
@@ -55,6 +59,7 @@ public class ParseCommand extends Parser {
         parseIsBlank(input);
         String command = parseFirstField(input);
         if (!COMMAND_KEYWORD_LISTS.contains(command)) {
+            logger.warning(command + " is an invalid command");
             throw new ParserException(command + " is an invalid command");
         }
         String data = removeFirstField(input, command);
@@ -69,6 +74,7 @@ public class ParseCommand extends Parser {
      */
     private void parseIsBlank(String input) throws ParserException {
         if (input == null || input.isBlank()) {
+            logger.warning("Input cannot be blank or space-bar only");
             throw new ParserException("Input cannot be blank or space-bar only");
         }
     }
@@ -97,20 +103,24 @@ public class ParseCommand extends Parser {
             return parseType.parseData(command, data);
         case EXIT_COMMAND:
             if (!data.isBlank()) {
+                logger.warning("/exit cannot have trailing arguments");
                 throw new ParserException("/exit cannot have trailing arguments");
             }
             return new ExitCommand();
         case UPDATE_COMMAND:
             if (!data.isBlank()) {
+                logger.warning("/update cannot have trailing arguments");
                 throw new ParserException("/update cannot have trailing arguments");
             }
-            return new UpdateCommand(true);
+            return new UpdateCommand();
         case HELP_COMMAND:
             if (!data.isBlank()) {
+                logger.warning("/help cannot have trailing arguments");
                 throw new ParserException("/help cannot have trailing arguments");
             }
             return new HelpCommand();
         default:
+            logger.warning("You entered an invalid command");
             throw new ParserException("You entered an invalid command");
         }
     }

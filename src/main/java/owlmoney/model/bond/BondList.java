@@ -38,8 +38,10 @@ public class BondList {
      */
     public void listBond(int displayNum, Ui ui) throws BondException {
         if (getSize() <= ISZERO) {
+            logger.warning("There are no bonds");
             throw new BondException("There are no bonds");
         } else {
+            logger.info("Commence listing of bonds");
             int counter = displayNum;
             for (int i = bondLists.size() - 1; i >= ISZERO; i--) {
                 printOneHeader(counter, displayNum, ui);
@@ -63,6 +65,7 @@ public class BondList {
      */
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
+        logger.info("Bond added");
         ui.printMessage("Bond with the following details has been added: ");
         printOneBond(ONE_INDEX, bond, ISSINGLE, ui);
     }
@@ -90,6 +93,7 @@ public class BondList {
             String currentBondName = currentBond.getName();
             String capitalCurrentBondName = currentBondName.toUpperCase();
             if (capitalBondName.equals(capitalCurrentBondName)) {
+                logger.warning("Bond with the name: " + bond.getName() + " already exists");
                 throw new BondException("Bond with the name: " + bond.getName() + " already exists");
             }
         }
@@ -103,6 +107,7 @@ public class BondList {
      */
     public void removeBondFromList(String bondName, Ui ui) throws BondException {
         if (getSize() == ISZERO) {
+            logger.warning("There are no bonds");
             throw new BondException("There are no bonds");
         }
         String capitalBondName = bondName.toUpperCase();
@@ -112,11 +117,13 @@ public class BondList {
             String capitalCurrentBondName = currentBondName.toUpperCase();
             if (capitalBondName.equals(capitalCurrentBondName)) {
                 bondLists.remove(i);
+                logger.info("Bond removed");
                 ui.printMessage("Bond with the following details has been deleted: ");
                 printOneBond(ONE_INDEX, currentBond, ISSINGLE, ui);
                 return;
             }
         }
+        logger.warning("There are no bonds with the name: " + bondName);
         throw new BondException("There are no bonds with the name: " + bondName);
     }
 
@@ -137,6 +144,7 @@ public class BondList {
                 return currentBond;
             }
         }
+        logger.warning("There are no bonds with the name: " + bondName);
         throw new BondException("There are no bonds with the name: " + bondName);
     }
 
@@ -167,11 +175,13 @@ public class BondList {
             if (capitalBondName.equals(capitalCurrentBondName)) {
                 editBondYear(year, i);
                 editBondRate(rate, i);
+                logger.info("Bond edited");
                 ui.printMessage("Bond with the following details has been edited: ");
                 printOneBond(ONE_INDEX, bondLists.get(i), ISSINGLE, ui);
                 return;
             }
         }
+        logger.warning("There are no bonds with the name: " + bondName);
         throw new BondException("There are no bonds with the name: " + bondName);
     }
 
@@ -198,6 +208,7 @@ public class BondList {
         if (!(year == null || year.isBlank())) {
             int originalYear = bondLists.get(i).getYear();
             if (Integer.parseInt(year) < originalYear) {
+                logger.warning("The year can only be larger than: " + originalYear);
                 throw new BondException("The year can only be larger than: " + originalYear);
             }
             bondLists.get(i).setYear(Integer.parseInt(year));
@@ -264,6 +275,7 @@ public class BondList {
             logger.warning("Bond with the following keyword could not be found: " + bondName);
             throw new BondException("Bond with the following keyword could not be found: " + bondName);
         }
+        logger.info("Commence finding of bonds");
         ui.printBondHeader();
         for (int i = ISZERO; i < tempBondList.size(); i++) {
             printOneBond((i + ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);

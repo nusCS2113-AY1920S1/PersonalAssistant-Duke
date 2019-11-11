@@ -257,7 +257,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("", "s", uiTest);
+        try {
+            testList.findMatchingRecurringExpenditure("", "s", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
 
         String expectedOutput = "Find by: category" + NEWLINE
                 + "Transaction No.      Description                                             Amount     "
@@ -286,8 +290,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("", "Not exist", uiTest);
-
+        try {
+            testList.findMatchingRecurringExpenditure("", "Not exist", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
         String expectedOutput = "No matches for the category keyword: Not exist" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -308,8 +315,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("1", "", uiTest);
-
+        try {
+            testList.findMatchingRecurringExpenditure("test", "", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
         String expectedOutput = "Find by: description" + NEWLINE
                 + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
@@ -337,24 +347,27 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
-
+        try {
+            testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
         String expectedOutput = "No matches for the description keyword: Not exist" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
     //Tests function for find feature.
     @Test
-    void findMatchingRecurringExpenditure_emptyRecurringList_printErrorMessage() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+    void findMatchingRecurringExpenditure_emptyRecurringList_throwsexception() {
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
 
-        testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
+        TransactionException thrown = assertThrows(TransactionException.class, () ->
+                testList.findMatchingRecurringExpenditure("", "s", uiTest),
+                "Expected deleteExpenditureFromList to throw, but it didn't");
 
-        String expectedOutput = "Recurring expenditure is empty." + NEWLINE;
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = "Recurring expenditure list is empty";
+        assertEquals(expectedOutput, thrown.toString());
     }
 
     //Tests function for find feature.
@@ -372,7 +385,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("1", "s", uiTest);
+        try {
+            testList.findMatchingRecurringExpenditure("test", "test", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
 
         String expectedOutput = "Find by: description" + NEWLINE
                 + "Transaction No.      Description                                             Amount     "
@@ -410,7 +427,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("Not exist", "Not exist", uiTest);
+        try {
+            testList.findMatchingRecurringExpenditure("Not exist", "Not exist", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
 
         String expectedOutput = "No matches for the description keyword: Not exist" + NEWLINE
                 + "No matches for the category keyword: Not exist" + NEWLINE;

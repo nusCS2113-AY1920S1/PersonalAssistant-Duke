@@ -189,15 +189,12 @@ class CardTest {
     }
 
     @Test
-    void listAllExpenditure_printWhenNoTransactions_throwsException() {
+    void listAllExpenditure_printWhenNoTransactions_printEmptyLists() {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
-        try {
-            System.setOut(new PrintStream(outContent));
-            testCard.listAllExpenditure(testUi, -10);
-        } catch (TransactionException error) {
-            System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
-        }
+        System.setOut(new PrintStream(outContent));
+        testCard.listAllExpenditure(testUi, -10);
+
         String expectedOutput = EXPECTED_BUT_NO_PAID_EXPENDITURE + NEWLINE + NEWLINE
                 + EXPECTED_BUT_NO_UNPAID_EXPENDITURE + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());

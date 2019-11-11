@@ -201,7 +201,7 @@ class BankListTest {
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListEditSavings("test4", "test2", "", "", testUi),
                 "Expected bankListEditSavings to throw, but it didn't");
-        assertEquals("There are no bank with the name: test4", thrown.toString());
+        assertEquals("There are no savings account with the name: test4", thrown.toString());
     }
 
     @Test

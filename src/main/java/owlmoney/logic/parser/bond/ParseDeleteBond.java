@@ -41,11 +41,13 @@ public class ParseDeleteBond extends ParseBond {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when deleting a bond");
                 throw new ParserException(key + " cannot be empty when deleting a bond");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
             }
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when deleting a bond");
                 throw new ParserException(key + " cannot be empty when deleting a bond");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(FROM_PARAMETER, value);
@@ -62,6 +64,7 @@ public class ParseDeleteBond extends ParseBond {
     public Command getCommand() {
         DeleteBondCommand newDeleteBondCommand =
                 new DeleteBondCommand(bondParameters.get(FROM_PARAMETER), bondParameters.get(NAME_PARAMETER));
+        logger.info("Successful creation of DeleteBondCommand object");
         return newDeleteBondCommand;
     }
 }
