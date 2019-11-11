@@ -30,7 +30,7 @@ public class Instruction {
         return input.startsWith("delete payment");
     }
 
-    public boolean isFind(String input) {
+    public boolean isFindPayee(String input) {
         return input.startsWith("find payee");
     }
 
@@ -127,7 +127,7 @@ public class Instruction {
     }
 
     public boolean isAssignFund(String input) {
-        return input.startsWith("assign fund");
+        return input.startsWith("assign budget");
     }
 
     public boolean isReduceBudget(String input) {

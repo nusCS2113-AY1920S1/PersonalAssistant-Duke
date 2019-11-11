@@ -41,6 +41,7 @@ public class Project {
         this.projectname = projectname;
     }
 
+    //@@author lijiayu980606
     /**
      * Add the budget assigned to the project.
      * @param amount a double value indicates the assigned amount of budget.
