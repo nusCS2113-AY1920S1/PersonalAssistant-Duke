@@ -228,7 +228,7 @@ Format: `choices`
 
 How it will be displayed: +
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIchoices.jpg[width="600"]
+image::https://github.com/AY1920S1-CS2113T-F10-2/main/blob/master/docs/images/UIchoices.JPG[width="600"]
 
 === Swapping degrees in your degree list: `swap <ID> <ID>`
 
