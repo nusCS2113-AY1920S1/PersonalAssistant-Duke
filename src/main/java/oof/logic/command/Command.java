@@ -112,7 +112,7 @@ public abstract class Command {
     }
 
     /**
-     **
+     * *
      * Converts a string into a time.
      *
      * @param time The string to be converted.
@@ -161,7 +161,7 @@ public abstract class Command {
             int minute2 = Integer.parseInt(b[INDEX_TIME].substring(INDEX_MINUTE_START, INDEX_MINUTE_END));
             if (hour1 != hour2) {
                 return hour1 - hour2;
-            } else if (minute1 != minute2){
+            } else if (minute1 != minute2) {
                 return minute1 - minute2;
             } else {
                 return a[INDEX_DESCRIPTION].compareTo(b[INDEX_DESCRIPTION]);
