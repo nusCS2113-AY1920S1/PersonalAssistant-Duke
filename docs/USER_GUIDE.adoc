@@ -93,9 +93,19 @@ Format: `bye`
 
 All the data is automatically saved as a JSON file.
 
+=== Display Stats
+It displays the details for lockers +
+Format : `stats`
+
 === Export as CSV file
 Exports a list of lockers as CSV file. +
+
+[NOTE]
+only the valid tokens will be considered, if the user enters `exports Locker 'some_gibberish'`, it will export only locker details.
+
 Format: `export`
+Format: `exports` + detail name. +
+example: `exports lockers status names`
 
 === Finding and Searching for Lockers: `find`
 
@@ -216,7 +226,7 @@ Format: `assign n/NAME e/EMAIL i/ID m/MAJOR f/STARTDATE t/ENDDATE p/PREFERENCES`
 * If SpongeBob is unable to find any free lockers in the list of preferences
 * then it will try to find free lockers in any zone and assign it to the student.
 * If there are no free lockers in the entire list then the student wont be
-  assigned any locker.
+assigned any locker.
 ****
 
 Examples:
@@ -241,7 +251,7 @@ Format: `editLocker SERIALNUMBER [s/SERIALNUMBER] [a/AREA] [z/ZONE] [c/CONDITION
 * Lockers with condition/tag `unauthorized` and `not-in-use` cannot be edited to `in-use` and vice-versa.
 * Lockers with condition/tag `in-use` can only be edited to condition/tag `broken`.
 * If a locker is edited from `CONDITION` `in-use` to `broken` , SpongeBob will try to re allocate
-  a free locker to the student who was using the locker.
+a free locker to the student who was using the locker.
 ****
 
 Examples:
@@ -417,7 +427,8 @@ this command will import the csv file whose path is specified by `FILEPATH`
 * *editLocker*: `editLocker SERIALNUMBER [s/] [a/] [z/] [c/]`
 * *editUsage* : `editUsage SERIALNUMBER [n/] [i/] [e/] [f/] [t/] [m/]`
 * *clear*: `clear`
+* *stats*: `stats`
 * *export*: `export`
+* *exports*: `exports 'detail name'`
 * *bye*: `bye`
 // end::summary[]
-

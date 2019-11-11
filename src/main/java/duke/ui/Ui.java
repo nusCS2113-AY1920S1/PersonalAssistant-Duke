@@ -331,6 +331,7 @@ public class Ui {
         System.out.println();
         printSpaces("To export the locker list as a CSV file:");
         printSpaces("  export");
+        printSpaces("  exports 'detail name'");
         System.out.println();
         printSpaces("To view the history of commands:");
         printSpaces("  history");

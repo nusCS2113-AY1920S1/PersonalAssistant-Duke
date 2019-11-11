@@ -377,3 +377,153 @@ Use Case ends.
 
 * The product should provide with good user experience by providing simple and concise command syntax and GUI.
 * A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch
+
+. Initial launch
+.. Download the jar file and copy into an empty folder
+.. Start Terminal and open up the Jar file. +
+   Command: `java -jar [CS2113T-F11-1][SpongeBob].jar` +
+   Expected: `Hello from SpongeBob` in Terminal.
+
+=== Listing all the lockers currently managed by SpongeBob
+
+. Shows a list of lockers
+.. Test Case(1): `list` +
+Expected: Displaying the list of lockers, with headers "SERIAL NUMBER" "TAG" "ZONE" "AREA".
+.. Test Case(2): `listt` +
+Expected: Invalid command.
+
+=== Clearing Lockers
+
+. Clears all entries from the specified list.
+.. Test Case(1): `clear` +
+Expected: It will clear all entries from the list.
+
+=== Adding Lockers
+
+. This feature enables the user to add more lockers to SpongeBob.
+.. Pre-requisites (for exporting selection of locker details):
+... For adding single lockers:
+.... The lockers are by default tagged as ```not-in-use``` when they are added to SpongeBob.
+.... A locker serial number is unique and there should not be multiple lockers with the same serial number.
+.... A serial number should be a non-negative integer with not more than 6 digits
+... For adding multiple lockers:
+.... The `SIZE` must be a positive integer less than or equal to 30.
+.. Test Case(1): `addLocker s/123 a/Com1 Level2 z/A` +
+Expected: It will add a locker with serial-number 123 to the list.
+.. Test Case(2): `addLocker s/123 a/UTown Level2 z/A` after case(1) +
+Expected: Invalid, due to duplicate entries not allowed. The serial number for every locker should be unique.
+.. Test Case(3): `addLocker s/1111111 a/Com1 Level2 z/A` +
+Expected: Invalid, a serial number should be a non-negative integer with not more than 6 digits.
+.. Test Case(4): `addLocker s/123 a/Com1 Level2 z/AB` +
+Expected: Invalid, `ZONE` can only be a single letter character.
+.. Test Case(5): `addBatch s/124 u/20 a/Com1 z/A` +
+Expected: It will add 20 lockers from serial number 124-143.
+.. Test Case(6): `addBatch s/124 u/50 a/Com1 z/A` +
+Expected: Invalid, `u/SIZE` must be a positive integer less than or equal to 30.
+
+=== Assign Lockers
+
+. This feature auto-allocates locker to the student based on their preferences
+.. Test Case(1): `assign n/JohnDoe i/A1111111B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/30-12-2019 p/A` +
+Expected: It will assign a locker that is currently `not-in-use` in Zone A.
+.. Test Case(2): `assign n/JohnDoe i/A1111111B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/30-12-2019 p/AB` +
+Expected: It is an invalid entry. There are no valid zones entered under preferences.
+.. Test Case(3): `assign n/JohnDoe i/A111111B m/Computer Sci e/jonhdoe@example.com f/22-11-2019 t/23-12-2019 p/A` +
+Expected: It is an invalid entry.
+1. It should start with the character 'A'.
+2. It should end with a letter.
+3. It should contain only digits between the first and the last character.
+.. Test Case(4): `assign n/JohnDoe i/A1111111B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/30-10-2019 p/A` +
+Expected: It is an invalid entry. The rental ending date cannot be before the current date.
+.. Test Case(5): `assign n/JohnDoe i/A1111111B m/Computer Sci e/jonhdoe@example.com f/22-11-2019 t/23-11-2019 p/A` +
+Expected: It is an invalid entry. The rental period should be between 7 to 365 days (inclusive).
+.. Test Case(6): `assign n/JohnDoe i/A1111111B m/Computer Sci e/jonhdoe@example.com f/22-1-2020 t/23-12-2019 p/A` +
+Expected: It is an invalid entry. The end date should be after the start date.
+
+=== Editing Locker Details
+
+. This feature edits the various details associated with the locker.
+.. Test Case(1): `editLocker` +
+Expected: It is an invalid entry. Serial number cannot be empty.
+.. Test Case(2): `editLocker 1` +
+Expected: It is an invalid entry. At least one field must be provided for editing the locker.
+.. Test Case(3): `editLocker 123 s/1234` +
+Expected: It will change the serial number of the locker from 123 to 1234. +
+It would be invalid if 1234 already exists. Duplicate entries not allowed.
+.. Test Case(4): `editLocker 123 c/not-in-use` +
+Expected: It will change the condition or tag to `not-in-use` if the current state is anything.
+other than `in-use`. +
+A locker currently in `in-use` state can only be changed to `broken` state.
+.. Test Case(5): `editLocker 123 c/in-use` +
+Expected: It is an invalid entry. A locker is currently not in the `in-use` state then its state cannot be edited to `in-use` state.
+.. Test Case(6): `editUsage 1234 n/John Doe e/johnDoe@example.com` +
+Expected: It will change the name of the student and his email to `John Doe` and `johnDoe@example.com`
+respectively, provided the locker #1234 has a student assigned to it already.
+
+=== Deleting Locker
+
+. This feature deletes the locker associated with the given serial number
+.. Test Case(1): `deletelocker 1234` +
+Expected: It will remove the locker with the serial number 1234.
+.. Test Case(2): `deletelocker` +
+Expected: It is an invalid entry. Serial number is required.
+
+=== Deleting Usage
+
+. This feature deletes the usage (or rental information) of the Locker
+.. Test Case(1): `deleteUsage 1234` +
+Expected: It will delete the rental information for locker number 1234.  +
+The locker should be of the tag/condition `in-use` in order to delete usage.
+.. Test Case(2): `deleteUsage` +
+Expected: It is an invalid entry. Serial number is required.
+
+=== Find & Search Lockers
+
+. This feature finds lockers based on their serial number, area and zone
+.. Test Case(1): `find s/123 a/COM1 z/A` +
+Expected: It will display the locker for with the input parameters.
+
+=== Export as CSV file
+
+. This feature exports a list of lockers as csv file.
+.. User can choose to export all details automatically, or selected details to be exported.
+.. Prerequisites (for exporting selection of locker details):
+... It is mandatory to input `locker` as it shows locker serial number.
+* Locker info: `locker` `zone` `address` `status`
+... It is mandatory to input `status` if user want to input any student info or date info.
+* Student info: `student` `matrixid` `course` `id`
+* Date info: `startdate` `enddate`
+.. Test Case(1): `export` +
+Expected: It will export all details to export.csv file.
+.. Test Case(2): `exports locker name zone status` +
+Expected: It will export the locker serial-number, zone, status and student-name.
+.. Test Case(3): `exports zone` +
+Expected: It will be invalid as `locker` is missing.
+.. Test Case(4): `exports,locker,name` +
+Expected: It will be invalid as `status` is missing. Commas will not be excepted to separate details.
+
+=== Display Stats
+
+. This feature displays the stats for current lockers.
+.. Test Case(1): `stats` +
+Expected: It will calculate the number each locker tag showed up.
+
+=== Saving Data
+
+. All the data is automatically saved as a JSON file.
+
+=== Shutdown
+
+. Exits the program
+.. Test Case(1): `bye` +
+Expected: It will exit the program.

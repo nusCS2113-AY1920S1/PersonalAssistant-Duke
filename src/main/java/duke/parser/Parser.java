@@ -22,7 +22,6 @@ import duke.logic.commands.SelectLockerCommand;
 import duke.logic.commands.UndoCommand;
 import duke.logic.commands.RedoCommand;
 import duke.logic.commands.HistoryCommand;
-
 import duke.logic.commands.Command;
 
 import java.util.logging.Level;
