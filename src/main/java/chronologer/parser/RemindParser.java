@@ -8,7 +8,7 @@ import chronologer.ui.UiMessageHandler;
 /**
  * Extract the components required for the remind command from the user input.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.1
  */
 public class RemindParser extends IndexParser {

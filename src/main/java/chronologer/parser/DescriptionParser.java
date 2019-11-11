@@ -10,7 +10,7 @@ import chronologer.ui.UiMessageHandler;
 /**
  * Backbone of all parsers that process input based on strings.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public abstract class DescriptionParser extends Parser {

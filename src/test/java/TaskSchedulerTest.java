@@ -5,11 +5,16 @@ import chronologer.task.Event;
 import chronologer.task.TaskList;
 import org.junit.jupiter.api.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+//@@author fauzt
+/**
+ * Tests for TaskScheduler logic and ensure it finds the correct periods and return the correct results.
+ *
+ * @author Fauzan Adipratama
+ * @version 1.4
+ */
 public class TaskSchedulerTest {
 
     private static TaskList tasks;

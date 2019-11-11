@@ -7,11 +7,11 @@ import chronologer.parser.ParserFactory;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
+//@@author fauzt
 /**
  * Test class for parser factory.
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version V1.0
  */
 public class ParserFactoryTest {
