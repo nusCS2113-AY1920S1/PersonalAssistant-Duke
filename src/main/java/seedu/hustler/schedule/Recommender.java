@@ -6,6 +6,7 @@ import seedu.hustler.ui.Ui;
 import java.util.ArrayList;
 import seedu.hustler.logic.CommandLineException;
 import java.util.PriorityQueue;
+import java.util.Iterator;
 
 /**
  * Recommends schedule entries/tasks to work on based on priority.
@@ -25,7 +26,8 @@ public class Recommender {
     /**
      * List of recommended schedule entries.
      */
-    private ArrayList<ScheduleEntry> recommended;
+    private ArrayList<ScheduleEntry> recommended
+        = new ArrayList<ScheduleEntry>();
     
     /**
      * Initializes list of schedule entries/tasks.
@@ -53,9 +55,11 @@ public class Recommender {
         hours = hours == 0 ? 1 : hours;
 
         topKAlgorithm(topk, hours);
-
-        recommended = new ArrayList<ScheduleEntry>(topk);
-    
+        
+        while (topk.peek() != null) {
+            recommended.add(topk.poll());
+        }
+        
         reTime(seconds);
         return recommended;
     }

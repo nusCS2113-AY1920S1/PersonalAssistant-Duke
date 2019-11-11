@@ -5,6 +5,7 @@ import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.schedule.time.TimeRemaining;
 import seedu.hustler.task.Task;
 import seedu.hustler.schedule.time.Timing;
+import seedu.hustler.task.variables.Difficulty;
 
 /**
  * A class that assigns a priority score to
@@ -53,9 +54,9 @@ public class Priority {
      * @param timeSpent time spent on the task
      */
     public void updatePriortyScore(Task task, long timeSpent) {
-        if (task.getDifficulty().toString().equals("[H]")) {
+        if (task.getDifficulty().toString().equals("[HIGH]")) {
             this.priorityScore = 3;
-        } else if (task.getDifficulty().toString().equals("[M]")) {
+        } else if (task.getDifficulty().toString().equals("[MED]")) {
             this.priorityScore = 2;
         } else {
             this.priorityScore = 1;
