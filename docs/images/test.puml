@@ -3,7 +3,7 @@
 
 Package " "<<Rectangle>>{
     Class UI UI_COLOR
-    Class Logic LOGIC_COLOR
+    Class Profile LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class Model MODEL_COLOR
     Class Main MODEL_COLOR_T1
@@ -14,5 +14,7 @@ Package " "<<Rectangle>>{
 Class User MODEL_COLOR_T2
 Class File UI_COLOR_T1
 
+User --> UI
+Storage -> File
 
 @enduml
