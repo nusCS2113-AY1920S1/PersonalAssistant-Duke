@@ -1,6 +1,5 @@
 package dolla.command;
 
-import dolla.exception.DollaException;
 import dolla.model.DollaData;
 import dolla.ui.DebtUi;
 
@@ -13,7 +12,7 @@ public class RemoveBillCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws DollaException {
+    public void execute(DollaData dollaData) {
         dollaData.removeFromRecordList("bill", billNum - 1);
         DebtUi.printRemoveBillMessage();
     }

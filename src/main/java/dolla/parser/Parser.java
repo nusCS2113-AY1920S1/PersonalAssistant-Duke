@@ -141,7 +141,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @throws Exception ???
      */
     private static String verifyAddType(String s) throws Exception {
-        if (s.equals("income") || s.equals("expense")) {
+        if (s.equals(ENTRY_TYPE_I) || s.equals(ENTRY_TYPE_E)) {
             return s;
         } else {
             EntryUi.printInvalidEntryType();
@@ -850,5 +850,38 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
         return true;
+    }
+
+    protected Boolean isAddEntryCmd() {
+        return commandToRun.equals(ENTRY_COMMAND_ADD);
+    }
+
+    protected Boolean isAddDebtCmd() {
+        return commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW);
+    }
+
+    protected Boolean isSetLimitCmd() {
+        return commandToRun.equals(LIMIT_COMMAND_SET);
+    }
+
+    protected Boolean isRemoveCmd() {
+        return commandToRun.equals(COMMAND_REMOVE);
+    }
+
+    protected Boolean isModifyCmd() {
+        return commandToRun.equals(COMMAND_MODIFY);
+    }
+
+    protected Boolean isSearchCmd() {
+        return commandToRun.equals(COMMAND_SEARCH);
+    }
+
+    protected Boolean isSortCmd() {
+        return commandToRun.equals(COMMAND_SORT);
+    }
+
+    protected Boolean isActionCmd() {
+        return commandToRun.equals(COMMAND_REDO)
+                || commandToRun.equals(COMMAND_UNDO);
     }
 }

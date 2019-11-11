@@ -9,13 +9,11 @@ import dolla.command.ErrorCommand;
 import dolla.command.view.ViewDateCommand;
 import dolla.command.view.ViewTodayCommand;
 
-import dolla.ui.DebtUi;
 import dolla.ui.Ui;
 import dolla.ui.LimitUi;
 import dolla.ui.ViewUi;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 
 //@@author omupenguin
 public class DollaParser extends Parser {
@@ -29,8 +27,7 @@ public class DollaParser extends Parser {
 
     @Override
     public Command parseInput() {
-
-        if (commandToRun.equals(DOLLA_VIEW)) {
+        if (isViewCmd()) {
             if (verifyViewTodayCommand()) {
                 return new ViewTodayCommand();
             } else if (verifyViewDateCommand()) {
@@ -39,20 +36,21 @@ public class DollaParser extends Parser {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
+        } else if (isAddEntryCmd()) {
             if (verifyAddCommand()) {
                 return new AddEntryCommand(type, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
+        } else if (isAddDebtCmd()) {
             if (verifyDebtCommand()) {
                 return new AddDebtsCommand(commandToRun, inputArray[1], amount, description, date);
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
+
+        } else if (isSetLimitCmd()) {
             if (verifySetCommand()) {
                 return new AddLimitCommand(type, amount, duration);
             } else {
@@ -61,6 +59,10 @@ public class DollaParser extends Parser {
             }
         }
         return invalidCommand();
+    }
+
+    private boolean isViewCmd() {
+        return commandToRun.equals(DOLLA_VIEW);
     }
 
     private boolean verifyViewTodayCommand() {
@@ -76,7 +78,6 @@ public class DollaParser extends Parser {
         try {
             date = Time.readDate(inputArray[1]);
         } catch (IndexOutOfBoundsException e) {
-            //ViewUi.printInvalidViewFormatError();
             return false;
         } catch (DateTimeException e) {
             Ui.printDateFormatError();

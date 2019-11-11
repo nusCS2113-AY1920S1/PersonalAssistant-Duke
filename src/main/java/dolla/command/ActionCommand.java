@@ -1,19 +1,18 @@
 package dolla.command;
 
-import dolla.model.DollaData;
 import dolla.command.action.Redo;
 import dolla.command.action.Undo;
+import dolla.model.DollaData;
 import dolla.model.Record;
+import dolla.parser.ParserStringList;
 import dolla.ui.ActionUi;
 
 import java.util.ArrayList;
 
 //@@author yetong1895
-public class ActionCommand extends Command {
+public class ActionCommand extends Command implements ParserStringList {
     private String mode;
     private String command;
-    private static final String UNDO = "undo";
-    private static final String REDO = "redo";
 
     /**
      * This method will set the mode and command in this class.
@@ -28,20 +27,20 @@ public class ActionCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         switch (command) {
-        case UNDO:
+        case COMMAND_UNDO :
             ArrayList<Record> recordList = Undo.processUndoState(mode);
             if (recordList != null) {
                 Redo.addToStateList(mode, dollaData.getRecordList(mode));
                 dollaData.setRecordList(recordList);
-                ActionUi.printActionMessage(UNDO);
+                ActionUi.printActionMessage(COMMAND_UNDO);
             }
             break;
-        case REDO:
+        case COMMAND_REDO:
             recordList = Redo.processRedoState(mode);
             if (recordList != null) {
                 Undo.addToStateList(mode, dollaData.getRecordList(mode));
                 dollaData.setRecordList(recordList);
-                ActionUi.printActionMessage(REDO);
+                ActionUi.printActionMessage(COMMAND_REDO);
             }
             break;
         default:
