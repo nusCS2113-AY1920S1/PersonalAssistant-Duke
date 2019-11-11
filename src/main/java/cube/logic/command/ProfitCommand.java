@@ -18,6 +18,8 @@ import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,19 +46,19 @@ public class ProfitCommand extends Command {
             = "Nice! I've generated the profits and revenue for all the stocks:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
-            + "In total, you have %3$s food in the list.\n";
+            + "From the time %3$s to the time %4$s.\n";
     public static final String MESSAGE_SUCCESS_SINGLE
             = "Nice! I've generated the profits and revenue for this food:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
-            + "In total, you have %3$s food in the list.\n";
+            + "From the time %3$s to the time %4$s.\n";
     public static final String MESSAGE_SUCCESS_MULTIPLE
             = "Nice! I've generated the profits and revenue for this type:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "This type contains "
             + "%3$s food items\n"
-            + "In total, you have %4$s food in the list.\n";
+            + "From the time %4$s to the time %5$s.\n";
 
     /**
      * The default constructor, empty since parameters are required to perform generating profits and revenue command.
@@ -159,6 +161,11 @@ public class ProfitCommand extends Command {
         String tempFoodName;
         Iterator<Sale> it = saleSet.iterator();
 
+        String pattern = "MM/dd/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String dateI_str = df.format(dateI);
+        String dateF_str = df.format(dateF);
+
         switch (param) {
             case ALL:
                 //generating the profits and revenue for all food in the given period from date_i to date_f,
@@ -174,7 +181,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit,
-                        toGenerateRevenue, list.size()));
+                        toGenerateRevenue, dateI_str, dateF_str));
 
             case INDEX:
                 //generating the profits and revenue for the food with given index in the list, in the given period
@@ -198,7 +205,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
-                        toGenerateRevenue, list.size()));
+                        toGenerateRevenue, dateI_str, dateF_str));
 
             case NAME:
                 //generating the profits and revenue for the food with given food name, in the given period
@@ -220,7 +227,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
-                        toGenerateRevenue, list.size()));
+                        toGenerateRevenue, dateI_str, dateF_str));
 
             case TYPE:
                 //generating the profits and revenue for the food with given food type, in the given period
@@ -259,7 +266,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, toGenerateProfit,
-                        toGenerateRevenue, count, listSize));
+                        toGenerateRevenue, count, dateI_str, dateF_str));
             default:
                 return null;
         }
