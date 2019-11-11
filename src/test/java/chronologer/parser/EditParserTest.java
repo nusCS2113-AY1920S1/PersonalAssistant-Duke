@@ -10,6 +10,9 @@ import java.lang.reflect.Field;
 
 /**
  * Test class for edit parser.
+ *
+ * @author Tan Yi Xiang
+ * @version V1.0
  */
 class EditParserTest {
 
@@ -30,27 +33,34 @@ class EditParserTest {
 
     @Test
     void testEditParser() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
-        EditParser editParser = new EditParser("edit 2 test something","edit");
+        EditParser editParser = new EditParser("edit 2 test something", "edit");
         Command testEditCommand = editParser.parse();
-        Command expectedEditCommand = new EditCommand(1,"test something");
+        Command expectedEditCommand = new EditCommand(1, "test something");
 
         Field[] editTestFields = getEditCommandFields(testEditCommand);
         Field[] editFields = getEditCommandFields(expectedEditCommand);
         Assertions.assertEquals(1, editParser.indexOfTask);
-        assertEqualsTaskScheduleCommand(editTestFields,editFields,testEditCommand,expectedEditCommand);
+        assertEqualsTaskScheduleCommand(editTestFields, editFields, testEditCommand, expectedEditCommand);
     }
 
     @Test
-    void testEmptyDescription(){
+    void testEmptyDescription() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             new EditParser("edit 1", "edit").parse();
         });
     }
 
     @Test
-    void testEmptyIndex(){
+    void testEmptyIndex() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             new EditParser("edit", "edit").parse();
+        });
+    }
+
+    @Test
+    void testNegativeIndex() {
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            ParserFactory.parse(("edit -1 New description"));
         });
     }
 
