@@ -7,7 +7,7 @@ import seedu.hustler.ui.timer.StatusTypes.ThreadError;
 /**
  * The access point for all Timer-related things.
  */
-public class TimerManager implements TimerManagerInterface {
+public class TimerManager {
 
     /**
      * All instances of TimerManager share the same Timer and
@@ -30,7 +30,6 @@ public class TimerManager implements TimerManagerInterface {
      * Allows the timeManager to set the Timer's time as per
      * the user's wishes.
      */
-    @Override
     public void setTimer(String time) {
         String[] timeParts = time.split(" ");
         countdownTimer = new Timer(timeParts[0], timeParts[1], timeParts[2]);
@@ -50,7 +49,6 @@ public class TimerManager implements TimerManagerInterface {
      * Allows the timeManager to start the Timer countdown,
      * usually done after setting the Timer.
      */
-    @Override
     public void startTimer() {
         Timer.threadstatus = ThreadStatus.RUNNING;
         countdownThread = new Thread(countdownTimer);
@@ -62,7 +60,6 @@ public class TimerManager implements TimerManagerInterface {
      * of the Timer in order to print and inform the user.
      * Lets the user know how much time is left.
      */
-    @Override
     public void checkTimeLeft() {
         TimerUI.printTimeLeft(countdownTimer.getTime());
     }

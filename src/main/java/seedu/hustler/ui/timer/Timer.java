@@ -7,7 +7,7 @@ import seedu.hustler.Hustler;
 /**
  * The timer device operated by timerManager.
  */
-public class Timer implements Runnable, TimerInterface {
+public class Timer implements Runnable {
     /**
      * The current status of the timer, an attribute that is
      * affected by the types of commands used by the user.
