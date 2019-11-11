@@ -237,9 +237,10 @@ public class GoalsList {
                 if (!(amount == null || amount.isBlank())) {
                     if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
                             && currentGoal.getSavingAmount() <= currentGoal.getGoalsAmount()) {
-                        logger.warning("Attempted to add a goal with lesser / same amount "
+                        logger.warning("Attempted to edit a goal with lesser / same amount "
                                 + "then balance of saving account");
-                        throw new GoalsException("You cannot add a goal that is already achieved!");
+                        throw new GoalsException("You cannot edit a goal with equal / less amount as " +
+                                "savings account balance!");
                     } else {
                         currentGoal.setGoalsAmount(Double.parseDouble(amount));
                     }
