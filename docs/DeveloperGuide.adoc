@@ -17,7 +17,15 @@ endif::[]
 By: `AY1920S1-CS2113T-T12-4`      Since: `Aug 2019`
 
 == Introduction
-PrivateHomeChefManager is aimed at private home chefs who are familiar with and prefer using the command line for managing the administrative tasks of their business. Main features of PrivateHomeChefManager include help user to keep track of customer’s bookings e.g. customer info, pax, booking dates, orders, etc. Also, it helps users to store current recipes, which includes ingredients needed, preparation steps and rating. Lastly, it helps users to keep track of ingredients in storage and able to check for stock availability.
+Private home chefs usually handle their entire business themselves, from customer bookings to the preparation of ingredients and the cooking of food.
+
+ChefDuke aims to help these home chefs with the deconfliction of customer’s bookings so that the chefs do not have to manually manage the booking schedules. Since private home chefs usually have their own recipes, the app can also help them to archive these recipes for future use. Also, since private home chefs do not have a large inventory space like that of restaurants, our app also aims to help the chefs manage their ingredient inventory.
+
+*Main features*
+
+* Help the user to keep track of customers’ bookings. e.g dates, customer info, pax, orders etc.
+* Help the user to store current recipes. Which includes ingredients needed, preparation steps.
+* Help the user to keep track of ingredients in storage and able to check for stock availability.
 
 == Setting up
 
@@ -46,8 +54,8 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.Main` and try a few commands
-. <<Testing#,Run the tests>> to ensure they all pass.
+. Run the `duke.Launcher` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
 
@@ -128,7 +136,24 @@ When you are ready to start coding, we recommend that you get some sense of the 
 
 === Running Tests
 
-=== Types of tests
+There are three ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+*Method 3: Manual testing*
+
+* Go to https://github.com/AY1920S1-CS2113T-T12-4/main/releases[our github release page] and download `chefduke-v1.4.jar`.
+* Copy the file to the folder that you want to use as the home folder for the application.
+* Run `chefduke-v1.4.jar` and the GUI should appear in a few seconds.
+* `/data` folder is populated with existing data, which allows testers to test the program using the data in `bookings.txt`, `inventories.txt`, `recipes.txt`.
+* Test the program using the <<Instructions for Manual Testing, Instructions for Manual Testing>> and the User Guide.
 
 == Dev Ops
 
@@ -384,9 +409,6 @@ Contains the details of the customer, such as name, contact number, number of pa
 
 [[inventory]] Inventory::
 Consist of the amount and type of raw ingredients required for making dishes.
-
-[appendix]
-== Product Survey
 
 [appendix]
 == Instructions for Manual Testing
