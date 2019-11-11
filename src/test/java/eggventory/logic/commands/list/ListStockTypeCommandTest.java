@@ -15,10 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yanprosobo
+
 class ListStockTypeCommandTest {
     private StockList testStockList = new StockList();
     private Ui testCli = new UiStub();
     private Storage testStorage = new StorageStub();
+
+    @BeforeEach
+    void resetTestStockList() {
+        if (testStockList.isEmpty()) {
+            return;
+        } else {
+            testStockList.clearList();
+        }
+    }
 
     @Test
     void execute_InvalidStocktype_ThrowsBadInputException() throws BadInputException {
@@ -71,3 +82,4 @@ class ListStockTypeCommandTest {
         assertEquals(expected, output);
     }
 }
+//@@author yanprosobo
