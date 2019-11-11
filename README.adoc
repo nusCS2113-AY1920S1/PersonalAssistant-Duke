@@ -19,10 +19,10 @@ endif::[]
 
 == Table of Contents
 
-* <<#QuickStart, Quick Start>>
+* <<#Quick{sp}Start, Quick Start>>
 * <<#Usage, Usage>>
 * <<#Acknowledgements, Acknowledgements>>
-* <<#Licence, Licence>>
+* <<#Licence{sp}:{sp}NUS, Licence>>
 
 == Quick Start
 * Ensure you have Java version 11 or later installed in your computer.
