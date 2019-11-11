@@ -54,14 +54,14 @@ public class CommandHelper {
         helpList.add(" - delete member INDEX");
         helpList.add("Deletes specified member from project.");
         helpList.add("");
-        helpList.add(" - view tasks [-MODIFIER]");
+        helpList.add(" - view tasks -[MODIFIER]");
         helpList.add("Displays existing tasks in sorted order specified by modifier. Default sorting is by priority.");
         helpList.add("");
-        helpList.add(" - add task -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
+        helpList.add(" - add task -n TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
                 + "[-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]");
         helpList.add("Adds a new task to the project.");
         helpList.add("");
-        helpList.add(" - edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] "
+        helpList.add(" - edit task TASK_INDEX [-n TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] "
                 + "[-s STATE]");
         helpList.add("Edits the stated details in specified task.");
         helpList.add("");
