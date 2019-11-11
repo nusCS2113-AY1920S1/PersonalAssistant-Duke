@@ -7,8 +7,14 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
+import static duke.common.RecipeMessages.MESSAGE_RECIPE_ADDED;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_ALREADY_EXISTS;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_INVALID_RECIPE_TITLE;
 
 /**
  * Handles the add new recipe command.
@@ -67,10 +73,5 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
         return arrayList;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

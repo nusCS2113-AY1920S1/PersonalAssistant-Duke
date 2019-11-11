@@ -8,8 +8,14 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_DELETE_RECIPE;
+import static duke.common.RecipeMessages.MESSAGE_RECIPE_DELETED;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_DELETE_RECIPE_NOT_FOUND;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_LIST_IS_EMPTY;
 
 /**
  * Handles the delete recipe command.
@@ -60,10 +66,5 @@ public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> 
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
         return arrayList;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

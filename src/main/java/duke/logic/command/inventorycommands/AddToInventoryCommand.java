@@ -8,8 +8,18 @@ import duke.ui.Ui;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.InventoryMessages.*;
-import static duke.common.Messages.*;
+import static duke.common.InventoryMessages.COMMAND_ADD_TO_INVENTORY;
+import static duke.common.InventoryMessages.MESSAGE_ADDED_TO_INVENTORY;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INGREDIENT_INCOMPLETE;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_ADD_INCORRECT_FORMAT;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVALID_QUANTITY;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVALID_UNIT;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT;
+import static duke.common.InventoryMessages.NO_ADDITIONAL_INFO;
+
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryStorage> {
 
@@ -99,9 +109,4 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
             return false;
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    };
 }

@@ -8,8 +8,15 @@ import duke.storage.InventoryStorage;
 
 import java.util.ArrayList;
 
-import static duke.common.InventoryMessages.*;
-import static duke.common.Messages.*;
+import static duke.common.InventoryMessages.COMMAND_USE_RECIPE;
+import static duke.common.InventoryMessages.MESSAGE_USE_RECIPE_INVENTORY_UPDATED;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVENTORY_IS_EMPTY;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_HAS_RECIPE_BEEN_USED;
+
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
 import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST;
 
 public class UseRecipeCommand extends Command<InventoryList, RecipeList, InventoryStorage> {
@@ -54,10 +61,5 @@ public class UseRecipeCommand extends Command<InventoryList, RecipeList, Invento
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
         return arrayList;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

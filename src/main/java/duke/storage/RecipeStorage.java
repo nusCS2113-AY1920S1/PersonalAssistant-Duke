@@ -3,12 +3,21 @@ package duke.storage;
 import duke.model.list.recipelist.RecipeList;
 import duke.model.task.recipetasks.Recipe;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.TreeMap;
 
 import static duke.common.Messages.filePathRecipeTest;
+import static duke.common.Messages.filePathTempTest;
 
 /**
  * Handles the ability to read and write to the recipe storage location.
@@ -70,6 +79,8 @@ public class RecipeStorage {
             InputStream inputStream;
             if (filePathRecipes.equals(filePathRecipeTest)) {
                 inputStream = getClass().getResourceAsStream("/datatest/recipesTest.txt");
+            } else if (filePathRecipes.equals(filePathTempTest)) {
+                inputStream = getClass().getResourceAsStream("/datatest/tempTest.txt");
             } else {
                 inputStream = getClass().getResourceAsStream("/data/recipes.txt");
             }
@@ -101,7 +112,8 @@ public class RecipeStorage {
                                 if (split5.length == 2) {
                                     requiredIngredients = split5[0].trim();
                                     feedback = split5[1].trim();
-                                    Recipe recipe = new Recipe(recipeTitle, prepTime, rating, prepSteps, requiredIngredients, feedback);
+                                    Recipe recipe = new Recipe(recipeTitle, prepTime, rating,
+                                            prepSteps, requiredIngredients, feedback);
                                     LHMRecipeList.put(recipeTitle, recipe);
                                 }
                             }

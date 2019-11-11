@@ -11,9 +11,30 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
-import static duke.common.InventoryMessages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_EDIT_REQ_INGREDIENT;
+import static duke.common.RecipeMessages.MESSAGE_ADDED_TO_REQ_INGREDIENTS;
+import static duke.common.RecipeMessages.MESSAGE_DELETED_FROM_REQ_INGREDIENTS;
+import static duke.common.RecipeMessages.MESSAGE_CLEARED_REQ_INGREDIENTS;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_REQ_INGREDIENT_INVALID_ORDER;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_INGREDIENT_DEL_INCOMPLETE;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_INGREDIENT_APP_INCOMPLETE;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_INGREDIENT_CLR_INCOMPLETE;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_REQ_INGREDIENT_NO_EDIT_COMMAND;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_REQ_INGREDIENT_INCORRECT_FORMAT;
+
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVALID_QUANTITY;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVALID_UNIT;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT;
+import static duke.common.InventoryMessages.NO_ADDITIONAL_INFO;
 
 /**
  * Handles the edit required ingredient command.
@@ -397,10 +418,5 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      */
     private static boolean isKnownUnit(String unit) { // edit this part.
         return unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon");
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

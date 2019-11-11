@@ -7,7 +7,11 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.BookingMessages.*;
+import static duke.common.BookingMessages.COMMAND_VIEW_ORDERS;
+import static duke.common.BookingMessages.MESSAGE_ORDERS_FOR;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_NAME;
+import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_NAME_VIEW;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_VIEWORDERS_COMMAND;
 
 /**
  * Handles the view orders command by searching with customer name.
@@ -64,10 +68,4 @@ public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> 
         }
         return true;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

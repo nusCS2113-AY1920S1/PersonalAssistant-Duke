@@ -8,8 +8,15 @@ import duke.ui.Ui;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_EDIT_PREPTIME;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_PREPTIME_INCOMPLETE;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_INVALID_PREPTIME;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RATING_INCORRECT_FORMAT;
 
 /**
  * Handles the edit preparation time command.
@@ -67,10 +74,4 @@ public class EditPrepTimeCommand extends Command<RecipeList, Ui, RecipeStorage> 
         }
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

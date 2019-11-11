@@ -31,9 +31,4 @@ public class AllBookingsCommand extends Command<BookingList, Ui, BookingStorage>
 
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

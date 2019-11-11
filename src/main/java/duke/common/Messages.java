@@ -10,10 +10,7 @@ public class Messages {
     public static final String filePathRecipeTest = "\\datatest\\recipesTest.txt";
     public static final String filePathBookingTest = "\\datatest\\bookingsTest.txt";
     public static final String filePathInventoryTest = "\\datatest\\inventoriesTest.txt";
-
-    public static final String filePathInventory = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\inventories.txt";
-    public static final String filePathBookings = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\bookings.txt";
-    public static final String filePathRecipes = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\recipes.txt";
+    public static final String filePathTempTest = "\\datatest\\tempTest.txt";
 
     public static final String MESSAGE_ADDED = "     Got it. I've added this task:\n";
     public static final String MESSAGE_DELETE = "     Noted. I've removed this task:\n";

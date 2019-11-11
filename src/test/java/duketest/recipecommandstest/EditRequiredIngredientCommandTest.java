@@ -35,7 +35,7 @@ public class EditRequiredIngredientCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy1 = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientCommand = new EditRequiredIngredientCommand("editreqingredient testrecipe ins/ 1 n/ dumplings q/ 10 u/g");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(editRequiredIngredientCommand.execute(recipeList, ui, recipeStorage));

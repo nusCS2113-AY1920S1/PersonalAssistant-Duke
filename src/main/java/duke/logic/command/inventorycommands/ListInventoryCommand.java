@@ -6,10 +6,15 @@ import duke.model.task.ingredienttasks.Ingredient;
 import duke.storage.InventoryStorage;
 import duke.ui.Ui;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map;
 
 import static duke.common.InventoryMessages.COMMAND_LIST_INVENTORY;
 import static duke.common.InventoryMessages.MESSAGE_HERE_ARE_THE_INGREDIENTS;
+
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
@@ -46,11 +51,6 @@ public class ListInventoryCommand extends Command<InventoryList, Ui, InventorySt
         return arrayList;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     private ArrayList<String> listOfInventories(HashMap<String, Ingredient> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
@@ -60,7 +60,7 @@ public class ListInventoryCommand extends Command<InventoryList, Ui, InventorySt
             Map.Entry entry = (Map.Entry) entryIter.next();
             Object key = entry.getKey();  // Get the key from the entry.
             Ingredient value = (Ingredient) entry.getValue();  // Get the value.
-            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.toString());
+            arrayList.add("     " + (i + DISPLAYED_INDEX_OFFSET) + ". " + value.toString());
             i++;
         }
         return arrayList;
