@@ -14,6 +14,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
 import static duke.logic.parser.shopping.ShoppingParserUtil.createShoppingDescriptor;
 
+/**
+ * A parser that parses {@code EditShoppingCommand}.
+ */
 public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
 
     private static final String MESSAGE_EMPTY_INDEX = "Index cannot be empty.";

@@ -10,6 +10,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
+/**
+ * A parser that parses {@code BuyShoppingCommand}.
+ */
 public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
 
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";

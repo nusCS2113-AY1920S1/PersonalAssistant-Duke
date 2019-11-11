@@ -10,6 +10,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
+/**
+ * A parser that parses {@code DeleteInventoryCommand}.
+ */
 public class DeleteInventoryCommandParser implements Parser<DeleteInventoryCommand> {
 
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";

@@ -5,6 +5,9 @@ import duke.logic.command.inventory.ShowInventoryCommand;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code ShowInventoryCommand}.
+ */
 public class ShowInventoryCommandParser implements Parser<ShowInventoryCommand> {
 
     @Override

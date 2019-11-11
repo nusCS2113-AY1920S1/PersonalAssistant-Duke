@@ -5,6 +5,9 @@ import duke.logic.command.shopping.ShowShoppingCommand;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code ShowShoppingCommand}.
+ */
 public class ShowShoppingCommandParser implements Parser<ShowShoppingCommand> {
 
     @Override

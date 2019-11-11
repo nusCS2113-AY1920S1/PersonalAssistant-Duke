@@ -6,6 +6,9 @@ import duke.model.product.Product;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
+/**
+ * A class that contains any class that needs a quantity. For example, products and ingredients.
+ */
 public class Item<T> {
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 
@@ -46,6 +49,12 @@ public class Item<T> {
         return Objects.hash(item);
     }
 
+    /**
+     * Calculates the total price of the item for products and ingredients.
+     * If not product or ingredient, return 0.0
+     *
+     * @return the total price calculated
+     */
     public Double getTotalPrice() {
         if (item instanceof Product) {
             Double totalPrice = ((Product) item).getRetailPrice() * (quantity.getNumber());
