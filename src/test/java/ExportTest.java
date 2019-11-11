@@ -24,6 +24,7 @@ import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -70,6 +71,7 @@ class ExportTest {
     }
 
     @Test
+    @Order(1)
     void testFileCreation() throws ChronologerException {
 
         java.util.Calendar testCalendar = java.util.Calendar.getInstance();
@@ -93,6 +95,7 @@ class ExportTest {
     }
 
     @Test
+    @Order(2)
     void testExportCommand() throws ChronologerException, IOException, ParserException, ParseException {
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         ArrayList<Task> list = new ArrayList<>();
