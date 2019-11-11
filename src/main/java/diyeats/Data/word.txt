@@ -54,3 +54,10 @@ update
 wallet
 weight
 year
+sort
+calorieAscending
+calorieDescending
+costAscending
+costDescending
+listtransaction
+deletetransaction

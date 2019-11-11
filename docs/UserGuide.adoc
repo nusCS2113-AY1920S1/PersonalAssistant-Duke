@@ -173,7 +173,7 @@ The dates entered which are marked for deletion are *inclusive*. E.g `clear 1/1/
 To exit the application, simply enter `exit` in the CLI. All of your changes are automatically saved, before ending the current session.
 
 ==== Listing nutritional intake for the day: `list`
-Format: `list [/date] <DATE>`
+Format: `list [/date] <DATE> [/sort] <SORTING_CRITERION>`
 
 Want to view your current nutritional intake for today? Simply enter the command `list` to show your current recorded nutritional intake for breakfast, lunch and dinner.
 
@@ -184,12 +184,20 @@ Examples:
 
 * You want to view your data today:
 ** `list`
-* You want to view your data from 26th of December, 2019:
-** `list /date 26/12/2019`
-* You want to view your data from 1st of January, 2018 based on calorie (from largest calorie):
-** `list /date 1/1/2018 /sort calorieDescending`
-* You want to view your data from 31th of December, 2019 based on their cost (from cheapest):
-** `list /sort costAscending /date 31/12/2019`
++
+image::list_1.png[]
+* You want to view your data from 1st of January, 2019:
+** `list /date 1/1/2019`
++
+image::list_2.png[]
+* You want to view your data from 11th of November, 2019 based on calorie (from largest calorie):
+** `list /date 11/11/2018 /sort calorieDescending`
++
+image::list_3.png[]
+* You want to view your data from 11th of November, 2019 based on their cost (from cheapest):
+** `list /sort costAscending /date 11/11/2019`
++
+image::list_4.png[]
 
 [NOTE]
 ====
@@ -357,7 +365,7 @@ Examples:
 * `delete 3` +
 Delete the 3rd meal on today's list
 
-* `done 1 /date 10/10/2019`
+* `delete 1 /date 10/10/2019`
 Delete the 1st meal on 10/10/2019
 
 ==== Marked a meal as done: `done`
@@ -378,13 +386,17 @@ eat for the rest of the day! Furthermore, you can see the updated account balanc
 * If the food cost exceeds the account balance remaining, the meal will not be marked done.
 ====
 
-Examples:
+Examples (assuming initial account balance is 10SGD):
 
 * `done 2` +
-Mark the 2nd meal on today's list as done
+Mark the 2nd meal (which costs 1.5) on today's list as done
++
+image::done_1.png[]
 
-* `done 3 /date 25/10/2019`
-Mark the 3rd meal on 25/10/2019 as done
+* `done 3 /date 1/1/2019`
+Mark the 3rd meal (which costs 3.0) on 1/1/2019 as done
++
+image::done_2.png[]
 
 ==== Adding/modifying default values to a meal: `default`
 
@@ -564,9 +576,13 @@ Examples:
 
 * You want to list the transaction for today
 ** `listtransaction`
++
+image::listtransaction_1.png[]
 
 * You want to list the transactions on 1/1/2019
 ** `listtransaction /date 1/1/2019`
++
+image::listtransaction_2.png[]
 
 [NOTE]
 ====
@@ -585,9 +601,13 @@ Examples:
 
 * You want to delete transaction indexed 2 for today
 ** `deletetransaction 2`
++
+image::deletetransaction1.png[]
 
 * You want to delete transaction indexed 3 on 1/1/2019
-** `deletetransaction 3 /date 1/1/2019`
+** `deletetransaction 1 /date 1/1/2019`
++
+image::deletetransaction2.png[]
 
 [NOTE]
 ====
