@@ -480,7 +480,7 @@ image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 .Sequence diagram of `view reminders by list` command
 image::images/sequenceDiagram/ViewReminders_Sequence.png[]
 
-=== 3.5. CRUD functionality for Assignments
+=== 3.5. Assignment between Tasks and Members feature
 
 ==== Implementation
 
@@ -489,7 +489,7 @@ Assignments establish a relationship between a task and a member. When a member 
 they are expected to complete it, and will be given the stipulated credit when the task state is marked
 as `DONE`. The degree of each member's contributions are measured by task credit.
 
-CRUD Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`, `AssignmentViewHelper`
+Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`, `AssignmentViewHelper`
 and `Project`.
 
 Assignment functions implement the following commands:
@@ -528,19 +528,19 @@ and exist within the project) using `ParserHelper.parseMembersIndexes()` and `Pa
 `AssignmentController.checkForSameMemberIndexes()` checks if the list of assignees and unassignees contain any identical
 index numbers, and removes them to avoid redundant work. `ParserHelper` returns all 3 sets of valid indexes to `AssignmentController`.
 
-Step 5) If there are valid task numbers, a for loop is used to iterate through the tasks to handle the assignments
+Step 6) If there are valid task numbers, a for loop is used to iterate through the tasks to handle the assignments
 one by one. `AssignmentController.assign()` and `AssignmentController.unassign()` are called to assign or unassign
 tasks to the members.
 
-Step 6) `Project.containsAssignment()` is used to check if an assignment between a task and member already exists to
+Step 7) `Project.containsAssignment()` is used to check if an assignment between a task and member already exists to
 avoid any errors (for example, duplicating assignments or trying to remove an assignment which does not exist).
 The errors are noted down by adding error messages to the ArrayList `errorMessages` which will be displayed to the user later.
 
-Step 7) If the input is valid, the assignment is created by calling `Project.createAssignment()` or removed by calling
+Step 8) If the input is valid, the assignment is created by calling `Project.createAssignment()` or removed by calling
 `Project.removeAssignment()`. The 2 HashMaps in the project are manipulated accordingly to note down the assignment between the specified task
 and member. Success messages are stored in `successMessages`.
 
-Step 8) The `errorMessages` and `successMessages` from `AssignmentController` are retrieved by `ProjectInputController`. The messages are validated, and then
+Step 9) The `errorMessages` and `successMessages` from `AssignmentController` are retrieved by `ProjectInputController`. The messages are validated, and then
 formatted with the help of `ViewHelper`, which organises the information into easy-to-read tables and displayed to the user.
 
 The following sequence diagram shows how the `assign task` command works.
@@ -805,7 +805,7 @@ is the `logs` directory.
 // Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == 4. Documentation
-We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
+We chose to use AsciiDoc writing format to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
 for essential syntax unlike MarkDown.
 
 === 4.1 Written documentation

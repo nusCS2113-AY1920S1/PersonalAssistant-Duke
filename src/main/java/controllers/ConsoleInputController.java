@@ -98,7 +98,7 @@ public class ConsoleInputController implements IController {
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
             return new String[] {"Creation of Project failed. Please ensure that Project name doesn't have any "
-                    + "special characters"};
+                    + "special character or isn't empty."};
         } else {
             return new String[] {"Project created!"};
         }
