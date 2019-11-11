@@ -1,5 +1,7 @@
 package wallet.storage;
 
+import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongParameterFormat;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.RecurrenceRate;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 
 public class ExpenseStorage extends Storage<Expense> {
     public static final String DEFAULT_STORAGE_FILEPATH_EXPENSE = "./data/expense.txt";
+    public static final String MESSAGE_ERROR_DATA_FORMAT = "Error in format of data when reading from text file.";
+    public static final String MESSAGE_ERROR_FILE_NOT_FOUND = "No saved expenses found.";
+    public static final String MESSAGE_ERROR_WRITE_EXPENSE = "Error encountered when writing to text file.";
 
     /**
      * Loads the expenses from expense.txt into a temporary ArrayList of Expense objects.
@@ -25,7 +30,7 @@ public class ExpenseStorage extends Storage<Expense> {
         ArrayList<Expense> expenseList = new ArrayList<>();
 
         try {
-            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_EXPENSE, "r");
+            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_EXPENSE, "rws");
             String str;
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();
@@ -47,9 +52,9 @@ public class ExpenseStorage extends Storage<Expense> {
             }
             raf.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved expenses found.");
-        } catch (IOException e) {
-            System.out.println("End of file.");
+            throw new WrongParameterFormat(MESSAGE_ERROR_FILE_NOT_FOUND);
+        } catch (IOException | ArrayIndexOutOfBoundsException iob) {
+            throw new InsufficientParameters(MESSAGE_ERROR_DATA_FORMAT);
         }
 
         return expenseList;
@@ -72,7 +77,7 @@ public class ExpenseStorage extends Storage<Expense> {
             }
             raf.close();
         } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
+            throw new WrongParameterFormat(MESSAGE_ERROR_WRITE_EXPENSE);
         }
     }
     //@@author

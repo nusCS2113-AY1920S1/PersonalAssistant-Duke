@@ -33,7 +33,7 @@ Librarie(s) used: [JUnit5](https://github.com/junit-team/junit5)
 ## Contact Us
 
 Bug reports, Suggestions : Post in our [issue tracker](https://github.com/AY1920S1-CS2113T-W17-2/main/issues)
-if you noticed bugs or have suggestions on how to improve.
-Contributing : We welcome pull requests. Follow the process described [here](https://github.com/oss-generic/process)
+if you noticed bugs or have suggestions on how to improve. <br>
+We welcome pull requests. Follow the process described [here](https://github.com/oss-generic/process)
 
 ## Licence : [MIT](https://github.com/AY1920S1-CS2113T-W17-2/main/blob/master/LICENSE)

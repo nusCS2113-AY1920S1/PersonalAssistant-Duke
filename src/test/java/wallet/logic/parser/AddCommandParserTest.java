@@ -18,7 +18,6 @@ import wallet.model.record.Expense;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
-import wallet.model.record.RecordList;
 import wallet.model.record.RecurrenceRate;
 
 import java.text.ParseException;
@@ -65,7 +64,6 @@ public class AddCommandParserTest {
         WalletList dummyWalletList = new WalletList();
         Wallet dummyWallet = new Wallet(new CurrencyList(),
                 new BudgetList(),
-                new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
                 new LoanList(),

@@ -11,7 +11,6 @@ public class HistoryCommand extends Command {
 
     public static final String COMMAND_WORD = "history";
     public static final String MESSAGE_LIST_HISTORY = "Command History from earliest to latest:";
-    public static final String MESSAGE_USAGE = "Error in syntax for history command.";
 
     private ArrayList<String> commandHistory;
 

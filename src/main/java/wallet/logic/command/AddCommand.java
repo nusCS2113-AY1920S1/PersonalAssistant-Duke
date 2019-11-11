@@ -76,8 +76,8 @@ public class AddCommand extends Command {
                     BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
                     BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
                             .getMonthExpenses(b.getMonth(), b.getYear()));
-                    double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
-                    remainingBudget += b.getAccountedExpenseAmount();
+                    BigDecimal accountedAmount = BigDecimal.valueOf(b.getAccountedExpenseAmount());
+                    double remainingBudget = monthBudget.subtract(expenseSum).add(accountedAmount).doubleValue();
                     b.setExpenseTakenIntoAccount(true);
                     if (remainingBudget < 0) {
                         System.out.println(MESSAGE_EXCEED_BUDGET);
@@ -88,7 +88,6 @@ public class AddCommand extends Command {
                             + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                 }
             }
-            wallet.getRecordList().addRecord(expense);
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             Ui.printExpense(expense);
@@ -103,7 +102,6 @@ public class AddCommand extends Command {
         //@@author A0171206R
         if (loan != null) {
             wallet.getLoanList().addLoan(loan);
-            wallet.getRecordList().addRecord(loan);
             wallet.getLoanList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
             Ui.printLoanTableHeaders();

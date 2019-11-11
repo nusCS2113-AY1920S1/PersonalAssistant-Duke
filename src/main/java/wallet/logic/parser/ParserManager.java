@@ -28,7 +28,7 @@ import java.text.ParseException;
  */
 public class ParserManager {
 
-    private String parametersError = " command does not have parameters or have insufficient parameters!";
+    private String parametersError = " command have insufficient parameters!";
 
     /**
      * Parses the user input command and returns the corresponding Command object.
@@ -37,7 +37,8 @@ public class ParserManager {
      * @return The corresponding Command object.
      */
     public Command parseCommand(String fullCommand) throws ParseException {
-        String[] arguments = fullCommand.split(" ", 2);
+        String replacedCommand = fullCommand.replaceAll("\\s+", " ");
+        String[] arguments = replacedCommand.split(" ", 2);
 
         switch (arguments[0].toLowerCase()) {
         case AddCommand.COMMAND_WORD:

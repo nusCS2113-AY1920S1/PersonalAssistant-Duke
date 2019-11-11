@@ -25,6 +25,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_NICE_TRY_MONTH = "Nice try, but month runs from 1 to 12 :)";
     public static final String MESSAGE_NICE_TRY_YEAR = "zero or negative years does not exist.";
     public static final String MESSAGE_NO_EXPENSE_IN_MONTH = "There are no expenses in this month.";
+    public static final String MESSAGE_NO_EXPENSE = "There are no expenses in your wallet.";
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " budget 01/2019"
             + "\nExample: " + COMMAND_WORD + " stats"
@@ -62,8 +63,9 @@ public class ViewCommand extends Command {
                                 BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
                                 BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
                                         .getMonthExpenses(b.getMonth(), b.getYear()));
-                                double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
-                                remainingBudget += b.getAccountedExpenseAmount();
+                                BigDecimal accountedAmount = BigDecimal.valueOf(b.getAccountedExpenseAmount());
+                                double remainingBudget = monthBudget.subtract(expenseSum)
+                                    .add(accountedAmount).doubleValue();
                                 System.out.println(MESSAGE_REMAINING_BUDGET
                                         + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                                 System.out.println("$" + remainingBudget);
@@ -88,9 +90,9 @@ public class ViewCommand extends Command {
                     System.out.println(MESSAGE_VIEW_STATS
                             + new DateFormatSymbols().getMonths()[month - 1]
                             + " " + year);
-                    //double total = wallet.getExpenseList().getMonthExpenses(month, year);
-                    //double budget = wallet.getBudgetList().getBudget(month, year);
-                    //ui.drawBarChart(total, budget);
+                    double total = wallet.getExpenseList().getMonthExpenses(month, year);
+                    double budget = wallet.getBudgetList().getBudget(month, year);
+                    ui.drawBarChart(total, budget);
                     for (Category category : Category.values()) {
                         ArrayList<Expense> expenseList = categoryMap.get(category);
                         if (expenseList != null) {
@@ -114,6 +116,10 @@ public class ViewCommand extends Command {
             }
         } else if (type.length == 1 && type[0].equals("stats")) {
             ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
+            if (expenseList.isEmpty()) {
+                System.out.println(MESSAGE_NO_EXPENSE);
+                return false;
+            }
             ui.drawPieChart(expenseList);
             return false;
         } else {

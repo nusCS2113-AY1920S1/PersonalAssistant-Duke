@@ -11,6 +11,7 @@ import wallet.model.record.Loan;
 import wallet.model.record.Category;
 import wallet.ui.Ui;
 
+import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -23,6 +24,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong export command syntax!";
     public static final String MESSAGE_ERROR_WRONG_YEARMONTH = "Wrong year and month input!";
     private double budgetLeft;
+    private double budgetSet;
 
     /**
      * Returns an ExportCommand object.
@@ -77,7 +79,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 String monthFormatted = DateTimeFormatter.ofPattern("MM/yyyy").format(YearMonth.of(year, month));
                 int index = 1;
                 data.add(new String[]{"Month", monthFormatted});
-                if (findBudget(month, year)) {
+                if (findBudget(month, year, totalSpent)) {
+                    data.add(new String[]{"Budget Set", "$" + budgetSet});
                     data.add(new String[]{"Budget Left", "$" + budgetLeft});
                 }
                 data.add(new String[]{"Total Spent", "$" + totalSpent});
@@ -117,18 +120,34 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      * @param year  month to find budget
      * @return boolean of found or not.
      */
-    private boolean findBudget(int month, int year) {
+    private boolean findBudget(int month, int year, double totalExpense) {
         ArrayList<Budget> budgetList = LogicManager.getWalletList().getWalletList().get(
             LogicManager.getWalletList().getState()).getBudgetList().getBudgetList();
         for (Budget b : budgetList) {
+            //@@author Xdecosee-reused
             if (b.getMonth() == month && b.getYear() == year) {
-                this.budgetLeft = b.getAmount();
+
+                this.budgetSet = b.getAmount();
+
+                if (b.getExpenseTakenIntoAccount()) {
+                    BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
+                    BigDecimal expenseSum = BigDecimal.valueOf(totalExpense);
+                    BigDecimal accountedAmount = BigDecimal.valueOf(b.getAccountedExpenseAmount());
+                    double remainingBudget = monthBudget.subtract(expenseSum).add(accountedAmount).doubleValue();
+                    this.budgetLeft = remainingBudget;
+
+                } else {
+                    this.budgetLeft = b.getAmount();
+                }
+
                 return true;
             }
+            //@@author
         }
         return false;
     }
 
+    //@@author Xdecosee
     /**
      * Formats loans storage data into list.
      *

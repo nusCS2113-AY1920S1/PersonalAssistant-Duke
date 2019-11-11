@@ -23,7 +23,7 @@ public class ContactStorage extends Storage<Contact> {
         ArrayList<Contact> contactList = new ArrayList<>();
 
         try {
-            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_CONTACT, "r");
+            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_CONTACT, "rws");
             String str;
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();

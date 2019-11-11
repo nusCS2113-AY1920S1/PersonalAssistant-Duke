@@ -14,9 +14,6 @@ public class ReminderThread implements Runnable {
     private boolean autoRemind;
     private Thread thread;
     private int timeInSeconds;
-    private int counter;
-    private LoanList loanList;
-    private Ui ui;
 
     /**
      * Constructs a ReminderThread object.
@@ -28,8 +25,6 @@ public class ReminderThread implements Runnable {
 
         this.autoRemind = autoRemind;
         this.timeInSeconds = timeInSeconds;
-        this.loanList = loanList;
-        this.ui = new Ui();
         thread = new Thread(this);
         thread.start(); // Starting the thread
     }

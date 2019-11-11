@@ -26,6 +26,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             = "Category can only be Bills, Food, Others, Shopping or Transport.";
     public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE
             = "Recurrence rate can only be Daily, Weekly or Monthly.";
+    public static final String MESSAGE_ERROR_NEGATIVE_AMOUNT = "Amount should only be positive values.";
 
     /**
      * Returns an AddCommand object.
@@ -93,6 +94,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         String desc = arguments[0].trim();
         arguments = arguments[1].split(" ", 2);
         Double amount = Double.parseDouble(arguments[0].trim());
+        if (amount < 0) {
+            throw new WrongParameterFormat(MESSAGE_ERROR_NEGATIVE_AMOUNT);
+        }
         Category cat;
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -102,8 +106,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             arguments = arguments[1].split(" ", 2);
             cat = Category.getCategory(arguments[0].trim());
             if (cat == null) {
-                Ui.printError(MESSAGE_ERROR_INVALID_CATEGORY);
-                return null;
+                throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
             }
             if (isRecurring) {
                 arguments = arguments[1].split("/on");
@@ -111,8 +114,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 date = LocalDate.parse(arguments[0].trim(), formatter);
                 freq = RecurrenceRate.getRecurrence(arguments[1].trim());
                 if (freq == null) {
-                    Ui.printError(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
-                    return null;
+                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
                 }
             } else {
                 arguments = arguments[1].split("/on");
@@ -122,8 +124,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             cat = Category.getCategory(arguments[1].trim());
             if (cat == null) {
-                Ui.printError(MESSAGE_ERROR_INVALID_CATEGORY);
-                return null;
+                throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
             }
             freq = RecurrenceRate.NO;
         }

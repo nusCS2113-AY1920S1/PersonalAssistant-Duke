@@ -39,7 +39,6 @@ public class ChartThread implements Runnable {
      * Prints the pie chart given specified stats.
      */
     public static void printPieChart(ArrayList<Expense> expenseList) {
-
         char[] fill = new char[5];
         float[] percentage = new float[5];
         float radius = 8;

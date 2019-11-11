@@ -2,8 +2,6 @@
 
 package wallet.model.record;
 
-import wallet.logic.command.ListCommand;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -84,16 +82,6 @@ public class LoanList {
     }
 
     /**
-     * Returns the index of Loan object in the list of loans.
-     *
-     * @param loan The Loan object.
-     * @return Index of Loan object in list of loans.
-     */
-    public int findLoanIndex(Loan loan) {
-        return this.loanList.indexOf(loan);
-    }
-
-    /**
      * Returns size of the list of loans.
      *
      * @return Size of the list of loans.
@@ -101,19 +89,6 @@ public class LoanList {
     public int getSize() {
         return this.loanList.size();
     }
-
-    /**
-     * Lists the list of loans.
-     */
-    public void listLoanList() {
-        int counter = 1;
-        System.out.println(ListCommand.MESSAGE_LIST_LOANS);
-        for (Loan l : this.loanList) {
-            System.out.println(counter + ". " + l.toString());
-            counter++;
-        }
-    }
-
 
     /**
      * Returns the largest id.
