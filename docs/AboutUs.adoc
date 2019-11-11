@@ -33,7 +33,7 @@ Responsibilities: Logic
 === Kishore R
 
 image::kishore03109.png[width="150", align="left"]
-{empty}[http://github.com/kishore03109[github]][https://github.com/AY1920S1-CS2113T-W13-2/main/blob/master/docs/team/%5BCS2113T-W13-2%5D-%5BKishore%20R%5DPPP.pdf[portfolio]]
+{empty}[http://github.com/kishore03109[github]][https://github.com/AY1920S1-CS2113T-W13-2/main/blob/master/docs/team/%5BCS2113T-W13-2%5D%5BKishore%20R%5DPPP.pdf[portfolio]]
 
 Role: Developer +
 Responsibilities: Model
