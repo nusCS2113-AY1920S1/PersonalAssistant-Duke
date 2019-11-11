@@ -1,3 +1,9 @@
+/**
+ * Handles the content of a single list cell to be shown in the ListPanel.
+ *
+ * @author kuromono
+ */
+
 package cube.ui;
 
 import cube.logic.parser.ParserUtil;
@@ -40,11 +46,13 @@ public class FoodListCard extends UiManager<HBox> {
     private Button sell;
 
     /**
-     * Food list card.
-     * @param food the food to be displayed.
-     * @param displayedIndex its index.
-     * @param sellExecutor sell executor.
-     * @param editExecutor edit executor.
+     * Main constructor for FoodListCard.
+     * Initialise the values to be shown.
+     *
+     * @param food           Food item to be displayed.
+     * @param displayedIndex Index to be displayed.
+     * @param sellExecutor   Function that contains the logic for sell button.
+     * @param editExecutor   Function that contains the logic for edit button.
      */
     public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, EditExecutor editExecutor) {
         super(FXML);

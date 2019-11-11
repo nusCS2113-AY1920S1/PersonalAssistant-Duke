@@ -1,8 +1,14 @@
+/**
+ * Manages several GUI related functions such as loading fxml, get root classes etc.
+ *
+ * Some design has been referenced from Address Book (Level 3).
+ * https://github.com/se-edu/addressbook-level3
+ */
+
 package cube.ui;
 
 
 import cube.CubeApp;
-import cube.logic.parser.Parser;
 import cube.util.LogUtil;
 import cube.util.exception.CubeUtilException;
 import cube.util.exception.UtilErrorMessage;
