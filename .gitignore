@@ -17,7 +17,7 @@ bin/
 data.json
 /data.json
 text_file
-duchess.log
+duchess.log*
 
 /data.json
 

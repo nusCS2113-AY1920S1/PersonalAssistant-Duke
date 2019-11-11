@@ -30,7 +30,7 @@ public class DeleteGradeCommand extends Command {
             if (module.isPresent()) {
                 Grade toRemove = module.get().getGrades().get(gradeNo);
                 module.get().deleteGrade(gradeNo);
-                ui.showDeletedGrade(toRemove.getTask(), module.get());
+                ui.showDeletedGrade(toRemove.getDescription(), module.get());
                 storage.save(store);
             } else {
                 throw new IllegalArgumentException();

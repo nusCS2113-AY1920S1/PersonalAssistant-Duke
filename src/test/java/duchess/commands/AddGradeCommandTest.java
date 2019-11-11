@@ -28,6 +28,6 @@ public class AddGradeCommandTest {
         assertEquals(30, addedGrade.getMaxMarks());
         assertEquals(23, addedGrade.getWeightage());
         assertEquals(true, addedGrade.getIsComplete());
-        assertTrue(addedGrade.getTask().equals("midterm"));
+        assertTrue(addedGrade.getDescription().equals("midterm"));
     }
 }

@@ -3,7 +3,6 @@ package duchess.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +14,32 @@ public class Module {
     private String name;
     private String code;
     private List<Grade> grades;
-    private double weightageCompleted; // total weightage of completed grades
-    private double weightageObtained; // weightage obtained from completed grades
-    private double weightageTotal; // total weightage for all the grades
+    private double weightageCompleted;
+    private double weightageObtained;
+    private double weightageTotal;
+
+    /**
+     * Creates a new module using Json data.
+     *
+     * @param code the code of the module
+     * @param name the name of the module
+     * @param grades list of grades
+     * @param weightageCompleted total weightage of completed grades
+     * @param weightageObtained weightage obtained from completed grades
+     * @param weightageTotal total weightage for all the grades
+     */
+    @JsonCreator
+    public Module(@JsonProperty("code") String code, @JsonProperty("name") String name,
+                  @JsonProperty("grades") List<Grade> grades, @JsonProperty("weightageCompleted")
+                  double weightageCompleted, @JsonProperty("weightageObtained") double weightageObtained,
+                  @JsonProperty("weightageTotal") double weightageTotal) {
+        this.code = code;
+        this.name = name;
+        this.grades = grades;
+        this.weightageCompleted = weightageCompleted;
+        this.weightageObtained = weightageObtained;
+        this.weightageTotal = weightageTotal;
+    }
 
     /**
      * Creates a new Module.
@@ -25,11 +47,10 @@ public class Module {
      * @param code the code of the module
      * @param name the mame of the module
      */
-    @JsonCreator
-    public Module(@JsonProperty("code") String code, @JsonProperty("name") String name) {
+    public Module(String code, String name) {
         this.code = code;
         this.name = name;
-        grades = new ArrayList<>();
+        this.grades = new ArrayList<>();
     }
 
     /**
@@ -135,19 +156,9 @@ public class Module {
         return code;
     }
 
-    @JsonSetter("grades")
-    public void setGrades(List<Grade> grades) {
-        this.grades = grades;
-    }
-
     @JsonGetter("grades")
     public List<Grade> getGrades() {
         return grades;
-    }
-
-    @JsonSetter("weightageCompleted")
-    public void setWeightageCompleted(double weightageCompleted) {
-        this.weightageCompleted = weightageCompleted;
     }
 
     @JsonGetter("weightageCompleted")
@@ -155,19 +166,9 @@ public class Module {
         return weightageCompleted;
     }
 
-    @JsonSetter("weightageObtained")
-    public void setWeightageObtained(double weightageObtained) {
-        this.weightageObtained = weightageObtained;
-    }
-
     @JsonGetter("weightageObtained")
     public double getWeightageObtained() {
         return weightageObtained;
-    }
-
-    @JsonSetter("weightageTotal")
-    public void setWeightageTotal(double weightageTotal) {
-        this.weightageTotal = weightageTotal;
     }
 
     @JsonGetter("weightageTotal")

@@ -3,7 +3,6 @@ package duchess.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * Represents a grade in a module.
@@ -26,14 +25,16 @@ public class Grade {
      * @param isComplete true if the assessment is complete, false otherwise
      */
     @JsonCreator
-    public Grade(@JsonProperty("task") String description, @JsonProperty("marks") double marks,
+    public Grade(@JsonProperty("description") String description, @JsonProperty("marks") double marks,
                  @JsonProperty("maxMarks") double maxMarks, @JsonProperty("weightage") double weightage,
-                 @JsonProperty("isComplete") boolean isComplete) {
+                 @JsonProperty("isComplete") boolean isComplete,
+                 @JsonProperty("modulePercentage") double modulePercentage) {
         this.description = description;
         this.marks = marks;
         this.maxMarks = maxMarks;
         this.weightage = weightage;
         this.isComplete = isComplete;
+        this.modulePercentage = modulePercentage;
     }
 
     private void calculateModulePercentage() {
@@ -69,13 +70,8 @@ public class Grade {
     }
 
     @JsonGetter
-    public String getTask() {
+    public String getDescription() {
         return description;
-    }
-
-    @JsonSetter
-    public void setTask(String assessment) {
-        this.description = assessment;
     }
 
     @JsonGetter
@@ -83,19 +79,9 @@ public class Grade {
         return marks;
     }
 
-    @JsonSetter
-    public void setMarks(double marks) {
-        this.marks = marks;
-    }
-
     @JsonGetter
     public double getMaxMarks() {
         return maxMarks;
-    }
-
-    @JsonSetter
-    public void setMaxMarks(double maxMarks) {
-        this.maxMarks = maxMarks;
     }
 
     @JsonGetter
@@ -103,29 +89,14 @@ public class Grade {
         return weightage;
     }
 
-    @JsonSetter
-    public void setWeightage(double weightage) {
-        this.weightage = weightage;
-    }
-
     @JsonGetter
     public boolean getIsComplete() {
         return isComplete;
     }
 
-    @JsonSetter
-    public void setIsComplete(boolean isComplete) {
-        this.isComplete = isComplete;
-    }
-
     @JsonGetter
     public double getModulePercentage() {
         return modulePercentage;
-    }
-
-    @JsonSetter
-    public void setModulePercentage(double modulePercentage) {
-        this.modulePercentage = modulePercentage;
     }
 
     /**
