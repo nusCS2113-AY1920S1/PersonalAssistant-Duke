@@ -471,20 +471,26 @@ _{explain how the user can enable/disable data encryption}_
 <<<
 == FAQ
 
+*Q*: Where are my save files located? +
+*A*: The `data` folder containing your save data is located one level above the jar file. They are called `save.txt` and `savedegree.txt`. We do not recommend modifying these files unless you know what you are doing.
+
 *Q*: How do I transfer my data to another Computer? +
-*A*: The `data` folder containing your save data (called `save.txt` and `savedegree.txt`) is located one level above the jar file. Place the jar in another computer. Running it for the first time will create a `data` folder containing 2 empty save files. Overwrite these save files with the save files from your previous DEGREES.NUS `data` folder. +
+*A*: Place the jar in another computer. Running it for the first time will create a `data` folder containing 2 empty save files. Overwrite these save files with the save files from your previous DEGREES.NUS `data` folder. +
 
 *Q*: Why can't I find information regarding this degree? +
 *A*: If your course is not offered by the Faculty of Engineering, chances are our program does not support it. We do intend to expand our app to eventually include all courses in NUS, but for now only 9 Engineering degrees are supported.
 
 *Q*: Why can't I resize the cli? +
-*A*: This is deliberate as resizing the cli will break the formatting of the text displayed in the cli, particularly for commands `detail` and `command`.
+*A*: This is deliberate as resizing the cli will break the formatting of the text displayed in the cli, particularly for commands `detail` and `command`. Resizing the window will only resize the tables.
 
 *Q*: Is this compatible with mac os? +
 *A*: Yes. Installation instructions are the same for both Windows and Mac.
 
 *Q*: Is this compatible with linux? +
 *A*: No. We are prioritising expanding our app to support other degrees, so linux support will not come so soon.
+
+*Q*: Is there an ios or android version? +
+*A*: No. Similar to the linux question, we are prioritising expanding our app to support other degrees, so this app will not be available on other platforms for some time.
 
 *Q*: Is this program free? +
 *A*: Yes. We intend to keep this app free and open-source, as we feel this tool should be available to all students and prospective students.
