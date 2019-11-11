@@ -95,6 +95,7 @@ class Main {
             ui.firstTimeRun();
             getUserName();
             ui.greet(profile.profileGetUsername());
+            profile.profileReminderForGoals();
             try {
                 storage.createDirectoryIfNotExist(FILE_PATH);
                 storage.writeProfileFile(new String[]{profile.profileGetUsername()},PROFILE_FILE_NAME);
