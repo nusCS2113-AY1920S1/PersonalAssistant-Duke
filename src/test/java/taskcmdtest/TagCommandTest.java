@@ -2,7 +2,6 @@
 
 package taskcmdtest;
 
-
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
