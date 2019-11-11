@@ -261,15 +261,16 @@ image::images/devguide/DG_ViewMonthly_ActivityDiagram.png[width ="300", align="c
 
 *Aspect: How view-monthly executes*
 
-* Alternative 1 (current choice): Saves the archive shows and current shows separately.
-** Pros: Reduces search time Optix knows which list to search from.
-** Cons: Archive list does not need any methods and certain parameters since it is only a list to store show names and
-revenue. Have to insert dummy values for Archive list since Archive and current list are from the same class and now
-use the same parameters.
+* Alternative 1 (current choice): Obtain the required shows from the current and archive list separately.
+** Pros: 
+Reduces search time if Optix knows which list to search from. +
+Also increases user friendliness since message can be customised depending on whether the show is from the current or archive or both lists.
 
-* Alternative 2: Save archive and current shows together
-** Pros: Archive list and current list will have their own class and reduces dependency.
-** Cons: Certain code needs to be repeated which may be confusing.
+** Cons: More bug prone since there are more conditional statements.
+
+* Alternative 2: Combine the current and archive list before searching for the shows.
+** Pros: More efficient since the entire list would be sorted.
+** Cons: Message showing the monthly revenue will always be the same, making it less user-friendly.
 
 === Sell Seats Feature
 Allows user to sell seats for a specific show.
