@@ -130,15 +130,16 @@ public abstract class ParseRecurringExpenditure {
     }
 
     /**
-     * Checks if the category entered by the user does not have special characters and is not too long.
+     * Checks if the category entered by the user does not have special characters and numbers
+     * and is not too long.
      *
      * @param category Category of transaction.
      * @throws ParserException If the string has special characters or is too long.
      */
     void checkCategory(String category) throws ParserException {
         if (!RegexUtil.regexCheckCategory(category)) {
-            logger.warning("/category can only contain numbers and letters and at most 15 characters");
-            throw new ParserException("/category can only contain numbers and letters and at most 15 characters");
+            logger.warning("/category can only contain letters and at most 15 characters");
+            throw new ParserException("/category can only contain letters and at most 15 characters");
         }
     }
 

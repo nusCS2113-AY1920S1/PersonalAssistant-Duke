@@ -2308,7 +2308,7 @@ Use case ends.
 
 [appendix]
 == Non Functional Requirements
-. The application should work on any computer running a <<mainstream-os, mainstream OS>> OS that has Java 11 installed.
+. The application should work on any computer running a <<mainstream-os, mainstream OS>> that has Java 11 installed.
 . The application should work on both 32-bit and 64-bit environments.
 . The application should work without requiring any internet access.
 . The application should work without requiring an installer.
@@ -2388,7 +2388,7 @@ Expected: Details of the deleted `savings` account being displayed after being d
 
 [NOTE]
 ====
-If you have previously changed the investment account name from `JunBank Savings Account` to `BunBank Savings Account`,
+If you have previously changed the savings account name from `JunBank Savings Account` to `BunBank Savings Account`,
 you might want to change it back to `JunBank Savings Account` or you can choose to
 delete `BunBank Savings Account` directly.
 ====
@@ -2453,8 +2453,8 @@ you might want to change it back to `DBB Vickers Account` or you can choose to d
 There is enough money in the `investment` account to add the `bond`.
 
 .. Test case:
-`/add /bonds /name September SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
-Expected: New details of the September SSB `bond` being displayed after being added.
+`/add /bonds /name test SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
+Expected: New details of the test SSB `bond` being displayed after being added.
 
 [NOTE]
 ====
@@ -2468,12 +2468,16 @@ If you have previously deleted `BBB Vickers Account`, you might want to add it b
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
 .. Test case:
-`/edit /bonds /from BBB Vickers Account /name September SSB /rate 1.90` +
-Expected: Updated rate of the September SSB `bond` being displayed after being edited.
+`/edit /bonds /from BBB Vickers Account /name test SSB /rate 1.90` +
+Expected: Updated rate of the test SSB `bond` being displayed after being edited.
 
 . Editing the years of an existing `investment` `bond` tied to an existing `investment` account
 
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
+
+.. Test case:
+`/edit /bonds /from BBB Vickers Account /name test SSB /year 10` +
+Expected: Updated year of the test SSB `bond` being displayed after being edited.
 
 [NOTE]
 ====
@@ -2487,7 +2491,7 @@ If you have previously deleted `BBB Vickers Account`, you might want to add it b
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
 .. Test case:
-`/delete /bonds /from BBB Vickers Account /name September SSB` +
+`/delete /bonds /from BBB Vickers Account /name test SSB` +
 Expected: Details of the deleted `bond` being displayed after being deleted.
 
 [NOTE]
@@ -2506,6 +2510,11 @@ There is enough money in the `savings` account to add the expenditure.
 `/add /bankexpenditure /from JunBank Savings Account /desc Bubble Tea /amount 4.30 /date 02/11/2019 /category Food
 and Drinks` +
 Expected: New details of the Bubble Tea `expenditure` being displayed after being added.
+
+[NOTE]
+====
+If you have previously deleted `JunBank Savings Account`, you might want to add it back before proceeding.
+====
 
 . Adding a new bank `expenditure` to a `savings` account with insufficient money
 
@@ -2535,8 +2544,14 @@ displayed after being edited.
 
 .. Test case:
 `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /desc Top Up EZLink Card /category Transport` +
-Expected: Updated the description and category of the `expenditure` in index 1 of the `transaction list` in JunBank
+Expected: Updated the description and category of the `expenditure` in index  of the `transaction list` in JunBank
 Savings Account being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 4 transactions in `JunBank Savings Account`, you might want to add more expenditures
+before proceeding.
+====
 
 === Deleting a bank expenditure transaction
 . Delete an existing bank `expenditure` in a `savings` account.
@@ -2568,6 +2583,12 @@ There is enough money in the bank account to change the amount.
 `/edit /deposit /from JunBank Savings Account /transno 5 /amount 200 /date 30/10/2019` +
 Expected: Updated amount and date of the `deposit` in index 5 of the `transaction list`  in JunBank Savings Account
 being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 5 transactions in `JunBank Savings Account`, you might want to add more deposits before
+proceeding.
+====
 
 === Deleting a deposit transaction
 . Delete an existing bank `deposit` in a `savings` account.
@@ -2604,8 +2625,14 @@ expenditures in JunBank Savings Account being displayed after being edited.
 
 .. Test case:
 `/edit /recurbankexp /from JunBank Savings Account /transno 4 /desc Phone bill /category Bills` +
-Expected: Updated the description and category of the `recurring expenditure` in index 1 of the `transaction list` of
+Expected: Updated the description and category of the `recurring expenditure` in index 4 of the `transaction list` of
 recurring expenditures in JunBank Savings Account being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 4 recurring expenditures in `JunBank Savings Account`, you might want to add more
+recurring expenditures before proceeding.
+====
 
 === Deleting a recurring bank expenditure transaction
 . Delete an existing bank recurring `expenditure` in a `savings` account.
@@ -2718,7 +2745,7 @@ Expected: `Card expenditure` #1 successfully deleted from `card`.
 .. Prerequisites: `Card expenditure` for the particular month and `savings` account must exist.
 
 .. Test case:
-`/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+`/add /cardbill /card POBB Tomorrow Card /date 11/2019 /bank JunBank Savings Account` +
 Expected: `Card bill` with total amount spent for the specified month added into `savings` expenditure
 and total rebates added into `savings` deposit. When listing `card` expenditures with
 `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month will be
@@ -2731,7 +2758,7 @@ transferred from unpaid to paid.
 .. Prerequisites: `Card bill` for the particular month must exist in `savings` account.
 
 .. Test case:
-`/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+`/delete /cardbill /card POBB Tomorrow Card /date 11/2019 /bank JunBank Savings Account` +
 Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card`
 expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month
 will be transferred from paid to unpaid.

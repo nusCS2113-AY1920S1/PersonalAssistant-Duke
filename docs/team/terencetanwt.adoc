@@ -21,10 +21,9 @@ endif::[]
 == Introduction
 
 I am Terence, currently pursuing a degree in Information Security at the National University of
-Singapore (NUS). +
-This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software Engineering &
-Object-Oriented Programming. It aims to demonstrate the theoretical and practical knowledge I have gained in this
-module over the semester.
+Singapore (NUS). This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software
+Engineering & Object-Oriented Programming. It aims to demonstrate the theoretical and practical knowledge I have
+gained in this module over the semester.
 
 == About the Project
 
@@ -47,8 +46,8 @@ Note the following symbols and formatting used.
 include::../UserGuide.adoc[tag=user_guide_common_logo]
 
 == Summary of Contributions
-This section shows the summary of my contributions to the project which include the coding, documentation
-and other helpful contributions.
+This section shows a summary of my contributions to the project in terms of features enhancement, project management,
+documentation, and other helpful contributions.
 
 === Features Enhancement
 
@@ -101,11 +100,11 @@ in order to integrate my credit card bill expenditures with his bank expenditure
 
 * Managed the team's issue tracker to ensure that issues are closed within deadlines.
 * Helped schedule, review, and merge various Pull Requests (PRs) to minimize merge conflicts and regressions.
-* Organised and coordinate team meetings
+* Organised and coordinated team meetings.
 
 ==== Additional Codes
 
-* Design and wrote the initial Parser class (ParseCommand, ParseType, ParseRawData) with the contributions from
+* Design and wrote the initial Parser class (ParseCommand, ParseType, ParseRawData) with contributions from
 everyone (
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
@@ -166,7 +165,7 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valeri
 
 ==== Community
 * Helped another team to resolve issues with their program on the forum
-(link:https://github.com/nusCS2113-AY1920S1/forum/issues/95[#95])
+(link:https://github.com/nusCS2113-AY1920S1/forum/issues/95[#95]).
 * Reported bugs in another team's project, link:https://github.com/AY1920S1-CS2113T-W13-3/main[SGTravel] (
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/176[#176],
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/177[#177],
@@ -175,7 +174,7 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valeri
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/180[#180],
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/181[#181]
 ).
-* Reviewed, reported bugs, and provided constructive feedback to other team's
+* Reviewed, reported bugs, and provided constructive feedback to another team's
 (link:https://github.com/AY1920S1-CS2113T-W17-4/main[OOF]) User Guide and Developer Guide.
 
 
