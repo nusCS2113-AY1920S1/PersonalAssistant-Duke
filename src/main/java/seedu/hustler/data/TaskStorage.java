@@ -137,7 +137,7 @@ public class TaskStorage {
                         list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     }
                 } else {
-                    LocalDateTime at = getDateTime(taskString[4]);
+                    LocalDateTime at = getDateTime(taskString[5]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
 
                     if (taskString.length == 10) {
