@@ -158,7 +158,7 @@ The role of a new member can also be changed during the addition, by using the -
 Adds a task to the project.
 
 * Format: `add task
--t TASK_NAME
+-n TASK_NAME
 -p TASK_PRIORITY
 -c TASK_CREDIT
 [-d TASK_DUEDATE-(dd/mm/yyyy)]
@@ -166,7 +166,7 @@ Adds a task to the project.
 [-r TASK_REQUIREMENT1]
 [-r TASK_REQUIREMENT2]`
 
-** Example: `add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing`
+** Example: `add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing`
 
 [NOTE]
 Task name should not contain any hyphens (eg. Task-1) or the details will be truncated and not recorded properly.
@@ -202,7 +202,7 @@ Only fields that need to be edited must be filled in. Fields that are not filled
 [NOTE]
 Task requirements cannot be edited through this command.
 
-* Format: `edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]`
+* Format: `edit task TASK_INDEX [-n TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]`
 * Examples:
 ** `edit task 12 -p 5 -c 80`
 ** `edit task 4 -s doing`
@@ -242,7 +242,6 @@ The criteria can be changed by using a different `[MODIFIER]` suffix added in th
 [width="100%",cols="25%,<75%,options="header",]
 |=======================================================================
 |MODIFIER | Sorting criteria
-|`-index` | (Default) 1-based indexing based on the data structure tasks are stored in.
 | `-name` | Sort based on task name, lexicographically.
 | `-date` | Sort based on the deadline/due date of the task: from earliest to latest.
 Tasks without a deadline will be classified as the latest.
@@ -464,9 +463,9 @@ A: The application must be installed in the other computer by downloading the sa
 **** Example: `role 2 -n Badguy`
 
 . *Task Commands*
-... Add task: `add task -t TASK_NAME -p TASK_PRIORITY [-d TASK_DUEDATE-(dd/mm/yyyy)] -c TASK_CREDIT [-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]`
-**** Example: `add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing -r do another thing`
-... Edit task: `edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE-(dd/mm/yyyy)] [-c TASK_CREDIT] [-s TASK_STATE]`
+... Add task: `add task -n TASK_NAME -p TASK_PRIORITY [-d TASK_DUEDATE-(dd/mm/yyyy)] -c TASK_CREDIT [-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]`
+**** Example: `add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing -r do another thing`
+... Edit task: `edit task TASK_INDEX [-n TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE-(dd/mm/yyyy)] [-c TASK_CREDIT] [-s TASK_STATE]`
 **** Example: `edit task 12 -p 5 -c 80`
 ... Delete tasks: `delete task INDEX`
 **** Example: `delete task 3`
@@ -509,9 +508,3 @@ A: The application must be installed in the other computer by downloading the sa
 ... Exit managing a project: `exit`
 ... Exiting the program from anywhere: `bye`
 ... Display help: `help`
-
-
-
-
-
-
