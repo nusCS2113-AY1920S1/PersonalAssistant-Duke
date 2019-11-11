@@ -7,9 +7,14 @@ import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
 
-import java.time.DateTimeException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.util.Map;
 
 /**
  * Represents the command to create a scheduled payment event in advance.
@@ -34,6 +39,45 @@ public class ScheduleCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
+        /**
+         * List of scheduled payments
+         */
+        if (input.length() == 13 && input.contains("list")) {
+            Iterator calIt = calendar.calendar.entrySet().iterator();
+            String output = "Scheduled Payments\n";
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yy");
+            Map<Date, ArrayList<String>> sorted = new TreeMap<>();
+            while (calIt.hasNext()) {
+                Map.Entry entry = (Map.Entry)calIt.next();
+                String sdate = (String) entry.getKey();
+                try {
+                    Date date = formatter.parse(sdate);
+                    @SuppressWarnings("unchecked")
+                    ArrayList<String> schedules = (ArrayList<String>) entry.getValue();
+                    sorted.put(date,schedules);
+                } catch (ParseException e) {
+                    System.out.println("Invalid date input format.");
+                }
+            }
+
+            Iterator sortIt = sorted.entrySet().iterator();
+            while (sortIt.hasNext()) {
+                Map.Entry entry = (Map.Entry)sortIt.next();
+                Date date = (Date) entry.getKey();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yy");
+                String sdate = df.format(date);
+                output += sdate + "\n";
+                @SuppressWarnings("unchecked")
+                ArrayList<String> schedules = (ArrayList<String>) entry.getValue();
+                for (int i = 0; i < schedules.size(); i++) {
+                    output += schedules.get(i) + "\n";
+                }
+                output += "\n";
+            }
+            Ui.setOutput(output);
+            Ui.showResponse();
+            return;
+        }
         if (input.length() < 8) {
             throw new MooMooException("OOPS!!! To create a schedule payment, "
                     + "please indicate the d/<date in dd/mm/yyyy> a/<amount> n/<description of payment>.");
