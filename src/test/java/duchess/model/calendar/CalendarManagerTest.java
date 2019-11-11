@@ -79,18 +79,6 @@ public class CalendarManagerTest {
         assertEquals(1, difference);
     }
 
-    @Test
-    public void deleteEntry_givenLocalDateAndTaskList_deletesFromCalendar() throws DuchessException {
-        for (CalendarEntry ce : duchessCalendar) {
-            List<Task> taskList = ce.getDateTasks();
-            Task task = taskList.get(0);
-            int beforeSize = taskList.size();
-            CalendarManager.deleteEntry(duchessCalendar, task, ce.getDate());
-            int afterSize = ce.getDateTasks().size();
-            assertEquals(1, beforeSize - afterSize);
-        }
-    }
-
     @AfterEach
     private void reset() {
         duchessCalendar.clear();

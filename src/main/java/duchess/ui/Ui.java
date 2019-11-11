@@ -21,8 +21,8 @@ public class Ui {
      * The following final strings are used to print out duchessCalendar.
      */
     private final int horizontalLength = 161;
-    private final int horizontalBlock = 141; // 9 + 150
-    private final int longLength = 150;
+    private final int horizontalBlock = 111; // 9 + 150
+    private final int longLength = 120; // -30
     private final int blockLength = 21;
     private final int numOfDays = 7;
     private final String emptyBlock = "                     |";
@@ -31,11 +31,11 @@ public class Ui {
     private final String blockSeparator = "+--------+---------------------+---------------------+---------------------+"
             + "---------------------+---------------------+---------------------+---------------------+";
     private final String blockShort = "+--------+----------------------------------------------------------------------"
-            + "------------------------------------------------------------------------+";
+            + "------------------------------------------+";
     private final String plainSeparator = "+---------------------------------------------------------------------------"
             + "---------------------------------------------------------------------------------------+";
     private final String plainShort = "+-------------------------------------------------------------------------------"
-            + "------------------------------------------------------------------------+";
+            + "------------------------------------------+";
 
     /**
      * Reference to Scanner.
@@ -229,16 +229,17 @@ public class Ui {
      * Process block to be printed in calendar.
      *
      * @param str string of null value or containing description of task
+     * @param length max length of string
      * @return shortened or padded-with-whitespace string
      */
-    private String processDescription(String str) {
+    private String processDescription(String str, int length) {
         if (str == null) {
             return emptyBlock;
-        } else if (str.length() > blockLength) {
-            str = str.substring(0, blockLength - 3) + "...";
+        } else if (str.length() > length) {
+            str = str.substring(0, length - 3) + "...";
         } else {
             StringBuilder strBuilder = new StringBuilder(str);
-            while (strBuilder.length() <= blockLength) {
+            while (strBuilder.length() <= length) {
                 strBuilder.append(" ");
             }
             str = strBuilder.toString();
@@ -271,7 +272,7 @@ public class Ui {
     private String processRow(String time, String[] strArr) {
         return "|  " + time + "  |"
                 + Arrays.stream(strArr)
-                .map(this::processDescription)
+                .map(str -> processDescription(str, blockLength))
                 .collect(Collectors.joining());
     }
 
@@ -283,7 +284,12 @@ public class Ui {
      */
     private String processRow(Task t) {
         String time = t.getTimeFrame().getStart().toLocalTime().toString().replaceAll(":", "");
-        String description = processCentred(t.toString(), horizontalBlock);
+        String description = t.toString();
+        if (description.length() > horizontalBlock) {
+            description = description.substring(0, horizontalBlock - 5);
+            description += "...";
+        }
+        description = processCentred(description, horizontalBlock);
         return "|  " + time + "  " + description;
     }
 

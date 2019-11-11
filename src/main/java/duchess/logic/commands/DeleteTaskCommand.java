@@ -38,7 +38,7 @@ public class DeleteTaskCommand extends Command {
             if (toRemove.isCalendarEntry()) {
                 List<CalendarEntry> update = store.getDuchessCalendar();
                 LocalDate date = toRemove.getTimeFrame().getStart().toLocalDate();
-                CalendarManager.deleteEntry(update, toRemove, date);
+                update = CalendarManager.deleteEntry(update, toRemove, date);
                 store.setDuchessCalendar(update);
             }
             storage.save(store);

@@ -11,6 +11,7 @@ import duchess.model.task.Todo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,7 +88,8 @@ public class Seed {
         // calendar
         List<Task> taskList = List.of(p, q, r, s, t);
         for (Task task : taskList) {
-            List<Task> newList = List.of(task);
+            List<Task> newList = new ArrayList<>();
+            newList.add(task);
             LocalDate date = task.getTimeFrame().getStart().toLocalDate();
             CalendarEntry ce = new CalendarEntry(date, newList);
             store.getDuchessCalendar().add(ce);

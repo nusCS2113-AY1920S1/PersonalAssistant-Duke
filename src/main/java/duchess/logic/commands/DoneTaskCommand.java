@@ -27,11 +27,11 @@ public class DoneTaskCommand extends Command {
             Task task = store.getTaskList().get(taskNo);
             task.setDone(true);
             if (task.isCalendarEntry()) {
-                List<CalendarEntry> ceList = store.getDuchessCalendar();
+                List<CalendarEntry> update = store.getDuchessCalendar();
                 LocalDate date = task.getTimeFrame().getStart().toLocalDate();
-                CalendarManager.deleteEntry(ceList, task, date);
-                CalendarManager.addEntry(ceList, task, date);
-                store.setDuchessCalendar(ceList);
+                update = CalendarManager.deleteEntry(update, task, date);
+                CalendarManager.addEntry(update, task, date);
+                store.setDuchessCalendar(update);
             }
             ui.showDoneTask(task);
             storage.save(store);

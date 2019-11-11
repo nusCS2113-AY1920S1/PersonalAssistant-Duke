@@ -25,27 +25,31 @@ public class CalendarManager {
      * Deletes a task from the task list of a calendar entry stored in the calendar.
      *
      * @param currCalendar current duchess calendar
-     * @param task event
-     * @param key starting date of event
+     * @param task         event
+     * @param key          starting date of event
      */
-    public static void deleteEntry(List<CalendarEntry> currCalendar, Task task, LocalDate key) {
-        CalendarEntry toModify = currCalendar.stream()
+    public static List<CalendarEntry> deleteEntry(List<CalendarEntry> currCalendar, Task task, LocalDate key) {
+        CalendarEntry toModify = currCalendar
+                .stream()
                 .filter(ce -> ce.getDate().equals(key))
                 .findAny()
                 .orElse(null);
         assert (toModify != null);
-        List<Task> newList = toModify.getDateTasks();
-        newList.remove(task);
-        currCalendar = removeEntryFromList(currCalendar, key);
-        currCalendar.add(new CalendarEntry(key, newList));
+        List<Task> newList = toModify.getDateTasks()
+                .stream()
+                .filter(t -> !t.getTimeFrame().fallsWithin(task.getTimeFrame()))
+                .collect(Collectors.toList());
+        List<CalendarEntry> update = removeEntryFromList(currCalendar, key);
+        update.add(new CalendarEntry(key, newList));
+        return update;
     }
 
     /**
      * Adds a task to the task list of a calendar entry stored in the duchess calendar.
      *
      * @param currCalendar current duchess calendar
-     * @param task event
-     * @param date starting date of event
+     * @param task         event
+     * @param date         starting date of event
      */
     public static void addEntry(List<CalendarEntry> currCalendar, Task task, LocalDate date) {
         Optional<CalendarEntry> oldEntry = currCalendar
