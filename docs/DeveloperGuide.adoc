@@ -37,7 +37,7 @@ print it in command line.
 This document describes the coding style and the architecture of the Ducats project built by Team CS2113T F09-4.
 This document is intended for our major release v1.4.
 
-The documentat will allow any developer to start to work on the project by first learning about the system
+The document will allow any developer to start to work on the project by first learning about the system
 architecture, then the implementation and lastly on how to document the code that is written.
 
 
@@ -100,6 +100,9 @@ This layer consists of the `WordGetter` Class, which works on the basis of the J
 
 === SongList
 
+This layer consists of the `SongList` Class. The `SongList` class is accessed by the `Command` class whenever the user invokes a command. This layer contains the list of Song objects. Each Song object consists of groups, bars, chords and notes. The detailed implementation of a song is depicted by Figure 2 below.
+image::diagrams/SongList[]
+
 === Storage and StorageParser
 
 *Storage API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/Storage.java[`Storage.java`]
@@ -138,6 +141,7 @@ The creation of a new song is straightforward. In the `new` command, the followi
 * name
 * key _[implementation coming in v2.0]_
 * time signature _[implementation coming in v2.0]_
+* beats per minute _[implementation coming in v2.0]_
 
 While the above data is stored with every song, data adjustments based on, and specific methods that utilize the key and time signature are yet to be implemented.
 
@@ -179,6 +183,43 @@ _Design Considerations_:
 Hence, we have decided to go for a linear search for `findSongIndex()`, and let the user input the song name to open the song instead of the index.
 
 ==== Modifying a Song
+
+The other basic Create, Read, Update and Delete (CRUD) functionalities of Ducats were implemented in the form of unique commands. These commands can be invoked by the user.
+
+The Create functionality is handled through the `addbar` and `insertbar` commands.
+
+* `addbar` command creates a new bar which is added to the end of the song.
+
+* `insertbar` command creates and insert a new bar at the user's specified index.
+
+The Read functionality is handled through the `list` and `view` commands.
+
+* `list` command displays the full list of songs as loaded from the `Storage`.
+
+* `view` command returns a visual representation of the last bar of the specified song.
+
+The Update functionality is handled through the `swapbar` and `editbar` commands.
+
+* `swapbar` command swaps two existing songs of the opened song.
+
+* `editbar` command edits the specifed bar of the opened song when called by the user
+
+The Delete functionality is handled through the `delete` and `deletebar` commands.
+
+* `delete` command deletes the song named by the user from the song list.
+
+* `deletebar` command deletes the bar specified by the user from the opened song.
+
+_Design Considerations_:
+
+* Use of multiple commands for the CRUD functionality instead of all encompassing general commands.
+** _Pros_: Increases user friendliness and convenience for the user. Greater flexibility and speed when creating song components.
+** _Cons_: Easier implementation for the developers. Less commands for the users to pick up.
+
+For example, Ducat’s create functionality could be encompassed by a single `add` command. The `add` command would require the user to enter every note of their desired song together so that it can create and store the new song in the song list.
+
+After some deliberation, that method was decided against. Even though it means less commands for the users to pick up, it contradicts with our value proposition of Ducats being a quick and seamless music composition app with its glaring impediment towards user’s convenience and speed.
+
 
 === Advanced CRUD
 
