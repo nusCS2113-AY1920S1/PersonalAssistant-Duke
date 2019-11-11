@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Parent class for all other types of tasks.
  */
-public abstract class Task{
+public abstract class Task {
     private String description;
     private boolean isDone;
     private Date date;
@@ -75,10 +75,10 @@ public abstract class Task{
     }
 
     /**
-     * Sets the task to be done
+     * Sets the task to be done.
      */
     public void setDone(boolean done) throws RoomShareException {
-        if (this instanceof Leave ) {
+        if (this instanceof Leave) {
             throw new RoomShareException(ExceptionType.leaveDone);
         }
         isDone = done;

@@ -19,7 +19,8 @@ import java.util.Date;
  */
 public class TaskList {
     private static final String COMPLETED_TASKS = "Completed Tasks:";
-    private static final String YOUR_SEARCH_RETURNED_NO_RESULTS_TRY_SEARCHING_WITH_ANOTHER_KEYWORD = "    Your search returned no results.... Try searching with another keyword!";
+    private static final String NO_SEARCH_RESULTS_TRY_ANOTHER_KEYWORD
+            = "    Your search returned no results.... Try searching with another keyword!";
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
 
@@ -187,7 +188,7 @@ public class TaskList {
             }
         }
         if (queryCount == 1) {
-            System.out.println(YOUR_SEARCH_RETURNED_NO_RESULTS_TRY_SEARCHING_WITH_ANOTHER_KEYWORD);
+            System.out.println(NO_SEARCH_RESULTS_TRY_ANOTHER_KEYWORD);
         }
     }
 

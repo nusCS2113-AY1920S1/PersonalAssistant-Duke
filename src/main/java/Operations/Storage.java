@@ -1,13 +1,23 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
-import Enums.*;
+import Enums.ExceptionType;
+import Enums.Priority;
+import Enums.RecurrenceScheduleType;
+import Enums.SaveType;
+import Enums.TimeUnit;
 import Model_Classes.Assignment;
 import Model_Classes.Leave;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -31,9 +41,9 @@ public class Storage {
      * Extracts the relevant information from the data.txt file in Duke to create the tasks.
      * Populates an ArrayList with these created tasks.
      *
-     *
      * @return taskArrayList An ArrayList of Tasks that is created from the .txt file.
-     * @throws RoomShareException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
+     * @throws RoomShareException If the file has mistakes in formatting.
+     *         Creates and empty task list instead and returns the empty list.
      */
     public ArrayList<Task> loadFile(String fileName) throws RoomShareException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
@@ -80,20 +90,20 @@ public class Storage {
                     String[] dateArray = temp[4].trim().split("-");
                     String scanFromDate = dateArray[0].trim();
                     try {
-                        from = parser.formatDateDDMMYY(scanFromDate);
+                        from = parser.formatDateDDmmYY(scanFromDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                     String scanToDate = dateArray[1].trim();
                     try {
-                        to = parser.formatDateDDMMYY(scanToDate);
+                        to = parser.formatDateDDmmYY(scanToDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                 } else {
                     String scanDate = temp[4].trim();
                     try {
-                        date = parser.formatDateDDMMYY(scanDate);
+                        date = parser.formatDateDDmmYY(scanDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
@@ -256,7 +266,9 @@ public class Storage {
         try {
             File file = new File(filePath);
             File folder = new File(folderName);
-            if (!folder.exists()) folder.mkdir();
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
             file.createNewFile();
             PrintWriter writer = new PrintWriter(filePath, StandardCharsets.UTF_8);
             for (Task t : list) {
@@ -312,7 +324,7 @@ public class Storage {
             String[] tempString = prelimSplit[2].split("\\s+");
 
             String fromYear = tempString[6].trim();
-            String toYear = tempString[13].trim().substring(0, tempString[13].length() -1);
+            String toYear = tempString[13].trim().substring(0, tempString[13].length() - 1);
 
             Date fromMonth = new SimpleDateFormat("MMM").parse(tempString[2]);
             DateFormat dateFormatFromMonth = new SimpleDateFormat("MM");

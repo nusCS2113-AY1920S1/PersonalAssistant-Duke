@@ -18,7 +18,7 @@ class subTaskCreatorTest {
     static {
         try {
             taskList = new TaskList(storage.loadFile("test.txt"));
-            by = parser.formatDateDDMMYY("12/12/2019 17:00");
+            by = parser.formatDateDDmmYY("12/12/2019 17:00");
             assignment = new Assignment("test", by);
             taskList.add(assignment);
             new subTaskCreator(3, "one,two");

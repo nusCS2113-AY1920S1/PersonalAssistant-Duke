@@ -53,16 +53,16 @@ public class OverdueList {
             boolean isExceededFirstIndex = index[0] >= overdue.size();
             boolean isNegativeSecondIndex = index[1] < 0;
             boolean isExceededSecondIndex = index[1] >= overdue.size();
-            if (isNegativeFirstIndex|| isExceededFirstIndex
+            if (isNegativeFirstIndex || isExceededFirstIndex
                     || isNegativeSecondIndex || isExceededSecondIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
-            for (int i = index[0]; i <= index[1]; i++){
+            for (int i = index[0]; i <= index[1]; i++) {
                 taskList.add(overdue.get(i));
                 overdue.get(i).setOverdue(false);
             }
         }
-        for (int i = 0; i < index.length; i++){
+        for (int i = 0; i < index.length; i++) {
             overdue.removeIf(n -> !n.getOverdue());
         }
     }

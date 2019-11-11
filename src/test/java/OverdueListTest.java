@@ -1,6 +1,4 @@
 import CustomExceptions.RoomShareException;
-import Enums.Priority;
-import Enums.TimeUnit;
 import Model_Classes.Assignment;
 import Model_Classes.Leave;
 import Model_Classes.Meeting;
@@ -14,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OverdueListTest {
@@ -39,8 +36,6 @@ class OverdueListTest {
     private Assignment assignment2 = new Assignment("assignment2", date2);
     private Meeting meeting1 = new Meeting("meeting1", date3);
     private Meeting meeting2 = new Meeting("meeting2", date4);
-
-    private Leave leave = new Leave("leave", "kel", date3, date4);
     private OverdueList overdueList = new OverdueList(new ArrayList<>());
 
     @Test
