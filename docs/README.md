@@ -6,13 +6,15 @@
 
 [User Guide](UserGuide.md) | [Developer Guide](DeveloperGuide.adoc) | [About Us](AboutUs.adoc) | [Contact Us](ContactUs.adoc)
 
-Libraries used:
+
+
+**Libraries used:**
 - JavaFx
 - Jackson
 - JFoenix
 - JUnit
 - PrettyTime
 
-Refrence Project:
+**Reference Project:**
 - AddressBook 4
 - Duke
