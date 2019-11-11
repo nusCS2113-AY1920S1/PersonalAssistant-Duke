@@ -309,10 +309,8 @@ public class TaskCommandParseHelper {
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
                     + "than the number of tasks)");
-        } catch (TaskParseException e) {
-            return new InvalidCommand(e.getMessage());
         } catch (CommandParseHelper.CommandParseException e) {
-            return new InvalidCommand("Index out of bounds");
+            return new InvalidCommand(e.getMessage());
         }
     }
 
