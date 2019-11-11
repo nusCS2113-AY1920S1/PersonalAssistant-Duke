@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class CommandExport extends Command {
 
-    private String fileName = "data.csv";
+    private String fileName;
 
     /**
      * CommandExport helps to export the wallet data as csv with useful headers.
@@ -22,6 +22,7 @@ public class CommandExport extends Command {
         this.commandType = CommandType.EXPORT;
         this.description = "Exports txt into CSV\n"
                             + "FORMAT : export \n";
+        this.fileName = "data.csv";
     }
 
     @Override
@@ -39,7 +40,6 @@ public class CommandExport extends Command {
             CSVWriter writer = new CSVWriter(outputFile);
             String[] header = {"ID", "Tag", "Expenditure", "Date"};
             writer.writeNext(header);
-            storageManager.saveAllData();
             int i = 0;
             for (Receipt receipt :storageManager.getWallet().getReceipts()) {
                 String eachRowOfData = (i + 1) + ". "
