@@ -1,6 +1,6 @@
 = Leow Yong Kang Andrew - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: images
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-1
 
@@ -15,6 +15,10 @@ This project portfolio documents my contributions to this project.
 ModPlan is an application created during [CS2113T Software Engineering and OOP] taken during Semester 1 of AY19/20 at the National University of Singapore (NUS). The team consists of 5 members all majoring in Computer Engineering (CEG), and we were tasked to morph or optimize a personal chat-bot/task planner `Duke` into something that solves a problem that specific users may face. The whole project is coded in Java, and maintained using GitHub under this repository {repoURL}/main[here].
 
 ModPlan is a command line based application that extends the functionality of NUSMODS, an NUS-approved website that helps students plan their module timetables, to aid NUS CEG students in planning all 8 semesters of their university tenure. The application is written in Java and has about 5000 lines of code.
+
+Below is a sample image of how ModPlan looks
+
+image::Ui.png[]
 
 == Summary of contributions
 
@@ -56,57 +60,6 @@ ModPlan is a command line based application that extends the functionality of NU
 
 {repoURL}/docs/UserGuide.adoc[UserGuide]
 
-=== Calculating the CAP : `cap`
-
-Calculates your overall CAP or predicted CAP in different ways.
-
-==== Calculating CAP from user input. +
-Format: `cap overall`
-
-****
-* Typing `cap overall` into the command line shows a CAP calculation message.
-* Type the module taken, along with it's letter grade. +
-Keep typing all the module names in the module list and their respective grades with the format shown below.
-* Format: `MOD_CODE GRADE_LETTER`
-* Type `done` when you are ready to calculate the CAP.
-* ModPlan then shows your current cumulative or predicated CAP.
-****
-
-Example: +
-`cap overall` +
-`CG2028 A` +
-`CS2027 B-` +
-`done`
-
-==== Calculating CAP from the module list. +
-Format: `cap list`
-
-****
-* Type `cap list` into the command line.
-* ModPlan will show you your list of modules and grades to calculate CAP from.
-* ModPlan will then calculate your CAP based on the completed modules in your module list.
-** Note that S/U'ed modules or modules without a grade will not be used in the calculation.
-****
-
-Example: +
-`cap list`
-
-==== Calculating predicted CAP of a module from it's prerequesites. +
-Format: `cap module`
-
-****
-* Type `cap module` into the command line.
-* ModPlan will then prompt you for the module to calculate CAP for.
-* Type the module code of the module you wish to predict your CAP for.
-* ModPlan will automatically sort the prerequisites of that module and check for your grades in them.
-** Note that these prerequisites have to be added and graded in your module list.
-** If any prerequisites are not completed, ModPlan will print a list of the prerequisites you have yet to complete/give a grade for.
-****
-
-Example: +
-`cap module` +
-`CS2040C`
-
 === Grading your modules: `grade`
 
 Allows you to input your letter grade received for the modules you have taken. +
@@ -123,6 +76,69 @@ Example: +
 `grade CS1010 A-` +
 `grade CS1231 S`
 
+image::GradeSample.png[width="450"]
+
+
+=== Calculating the CAP : `cap`
+
+Calculates your overall CAP or predicted CAP in different ways.
+
+==== Calculating CAP from user input. +
+Calculates your CAP according to your custom input of modules and grades. +
+Format: `cap overall`
+
+****
+* Typing `cap overall` into the command line shows a CAP calculation message.
+* Type the module taken, along with it's letter grade. +
+Keep typing all the module names in the module list and their respective grades with the format shown below.
+* Format: `MOD_CODE GRADE_LETTER`
+* Type `done` when you are ready to calculate the CAP.
+* ModPlan then shows your current cumulative or predicated CAP.
+****
+
+Example: +
+`cap overall` + 
+`CG2028 A` +
+`CG2027 B-` +
+`done`
+
+image::CapOverallSample.png[width="450"]
+
+==== Calculating CAP from the module list. +
+Calculates your CAP from the `taken` modules in your list.
+Format: `cap list`
+
+****
+* Type `cap list` into the command line.
+* ModPlan will show you your list of modules and grades to calculate CAP from.
+* ModPlan will then calculate your CAP based on the completed modules in your module list.
+** Note that S/U'ed modules or modules without a grade will not be used in the calculation.
+****
+
+Example: +
+`cap list`
+
+image::CapListSample.png[width="450"]
+
+==== Calculating predicted CAP of a module from it's prerequisites. +
+Calculates the predicted CAP of a module based on the prerequisites of the inputted module.
+Format: `cap module`
+
+****
+* Type `cap module` into the command line.
+* ModPlan will then prompt you for the module to calculate CAP for.
+* Type the module code of the module you wish to predict your CAP for.
+* ModPlan will automatically sort the prerequisites of that module and check for your grades in them.
+** Note that these prerequisites have to be added and graded in your module list.
+** If any prerequisites are not completed, ModPlan will print a list of the prerequisites you have yet to complete/give a grade for.
+** If you encounter any issues with this command, please refer to <<Expected Anomalous Behavior>>.
+****
+
+Example: +
+`cap module` +
+`CS2040C`
+
+image::CapModuleSample.png[width="450"]
 == Contributions to the Developer Guide
 
 |===
@@ -131,7 +147,10 @@ Example: +
 
 {repoURL}/docs/DeveloperGuide.adoc[DeveloperGuide]
 
-=== CapCommand
+=== Cap Calculation
+==== Overview
+This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways. +
+
 ==== Current Implementation
 The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
@@ -180,15 +199,23 @@ Firstly, a new `Scanner` will be created to continue reading in the module that 
 After taking in the user input, ModPlan will check if the module is a legitimate module in the `detailedMap` pulled from NUSMODS API. +
 If it is invalid, a new `ModNotFoundException` will be thrown. Otherwise the prerequisite tree (if any) will be scanned for that particular module using the `parsePrerequisiteTree` method. +
 
-This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS).
+For the `cap module` command, we came up with two ways to go about parsing the prerequisite tree of the module whose CAP is to be predicted. 
 
-Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken.
+*Alternative 1: Array of Module Codes* (currently implemented)
+Currently in v1.4 the `cap module` method only parses the first level of prerequisites that a module has, as well as their preclusions, and checks against the user's module task list. 
+
+If there are any prerequisite modules taken for the predicted module, their grades will be taken to predict the CAP for the inputted module. The array of module codes is rechecked again for any remaining preclusions that may have been omitted, before finally calculating and printing the CAP for the user.
+
+*Alternative 2: List of List of Strings* (coming in v2.0)
+This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS). 
+
+Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken. 
 
 If the entire LLS is empty at the end of the execution, it means that the user has fulfilled enough of the prerequisite modules required for that module, and the user's CAP is calculated according to the graded prerequisite modules identified in the user's module task list. +
 
 The diagram below shows the example more clearly, where only one of the prerequisites within a LS need to be taken, while all of prerequisites across the LLS need to be taken. +
 
-image::CapCommandLLS.png[align="center"]
+image::CapCommandLLS.png[align="center"] 
 
 In this case, the modules the user needs to take are: +
 
@@ -200,3 +227,6 @@ In this case, the modules the user needs to take are: +
 Below is a sequence diagram showing how `CapCommand` works. +
 
 image::CapCommandSequenceDiagram.png[]
+
+As seen `CapCommand` uses three different CAP calculation methods contained within itself to generate the CAP reports, in addition to all the sub-methods such as `letterGradeToCap` and `parsePrerequisiteTree`, and then pushes the information to `PlannerUi` for printing. 
+It also instantiates different `Exception` classes to feedback to the user if anything is wrong.
