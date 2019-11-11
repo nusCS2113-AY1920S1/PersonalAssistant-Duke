@@ -2,8 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:docsDir: ..
-
+ifdef::safe-mode-secure[]
+endif::safe-mode-unsafe[]
+safe-mode-unsafe
 == PROJECT: DEGREES<NUS
 
 ---
@@ -62,7 +63,7 @@ o Scraped data from official public NUS degree pages listing the information. (#
 
 include::{docsDir}/UserGuide.adoc[lines=149..173]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[lines=149..173]
 
 == Contributions to the Developer Guide
 
