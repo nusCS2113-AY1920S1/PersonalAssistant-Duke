@@ -37,7 +37,6 @@ public class EditMemberEmailCommand {
         model.addMember("test");
         Command command = EditMemberEmailParser.parseEditMemberEmail("test /to test@email.com");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
         assertEquals("You have set the email of member: [test] to [[test@email.com]]", out.getOutputToUser());
     }
 
@@ -50,7 +49,6 @@ public class EditMemberEmailCommand {
         command1.execute(model);
         Command command2 = EditMemberEmailParser.parseEditMemberEmail("test /to test@email.com");
         CommandOutput out = command2.execute(model);
-        model.getMemberList().clear();
         assertEquals("No update, they are the same.", out.getOutputToUser());
     }
 
@@ -63,7 +61,6 @@ public class EditMemberEmailCommand {
         command1.execute(model);
         Command command2 = EditMemberEmailParser.parseEditMemberEmail("test /to test2@email.com");
         CommandOutput out = command2.execute(model);
-        model.getMemberList().clear();
         assertEquals("You have update the email of member: "
                 + "[test] from [[test1@email.com]] to [[test2@email.com]]", out.getOutputToUser());
     }

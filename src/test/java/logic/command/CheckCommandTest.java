@@ -47,8 +47,6 @@ public class CheckCommandTest {
     public void checkCommand_hasCrash() throws DukeException {
         buildTestData();
         CommandOutput out = CheckCommandParser.parseCheckCommand("").execute(model);
-        model.getMemberList().clear();
-        model.getTaskList().clear();
         assertEquals("Here are the busy days of some members: \n"
                 + "test1: \n"
                 + "2019/12/03 2 tasks:\n"
@@ -77,8 +75,6 @@ public class CheckCommandTest {
         buildTestData();
         DoneCommandParser.parseDoneCommand("1 2 3 4 5 6").execute(model);
         CommandOutput out = CheckCommandParser.parseCheckCommand("").execute(model);
-        model.getMemberList().clear();
-        model.getTaskList().clear();
         assertEquals("All tasks have proper deadlines.", out.getOutputToUser());
     }
 }

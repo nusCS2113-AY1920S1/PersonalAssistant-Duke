@@ -1,5 +1,6 @@
 package logic.command.list;
 
+import gui.Window;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import model.Model;
@@ -16,6 +17,7 @@ public class ListTasksTodoPicNumCommand extends Command {
      */
     @Override
     public CommandOutput execute(Model model) {
+        Window.instance.showTaskView(true);
         String tasks = model.tasksTodoInorderPicNum();
         if (tasks.equals("")) {
             return new CommandOutput(ListTasksTodoCommand.EMPTY_TASKS_LIST);

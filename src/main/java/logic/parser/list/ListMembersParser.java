@@ -20,7 +20,7 @@ public class ListMembersParser {
      * @return a list member logic.command
      * @throws DukeException throw exception when list type is not correct
      */
-    static Command parseListMembers(String argument) throws DukeException {
+    public static Command parseListMembers(String argument) throws DukeException {
 
         switch (argument) {
         case TODO:

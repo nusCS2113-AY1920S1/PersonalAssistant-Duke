@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScheduleTaskCommandTest {
-    private Model model = new ModelController();
+
+    private Model model;
 
     /**
      * This method is to generate test data
@@ -33,6 +34,9 @@ public class ScheduleTaskCommandTest {
 
     @Test
     public void scheduleTaskAll_empty() throws DukeException {
+        model = new ModelController();
+        model.getMemberList().clear();
+        model.getTaskList().clear();
         Command command = ScheduleTeamParser.parseScheduleTeam("all");
         CommandOutput out = command.execute(model);
         assertEquals("No task for the whole team.", out.getOutputToUser());
@@ -40,6 +44,9 @@ public class ScheduleTaskCommandTest {
 
     @Test
     public void scheduleTaskTodo_empty1() throws DukeException {
+        model = new ModelController();
+        model.getMemberList().clear();
+        model.getTaskList().clear();
         Command command = ScheduleTeamParser.parseScheduleTeam("todo");
         CommandOutput out = command.execute(model);
         assertEquals("No todo task for the whole team.", out.getOutputToUser());
@@ -47,6 +54,7 @@ public class ScheduleTaskCommandTest {
 
     @Test
     public void scheduleTaskTodo_empty2() throws DukeException {
+        buildTestData();
         DoneCommandParser.parseDoneCommand("1 2 3 4 5 6").execute(model);
         Command command = ScheduleTeamParser.parseScheduleTeam("todo");
         CommandOutput out = command.execute(model);

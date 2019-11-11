@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@author yuyanglin28
 
-public class EditTaskDesCommand {
+public class EditTaskDesCommandTest {
 
     @Test
     public void editTaskDesCommand_inputIndexNotInTaskList_throwsException() throws DukeException {
@@ -19,7 +19,6 @@ public class EditTaskDesCommand {
         model.getTaskList().clear();
         model.addTask("test1");
         Command command = EditTaskDesParser.parseEditTaskDes("2 /to test des");
-        model.getTaskList().clear();
         assertThrows(DukeException.class, () -> command.execute(model));
     }
 
@@ -30,7 +29,6 @@ public class EditTaskDesCommand {
         model.addTask("test");
         Command command = EditTaskDesParser.parseEditTaskDes("1 /to test des");
         CommandOutput out = command.execute(model);
-        model.getTaskList().clear();
         assertEquals("You have set the description of task: [test] to [[test des]]", out.getOutputToUser());
     }
 
@@ -43,7 +41,6 @@ public class EditTaskDesCommand {
         command1.execute(model);
         Command command2 = EditTaskDesParser.parseEditTaskDes("1 /to test des");
         CommandOutput out = command2.execute(model);
-        model.getTaskList().clear();
         assertEquals("No update, they are the same.", out.getOutputToUser());
     }
 
@@ -56,7 +53,6 @@ public class EditTaskDesCommand {
         command1.execute(model);
         Command command2 = EditTaskDesParser.parseEditTaskDes("1 /to test des2");
         CommandOutput out = command2.execute(model);
-        model.getTaskList().clear();
         assertEquals("You have update the description of task: "
                 + "[test] from [[test des1]] to [[test des2]]", out.getOutputToUser());
     }

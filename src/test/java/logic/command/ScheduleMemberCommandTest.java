@@ -1,7 +1,6 @@
 package logic.command;
 
 import common.DukeException;
-import logic.command.schedule.ScheduleMemberAllCommand;
 import logic.parser.AddTaskParser;
 import logic.parser.DoneCommandParser;
 import logic.parser.LinkCommandParser;
@@ -15,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ScheduleMemberCommandTest {
-    private Model model = new ModelController();
+
+    private Model model;
 
     /**
      * This method is to generate test data
@@ -64,8 +64,6 @@ public class ScheduleMemberCommandTest {
         buildTestData();
         Command command = ScheduleMemberAllParser.parseScheduleMemberAll("test5");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
-        model.getTaskList().clear();
         assertEquals("No task for member: test5", out.getOutputToUser());
     }
 
@@ -75,9 +73,7 @@ public class ScheduleMemberCommandTest {
         DoneCommandParser.parseDoneCommand("3 5").execute(model);
         Command command = ScheduleMemberTodoParser.parseScheduleMemberTodo("test3");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
-        model.getTaskList().clear();
-        assertEquals("", out.getOutputToUser());
+        assertEquals("No todo task for member: test3", out.getOutputToUser());
     }
 
     @Test
@@ -85,8 +81,6 @@ public class ScheduleMemberCommandTest {
         buildTestData();
         Command command = ScheduleMemberAllParser.parseScheduleMemberAll("test1");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
-        model.getTaskList().clear();
         assertEquals("Schedule all tasks of member: test1\n"
                 + "1. [\u2715] task1 (due: Sun 01-12-2019 11:11H)\n"
                 + "3. [\u2715] task3 (due: Tue 03-12-2019 11:13H)\n"
@@ -103,8 +97,6 @@ public class ScheduleMemberCommandTest {
         buildTestData();
         Command command = ScheduleMemberTodoParser.parseScheduleMemberTodo("test3");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
-        model.getTaskList().clear();
         assertEquals("Schedule todo tasks of member: test3\n"
                 + "3. [\u2715] task3 (due: Tue 03-12-2019 11:13H)\n"
                 + "5. [\u2715] task5 (due: Tue 03-12-2019 11:22H)",

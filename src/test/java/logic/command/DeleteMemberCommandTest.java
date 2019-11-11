@@ -19,7 +19,6 @@ public class DeleteMemberCommandTest {
         model.addMember("test1");
         Command command = DeleteMemberParser.parseDeleteMember("test");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
         assertEquals("test is not in the member list.\n", out.getOutputToUser());
     }
 
@@ -30,7 +29,6 @@ public class DeleteMemberCommandTest {
         model.addMember("test1");
         Command command = DeleteMemberParser.parseDeleteMember("test1");
         CommandOutput out = command.execute(model);
-        model.getMemberList().clear();
         assertEquals("You have removed a member: test1\n", out.getOutputToUser());
     }
 }
