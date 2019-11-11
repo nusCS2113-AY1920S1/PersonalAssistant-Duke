@@ -1,15 +1,17 @@
 package rims.command;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
+
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.exception.RimsException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 //@@author isbobby
 /**
@@ -41,7 +43,7 @@ public class ReturnCommand extends Command {
      * @throws RimsException if either the resource ID or reservation ID specified is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
         ArrayList<Reservation> cancelledReservations = new ArrayList<Reservation>();
         for (int i = 0; i < resourceIds.size(); i++) {

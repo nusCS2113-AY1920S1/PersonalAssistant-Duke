@@ -1,14 +1,17 @@
 package rims.core;
 
+import rims.command.Command;
+
+import rims.exception.RimsException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 
-import rims.command.Command;
-import rims.exception.RimsException;
+import java.text.ParseException;
+
+import java.util.ArrayList;
 
 //@@author rabhijit
 /**
@@ -24,14 +27,15 @@ public class Rims {
     /**
      * Constructor for RIMS that instantiates the necessary sub-classes for its
      * operation.
-     * 
+     *
      * @param resourceFilePath the file path of the document where resource data is
      *                         stored.
      * @param reserveFilePath  the file path of the document where reservation data
      *                         is stored.
      * @throws ParseException if data is stored in an invalid format and is thus
      *                        unable to be parsed
-     * @throws IOException
+     * @throws IOException  if there is an error related to user input or printing
+     *                      output.
      */
     public Rims(String resourceFilePath, String reserveFilePath) throws ParseException, RimsException, IOException {
         ui = new Ui();
@@ -58,34 +62,6 @@ public class Rims {
             } catch (RimsException e) {
                 e.displayError();
             }
-        }
-    }
-
-    //@@author hin1
-    public ArrayList<String> getLocalTextFiles() {
-        String dir = System.getProperty("user.dir");
-        File directoryToCheck = new File(dir);
-        File[] textFiles = directoryToCheck.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".txt");
-            }
-        });
-        ArrayList<String> textFileStrings = new ArrayList<String>();
-        for (File f : textFiles) {
-            textFileStrings.add(f.toString());
-        }
-        return textFileStrings;
-    }
-
-    public String getFilePath(Ui ui, String file) {
-        String path = ui.getInput("Type the file path of the text file that stores the " + file + ": ");
-        File f = new File(path);
-        if (f.exists()) {
-            return path;
-        } else {
-            ui.formattedPrint("File does not exist! Try again!");
-            return getFilePath(ui, file);
         }
     }
 

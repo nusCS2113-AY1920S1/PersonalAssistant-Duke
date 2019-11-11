@@ -1,13 +1,16 @@
 package rims.resource;
 
+import rims.exception.RimsException;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Collections;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 //@@author isbobby
 /**
@@ -28,10 +31,9 @@ public class Reservation {
      * @param userId the ID of the user who made this Reservation.
      * @param dateFrom the Date from which this Reservation has been made.
      * @param dateTill the Date till which this Reservation has been made.
-     * @throws ParseException if the dates given are in an invalid format.
      */
     public Reservation(int reservationId, int resourceId, int userId,
-        Date dateFrom, Date dateTill) throws ParseException {
+        Date dateFrom, Date dateTill) {
         this.reservationId = reservationId;
         this.resourceId = resourceId;
         this.userId = userId;
@@ -49,7 +51,7 @@ public class Reservation {
      * @throws ParseException if the dates given are in an invalid format.
      */
     public Reservation(int reservationId, int resourceId, int userId,
-        String dateFrom, String dateTill) throws ParseException {
+        String dateFrom, String dateTill) throws RimsException {
         this.reservationId = reservationId;
         this.resourceId = resourceId;
         this.userId = userId;
@@ -115,8 +117,8 @@ public class Reservation {
      * @return a String version of the attributes of the Reservation.
      */
     public String toString() {
-        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from " 
-            + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
+        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from "
+                + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
         if (isOverdue()) {
             return output + " [OVERDUE]";
         }
@@ -129,7 +131,7 @@ public class Reservation {
      */
     public String toDataFormat() {
         return reservationId + "," + resourceId + "," + userId + ","
-            + dateToString(dateFrom) + "," + dateToString(dateTill);
+                + dateToString(dateFrom) + "," + dateToString(dateTill);
     }
 
     /**
@@ -137,9 +139,14 @@ public class Reservation {
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
      */
-    public Date stringToDate(String stringDate) throws ParseException {
+    public Date stringToDate(String stringDate) throws RimsException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
+        Date dateValue;
+        try {
+            dateValue = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            throw new RimsException("Invalid format of date " + stringDate + "!");
+        }
         return dateValue;
     }
 
@@ -176,7 +183,7 @@ public class Reservation {
             suffix = "th";
         }
         String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + actualDay + suffix
-            + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+                + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
 
@@ -187,7 +194,7 @@ public class Reservation {
     public int getDaysDueIn() {
         Date currentDate = new Date(System.currentTimeMillis());
         int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime()
-            - currentDate.getTime()), TimeUnit.MILLISECONDS));
+                - currentDate.getTime()), TimeUnit.MILLISECONDS));
         return daysLeftToDue;
     }
 
@@ -208,8 +215,10 @@ public class Reservation {
     public boolean isOverdue() {
         Date currentDate = new Date(System.currentTimeMillis());
         int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime()
-            - currentDate.getTime()), TimeUnit.MILLISECONDS));
-        if ((daysLeftToDue < 0) || (daysLeftToDue == 0 && (getEndDate().getTime() - currentDate.getTime() < 0))) {
+                - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        boolean wasDuePast = daysLeftToDue < 0;
+        boolean wasDueEarlierToday = (daysLeftToDue == 0 && (getEndDate().getTime() - currentDate.getTime() < 0));
+        if (wasDuePast || wasDueEarlierToday) {
             return true;
         }
         return false;
