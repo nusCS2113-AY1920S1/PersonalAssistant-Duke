@@ -147,6 +147,8 @@ public class OverlayBarGroup  extends Command<SongList>  {
             throw new DucatsException(message, "IO");
         } catch (java.lang.NumberFormatException e) {
             throw new DucatsException(message,"number_index");
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            throw new DucatsException(message,"no_index");
         }
     }
     /**
