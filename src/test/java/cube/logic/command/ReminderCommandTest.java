@@ -24,11 +24,11 @@ public class ReminderCommandTest {
         food.setStock(0);
         food.setExpiryDate(new Date());
 
-        String expectedFeedbackToUser = "Here are the upcoming expiry dates:\n" +
-                String.format("%1$s due in %2$s\n",
-                        "testName", ParserUtil.parseDateToString(new Date())) + "\n" +
-                "Here are the food products that are low in stock:\n" +
-                String.format("%1$s : %2$s left\n", "testName", 0);
+        String expectedFeedbackToUser = "Here are the upcoming expiry dates:\n"
+                + String.format("%1$s due in %2$s\n",
+                        "testName", ParserUtil.parseDateToString(new Date())) + "\n"
+                + "Here are the food products that are low in stock:\n"
+                + String.format("%1$s : %2$s left\n", "testName", 0);
 
         CommandResult expectedResult = new CommandResult(expectedFeedbackToUser);
 
