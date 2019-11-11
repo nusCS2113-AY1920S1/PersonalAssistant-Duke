@@ -1,5 +1,6 @@
 package wallet.model.record;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -118,18 +119,19 @@ public class ExpenseList {
     public double getMonthExpenses(int month, int year) {
         int expenseMonth;
         int expenseYear;
-        double totalExpenses = 0;
+        BigDecimal totalExpenses = new BigDecimal(0);
 
         for (Expense e : this.expenseList) {
             LocalDate expenseDate = e.getDate();
             expenseMonth = expenseDate.getMonthValue();
             expenseYear = expenseDate.getYear();
             if (expenseMonth == month && expenseYear == year) {
-                totalExpenses += e.getAmount();
+                BigDecimal entryAmount = new BigDecimal(e.getAmount());
+                totalExpenses = totalExpenses.add(entryAmount);
             }
         }
 
-        return totalExpenses;
+        return totalExpenses.doubleValue();
     }
 
     /**
