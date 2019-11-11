@@ -75,13 +75,18 @@ Then talk to `MemberManager` to delete corresponding task in every member. +
 Then talk to `TaskManager` to delete task.
 
 === Reminder Feature
-==== Proposed Implementation
-The reminder command implemented in ​ReminderCommand​, extending Command. ​
-The reminder command passes through the usual route of handling commands,
-then passes the information over to the ​ReminderManager.​
-Reminders are then created based on the task index and timing given.
-The ReminderManager runs a thread in the background,
-and sleeps until the time of the next reminder to alert the user of the reminder.
+==== Implementation
+The reminder command is implemented in ​ReminderCommand​, extending Command. ​
+The reminder command is handled in the same manner as other commands, and new reminders are added to a specified task.
+Upon creation of a new reminder, a refresh is called in the ReminderController. A refresh is also called upon deletion of a task and starting of the program. +
+Any current sleeping thread is interrupted and disposed. The Reminder Controller then searches for the earliest Reminder. A new thread is invoked and the thread is slept until the time of the reminder. +
+Upon waking, it calls for the ReminderController to display the reminder, and another refresh is called. +
+The following is the sequence diagram of the normal operation of the Reminders System.
+
+image::Reminders.png[width="939", align="left"]
+
+Upon invocation of the refresh function, if the earliest reminder has passed, the reminder is immediate displayed as a missed reminder and another refresh is called.
+
 
 === Input History Feature
 ==== Implementation
