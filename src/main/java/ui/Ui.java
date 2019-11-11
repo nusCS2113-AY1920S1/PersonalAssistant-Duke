@@ -242,6 +242,9 @@ public class Ui {
      * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(String name, ArrayList<Payments> paymentList) {
+        if (paymentList.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         System.out.print(line);
         System.out.println("Here are your payments in" + name + ":");
         int i = 0;
@@ -443,11 +446,13 @@ public class Ui {
      * Prints message to indicate a Payment being added to a certain Payee.
      * 
      * @param payee Payee containing identification information of Payee.
-     * @param name  the name of Payee to make Payments to.
+     * @param payeesize the number of payees in project
      */
-    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentprojectname) {
+    public void printAddPayeeMessage(Payee payee, int payeesize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
+        payee.printPayee();
+        System.out.println("\tProject " + payee.project + " now has " + payeesize + " payee(s).");
     }
 //@@author lijiayu980606
     /**

@@ -27,16 +27,6 @@ import java.util.Set;
  * Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
-<<<<<<< HEAD:src/main/java/command/Storage.java
-    private static String projectsfilepath = "localdata/Projects.json";
-    private static String CommandListFilePath = "localdata/history.json";
-    private static String fundfilepath = "localdata/Fund.json";
-    private static String undoListFilePath = "localdata/undo.json";
-    private static String redoListFilePath = "localdata/redo.json";
-    private static String undofundfilepath = "localdata/undoFund.json";
-    private static String redofundfilepath = "localdata/redoFund.json";
-    private static String currentprojectfilepath = "localdata/CurrentProject.json";
-=======
     private static String basefilepath = System.getProperty("user.dir");
     private static String projectsfilepath = basefilepath + "/localdata/Projects.json";
     private static String commandlistfilepath = basefilepath +  "/localdata/history.json";
@@ -44,15 +34,16 @@ public class Storage {
     private static String tasklistfilepath =  basefilepath + "/localdata/TaskList.json";
     private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
     private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
+    private static String undofundfilepath = "localdata/undoFund.json";
+    private static String redofundfilepath = "localdata/redoFund.json";
     private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
-    private static String dictFilePath = "/localdata/dict.json";
+    private static String dictFilePath = basefilepath + "/localdata/dict.json";
     private static String backuphistoryfilepath = "Backuphistory.json";
     private static String backupfundfilepath = "BackupFund.json";
     private static String backupprojectsfilepath = "BackupProjects.json";
     private static String backupTaskListfilepath = "BackupTaskList.json";
 
 
->>>>>>> d1d0b99d8623edd1458795e54e81c5d99257cc46:src/main/java/storage/Storage.java
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -79,8 +70,6 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + dictFilePath);
         }
     }
-
-
 
     /**
      * Writes current projectmap in ProjectManager to local storage.
@@ -182,8 +171,8 @@ public class Storage {
     //@@author E0373902
     /**
      * writes the fund present, before the current command was executed, to local storage.
-     * @param fund
-     * @throws AlphaNUSException
+     * @param fund TODO
+     * @throws AlphaNUSException TODO
      */
     public void writeToundoFundFile(Fund fund) throws AlphaNUSException {
         String toWriteStr = gson.toJson(fund);
@@ -206,8 +195,8 @@ public class Storage {
 
     /**
      * Writes the fund present, after the current command is executed, to the local storage.
-     * @param fund
-     * @throws AlphaNUSException
+     * @param fund TODO
+     * @throws AlphaNUSException TODO
      */
     public void writeToredoFundFile(Fund fund) throws AlphaNUSException {
         String toWriteStr = gson.toJson(fund);
@@ -409,8 +398,8 @@ public class Storage {
     //@@author E0373902
     /**
      * Reads fund from undo file for fund from local storage and returns it.
-     * @return
-     * @throws AlphaNUSException
+     * @return TODO
+     * @throws AlphaNUSException TODO
      */
     public Fund readFromundoFundFile() throws AlphaNUSException {
         Type fundtype = new TypeToken<Fund>(){}.getType();
@@ -435,8 +424,8 @@ public class Storage {
 
     /**
      * Reads fund from redo file for fund from local storage and returns it.
-     * @return
-     * @throws AlphaNUSException
+     * @return TODO
+     * @throws AlphaNUSException TODO
      */
     public Fund readFromredoFundFile() throws AlphaNUSException {
         Type fundtype = new TypeToken<Fund>(){}.getType();

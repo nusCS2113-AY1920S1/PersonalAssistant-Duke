@@ -17,7 +17,6 @@ import java.util.Set;
 public class Parser {
     public static Instruction instr = new Instruction();
     public Process process = new Process();
-    public ProjectManager projectManager = new ProjectManager();
 
     public Parser() throws AlphaNUSException {
     }
@@ -39,7 +38,8 @@ public class Parser {
                                 Storage storage, ArrayList<String> list, Set<String> dict) {
         try {
             input = trimInput(input);
-
+            process.projectManager.updateDict(dict);
+            storage.writeToDictFile(dict);
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectManager.projectmap);
                 storage.writeToFundFile(fund);
@@ -66,9 +66,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                process.addProject(input, ui, fund, storage, projectManager);
+                process.addProject(input, ui, fund, storage);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui, storage, fund, projectManager);
+                process.deleteProject(input, ui, storage, fund);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
@@ -91,7 +91,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, ui, storage);
+                process.deletePayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFindPayee(input)) {
@@ -136,7 +136,7 @@ public class Parser {
                 process.addPayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
-                process.deletePayee(input, ui, storage, projectManager);
+                process.deletePayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.istotalcost(input)) {
                 process.totalCost(input, ui, storage);

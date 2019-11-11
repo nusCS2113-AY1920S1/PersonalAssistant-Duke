@@ -1,6 +1,8 @@
 package payment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
 
 //@@author karansarat
 /**
@@ -39,6 +41,17 @@ public class Payee {
         System.out.println("\t" + "Email: " + this.email);
         System.out.println("\t" + "Matric No: " + this.matricNum);
         System.out.println("\t" + "Phone No: " + this.phoneNum);
+    }
+
+    /**
+     * Adds payment details to dict when payment is added.
+     * @param dict set of words to remove details from
+     */
+    public void payeeToDict(Set<String> dict) {
+        String[] arr = {this.payee, this.email, "" + this.matricNum, this.phoneNum, 
+            "" + this.project};
+        ArrayList<String> arrNew = new ArrayList<>(Arrays.asList(arr));
+        dict.addAll(arrNew);
     }
 
 }

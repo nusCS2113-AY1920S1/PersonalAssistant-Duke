@@ -13,13 +13,18 @@ public class UndoRedoStack {
     private static Stack<ProjectManager> commandStack = new Stack<>();
     //private static ProjectManager projectManager;
 
+    /**
+     * TODO.
+     * @param projectManager TODO.
+     */
     public static void commandExceute(ProjectManager projectManager) {
         commandStack.push(projectManager);
         //deleteElementsAfterPointer(undoRedoPointer);
         int i = commandStack.size();
         undoRedoPointer.add(i - 1);
     }
-    /*public void addProjectCommand() throws AlphaNUSException {
+    /*
+    public void addProjectCommand() throws AlphaNUSException {
         Command command =
                 new InsertCharacterCommand();
         command.execute();
@@ -27,20 +32,24 @@ public class UndoRedoStack {
         deleteElementsAfterPointer(undoRedoPointer);
         undoRedoPointer++;
     }
-    */
-//    public static void deleteElementsAfterPointer(int undoRedoPointer)
-//    {
-//        if(commandStack.size()<1)return;
-//        for(int i = commandStack.size()-1; i > undoRedoPointer; i--)
-//        {
-//            commandStack.remove(i);
-//        }
-//    }
+    
+   public static void deleteElementsAfterPointer(int undoRedoPointer) {
+       if (commandStack.size() < 1) {
+           return;
+       }
+       for (int i = commandStack.size() - 1; i > undoRedoPointer; i--) {
+           commandStack.remove(i);
+       }
+   }
+   */
 
-    public static LinkedHashMap<String, Project> undo()
-    {
+    /**
+     * TODO.
+     * @return TODO.
+     */
+    public static LinkedHashMap<String, Project> undo() {
         int i = undoRedoPointer.size();
-        int x = undoRedoPointer.get(i-2);
+        int x = undoRedoPointer.get(i - 2);
         ProjectManager projectManager = commandStack.get(x);
         undoRedoPointer.remove(i - 1);
         //undoRedoPointer--;
@@ -48,8 +57,11 @@ public class UndoRedoStack {
         return projectManager.projectmap;
     }
 
-    public static LinkedHashMap<String, Project> redo()
-    {
+    /**
+     * TODO.
+     * @return TODO.
+     */
+    public static LinkedHashMap<String, Project> redo() {
         int i = undoRedoPointer.size();
         int x = undoRedoPointer.get(i);
         ProjectManager projectManager = commandStack.get(x);
