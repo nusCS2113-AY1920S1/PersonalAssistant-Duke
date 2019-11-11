@@ -32,15 +32,6 @@ public class ReturnCommand extends Command {
         this.userId = userId;
         this.resourceIds = resourceIds;
         this.reservationIds = reservationIds;
-        String reservationIdsString = " ";
-        String resourceIdsString = " ";
-        for (int i: resourceIds) {
-            resourceIdsString += (i + ", ");
-        }
-        for (int i: reservationIds) {
-            reservationIdsString += (i + ", ");
-        }
-        this.commandUserInput = "return reservations " + reservationIdsString + "with resource " + resourceIdsString;
     }
 
     /**

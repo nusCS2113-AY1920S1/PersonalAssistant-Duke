@@ -40,7 +40,7 @@ public class StatsCommandTest {
         listUnderTest = new ResourceList(ui, emptyList);
         ResourceUnderTest = new Item(1, "testitem");
         listUnderTest.add(ResourceUnderTest);
-        storage = new Storage("unitTestData/resources.txt", "unitTestData/reserves.txt");
+        storage = new Storage("unitTestData/resources.txt","unitTestData/reserves.txt");
     }
 
     @Test

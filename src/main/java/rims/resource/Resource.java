@@ -22,7 +22,6 @@ public abstract class Resource {
     protected int resourceId;
     protected String type;
     protected ReservationList reservations;
-    protected String tagName;
 
     /**
      * Constructor for a newly created Resource, with no Reservations made yet.
@@ -36,19 +35,6 @@ public abstract class Resource {
     }
 
     /**
-     * Constructor for a newly created Resource, with no Reservations made yet.
-     * @param resourceId the resourceId generated for the new Resource.
-     * @param name the name of the new Resource.
-     */
-    public Resource(int resourceId, String name, String tagName, String type) {
-        this.name = name;
-        this.resourceId = resourceId;
-        this.tagName = tagName;
-        this.reservations = new ReservationList();
-        this.type = type;
-    }
-
-    /**
      * Constructor for an existing Resource that has been loaded from the data file,
      * with existing Reservations in a ReservationList.
      * @param resourceId the resourceId of the Resource.
@@ -59,21 +45,6 @@ public abstract class Resource {
         this.name = name;
         this.resourceId = resourceId;
         this.reservations = reservations;
-    }
-
-    /**
-     * Constructor for an existing Resource that has been loaded from the data file,
-     * with existing Reservations in a ReservationList.
-     * @param resourceId the resourceId of the Resource.
-     * @param name the name of the Resource.
-     * @param reservations the list of Reservations made for the existing Resource.
-     */
-    public Resource(int resourceId, String name, ReservationList reservations, String tagName, String type) {
-        this.name = name;
-        this.resourceId = resourceId;
-        this.reservations = reservations;
-        this.tagName = tagName;
-        this.type = type;
     }
 
     /**
@@ -94,29 +65,12 @@ public abstract class Resource {
     }
 
     /**
-     * Converts the stored Resource into a compact String to be stored in a data file.
-     * @return a compact String version of the attributes of the Resource.
-     */
-    public String toDataFormatTag() {
-        return resourceId + "," + getType() + "," + name + "," + getTagName();
-    }
-
-    /**
      * Returns the name of the Resource.
      * @return the name of the Resource.
      */
     public String getName() {
         return name;
     }
-
-    /**
-     * Returns the tag name of the Resource.
-     * @return the tag name of the Resource.
-     */
-    public String getTagName() {
-        return tagName;
-    }
-
 
     /**
      * Returns the resource ID of the Resource.

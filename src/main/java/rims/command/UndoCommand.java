@@ -6,9 +6,6 @@ import rims.core.Ui;
 
 import rims.exception.RimsException;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 //@@author hin1
 /**
  * Undoes the last command (e.g. AddCommand, LoanCommand) that was executed that

@@ -497,5 +497,4 @@ public class ResourceList {
                 + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
-
 }

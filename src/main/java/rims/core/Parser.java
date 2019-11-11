@@ -11,7 +11,6 @@ import rims.command.ListCommand;
 import rims.command.ReturnCommand;
 import rims.command.StatsCommand;
 import rims.command.UndoCommand;
-import rims.command.TagCommand;
 import rims.command.ViewDeadlinesCommand;
 
 import rims.exception.RimsException;
@@ -200,9 +199,7 @@ public class Parser {
             c = new UndoCommand(prevCommand);
         } else if ((words[0].equals("stats") && words.length > 1)) {
             c = statsParser(input, words);
-        } else if(words[0].equals("tag")){
-            c = tagParser(input, words);
-        }else {
+        } else {
             throw new RimsException("Please enter a recognizable command!");
         }
         return c;
@@ -222,9 +219,9 @@ public class Parser {
             throw new RimsException("Please specify the parameter you want to view a detailed list of.");
         }
         String paramType = input.substring(paramTypeIndex + 1, paramIndex);
-        if (!(paramType.equals("date") || paramType.equals("room") || paramType.equals("item") || paramType.equals("tag "))) {
+        if (!(paramType.equals("date") || paramType.equals("room") || paramType.equals("item"))) {
             throw new RimsException("Invalid list parameter! Please specify '/date', '/room' "
-                    + "'/item', or 'tag' to view a detailed list.");
+                    + "or '/item' to view a detailed list.");
         }
         String param = input.substring(paramIndex + 1).trim();
         if (paramType.equals("date")) {
@@ -247,7 +244,7 @@ public class Parser {
         if (words[1].equals("/item")) {
             int itemIndex = input.indexOf("/item") + 6;
             int qtyIndex = input.indexOf(" /qty");
-            if (itemIndex > input.length()) {
+            if (itemIndex > input.length()){
                 throw new RimsException("Please specify the name of the item to add to your inventory.");
             }
             if (qtyIndex == -1) {
@@ -262,8 +259,8 @@ public class Parser {
             }
             String itemname = item.trim();
             char[] charArray = itemname.toCharArray();
-            for (int i = 0; i < charArray.length; i++) {
-                if (charArray[i] == ',') {
+            for (int i = 0; i < charArray.length; i ++){
+                if (charArray[i]==','){
                     throw new RimsException("Please do not enter ',' in your input!");
                 }
             }
@@ -550,35 +547,4 @@ public class Parser {
         String dateTill = parseDate(input.substring(dateTillIndex + 7).trim());
         return new StatsCommand(dateFrom, dateTill);
     }
-
-    /**
-     * Parses user input into the parameters for a ListCommand.
-     * @param input the input obtained from the user by the Ui.
-     * @param words the input from the user, delimited by spaces into an array of individual words.
-     * @return a ListCommand, if the input can be parsed into the required parameters.
-     * @throws RimsException if the input cannot be parsed into the required parameters for a ListCommand.
-     */
-    protected Command tagParser(String input, String[] words) throws RimsException {
-        if (!(words.length > 1)) {
-            throw new RimsException("Please specify the resource to be tagged.");
-        }
-        int paramTypeIndex = input.indexOf("/resource") + 10;
-        int paramIndex = input.indexOf("/tag");
-        String resourceName = input.substring(paramTypeIndex, paramIndex).trim();
-        if (paramIndex == -1) {
-            throw new RimsException("Please specify the tag name of the resource.");
-        }
-        if (paramTypeIndex > paramIndex) {
-            throw new RimsException("Please specify the name of the item to be tagged.");
-        }
-        String tagName = words[words.length-1];
-        if (tagName.isEmpty()) {
-            throw new RimsException("Please specify the name of the resource to be tagged out.");
-        }
-        if (!resources.isItem(resourceName) && !resources.isRoom(resourceName)) {
-            throw new RimsException("This resource does not exist in your inventory!");
-        }
-        return new TagCommand(tagName, resourceName);
-    }
-
 }
