@@ -249,13 +249,22 @@ public class TasksManager implements Serializable {
     //@@author yuyanglin28
 
     /**
-     * This method is to update teh task description
+     * This method is to update the task description
      * @param index index of the task (from 0)
      * @param des new description
      */
     public void updateTaskDes(int index, String des) {
         Task task = getTaskById(index);
         task.setDescription(des);
+    }
+
+    /**
+     * This method is to update the task time
+     * @param index index of the task (from 0)
+     * @param time new time
+     */
+    public void updateTaskTime(int index, Date time) {
+        getTaskById(index).setTime(time);
     }
 
     //========================== common ============================
@@ -428,7 +437,7 @@ public class TasksManager implements Serializable {
         for (int i = 0; i < tasksName.size(); i++) {
             tasks.add(getTaskByName(tasksName.get(i)));
         }
-        return showTasks(sortByTime(pickTodo(taskList)));
+        return showTasks(sortByTime(pickTodo(tasks)));
     }
 
 
@@ -570,7 +579,7 @@ public class TasksManager implements Serializable {
                         index = i;
                     } else {
                         if (count != 1) {
-                            result += getTimeCrashString(count, i, date2, sorted);
+                            result += getTimeCrashString(count, i + 1, date1, sorted);
                         }
                         count = 1;
                         continue;
@@ -599,9 +608,9 @@ public class TasksManager implements Serializable {
         String name = "";
         for (int j = count; j > 0; j--) {
             Task task = sorted.get(end - j);
-            name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+            name += "\n" + getIndexInListByTask(task) + ". " + getNameByTask(task);
         }
-        return "\n" + date + " " + count + "tasks:" + name;
+        return "\n" + date + " " + count + " tasks:" + name;
     }
 
     //@@author yuyanglin28

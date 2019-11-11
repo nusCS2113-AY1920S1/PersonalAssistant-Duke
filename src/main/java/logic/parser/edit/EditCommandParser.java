@@ -17,9 +17,9 @@ public class EditCommandParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit command, pass to task or member
-     * @param partialCommand command after edit
-     * @return a edit command
+     * parse edit logic.command, pass to task or member
+     * @param partialCommand logic.command after edit
+     * @return a edit logic.command
      * @throws DukeException throw exception when edit type is not correct.
      */
     public static Command parseEditCommand(String partialCommand) throws DukeException {

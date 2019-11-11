@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import storage.Storage;
 import common.DukeException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -141,6 +143,24 @@ public class ModelController implements Model {
         return oldDes;
     }
 
+    //@@author yayanglin28
+
+    /**
+     * This method is to update the time of a task
+     * @param index task index
+     * @param time time in string
+     * @throws DukeException throw exception when time format is not correct
+     */
+    public void updateTaskTime(int index, String time) throws DukeException {
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
+        try {
+            Date newTime = ft.parse(time);
+            tasksManager.updateTaskTime(index, newTime);
+        } catch (ParseException e) {
+            throw new DukeException("Time format error.");
+        }
+    }
+
 
     public String getTasksByKeyword(String keyword) {
         return tasksManager.getTasksByKeyword(keyword);
@@ -255,7 +275,7 @@ public class ModelController implements Model {
      * @return old phone
      */
     @Override
-    public String updateMemberPhone(String name, String phone) {
+    public String updateMemberPhone(String name, String phone) throws DukeException {
         String oldPhone = memberManager.getMemberPhone(name);
         memberManager.updateMemberPhone(name, phone);
         return oldPhone;
@@ -432,7 +452,8 @@ public class ModelController implements Model {
             ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             String subResult = tasksManager.check(tasksName);
             if (!subResult.equals("")) {
-                result += "\n" + memberName + ": " + tasksManager.check(tasksName);
+                result += "\n" + memberName + ": " + tasksManager.check(tasksName) + "\n"
+                        + "[END OF " + memberName + " ]";
             }
         }
         return result;

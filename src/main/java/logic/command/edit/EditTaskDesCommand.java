@@ -26,12 +26,12 @@ public class EditTaskDesCommand extends Command {
      * This method is to edit task description
      * @param model Model interface
      * @return set message or update message
-     * @throws DukeException throw exception when there is no update
+     * @throws DukeException throw exception when index not in task list
      */
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (!checkTaskIndex(taskIndexInList, model)) {
-            return new CommandOutput(taskIndexInList + INDEX_NOT_IN_MEMlIST_MESSAGE);
+            throw new DukeException(taskIndexInList + INDEX_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldDes = model.updateTaskDes(taskIndexInList - 1, des);
             String taskName = model.getTaskNameById(taskIndexInList - 1);
@@ -40,7 +40,7 @@ public class EditTaskDesCommand extends Command {
                 return new CommandOutput(SET_MSSAGE + "[" + taskName + "]"
                         + " to " + "[[" + des + "]]");
             } else if (oldDes.equals(des)) {
-                throw new DukeException(NO_UPDATE_MSSAGE);
+                return new CommandOutput(NO_UPDATE_MSSAGE);
             } else {
                 model.save();
                 return new CommandOutput(UPDATE_MSSAGE + "[" + taskName + "]"

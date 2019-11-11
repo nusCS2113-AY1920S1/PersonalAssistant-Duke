@@ -9,10 +9,10 @@ public class ListTasksAllParser {
 
     //@@author yuyanglin28
     /**
-     * parse list all task command, according to list type, picnum/'nothing'
+     * parse list all task logic.command, according to list type, picnum/'nothing'
      *
-     * @param argument command after all
-     * @return a list all task command
+     * @param argument logic.command after all
+     * @return a list all task logic.command
      * @throws DukeException throw exception when list type is not correct
      */
     public static Command parseListTasksAll(String argument) throws DukeException {

@@ -61,7 +61,7 @@ public class InputMemory {
     }
 
     /**
-     * Adds new inputted command to history
+     * Adds new inputted logic.command to history
      *
      * @param input the newly executed input
      */
