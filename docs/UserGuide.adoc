@@ -231,17 +231,17 @@ Examples:
 * You ate a hamburger today, but you are unsure of its nutritional value:
 ** `breakfast hamburger`
 +
-image::Breakfast_3.png[width=""]
+image::Breakfast_3.PNG[width=""]
 +
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt, with a cost of 7.50SGD
 ** `breakfast hamburger /calories 1000 /sodium 10 /cost 7.50`
 +
-image::Breakfast_1.png[width=""]
+image::Breakfast_1.PNG[width=""]
 +
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
 ** `breakfast hamburger /cost 7.50 /calories 1000 /sodium 10 /date 1/1/2019`
 +
-image::Breakfast_2.png[width=""]
+image::Breakfast_2.PNG[width=""]
 +
 
 [NOTE]
