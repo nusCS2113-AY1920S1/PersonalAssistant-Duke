@@ -18,6 +18,7 @@ Responsibilities: +
 - Documentation +
 - Implementation of Data Models +
 - Unit Tests +
+- Architecture of ArchDuke +
 Features Implemented: +
 - Creation/Viewing/Updating/Deletion of projects +
 - Member Features (roles) +
@@ -50,7 +51,7 @@ image::iamabhishek98.png[width="150", align="left"]
 Role: Release and Tags Manager +
 Responsibilities: +
 - Documentation +
-- Releases +
+- Releases and Milestone closing +
 - Implementation of Domain Logic +
 Features Implemented: +
 - Creation/Viewing/Updating/Deletion of members +
@@ -66,7 +67,7 @@ image::seanlimhx.png[width="150", align="left"]
 Role: UI Lead +
 Responsibilities: +
 - UI Design +
-- Implementation of UI models +
+- Implementation of View layer and UI models +
 - Documentation +
 Features Implemented: +
 - Help command +
