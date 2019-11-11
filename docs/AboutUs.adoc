@@ -10,21 +10,31 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Cheng Weixuan
-image::chengweixuan.png[width="150", align="left"]
-{empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Documentation + Model
-
-'''
-
 === Nicholas Cheong
 image::therealnickcheong.png[width="150", align="left"]
 {empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Deliverables and Deadlines + Scheduling and Tracking
+Responsibilities: +
+Deliverables and Deadlines + Scheduling and Tracking +
+Features Implemented: +
+Goals Setting +
+Search +
+GUI
+
+'''
+
+=== Cheng Weixuan
+image::chengweixuan.png[width="150", align="left"]
+{empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation + Model +
+Features Implemented: +
+Money In/Out Tracking +
+Loans Tracking +
+Archive Feature +
+Timing Shortcuts
 
 '''
 
@@ -33,7 +43,11 @@ image::chenchao19.png[width="150", align="left"]
 {empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration + Code Quality
+Responsibilities: Integration + Code Quality +
+Features Implemented: +
+Instalment Tracking +
+Autocomplete +
+Command History
 
 '''
 
@@ -42,7 +56,12 @@ image::cctt1014.png[width="150", align="left"]
 {empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Logic + UI
+Responsibilities: Logic + UI +
+Features Implemented: +
+GUI +
+Statistics +
+Bank Account Tracking +
+Change Icon Function
 
 '''
 
@@ -51,6 +70,9 @@ image::chianhaoplanks.png[width="150", align="left"]
 {empty}[http://github.com/Chianhaoplanks[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Storage + Testing
+Responsibilities: Storage + Testing +
+Features Implemented: +
+Undo For All Commands +
+Data Storage
 
 '''

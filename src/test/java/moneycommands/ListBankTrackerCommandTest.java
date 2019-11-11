@@ -42,6 +42,6 @@ public class ListBankTrackerCommandTest {
                 + "-------------------------------------------\n"
                 + "2. ----------------------------------------\n"
                 + "  Name: DBS\n  Balance: 100.00\n  Latest Update Date: 20/7/2018\n  Interest Rate: 0.0\n"
-                + "-------------------------------------------\n" ,ui.getGraphContainerString());
+                + "-------------------------------------------\n", ui.getGraphContainerString());
     }
 }

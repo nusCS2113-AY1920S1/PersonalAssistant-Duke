@@ -10,22 +10,36 @@ endif::[]
 
 
 * Financial Ghost (FG) is a desktop application written in Java OOP fashion. 
-* Developed specifically for fresh graduates of NUS, provides a financial planner available locally on the user’s desktop.
-* Allows users to set financial goals, and monitor their income and expenditure.
-* Tracks the influx and outgoing of income, guiding users financially for them to be better able to afford any financial goals set.
-* Tracks other financial entities such as bank accounts, instalments and loans, both outgoing and incoming.
+* Developed specifically for fresh graduates of NUS, the application provides a financial planner that is available locally on the user’s desktop.
+* Allows users to track their monetary inflow and outflow for a holistic evaluation of their income and expenditure
+* Allows users to set and monitor financial goals
+* Tracks other financial entities such as bank accounts and instalments.
+* Allow users to track their loans, both incoming and outgoing.
 * Provides the user with statistics derived from the financial information keyed into the application.
 
-== Site Map
+== Table of Contents
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
+* <<#Quick_Start, Quick Start>>
+* <<#Usage, Usage>>
+* <<#Acknowledgements, Acknowledgements>>
+* <<#Licence, Licence>>
+
+== Quick_Start
+* Ensure you have Java version 11 or later installed in your computer.
+* Download the jar file for the latest version of link:https://github.com/AY1920S1-CS2113T-W12-2/main/releases[Financial Ghost] here.
+* Copy the file to the folder you want to use as the home folder for your Financial Ghost.
+* Double-click the file to start the app.
+* You should see the GUI (Graphical User Interface) pop up in a few seconds as shown above.
+
+
+== Usage
+* For users, please refer to our link:/docs/UserGuide.pdf[User Guide].
+* For developers, please refer to our link:/docs/DeveloperGuide.pdf[Developer Guide] for more in-depth information.
+* Learn more about us at  link:/docs/AboutUs.adoc[AboutUs].
 
 == Acknowledgements
 
-* Libraries used: JavaFX, JUnit5, Hamcrest
+* Libraries used: JavaFX, JUnit5, Hamcrest, Maven Repository, Gradle, ControlFX
 
-== Licence : NUS
+== Licence
+* NUS
