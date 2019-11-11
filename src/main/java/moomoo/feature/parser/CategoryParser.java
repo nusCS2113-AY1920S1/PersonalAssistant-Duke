@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 class CategoryParser extends Parser {
 
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+
     /**
      * Parses which command to return based on the user's input.
      * Valid inputs are add, edit, or delete.
@@ -22,11 +25,10 @@ class CategoryParser extends Parser {
         if (scanner.hasNext()) {
             commandType = scanner.next();
         } else {
-            Ui.setOutput("Would you like to add, edit, or delete a category?\n"
+            Ui.setOutput(ANSI_GREEN + "Would you like to add, edit, or delete a category?\n" + ANSI_RESET
                     + "Try entering one of these commands:\n"
                     + "category add [CATEGORY NAME]\n"
-                    + "category edit [OLD CATEGORY NAME] [NEW CATEGORY NAME]\n"
-                    + "category delete [CATEGORY NAME or CATEGORY INDEX NUMBER]");
+                    + "category delete [CATEGORY NAME or CATEGORY INDEX NUMBER]\n");
             throw new MooMooException("");
         }
         switch (commandType) {
@@ -37,13 +39,13 @@ class CategoryParser extends Parser {
     }
 
     private static Command parseAdd(Scanner scanner) {
-        String text = "What category would you like to add?";
+        String text = "What category would you like to add?\n";
         String categoryName = parseInput(scanner, text);
         return new AddCategoryCommand(categoryName);
     }
 
     private static Command parseDelete(Scanner scanner) {
-        String text = "What category do you wish to delete?";
+        String text = "What category do you wish to delete?\n";
         String categoryName = parseInput(scanner, text);
         try {
             int categoryIndex = Integer.parseInt(categoryName) - 1;
