@@ -262,7 +262,7 @@ Offers one abstract method `printInFile()` whose implementation should indicate 
 
 #### 2.6 List Component
 
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/ListComponent.png)
+![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
 
 Figure. Structure of the List Component
 
