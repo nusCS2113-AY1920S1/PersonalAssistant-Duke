@@ -53,6 +53,7 @@ public class AddTaskCommand extends Command {
         if (members != null) {
             String[] membersString = members.split(",");
             for (int i = 0; i < membersString.length; i++) {
+                membersString[i] = membersString[i].trim();
                 if (model.getMemberManager().hasMember(membersString[i])) {
                     model.link(model.getTaskListSize() - 1, membersString[i]);
                 } else {

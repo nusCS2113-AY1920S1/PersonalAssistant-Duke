@@ -17,10 +17,10 @@ public class ScheduleCommandParser {
 
     //@@author yuyanglin28
     /**
-     * parse the schedule command
+     * parse the schedule logic.command
      *
      * @param partialCommand content after schedule
-     * @return a schedule related command
+     * @return a schedule related logic.command
      * @throws DukeException throw exception when schedule type is not correct
      */
     public static Command parseScheduleCommand(String partialCommand) throws DukeException {

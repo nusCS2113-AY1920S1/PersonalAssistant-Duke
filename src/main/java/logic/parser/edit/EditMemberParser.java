@@ -21,9 +21,9 @@ public class EditMemberParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit member command, pass to name, bio, email or phone
-     * @param partialCommand command after member
-     * @return a edit member command
+     * parse edit member logic.command, pass to name, bio, email or phone
+     * @param partialCommand logic.command after member
+     * @return a edit member logic.command
      * @throws DukeException throw exception when edit member type is not correct.
      */
     public static Command parseEditMember(String partialCommand) throws DukeException {

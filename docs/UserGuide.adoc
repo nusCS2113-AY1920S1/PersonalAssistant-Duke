@@ -57,11 +57,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 ====
 *Command Format*
 
-* Words in parenthesis means optional, depends on the previous choice
-* Words in curly braces means can choose one
+* Words in parenthesis means optional '(xxx)' e.g `list members (progress)` can be used as `list members` or `list members progress`.
+* Words in curly braces '{xxx/xxx}' means can choose one e.g `list tasks {all/todo}` can be used as `list tasks all` or `list tasks todo`.
 * Words in *UPPER_CASE* are the parameters to be supplied by the user e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 1`.
-* Items in square brackets means can have space e.g `add todo [TASK_NAME]` can be used as `add todo read book`.
-* Items with …​ after them can be used multiple times (>=1) e.g. [PREREQUISITE TASK(s) index]…​ can be used as `1`, `1 2`, `1 2 3` etc.
+* Items in square brackets '[xxx xxx]' means can have space e.g `add task [TASK_NAME]` can be used as `add task read book`.
+* Items with ... after them can be used multiple times (>=1) e.g [PREREQUISITE TASK(s) index]... can be used as `1`, `1 2`, `1 2 3` etc.
+* If there are some symbol before ..., that symbol means the separator, if no, the default separator is space e.g `delete member [MEMBER_NAME],...` can be used as `delete member member1, member 2`
 * DateTime has to be of pattern “dd/MM/yyyy HHmm” or "dd/MM/yyyy"
 * There are roughly three parts of commands, dealing with tasks, members, and some commands combining them together.
 
@@ -148,17 +149,12 @@ Deletes the specified task from the schedule list. +
 * Any reminders set on the task will be deleted together​
 ****
 
-==== Editing the DateTime of a task: `snooze`
-`snooze [TASK INDEX] /to [DATETIME]` +
-e.g `snooze 1 /to 1/6/2020 1200`
-****
-* Changes the DATETIME of deadline or event with the specified TASKNAME.
-* The DATETIME has to be of pattern “dd/MM/yyyy HHmm”
-* Any reminders set on the task will be removed​
-****
 
-==== Editing the details of Task :
-`edit task {time/des} TASK_INDEX /to [change content]`
+==== Editing the details of Task : `edit`
+
+Edits the details of the tasks. +
+`edit task {name/time/des} TASK_INDEX /to [change content]`
+
 
 ==== Setting a Reminder :
 `reminder TASK_INDEX TIME_BEFORE` +
@@ -177,8 +173,8 @@ e.g `reminder 1 2d`
 e.g `add member Alice`
 
 ==== Removing a team member: `delete`
-`delete member [MEMBER_INDEX]` +
-e.g `delete member 1`
+`delete member [MEMBER_NAME],...` +
+e.g `delete member test1, test 2, test3`
 
 ==== Assigning a task to a member: `link`
 `link [TASK_INDEX] ... /to [MEMBER_NAME] ...` +
@@ -196,43 +192,48 @@ e.g `unlink 2 3 /from Alice, Bob` +
 === Commands related to both tasks and members
 
 ====  Listing task(s) or member(s): `list`
-* lists all the task in the CLI output and switches to task view +
-`list tasks`
-* lists all the members in the CLI output and switches to members view +
+lists all the task in the CLI output and switches to task view +
+`list tasks all`
+
+lists all todo task in the CLI output and switches to task view +
+`list tasks todo`
+
+lists all the task in order of picnum from low to high in the CLI output and switches to task view +
+`list tasks all picnum`
+
+lists all todo task in order of picnum from low to high in the CLI output and switches to task view +
+`list tasks todo picnum`
+
+lists all the members in the CLI output and switches to members view +
 `list members`
 
-Below are coming in v1.4: +
-* show all tasks haven’t been assigned to any members +
-`list tasks nopic` +
-* show all members haven’t had any tasks yet +
-`list members free` +
-* show all tasks assigned to a specific member +
-`list member [MEMBER_NAME]` +
-* show all in charged people for a specific task +
-`list task TASK_INDEX` +
-* check for progress of each member +
-`progress [MEMBER_NAME]`
+lists all the members in order of progress from high to low in the CLI output and switches to members view +
+`list members progress`
+
+lists all the members in order of todo task num from low to high in the CLI output and switches to members view +
+`list members todonum`
+
+****
+* For listing task in order of time, please refer to `schedule`
+****
 
 ==== Viewing Schedule for the whole team or a member: `schedule`
 
-* view the whole team tasks in chronological order +
+view the whole team tasks in chronological order +
 `schedule team {all/todo}`
-* view tasks for a specific member +
+
+view tasks for a specific member +
 `schedule member {all/todo} ([MEMBER_NAME])`
 
 ****
 * The DATE has to be of pattern “dd/MM/yyyy”
 ****
 
-{to be implemented :
- view tasks that has a DATETIME in chronological order. Providing an optional DATE will only show tasks on that date +
-`schedule team all [DATE]` +
-`schedule member all MEMBER_NAME [DATE]`
-}
+==== Checking the deadline crash for every member: `check`
 
-
-{to be implemented: take has done task into consideration or not}
-
+Check throw all the members, if a member has more than one todo tasks' deadlines in one day,
+it will output the member name, date and tasks' names.
+`check`
 
 === Exiting the program : `bye`
 * Exit the program.
@@ -251,9 +252,10 @@ A: Copy and replace the /data folder to the other Team Manager
 ** basic: `add task [TASK_NAME]`
 ** with time: `add task [TASK_NAME] /at [TIME]`
 ** with member(s): `add task [TASK_NAME] /to [MEMBER_NAME] ...`
-** with both time and member(s)： `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...`
+** with both time and member(s)： `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME],...`
 * Adding a new member: `add member [MEMBER_NAME]`
-* Removing a task or member: `delete {task/member} INDEX...`
+* Removing a task: `delete task [INDEX]...`
+* Removing a member: `delete member [MEMBER_NAME],...`
 * Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
 * Listing for members: `list members (todonum/progress)`
 * View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
@@ -262,8 +264,10 @@ A: Copy and replace the /data folder to the other Team Manager
 * Mark Task as Incomplete: `undone [INDEX] ...`
 * Linking task to a member: `link [INDEX] ... /to [MEMBER_NAME] ...`
 * Unlinking task from a member: `unlink [INDEX] ... /from [MEMBER_NAME] ...`
-* Editing task or member details: `edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]
+* Editing task details: `edit task {name/time/des} INDEX /to [NEW_CONTENT]`
+* Editing member details: `edit member {name/bio/email/phone} [MEMBER_NAME] /to [NEW_CONTENT]`
 * Setting a reminder: `reminder INDEX BEFORE_INT{m/d/h}`
+* Checking deadline: `check`
 * Exiting the program: `bye`
 
 

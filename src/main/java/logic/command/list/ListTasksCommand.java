@@ -11,7 +11,7 @@ import gui.Window;
 
 public class  ListTasksCommand extends Command {
 
-    static final String EMPTY_TASKS_LIST = "There are currently no tasks in project manager";
+    static final String EMPTY_TASKS_LIST = "There are currently no tasks in project manager.";
     private static final String SUCCESS_MESSAGE = "Here are all tasks in project manager:";
 
     //@@author yuyanglin28

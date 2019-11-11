@@ -11,8 +11,8 @@ public class DeleteMemberParser {
     //@@author yuyanglin28
 
     /**
-     * parse delete member command, pass member name to command
-     * @return delete member command
+     * parse delete member logic.command, pass member name to logic.command
+     * @return delete member logic.command
      * @throws DukeException throw exception when member name is empty
      */
     public static Command parseDeleteMember(String arguments) throws DukeException {
