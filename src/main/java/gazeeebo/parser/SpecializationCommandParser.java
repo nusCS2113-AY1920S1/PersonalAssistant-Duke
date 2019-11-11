@@ -63,7 +63,7 @@ public class SpecializationCommandParser extends Command {
                 + "4. Help page: help\n"
                 + "5. Exit contact page: esc\n"
                 + "____________________________"
-                + "______________________________");
+                + "______________________________\n");
     }
 
     /**
