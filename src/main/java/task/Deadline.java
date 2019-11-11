@@ -11,7 +11,7 @@ import java.util.Date;
 //@@author lijiayu980606
 public class Deadline extends Task implements Serializable {
     //protected String by;
-    private static SimpleDateFormat dataformat = new SimpleDateFormat("dd-MM-yyyy");
+    private static SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
      * Creates a Deadline instance and initialises the required attributes.
@@ -30,6 +30,6 @@ public class Deadline extends Task implements Serializable {
      */
     @Override
     public String giveTask() {
-        return  super.giveTask() + "(by: " + dataformat.format(this.date) + ")";
+        return  super.giveTask() + "(by: " + dateformat.format(this.date) + ")";
     }
 }

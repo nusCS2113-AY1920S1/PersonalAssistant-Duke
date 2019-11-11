@@ -665,14 +665,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Copy the file to the folder you want to use as the home folder.
 .. Run the commmand `java -jar alphanus.jar` on your terminal in the home folder.
 
-   Expected: Shows welcome message of AlphaNUS!
++
+Expected: Shows welcome message of AlphaNUS!
 
 . Shutdown and Saving of Data
 
 .. Input the `bye` command to exit the application.
 .. Re-launch the app by running the command `java -jar alphanus.jar` on your terminal in the home folder again.
 
-   Expected: The application starts with your previously saved data.
++
+Expected: The application starts with your previously saved data.
 
 [NOTE]
 If the application is prematurely closed or crashes without the `bye` command, all data from when the application is started will be lost.
@@ -682,6 +684,9 @@ If the application is prematurely closed or crashes without the `bye` command, a
 
 . Loading Backup Files
 .. After launching the app, enter the `load` command to load backup projects into the application.
+
++
+Expected: Backup Projects and Funds will be loaded into the application.
 
 [NOTE]
 All previously changed data will be removed after executing the `load` command.
@@ -694,11 +699,13 @@ All previously changed data will be removed after executing the `load` command.
 .. Prerequisites: The total fund has not yet been set.
 .. Test case: `set fund am/10000` +
 
-    Expected: Total fund is set. Fund details are printed.
++
+Expected: Total fund is set. Fund details are printed.
 
 .. Test case: `set fund am/aaa`
 
-    Expected: Total fund is not set. Error message is printed requesting for correct input.
++
+Expected: Total fund is not set. Error message is printed requesting for correct input.
 
 .. Other incorrect set fund commands to try: `set fund`, `set fund am/`.
 
@@ -708,22 +715,26 @@ All previously changed data will be removed after executing the `load` command.
 . Adds a new project to the record without assigning budget.
 .. Test case: `add project pr/FSC am/`
 
-    Expected: Project called FSC is added to record. Budget and spending are set to 0. Number of projects in the record is shown.
++
+Expected: Project called FSC is added to record. Budget and spending are set to 0. Number of projects in the record is shown.
 
 . Adds a new project to the record and assigns budget from total funds.
 .. Prerequisites: Total Fund is set and there is sufficient funds.
 
 .. Test case: `add project pr/Open Day am/1000`
 
-    Expected: Project called Open Day is added to record. Budget is set to 1000.0 and Spending is set to 0. Number of projects in the record is shown.
++
+Expected: Project called Open Day is added to record. Budget is set to 1000.0 and Spending is set to 0. Number of projects in the record is shown.
 
 .. Test case: `add project pr/ am/`
 
-    Expected: No project is added. Error message is printed stating that the project name cannot be empty.
++
+Expected: No project is added. Error message is printed stating that the project name cannot be empty.
 
 .. Test case: `add project pr/FSC am/`
 
-    Expected: No project is added. Error message is printed stating that the project already exists in the record.
++
+Expected: No project is added. Error message is printed stating that the project already exists in the record.
 
 
 ==== Deleting a project
@@ -732,12 +743,14 @@ All previously changed data will be removed after executing the `load` command.
 .. Prerequisites: There are projects in the record.
 .. Test case: `delete project pr/FSC`
 
-    Expected: Existing Project with name FSC is deleted from the record. The updated funds is also printed.
++
+Expected: Existing Project with name FSC is deleted from the record. The updated funds is also printed.
 
 . Deleting a non-existing project from the record.
 .. Test case: `delete project pr/Lalaland`
 
-    Expected: No project is deleted. Error message indicating that the project does not exist is printed.
++
+Expected: No project is deleted. Error message indicating that the project does not exist is printed.
 
 
 ==== Add fund to total fund (TO CHANGE)
@@ -752,34 +765,72 @@ All previously changed data will be removed after executing the `load` command.
 .. Prerequisites: Total funds is already set.
 .. Test case: `reset fund new/15000`
 
-    Expected: Total funds is set to 15000. Fund details are printed.
++
+Expected: Total funds is set to 15000. Fund details are printed.
 
 . Decrease total funds above allocated funds.
 .. Prerequisites: Total funds is already set.
 .. Test case: `reset fund new/9000`
 
-    Expected: Total funds is decreased to 9000. Fund details are printed.
++
+Expected: Total funds is decreased to 9000. Fund details are printed.
 
 . Decrease total funds below allocated funds.
 .. Prerequisites: Total funds is already set.
 .. Test case: `reset fund new/1`
 
-    Expected: Total funds not changed. Error message is printed along with the amount of allocated funds.
++
+Expected: Total funds not changed. Error message is printed along with the amount of allocated funds.
 
 
-==== Reduce Budget
+==== Reduce budget for a project
 
-TODO
+. Reduce budget for a project but budget remains above total spending of the project.
+.. Prerequisites: Budget is assigned to a project from total fund.
+.. Test case: `reduce budget pr/Open Day am/100`
 
++
+Expected: Allocated budget for a project is reduced by 100. Updated budget details for a project is shown along with new fund details.
+
+. Reduce budget for a project but amount to reduce is lower than total spending of the project.
+.. Prerequisites: Budget is assigned to a project from total fund.
+.. Test Case: `reduce budget pr/Open Day am/10000`
+
++
+Expected: Allocated budget is not changed. Error message is shown and budget details of project is printed.
 
 ==== List Projects
 
-TODO
+. List Projects in the record with existing projects.
+.. Prerequisites: Projects exist in the record.
+.. Test case: `list projects`
+
++
+Expected: Projects in the record are listed along with their budget details. Current Project being managed is also shown at the bottom.
+
+. List Projects in the record.
+.. Prerequisites: No projects exist int eh record.
+.. Test case: `list projects`
+
++
+Expected: No projects are listed. Message requesting user to add projects is printed.
 
 
 ==== Go to Project
 
-TODO
+. Goes to an existing project to manage its payment and payees.
+.. Prerequisites: Projects exist in the record.
+.. Test case: `goto 1`
+
++
+Expected: Current project being managed is set as the project index according to the `list projects` command.
+
+. Go to a non-existing project.
+.. Prerequisites: Projects exist in the record.
+.. Test case: `goto 1000`
+
++
+Expected: Error message stating that the project with that index does not exist is printed.
 
 === Managing Payments and Payees for a Project
 [NOTE]
@@ -787,11 +838,25 @@ You need to use the `goto` command to manage the payments and payees in a projec
 
 
 ==== Add Payee
-TODO
+
+. Adds a payee to a project currently being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command.
+.. Test case: `add payee p/John e/e013021@u.nus.edu m/A0182310A ph/91993312`
+
++
+Expected: The payee is added to the record.
+
+. Adds a payee to a project with an existing payee already added.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee with the same name exists in the project.
+.. Test case: `add payee p/John e/e0131111@u.nus.edu m/A0182399A ph/99993312`
+
++
+Expected: Payee is not added to the project. Error message stating that a payee with the same name is printed.
 
 
 ==== Delete Payee
-TODO
+
+. Deletes a payee from a project.
 
 
 
