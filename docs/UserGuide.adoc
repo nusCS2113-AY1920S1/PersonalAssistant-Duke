@@ -26,9 +26,8 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `rims.jar` link:{repoURL/releases}[here].
 .  Copy the file to the folder you want to use as the home folder for your local version of RIMS.
-. In your home folder for RIMS, create a directory called `data`, and in the `data` folder, create two text files:
-`resources.txt` and `reserves.txt`.
-.  Double-click the file to start the app. The user interface should appear in a few seconds.
+.  In your terminal, navigate to this folder and run the command `java -jar {FILENAME.jar}`, where `{FILENAME.jar}` should be replaced with the name of the latest RIMS file.
+.  The user interface should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the rooms and items with their status (booked/reserved/available).
 .  Some example commands you can try:
@@ -45,39 +44,53 @@ e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the ro
 ====
 *Command Format*
 
-* The first word of each input string is the *command* or *action* requested by the user.
+* The first word of each input string is the *command* requested by the user, to be executed by the program.
 +
-e.g. the word `*return*` in `*return* /room seminar room 1`
+e.g. the word `*return*` in `*return* /id 1`.
 * Words in `UPPER_CASE` are the *arguments* to be supplied by the user.
 +
-e.g. in `return /room *ROOM*`, `*ROOM*` is a parameter which can be used as `return /room *seminar room 1*`.
+e.g. in `add /room *ROOM_NAME*`, `*ROOM_NAME*` is a parameter which can be used, as in `add /room *seminar room 1*`.
 * Arguments always follow a *parameter*, which is denoted by a phrase starting with a forward slash `/`.
 +
-e.g. in `deadline */date* _DATE_`, `*/date*` denotes that `_DATE_` is a parameter denoting a date and time, as in `deadline */date* _23/01/2020_`.
+e.g. in `delete */item* _ITEM_NAME_`, `*/item*` denotes that `_ITEM_NAME_` is a parameter denoting the item to be deleted, as in `delete */item* shuttlecock`.
 * Different commands features different parameters.
-* Parameters can be in any order.
+* Parameters must be in the order specified.
 +
-e.g. if the command specifies `add */item ITEM* _/qty QUANTITY_`, `add _/qty QUANTITY_ */item ITEM*` is also acceptable.
+e.g. if the command specifies `add */item ITEM* _/qty QUANTITY_`, `add _/qty QUANTITY_ */item ITEM*` is not acceptable.
+* Parameters and arguments in the input string must be separated from each other by only a single whitespace character.
++
+i.e. tabs and non-spacebar whitespace are not allowed in the input string.
+
+====
+====
+*Glossary*
+
+* Item: an object in the user’s inventory. There can be multiple copies of an item in a user’s inventory (e.g. 5 pens)
+* Room: a facility in the user’s inventory, of which there can only be one (e.g. seminar room 1)
+* Resource: any item or room in the user’s inventory.
+* User: the logistics administrator who is running the RIMS program.
+* Requester: the person requesting to borrow a resource from the user’s inventory.
 
 ====
 
-=== Adding or Removing Resources
+=== Adding and Removing Resources
 
 ==== Add resource: `add`
-Add new item(s)/room available for loan/booking in RIMS.
+Adds a new resource (item or room) to the user's inventory, which is available for loan/reservation in RIMS.
 
 .*Format*:
-. `add /item ITEM_NAME /qty QUANTITY`
-. `add /room ROOM_NAME`
-* If the resource already exists in RIMS, then its quantity will be updated accordingly.
-* Quantity must be a positive integer.
+* `add /item ITEM_NAME /qty QUANTITY`
+* `add /room ROOM_NAME`
+. Quantity specified must be a positive integer.
+. If an item to be added already exists in RIMS, then its quantity will be incremented by the specified quantity.
+. If a room to be added already exists in RIMS, the program will send an error to the UI for the user's reading. 
 
 .*Examples*:
 * `add /item book /qty 5`
-* `add /room multi purpose sports hall`
+* `add /room seminar room 1`
 
 ==== Delete resources: `delete`
-Delete item(s)/room available for loan/booking in RIMS.
+Deletes a resource from the user's inventory in RIMS.
 
 .*Format*:
 . `delete /item ITEM_NAME /qty QUANTITY`
@@ -96,15 +109,35 @@ Delete item(s)/room available for loan/booking in RIMS.
 Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
 
 .*Format*:
-. `loan /item ITEM_NAME /qty QUANTITY /by DEADLINE`
-. `loan /room ROOM_NAME /by DEADLINE`
-* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-* Quantity must be a positive integer.
-* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+. `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE`
+. `loan /room ROOM_NAME /id USER_ID /by DEADLINE`
+* If the item or room does not exist in RIMS, then the UI will send an error message to inform the user.
+* Quantity and User ID must be non-negative integers.
+* If either of these values specified is less than or equal to zero, the UI will send an error message.
+* The deadline must be a valid date in the format `DD/MM/YYYY HHmm` or in the example format `Tuesday HHmm`, which will in this example, book the resource until the next Tuesday at the specified time.
+* If the deadline specified is in an invalid format, the UI will send an error message.
 
 .*Examples*:
-* `delete /item book /qty 5`
-* `delete /room multi purpose sports hall`
+* `loan /item book /qty 5 /id 1 /by 23/11/2019 1500`
+* `loan /room mpsh /id 2 /by Wednesday 1700`
+
+==== Reserve resources: `reserve`
+Registers an item/room as having been reserved (loaned in advance) from a future date to another future date.
+
+.*Format*:
+. `reserve /item ITEM /qty QUANTITY /id USER_ID /from BORROW_DATE /by DEADLINE`
+. `reserve /room ROOM /id USER_ID /from BORROW_DATE /to DEADLINE`
+* While loans take effect from the current date to a specified deadline, reservations specify a future time-frame between which a resource is to be loaned out.
+* Quantity must be a positive integer.
+* If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
+* If the item or room does not exist in the inventory, the UI will send an error message to the user.
+* Rooms are unique and thus do not require quantities.
+* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+
+.*Examples*:
+* `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
+* `reserve /room basketball court /from 01/10/2019 2300 /to 03/10/2019 2300`
+
 
 ==== Return resources: `return`
 Registers an item / room as having been returned, and is thus available to be loaned again.
@@ -120,23 +153,6 @@ Registers an item / room as having been returned, and is thus available to be lo
 .*Examples*:
 * `return /item frisbee /qty 3`
 * `return /room seminar room 1`
-
-==== Reserve resources: `reserve`
-Registers an item/room as having been reserved (loaned in advance) from a future date to another future date.
-
-.*Format*:
-. `reserve /item ITEM /qty QUANTITY /from DATE /to DATE`
-. `reserve /room ROOM /from DATE /to DATE`
-* While loans take effect from the current date to a specified deadline, reservations specify a future time-frame for an item to be loaned out.
-* Quantity must be a positive integer.
-* If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
-* If the item or room does not exist in the inventory, the UI will send an error message to the user.
-* Rooms are unique and thus do not require quantities.
-* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
-
-.*Examples*:
-* `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* `reserve /room basketball court /from 01/10/2019 2300 /to 03/10/2019 2300`
 
 ==== View deadline of item/room: `due`
 View which items/rooms are due on a certain date using this command.

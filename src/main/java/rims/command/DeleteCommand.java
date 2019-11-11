@@ -84,7 +84,7 @@ public class DeleteCommand extends Command {
                     "Type in the resource ID(s) (separated by a space for multiple IDs)"
                     + "that you wish to delete:").trim();
             if (idInput.isEmpty()) {
-                throw new RimsException("Please specify the IDs of the resources you wish to delete!");
+                throw new RimsException("Please specify the ID(s) of the resources you wish to delete!");
             }
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
@@ -94,8 +94,15 @@ public class DeleteCommand extends Command {
             ArrayList<Resource> deletedResources = new ArrayList<Resource>();
             for (int j = 0; j < intIdInput.size(); j++) {
                 Resource thisResource = resources.getResourceById(intIdInput.get(j));
+                if (!thisResource.getName().equals(resourceName)) {
+                    throw new RimsException("Please specify an ID that belongs to the " +
+                            "requested resource!");
+                }
+            }
+            for (int k = 0; k < intIdInput.size(); k++) {
+                Resource thisResource = resources.getResourceById(intIdInput.get(k));
                 deletedResources.add(thisResource);
-                resources.deleteResourceById(intIdInput.get(j));
+                resources.deleteResourceById(intIdInput.get(k));
             }
             qty = deletedResources.size();
 
