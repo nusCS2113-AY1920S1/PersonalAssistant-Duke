@@ -68,7 +68,10 @@ Format: `help`
 ==== Tab navigation: `show`, `finance`, `archive`
 Hate clicking? Simply type in the tab headers to achieve fast navigation
 between the various tabs! +
-Format: `show`, `finance`, `archive`
+Format: `finance`, `archive`, `list`
+
+[NOTE]
+Refer to <<Listing shows: `list`>> for more details on `list` command
 
 ==== Exiting the program: `bye`
 Saves all the shows and statuses of the seats within the show list, then exits the program.  +
