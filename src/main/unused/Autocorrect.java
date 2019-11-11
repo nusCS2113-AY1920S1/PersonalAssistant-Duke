@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
+//@@author aquohn
 /**
  * Functions for command autocompletion and autocorrection. Removed as feature could not be completed and made robust
  * within release schedule.

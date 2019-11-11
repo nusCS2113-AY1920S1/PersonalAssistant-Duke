@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+import static duke.DukeCore.logger;
+
 //@@author gowgos5
 /**
  * Main UI window of the application.
@@ -61,6 +63,7 @@ public class MainWindow extends UiElement<Stage> {
      *
      * @param primaryStage Main stage of the application.
      * @param core         Core of Dr. Duke.
+     * @throws DukeFatalException If {@code currentContextWindow} fails to initialise / load.
      */
     public MainWindow(Stage primaryStage, DukeCore core) throws DukeFatalException {
         super(FXML, primaryStage);
@@ -97,6 +100,7 @@ public class MainWindow extends UiElement<Stage> {
      * Updates {@code currentContextWindow} and shows message on the {@code commandWindow}.
      *
      * @param message Output message.
+     * @throws DukeFatalException If the {@code currentContextWindow} to be updated cannot be initialised / loaded.
      */
     public void updateUi(String message) throws DukeFatalException {
         if (currentContextWindow != null) {
@@ -108,6 +112,8 @@ public class MainWindow extends UiElement<Stage> {
 
     /**
      * Initialises and places child UI elements in the main UI window.
+     *
+     * @throws DukeFatalException If the {@code currentContextWindow} to be updated cannot be initialised / loaded.
      */
     private void fillWithChildUiElements() throws DukeFatalException {
         initialiseHelpWindow();
@@ -120,6 +126,8 @@ public class MainWindow extends UiElement<Stage> {
      * The help window provides users with real-time visual feedback on the available commands in each context.
      */
     private void initialiseHelpWindow() {
+        logger.info(UiStrings.LOG_INFO_LAUNCH_HELP);
+
         try {
             helpWindow = new HelpWindow(storage, uiContext);
             helpWindowHolder.getChildren().add(helpWindow.getRoot());
@@ -133,9 +141,12 @@ public class MainWindow extends UiElement<Stage> {
      * The application starts out at the HOME context.
      * The context window changes according to the current {@code uiContext}.
      *
+     * @throws DukeFatalException If the {@code currentContextWindow} to be updated cannot be initialised / loaded.
      * @see #attachListenerToUiContext()
      */
     private void initialiseContextWindow() throws DukeFatalException {
+        logger.info(UiStrings.LOG_INFO_LAUNCH_HOME);
+
         currentContextWindow = new HomeContextWindow(patientList);
         currentTab = new Tab(Context.HOME.toString(), currentContextWindow.getRoot());
         contextWindowHolder.getTabs().add(currentTab);
@@ -146,6 +157,8 @@ public class MainWindow extends UiElement<Stage> {
      * The command window allows users to interact with the application through the sending of commands.
      */
     private void initialiseCommandWindow() {
+        logger.info(UiStrings.LOG_INFO_LAUNCH_COMMAND);
+
         commandWindow = new CommandWindow(parser, executor);
         commandWindow.attachTextListenerToTextField(helpWindow);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
@@ -158,6 +171,8 @@ public class MainWindow extends UiElement<Stage> {
      */
     private void attachListenerToUiContext() {
         uiContext.addListener(event -> {
+            logger.info(UiStrings.LOG_INFO_SWITCH_CONTEXT);
+
             contextWindowHolder.getTabs().remove(currentTab);
 
             Context context = (Context) event.getNewValue();

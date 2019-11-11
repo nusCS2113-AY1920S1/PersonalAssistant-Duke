@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import static duke.DukeCore.logger;
+
 //@@author gowgos5
 /**
  * Class that manages the UI module of Dr. Duke.
@@ -33,12 +35,14 @@ public class UiManager implements Ui {
      */
     @Override
     public void start(Stage primaryStage) {
+        logger.info(UiStrings.LOG_INFO_LAUNCH_UI);
+
         setApplicationIcon(primaryStage);
 
         try {
             showMainWindow(primaryStage);
         } catch (Throwable t) {
-            t.printStackTrace();
+            logger.severe(UiStrings.LOG_ERROR_LAUNCH_UI);
             showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_LAUNCH, t);
         }
     }
@@ -82,6 +86,8 @@ public class UiManager implements Ui {
      */
     @Override
     public void showErrorDialogAndShutdown(String errorTitle, Throwable error) {
+        logger.severe(errorTitle + error.getMessage());
+
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle(errorTitle);
         errorAlert.setHeaderText(error.getMessage());
@@ -103,6 +109,7 @@ public class UiManager implements Ui {
      * Initialises and displays main UI window, {@link MainWindow}, of the application.
      *
      * @param primaryStage Main stage for the application.
+     * @throws DukeFatalException If the {@code mainWindow} fails to load.
      */
     private void showMainWindow(Stage primaryStage) throws DukeFatalException {
         mainWindow = new MainWindow(primaryStage, core);

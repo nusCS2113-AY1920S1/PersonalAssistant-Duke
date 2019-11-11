@@ -52,11 +52,11 @@ public class HomeContextWindow extends ContextWindow {
     }
 
     /**
-     * Fills {@code indexedPatientList} and {@code patientListPanel}.
+     * Fills {@code patientListPanel}.
      */
     private void fillPatientList() throws DukeFatalException {
-
         patientListPanel.getChildren().clear();
+
         for (Patient patient : patientList) {
             PatientCard patientCard = patient.toCard();
             patientCard.setIndex(patientList.indexOf(patient) + 1);
