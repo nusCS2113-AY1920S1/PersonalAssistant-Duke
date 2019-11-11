@@ -167,16 +167,23 @@ When ArchDuke is running, CLIView repeatedly reads the user input line by line, 
 (Controllers) to make sense of the input. Eventually, the controllers will retrieve the relevant messages and
 information for CLIView to display.
 
-// TODO Viewlayer Class Diagram
-// .Structure of the UI Component
-// image::UiClassDiagram.png[]
+.Structure of the UI Component
+image::images/classDiagram/ViewLayer_ClassDiagram.png[]
 
 === 2.2. Controller Layer
 
 ==== 2.2.1. ConsoleInputController
 `ConsoleInputController` is the class which deals with the CRUD functionality for all the projects of the user.
+Upon entry of ArchDuke, the input commands from `CLIview` would be passed to the `ConsoleInputController` to be
+parsed and processed. Subsequently, based on what is interpreted from the user input, the `ConsoleInputController`
+will call the relevant methods from the other classes from the next layer, and returns to `CLIview` either the
+desired data by the user or the success/error messages to inform the user of the result of the input command.
 
 *Rationale for implementation*
+
+The `ConsoleInputController` is meant to process command inputs from the user and subsequently call methods from other
+classes. It mainly allows the user to navigate between the different projects available, to give the user an
+overview of the current projects.
 
 ==== 2.2.2 ProjectInputController
 `ProjectInputController` is the class which deals with the management of a specific project.
@@ -502,7 +509,7 @@ be added into `ReminderList` managed by the project and a successfully or unsucc
 image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 
 .Sequence diagram of `view reminders by list` command
-image::images/sequenceDiagram/ViewReminders_Sequence.png[]
+image::images/sequenceDiagram/ViewReminder_Sequence.png[]
 
 === 3.5. Assignment between Tasks and Members feature
 
@@ -830,19 +837,25 @@ is the `logs` directory.
 
 // Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== 4. Documentation
+== 4. Activity Diagram of ArchDuke
+The following shows the activity diagram illustrating the overarching flow of ArchDuke.
+
+.Activity diagram of ArchDuke
+image::images/activityDiagram/ActivityDiagram.png[]
+
+== 5. Documentation
 We chose to use AsciiDoc writing format to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
 for essential syntax unlike MarkDown.
 
-=== 4.1 Written documentation
+=== 5.1 Written documentation
 The user and developer guide are written and formatted using AsciiDoc.
 
-=== 4.2 Diagrams
+=== 5.2 Diagrams
 Diagrams are drawn and edited using the tool https://www.draw.io/[draw.io].
 The tool provides support for a wide range of UML diagrams, such as class, object and sequence diagrams.
 
 
-== 5. Testing
+== 6. Testing
 
 === Running Tests
 
@@ -872,9 +885,9 @@ e.g. `java.controllers.ProjectInputControllerManageTest`
 e.g. `java.helpertests.AssignmentViewHelperTest`
 
 
-== 6. Dev Ops
+== 7. Dev Ops
 
-=== 6.1 Build Automation
+=== 7.1 Build Automation
 
 ==== About
 Gradle is an open-source build automation tool that automates build-related tasks by running scripts.
@@ -926,7 +939,7 @@ Code style rules can be found in `config/checkstyle/checkstyle.xml`. These can b
 suit the purposes of the project.
 
 
-=== 6.2 Continuous Integration
+=== 7.2 Continuous Integration
 We use Travis CI to perform Continuous Integration (CI) for ArchDuke. Other CI tools can be used so long
 as an appriopriate `.yml` file is provided and the relevant toolchain is set up properly. Some examples are
 
@@ -946,7 +959,7 @@ For ArchDuke, TravisCI is configured to run the following things every time code
 
 Further customization   can be done by referring to Travis documentation online.
 
-=== 6.3 Making a Release
+=== 7.3 Making a Release
 Here are the steps to create a new release.
 
 1. Update the archiveVersion number in `build.gradle` shadowJar section.
