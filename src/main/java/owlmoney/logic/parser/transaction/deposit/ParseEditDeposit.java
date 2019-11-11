@@ -1,9 +1,6 @@
 package owlmoney.logic.parser.transaction.deposit;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.EditDepositCommand;
@@ -14,7 +11,6 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseEditDeposit extends ParseDeposit {
     private static final String EDIT = "/edit";
-    private static final Logger logger = getLogger(ParseEditDeposit.class);
 
     /**
      * Creates an instance of ParseEditDeposit.
@@ -80,6 +76,7 @@ public class ParseEditDeposit extends ParseDeposit {
                 depositParameters.get(AMOUNT_PARAMETER), depositParameters.get(DATE_PARAMETER),
                 depositParameters.get(DESCRIPTION_PARAMETER), Integer.parseInt(depositParameters.get(
                 TRANSACTION_NUMBER_PARAMETER)));
+        logger.info("Successful creation of EditDepositCommand object");
         return newEditDepositCommand;
     }
 }

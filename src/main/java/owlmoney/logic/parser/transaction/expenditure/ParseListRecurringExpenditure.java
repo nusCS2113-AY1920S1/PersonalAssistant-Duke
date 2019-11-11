@@ -1,9 +1,6 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.ListRecurringExpenditureCommand;
@@ -14,7 +11,6 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String LIST = "/list";
-    private static final Logger logger = getLogger(ParseListRecurringExpenditure.class);
 
     /**
      * Creates an instance of ParseListRecurringExpenditure.
@@ -58,6 +54,7 @@ public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
     public Command getCommand() {
         ListRecurringExpenditureCommand newListRecurringExpenditureCommand =
                 new ListRecurringExpenditureCommand(expendituresParameters.get(FROM_PARAMETER), this.type);
+        logger.info("Successful creation of ListRecurringExpenditureCommand object");
         return newListRecurringExpenditureCommand;
     }
 }

@@ -720,6 +720,7 @@ public class Profile {
         String capitalFrom = from.toUpperCase();
         String capitalto = to.toUpperCase();
         if (capitalFrom.equals(capitalto)) {
+            logger.warning("Sender account and receiver account cannot be the same");
             throw new BankException("Sender account and receiver account cannot be the same");
         }
     }

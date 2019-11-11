@@ -27,7 +27,7 @@ interact with
 *OwlMoney* are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use OwlMoney with
 ease.
 
-*OwlMoney* also comes with a minimalistic Command Line Interface (CLI) that presents information in an organized
+*OwlMoney* also comes with a minimalistic design that presents information in an organized
 manner.
 
 Interested in using *OwlMoney* to plan your finances easily?
@@ -69,7 +69,7 @@ Additionally, you may also encounter the following text styles:
 // end::user_guide_common_logo[]
 
 === Navigating Around Our Application
-*OwlMoney* comes with a very clean and easy to use CLI , so don’t worry even if you are a new user!
+*OwlMoney* comes with a very clean and easy to use CLI, so don’t worry even if you are a new user!
 You can expect to navigate around our application with ease!
 
 [[CLI]]
@@ -82,7 +82,7 @@ ifndef::env-github[]
 image::Ui.png[width="970"]
 endif::[]
 
-As long as you have some experience using a command line interface, the moment you type your command and
+As long as you have some experience using a command-line interface, the moment you type your command and
 press kbd:[Enter], the result appears immediately!
 
 
@@ -245,10 +245,7 @@ Take note that there is a maximum of *15* character limit.
 
 |======
 
-
-
-
-// tag::savingsSyntax[]
+// tag::AddSavings[]
 
 ===== Adding savings bank account `/add /savings`
 Before you can add any *expenditures*, you will need to add a savings account first.
@@ -263,7 +260,7 @@ Here's how you can use the `/add /savings` command.
 ====
 A profile needs to be created first before you are eligible to add an account.
 
-A savings account is compulsory as most features in *OwlMoney* requires it.
+A savings account is compulsory as most features in *OwlMoney* require it.
 
 There can only be a maximum of *7* savings account.
 ====
@@ -279,6 +276,7 @@ Adds a savings account named `JunBank Savings Account` which has an initial amou
 of $`218.90` inside with a monthly income of `2000` automatically credited into the account
 every start of the month.
 
+// end::AddSavings[]
 
 ===== Editing savings bank account `/edit /savings`
 
@@ -298,8 +296,6 @@ At least one of `/newname`, `/amount` or `/income` must be used.
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account`
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
-
-// end::savingsSyntax[]
 
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25`
 
@@ -328,8 +324,6 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
 
-// tag::deleteSavings[]
-
 ===== Deleting savings bank account `/delete /savings`
 Closed your savings bank account? You can reflect that on `OwlMoney` as well!
 
@@ -350,6 +344,8 @@ All transactions (e.g. expenditures and deposits) related to the savings account
 image::DeleteSavings.png[Caption="Figure : "]
 
 Deletes a savings account named `JunBank Savings Account`.
+
+// tag::AddBankExpenditure[]
 
 ===== Adding expenditures for savings bank account `/add /bankexpenditure`
 
@@ -375,6 +371,8 @@ image::AddBankExpenditure.png[Caption="Figure : "]
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
 the description of `bubble tea` and category of `Dining`.
+
+// end::AddBankExpenditure[]
 
 ===== Editing expenditures for savings bank account `/edit /bankexpenditure`
 
@@ -404,8 +402,6 @@ image::EditBankExpenditure1.png[Caption="Figure : "]
 
 Edits expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
 
-// end::deleteSavings[]
-
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
 .Successful editing of bank expenditure after using `/edit /bankexpenditure`.
@@ -419,8 +415,6 @@ Edits expenditure `4` that was charged to `JunBank Savings Account` to a new cat
 image::EditBankExpenditure3.png[Caption="Figure : "]
 
 Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
-
-// tag::deleteExpenditure[]
 
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
@@ -444,6 +438,8 @@ image::DeleteBankExpenditure.png[Caption="Figure : "]
 
 Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
 
+// tag::AddDeposit[]
+
 ===== Adding deposit to savings bank account `/add /deposit`
 
 Saved up some spare cash to deposit into your bank account? Record them here!
@@ -460,6 +456,8 @@ Saved up some spare cash to deposit into your bank account? Record them here!
 image::AddDeposit.png[Caption="Figure : "]
 
 Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
+
+// end::AddDeposit[]
 
 ===== Editing deposit details for savings bank account `/edit /deposit`
 
@@ -489,16 +487,12 @@ Edits the `deposit` with transaction number `11` deposited to `JunBank Savings A
 .Successful editing of deposit after using `/edit /deposit`.
 image::EditDeposit1.png[Caption="Figure : "]
 
-// end::deleteExpenditure[]
-
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
 
 .Successful editing of deposit after using `/edit /deposit`.
 image::EditDeposit2.png[Caption="Figure : "]
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
-
-// tag::deleteDeposit[]
 
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
@@ -521,8 +515,6 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 image::DeleteDeposit.png[Caption="Figure : "]
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
-
-// end::deleteDeposit[]
 
 // tag::investment_management[]
 
@@ -1081,7 +1073,7 @@ image::DeleteCardBill.png[Caption="Figure : "]
 // tag::goals[]
 
 ==== Financial Goal Management
-In this section, you'll be introduced to commands and parameters that can get you started
+In this section, you'll be introduced to commands and parameters that can get you started to
 create financial goals to achieve your short and long term goals in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
@@ -1525,14 +1517,14 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 .Successful search of bank transaction by description after using `/find /banktransaction`
 image::FindBankTransaction1.png[Caption="Figure : "]
 
-Finds and lists all transactions that matches the description `bubble tea` charged to `JunBank Savings Account`.
+Finds and lists all transactions that match the description `bubble tea` charged to `JunBank Savings Account`.
 
 * `/find /banktransaction /name JunBank Savings Account /category food`
 
 .Successful search of bank transaction by category after using `/find /banktransaction`
 image::FindBankTransaction2.png[Caption="Figure : "]
 
-Finds and lists all transactions that matches the category `food` from the bank named `JunBank Savings Account`
+Finds and lists all transactions that match the category `food` from the bank named `JunBank Savings Account`
 
 * `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 /to 7/1/2019`
 
@@ -1547,7 +1539,7 @@ Finds and lists all transactions that fall between the date range of `1/1/2019` 
 .Successful search of bank transaction by description, category and date range after using `/find /banktransaction`
 image::FindBankTransaction4.png[Caption="Figure : "]
 
-Finds and lists all transactions that matches any one of the categories:
+Finds and lists all transactions that match any one of the categories:
 
 * ACCOUNT_NAME -> JunBank Savings Account | DESCRIPTION -> bubble tea
 
@@ -1597,7 +1589,7 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 .Successful search of card transaction by description after using `/find /cardtransaction`
 image::FindCardTransaction1.png[Caption="Figure : "]
 
-Finds and list all transactions that matches with the description `bubble tea` from the credit card named `POBB
+Finds and list all transactions that match with the description `bubble tea` from the credit card named `POBB
 Tomorrow Card`
 
 * `/find /cardtransaction /name POBB Tomorrow Card /category food`
@@ -1605,7 +1597,7 @@ Tomorrow Card`
 .Successful search of card transaction by category after using `/find /cardtransaction`
 image::FindCardTransaction2.png[Caption="Figure : "]
 
-Finds and lists all transactions that matches the category `food` from the credit card named `POBB Tomorrow Card`
+Finds and lists all transactions that match the category `food` from the credit card named `POBB Tomorrow Card`
 
 * `/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019`
 
@@ -1619,7 +1611,7 @@ Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7
 .Successful search of card transaction by description, category and date range after using `/find /cardtransaction`
 image::FindCardTransaction4.png[Caption="Figure : "]
 
-Finds and lists all transactions that matches any one of the categories:
+Finds and lists all transactions that match any one of the categories:
 
 * CARD_NAME -> POBB Tomorrow Card | DESCRIPTION -> bubble tea
 
@@ -1669,21 +1661,21 @@ At least one of `/desc` or `/category` must be used.
 .Successful search of recurring expenditure by description after using `/find /recurbankexp`
 image::FindRecur1.png[Caption="Figure : "]
 
-Finds and lists all recurring expenditures that matches the description `spotif` within `JunBank Savings Account`.
+Finds and lists all recurring expenditures that match the description `spotif` within `JunBank Savings Account`.
 
 * `/find /recurbankexp /name JunBank Savings Account /category bills`
 
 .Successful search of recurring expenditure by category after using `/find /recurbankexp`
 image::FindRecur2.png[Caption="Figure : "]
 
-Finds and lists all recurring expenditures that matches the category `bills` within `JunBank Savings Account`
+Finds and lists all recurring expenditures that match the category `bills` within `JunBank Savings Account`
 
 * `/find /recurbankexp /name JunBank Savings Account /desc spotif /category bills`
 
 .Successful search of recurring expenditure by description and category after using `/find /recurbankexp`
 image::FindRecur3.png[Caption="Figure : "]
 
-Finds and lists all recurring expenditures that matches any one of the categories:
+Finds and lists all recurring expenditures that match any one of the categories:
 
 * ACCOUNT_NAME -> JunBank Savings Account | DESCRIPTION -> spotif
 
@@ -1842,7 +1834,7 @@ Thinking of transferring money between different accounts? We can do that too.
 
 [TIP]
 ====
-*OwlMoney* provides you to the flexibility to transfer funds between different account types. (e.g. Savings to
+*OwlMoney* provides you with the flexibility to transfer funds between different account types. (e.g. Savings to
 investment and vice-versa)
 ====
 
@@ -1864,8 +1856,6 @@ image::Transferfund2.png[Caption="Figure : "]
 Transfers $`250` from `DBB Vickers Account` (investment account) to `JunBank Savings Account` (savings account) on
 `1/1/2019`
 .
-
-// tag::recurringExpenditureSyntax[]
 
 ==== Recurring expenditures management
 
@@ -1911,6 +1901,8 @@ Take note that there is a maximum of *15* character limit.
 
 |======
 
+// tag::AddRecurringExpenditure[]
+
 ===== Adding recurring expenditures `/add /recurbankexp`
 
 Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
@@ -1927,8 +1919,9 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 image::AddRecurringExpenditure.png[Caption="Figure : "]
 
 Adds a recurring expenditure that deducts $`72.90` every *1st* of the month to pay `Telco Bills` charged to `JunBank
-Savings
-Account` categorised under the `Bills` category.
+Savings Account` categorised under the `Bills` category.
+
+// end::AddRecurringExpenditure[]
 
 ===== Editing recurring expenditure `/edit /recurbankexp`
 
@@ -1973,8 +1966,6 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 
 Deletes a recurring expenditure from `JunBank Savings Account` with transaction number `1`.
 
-// end::recurringExpenditureSyntax[]
-
 ==== Updating profile
 
 Have some recurring transactions which have not been reflected yet? You can update your profile!
@@ -2006,12 +1997,12 @@ paying for the coverage.
 *A*: You do not need to save the data manually. Whenever you run any commands that make changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
-*Q*: Can I edit the data stored in the files of `data` directory? +
+*Q*: Can I edit the data stored in the files of the `data` directory? +
 *A*: Yes you *MAY* do it! However, you *RISK* corrupting *YOUR DATA* if you enter malformed inputs as *OwlMoney*
 *TRUSTS* the modifications you make to the files. This is *NOT A BUG* and is designed as it is. *OwlMoney* *MAY NOT*
 function optimally if malformed inputs are loaded in from corrupted save files.
 
-*Q*: How do I edit the data stored in the files of `data` directory? +
+*Q*: How do I edit the data stored in the files of the `data` directory? +
 *A*: We recommend you *NOT* to use *Microsoft Excel* to perform your edits because it modifies the formatting of the
 `.csv` file. Therefore, use alternative tools like *Notepad++* to perform your edits.
 The data in the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
@@ -2019,8 +2010,8 @@ it! As long as you follow the constraints set out for each `PARAMETER` as mentio
 should be fine!
 
 *Q*: Does *OwlMoney* support other languages or locales? +
-*A*: *OwlMoney* currently *DOES NOT* support other languages or locales other than english. If your *system language
-is not english*, please change it before launching *OwlMoney* as we will not guarantee the smooth performance of
+*A*: *OwlMoney* currently *DOES NOT* support languages or locales other than English. If your *system language
+is not English*, please change it before launching *OwlMoney* as we will not guarantee the smooth performance of
 *OwlMoney* in other environments.
 
 == Command Summary
@@ -2245,7 +2236,7 @@ AMOUNT] [/date DATE]`
 
 |======
 |*Task*| *Purpose* | *Command Format* | *Example*
-| *Listing general details of profile*
+| *Listing general details of the profile*
 | List the general details of the bank accounts, cards or goals in the profile.
 | `/list /savings`
 
@@ -2268,7 +2259,7 @@ AMOUNT] [/date DATE]`
 `/list /achievement`
 
 
-| *Listing specific details of cards, accounts, bonds etc.*
+| *Listing specific details of cards, accounts, bonds, etc.*
 | List the general specific details of cards, accounts, bonds etc.
 | `/list /bonds /from ACCOUNT_NAME [/num NUMBER]`
 
@@ -2293,8 +2284,8 @@ AMOUNT] [/date DATE]`
 
 
 
-| *Finding bank accounts or cards that matches with the keyword specified by the user*
-| List the bank accounts or cards that matches with the keyword specified.
+| *Finding bank accounts or cards that match with the keyword specified by the user*
+| List the bank accounts or cards that match with the keyword specified.
 | `/find /savings /name ACCOUNT_NAME`
 
 `/find /investment /name ACCOUNT_NAME`
@@ -2307,14 +2298,14 @@ AMOUNT] [/date DATE]`
 
 `/find /card /name POBB`
 
-| *Finding investment bonds within a specified investment account that matches with the keyword specified by the user*
-| List the bonds' details within a specified investment account that matches with the keyword specified.
+| *Finding investment bonds within a specified investment account that match with the keyword specified by the user*
+| List the bonds' details within a specified investment account that match with the keyword specified.
 | `/find /bonds /name BOND_NAME /from ACCOUNT_NAME`
 | `/find /bonds /name SSB /from DBB Vickers Account`
 
-| *Finding transaction records within a specified bank account or card that matches with the keyword specified by the
+| *Finding transaction records within a specified bank account or card that match with the keyword specified by the
 user*
-| List the transaction records within a specified bank account or card that matches with the keyword specified.
+| List the transaction records within a specified bank account or card that match with the keyword specified.
 | `/find /banktransaction /name ACCOUNT_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
 
 `/find /cardtransaction /name CARD_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
@@ -2323,9 +2314,10 @@ user*
 
 `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
 
-| *Finding recurring expenditure records within a specified savings account account that matches with the keyword
+=======
+| *Finding recurring expenditure records within a specified savings account that matches with the keyword
 specified by the user*
-| List the recurring expenditure records within a specified savings account that matches with the keyword specified.
+| List the recurring expenditure records within a specified savings account that match with the keyword specified.
 | `/find /recurbankexp /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY]`
 | `/find /recurbankexp /name JunBank Savings Account /desc bubble tea /category food`
 
@@ -2350,7 +2342,7 @@ specified by the user*
 | `/delete /recurexpenditure /from JunBank Savings Account /transno 1`
 
 | *Update outdated profile*
-| Checks all recurring transactions and update the profile if needed.
+| Checks all recurring transactions and updates the profile if needed.
 
 This includes income, recurring expenditures, interests from bonds.
 

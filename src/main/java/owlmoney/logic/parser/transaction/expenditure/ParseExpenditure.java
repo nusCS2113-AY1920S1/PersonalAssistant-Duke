@@ -36,7 +36,7 @@ public abstract class ParseExpenditure {
         CATEGORY_PARAMETER, FROM_PARAMETER, TRANSACTION_NUMBER_PARAMETER, NUM_PARAMETER
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
-    private static final Logger logger = getLogger(ParseExpenditure.class);
+    static final Logger logger = getLogger(ParseExpenditure.class);
 
     /**
      * Creates an instance of any ParseExpenditure type object.
