@@ -782,6 +782,12 @@ public class UI {
         System.out.println(lineSeparation);
     }
 
+    /**
+     * Prints when a goal updated.
+     * @param events The events list.
+     * @param eventID The event ID.
+     * @param goalID The goal ID.
+     */
     public void printGoalUpdated(EventList events, int eventID, int goalID) {
         System.out.println(lineSeparation);
         System.out.println("Ok, the goal has been updated to: ");
@@ -789,6 +795,10 @@ public class UI {
         System.out.println(lineSeparation);
     }
 
+    /**
+     * Prints when a goal set as achieved.
+     * @param goal The goal.
+     */
     public void printGoalSetAsAchieved(Goal goal) {
         System.out.println(lineSeparation);
         System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
@@ -796,23 +806,37 @@ public class UI {
         System.out.println(lineSeparation);
     }
 
+    /**
+     * Prints when trying to set as achieved but achieved already.
+     */
     public void printGoalAlreadyAchieved() {
         System.out.println(lineSeparation);
         System.out.println("Your goal for that event has already been achieved!");
         System.out.println(lineSeparation);
     }
 
+    /**
+     * Prints when no such goal.
+     */
     public void printNoSuchGoal() {
         System.out.println(lineSeparation);
         System.out.println("Sorry, the specified goal does not exist!");
         System.out.println(lineSeparation);
     }
 
+    /**
+     * Prints when entered event is already over.
+     */
     public void printEnteredEventOver() {
         System.out.println("Reminder: the event you have added has a start date that is already over and hence won't be displayed in the list. You may still view it by" +
                 " using the view schedules command.");
     }
 
+    /**
+     * Prints when viewing events of a specific date.
+     * @param foundEvents The events found.
+     * @param isFound Whether the event is found.
+     */
     public void printEventsOnASpecificDate(ArrayList<String> foundEvents, boolean isFound) {
         if (isFound) {
             System.out.println(lineSeparation);
