@@ -30,13 +30,13 @@ The following sections will summarize my contributions to the implementation of 
 
 == Summary of contributions
 
-.*Provided base code for majority of the program*
+- *Provided base code for majority of the program*
 
 * Created the core classes required for accepting and processing user input, managing resources in the inventory, loading the current status of resources and reservations from the disk, and writing the logic for the program, which are fundamental for operation of the RIMS program
 * Created the basic structure for all implemented commands, along with providing the basic implementation for adding and deleting resources, creating a user-viewable list of resources, and loaning and returning resources
 * The features present in the RIMS program are all extensions of these core classes and commands  
 
-.*Major enhancement: added the ability to loan out and reserve items and rooms*
+- *Major enhancement: added the ability to loan out and reserve items and rooms*
 
 * What it does: 
 ** The `loan` command allows the user to temporarily loan out a resource in the organisation’s inventory to a requester, from the time the loan request is registered in the RIMS program, to a user-specified date of return. 
@@ -49,7 +49,7 @@ The following sections will summarize my contributions to the implementation of 
 ** The implementation of this feature was challenging due to the need to check the availability of the resource being requested.
 ** The inventory had to be searched to check whether there was enough of that resource in the inventory to meet the requester’s demand, and whether those resources had not already been reserved for another requester.
 
-.*Major enhancement: added a reminder of all resources that are due soon or overdue for return*
+- *Major enhancement: added a reminder of all resources that are due soon or overdue for return*
 
 * What it does:
 ** When RIMS is started up, the program creates a list of loaned-out resources that are either due for return within 3 days, or overdue for return.
@@ -61,20 +61,20 @@ The following sections will summarize my contributions to the implementation of 
 ** The enhancement will be able to work with future changes to code and new features to be added.
 ** The enhancement also features an `[OVERDUE]` tag to distinguish resources that are already overdue, from resources that are due soon but not overdue yet.
 
-.*Minor enhancement: allowing the return of multiple items simultaneously*
+- *Minor enhancement: allowing the return of multiple items simultaneously*
 
 ** Each requester has a unique ID by which they are identified
 ** When the command to return an item is called in the RIMS program, the program first asks for the ID of the requester who is returning their item
 ** The program then lists all the reservations and loans that have been made by that user, allowing them to select multiple reservations/loans to return simultaneously
 
-.*Code contributed:* 
+- *Code contributed:* 
 
 ** https://github.com/AY1920S1-CS2113T-W12-1/main/tree/master/src/main/java/rims/core[Functional code - Core classes] 
 ** https://github.com/AY1920S1-CS2113T-W12-1/main/tree/master/src/main/java/rims/command[Functional code - Command classes]
 ** [Test code]
 ** The links in square brackets [ ] contain samples of my code.
 
-.*Other contributions:*
+- *Other contributions:*
 
 ** Project management:
 *** Managed releases v1.3 and v1.4 on GitHub
