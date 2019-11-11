@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>duke.fridge.Fridge</OriginalElement>
+  <nodes>
+    <node x="37.0" y="0.0">duke.ingredient.Ingredient</node>
+    <node x="0.0" y="257.0">duke.fridge.Fridge</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="duke.fridge.Fridge" target="duke.ingredient.Ingredient">
+      <point x="-72.75" y="-158.5" />
+      <point x="72.75" y="232.0" />
+      <point x="91.25" y="232.0" />
+      <point x="-54.25" y="103.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0904024767801856" x="209.90086910464152" y="286.767461669506" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
