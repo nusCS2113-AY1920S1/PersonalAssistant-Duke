@@ -52,7 +52,7 @@ class ScheduleCommandTest {
     }
 
     @Test
-    void testScheduleException() throws MooMooException, IOException {
+    void testScheduleException() throws IOException {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 

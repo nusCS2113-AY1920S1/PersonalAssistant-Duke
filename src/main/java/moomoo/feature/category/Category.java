@@ -8,8 +8,8 @@ public class Category {
     private static final String DATE = "date";
     private static final String NAME = "name";
     private static final String COST = "cost";
-    private String categoryName;
     private ArrayList<Expenditure> category;
+    private String categoryName;
     private String sortOrder;
 
     /**
@@ -17,8 +17,8 @@ public class Category {
      * @param name category name
      */
     public Category(String name) {
-        this.categoryName = name;
         this.category = new ArrayList<>();
+        this.categoryName = name;
         this.sortOrder = DATE;
     }
 
@@ -85,9 +85,12 @@ public class Category {
      * Return the expenditure with the largest value.
      * @return expenditure The value of the largest expenditure
      */
-    public double getLargestExpenditure() {
+    public double getLargestExpenditure(int month, int year) {
         double expenditure = 0;
         for (Expenditure exp : category) {
+            if (exp.getDate().getMonthValue() != month || exp.getDate().getYear() != year) {
+                continue;
+            }
             if (exp.getCost() > expenditure) {
                 expenditure = exp.getCost();
             }

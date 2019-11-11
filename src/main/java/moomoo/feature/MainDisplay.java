@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.text.DecimalFormat;
 
-
 public class MainDisplay {
 
     private static DecimalFormat df = new DecimalFormat("0.00");
@@ -28,24 +27,44 @@ public class MainDisplay {
     private static final String BORDER_LEFT = "|                   |";
     private static final String MONTH_LEFT = "|Month: ";
     private static final String YEAR_LEFT = "|Year: ";
-    private static final String BUDGET_LEFT = "|" + ANSI_CYAN + "Budget" + ANSI_RESET + ":            |";
-    private static final String SAVINGS_LEFT = "|" + ANSI_YELLOW + "Savings" + ANSI_RESET + ":           |";
-    private static final String TOTAL_LEFT = "|" + ANSI_GREEN + "Total" + ANSI_RESET + ":             |";
-    private static final String MISC_TITLES = "|" + TOP_BORDERRIGHT + ".\n"
+
+    private static final String BUDGET_LEFTOS = "|" + ANSI_CYAN + "Budget" + ANSI_RESET + ":            |";
+    private static final String SAVINGS_LEFTOS = "|" + ANSI_YELLOW + "Savings" + ANSI_RESET + ":           |";
+    private static final String TOTAL_LEFTOS = "|" + ANSI_GREEN + "Total" + ANSI_RESET + ":             |";
+    private static final String MISC_TITLESOS = "|" + TOP_BORDERRIGHT + ".\n"
             + BORDER_LEFT + "misc                      |\n"
             + BORDER_LEFT + TOP_BORDERRIGHT + ".\n"
             + BORDER_LEFT + "              |           |\n"
             + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n"
-            + TOTAL_LEFT + "                          |\n"
+            + TOTAL_LEFTOS + "                          |\n"
             + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n"
-            + BUDGET_LEFT + "                          |\n"
+            + BUDGET_LEFTOS + "                          |\n"
             + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n"
-            + SAVINGS_LEFT + "                          |\n"
+            + SAVINGS_LEFTOS + "                          |\n"
             + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n";
+
+    private static final String BUDGET_LEFTWIN = "|" + "Budget" + ":            |";
+    private static final String SAVINGS_LEFTWIN = "|" + "Savings" + ":           |";
+    private static final String TOTAL_LEFTWIN = "|" + "Total" + ":             |";
+    private static final String MISC_TITLESWIN = "|" + TOP_BORDERRIGHT + ".\n"
+            + BORDER_LEFT + "misc                      |\n"
+            + BORDER_LEFT + TOP_BORDERRIGHT + ".\n"
+            + BORDER_LEFT + "              |           |\n"
+            + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n"
+            + TOTAL_LEFTWIN + "                          |\n"
+            + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n"
+            + BUDGET_LEFTWIN + "                          |\n"
+            + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n"
+            + SAVINGS_LEFTWIN + "                          |\n"
+            + TOP_BORDERLEFT + TOP_BORDERRIGHT + ".\n";
+
+
 
     public MainDisplay() {
 
     }
+
+
 
     /**
      * This function is called when user specifies a month and year.
@@ -143,7 +162,7 @@ public class MainDisplay {
      * @param budget budget stores all the individual budgets of each categories
      * @return returns a string to be printed out as the main display
      */
-    public String newToPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget)
+    public String newToPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget, int t)
             throws MooMooException {
         String output = "";
 
@@ -166,19 +185,31 @@ public class MainDisplay {
                 for (int i = 0; i <= 9; i++) {
                     blankSpaceYr += " ";
                 }
-                output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
-                        + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
-                        + "All" + blankSpaceYr + MISC_TITLES;
-            } else {                                //  Case 2: View Specific Month -> Default Misc
+                if (t == 0) {
+                    output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
+                            + "All" + blankSpaceYr + MISC_TITLESOS;
+                } else if (t == 1) {
+                    output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + "Categories" + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
+                            + "All" + blankSpaceYr + MISC_TITLESWIN;
+                }
+            } else {          //  Case 2: View Specific Month -> Default Misc
                 for (int i = 0; i <= 11 - monthsInYear[month - 1].length(); i++) {
                     blankSpaceMth += " ";
                 }
                 for (int i = 0; i <= 8; i++) {
                     blankSpaceYr += " ";
                 }
-                output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
-                        + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
-                        + year + blankSpaceYr + MISC_TITLES;
+                if (t == 0) {
+                    output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
+                            + year + blankSpaceYr + MISC_TITLESOS;
+                } else if (t == 1) {
+                    output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + "Categories" + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
+                            + year + blankSpaceYr + MISC_TITLESWIN;
+                }
             }
         } else {            // Scenario where there are Categories in the specified periods
             output += TOP_BORDERLEFT + openCloseLines + "\n";
@@ -190,8 +221,13 @@ public class MainDisplay {
                 for (int i = 0; i <= 9; i++) {
                     blankSpaceYr += " ";
                 }
-                output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
-                        + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
+                if (t == 0) {
+                    output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
+                } else if (t == 1) {
+                    output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + "Categories" + ">";
+                }
 
                 if (cols % 2 == 0) {
                     String blankSpaceTemp = blankSpaceCat;
@@ -219,7 +255,11 @@ public class MainDisplay {
                             blankSpaceCat += " ";
                         }
                     }
-                    output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
+                    if (t == 0) {
+                        output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
+                    } else if (t == 1) {
+                        output += catName + blankSpaceCat + "|";
+                    }
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
 
@@ -260,7 +300,11 @@ public class MainDisplay {
                     output += "\n";
                 }
                 output += TOP_BORDERLEFT + openCloseLines + "\n";
-                output += TOTAL_LEFT;
+                if (t == 0) {
+                    output += TOTAL_LEFTOS;
+                } else if (t == 1) {
+                    output += TOTAL_LEFTWIN;
+                }
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceTot = "";
                     String totString = df.format(categoryList.get(i).getOverallAmount());
@@ -275,7 +319,11 @@ public class MainDisplay {
                 }
 
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                output += BUDGET_LEFT;
+                if (t == 0) {
+                    output += BUDGET_LEFTOS;
+                } else if (t == 1) {
+                    output += BUDGET_LEFTWIN;
+                }
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceBud = "";
                     String budName = df.format(budget.getBudgetFromCategory(categoryList.get(i).name()));
@@ -291,7 +339,11 @@ public class MainDisplay {
                 }
 
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                output += SAVINGS_LEFT;
+                if (t == 0) {
+                    output += SAVINGS_LEFTOS;
+                } else if (t == 1) {
+                    output += SAVINGS_LEFTWIN;
+                }
 
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceSav = "";
@@ -307,7 +359,11 @@ public class MainDisplay {
                         }
                     }
                     if (sav < 0) {
-                        output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
+                        if (t == 0) {
+                            output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
+                        } else if (t == 1) {
+                            output += "$" + savString + blankSpaceSav + "|";
+                        }
                     } else {
                         output += "$" + savString + blankSpaceSav + "|";
                     }
@@ -341,8 +397,13 @@ public class MainDisplay {
                     newCategoryList.put(categoryList.get(i).name(), stringList);
                 }
 
-                output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
-                        + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
+                if (t == 0) {
+                    output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
+                } else if (t == 1) {
+                    output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
+                            + "<" + "Categories" + ">";
+                }
 
                 if (cols % 2 == 0) {
                     String blankSpaceTemp = blankSpaceCat;
@@ -369,7 +430,11 @@ public class MainDisplay {
                             blankSpaceCat += " ";
                         }
                     }
-                    output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
+                    if (t == 0) {
+                        output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
+                    } else if (t == 1) {
+                        output += catName + blankSpaceCat + "|";
+                    }
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
 
@@ -412,7 +477,6 @@ public class MainDisplay {
                             }
 
                             output += expenditureName + blankSpaceExp + "|"
-                                    //+ ANSI_GREEN + "$" + ANSI_RESET
                                     + "$"
                                     + amountString + blankSpaceCost + "|";
                         } else {
@@ -425,7 +489,11 @@ public class MainDisplay {
 
                 // Prints out the line that contains all the total cost for each category
                 output += TOP_BORDERLEFT + openCloseLines + "\n";
-                output += TOTAL_LEFT;
+                if (t == 0) {
+                    output += TOTAL_LEFTOS;
+                } else if (t == 1) {
+                    output += TOTAL_LEFTWIN;
+                }
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceTot = "";
                     int totalLen = df.format(categoryList.get(i).getTotal(month, year)).length();
@@ -442,7 +510,11 @@ public class MainDisplay {
 
                 // Prints out the line that contains all the budgets for each category
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                output += BUDGET_LEFT;
+                if (t == 0) {
+                    output += BUDGET_LEFTOS;
+                } else if (t == 1) {
+                    output += BUDGET_LEFTWIN;
+                }
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceBud = "";
                     String budName = df.format(budget.getBudgetFromCategory(categoryList.get(i).name()));
@@ -459,7 +531,11 @@ public class MainDisplay {
 
                 // Prints out the line that contains all the savings for each category
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                output += SAVINGS_LEFT;
+                if (t == 0) {
+                    output += SAVINGS_LEFTOS;
+                } else if (t == 1) {
+                    output += SAVINGS_LEFTWIN;
+                }
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceSav = "";
                     double tot = categoryList.get(i).getTotal(month, year);
@@ -474,7 +550,11 @@ public class MainDisplay {
                         }
                     }
                     if (sav < 0) {
-                        output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
+                        if (t == 0) {
+                            output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
+                        } else if (t == 1) {
+                            output += "$" + savString + blankSpaceSav + "|";
+                        }
                     } else {
                         output += "$" + savString + blankSpaceSav + "|";
                     }
