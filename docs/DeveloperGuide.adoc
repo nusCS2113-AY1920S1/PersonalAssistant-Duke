@@ -429,7 +429,7 @@ Given below is an example usage scenario and how the add sale command works.
 
 *Step 4.* `ModelManager#AddSale()` is called which in turn calls `BakingHome#AddSale()` and passes the created `Sale` object into the `UniqueEntityList` `sales`. At the same time, the `FilteredSaleList` is updated with the predicate `PREDICATE_SHOW_ALL_SALES` which as the name suggests, is used to display every sale entry.
 
-==== Design Consideration
+==== Design Considerations
 
 * Alternative 1 (current implementation): Store all sale entries in an observable list in BakingHome and keep a FilteredList in ModelManager.
 ** Pros: Implementation is clearer and code is more readable.
