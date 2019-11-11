@@ -22,8 +22,8 @@ Role: Project Advisor
 image::sallysohyun.png[width="150", align="left"]
 {empty}[http://github.com/sallysohyun[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: Developer
+Role: Developer +
+Responsibilities: Features
 
 '''
 
@@ -32,7 +32,7 @@ image::priyan-coder.png[width="150", align="left"]
 {empty}[http://github.com/priyan-coder[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Developer
+Responsibilities: Features
 
 '''
 
@@ -41,7 +41,7 @@ image::ajeyashok.png[width="150", align="left"]
 {empty}[http://github.com/AjeyAshok[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Developer
+Responsibilities: Features
 
 '''
 
@@ -50,7 +50,7 @@ image::araavinds.png[width="150", align="left"]
 {empty}[http://github.com/Araavinds[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Developer
+Responsibilities: Features
 
 '''
 
@@ -58,8 +58,8 @@ Responsibilities: Developer
 image::mudaafi.png[width="150", align="left"]
 {empty}[http://github.com/Mudaafi[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Developer
+Role: Team Lead +
+Responsibilities: Dev Ops + Ui 
 
 '''
 
