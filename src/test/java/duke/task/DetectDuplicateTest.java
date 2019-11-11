@@ -23,12 +23,12 @@ public class DetectDuplicateTest {
         Command cmd = new DuplicateFoundCommand();
         Task task2 = new Todo("homework");
         items.add(task2);
-        if (detectDuplicate.isDuplicate("todo", "homework")) {
+        if (detectDuplicate.isDuplicate("homework")) {
             assertEquals("     The same task is already in the list!", cmd.executeGui(items,ui));
         }
         Task task3 = new Todo("project work");
         items.add(task3);
-        if (detectDuplicate.isDuplicate("todo", "project work")) {
+        if (detectDuplicate.isDuplicate("project work")) {
             assertEquals("[T][X] project work", task3.toString());
         }
     }

@@ -34,6 +34,7 @@ public class TaskList {
      */
     public void add(Task taskObj) {
         items.add(taskObj);
+        System.out.println(taskObj);
     }
 
     /**

@@ -21,21 +21,15 @@ public class DetectDuplicate {
     /**
      * Checks if the input is already in the list.
      *
-     * @param command Type of task keyed in.
-     * @param description The input keyed in by the user.
+     * @param description The description of the task.
      * @return Boolean that states if the input is a duplicate.
      */
-    public boolean isDuplicate(String command, String description) {
-        if ("todo".equals(command) || "fixedduration".equals(command)
-                || "deadline".equals(command) || "update".equals(command)) {
-            for (int i = Numbers.ZERO.value; i < items.size(); i++) {
-                if (items.get(i).isContain(description)) {
-                    //contains, is implemented in Task.java
-                    return true;
-                }
+    public boolean isDuplicate(String description) {
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+            if (items.get(i).isContain(description)) {
+                //contains, is implemented in Task.java
+                return true;
             }
-        } else {
-            return false;
         }
         return false;
     }
