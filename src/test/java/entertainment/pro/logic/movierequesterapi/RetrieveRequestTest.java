@@ -35,7 +35,7 @@ public class RetrieveRequestTest {
     private static final String VALID_MOVIE_CERT_FILENAME2 = "/data/ValidMovieCertFile2";
     private static final String VALID_TV_CERT_FILENAME1 = "/data/ValidTVCertFile1.json";
     private static final String VALID_TV_CERT_FILENAME2 = "/data/ValidTVCertFile2.json";
-    private static final String INVALID_MOVIE_CERT_FILENAME1 = "/data/InValidMovieCertFile1";
+    private static final String INVALID_MOVIE_CERT_FILENAME1 = "/data/InvalidMovieCertFile1";
     private static final String INVALID_TV_CERT_FILENAME1 = "/data/InValidTVCertFile1";
     private static String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
     private static String SEARCH_PROFILE_FILEPATH = "/data/SearchProfileTest/";
