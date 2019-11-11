@@ -30,6 +30,7 @@ public class ShowGeTest extends InputTest {
             "_______________________________\n"
             +
             "_______________________________\n";
+    private String inputModule = "add module ges1012";
 
     @DisplayName("show ge test")
     @Test
