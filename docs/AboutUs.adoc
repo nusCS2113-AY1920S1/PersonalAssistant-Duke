@@ -12,46 +12,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Tran Quang Thanh
-image::tran-quang-thanh.png[width="150", align="left"]
+image::developers\tran-quang-thanh.png[width="150", align="left"]
 {empty}[https://github.com/tran-quang-thanh[github]] 
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities: Testing, Issues Management
 
 '''
 
 === Cheng Pai Kai 
-image::kevin996231.png[width="150", align="left"]
+image::developers\kevin996231.png[width="150", align="left"]
 {empty}[https://github.com/kevin996231[github]] 
 
 Role: Developer +
-Responsibilities: Code quality
+Responsibilities: Code quality, Testing
 
 '''
 
 === Zhang Yue Han
-image::tessa-z.png[width="150", align="left"]
+image::developers\tessa-z.png[width="150", align="left"]
 {empty}[https://github.com/tessa-z[github]] 
 
 Role: Developer +
-Responsibilities: Scheduling and tracking, Documentation
+Responsibilities: Documentation, Milestone Management, Testing
 
 '''
 
 === Ng Jian Wei
-image::njw95.png[width="150", align="left"]
+image::developers\njw95.png[width="150", align="left"]
 {empty}[https://github.com/njw95[github]] 
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Integration, Documentation
 
 '''
 
 === Hsu Hui Neng
-image::chelsea148629.png[width="150", align="left"]
+image::developers\chelsea148629.png[width="150", align="left"]
 {empty}[https://github.com/chelsea148629[github]] 
 
 Role: Developer +
-Responsibilities: Documentation
+Responsibilities: Documentation, Testing
 
 '''
