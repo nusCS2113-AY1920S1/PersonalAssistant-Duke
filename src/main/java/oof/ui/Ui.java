@@ -225,20 +225,6 @@ public class Ui {
     }
 
     /**
-     * Prints all tasks scheduled on the provided date.
-     *
-     * @param scheduledTasks List of all Tasks scheduled on the date provided.
-     * @param date           Date parameter provided by user.
-     */
-    public void printTasksByDate(TaskList scheduledTasks, String date) {
-        printLine();
-        System.out.println(" Here are your tasks for " + date + ": ");
-        for (int i = 0; i < scheduledTasks.getSize(); i++) {
-            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.getTask(i));
-        }
-    }
-
-    /**
      * Prints list of matching tasks.
      *
      * @param matchedTasks ArrayList containing matching tasks.
@@ -277,27 +263,6 @@ public class Ui {
         for (int i = 0; i < arr.getSize(); i++) {
             System.out.println(" \t" + (i + 1) + ". " + arr.getTask(i));
         }
-    }
-
-    /**
-     * Prints and applies format for command list available to user.
-     */
-    public void printHelpCommands() throws FileNotFoundException {
-        ArrayList<String> commands = storageManager.readManual();
-        printLine();
-        for (String command : commands) {
-            System.out.println(" \t" + command);
-        }
-    }
-
-    /**
-     * Prints instruction related to individual command available to user.
-     *
-     * @param command instruction of command given by user.
-     */
-    public void printHelpCommand(String command) {
-        printLine();
-        System.out.println(" \t" + command);
     }
 
     //@@author jasperosy
@@ -591,100 +556,6 @@ public class Ui {
                 System.out.println();
             }
         }
-    }
-
-    /**
-     * Print Tracker Diagram from TrackerList object.
-     *
-     * @param moduleTrackerList ArrayList of Tracker objects.
-     */
-    public void printTrackerDiagram(ArrayList<Tracker> moduleTrackerList, long totalTimeTaken) {
-        printLine();
-        for (int i = 0; i < moduleTrackerList.size(); i++) {
-            Tracker moduleTracker = moduleTrackerList.get(i);
-            int timeTaken = (int) moduleTracker.getTimeTaken();
-            if (timeTaken < SEGMENT_SIZE) {
-                System.out.print("|\n| ");
-            } else {
-                int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
-                printTrackerDiagramBar(segmentedTimeTaken);
-            }
-            String moduleCode = moduleTracker.getModuleCode();
-            System.out.println("\t" + moduleCode + " -- " + timeTaken + " minutes");
-        }
-        printLine();
-        System.out.println("Total Time: " + totalTimeTaken + " minutes");
-    }
-
-    /**
-     * Print a bar of Tracker Diagram according to number of 10 minute blocks.
-     *
-     * @param segmentedTimeTaken number of 10 minute blocks.
-     */
-    private void printTrackerDiagramBar(int segmentedTimeTaken) {
-        for (int i = 0; i < segmentedTimeTaken; i++) {
-            if (i == FIRST_VAR) {
-                System.out.println("| ");
-                System.out.print("| #");
-            } else {
-                System.out.print("#");
-            }
-        }
-    }
-
-    /**
-     * Print when Start Tracker Command is completed.
-     *
-     * @param tracker  description of Tracker object.
-     * @param taskList TaskList object.
-     */
-    public void printStartAtCurrent(Tracker tracker, TaskList taskList) {
-        printLine();
-        String moduleCode = tracker.getModuleCode().toUpperCase();
-        int index = tracker.getTaskIndex();
-        Task task = taskList.getTask(index);
-        String taskDescription = task.getDescription();
-        System.out.println("Begin Task: " + taskDescription);
-        System.out.println("Module Code: " + moduleCode);
-        System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Current total time spent on " + taskDescription + ": "
-                + tracker.getTimeTaken() + " minutes");
-    }
-
-    /**
-     * Print when Stop Tracker Command is completed.
-     *
-     * @param tracker  description of Tracker object.
-     * @param taskList TaskList object.
-     */
-    public void printEndAtCurrent(Tracker tracker, TaskList taskList) {
-        printLine();
-        String moduleCode = tracker.getModuleCode().toUpperCase();
-        int index = tracker.getTaskIndex();
-        Task task = taskList.getTask(index);
-        String taskDescription = task.getDescription();
-        System.out.println("Ending Task: " + taskDescription);
-        System.out.println("Module Code: " + moduleCode);
-        System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
-    }
-
-    /**
-     * Print when Stop Tracker Command is completed.
-     *
-     * @param tracker  description of Tracker object.
-     * @param taskList TaskList object.
-     */
-    public void printPauseAtCurrent(Tracker tracker, TaskList taskList) {
-        printLine();
-        String moduleCode = tracker.getModuleCode().toUpperCase();
-        int index = tracker.getTaskIndex();
-        Task task = taskList.getTask(index);
-        String taskDescription = task.getDescription();
-        System.out.println("Pausing Task: " + taskDescription);
-        System.out.println("Module Code: " + moduleCode);
-        System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     //@@author KahLokKee
@@ -997,7 +868,7 @@ public class Ui {
      */
     public void printUpdatedThreshold(int threshold) {
         printLine();
-        System.out.println(" You will now be reminded of deadlines in " + threshold + " hours.");
+        System.out.println(" You will now be reminded of deadlines due in " + threshold + " hours.");
     }
 
     /**
@@ -1092,6 +963,8 @@ public class Ui {
         System.out.println(" \t" + count + "." + task);
     }
 
+    //@@author debbiextan
+
     /**
      * Prints the details of the deleted Tracker entry.
      *
@@ -1119,5 +992,134 @@ public class Ui {
             System.out.println(" " + index + ". " + description + " -- " + timeTaken + " minutes");
             index++;
         }
+    }
+
+    /**
+     * Prints all tasks scheduled on the provided date.
+     *
+     * @param scheduledTasks List of all Tasks scheduled on the date provided.
+     * @param date           Date parameter provided by user.
+     */
+    public void printTasksByDate(TaskList scheduledTasks, String date) {
+        printLine();
+        System.out.println(" Here are your tasks for " + date + ": ");
+        for (int i = 0; i < scheduledTasks.getSize(); i++) {
+            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.getTask(i));
+        }
+    }
+
+    /**
+     * Print Tracker Diagram from TrackerList object.
+     *
+     * @param moduleTrackerList ArrayList of Tracker objects.
+     */
+    public void printTrackerDiagram(ArrayList<Tracker> moduleTrackerList, long totalTimeTaken) {
+        printLine();
+        for (int i = 0; i < moduleTrackerList.size(); i++) {
+            Tracker moduleTracker = moduleTrackerList.get(i);
+            int timeTaken = (int) moduleTracker.getTimeTaken();
+            if (timeTaken < SEGMENT_SIZE) {
+                System.out.print("|\n| ");
+            } else {
+                int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
+                printTrackerDiagramBar(segmentedTimeTaken);
+            }
+            String moduleCode = moduleTracker.getModuleCode();
+            System.out.println("\t" + moduleCode + " -- " + timeTaken + " minutes");
+        }
+        printLine();
+        System.out.println("Total Time: " + totalTimeTaken + " minutes");
+    }
+
+    /**
+     * Print a bar of Tracker Diagram according to number of 10 minute blocks.
+     *
+     * @param segmentedTimeTaken number of 10 minute blocks.
+     */
+    private void printTrackerDiagramBar(int segmentedTimeTaken) {
+        for (int i = 0; i < segmentedTimeTaken; i++) {
+            if (i == FIRST_VAR) {
+                System.out.println("| ");
+                System.out.print("| #");
+            } else {
+                System.out.print("#");
+            }
+        }
+    }
+
+    /**
+     * Print when Start Tracker Command is completed.
+     *
+     * @param tracker  description of Tracker object.
+     * @param taskList TaskList object.
+     */
+    public void printStartAtCurrent(Tracker tracker, TaskList taskList) {
+        printLine();
+        String moduleCode = tracker.getModuleCode().toUpperCase();
+        int index = tracker.getTaskIndex();
+        Task task = taskList.getTask(index);
+        String taskDescription = task.getDescription();
+        System.out.println("Begin Task: " + taskDescription);
+        System.out.println("Module Code: " + moduleCode);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Current total time spent on " + taskDescription + ": "
+                + tracker.getTimeTaken() + " minutes");
+    }
+
+    /**
+     * Print when Stop Tracker Command is completed.
+     *
+     * @param tracker  description of Tracker object.
+     * @param taskList TaskList object.
+     */
+    public void printEndAtCurrent(Tracker tracker, TaskList taskList) {
+        printLine();
+        String moduleCode = tracker.getModuleCode().toUpperCase();
+        int index = tracker.getTaskIndex();
+        Task task = taskList.getTask(index);
+        String taskDescription = task.getDescription();
+        System.out.println("Ending Task: " + taskDescription);
+        System.out.println("Module Code: " + moduleCode);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
+    }
+
+    /**
+     * Print when Stop Tracker Command is completed.
+     *
+     * @param tracker  description of Tracker object.
+     * @param taskList TaskList object.
+     */
+    public void printPauseAtCurrent(Tracker tracker, TaskList taskList) {
+        printLine();
+        String moduleCode = tracker.getModuleCode().toUpperCase();
+        int index = tracker.getTaskIndex();
+        Task task = taskList.getTask(index);
+        String taskDescription = task.getDescription();
+        System.out.println("Pausing Task: " + taskDescription);
+        System.out.println("Module Code: " + moduleCode);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
+    }
+
+    /**
+     * Prints and applies format for command list available to user.
+     */
+    public void printHelpCommands() throws FileNotFoundException {
+        ArrayList<String> commands = storageManager.readManual();
+        printLine();
+        for (String command : commands) {
+            System.out.println(" \t" + command);
+        }
+    }
+
+    /**
+     * Prints instruction related to individual command available to user.
+     *
+     * @param command instruction of command given by user.
+     */
+    public void printHelpCommand(String command) {
+        printLine();
+        System.out.println(" \t" + command);
     }
 }
