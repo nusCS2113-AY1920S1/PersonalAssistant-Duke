@@ -89,7 +89,12 @@ public class SavingsBudgetCommand extends Command {
             array.add(outputValue);
             outputValue = Ui.showInCowBox(array);
         } else {
-            outputValue = "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings));
+            totalSavings = Math.abs(totalSavings);
+            if (totalSavings < 1) {
+                outputValue = "You have overspent your total budget by: $0" + df.format(totalSavings);
+            } else {
+                outputValue = "You have overspent your total budget by: $" + df.format(totalSavings);
+            }
             array.add(outputValue);
             outputValue = Ui.showInCowBox(array);
         }
@@ -113,8 +118,15 @@ public class SavingsBudgetCommand extends Command {
             output = "Your savings for " + iteratorCategory + " for " + start.getMonth()
                     + " " + start.getYear() + " is: $0";
         } else {
-            output = "You have overspent your budget for " + iteratorCategory + " for " + start.getMonth()
-                    + " " + start.getYear() + " by $" + df.format(Math.abs(savings));
+            savings = Math.abs(savings);
+            if (savings < 1) {
+                output = "You have overspent your budget for " + iteratorCategory + " for " + start.getMonth()
+                        + " " + start.getYear() + " by $0" + df.format(savings);
+            } else {
+                output = "You have overspent your budget for " + iteratorCategory + " for " + start.getMonth()
+                        + " " + start.getYear() + " by $" + df.format((savings));
+            }
+
         }
 
         return new String[]{output, Double.toString(totalSavings)};
@@ -162,9 +174,17 @@ public class SavingsBudgetCommand extends Command {
                     + start.getYear() + " to "
                     + end.getMonth() + " " + end.getYear() + " is: $0";
         }  else {
-            output = "You have overspent for your budget for " + iteratorCategory + " from "
-                    + start.getMonth() + " " + start.getYear() + " to "
-                    + end.getMonth() + " " + end.getYear() + " by: $" + df.format(Math.abs(savings));
+            savings = Math.abs(savings);
+            if (savings < 1) {
+                output = "You have overspent for your budget for " + iteratorCategory + " from "
+                        + start.getMonth() + " " + start.getYear() + " to "
+                        + end.getMonth() + " " + end.getYear() + " by: $0" + df.format(savings);
+            } else {
+                output = "You have overspent for your budget for " + iteratorCategory + " from "
+                        + start.getMonth() + " " + start.getYear() + " to "
+                        + end.getMonth() + " " + end.getYear() + " by: $" + df.format(savings);
+            }
+
         }
         return new String[]{output, Double.toString(totalSavings)};
 

@@ -13,10 +13,10 @@ skinparam sequence {
 
 }
 ":Start" -> ":MooMoo" : execute(budget set) 
-":MooMoo" -> Parser : parseBudget()
-Parser --> ":MooMoo" : s
-Parser -> "s:SetBudgetCommand"
-"s:SetBudgetCommand" --> Parser
+":MooMoo" -> ":Parser" : parseBudget()
+":Parser" --> ":MooMoo" : s
+":Parser" -> "s:SetBudgetCommand" **
+"s:SetBudgetCommand" --> ":Parser"
 ":MooMoo" -> "s:SetBudgetCommand" : execute()
 
 loop
