@@ -67,6 +67,17 @@ public class ListCommand extends Command {
     }
 
     //@@author danielcyc
+
+    /**
+     *  Returns an array list of items on loan/reserved for the specified day.
+     *
+     * @param day Date queried.
+     * @param resources  The ResourceList, containing all the created Resources thus far.
+     * @param ui An instance of the user interface.
+     * @return Array list of items on loan/ reserved for the specified day.
+     * @throws ParseException Invalid date format
+     * @throws RimsException Any other unexpected error
+     */
     public static ArrayList<String> getListForSpecificDay(Date day, ResourceList resources, Ui ui)
             throws ParseException, RimsException {
         ArrayList<String> coveredResources = new ArrayList<String>();
