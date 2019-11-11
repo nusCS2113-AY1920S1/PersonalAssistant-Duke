@@ -24,7 +24,7 @@ public class ViewCommand extends Command{
         switch (this.command) {
         case "view_employment":
             GraduateEmployment ged = new GraduateEmployment();
-            if(this.arguments.matches("bme|che|cive|ee|enve|me|mse|ise|ceg")) {
+            if(this.arguments.matches("BME|ChE|CivE|EE|ENVE|ME|MSE|ISE|ComE")) {
                 ged.print(this.arguments);
             }
             else {
@@ -33,7 +33,7 @@ public class ViewCommand extends Command{
             break;
         case "cohort_size":
             CohortSize csd = new CohortSize();
-            if(this.arguments.matches("bme|che|cive|ee|enve|me|mse|ise|ceg")) {
+            if(this.arguments.matches("BME|ChE|CivE|EE|ENVE|ME|MSE|ISE|ComE")) {
                 csd.print(this.arguments);
             }
             else {
