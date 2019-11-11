@@ -14,6 +14,7 @@ import cube.model.promotion.PromotionList;
 import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
 import cube.model.ModelManager;
+import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
@@ -106,11 +107,23 @@ public class SoldCommand extends Command {
 		toSold.setStock(originalQty - quantity);
 		// old function Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function
-		double tempRevenue = toSold.getFoodRevenue();
-		tempRevenue += revenue;
-		toSold.setFoodRevenue(tempRevenue);
 
 		double profit = revenue - quantity * toSold.getCost();
+
+		//food revenue update, in the food model
+		double tempFoodRevenue = toSold.getFoodRevenue();
+		tempFoodRevenue += revenue;
+		toSold.setFoodRevenue(tempFoodRevenue);
+
+		//profit and revenue in sales record update
+		double tempRevenue = ProfitStorage.getAnnualRevenue();
+		tempRevenue += revenue;
+		ProfitStorage.setAnnualRevenue(tempRevenue);
+
+		double tempProfit = ProfitStorage.getAnnualProfit();
+		tempProfit += profit;
+		ProfitStorage.setAnnualProfit(tempProfit);
+
 		Sale saleRecord = new Sale(foodName, quantity, revenue, profit, soldDate);
 		salesHistory.add(saleRecord);
 		storage.storeSalesHistory(salesHistory);
