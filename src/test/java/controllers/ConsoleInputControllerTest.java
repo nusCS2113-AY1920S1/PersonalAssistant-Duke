@@ -183,7 +183,8 @@ public class ConsoleInputControllerTest {
         while (projectRepository.getAll().size() != 0) {
             projectRepository.deleteItem(1);
         }
-        String[] expectedOutput = new String[] {"Creation of Project failed. Please check parameters given!"};
+        String[] expectedOutput = new String[] {"Creation of Project failed. Please ensure that Project name "
+                + "doesn't have any special characters"};
         String[] actualOutput = consoleInputController.onCommandReceived("create");
         assertArrayEquals(expectedOutput, actualOutput);
         String[] actualOutput2 = consoleInputController.onCommandReceived("create ");

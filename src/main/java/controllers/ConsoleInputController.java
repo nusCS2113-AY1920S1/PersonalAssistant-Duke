@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_BYE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_CREATE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_DELETE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_HELP;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_LIST;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_MANAGE;
-import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST;
 
 public class ConsoleInputController implements IController {
 
@@ -97,7 +97,8 @@ public class ConsoleInputController implements IController {
         ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandCreate] User input: '" + input + "'");
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
-            return new String[] {"Creation of Project failed. Please check parameters given!"};
+            return new String[] {"Creation of Project failed. Please ensure that Project name doesn't have any "
+                    + "special characters"};
         } else {
             return new String[] {"Project created!"};
         }
