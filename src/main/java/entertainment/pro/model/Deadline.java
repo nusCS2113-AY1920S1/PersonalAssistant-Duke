@@ -5,11 +5,11 @@ public class Deadline extends Tasks  {
     private MyDate date;
 
     /**
-     * Constructor for class.
+     * Constructor for a deadline class where the user watched a movie by a certain time
      *
-     * @param description which is the description of the duke.task.
-     * @param type        which is the type of the duke.task.
-     * @param deadline    which is the time by which teh duke.task needs to completed.
+     * @param description: which is the name of movie
+     * @param type: which is the type of movie
+     * @param deadline: which is the time by which the movie needs to be watched
      */
     public Deadline(String description, String type, String deadline) {
         super(description, type);
