@@ -89,6 +89,7 @@ public class UI {
 
         //view_employment Command.
         helpMap.put("view_employment", "Displays employment rate for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Format: view_employment <Degree>\n"
                 + "Examples: view_employment bme | view_employment ise\n");
@@ -129,6 +130,7 @@ public class UI {
 
         //cohort_size Command.
         helpMap.put("cohort_size", "Displays cohort size for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Format: cohort_size <Degree>\n"
                 + "Examples: cohort_size bme | cohort_size ise\n");

@@ -30,8 +30,8 @@ public class DegreeListStorage {
     public void ReadFile(List<String> st) throws DukeException {
         //Check for existence of external save file first
         if (!file.exists()) { //If it does not exist, read from internally
-            //this.filename = "/data/savedegree.txt"; //text file that stores all the information
-            //this.file = new File(filename);
+            this.filename = "/data/savedegree.txt"; //text file that stores all the information
+            this.file = new File(filename);
         }
         try {
             for (int i = 0; i < st.size(); i++) {
@@ -59,7 +59,7 @@ public class DegreeListStorage {
             for(int i = 0; i < store.size(); i++) {
                 list.add(store.get(i).getKey());
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             list.clear();
             throw new DukeException("Issues trying to read savedegree.txt file. Creating new list of choices.");
         }

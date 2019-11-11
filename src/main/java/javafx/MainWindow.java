@@ -505,6 +505,7 @@ public class MainWindow extends AnchorPane {
 
         //view_employment Command.
         description = "Displays employment rate for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Examples: view_employment bme | view_employment ise";
         this.dataHelp.add(new HelpFX("view_employment <Degree>", description));
@@ -545,6 +546,7 @@ public class MainWindow extends AnchorPane {
 
         //cohort_size Command.
         description = "Displays cohort size for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Examples: cohort_size bme | cohort_size ise";
         this.dataHelp.add(new HelpFX("cohort_size <Degree>", description));
