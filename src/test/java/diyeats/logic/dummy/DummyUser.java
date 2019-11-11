@@ -9,6 +9,9 @@ import diyeats.model.user.User;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+/**
+ * This is a stub user class for testing purposes.
+ */
 public class DummyUser extends User {
     public transient Goal goal = null;
 
@@ -117,14 +120,17 @@ public class DummyUser extends User {
         return this.activityLevel;
     }
 
+    @Override
     public int getDailyCalorie() {
         return 2000;
     }
 
+    @Override
     public int getCalorieBalance() {
         return 1600;
     }
 
+    @Override
     public double getActivityLevelDifference() {
         return 2;
     }

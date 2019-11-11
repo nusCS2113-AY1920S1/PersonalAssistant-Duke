@@ -16,8 +16,6 @@ import diyeats.logic.commands.StatsCommand;
 import diyeats.logic.commands.SuggestExerciseCommand;
 import org.junit.jupiter.api.Test;
 
-import java.beans.Expression;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParserTest {

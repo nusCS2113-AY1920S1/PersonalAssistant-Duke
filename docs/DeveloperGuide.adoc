@@ -242,15 +242,16 @@ image::AddDefaultValueUML.png[width="800"]
 Problem 1: *How to store the data associated with this command*
 
 * Solution 1 (current implementation): Hashmap of a Hashmap
-** By storing the data in this format, this feature can be easily extendable to store multiple different default values associated to different nutritional tags to a single meal. Additionally, read and write access can be carried out in approximately O(n) time, where n is the amount of nutritional tags associated to a single meal. As n is unlikely to be large (n > 10), the process is not time complex.
-
+** By storing the data in this format, this feature can be easily extendable to store multiple different default values associated to different nutritional tags to a single meal. Additionally, read and write access can be carried out in approximately O(1) time. Thus the process is not time complex.
+* Solution 2: Array of Pairs
+** By assigning each default meal value to an array of pairs, with the nutrition type as the key and the amount of nutrition as the value, data can be stored in a less complex data structure as compared to hashmap. However, the lookup time for each nutrition type is now O(n), where n is the number of nutrients associated to a default value. Hence, solution 1 was chosen over solution 2, due to its faster access times.
 Problem 2: *Where to instantiate the data structure used to store the data for this command*
 
 * Solution 1 (current implementation): Directly in the MealList data structure
 ** By instantiating the data structure directly in the MealList data structure, it becomes straightforward to access the data whenever a new meal is added.
-** However, this violates the separation of concerns architecture principle
-* Solution 2 (planned implementation by v1.3): In a separate class
-** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
+** However, this might violate the separation of concerns architecture principle
+* Solution 2: In a separate class
+** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle. However, close interaction between default meal values and the the MealList data structure might result in close coupling of the two classes, which is undesirable.
 
 
 === Mark as Done command

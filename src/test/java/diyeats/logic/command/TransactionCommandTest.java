@@ -7,17 +7,17 @@ import diyeats.logic.dummy.DummyStorage;
 import diyeats.logic.dummy.DummyUser;
 import diyeats.logic.dummy.DummyWallet;
 import diyeats.model.meal.ExerciseList;
+import diyeats.model.undo.Undo;
 import diyeats.model.wallet.Deposit;
 import diyeats.model.wallet.Payment;
-import diyeats.model.undo.Undo;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static diyeats.model.user.Gender.MALE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class TransactionCommandTest {
     private static LocalDate currDate = LocalDate.now();

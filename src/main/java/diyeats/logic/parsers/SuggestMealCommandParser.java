@@ -2,7 +2,6 @@ package diyeats.logic.parsers;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.SuggestMealCommand;
-import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealType;
 
 import java.time.LocalDate;

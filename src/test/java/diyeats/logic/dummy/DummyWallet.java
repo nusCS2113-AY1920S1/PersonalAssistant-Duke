@@ -8,6 +8,9 @@ import diyeats.model.wallet.Wallet;
 
 import java.math.BigDecimal;
 
+/**
+ * This is a stub wallet class for testing purposes.
+ */
 public class DummyWallet extends Wallet {
     private TransactionList transactions = new TransactionList();
     private Account account = new Account();
