@@ -133,6 +133,36 @@ public class DateParser {
         }
     }
 
+    private int convertDay(String dayStr) throws Exception {
+        int day;
+        try {
+            day = Integer.parseInt(dayStr);
+        } catch (Exception e) {
+            throw new DukeException("Invalid day");
+        }
+        return day;
+    }
+
+    private int convertMonth(String monthStr) throws Exception {
+        int month;
+        try {
+            month = Integer.parseInt(monthStr);
+        } catch (Exception e) {
+            throw new DukeException("Invalid month");
+        }
+        return month;
+    }
+
+    private int convertYear(String yearStr) throws Exception {
+        int year;
+        try {
+            year = Integer.parseInt(yearStr);
+        } catch (Exception e) {
+            throw new DukeException("Invalid year");
+        }
+        return year;
+    }
+
     /**
      * Checks the date if its valid.
      *
@@ -151,22 +181,10 @@ public class DateParser {
         int day;
         int month;
         int year;
+        day = convertDay(dateArray[Numbers.ZERO.value]);
+        month = convertMonth(dateArray[Numbers.ONE.value]);
+        year = convertYear(dateArray[Numbers.TWO.value]);
 
-        try {
-            day = Integer.parseInt(dateArray[Numbers.ZERO.value]);
-        } catch (Exception e) {
-            throw new DukeException("Invalid day");
-        }
-        try {
-            month = Integer.parseInt(dateArray[Numbers.ONE.value]);
-        } catch (Exception e) {
-            throw new DukeException("Invalid month");
-        }
-        try {
-            year = Integer.parseInt(dateArray[Numbers.TWO.value]);
-        } catch (Exception e) {
-            throw new DukeException("Invalid year");
-        }
 
         if (year < Numbers.ONE.value) {
             throw new DukeException("Invalid year, and year 0 does not exist");
