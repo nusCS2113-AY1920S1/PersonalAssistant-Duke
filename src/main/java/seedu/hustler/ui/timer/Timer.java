@@ -28,6 +28,7 @@ public class Timer implements Runnable {
         timeArray = new int[3];
         threadstatus = threadStatus.DEFAULT;
     }
+
     /**
      * Overloaded constructor that directly sets the hours, minutes
      * and seconds of the timer according to the user's discretion.
@@ -56,6 +57,7 @@ public class Timer implements Runnable {
                 timeArray = TimerLogic.decrement(timeArray);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         TimerUI.printThreadInterrupt(threadstatus);
         if (isFinished()) {

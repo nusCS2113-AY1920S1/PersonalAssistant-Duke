@@ -17,8 +17,8 @@ import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
  */
 public class SnoozeAnomaly extends DetectAnomaly {
 
-    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Snooze format should be: '/snooze <index> <date> <time>' OR\n\t"
-            + "'/snooze <index> <integer> <unit>'";
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Snooze format should be: '/snooze <index> <date> "
+            + "<time>' OR\n\t" + "'/snooze <index> <integer> <unit>'";
     private static final String MESSAGE_INVALID_INDEX = "The task index provided is invalid!";
     private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YYYY HHmm.";
     private static final String MESSAGE_INVALID_PERIOD = "The <unit> provided is invalid!\n\t"

@@ -58,7 +58,7 @@ public class AddCommandAnomaly extends DetectAnomaly {
             if (parsedInput.contains("/d")) {
                 int difficultyIndex = parsedInput.indexOf("/d") + 1;
                 String difficulty = parsedInput.get(difficultyIndex);
-                String[] validDifficulty = {"H", "M", "L"};
+                String[] validDifficulty = {"H", "M", "L", "h", "m", "l"};
                 if (!Arrays.asList(validDifficulty).contains(difficulty)) {
                     CommandLog.removeLastCommand();
                     throw new CommandLineException(MESSAGE_INVALID_DIFFICULTY);

@@ -1,6 +1,5 @@
 package seedu.hustler.game.shop;
 
-import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.weapons.Broadsword;
 import seedu.hustler.game.shop.items.weapons.Mace;
@@ -19,7 +18,7 @@ public class ShopList {
     /**
      * The ArrayList of ShopItem to be purchased.
      */
-    private final ArrayList<ShopItem> shopList;
+    private ArrayList<ShopItem> shopList;
 
     /**
      * Constructs a ShopList and populate with every existing shopItem.
@@ -53,7 +52,7 @@ public class ShopList {
     public Optional<ShopItem> buy(int index, int totalPoints) {
         if (!shopList.get(index).isPurchased()) {
             if (shopList.get(index).canPurchase(totalPoints)) {
-                shopList.get(index).setPurchased(true);
+                updateIsPurchased(index, true);
                 return Optional.ofNullable(shopList.get(index));
             }
         }
@@ -69,7 +68,7 @@ public class ShopList {
     }
 
     /**
-     * Gets the shop item with the given index
+     * Gets the shop item with the given index.
      * @return the shop item in the shop list.
      */
     public ShopItem getItem(int index) {
@@ -79,10 +78,9 @@ public class ShopList {
     /**
      * Updates the Boolean value of isPurchased of the ShopItem to be true.
      * @param index the index of the ShopItem.
-     * @param bool the boolean value of isPurchased.
      */
-    public void updateStatus(int index, Boolean bool) {
-        this.shopList.get(index).setPurchased(bool);
+    public void updateIsPurchased(int index, boolean isPurchased) {
+        this.shopList.set(index, shopList.get(index).setIsPurchased(isPurchased));
     }
 
     /**
@@ -111,6 +109,11 @@ public class ShopList {
         return itemsPurchased;
     }
 
+    /**
+     * Adds a shop item in the current array list in the shop list.
+     * @param item the item to be added into the shop list.
+     * @return the new instance of the shoplist with the item updated.
+     */
     public ShopList addItem(ShopItem item) {
         ShopList newShop = new ShopList(this);
         newShop.shopList.add(item);
@@ -122,12 +125,13 @@ public class ShopList {
      * @return the newly populated ShopList.
      */
     public ShopList populateShop() {
-        shopList.add(new Broadsword());
-        shopList.add(new Mace());
-        shopList.add(new MoonlightSword());
-        shopList.add(new LeatherArmor());
-        shopList.add(new IronArmor());
-        shopList.add(new Chainmail());
-        return this;
+        ShopList newShopList = new ShopList();
+        newShopList.shopList.add(new Broadsword(false));
+        newShopList.shopList.add(new Mace(false));
+        newShopList.shopList.add(new MoonlightSword(false));
+        newShopList.shopList.add(new LeatherArmor(false));
+        newShopList.shopList.add(new IronArmor(false));
+        newShopList.shopList.add(new Chainmail(false));
+        return newShopList;
     }
 }

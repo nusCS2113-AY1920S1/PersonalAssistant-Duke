@@ -15,7 +15,7 @@ public class TimerUI {
      * is the gate of sorts. This deliberate abstraction allows the developer
      * to mute printing if required.
      */
-    private static void printToUser (String output) {
+    private static void printToUser(String output) {
         System.out.println(output);
     }
 
