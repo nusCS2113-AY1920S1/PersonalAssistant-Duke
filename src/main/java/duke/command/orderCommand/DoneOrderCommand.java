@@ -12,7 +12,9 @@ import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Command} used to mark a {@link Order} as done.
+ * @author VirginiaYu
+ *
+ * Represents a specific {@link Command} used to mark an {@link Order} as done.
  */
 public class DoneOrderCommand extends Command {
     private int orderIndex;
@@ -26,6 +28,15 @@ public class DoneOrderCommand extends Command {
         this.orderIndex = orderNumber;
     }
 
+    /**
+     * Public method used to mark an existing order done in the orderList, and update it on the hard disc.
+     * Print out corresponding info if marking done successfully
+     *
+     * @param orderList the {@link OrderList} to be expanded
+     * @param ui       {@link Ui} used for printing the order output
+     * @param orderStorage  {@link OrderStorage} writes in the file on the hard disc
+     * @throws DukeException Error while updating the done status, or writing to the hard disc
+     */
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
         if (orderList.size()==0) {
@@ -50,9 +61,9 @@ public class DoneOrderCommand extends Command {
             ui.showLine();
         } else {
             if (orderList.size()==1) {
-                throw new DukeException("You've got only 1 order in the list.\n\t Enter 'done 1' to mark current order done");
+                throw new DukeException("Got only 1 order in the order list.\n\t Enter '1' as order index");
             } else {
-                throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
+                throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
             }
         }
     }

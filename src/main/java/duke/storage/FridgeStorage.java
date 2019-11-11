@@ -5,8 +5,6 @@ import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 
-import java.io.IOException;
-
 /**
  * Represents a specific {@link Storage} for Ingredients in the {@link duke.fridge.Fridge}
  * @author Sara Djambazovska

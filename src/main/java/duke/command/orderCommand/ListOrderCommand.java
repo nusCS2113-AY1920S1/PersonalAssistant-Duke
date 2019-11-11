@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * @author VirginiaYu
+ *
  * Represents a specific {@link Command} used to list all the {@link Order}s in the {@link OrderList}.
  */
 public class ListOrderCommand extends ListCommand {
@@ -33,16 +35,25 @@ public class ListOrderCommand extends ListCommand {
         this.listType = command;
     }
 
+    /**
+     * Public method used to list orders in the orderList, by different requirements or filter keywords.
+     * Print out corresponding info if list orders successfully
+     *
+     * @param orderList the {@link OrderList} to be expanded
+     * @param ui       {@link Ui} used for printing the order output
+     * @param orderStorage  {@link OrderStorage} writes in the file on the hard disc
+     * @throws DukeException Error while listing orders
+     */
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
         if (orderList.size() == 0) { throw new DukeException("No orders in the order list!");}
         List<Order> filtered = parse(orderList);
-        if (filtered.size()==0) { throw new DukeException("No orders found");}
+        if (filtered.size()==0) { throw new DukeException("No orders found!");}
         ui.showLine();
         if (filtered.size()==1) { System.out.println("\t Here are the order in the order list:"); }
         else System.out.println("\t Here are the orders in the order list:");
         int cnt = 1;
-        for (Order order: filtered) { // looping to print all the saved orders
+        for (Order order: filtered) {
             ui.showTask("\t " + cnt + "." + order.toString());
             cnt++;
         }
