@@ -1,4 +1,5 @@
-//@@author gowgos5
+/* @@author gowgos5 */
+
 package duke.ui.context;
 
 import duke.data.DukeObject;

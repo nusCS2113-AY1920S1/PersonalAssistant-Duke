@@ -1,3 +1,5 @@
+/* @@author JacobToresson */
+
 package duke.data.storage;
 
 import com.google.gson.Gson;
@@ -23,7 +25,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-/* @@author JacobToresson */
 /**
  * Handles storage of patients.
  */
