@@ -56,7 +56,8 @@ public class UI {
         System.out.println("-----Basic Commands-----");
         System.out.println("1.  \"help\"                     -- Print out all the commands you can input.");
         System.out.println("2.  \"list\"                     -- Print out all the events in the list.");
-        System.out.println("3.  \"reminder [number of days]\"-- Display the list of events over the next given number (default 3) days.");
+        System.out.println("3.  \"reminder [number of days]\""
+                + "-- Display the list of events over the next given number (default 3) days.");
         System.out.println("4.  \"check\"                    -- Print the next 3 free days.");
         System.out.println("5.  \"find <keyword>\"           -- Search for a specific event using keywords.");
         System.out.println("6.  \"view dd-MM-yyyy\"          -- Print the event list for a particular date.");
@@ -115,8 +116,8 @@ public class UI {
         System.out.println("2.  \"goal delete <event index> <goal>\"                 \n\t-- Delete a specified goal.");
         System.out.println("3.  \"goal edit <event index> <goal index> /<new goal>\" \n\t-- Edit an existing goal.");
         System.out.println("4.  \"goal achieved <event index> <goal index>\"         \n\t-- Set the goal as achieved.");
-        System.out.println("5.  \"goal view <event index>\"                          " +
-                "\n\t-- Display the goals list of a specified event with their status.");
+        System.out.println("5.  \"goal view <event index>\"                          "
+                + "\n\t-- Display the goals list of a specified event with their status.");
         System.out.print(lineSeparation);
     }
 
@@ -344,7 +345,7 @@ public class UI {
     }
 
     /**
-     * @return line of underscores to separate different Model_Class.UI outputs.
+     * Returns line of underscores to separate different Model_Class.UI outputs.
      */
     public String getLineSeparation() {
         return lineSeparation;
@@ -590,7 +591,8 @@ public class UI {
      */
     public void printCostExceedsBudgetMsg(Concert concert, int budget) {
         System.out.print(lineSeparation);
-        System.out.println("The following concert you wanted to add causes you to exceed the stipulated budget for that month!");
+        System.out.println("The following concert you wanted to add causes you to "
+                + "exceed the stipulated budget for that month!");
         System.out.println(concert.toString());
         String date = concert.getStartDate().getFormattedDateString().substring(8, 16);
         System.out.println("exceeds budget of $" + budget + " for the month of " + date);
@@ -750,7 +752,8 @@ public class UI {
         if (!viewEventGoal.getGoalList().isEmpty()) {
             int goalIndex = 1;
             for (Goal goalObject : viewEventGoal.getGoalList()) {
-                System.out.println(goalIndex + ". " + goalObject.getGoal() + " - " + "Achieved: " + goalObject.getStatus());
+                System.out.println(goalIndex + ". " + goalObject.getGoal() + " - "
+                        + "Achieved: " + goalObject.getStatus());
                 goalIndex += 1;
             }
             System.out.println(lineSeparation);
@@ -828,8 +831,9 @@ public class UI {
      * Prints when entered event is already over.
      */
     public void printEnteredEventOver() {
-        System.out.println("Reminder: the event you have added has a start date that is already over and hence won't be displayed in the list. You may still view it by" +
-                " using the view schedules command.");
+        System.out.println("Reminder: the event you have added has a start date"
+                + " that is already over and hence won't be displayed in the list. You may still view it by"
+                + " using the view schedules command.");
     }
 
     /**
