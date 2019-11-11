@@ -196,6 +196,10 @@ reference their parent if needed. A `String` representation of `DukeObjects` can
 `toReportString` methods.
 
 ==== Patient
+.Class Diagram
+image::PatientModel.png[]
+
+The class diagram shown above shows the `Patient` class and how it is stored.
 
 Patients entered into our system are stored as `Patient` objects in our `PatientData` object. This can be converted to
 Gson easily after accounting for abstract objects. All patients may have `Impressions` associated with them which are
@@ -224,8 +228,11 @@ The `Impression` object should provide the following functionality:
 ** High priorities are the first metric
 
 ==== DukeData
+.Class Diagram
+image::DukeDataModel.png[]
 
-The `DukeData` objects represent evidence and treatment recorded by the doctor.
+The diagram above shows the DukeData class and its concrete implementations. The `DukeData` objects represent evidence
+and treatment recorded by the doctor.
 
 ==== Extension
 
@@ -238,6 +245,13 @@ launch.
 
 NOTE: By convention, we store invalid values instead of null values to prevent nullptr exceptions. If there are
 attributes that may be null, consider returning an empty object instead. E.g. for `String`, return `""`.
+
+==== Design Considerations
+
+We considered how we should store our collections of objects and how we should update our UI when designing our model.
+
+image::DataModelComparison.PNG[]
+
 
 [[Design-Storage]]
 === Storage System [JACOB TORESSON]
@@ -385,6 +399,8 @@ image::SearchDiagram.png[]
 The above diagram shows the information a search result will store and the SearchContext its displayed in.
 
 image::SearchExample.PNG[]
+
+The picture above is an example of a `find` command.
 
 ==== Rationale
 
