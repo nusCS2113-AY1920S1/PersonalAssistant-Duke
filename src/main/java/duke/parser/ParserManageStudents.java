@@ -124,15 +124,14 @@ public final class ParserManageStudents {
                 try {
                     String[] word = input.split("-");
                     int index = Integer.parseInt(word[0]);
-
                     if (index > students.getStudentListSize()) {
                         System.out.println("Oops! You only have " + students.getStudentListSize() + " in the list.");
-//                    } else if (word[1].equals("")) {
-//                        System.out.println("Pls insert progress description.");
-                    } else {
+                    } else if (word.length > 1){
                         String progressDescription = word[1];
                         students.getStudent(index).addStudentProgress(progressDescription);
                         System.out.println("Progress have been added.");
+                    } else {
+                        System.out.println("Please insert progress description.");
                     }
                 } catch (InputMismatchException e) {
                     new CliView().showCorrectCommand();
