@@ -265,7 +265,7 @@ Possible `<CATEGORIES>` are:
 
 . date 
 
-. degrees
+. degree
 
 Format: `sort <CATEGORY>`
 
@@ -275,7 +275,7 @@ Examples:
 The task list will sort according the tasks priority levels. The priority of a task is specified by you, and tasks added via the addition of degrees defaults to normal.
 * `sort by date` +
 The task list will sort according to the deadlines of the tasks.
-* `sort by degrees` +
+* `sort by degree` +
 The task list will sort according to degree-specific tasks.
 
 
