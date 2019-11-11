@@ -87,6 +87,16 @@ public class SortModuleTest extends CommandTestFramework {
                 + "| 12:00 - 14:00 on MONDAY\n";
         assertEquals(expectedOutput, getOut());
 
+        execute("sort module code --r\n");
+        expectedOutput = "Here are your sorted module:\n"
+                + "_______________________________\n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n";
+        assertEquals(expectedOutput, getOut());
+
         execute("sort module level\n");
         expectedOutput = "Here are your sorted module:\n"
                 + "_______________________________\n"
@@ -95,6 +105,36 @@ public class SortModuleTest extends CommandTestFramework {
                 + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n"
                 + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
                 + "| 12:00 - 14:00 on MONDAY\n";
+        assertEquals(expectedOutput, getOut());
+
+        execute("sort module level --r\n");
+        expectedOutput = "Here are your sorted module:\n"
+                + "_______________________________\n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n";
+        assertEquals(expectedOutput, getOut());
+
+        execute("sort module mc\n");
+        expectedOutput = "Here are your sorted module:\n"
+                + "_______________________________\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n";
+        assertEquals(expectedOutput, getOut());
+
+        execute("sort module mc --r\n");
+        expectedOutput = "Here are your sorted module:\n"
+                + "_______________________________\n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n";
         assertEquals(expectedOutput, getOut());
     }
 }

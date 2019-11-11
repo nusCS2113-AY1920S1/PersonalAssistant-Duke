@@ -92,6 +92,14 @@ public class SortTimeTest extends CommandTestFramework {
                 + "dance[07:00 - 09:00 on MONDAY]\n"
                 + "CS2101[12:00 - 14:00 on MONDAY]\n";
         assertEquals(expectedOutput, getOut());
+
+        execute("sort time monday --r");
+        expectedOutput = "Here are your sorted time:\n"
+                + "_______________________________\n"
+                + "CS2101[12:00 - 14:00 on MONDAY]\n"
+                + "dance[07:00 - 09:00 on MONDAY]\n"
+                + "soccer[03:00 - 05:00 on MONDAY]\n";
+        assertEquals(expectedOutput, getOut());
     }
 }
 
