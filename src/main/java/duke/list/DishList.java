@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@@author CEGLincoln
+//@@author 9hafidz6
 /**
  * HAHA :p This is mine now boys.
  * But is there a point in doing this?...
  *
- * @@author Hafidz
  */
 public class DishList extends GenericList<Dish> {
 

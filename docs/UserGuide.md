@@ -1,5 +1,9 @@
 # Chef Duke - User Guide
 
+By: `Team CS213-T14-2`       Since: `Oct 2019`
+
+
+
 [TOC]
 
 ## 1. Introduction
@@ -17,7 +21,7 @@ Chef Duke is targeted towards restaurant chefs who wants to be able to consolida
 
 5. run the command `java -jar v1.3` , application will then be executed 
 
-   ![UI]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Ui.png )
+   ![](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Ui.png)
 
 6. Type some commands and press ENTER to execute
 
@@ -52,8 +56,6 @@ The user is greeted depending on the time of day, `good morning` , `good evening
 ### 3.2 Recipe Book Management
 
 the user needs to enter command `d` from the Main menu to enter the Dish template. this template allows the user to modify the recipe book.
-
-add ui here
 
 #### 3.2.1 Adding Dish
 
@@ -891,28 +893,25 @@ ______________________________________________________________________
 4. delete undone dishes from the ToDo list when an order of today is cancelled.
 5. add undone dishes when a pre-order alters its date to become today's undone order.
 
-### 3.6 Fridge commands
-
-#### 3.6.1 Add an ingredient to the Fridge
-#### 3.6.2 Remove an ingredient from the fridge
-#### 3.6.3 Use an ingredient from the fridge
-#### 3.6.4 Remove all expired ingredients from the fridge
-
-### 3.7 Statistics of Most Popular Dishes `[Coming in v2.0]`
+### 3.6 Statistics of Most Popular Dishes `[Coming in v2.0]`
 
 Order component in the program tracks all the records of done orders. By sorting the ordered number of each dishes, the chef can get the statistics of most popular dishes, in a week, or a month, or a season. The statistics lead to the food reference of the majority of the customers. If the chef wants to explore a new dishes, the common characters of those top popular dishes may be a good reference.
 
-### 3.8 Checking Ingredients with Orders `[Coming in v2.0]`
+### 3.7 Checking Ingredients with Orders `[Coming in v2.0]`
 
 When a new order of today comes, the todo list will update. In the meantime, the progarm will automatically check if the fridge has enough ingredient for that order. If not, the program will remind you to buy ingredients. Also, at the moment the restaurant opens, the program will check if there is enough ingredient for today's orders (which were pre-orders yesterday). If not, the program will also remind you to buy ingredients. 
 
-### 3.9 Draft Recipe `[Coming in v2.0]`
+### 3.8 Draft Recipe `[Coming in v2.0]`
 
 The recipebook of a restaurant is not fixed. The chef may need to explore new recipe and dishes. For instance, the chef want to explore a dish, we call it as dishA for simplicity. The program can track all historical trials of this dishA. Normally a dish cannot be created overnight or within one or two trials. The chef intends to use different ingredients and different proportions to make better taste than the taset in previous trials. 
 
 Therefore, the program will record information of every trial, such as ingredient name, amount. The feedback that what the chef think of the trial, will also be included in the trial information. Providing trial information well-organized and the chef can see each upon entering some command, the chef would consider put forward a new dish much easier.
 
 Upon the draft recipe is regarded as fixed and no longer changes, it will be added into recipebook.
+
+### 3.9 Changing ingredients of a dish `[Coming in V2.0]`
+
+The DishList contains all the dishes which also contains a list of ingredients each. However, there may be a case where there is a large number of ingredients for a dish. Thus there may be be a typo and the chef needs to amend the error. additionally, the ingredients for a certain dish may need changes as the chef may want to change the recipe, hence with this feature, he may be able to do so. 
 
 ## 4. Command Summary
 
@@ -930,17 +929,17 @@ Index | Keyword  | Usage | Description
 
 <u>Ingredient Template</u>
 
-| Index | Keyword      | Usage                             | Description                                          |
-| ----- | ------------ | --------------------------------- | ---------------------------------------------------- |
-| 1     | add          | add <desc> <amount> <Date>        | add an Ingredient to the fridge                      |
-| 2     | remove       | remove <index>                    | remove an ingredient from fridge                     |
-| 3     | find         | find <desc>                       | find an ingredient in the fridge                     |
-| 4     | listtoday    | listtoday                         | list all expired ingredient                          |
-| 5     | a            | a                                 | removes all expired ingredient                       |
-| 6     | use          | use <desc> <amount>               | use an ingredient from the fridge                    |
-| 7     | changeamount | changeamount <index> <new amount> | changes the amount of the ingredient using its index |
-| 8     | changename   | changename <index> <new name>     | changes the name of the ingredient using its index   |
-| 9     | show         | show                              | lists all the ingredients in the fridge              |
+| Index | Keyword      | Usage                         | Description                                          |
+| ----- | ------------ | ----------------------------- | ---------------------------------------------------- |
+| 1     | add          | add DESC AMOUNT DATE          | add an Ingredient to the fridge                      |
+| 2     | remove       | remove INDEX                  | remove an ingredient from fridge                     |
+| 3     | find         | find DESC                     | find an ingredient in the fridge                     |
+| 4     | listtoday    | listtoday                     | list all expired ingredient                          |
+| 5     | a            | a                             | removes all expired ingredient                       |
+| 6     | use          | use DESC AMOUNT               | use an ingredient from the fridge                    |
+| 7     | changeamount | changeamount INDEX NEW_AMOUNT | changes the amount of the ingredient using its index |
+| 8     | changename   | changename INDEX NEW_NAME     | changes the name of the ingredient using its index   |
+| 9     | show         | show                          | lists all the ingredients in the fridge              |
 
 <u>Order Template</u>
 
@@ -955,19 +954,19 @@ Index | Keyword  | Usage | Description
 | 7     | list    | list -n DISH_NAME                              | ind the orders containing that dishes |
 | 8     | list    | list -d ORDER_DATE [-l LIST_TYPE]              | list orders on querying date          |
 
-** For more details, please go for 3.5 Order.
+** For more details, please go for 3.4 Order.
 
 <u>Dish Template</u>
 
-| Index | Keyword    | Usage                              | Description               |
-| ----- | ---------- | ---------------------------------- | ------------------------- |
-| 1     | add        | add <desc>                         | adds a dish to the list   |
-| 2     | find       | find <desc>                        | find dish by keyword      |
-| 3     | change     | change <index> <desc>              | change name of dish       |
-| 4     | remove     | remove <index>                     | removes a dish from list  |
-| 5     | list       | list                               | list all dishes           |
-| 6     | initialize | initialize                         | clears the dish list      |
-| 7     | ingredient | ingredient <desc> <amount> <index> | add an ingredient to dish |
+| Index | Keyword    | Usage                        | Description               |
+| ----- | ---------- | ---------------------------- | ------------------------- |
+| 1     | add        | add DESC                     | adds a dish to the list   |
+| 2     | find       | find DESC                    | find dish by keyword      |
+| 3     | change     | change INDEX DESC            | change name of dish       |
+| 4     | remove     | remove INDEX                 | removes a dish from list  |
+| 5     | list       | list                         | list all dishes           |
+| 6     | initialize | initialize                   | clears the dish list      |
+| 7     | ingredient | ingredient DESC AMOUNT INDEX | add an ingredient to dish |
 
 <u>Common commands in template</u>
 
@@ -979,7 +978,7 @@ Index | Keyword  | Usage | Description
 
 
 
-# 5. FAQ
+## 5. FAQ
 
 **Q: how do I transfer data to another computer?** 
 
