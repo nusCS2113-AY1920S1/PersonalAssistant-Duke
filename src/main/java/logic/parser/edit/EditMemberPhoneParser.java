@@ -3,6 +3,7 @@ package logic.parser.edit;
 import common.DukeException;
 import logic.command.Command;
 import logic.command.edit.EditMemberBioCommand;
+import logic.command.edit.EditMemberEmailCommand;
 import logic.command.edit.EditMemberPhoneCommand;
 import logic.parser.ArgumentTokenizer;
 
@@ -11,18 +12,15 @@ import java.util.HashMap;
 
 public class EditMemberPhoneParser {
 
-    private static final String EDIT_USAGE = "Usage: edit [member] [bio/email/phone] [index] /to ...";
-    private static final String NAME_NO_EMPTY = "the name of member shouldn't be empty.";
-    private static final String CHANGE_NO_EMPTY = "put phone number after /to";
-    private static final String GET_INDEX_FAIL = "after edit type, put a valid index.";
+    private static final String CHANGE_NO_EMPTY = "Put phone after /to";
 
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
-     * @return a delete command
-     * @throws DukeException exception
+     * parse edit member phone command
+     * @param partialCommand command after phone, contains memberName and change content
+     * @return edit member phone command
+     * @throws DukeException throw exception when member name is empty or change content is empty
      */
     public static Command parseEditMemberPhone(String partialCommand) throws DukeException {
 
@@ -31,18 +29,13 @@ public class EditMemberPhoneParser {
         String changeContent = argumentMultimap.get("/to");
 
         if (name.length() == 0) {
-            throw new DukeException(NAME_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(EditMemberParser.NAME_NO_EMPTY + "\n" + EditMemberParser.EDIT_USAGE);
         } else if (changeContent.length() == 0) {
-            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EditMemberParser.EDIT_USAGE);
         } else {
             name = name.trim();
-            try {
-                int indexInList = Integer.parseInt(name);
-                changeContent = changeContent.trim();
-                return new EditMemberPhoneCommand(indexInList, changeContent);
-            } catch (Exception e) {
-                throw new DukeException(GET_INDEX_FAIL + "\n" + EDIT_USAGE);
-            }
+            changeContent = changeContent.trim();
+            return new EditMemberPhoneCommand(name, changeContent);
         }
     }
 }

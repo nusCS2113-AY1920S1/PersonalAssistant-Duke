@@ -17,6 +17,7 @@ public class ListTasksParser {
     //@@author yuyanglin28
     /**
      * parse list task command, according to the list type, todo/all
+     *
      * @param partialCommand command after task
      * @return a list task command
      * @throws DukeException throw exception when command pattern or list type is not correct

@@ -49,24 +49,59 @@ public class ModelController implements Model {
         return tasksManager.getTaskList();
     }
 
+    @Override
     public String getTodoTasks() {
         return tasksManager.getTodoTasks();
     }
 
+    @Override
     public String getTasks() {
         return tasksManager.getTasks();
     }
 
+    @Override
     public int getTaskListSize() {
         return tasksManager.getTaskListSize();
     }
 
+    @Override
     public String getTaskNameById(int index) {
-        return tasksManager.getTaskNameById(index);
+        return tasksManager.getNameById(index);
     }
 
-    public Date getTaskDateTimeById(int index) {
-        return tasksManager.getTaskDateTimeById(index);
+    @Override
+    public String getTaskNameByIdOnList(int index) {
+        return tasksManager.getTaskNameByIdOnList(index);
+    }
+
+    @Override
+    public String getTaskIsDoneByIdOnList(int index) {
+        return tasksManager.getTaskIsDoneByIdOnList(index);
+    }
+
+    @Override
+    public String getTaskDescriptionByIdOnList(int index) {
+        return tasksManager.getTaskDescriptionByIdOnList(index);
+    }
+
+    @Override
+    public Date getTaskDateTimeByIdOnList(int index) {
+        return tasksManager.getTaskDateTimeByIdOnList(index);
+    }
+
+    @Override
+    public ArrayList getMemberListOfTaskByIdOnList(int index) {
+        return tasksManager.getMemberListOfTaskByIdOnList(index);
+    }
+
+    @Override
+    public ArrayList getSkillListOfTaskByIdOnList(int index) {
+        return tasksManager.getSkillListOfTaskByIdOnList(index);
+    }
+
+    @Override
+    public Date getTaskReminderByIdOnList(int index) {
+        return tasksManager.getTaskReminderByIdOnList(index);
     }
 
     @Override
@@ -93,9 +128,12 @@ public class ModelController implements Model {
         return tasksManager.addReqSkill(taskName, skillName);
     }
 
-
+    //@@author yuyanglin28
     /**
-     * javadoc please
+     * This method is to update the description of a task
+     * @param index the index of task (begin from 0)
+     * @param des new description
+     * @return old description
      */
     public String updateTaskDes(int index, String des) {
         String oldDes = tasksManager.getTaskDes(index);
@@ -109,11 +147,11 @@ public class ModelController implements Model {
     }
 
     public String tasksAllInorderTime() {
-        return tasksManager.scheduleTeamAll();
+        return tasksManager.tasksAllInorderTime();
     }
 
     public String tasksTodoInorderTime() {
-        return tasksManager.scheduleTeamTodo();
+        return tasksManager.tasksTodoInorderTime();
     }
 
     public String tasksAllInorderPicNum() {
@@ -122,6 +160,19 @@ public class ModelController implements Model {
 
     public String tasksTodoInorderPicNum() {
         return tasksManager.tasksTodoInorderPicNum();
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * Checks if task index exists in task list
+     * @param taskIndex Index of the task
+     * @return false if the task not in list, true if task in list
+     */
+    public boolean isInTaskList(int taskIndex) {
+        if (taskIndex < 1 || taskIndex > tasksManager.getTaskList().size()) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -163,27 +214,129 @@ public class ModelController implements Model {
         return memberManager.addSkill(memberName, skillName);
     }
 
+
+    //@@author yuyanglin28
+
     /**
-     * javadoc please
+     * This method is to update the biography of a member
+     * @param name member name
+     * @param bio new bio
+     * @return old bio
      */
-    public String updateMemberBio(int index, String bio) {
-        String oldBio = memberManager.getMemberBio(index);
-        memberManager.updateMemberBio(index, bio);
+    @Override
+    public String updateMemberBio(String name, String bio) {
+        String oldBio = memberManager.getMemberBio(name);
+        memberManager.updateMemberBio(name, bio);
         return oldBio;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to update the email of a member
+     * @param name member name
+     * @param email new email
+     * @return old email
+     * @throws DukeException throw exception when the email format is not correct
+     */
     @Override
-    public String updateMemberEmail(int index, String email) throws DukeException {
-        String oldEmail = memberManager.getMemberEmail(index);
-        memberManager.updateMemberEmail(index, email);
+    public String updateMemberEmail(String name, String email) throws DukeException {
+        String oldEmail = memberManager.getMemberEmail(name);
+        memberManager.updateMemberEmail(name, email);
         return oldEmail;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to update the phone of a member
+     * @param name member name
+     * @param phone new phone
+     * @return old phone
+     */
     @Override
-    public String updateMemberPhone(int index, String phone) {
-        String oldPhone = memberManager.getMemberPhone(index);
-        memberManager.updateMemberPhone(index, phone);
+    public String updateMemberPhone(String name, String phone) {
+        String oldPhone = memberManager.getMemberPhone(name);
+        memberManager.updateMemberPhone(name, phone);
         return oldPhone;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get the corresponding member index by the name
+     * @param name input name
+     * @return memberIndex
+     */
+    public int getMemberIdByName(String name) {
+        int memberIndex = 0;
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberIndex = i;
+                break;
+            }
+        }
+        return memberIndex;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member biography by name
+     * @param name input name
+     * @return memberBio
+     */
+    public String getMemberBioByName(String name) {
+        String memberBio = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberBio = memberManager.getMemberBio(name);
+                break;
+            }
+        }
+        return memberBio;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member email by name
+     * @param name input name
+     * @return memberEmail
+     */
+    public String getMemberEmailByName(String name) {
+        String memberEmail = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberEmail = memberManager.getMemberEmail(name);
+                break;
+            }
+        }
+        return memberEmail;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member phone by name
+     * @param name input name
+     * @return memberPhone
+     */
+    public String getMemberPhoneByName(String name) {
+        String memberPhone = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberPhone = memberManager.getMemberPhone(name);
+                break;
+            }
+        }
+        return memberPhone;
+    }
+
+    @Override
+    public ArrayList<String> getTaskListOfMemberByName(String name) {
+        return memberManager.getTaskListOfMember(name);
+    }
+
+    @Override
+    public ArrayList<String> getSkillListOfMemberByName(String name) {
+        return memberManager.getSkillListOfMember(name);
     }
 
 
@@ -208,52 +361,75 @@ public class ModelController implements Model {
     }
 
     //@@author yuyanglin28
-
     /**
-     * This method is to delete member in member list and also in task list corresponding member name
-     *
-     * @return if success (the member name exists), return true.
-     * if fail (the member name doesn't exist), return false.
+     * This method is to delete a member in member list, and also corresponding member in task list
+     * @param memberName to be deleted member name
      */
     @Override
-    public String deleteMember(int index) {
-        String name = memberManager.getMemberNameById(index);
-        tasksManager.deleteMemberInTasks(name);
-        Member toDelete = memberManager.getMemberById(index);
+    public void deleteMember(String memberName) {
+        tasksManager.deleteMemberInTasks(memberName);
+        Member toDelete = memberManager.getMemberByName(memberName);
         memberManager.deleteMember(toDelete);
-        return name;
     }
+
 
     //@@author yuyanglin28
 
     /**
-     * javadoc
+     * This method is to delete a task in task list and also corresponding task in member list
+     * @param index index of to be deleted task
+     * @return to be deleted task's name
      */
     @Override
     public String deleteTask(int index) {
-        String name = tasksManager.getTaskNameById(index);
+        String name = tasksManager.getNameById(index);
         memberManager.deleteTaskInMembers(name);
         Task toDelete = tasksManager.getTaskByName(name);
         tasksManager.deleteTask(toDelete);
         return name;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to schedule all assigned tasks for a member
+     * @param memberName member name
+     * @return sorted tasks list
+     */
+    @Override
     public String scheduleMemberAll(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
-        return tasksManager.scheduleAllTasks(tasksName);
+        return tasksManager.tasksAllInorderTime(tasksName);
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to schedule todo assigned tasks for a member
+     * @param memberName member name
+     * @return sorted todo tasks list
+     */
+    @Override
     public String scheduleMemberTodo(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
-        return tasksManager.scheduleTodoTasks(tasksName);
+        return tasksManager.tasksTodoInorderTime(tasksName);
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to check deadline crash of every member,
+     * two tasks has time crash if their deadlines are at the same day.
+     * This method will get the task list of a member and pass to tasks manager to check the crash,
+     * do it for every member.
+     * @return string of the time crash, if no time crash, return an empty string
+     */
     @Override
     public String check() {
         String result = "";
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
             String memberName = memberManager.getMemberNameById(i);
-            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             String subResult = tasksManager.check(tasksName);
             if (!subResult.equals("")) {
                 result += "\n" + memberName + ": " + tasksManager.check(tasksName);
@@ -262,26 +438,41 @@ public class ModelController implements Model {
         return result;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get the member list in order of progress.
+     * This method will first get the progress of every member through task manager and store in an array list,
+     * then pass the array list to member manager to sorted the progress.
+     *
+     * @return sorted member list, progress from high to low
+     */
     @Override
     public String membersInorderProgress() {
         ArrayList<Double> progress = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
-            String memberName = memberManager.getMemberNameById(i);
-            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             progress.add(tasksManager.getProgress(tasksName));
         }
         return memberManager.membersInorderProgress(progress);
     }
 
 
+    //@@author yuyanglin28
 
+    /**
+     * This method is to get the member list in order of number of todo tasks.
+     * This method will first get the todo task num of every member through task manager and store in an array list,
+     * then pass the array list to member manager to sorted the todo tasks num.
+     *
+     * @return sorted member list, num of todo tasks from small to big
+     */
     @Override
     public String membersInorderTodoNum() {
         ArrayList<Integer> todoNum = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
-            String memberName = memberManager.getMemberNameById(i);
-            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
-            todoNum.add(tasksManager.getTodoTasks(tasksName));
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
+            todoNum.add(tasksManager.getTodoTasksNum(tasksName));
         }
         return memberManager.membersInorderTodoNum(todoNum);
     }

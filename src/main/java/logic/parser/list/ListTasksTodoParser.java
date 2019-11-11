@@ -10,6 +10,7 @@ public class ListTasksTodoParser {
     //@@author yuyanglin28
     /**
      * parse list todo task command, according to list type, picnum/'nothing'
+     *
      * @param argument command after todo
      * @return a list todo task command
      * @throws DukeException throw exception when list type is not correct
