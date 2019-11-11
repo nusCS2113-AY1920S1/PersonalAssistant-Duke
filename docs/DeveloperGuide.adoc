@@ -1598,65 +1598,93 @@ Expected: Error displayed regarding an invalid index.
 . Other incorrect delete commands to try: `delete a`, `delete -1` +
 Expected: Similar to previous.
 
-=== Starting Task Tracker
+=== Tracking Tasks
 
-==== Understanding the parameters
+==== Starting Task Tracker
 The `tracker /start` command syntax is as such: `tracker /start TASK_INDEX MODULE_CODE`.
 
-==== Testing the command
-You can enter the command `tracker /start TASK_INDEX MODULE_CODE` to begin tracking your `Task` in `TaskList` given index with association to `moduleCode`. +
-Feel free to enter a `TASK_INDEX` of your choice.
+. Prerequisites: List all tasks using `list` command. List must not be empty.
 
-=== Stopping Task Tracker
+. Test case: `tracker /start 1 CS2113T` +
+Expected: A tracker is started for the first task on the list.
+Details of the tracker will be displayed alongside current time and the amount of time spent on this task, if any, so far.
 
-==== Understanding the parameters
+. Test case: `tracker /start 0 CS2113T` +
+Expected: Error displayed due to invalid Task index.
+
+. Other start tracker commands to try: `tracker /start abc`, `tracker /start -1` +
+Expected: Error displayed due to invalid input.
+
+==== Stopping Task Tracker
 The `tracker /stop` command syntax is as such: `tracker /stop TASK_INDEX MODULE_CODE`.
 
-==== Testing the command
-You can enter the command `tracker /stop TASK_INDEX MODULE_CODE` to stop tracking your `Task` in `TaskList` given index with association to `moduleCode`. +
-Feel free to enter a `TASK_INDEX` of your choice.
+. Prerequisites: List all tasks using `list` command. List must not be empty.
+The corresponding Task Tracker must have started before this command is available.
 
-=== Pausing Task Tracker
+. Test case: `tracker /stop 1 CS2113T` +
+Expected: The tracker is stopped and marked as completed for the first task on the list.
+Details of the tracker will be displayed alongside current time and the amount of time spent on this task, if any, so far.
 
-==== Understanding the parameters
+. Test case: `tracker /stop 0 CS2113T` +
+Expected: Error displayed due to invalid Task index.
+
+. Other stop tracker commands to try: `tracker /stop abc`, `tracker /stop -1` +
+Expected: Error displayed due to invalid input.
+
+==== Pausing Task Tracker
 The `tracker /pause` command syntax is as such: `tracker /pause TASK_INDEX MODULE_CODE`.
 
-==== Testing the command
-You can enter the command `tracker /pause TASK_INDEX MODULE_CODE` to stop tracking your `Task` in `TaskList` given index with association to `moduleCode`. +
-Feel free to enter a `TASK_INDEX` of your choice.
+. Prerequisites: List all tasks using `list` command. List must not be empty.
+The corresponding Task Tracker must have started before this command is available.
 
-=== Viewing Task Tracker Diagram
+. Test case: `tracker /pause 1 CS2113T` +
+Expected: The tracker is paused for the first task on the list.
+Details of the tracker will be displayed alongside current time and the amount of time spent on this task, if any, so far.
 
-==== Understanding the parameters
+. Test case: `tracker /pause 0 CS2113T` +
+Expected: Error displayed due to invalid Task index.
+
+. Other pause tracker commands to try: `tracker /pause abc`, `tracker /pause -1` +
+Expected: Error displayed due to invalid input.
+
+==== Viewing Task Tracker Diagram
 The `tracker /view` command syntax is as such: `tracker /view PERIOD`.
 
-==== Testing the command
-You can enter the command `tracker /view PERIOD` to view a diagram showing the amount of time spent studying by `moduleCode` within a given `PERIOD`.
+. Prerequisites: List all trackers using `tracker /list` command. List must not be empty.
 
-Feel free to enter one of the following options for `PERIOD`:
+. Test case: `tracker /view day` +
+Expected: A histogram will be displayed featuring all of the tracked tasks today sorted and grouped by module code.
 
-* `day` for today's entries
+. Test case: `tracker /view week` +
+Expected: A histogram will be displayed featuring all of the tracked tasks over the last 7 days sorted and grouped by module code.
 
-* `week` for entries over the last 7 days
+. Test case: `tracker /view all` +
+Expected: A histogram will be displayed featuring all of the tracked tasks sorted and grouped by module code.
 
-* `all` for all entries
+. Test case: `tracker /view abc` +
+Expected: Error displayed due to invalid period input.
 
-=== Viewing a list of Task Trackers
-
-==== Understanding the parameters
+==== Viewing List of Task Trackers
 The `tracker /list` command syntax is as such: `tracker /list`.
 
-==== Testing the command
-You can enter the command `tracker /list` to view a list of all `Tracker` objects you have created so far.
+. Prerequisites: List all trackers using `tracker /list` command. List must not be empty.
 
-=== Deleting a Task Tracker
+. Test case: `tracker /list` +
+Expected: A list of all the task tracker entries made so far.
 
-==== Understanding the parameters
+==== Deleting a Task Tracker
 The `tracker /delete` command syntax is as such: `tracker /delete TASK_INDEX`.
 
-==== Testing the command
-You can enter the command `tracker /delete TASK_INDEX` to delete a `Tracker` you have created. +
-Feel free to enter a `TASK_INDEX` of your choice.
+. Prerequisites: List all trackers using `tracker /list` command. List must not be empty.
+
+. Test case: `tracker /delete 1` +
+Expected: The first task tracker is deleted from the list of Trackers.
+
+. Test case: `tracker /delete 0` +
+Expected: Error displayed due to invalid Task index.
+
+. Other delete tracker commands to try: `tracker /delete abc`, `tracker /delete -1` +
+Expected: Error displayed due to invalid input.
 
 
 === Setting recurring tasks
