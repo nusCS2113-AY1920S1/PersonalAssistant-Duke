@@ -100,9 +100,8 @@ Deletes a resource from the user's inventory in RIMS.
 +
 image:delete.png[]
 +
-* The ID must be inputted as a non-negative integer.
+* The IDs must be inputted as a positive integer.
 * If multiple resources are to be simultaneously deleted, the multiple resource IDs must be separated from each other by a single whitespace character.
-* If the ID(s) inputted by the user are invalid, the program will send an error message to the UI.
 ====
 ... If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
 ... Quantity must be a positive integer.
@@ -141,7 +140,6 @@ While loans take effect from the current date to a specified deadline, reservati
 .*Format*:
 * `reserve /item ITEM /qty QUANTITY /id USER_ID /from BORROW_DATE /by DEADLINE`
 * `reserve /room ROOM /id USER_ID /from BORROW_DATE /by DEADLINE`
-... For logistical purposes, only a resource that is currently in the user's inventory (i.e. is not currently out on loan) can be reserved.
 ... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
 ... Quantity must be a positive integer above 0.
 ... User ID must be a non-negative integer, with a value of 0 and above.
@@ -157,7 +155,7 @@ While loans take effect from the current date to a specified deadline, reservati
 
 
 ==== Return resources: `return`
-Registers a resource that has been loaned or reserved as returned to the user's inventory, and is thus available to be loaned out or reserved again.
+Registers an item / room as having been returned, and is thus available to be loaned again.
 
 .*Format*:
 * `return /id USER_ID`

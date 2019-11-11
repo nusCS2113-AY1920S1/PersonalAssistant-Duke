@@ -3,12 +3,10 @@ package rims.command;
 import java.io.IOException;
 
 import rims.core.ResourceList;
-import rims.core.Rims;
 import rims.core.Storage;
 import rims.core.Ui;
 
 import rims.exception.RimsException;
-import rims.resource.TagList;
 
 //@@author rabhijit
 /**
@@ -29,13 +27,7 @@ public class CloseCommand extends Command {
      *                     to disk
      */
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
-        TagList newTagList = Rims.tags;
         storage.saveToFile(resources.getResources());
-        try {
-            storage.saveToFileTags(newTagList.getTags());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         ui.farewell();
         setExitCode();
     }

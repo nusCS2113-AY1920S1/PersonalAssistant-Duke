@@ -4,14 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import rims.resource.Reservation;
-import rims.resource.ReservationList;
-import rims.resource.Resource;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 //@@author rabhijit
 /**
  * Handles the taking in of input from the user and passes it to the Parser to
