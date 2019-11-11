@@ -200,19 +200,37 @@ Figure. Structure of the Storage Component
 
 API: `Storage.java` 
 
-The `Storage` component, consists of `Storage.java`, `RecipeStorage.java`, `OrderStorage.java` and `FridgeStorage.java`. `Storage` is modelled as an abstract class,  with `RecipeStorage`, `OrderStorage` and `FridgeStorage` inheriting from it, as shown in the figure above. 
+This component handles storing data and reading it from text files on the hard disc. Upon creation, instances of its subtypes get linked to a *.txt* file passed as an argument in the constructor (by specifying its file path). Subsequently, this specific text file is used for loading and storing data.
 
-The `Storage` component, 
+ `Storage.java`  is modelled as a *generic, abstract* component, used as a base for the `FridgeStorage.java` , `OrderStorage.java` and `RecipeStorage.java`, each one having their own implementation of the *abstract* method `generate()`, that creates and returns a `GenericList` from the entries stored in the .txt file liked to them. 
 
-- can store `ingredient` in the fridge (API: `FridgeStorage.java`) with a certain format, by storing it into and reading it back from the `fridge.txt` file stored on the hard disc. The `IngredientList` as a `GenericList` of ingredients also changes dynamically with the program execution. The format print in file follows `ingredient_name|ingredient_amount|ingredient_expiry date` . See below example:
+This component  allows for storing entries in a certain format, by using the `printInFile()` methods of  these `Printable` entries. Some examples of the data to be stored, are dishes in the dish list, ingredients that are already in the fridge, recipes in the Recipe book and anything else that needs to be saved on the hard disk and available again upon rebooting the program.
 
-- ```
-  milk|3|09/09/2019
-  cheese|4|12/12/2019
-  rice|50|12/12/2019
-  ```
+The dynamic change in the text file contents during execution, is handled primarily by the `update()` method. Calling this method results in updating the content in the linked text file accordingly to the entries in the `GenericList` contained in, and used by that component.
 
-- can store `orders` in the order list (API: `OrderStorage.java`) in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See below example:
+The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
+
+##### 2.5.2 FridgeStorage
+
+API: `FridgeStorage.java` 
+
+A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
+
+The format print in file follows `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
+
+```
+milk|3|09/09/2019
+cheese|4|12/12/2019
+rice|50|12/12/2019
+```
+
+Calling the `load()` method on the text file above, would result in an `IngredientList` containing the  four ingredients with their respective amounts and expiry dates.
+
+##### 2.5.3 OrderStorage
+
+API: `OrderStorage.java`
+
+A subclass of  `Storage.java`, that can store `orders` in the order list in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See example below:
 
 - ```
   1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
@@ -220,13 +238,17 @@ The `Storage` component,
   0|11/11/2019|D|cereal shrimp|1|D|soup|4
   ```
 
-- can store `dishes` in the recipebook (API: `RecipeStorage.java`) in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
+##### 2.5.4 OrderStorage
+
+API: `RecipeStorage.java`
+
+A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
 
   ```
   ???? I don't know the output
   ```
-  
-##### 2.5.2 Printable
+
+##### 2.5.5 Printable
 
 ![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
 
@@ -236,7 +258,7 @@ API: `Printable.java`
 
 It models a *public* *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
 
-Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
+Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown above.
 
 #### 2.6 List Component
 
