@@ -112,7 +112,6 @@ public class MainWindow extends AnchorPane {
             graphContainer.getChildren().addAll(
                     graphSelector.getTheGraph(input, financialGhost.getAccount())
             );
-            userInput.clear();
         }
 
         if (!response[1].equals("")) {
