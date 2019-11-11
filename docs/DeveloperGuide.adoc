@@ -617,7 +617,7 @@ printed to stdout in the Ui.printReminders function.
 ==== Sequence diagram
 The following sequence diagram shows how the reminder functionality works.
 ====
-image::reminderSequenceDiagram.png[width = 100%]
+image::reminderSequenceDiagram.png[]
 ====
 
 ==== Why it is implemented this way
@@ -699,7 +699,7 @@ Instrument instance.
 ==== Sequence diagram
 The following sequence diagram shows how the view services functionality works.
 ====
-image::getServicesInstrumentSequenceDiagram.png[width = 100%]
+image::getServicesInstrumentSequenceDiagram.png[]
 ====
 
 ==== Why it is implemented this way
