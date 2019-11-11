@@ -331,6 +331,14 @@ Firstly, a new `Scanner` will be created to continue reading in the module that 
 After taking in the user input, ModPlan will check if the module is a legitimate module in the `detailedMap` pulled from NUSMODS API. +
 If it is invalid, a new `ModNotFoundException` will be thrown. Otherwise the prerequisite tree (if any) will be scanned for that particular module using the `parsePrerequisiteTree` method. +
 
+For the `cap module` command, we came up with two ways to go about parsing the prerequisite tree of the module whose CAP is to be predicted. 
+
+*Alternative 1: Array of Module Codes* (currently implemented)
+Currently in v1.4 the `cap module` method only parses the first level of prerequisites that a module has, as well as their preclusions, and checks against the user's module task list. 
+
+If there are any prerequisite modules taken for the predicted module, their grades will be taken to predict the CAP for the inputted module. The array of module codes is rechecked again for any remaining preclusions that may have been omitted, before finally calculating and printing the CAP for the user.
+
+*Alternative 2: List of List of Strings* (coming in v2.0)
 This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS). 
 
 Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken. 
@@ -398,7 +406,7 @@ As both the modules and ccas inherit from the class `TaskWithMultipleWeeklyPerio
 
 image::SortCommandSequentialDiagram.png[width="800"]
 
-=== ShowCommand
+=== Showing Module Reports
 
 ==== Current implementation
 
@@ -451,11 +459,11 @@ image::ShowCommandSequenceDiagram.png[width="600"]
 
 ****
 
-=== ReminderCommand
+=== Update Reminders
 
 ==== Current implementation
 
-The `reminder` feature is opearted by the `ReminderCommand` class, which is called by the `Parser` class. Upon user input of `reminder TYPE`, the Parser will return a new `ReminderCommand`. +
+The `reminder` feature is operated by the `ReminderCommand` class, which is called by the `Parser` class. Upon user input of `reminder TYPE`, the Parser will return a new `ReminderCommand`. +
 
 Since `ReminderCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `reminder` command. +
 
@@ -481,16 +489,16 @@ As stated above, there are six methods that can be executed depending on the `TY
 If the argument read for `toReminder` is "list", the reminderList() method in plannerUI class is called. A list of the different reminder interval options are being printed. The four different options allow user to determine how often the user want to set the update reminder message. User can set the reminder message to pop up every 10 seconds, 30 seconds, 1 minute or 2 minutes.
 
 * Case 2: `reminder one` + 
-If the argument read for `toReminder` is "one", the printEveryTenSec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 10000ms, which eqautes to 10 seconds.
+If the argument read for `toReminder` is "one", the printEveryTenSec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 10000ms, which equates to 10 seconds.
 
 * Case 3: `reminder two` + 
-If the argument read for `toReminder` is "two", the printEveryThirtySec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 30000ms, which eqautes to 30 seconds.
+If the argument read for `toReminder` is "two", the printEveryThirtySec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 30000ms, which equates to 30 seconds.
 
 * Case 4: `reminder three` + 
-If the argument read for `toReminder` is "three", the printEveryOneMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 60000ms, which eqautes to 1 minute.
+If the argument read for `toReminder` is "three", the printEveryOneMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 60000ms, which equates to 1 minute.
 
 * Case 5: `reminder four` + 
-If the argument read for `toReminder` is "four", the printEveryTwoMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 120000ms, which eqautes to 2 minutes.
+If the argument read for `toReminder` is "four", the printEveryTwoMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 120000ms, which equates to 2 minutes.
 
 * Case 6: `reminder stop` + 
 If the argument read for `toReminder` is "stop", the killAllTimers() method is called. A Timer iterator loops through the list of all the Timer threads and cancels all the Timer tasks. A message is then printed to notify the user that the reminder message for the update is being stopped.
@@ -502,17 +510,22 @@ image::ReminderCommandSequenceDiagram.png[width="600"]
 
 ****
 
+
 === UpdateModuleCommand
 
 ==== Current implementation
 
 The `update` feature is executed by the `UpdateModuleCommand` class, which is called by the `Parser` class. Upon user input of `update module`, the Parser will return a new `UpdateModuleCommand`. +
 
+
 Since `UpdateModuleCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `update` command. +
 
-Below is a Sequence Diagram showing how `UpdateModuleCommand` works. +
+Below is a Sequence Diagram showing how `UpdateModuleInfo` works. +
+UpdateModuleCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1 arg arrow connecting the UpdateModuleCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 arg.
+It then uses an object in NattyWrapper class, which is removed from the memory, as shown by the 1.3.1 arrow. The UpdateModuleCommand also calls the dateToLocalDateTime method from the NattyWrapper as shown by the 1.3 and 1.4 arrows. The UpdateModuleCommand fetches the updated module information from the RequestData , Storage and PlannerLogger, as shown by the 1.5 arrows. To end off, the UpdateModuleCommand calls the showUpdateMsg method from the PlannerUi to print the updated message.
 
-image::UpdateModuleInfoSequenceDiagram.png[width="800"]
+
+image::UpdateModuleCommandSequenceDiagram.png[width="800"]
 
 === JsonWrapper
 
@@ -605,7 +618,7 @@ These diagrams illustrate the `Cca` class:
 image::CcaClassDiagram1.png[]
 image::CcaClassDiagram2.png[]
 
-`Cca` is a child class of the legacy class `TaskWithMultipleWeeklyPeriod` which belongs to our implementation of `Duke`. Since `Cca` itself does not differ much from the parent class except for some `String` representations, it is recommended to refer to the parent class's implementation instead which can be found in <<Legacy>>.
+`Cca` is a child class of the legacy class `TaskWithMultipleWeeklyPeriod` which belongs to our implementation of `Duke`. However, since `TaskWithMultipleWeeklyPeriod` is a legacy class, we will update on its implementation after setting up other features and documentations (preferably after ModPlan v2.0 release).
 
 // end::Cca[]
 
@@ -665,13 +678,7 @@ Here are the steps to create a new release.
 
 == Manual User Testing
 
-=== Loading Manual Test Data
-==== Test Data
-
-To demonstrate the functionality of the product, the `JAR` release contains sample data so that the user can easily test
-and observe that the application runs as intended.
-
-Type `show module` and observe that the following output is obtained:
+The following should be obtained after running `show module`:
 
 image::SampleShowModule.PNG[]
 
@@ -681,6 +688,7 @@ image::SampleShowCCA.PNG[]
 
 Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
 is operational.
+
 
 [appendix]
 == Product Scope
@@ -855,11 +863,33 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 2. ModPlan should be fast to view and input commands.
 3. ModPlan should require as few steps as possible for the user to do what they want to do.
 4. ModPlan should store data between sessions so the user does not have to input all their information again.
-5. ModPlan should scrape data from NUSMODS API at least once a day to keep up to date with any changes in modules.
+5. ModPlan should scrape data from NUSMODS API at least once a semester to keep up to date with any changes in modules.
 
 [appendix]
-== Manual Testing Instructions
-(TBD)
+== Manual User Testing
+
+We have included a base data file populated with ~20 modules and ~5 CCAs for manual testing. The program will load from these data files upon the first startup if a save file is not found. 
+
+=== Loading Manual Test Data
+==== Test Data
+
+To demonstrate the functionality of the product, the `JAR` release contains sample data so that the user can easily test
+and observe that the application runs as intended.
+
+Type `show module` and observe that the following output is obtained:
+
+image::ShowModuleTest.png[]
+
+The following should be obtained after running `show cca`:
+
+image::ShowCcaTest.png[]
+
+Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
+is operational.
+
+=== Manual Testing
+
+To test our product manually, kindly open the `[CS2113T-F10-1][ModPlan].jar` file from the `v1.4` release using the command prompt of your preferred OS, and test using commands featured in our https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/UserGuide.adoc[User Guide].
 
 [appendix]
 == Glossary

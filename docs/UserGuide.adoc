@@ -232,8 +232,6 @@ Calculates your overall CAP or predicted CAP in different ways.
 Calculates your CAP according to your custom input of modules and grades. +
 Format: `cap overall`
 
-image::CapOverallSample.png[width="450"]
-
 ****
 * Typing `cap overall` into the command line shows a CAP calculation message.
 * Type the module taken, along with it's letter grade. +
@@ -249,11 +247,11 @@ Example: +
 `CG2027 B-` +
 `done`
 
+image::CapOverallSample.png[width="450"]
+
 ==== Calculating CAP from the module list. +
 Calculates your CAP from the `taken` modules in your list.
 Format: `cap list`
-
-image::CapListSample.png[width="450"]
 
 ****
 * Type `cap list` into the command line.
@@ -265,11 +263,11 @@ image::CapListSample.png[width="450"]
 Example: +
 `cap list`
 
+image::CapListSample.png[width="450"]
+
 ==== Calculating predicted CAP of a module from it's prerequisites. +
 Calculates the predicted CAP of a module based on the prerequisites of the inputted module.
 Format: `cap module`
-
-image::CapModuleSample.png[width="450"]
 
 ****
 * Type `cap module` into the command line.
@@ -284,6 +282,9 @@ image::CapModuleSample.png[width="450"]
 Example: +
 `cap module` +
 `CS2040C`
+
+image::CapModuleSample.png[width="450"]
+
 
 === Sorting and printing the modules and/or ccas : `sort`
 
@@ -303,6 +304,9 @@ image::SortCcaSample.png[width="450"]
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
 Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday`. + 
+
+** Note that if two ccas have the same name, only the first one will be considered for sorting. +
+
 Example: +
 `sort time tuesday`
 
@@ -586,6 +590,19 @@ image::ModBadSuException.png[width="450"]
 > * Use `show module` to check whether the module is S/U'able.
 > * Only modules with the "SU: true" indicates that the module is S/U'able and an S or U grade can be input.
 > ****
+
+== Coming in ModPlan v2.0
+
+=== Password management
+
+==== Add or update an existing password: `passwd`
+Add or update an existing password. +
+If a password has been previously set (updating password mode), a prompt will show up asking for old password before a new one can setup. In that case, kindly enter your current password as prompted to setup a new one. +
+Format: +
+`passwd myPassword`
+
+=== GUI
+ModPlan v2.0 will support GUI (Graphical User Interface). We have not decided whether the CLI (Command Line Interface) will be fully replaced by GUI or will be an additional feature. However, the new GUI will hopefully improve ModPlan's user-friendliness and user's productivity.
 
 == Expected Anomalous Behavior
 
