@@ -75,7 +75,7 @@ public class PaymentTest {
 
         Payment payment = paymentBuilder.setTag(TAG_FOR_TEST).build();
 
-        assertEquals(TAG_FOR_TEST, payment.getTag());
+        assertEquals(TAG_FOR_TEST.toUpperCase(), payment.getTag());
     }
 
     @Test

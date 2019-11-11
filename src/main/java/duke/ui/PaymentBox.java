@@ -57,7 +57,7 @@ public class PaymentBox extends UiPart<AnchorPane> {
         this.payment = payment;
 
         indexLabel.setText(displayedIndex + ". ");
-        amountLabel.setText(payment.getAmount().toString() + " SGD");
+        amountLabel.setText("S$" + payment.getAmount().toString());
         receiverLabel.setText(payment.getReceiver());
         String due = payment.getDue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         dueLabel.setText(due);
@@ -73,7 +73,7 @@ public class PaymentBox extends UiPart<AnchorPane> {
             backgroundFill = new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY);
             break;
         case LOW:
-            backgroundFill = new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY);
+            backgroundFill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
             break;
         default:
             backgroundFill = new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY);

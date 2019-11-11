@@ -5,9 +5,7 @@ import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -71,9 +69,6 @@ public interface Model {
     public Map<Integer, String> getBudgetViewCategory();
 
     public void setBudgetView(Integer view, String category);
-    //******************************** Operations for other data....
-    //******************************** For example, operations of monthly income list.
-    // todo: add other data operations
 
     //PlanBot
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList();

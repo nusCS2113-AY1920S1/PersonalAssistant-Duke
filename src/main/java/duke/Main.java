@@ -182,11 +182,10 @@ public class Main extends Application {
 
             // loading payment demo data
 
-            @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
-            PaymentList paymentList = storage.loadPaymentList().get();
             paymentBuilder.setDescription("Raffles Hall Orientation Fee");
             paymentBuilder.setAmount("60").setTag("school life").setDue("05/01/2020");
             paymentBuilder.setPriority("Low").setReceiver("Raffles Hall");
+            PaymentList paymentList = storage.loadPaymentList().get();
             paymentList.add(paymentBuilder.build());
 
             logger.info("*********loading sample payment");

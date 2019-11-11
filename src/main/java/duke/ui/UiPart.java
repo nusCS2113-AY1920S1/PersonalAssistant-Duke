@@ -1,3 +1,5 @@
+// Credit: Adopted from reference project addressbook-level3.
+
 package duke.ui;
 
 import static java.util.Objects.requireNonNull;
