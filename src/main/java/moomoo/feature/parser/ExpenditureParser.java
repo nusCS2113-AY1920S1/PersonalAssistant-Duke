@@ -5,7 +5,6 @@ import moomoo.command.category.AddExpenditureCommand;
 import moomoo.command.category.DeleteExpenditureCommand;
 import moomoo.command.category.SortCategoryCommand;
 import moomoo.feature.MooMooException;
-import moomoo.feature.Ui;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -15,11 +14,7 @@ class ExpenditureParser extends Parser {
 
     static Command parse(String commandType, Scanner scanner) throws MooMooException {
         switch (commandType) {
-        //case ("expenditure add"):
         case ("add"): return parseAdd(scanner);
-        //case ("expenditure edit"):
-        //case ("edit"):
-        //case ("expenditure delete"):
         case ("delete"): return parseDelete(scanner);
         case ("sort"): return parseSort(scanner);
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(\n"
@@ -29,7 +24,7 @@ class ExpenditureParser extends Parser {
 
     private static Command parseAdd(Scanner scanner) throws MooMooException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        String text = "What expenditure do you wish to add? Please enter:"
+        String text = "What expenditure do you wish to add? Please enter:\n"
                 + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[DD/MM/YYYY])";
         String input = parseInput(scanner, text);
 
@@ -67,8 +62,8 @@ class ExpenditureParser extends Parser {
             amount = Double.parseDouble(amountString);
             date = LocalDate.parse(dateString, formatter);
         } catch (NumberFormatException e) {
-            throw new MooMooException("Oops, the amount you entered was not recognized,"
-                    + " please use an double value e.g. 9.90.");
+            throw new MooMooException("Oops, the amount you entered was not recognized,\n"
+                    + "please use an double value e.g. 9.90.");
         } catch (DateTimeException e) {
             throw new MooMooException("Opps, the date you entered was not recognized,"
                     + " please use a date in the format of dd/mm/yyyy");
@@ -80,7 +75,7 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseDelete(Scanner scanner) throws MooMooException {
-        String text = "What expenditure do you wish to add? Please enter:"
+        String text = "What expenditure do you wish to add? Please enter:\n"
                 + "delete i/[INDEX] c/[CATEGORY]";
         String input = parseInput(scanner, text);
 
@@ -106,7 +101,10 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseSort(Scanner scanner) {
-        String text = "parse sort error";
+        String text = "How would you like to sort your expenditures:"
+                    + "\n<name>"
+                    + "\n<cost>"
+                    + "\n<date>";
         String sortType = parseInput(scanner, text);
         return new SortCategoryCommand(sortType);
     }

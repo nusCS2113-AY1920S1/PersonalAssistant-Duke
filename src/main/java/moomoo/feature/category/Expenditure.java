@@ -38,7 +38,7 @@ public class Expenditure {
     }
 
     String costToString() {
-        return String.valueOf(cost);
+        return Double.toString(cost);
     }
 
     public double getCost() {

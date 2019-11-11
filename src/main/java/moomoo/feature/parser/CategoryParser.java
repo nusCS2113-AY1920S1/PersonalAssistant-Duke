@@ -31,7 +31,6 @@ class CategoryParser extends Parser {
         }
         switch (commandType) {
         case ("add"): return parseAdd(scanner);
-        //case ("edit"):
         case ("delete"): return parseDelete(scanner);
         default: throw new MooMooException("Oops, recognized commands are <add>, <edit>, and <delete>.");
         }

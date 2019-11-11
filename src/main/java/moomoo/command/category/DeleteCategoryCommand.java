@@ -47,7 +47,7 @@ public class DeleteCategoryCommand extends Command {
         try {
             CategoryStorage.deleteFromFile(input);
             categoryList.delete(categoryIndex);
-            Ui.showCategoryMessage("Category named <" + input + "> re-MOOO-ved. ");
+            Ui.showCategoryMessage("Re-MOOO-ved category named : " + input);
         } catch (IndexOutOfBoundsException e) {
             throw new MooMooException("Please enter a valid category name.");
         }
