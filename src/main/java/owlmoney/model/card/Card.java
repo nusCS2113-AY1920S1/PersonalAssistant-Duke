@@ -302,12 +302,22 @@ public class Card {
      */
     void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws TransactionException {
-        logger.info("Searching through: unpaid expenditure");
-        ui.printMessage("Searching through: unpaid expenditure");
-        unpaid.findMatchingTransaction(fromDate, toDate, description, category, ui);
-        logger.info("Searching through: paid expenditure");
-        ui.printMessage("Searching through: paid expenditure");
-        paid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+        try {
+            logger.info("Searching through: unpaid expenditure");
+            ui.printMessage("Searching through: unpaid expenditure");
+            unpaid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+        } catch (TransactionException errorMessage) {
+            logger.warning(errorMessage.toString());
+            ui.printError(errorMessage.getMessage());
+        }
+        try {
+            logger.info("Searching through: paid expenditure");
+            ui.printMessage("Searching through: paid expenditure");
+            paid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+        } catch (TransactionException errorMessage) {
+            logger.warning(errorMessage.toString());
+            ui.printError(errorMessage.getMessage());
+        }
     }
 
     /**

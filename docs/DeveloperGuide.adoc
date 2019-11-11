@@ -2544,8 +2544,14 @@ displayed after being edited.
 
 .. Test case:
 `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /desc Top Up EZLink Card /category Transport` +
-Expected: Updated the description and category of the `expenditure` in index 1 of the `transaction list` in JunBank
+Expected: Updated the description and category of the `expenditure` in index  of the `transaction list` in JunBank
 Savings Account being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 4 transactions in `JunBank Savings Account`, you might want to add more expenditures
+before proceeding.
+====
 
 === Deleting a bank expenditure transaction
 . Delete an existing bank `expenditure` in a `savings` account.
@@ -2577,6 +2583,12 @@ There is enough money in the bank account to change the amount.
 `/edit /deposit /from JunBank Savings Account /transno 5 /amount 200 /date 30/10/2019` +
 Expected: Updated amount and date of the `deposit` in index 5 of the `transaction list`  in JunBank Savings Account
 being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 5 transactions in `JunBank Savings Account`, you might want to add more deposits before
+proceeding.
+====
 
 === Deleting a deposit transaction
 . Delete an existing bank `deposit` in a `savings` account.
@@ -2613,8 +2625,14 @@ expenditures in JunBank Savings Account being displayed after being edited.
 
 .. Test case:
 `/edit /recurbankexp /from JunBank Savings Account /transno 4 /desc Phone bill /category Bills` +
-Expected: Updated the description and category of the `recurring expenditure` in index 1 of the `transaction list` of
+Expected: Updated the description and category of the `recurring expenditure` in index 4 of the `transaction list` of
 recurring expenditures in JunBank Savings Account being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 4 recurring expenditures in `JunBank Savings Account`, you might want to add more
+recurring expenditures before proceeding.
+====
 
 === Deleting a recurring bank expenditure transaction
 . Delete an existing bank recurring `expenditure` in a `savings` account.
@@ -2727,7 +2745,7 @@ Expected: `Card expenditure` #1 successfully deleted from `card`.
 .. Prerequisites: `Card expenditure` for the particular month and `savings` account must exist.
 
 .. Test case:
-`/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+`/add /cardbill /card POBB Tomorrow Card /date 11/2019 /bank JunBank Savings Account` +
 Expected: `Card bill` with total amount spent for the specified month added into `savings` expenditure
 and total rebates added into `savings` deposit. When listing `card` expenditures with
 `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month will be
@@ -2740,7 +2758,7 @@ transferred from unpaid to paid.
 .. Prerequisites: `Card bill` for the particular month must exist in `savings` account.
 
 .. Test case:
-`/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+`/delete /cardbill /card POBB Tomorrow Card /date 11/2019 /bank JunBank Savings Account` +
 Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card`
 expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month
 will be transferred from paid to unpaid.
@@ -2894,35 +2912,55 @@ Expected: Found matching recurring expenditure in `savings` account and displays
 === Adding new goals
 
 . Add new goals by specifying the date, name and amount to achieve
-
+.. Pre-requisites: There are currently no goals with the same name
 .. Test case:
 `/add /goals /name GRAD TRIP /by 10/11/2020 /amount 3000` +
 Expected: New details of goal displayed
 
 . Add new goals by specifying number of days, name and amount
-
+.. Pre-requisites: There are currently no goals with the same name
 .. Test case:
 `/add /goals /name GRAD TRIP /amount 3000 /in 365` +
 Expected: New details of goal displayed
 
 . Add new goals by specifying number of days, name and existing saving accounts
+.. Pre-requisites:
+* A savings account with specified name should exist
+* There are no goals with the same name
+* Total amount in savings account specified is less than goals amount specified
+.. Test case:
+`/add /goals /name GRAD TRIP /from JunBank /amount 3000 /in 365` +
+Expected: New details of goal displayed
 
-.. Pre-requisites: A savings account with specified name should exist.
+. Add new goals by specifying number of days, name and existing saving accounts (sufficient amount in account)
+.. Pre-requisites:
+* A savings account with specified name should exist
+* There are no goals with the same name
+* Total amount in savings account specified is more than goals amount specified
 .. Test case:
 `/add /goals /name GRAD TRIP /from JunBank /amount 3000 /in 365` +
 Expected: New details of goal displayed
 
 . Add duplicate goals
 .. Test case:
-`/add /goals /name GRAD TRIP /from 10/11/2020 /amount 3000 /in 365` +
-Expected: There is already a goal with the same name: GRAD TRIP
+`/add /goals /name GRAD TRIP /amount 3000 /in 365` +
+Expected: Error showing that there is already a goal with the same name: GRAD TRIP
+
 
 === Edit goals
 . Edit goals name
-.. Pre-requisites: Goal with specified name must exist
+.. Pre-requisites: Goal with specified name must exist, and there are currently *no* goals with
+the same name as the new intended name
 .. Test case:
 `/edit /goals /name GRAD TRIP /newname KOREA GRAD` +
 Expected: New edited details is displayed
+
+. Edit goals name
+.. Pre-requisites: Goal with specified name must exist, and there *is currently a goal with
+the same name* as the new intended name
+.. Test case:
+`/edit /goals /name GRAD TRIP /newname KOREA GRAD` +
+Expected: There is already a goal name: KOREA GRAD
 
 . Edit goals amount
 .. Pre-requisites: Goal with specified name must exist
@@ -2936,8 +2974,13 @@ Expected: New edited details is displayed
 `/edit /goals /name GRAD TRIP /in 300` +
 Expected: New edited details is displayed
 
+. Edit goals date using both /in and /by parameters
+.. Test case:
+`/edit /goals /name GRAD TRIP /in 300 /by 20/10/2020` +
+Expected: Error saying "/by and /in cannot be specified concurrently when editing goals"
+
 . Edit the saving account tied to goals (can either add / edit / delete)
-.. Pre-requisites: Goal with specified name must exist and saving account specified must exist
+.. Pre-requisites: Goal with specified name must exist and name of saving account specified must exist
 .. Test case:
 `/edit /goals /name GRAD TRIP /from JunBank` +
 Expected: New edited details is displayed

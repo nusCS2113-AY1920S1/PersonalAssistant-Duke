@@ -616,7 +616,7 @@ class MainImport {
         exportArrayList.add(new String[]{
             "BTO at Punggol",
             "25000.00",
-            "10/10/2020",
+            "10/11/2019",
             "",
             "false",
             "false"});
@@ -630,8 +630,15 @@ class MainImport {
         exportArrayList.add(new String[]{
             "Car COE",
             "35000.00",
-            "19/11/2019",
+            "11/11/2020",
             "MayBank Savings Account",
+            "false",
+            "false"});
+        exportArrayList.add(new String[]{
+            "BFF Birthday",
+            "200",
+            "19/11/2019",
+            "",
             "false",
             "false"});
         return exportArrayList;
