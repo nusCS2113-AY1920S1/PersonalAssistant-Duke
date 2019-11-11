@@ -153,9 +153,9 @@ link:{repoURL}/src/main/java/Command.java[`Command.java`]
 link:{repoURL}/src/main/java/Parser.java[`Parser.java`]
 
 .Structure of the Command Class
-image::CommandClassDiagram.png[]
+image::CommandClassDiagram.png[align='center']
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `kParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -235,10 +235,14 @@ Step 3: (If the word doesn’t appear in the bank): When search pointer reaches 
 
 ==== Search with Beginning Substring
 This allows the user to look for the word that has a specific start. It is implemented as its own individual class SearchBeginCommand, which extends class Command.
+[]
 Step 1: Similar to Search Word, word bank loads all of the words in a binary search tree.
+[]
 Step 2: SearchBeginCommand will look to the first word in the dictionary that starts with a specific substring.
+[]
 [INSERT DIAGRAM]
 In the diagram above, if the user inputs “f”, it will searches in the sequence “seven” -> “four” -> “five”, and get “five” as the first word starts with “f”. If user inputs “s”, it will searches “seven”. It will see that the predecessor of “seven” is “one”, which doesn’t start with “s”, so it stops searching and get the word “seven”.
+[]
 Step 3: From that word, continuously look for its successor to find the word that starts with the specific substring. When it reaches a word that doesn’t start with that substring, it terminates and returns all the found words.
 
 // tag::implmentation[]
@@ -257,6 +261,7 @@ It contains the following attributes:
 It implements the following operations:
 
 * RecentlyAddedCommand(int) - Assigns the value of words requested to the numberOfWordsToDisplay attribute on the construction of the command object.
+
 * execute(Ui, WordBank, Storage, WordCount) - Creates the wordHistory stack and calls Ui to display the recently added words accordingly.
 
 The following is an example usage scenario for the Recently Added feature.
@@ -295,15 +300,21 @@ SearchFrequencyCommand contains the following attributes:
 
 * order : String
 This represents the order the list displayed should be in (i.e. highest search count first or lowest search count first).
+
 It implements the following operations:
+
 * SearchFrequencyCommand(int) - Assigns the value of the display order to the displayOrder attribute on the construction of the command object.
+
 * execute(Ui, WordBank, Storage, WordCount) - Calls Ui to display the words from wordCount to the user
+
 SearchCommand contains the following attributes:
+
 * searchTerm : String - This represents the word being queried.
 
 It implements the following operations:
 
 * SearchCommand(String) - Assigns the value of the word being queried to the searchTerm attribute on construction of the command object.
+
 * execute(Ui, WordBank, Storage, WordCount) - Obtains the meaning of the word from wordBank and increases the search count in wordCount
 
 The following is an example usage scenario for the Search Frequency feature:
@@ -342,33 +353,43 @@ Step 3: On each reminder date, there will be a notification showing the word and
 ** Pros: More straightforward implementation.
 ** Cons: Users might be working on something and the reminder popup may cause the view window to scroll past the line which they were referring to before the reminder. They may also easily miss the reminder when adding more commands.
 
-
 === Word Synonyms feature
 ==== Adding Synonym
+image::addsynonym1.png[align='center']
+
 The synonym feature allows words or phrases that means exactly or nearly the same as the current word to be added and referenced.
+[]
 When searched for, all the synonyms belonging to the searched word will be reflected and user is free to replace the searched word with any of the synonyms for personal use.
+[]
 The synonym function implements the following operations:
+
 * AddSynonym(String) - Inserts the synonyms into the HashSet of the main word. The function can only be used when we have the main word in our dictionary. User is expected to learn a word and meaning before being able to add synonyms to the word.
 
 * execute(Ui, WordBank, Storage, WordCount) - Overwrites the storage file and WordBank while the program is running to append synonyms into their respective data structure.
 
 The synonyms are structured using a Union Find algorithm to group the words together. When word A and word B are synonyms to each other, adding a word C to synonym of word B will automatically classify all three words together as synonyms. They are stored in the same cell within the Excel File under the StorageBank Sheet. You may view the excel file to see storage structure of the words.
-
+[]
 The following is a sample usage case:
-Step 1: Assume that the word “drink” and its meaning has already been saved into the word bank by the functions supported above.
-Step 2: User learnt a new word “beverage” that has the same meaning as “drink”. User adds “beverage” as a synonym to the main word “drink”
-Step 3: In doing so, the union find algorithm will group the words together and store them within the same cell. Note that beverage itself does not need to be saved into the dictionary before adding as a synonym to a main word. However the main word “drink” must be added to the dictionary before the usage of this feature.
 
-[INSERT DIAGRAM]
+Step 1: Assume that the word “lovely” and its meaning has already been saved into the word bank by the functions supported above.
+[]
+Step 2: User decides to add "beautiful", "pretty", "attractive" and "stunning" to "lovely"'s synonym.
+[]
+Step 3: In doing so, the union find algorithm will group the words together and store them within the same cell. Note that the four new words does not need to be saved into the dictionary before adding as a synonym to a main word ("lovely"). However the main word "lovely” must be added to the dictionary before the usage of this feature.
+
 
 ==== Searching of synonyms
+image::Synonymexample.PNG[align='center']
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
 * Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. 
+
 See QuizScene.java and QuizCommand.java for details.
-* The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ. 
-* The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct. 
+
+* The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ.
+
+* The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct.
 
 In the following example (Figure 11), if the user inputs “1”, WordUp will response the correctness (Figure 12), and at the end of the quiz it will show wrongly answered words so the user can review the words (Figure 13). 
 
@@ -597,16 +618,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a word
 
-. Deleting a person while all persons are listed
+. Deleting a word while all words are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all words using the `list` command.
+.. Test case: `delete w/WORD` +
+   Expected: The word will be deleted from wordBank, it will however stay in synonymBank (if applicable) since banks are separated.
+.. Test case: `delete w/ABCDEFG` +
+   Expected: No word is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete w/NON-EXISTENCE-WORD` {give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
