@@ -1,3 +1,20 @@
-XP/horn/07-11-2019 1500/07-11-2019 1600
-XC/some random concert/12-11-2019 1500/12-11-2019 1600/30
-XT/eat some food/13-11-2019
+XP/Horn practice/07-11-2019 1500/15-11-2019 1600
+XC/Esplanade concert/12-11-2019 1500/16-11-2019 1600/30
+XT/Buy new reed/18-11-2019
+XR/Recital at NAFA/18-11-2019 1200/18-11-2019 1500
+XT/Complete theory homework/19-11-2019
+XC/Yong Siew Toh concert/20-11-2019 1500/20-11-2019 1700/15
+XP/Full Orchestra rehearsal/21-11-2019 1700/21-11-2019 1900
+XL/Lesson with Dr Margaret/21-11-2019 2000/21-11-2019 2100
+XT/Complete research paper/22-11-2019
+XT/Get practice paper from Henry/23-11-2019
+XE/MU5155 Theory exam/24-11-2019 0900/24-11-2019 1000
+XE/MU5155 Practical exam/24-11-2019 1200/24-11-2019 1400
+XP/Full Orchestra rehearsal/25-11-2019 1500/25-11-2019 1600
+XT/Print scores for recital/26-11-2019
+XR/Recital at YST/27-11-2019 1300/27-11-2019 1500
+XE/Research paper review/28-11-2019 1300/28-11-2019 1500
+XE/MU2113T History Music exam/29-11-2019 1400/29-11-2019 1700
+XE/MU2113T Modern Music exam/29-11-2019 1800/29-11-2019 2100
+XT/Get some rest/30-11-2019
+XC/Performance at Botanic Gardens/30-11-2019 1400/30-11-2019 1700/0
