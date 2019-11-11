@@ -64,6 +64,16 @@ Developed and maintained by the `AY1920S1-CS2113T-F10-1` link:{repoURL}//tree/ma
 
 ====
 
+=== Viewing help `--help`
+
+If you are unsure about any of the commands or what they do, use the `--help` command to view a list of the commands you can input in ModPlan, as well as a brief description of what the command does. +
+[TIP]
+If you are still unsure on how to use the commands, keep reading the User Guide for specifics on how to use ModPlan! 
+
+Format: `--help`
+
+image::HelpSample.png
+
 === Adding a module or CCA: `add`
 
 Adds the specified module or CCA to the module list or CCA list respectively.
@@ -593,6 +603,8 @@ image::ModBadSuException.png[width="450"]
 
 == Command Summary
 
+* *Help*:
+** `--help`
 * *Add* :
 ** `add module MOD_CODE` +
 e.g. `add CG2028`
