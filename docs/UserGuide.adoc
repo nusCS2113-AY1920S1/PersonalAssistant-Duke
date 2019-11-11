@@ -42,7 +42,6 @@ their usage and their functions.
 - `-e` indicates a flag for email.
 - `-a` indicates a flag for an address of a member.
 - `-i` indicates an integer flag.
-- `-t` indicates the flag for adding task names.
 - `-d` indicates a flag for a date in the DD/MM/YYYY format.
 - `-p` indicates a flag for task priority, represented in integers.
 - `-c` indicates a flag for the amount of credit awarded for completion of a certain task, represented in integers.
@@ -252,12 +251,18 @@ Tasks without a deadline will be classified as the latest.
 |=======================================================================
 
 * Examples
-** `view tasks -name` //shows all the tasks sorted lexicographically
-** `view tasks -date` //show all the dates sorted by the due date
-** `view tasks -priority` //shows all the dates sorted by priority
-** `view tasks -credits` //shows all the tasks sorted by credits
-** `view tasks -who Dillen` //shows all the tasks assigned to “Dillen”
-** `view tasks -state doing` //shows all the tasks with the state “DOING”
+** `view tasks -name` : shows all the tasks sorted lexicographically
+image::images/screenshots/viewtasks_name.png[]
+** `view tasks -date` : show all the dates sorted by the due date
+image::images/screenshots/viewtasks_date.png[]
+** `view tasks -priority` : shows all the dates sorted by priority
+image::images/screenshots/viewtasks_priority.png[]
+** `view tasks -credits` : shows all the tasks sorted by credits
+image::images/screenshots/viewtasks_credits.png[]
+** `view tasks -who Dillen` : shows all the tasks assigned to “Dillen”
+image::images/screenshots/viewtasks_who.png[]
+** `view tasks -state doing` : shows all the tasks with the state “DOING”
+image::images/screenshots/viewtasks_state.png[]
 
 ==== View task requirements : `view task requirements`
 Shows user a list of task requirements for a specific task in the current project:
