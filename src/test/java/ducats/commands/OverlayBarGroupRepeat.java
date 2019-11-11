@@ -29,7 +29,7 @@ public class OverlayBarGroupRepeat  {
         // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
         String fileDelimiter = System.getProperty("file.separator");
         SongConverter songconverter = new SongConverter();
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongList songs = new SongList();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
@@ -87,7 +87,6 @@ public class OverlayBarGroupRepeat  {
 
             System.out.println(e);
         }
-        //ducats.components.SongList songList = new SongList();
         ArrayList<ducats.components.Song> findList = songs.findSong("Twinkle");
         assertEquals(expected,findList.get(0).showSongChart());
     }

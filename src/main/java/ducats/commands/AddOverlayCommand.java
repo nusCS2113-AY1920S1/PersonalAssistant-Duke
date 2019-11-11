@@ -13,6 +13,8 @@ import ducats.components.Song;
 import ducats.components.SongList;
 import ducats.commands.AsciiCommand;
 import ducats.commands.Command;
+import ducats.DucatsLogger;
+import ducats.components.Combiner;
 
 import java.util.Iterator;
 
@@ -25,56 +27,22 @@ public class AddOverlayCommand extends Command<SongList> {
     public String message;
 
     /**
-     * Constructor for the command to add a new bar to the current song.
+     * Constructor for the Overlay command to overlay 2 bars from the same song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
     public AddOverlayCommand(String message) {
         this.message = message;
     }
 
-    /**
-     * Combines two chords.
-     *
-     * @param chordBeCopiedFrom the chord that is being copied from
-     * @param chordCopiedTo the chord that is being copied to
-     */
-
-    public void combineChord(Chord chordBeCopiedFrom, Chord chordCopiedTo) {
-
-        //ArrayList<Note>noteArrayCopyFrom  = chordBeCopiedFrom.getNotes();
-        //Iterator<Note> iterator1 = noteArrayCopyFrom.iterator();
-        //while()
-        chordCopiedTo.getNotes().addAll(chordBeCopiedFrom.getNotes());
-    }
 
     /**
-     * Combines two bars.
-     *
-     * @param barToBeCopied the bar that is being copied from
-     * @param barToCopyTo the bar that is being copied to
-     */
-    public void combineBar(Bar barToBeCopied, Bar barToCopyTo) {
-        //we need copy the chords from bar1 into bar 2
-        ArrayList<Chord> chordBeCopiedFrom = barToBeCopied.getChords();
-        ArrayList<Chord> chordCopiedTo = barToCopyTo.getChords();
-        //System.out.println("here i after the chord from bar");
-        Iterator<Chord> iterator1 = chordBeCopiedFrom.iterator();
-        int i = 0;
-        while (iterator1.hasNext()) {
-            Chord chordAdd = iterator1.next();
-            combineChord(chordAdd,chordCopiedTo.get(i));
-            i += 1;
-        }
-    }
-
-    /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * This is the ovelay function for overlaying bars from the opened song.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
      * @param storage the Storage object used to read and manipulate the .txt file
-     * @return the string to be displayed in ducats.Ducats
+     * @return the string to be displayed in ducats.Ducats, if successful returns an ascii print of song.
      * @throws DucatsException if an exception occurs in the parsing of the message or in IO
      */
 
@@ -85,18 +53,21 @@ public class AddOverlayCommand extends Command<SongList> {
         Note note4;
         int barNo;
         if (message.length() < 8 || !message.substring(0, 8).equals("overlay ")) { //exception if not fully spelt
+            DucatsLogger.warning("the parser wrongly identified " + message + " as overlay");
             throw new DucatsException(message,"overlay_format");
         }
         try {
-            //the command consists of overlay 10 repeat
+
             String[] sections = message.substring(8).split(" ");
-            //this refers to the bar that needs to be added:
+            //if the command is not inputted properly, i.e. the parameters are lesser than 2:
             if (sections.length < 2) {
+                DucatsLogger.severe("overlay command was called without sufficient number of arguments");
                 throw new DucatsException(message,"overlay_format");
             }
+
             int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
             songIndex = songList.getActiveIndex();
-            //System.out.println(barIndexToAdd);
+
             if (songList.getSize() > songIndex) {
 
                 Song song = songList.getSongIndex(songIndex);
@@ -107,48 +78,51 @@ public class AddOverlayCommand extends Command<SongList> {
                 try {
                     overlayingBarToBeCopied = barList.get(barIndexToAdd);
                 } catch (java.lang.IndexOutOfBoundsException e) {
+                    DucatsLogger.severe("overlay command was called when the bar index did not exist");
                     throw new DucatsException(message, "no_index");
                 }
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
 
                 ArrayList<Chord> chordsToAdd = overlayingBar.getChords();
-
+                Combiner combine = new Combiner();
                 if (sections.length > 2 && sections[2].equals("repeat")) {
                     Iterator<Bar> iterator1 = barList.iterator();
                     int i = 0;
+
                     while (iterator1.hasNext()) {
                         Bar temp = iterator1.next();
                         if (i >= barIndexToBeCopiedTo && i != barIndexToAdd) {
-                            combineBar(overlayingBar, temp);
+                            combine.combineBar(overlayingBar, temp);
                         }
                         i += 1;
                     }
 
                 } else {
-                    //System.out.println("no repeat found");
-                    Bar temp = barList.get(barIndexToBeCopiedTo);
-                    //ArrayList<Chord> tempChordList = temp.getChords();
 
-                    combineBar(overlayingBar,temp);
+                    Bar temp = barList.get(barIndexToBeCopiedTo);
+                    combine.combineBar(overlayingBar,temp);
 
                 }
-                //add the bar to the song in the songlist
+                //calling the storage update function.
                 storage.updateFile(songList);
                 Command ascii = new AsciiCommand("ascii song " + song.getName());
+                DucatsLogger.fine("overlay command sucessfully overlayed the bar on the song");
                 return ascii.execute(songList,ui,storage);
                 //return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
             } else {
-                //System.out.println("no such index");
-                //System.out.println(songList.getSize());
+                DucatsLogger.severe("the song did not exist");
                 throw new DucatsException(message, "no_index");
             }
 
         } catch (DucatsException e) {
-            //System.out.println(e.getType());
+            DucatsLogger.severe("there was an DucatsException of " + e.getType()
+                    + "when the user typed " + message);
             throw new DucatsException(message, e.getType());
         } catch (java.io.IOException e) {
+            DucatsLogger.severe("there was an error in serializing the components");
             throw new DucatsException(message,"IO");
         } catch (java.lang.ClassNotFoundException e) {
+            DucatsLogger.severe("there was an error in serializing the components");
             throw new DucatsException(message,"IO");
         } catch (java.lang.NumberFormatException e) {
             throw new DucatsException(message,"number_index");
