@@ -97,26 +97,26 @@ public class ParserReturnTest {
 
     }
 
-    /**
-     * This test tests for the exception handling when user enters "return /id 1"
-     * and user with id 1 has no reservations.
-     * 
-     * @throws ParseException
-     */
-    @Test
-    public void invalidReservationIDTest() throws RimsException, IOException, ParseException {
-        Resource testitem = new Item(1,"testitem");
-        Date datefrom = stringToDate("10/10/2021 1000");
-        Date datetill = stringToDate("11/10/2021 1000");
-        testitem.book(1, 1, datefrom, datetill);
-        listUnderTest.add(testitem);
+    // /**
+    //  * This test tests for the exception handling when user enters "return /id 1"
+    //  * and user with id 1 has no reservations.
+    //  * 
+    //  * @throws ParseException
+    //  */
+    // @Test
+    // public void invalidReservationIDTest() throws RimsException, IOException, ParseException {
+    //     Resource testitem = new Item(1,"testitem");
+    //     Date datefrom = stringToDate("10/10/2021 1000");
+    //     Date datetill = stringToDate("11/10/2021 1000");
+    //     testitem.book(1, 1, datefrom, datetill);
+    //     listUnderTest.add(testitem);
 
-        String input_1 = "return /id 1";
-        parserUnderTest.parseInput(input_1);
-        //assertEquals("User 1 has not made any bookings yet!", e.getMessage());
-        System.out.print("Test: Trying to return a non-existing reservation\nStatus: Passed\n");
+    //     String input_1 = "return /id 1";
+    //     parserUnderTest.parseInput(input_1);
+    //     //assertEquals("User 1 has not made any bookings yet!", e.getMessage());
+    //     System.out.print("Test: Trying to return a non-existing reservation\nStatus: Passed\n");
 
-    }
+    // }
 
     /**
      * Converts a date and time inputted by the user in String format, into a Date object.

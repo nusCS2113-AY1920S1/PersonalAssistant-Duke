@@ -1,11 +1,13 @@
 package rims.command;
 
 import java.text.ParseException;
+
 import java.io.IOException;
 
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.exception.RimsException;
 
 //@@author rabhijit
@@ -14,7 +16,7 @@ import rims.exception.RimsException;
  * to false by default and lists methods common to all the commands.
  */
 public abstract class Command {
-    protected Boolean exitCode;
+    protected Boolean willExit;
     protected boolean canModifyData;
     protected String commandUserInput;
 
@@ -23,7 +25,7 @@ public abstract class Command {
      * and before the input of the next command, to false. When it is true, the RIMS program halts.
      */
     public Command() {
-        exitCode = false;
+        willExit = false;
         canModifyData = false;
     }
 
@@ -32,7 +34,7 @@ public abstract class Command {
      * @return the exit code
      */
     public Boolean getExitCode() {
-        return exitCode;
+        return willExit;
     }
 
     /**
@@ -40,7 +42,7 @@ public abstract class Command {
      * program will halt.
      */
     public void setExitCode() {
-        exitCode = true;
+        willExit = true;
     }
 
     /**
@@ -54,7 +56,7 @@ public abstract class Command {
 
     /**
      * Returns the command with its relevant arguments inputted by
-     * the user as a string
+     * the user as a string.
      * @return The string with the command details and arguments
      */
     public String getCommandUserInput() {
@@ -68,11 +70,10 @@ public abstract class Command {
      * @param ui An instance of the user interface.
      * @param storage An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus far.
-     * @throws ParseException if any date is un-parsable
-     * @throws IOException if there is an error in saving Resources to disk
-     * @throws RimsException if there is a non-formatting-related issue in the input
+     * @throws RimsException if any date is un-parsable, if there is an error in saving Resources to disk or
+     *                       if there is a non-formatting-related issue in the input
      */
     public abstract void execute(Ui ui, Storage storage, ResourceList resources)
-        throws ParseException, IOException, RimsException;
+        throws RimsException;
 
 }
