@@ -168,6 +168,12 @@ public class MainWindow extends GridPane {
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
+                } else if (isReview) {
+                    LOGGER.info("Review Quiz Settings");
+                    handleIsReview();
+                } else if (isResult) { // On results screen
+                    LOGGER.info("Display Results Settings");
+                    handleIsResult();
                 } else if ("listnote".equals(input)) {
                     //must be "listnote" exactly, else wont exe
                     handleListNote();
@@ -184,12 +190,6 @@ public class MainWindow extends GridPane {
                 } else if (isWritingNote) {
                     LOGGER.info("Writing Note Settings");
                     handleWriteNote();
-                } else if (isResult) { // On results screen
-                    LOGGER.info("Display Results Settings");
-                    handleIsResult();
-                } else if (isReview) {
-                    LOGGER.info("Review Quiz Settings");
-                    handleIsReview();
                 } else {
                     LOGGER.info("handleOtherProcesses { normal mode }");
                     handleOtherProcesses();

@@ -35,7 +35,7 @@ public class Main extends Application {
         } catch (IOException e) {
             LOGGER.warning("Unable to save log file");
         }
-        LOGGER.setLevel(Level.FINER);
+        LOGGER.setLevel(Level.WARNING);
         LOGGER.entering(getClass().getName(), "start");
         JavaCake javaCake;
         boolean hasCrashed = false;
