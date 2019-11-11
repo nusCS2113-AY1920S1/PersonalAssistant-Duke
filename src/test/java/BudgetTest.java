@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class BudgetTest {
     @Test
-    public void testBudget () {
+    public void testBudget() {
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
         fileContent = "XT/fawpeifwe/02-12-2019";
@@ -34,7 +34,7 @@ public class BudgetTest {
             fail();
         }
 
-        assertThrows(CostExceedsBudgetException.class, ()-> {
+        assertThrows(CostExceedsBudgetException.class, () -> {
             eventListTest.addEvent(new Concert("good concert", "06-12-2019 1500",
                     "06-12-2019 1600",2));
         });

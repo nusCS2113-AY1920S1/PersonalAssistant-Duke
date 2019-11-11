@@ -51,7 +51,6 @@ with the `BUILD SUCCESSFUL` message. This will generate the resources required b
 This image shows the overall architecture of our program
 
 image::Architecture main.png[width = 500%]
-There are three main components in the overall architecture of the application.
 
 === Main component
 Main component has one class called `Duke`. It is responsible for the following: +
@@ -99,8 +98,13 @@ This section describes some noteworthy details on how certain features are imple
 The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
 starting from a specified day, including the events within this time period. +
 
+==== Sequence diagram
+Below is the sequence diagram of calendarView.
+
+image::calendar_sequenceDiagram.png[width = "800"]
+
 ==== How it is implemented
-Given below is how a calendar table is generated and printed.
+Given below is the sequential steps of how a calendar table is generated and printed.
 
 Step 1. User enters `calendar` to start the initialization process of a calendar table with today as the starting day.
 
@@ -148,9 +152,9 @@ checks all the events whether any is in this day.
 . If not, this day will be added into a list.
 . Above process will continue until the list has 3 days, which will then be printed.
 
-The following logic diagram shows how check free days is implemented.
+The following activity diagram shows how check free days is implemented.
 
-image::DGCheck.png[width = "800"]
+image::check_activityDiagram.png[width = "800"]
 
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
@@ -178,7 +182,7 @@ This deletes an item from the checklist of an event.
 ==== Activity diagram
 The following activity diagram represents a typical clash handling scenario
 
-image::ActivityDiagramClashHandling.png[Clash Handling, 1600, align=center]
+image::Activity Diagram Clash handling.png[Clash Handling, 1600, align=center]
 
 ==== How is it implemented
 The program is able to *detect clashes when creating new events*. When the user enters the command
@@ -254,7 +258,7 @@ Pros: Much more flexible, and even more scalable than the current implementation
 to do anything regarding changes to the list, and then later check for clashes.
 
 Cons: Much more room for error, since clashes are allowed to exist within the list normally, and are not
-automatically detected. This could lead to major bugs related to events that overlap eac other.
+automatically detected. This could lead to major bugs related to events that overlap each other.
 
 |How relevant information is passed up the chain|
 Simply returning the relevant event that caused the clash as a part of the method call. +
@@ -270,7 +274,7 @@ would need to return a new object containing the relevant data.|
 ==== Activity diagram
 The following is the activity diagram for adding recurring events.
 
-image::recurringEventActivityDiagram.png[with="800"]
+image::recurringEventActivityDiagram.png[with="800", align = center]
 
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
@@ -312,7 +316,7 @@ happens.
 ==== Sequence diagram
 The following sequence diagram shows how the adding recurring event operation works.
 
-image::recurringEventSequenceDiagram.png[width="800"]
+image::recurringEventSequenceDiagram.png[width="800", align = center]
 
 ==== Design considerations
 Aspect: How to avoid adding infinite events +
@@ -583,13 +587,14 @@ image::PastEventAndGoalsListManagementSeq.png[]
 === Reminders
 
 ==== How it is implemented
-The reminder function filters out the tasks that are due or are happening before 2359 three days after the current date,
-and prints them out as a reminder for the users.
+The reminder function filters out the tasks that are due or are happening before 2359 an input number of days after 
+the current date, and prints them out as a reminder for the users. If the number of days is not provided, the number
+of days is 3 by default.
 
 After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the
 Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
-EventList.filteredList method to filter out a list of events that are due or are happening before 2359 three
-days after the current date. The EventList.filteredList method filters out events from the stored list of events
+EventList.filteredList method to filter out a list of events that are due or are happening before 2359 the input number 
+of days after the current date. The EventList.filteredList method filters out events from the stored list of events
 according to a certain input predicate.
 
 The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the
@@ -599,14 +604,14 @@ The Predicate.check method takes in an input and checks if reference (comp) inpu
 in the Predicate class depending on the type of the reference and input.
 
 In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to
-2359 three days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder method
-calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of Events in
-`eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the
+2359 the input number of days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder 
+method calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of 
+Events in `eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the
 EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true
 and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
 EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time,
-the date and time at 2359 three days after the current date, and the filtered list of events. This string is printed to
-stdout in the Ui.printReminders function.
+the date and time at 2359 the input number of days after the current date, and the filtered list of events. This string is 
+printed to stdout in the Ui.printReminders function.
 
 ==== Sequence diagram
 The following sequence diagram shows how the reminder functionality works.
@@ -622,6 +627,85 @@ obtains the filtered list of events from `eventArrayList`.
 This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
 functions.
 
+=== Instruments
+
+==== How it is implemented
+The mistermusik.commons.Instruments.InstrumentList class stores an array list of instruments. Instruments are objects of class
+mistermusic.commons.Instruments.Instrument. Each instance of the mistermusic.commons.Instruments.Instrument class also has an 
+array list of services. Services are objects of class mistermusic.commons.Instruments.Services.
+
+==== Adding an instrument
+
+Step 1: The user will type in the command `instrument add /<instrument name>`. The addInstrument() method from the InstrumentList 
+class is called.
+
+Step 2: The addInstrument() method creates a new instance of Instrument with the given input name. 
+
+Step 3: The getInstrumentIndexAndName() method, which returns a string containing the index of the instrument and the name, is 
+called. 
+
+Step 4: The instrumentAdded() method from the Ui class is then called, which prints a message stating that the instrument has
+been added.
+
+==== Viewing the list of instruments stored in the system
+
+Step 1: The user will type in the command `instrument view instruments`. The getInstruments() method from the InstrumentList 
+class is called.
+
+Step 2: The getInstruments() method returns a string containing a list of instruments stored in the InstrumentList instance used
+for the program. 
+
+Step 3: The printInstruments() method from the Ui class is then called, which prints out the list of instruments stored in the
+InstrumentList instance used for the program.
+
+==== Servicing an instrument
+
+Step 1: The user will type in the command `instrument service <instrument index> /<brief description of servicing> /<date>`.
+The service() method from the InstrumentList instance is called.
+
+Step 2: The service() method of the InstrumentList instance calls the addService() method of the referenced Instrument stored in the
+InstrumentList instance based on the input index. 
+
+Step 3: The addService() method adds the relevant servicing information to the Instrument instance by creating a new ServiceInfo
+instance and adding it to the array list of ServiceInfo stored in the Instrument instance, and returns the number of ServiceInfo
+instances stored in the array list.
+
+Step 4: The getInstrumentIndexAndName() method of the InstrumentList instance, which returns a string containing the index of 
+the instrument and the name, is called. 
+
+Step 5: The getIndexAndService() method of the InstrumentList instance is called, which in turn calls the getIndexAndService()
+method of the relevant Instrument instance stored in the InstrumentList instance used for the program. Both methods return the 
+index of the required servicing and the brief description of the servicing. The getIndexAndService() method of the Instrument
+instance calls the getServiceInfo() method on the relevant service to obtain the brief description of the servicing. 
+
+Step 6: The serviceAdded() method of the Ui class, which prints a message notifying the user that the servicing information has
+been added, is then called.
+
+==== Viewing the list of servicing done for a particular instrument
+
+Step 1: The user will type in the command `instrument view services <instrument index>`. The getInstrumentServiceInfo() method from 
+the InstrumentList class is called, which in turn calls the getServiceInfos() method of the relevant Instrument instance stored in 
+the array list of Instruments in the InstrumentList instance. Both methods return the list of servicing done to the relevant
+instrument. The getServiceInfos() function iterates through the stored list of ServiceInfo instances and calls getServiceInfo() on
+all the ServieInfo instances to obtain the descriptions of the servicings.
+
+Step 2: The getInstrumentIndexAndName() method of the InstrumentList instance, which returns a string containing the index of 
+the instrument and the name, is called. 
+
+Step 3: The printServices() method from the Ui class is then called, which prints out the list of servicing stored in a particular
+Instrument instance.
+
+==== Sequence diagram
+The following sequence diagram shows how the view services functionality works.
+====
+image::getServicesInstrumentSequenceDiagram.png[width = 100%]
+====
+
+==== Why it is implemented this way
+The implementation makes use of three classes, which are InstrumentList, Instrument and ServiceInfo. This allows for easier 
+testing as each of the classes represent a different component of the functionality. The InstrumentList instance stores an array 
+list of Instrument instances, an Instrument instance stores an array list of ServiceInfo instances.
+
 
 == Documentation
 We use asciidoc for writing documentation.
@@ -630,17 +714,73 @@ We chose asciidoc over Markdown because asciidoc, although a bit more complex th
 in formatting.
 
 == Testing
+The testing for our application is done through Junit tests (also viable to run these through gradle) and
+manual testing, covered in <<Instructions for Manual Testing, Appendix E: Instructions for manual testing>>
 
+=== Junit testing
+. IntelliJ: Simply right click the src/test/java directory and select `Run 'Tests in 'seedu.duke...'` or right
+click the individual test class you wish to run, and select `Run 'BudgetTest'` for example when testing
+individual components. This can also be done through the Gradle sidebar (double click the corresponding test
+under `run configurations`).
+. Command prompt: Simply type the command `gradlew clean test`
 
 == Dev Ops
+For build automation, we chose to use gradle, allowing for a more convenient process when running tests and
+checking for coding standard violations. Here are some of the gradle tasks that are essential to the
+development of the application.
+
+NOTE: For all the following commands, it is possible to run them through the IntelliJ IDE using the gradle
+task bar. The tasks on the task bar are identical in name to the command line tasks, so the following
+information is still relevant regarding their functions.
+
+=== How to run gradle commands
+Use the command `gradlew <taskname>`
+
+NOTE: Different tasks can be run at the same time by using a format such as
+`gradlew <task1> <task2>...`
+
+WARNING: For Mac users, you will need to add a `./` prefix before the command. For example,
+`./gradlew run`
+
+=== Building a jar file
+The command `shadowJar` will build a jar file using the current source code and store it under
+the #build/libs# directory.
+
+=== Clean
+The command `gradlew clean` will remove the buildDir folder, thus removing everything including leftover
+files from previous builds which are no longer necessary.
+
+WARNING: While running a task, Gradle checks if it is actually necessary to carry out the procedure by default.
+For example, Gradle will not rebuild the jar file if source code has not changed since the last time a jar file
+was packaged.
+
+In order to force gradle to execute the task, the `clean` command can be used. For instance,
+`gradlew clean shadowJar` will force a new jar file to be built.
+
+=== Running the application
+
+==== Run as per normal:
+The command `gradlew run` will build and run the application
+
+==== Run as jar file:
+The command `gradlew runShadow` will build the project as a jar file, and then run it.
+
+=== Checkstyle
+Using the command `checkstyleMain` will check for style violations in the *main* source code.
+Using the command `checkstyleTest` will check for style violations in the *test* source code.
+
+NOTE: The checkstyle settings can be configured by editing the `config/checkstyle/checkstyle.xml`
+file.
 
 
 [appendix]
 == Product Scope
 === Target User Profile
-MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
-The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
+MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western
+classical music performer.
 
+The program is designed to automate and streamline most of the process in scheduling and organisation of materials,
+allowing the students to focus more on the important aspects of their education.
 
 [appendix]
 == User Stories
@@ -758,9 +898,14 @@ Extensions 5.1: User inputs an invalid rating.
 
 === Launch and Shutdown
 . Initial Launch
-.. Open Duke.java in src.
-.. Run the file +
-   Expected: The Welcome Message is printed in stdout and the system requests for an input.
+.. Double click the jar executable
+.. Expected: The Welcome Message is printed in stdout and the system requests for an input.
+
+NOTE: If you are unable to run the jar file by double clicking it, you will need to navigate to
+the folder that you downloaded it to using the command prompt and type the command `java -jar
+<filename>` +
+Please also ensure that your jar file is stored in an empty directory or it may cause conflicts
+with the storing of information to a txt file.
 
 . Shutdown
 .. Key in `bye` as input. +
@@ -787,47 +932,47 @@ Expected: The list of command formats of changing event's information including 
 
 === Add an Event
 . Add Todo +
-   Key in `todo tdtask /01-01-2011` +
+   Key in `todo tdtask /15-11-2019` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][T] tdtask  BY: Sat, 01 Jan 2011 +
+   [x][T] tdtask  BY: Fri, 15 Nov 2019 +
    Now you have <previous number of items + 1> items in the list.
 
 . Add Exam +
-   Key in `exam Music Rudiments /08-08-2018 0800 0900` +
+   Key in `exam Music Rudiments /19-11-2019 0800 0900` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][E] Music Rudiments  START: Wed, 08 Aug 2018, 08:00 END: Wed, 08 Aug 2018, 09:00 +
+   [x][E] Music Rudiments  START: Tue, 19 Nov 2019, 08:00 END: Tue, 19 Nov 2019, 09:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Practice session +
-   Key in `practice morningprac /07-08-2018 0800 0900` +
+   Key in `practice morningprac /19-11-2019 0700 0800` +
    Expected: Output should be +
    Got it. I've added this event: +
-   [x][P] morningprac  START: Tue, 07 Aug 2018, 08:00 END: Tue, 07 Aug 2018, 09:00 +
+   [x][P] morningprac  START: Tue, 19 Nov 2019, 07:00 END: Tue, 19 Nov 2019, 08:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Concert +
-   Key in `concert Noon Concert /06-06-2016 1200 1400/15` +
+   Key in `concert Noon Concert /1-1-2020 1200 1400/15` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][C] Noon Concert  START: Mon, 06 Jun 2016, 12:00 END: Mon, 06 Jun 2016, 14:00 +
-   Now you have <number of tasks> tasks in the list. +
+   [x][C] Noon Concert  START: Wed, 01 Jan 2020, 12:00 END: Mon, 01 Jan 2020, 14:00 +
+   Now you have <previous number of items + 1> tasks in the list. +
    Note: The final value (in this case 15) represents the cost of the concert in dollars.
    The significance of this is explained under section E.13 budgeting.
 
 . Add Recital +
-   Key in `recital Evening Recital /07-07-2017 1900 2100` +
+   Key in `recital Evening Recital /10-12-2019 1900 2100` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][R] Evening Recital  START: Fri, 07 Jul 2017, 19:00 END: Fri, 07 Jul 2017, 21:00 +
+   [x][R] Evening Recital  START: Tue, 10 Dec 2019, 19:00 END: Tue, 10 Dec 2019, 21:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Lesson +
-   Key in `lesson Class /09-09-2019 0900 0100` +
+   Key in `lesson Class /2-1-2020 0900 1000` +
    Expected: Output should be +
    Got it. I’ve added this task: +
-   [x][L] Class  START: Mon, 09 Sep 2019, 09:00 END: Mon, 09 Sep 2019, 01:00 +
+   [x][L] Class  START: Thu, 02 Jan 2020, 09:00 END: Thu, 02 Jan 2020, 10:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 === Add recurring events
@@ -851,34 +996,42 @@ Expected: A message inform users to ensure the period number is positive integer
 Expected: A message inform users to ensure the period number is positive integer is printed.
 
 === Set a Task as done
-Key in `done 1` +
+Key in `done 3` +
 Expected: Prints a message that the first task on the list has been marked as done.
 Note: Only works for To-Dos.
 
 === Find tasks that contains a certain keyword or key phrase
-Key in `find <key>`, where `<key>` is the keyword or key phrase +
+Key in `find MU2113T` to search for all events that contain the keyphrase "MU2113T" +
 Expected: Prints a list of tasks that contains the `<key>`.
 
 === Get reminder
 Key in `reminder` +
-Expected: Prints a list of tasks to be completed in the next three days.
+Expected: Prints a list of tasks to be completed in the next few days. Without any
+second argument, 3 days is the default. See below for getting reminder for a specific
+number of days.
+
+Key in `reminder 2` +
+Expected: Prints a list of tasks to be completed in the next two days.
 
 === View all tasks in a certain day
-Key in view `<date>`, where `<date>` has the format dd-MM-yyyy. +
-Expected: Prints a list of tasks that occurs on the given `<date>`.
+Key in `view 19-11-2019`, note that the date is in the format dd-MM-yyyy. +
+Expected: Prints a list of tasks that occurs on the given date.
 
 === Edit description of an event
-Key in `<edit> <event index>/<new description>`.+
-Expected: Prints the success of editing event of index `<event index>`.
+Key in `edit 2/Promenade`. +
+"2" is the index of the event we want to edit, and "Promenade" is the
+new description we wish to change the event to having. +
+Expected: Prints success message and edits event of index `<event index>` to new description.
 
 === Reschedule an event
 . Prerequisites: Event list is not empty, and at least has one type of event.
 
 . Reschedule an event in the list
 .. Test case: `reschedule 1 01-01-2020 0000 0100` +
-Expected: If clash with other event in the list, the details of clash will be printed. If the No.1 in the list is a
-Todo, the message of rescheduling only works on events will be printed. If no clash and not Todo, the No.1 event will
-be rescheduled to 01-01-2020 0000 0100, and the successfully rescheduled message will be printed.
+Expected: If clash with other event in the list, the details of clash will be printed. Otherwise,
+a success message will be printed and the event will be rescheduled.
+
+NOTE: This does not work on to-do type events.
 
 . Reschedule an event which is not in the list
 .. Test case: `reschedule 0 01-09-2019 1300 1400` +
@@ -946,15 +1099,30 @@ Expected: Prints the success of editing the contact, and the contact details.
 For example, the user input command `concert MyConcert/2-12-2019 1500 1600/30` will
 have a cost of $30.
 
+.. Notice earlier that the concert entry events have an extra field at the end. This denotes
+the cost of the concert to be added.
 .. Attempting to add two concerts to the same month that exceeds the stipulated budget
 (set at $50) will result in a message telling the user so, and that the operation has been
-cancelled.
-.. Entering the command `concert MyConcert/2-12-2019 1500 1600/30` followed by the command
-`concert MyConcert/27-12-2019 1200 1400/21` will result in the system cancelling the second
-operation due to exceeding of budget for the month of december 2019.
+cancelled. Try `concert NewConcert/1-11-2019 1400 1600/60` for example.
 
 . The user command `budget MM-yyyy` will result in the program displaying the costs
-of all concerts in the month denoted by MM-yyyy.
+of all concerts in the month denoted by MM-yyyy. +
+e.g `budget 11-2019` will display the costs for the month of November 2019.
 
 . The user command `budget set 35` will change the stipulated budget to the value stated ($35).
 Similarly, `budget set 70` will set the budget to a value of $70.
+
+=== Instruments
+Key in `instrument add /violin` +
+Expected: An instrument named 'violin' is added to the stored list of instruments, and a message
+is printed stating that this has been done.
+
+Key in `instrument view instruments` +
+Expected: The list of instruments stored in the system is printed out in order of their indexing.
+
+Key in `instrument service 1 /rehair bow /12-12-2012` +
+Expected: A servicing information is added to the instrument stored with index 1 that 'rehair bow' is
+done to the instrument on 12-12-2012. A message is also printed stating that this has been done.
+
+Key in `instrument view services 1` +
+Expected: The list of servicing done to the instrument stored with index 1 is printed out.

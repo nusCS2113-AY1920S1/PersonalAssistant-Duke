@@ -30,6 +30,9 @@ public class EventList {
      */
     private ArrayList<Event> eventArrayList;
 
+    /**
+     * compareFunc codes.
+     */
     private static final int GREATER_THAN = 1;
     private static final int SMALLER_THAN = 2;
 
@@ -182,8 +185,8 @@ public class EventList {
         ArrayList<Event> tempEventList = new ArrayList<>();
 
         Event newEvent = null;
-
-        for (int addEventCount = 0; addEventCount * period <= ONE_SEMESTER_DAYS; addEventCount++) {
+        int oneSemesterDays = 16 * 7;
+        for (int addEventCount = 0; addEventCount * period <= oneSemesterDays; addEventCount++) {
             EventDate toFormatCalendarStartDate = new EventDate(calendarStartDate.getTime());
             EventDate toFormatCalendarEndDate = new EventDate(calendarEndDate.getTime());
             if (event.getType() == 'L') {
@@ -333,15 +336,12 @@ public class EventList {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
-
             if (eventArrayList.get(i) == null) {
                 continue;
-
             } else if (!predicate1.check(eventArrayList.get(i).getStartDate())
                     || !predicate2.check(eventArrayList.get(i).getStartDate())) {
                 continue;
             }
-
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }

@@ -1,4 +1,5 @@
 //@@author yenpeichih
+
 package mistermusik.commons;
 
 public class Goal {
@@ -15,8 +16,6 @@ public class Goal {
 
     /**
      * Creates a Goal instance with the goal input by user and a boolean to check if goal is achieved.
-     *
-     * @param description
      */
     public Goal(String description) {
         goalDescription = description;
@@ -45,7 +44,7 @@ public class Goal {
     }
 
     /**
-     * Returns the string for the achieved status of the goal.
+     * Gets whether the goal is achieved.
      */
     public String getStatus() {
         if (isAchieved) {

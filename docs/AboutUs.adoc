@@ -23,7 +23,7 @@ Responsibilities: Implementation of Reminder, Documentation
 === Wong Ren-Wei, Ryan
 image::ryan-wong-ren-wei.png[width="150", align="left"]
 {empty}[https://github.com/Ryan-Wong-Ren-Wei[github]]
-{empty}[https://github.com/Ryan-Wong-Ren-Wei[portfolio]]
+{empty}[https://github.com/AY1920S1-CS2113T-F11-4/main/blob/master/docs/%5BAT1920S1-CS2113T-F11-4%5D%5BRyan-Wong-Ren-Wei%5DPPP.pdf[portfolio]]
 
 Role: Developer
 Responsibilities: Implementation of Clash Handling, Architecture of MisterMusik, Documentation, Refactoring

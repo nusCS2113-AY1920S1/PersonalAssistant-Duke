@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@author YuanJiayi
 public class ContactTest {
@@ -48,11 +51,9 @@ public class ContactTest {
         testList.getEvent(0).removeContact(0);
         assertFalse(eventTest.getContactList().contains(normalContact));
         //test remove a contact not in the list
-        try {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             testList.getEvent(0).removeContact(1);
-            fail();
-        } catch (IndexOutOfBoundsException ignored) {
-        }
+        });
     }
 
     @Test
@@ -119,10 +120,8 @@ public class ContactTest {
 
         //test wrong contact index
         String newContact = "wrong contact index";
-        try {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             testList.getEvent(0).editContact(23, 'E', newContact);
-            fail();
-        } catch (IndexOutOfBoundsException ignored) {
-        }
+        });
     }
 }
