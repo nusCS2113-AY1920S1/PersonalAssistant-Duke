@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReminderTest extends CommandTestFramework {
+public class ReminderTest extends CommandTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
