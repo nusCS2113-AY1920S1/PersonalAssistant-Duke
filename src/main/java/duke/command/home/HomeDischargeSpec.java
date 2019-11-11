@@ -14,7 +14,7 @@ public class HomeDischargeSpec extends HomeObjSpec {
     private static final String header = "DISCHARGED PATIENT REPORT";
     private static final String explanation = "This report shows all the data that was stored about a patient at the "
             + "time the report was created.";
-    private static final String result = "Patient discharged. A discharge report have been created.";
+    private static final String result = "Patient discharged. A discharge report has been created.";
 
     public static HomeDischargeSpec getSpec() {
         return spec;

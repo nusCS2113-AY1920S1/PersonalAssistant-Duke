@@ -1,0 +1,37 @@
+@startuml
+actor User
+
+activate ":CommandWindow"
+activate ":Executor"
+activate ":Parser"
+participant ":Command"
+activate ":CommandSpec"
+
+User -> ":CommandWindow" : Provide Input
+":CommandWindow" -> ":Parser" : parse()
+activate ":Parser"
+":Parser" -> ":Command" : Commands.getCommand(input, Context)
+activate ":Command"
+":Parser" <-- ":Command" : Return Command
+group if ArgCommand
+  ":Parser" -> ":Command" : Request Specification
+  ":Command" -> ":CommandSpec" : Get Specification
+  ":Command" <-- ":CommandSpec" : Return Specification
+  ":Parser" <-- ":Command" : Provide Specification 
+  activate ":Parser"
+  ":Parser" -> ":Parser" : ArgParser.parseArgument(ArgCommand, input)
+  ":Parser" -> ":Command" : Load ArgCommand Parameters
+  ":Parser" <-- ":Command" : Return Loaded Command
+  deactivate ":Parser"
+end
+":CommandWindow" <-- ":Parser" : Return Command
+deactivate ":Parser"
+
+":CommandWindow" -> ":Executor" : execute()
+":Executor" -> ":Command" : execute()
+":Command" -> ":CommandSpec" : execute()
+activate ":CommandSpec"
+User <-- ":CommandSpec" : Provide Feedback
+deactivate ":CommandSpec"
+destroy ":Command"
+@enduml

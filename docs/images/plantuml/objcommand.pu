@@ -1,0 +1,31 @@
+@startuml
+actor User
+activate ":DukeCore"
+participant ":ObjCommand"
+activate ":ObjSpec"
+
+User -> ":DukeCore" : Provide Input
+":DukeCore" -> ":ObjCommand" : Construct and Load Parameters
+activate ":ObjCommand"
+":DukeCore" <-- ":ObjCommand" : Return Loaded Command
+":DukeCore" -> ":ObjCommand" : execute(DukeCore)
+":ObjCommand" -> ":ObjSpec" : executeWithCmd(DukeCore, ArgCommand)
+activate ":ObjSpec"
+note right : find target object
+":ObjSpec" -> ":ObjSpec" : execute(DukeCore) 
+group if ambiguous
+  ":DukeCore" <-- ":ObjSpec" : search(SearchResults, ObjCommand)
+  activate ":DukeCore"
+  User <-- ":DukeCore" : Request Selection
+  User -> ":DukeCore" : Provide Selection
+  ":DukeCore" -> ":ObjCommand" : execute(DukeCore, DukeObject)
+  deactivate ":DukeCore"
+  ":ObjCommand" -> ":ObjSpec" : execute(DukeCore, ObjCommand, DukeObject)
+end
+note right : actual command execution
+":ObjSpec" -> ":ObjSpec" : executeWithObj(DukeCore, DukeObject)
+":DukeCore" <-- ":ObjSpec" : Return Command Results
+deactivate ":ObjSpec"
+destroy ":ObjCommand"
+User <-- ":DukeCore" : Provide Feedback
+@enduml

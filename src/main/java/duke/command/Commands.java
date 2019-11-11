@@ -105,7 +105,7 @@ public class Commands {
             case "new":
                 return new ArgCommand(ImpressionNewSpec.getSpec());
             case "edit":
-                return new ArgCommand(ImpressionEditSpec.getSpec());
+                return new ObjCommand(ImpressionEditSpec.getSpec());
             case "find":
                 return new ObjCommand(ImpressionFindSpec.getSpec());
             case "move":

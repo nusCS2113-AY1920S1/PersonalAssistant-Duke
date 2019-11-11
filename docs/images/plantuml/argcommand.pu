@@ -1,0 +1,34 @@
+@startuml
+participant "Parser Logic"
+participant ":ArgCommand"
+participant ":ArgSpec"
+
+activate "Parser Logic"
+activate ":ArgSpec"
+"Parser Logic" -> ":ArgCommand" : Construct and Request Specification
+activate ":ArgCommand"
+
+":ArgCommand" -> ":ArgSpec" : Get Specification
+":ArgCommand" <-- ":ArgSpec" : Return Specification
+"Parser Logic" <-- ":ArgCommand" : Return Specification
+
+activate "Parser Logic"
+"Parser Logic" -> "Parser Logic" : Parse
+"Parser Logic" -> ":ArgCommand" : Load Parameters
+"Parser Logic" <-- ":ArgCommand"
+"Parser Logic" -> ":ArgCommand" : execute()
+deactivate "Parser Logic"
+
+":ArgCommand" -> ":ArgSpec" : executeWithCmd()
+note right
+  This provides ArgSpec with a
+  reference to ArgCommand, to 
+  allow it to access switch 
+  and argument values
+end note
+activate ":ArgSpec"
+":ArgSpec" -> ":ArgSpec" : execute()
+":ArgSpec" ->] : Return Results via DukeCore
+deactivate ":ArgSpec"
+destroy ":ArgCommand"
+@enduml

@@ -141,6 +141,6 @@ public class Medicine extends Treatment {
 
     @Override
     public boolean isFollowUp() {
-        return true;
+        return false;
     }
 }

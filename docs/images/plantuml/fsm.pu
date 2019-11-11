@@ -1,0 +1,23 @@
+@startuml
+EMPTY : <Space>, <Newline> 
+EMPTY : skip empty char
+SWITCH : <any other character> 
+SWITCH : add char to elementBuilder
+STRING : <any other character> 
+STRING : add char to elementBuilder
+ARG : <any other character> 
+ARG : add char to elementBuilder
+ERROR : throw DukeException
+[*] --> EMPTY
+EMPTY --> SWITCH : <Hyphen>
+EMPTY --> STRING : <Double Quote>
+EMPTY --> ARG : <any other character>
+SWITCH --> EMPTY : <Space>, <Newline> - addSwitch()
+SWITCH --> SWITCH : <Hyphen> - addSwitch()
+SWITCH --> STRING : <Double Quote> - addSwitch()
+STRING --> EMPTY : <Double Quote> - writeElement()
+STRING --> EMPTY : <Space>, <Newline>
+ARG --> EMPTY : <Space>, <Newline>
+ARG --> ERROR : <Hyphen>, <Double Quote>
+
+@enduml
