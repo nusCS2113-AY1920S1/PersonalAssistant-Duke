@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Tests each of the case clauses in the SetReminderCommand class.
+ */
 class SetReminderCommandTest {
 
     private Storage storage;
@@ -25,7 +28,8 @@ class SetReminderCommandTest {
     void testSetup() {
         ui = new Ui();
         bank = new Bank();
-        storage = new Storage("setReminderCommandTestData.txt", "setReminderCommandTest.xlsx", "setReminderCommandTestReminder.txt");
+        storage = new Storage("setReminderCommandTestData.txt", "setReminderCommandTest.xlsx",
+                "setReminderCommandTestReminder.txt");
     }
 
     @Test

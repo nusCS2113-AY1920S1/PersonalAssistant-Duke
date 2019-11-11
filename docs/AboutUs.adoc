@@ -16,7 +16,7 @@ image::developers\tran-quang-thanh.png[width="150", align="left"]
 {empty}[https://github.com/tran-quang-thanh[github]] 
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities: Testing, Issues Management
 
 '''
 
@@ -25,7 +25,7 @@ image::developers\kevin996231.png[width="150", align="left"]
 {empty}[https://github.com/kevin996231[github]] 
 
 Role: Developer +
-Responsibilities: Code quality
+Responsibilities: Code quality, Testing
 
 '''
 
@@ -34,7 +34,7 @@ image::developers\tessa-z.png[width="150", align="left"]
 {empty}[https://github.com/tessa-z[github]] 
 
 Role: Developer +
-Responsibilities: Scheduling and tracking, Documentation
+Responsibilities: Documentation, Milestone Management, Testing
 
 '''
 
@@ -43,7 +43,7 @@ image::developers\njw95.png[width="150", align="left"]
 {empty}[https://github.com/njw95[github]] 
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Integration, Documentation
 
 '''
 
@@ -52,6 +52,6 @@ image::developers\chelsea148629.png[width="150", align="left"]
 {empty}[https://github.com/chelsea148629[github]] 
 
 Role: Developer +
-Responsibilities: Documentation
+Responsibilities: Documentation, Testing
 
 '''

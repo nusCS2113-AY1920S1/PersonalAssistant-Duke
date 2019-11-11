@@ -24,11 +24,11 @@ public class CommandTest {
     private Storage storage;
     private Bank bank;
     private Ui ui;
+
     /**
      * Create wordup test file.
      * @throws WordAlreadyExistsException
      */
-
     @BeforeEach
     public void createWordUpTestFile() throws WordAlreadyExistsException {
         storage = new Storage("commandTestData.txt", "commandTest.xslx", "commandTestReminder.txt");
