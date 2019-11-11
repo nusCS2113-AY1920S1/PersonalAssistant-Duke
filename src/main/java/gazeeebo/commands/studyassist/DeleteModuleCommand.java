@@ -2,10 +2,11 @@ package gazeeebo.commands.studyassist;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.Storage;
 import gazeeebo.storage.StudyAssistPageStorage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class DeleteModuleCommand {
@@ -19,7 +20,8 @@ public class DeleteModuleCommand {
      */
     public void execute(StudyPlannerCommand studyPlan,
                         StudyAssistPageStorage storage,
-                        Ui ui) throws IOException,DukeException {
+                        Ui ui,
+                        Stack<ArrayList<ArrayList<String>>> oldStudyPlan) throws IOException,DukeException {
         try {
             if (ui.fullCommand.split(" ").length != 4) {
                 throw new DukeException("Please follow the correct input format~");
@@ -48,7 +50,7 @@ public class DeleteModuleCommand {
             }
             if (semesterNumber != semester) {
                 throw new DukeException("This module is not in Sem "
-                    + (semester + 1) + " but inside Sem " + (semesterNumber + 1));
+                        + (semester + 1) + " but inside Sem " + (semesterNumber + 1));
             }
             studyPlan.StudyPlan
                     .get(semester)
@@ -66,9 +68,10 @@ public class DeleteModuleCommand {
                     + " has been successfully deleted from Sem" + (semester + 1) + ".");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            oldStudyPlan.pop();
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please input correct Semester number");
+            oldStudyPlan.pop();
         }
     }
 }
-

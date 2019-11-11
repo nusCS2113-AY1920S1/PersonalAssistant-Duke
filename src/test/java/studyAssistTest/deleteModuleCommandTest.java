@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,9 +38,11 @@ public class deleteModuleCommandTest {
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
+        oldStudyPlan.push(StudyPlan.StudyPlan);
         ui.fullCommand = "delete";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
 //            fail();
         } catch (DukeException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -51,9 +55,11 @@ public class deleteModuleCommandTest {
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
+        oldStudyPlan.push(StudyPlan.StudyPlan);
         ui.fullCommand = "delete CD1234 from 5";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
 //            fail();
         } catch (DukeException e){
             assertEquals("We currently do not have this module.",e.getMessage());
@@ -65,9 +71,11 @@ public class deleteModuleCommandTest {
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
+        oldStudyPlan.push(StudyPlan.StudyPlan);
         ui.fullCommand = "delete CS2040C from 9";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please input correct Semester number.",e.getMessage());
@@ -79,9 +87,11 @@ public class deleteModuleCommandTest {
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
+        oldStudyPlan.push(StudyPlan.StudyPlan);
         ui.fullCommand = "delete CS2040C from";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -93,9 +103,11 @@ public class deleteModuleCommandTest {
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
+        oldStudyPlan.push(StudyPlan.StudyPlan);
         ui.fullCommand = "delete CS3230 sem 5";
         try {
-            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui,oldStudyPlan);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("This module is not inside the study plan",e.getMessage());
@@ -107,6 +119,8 @@ public class deleteModuleCommandTest {
         Ui ui = new Ui();
         StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
+        Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
+        oldStudyPlan.push(StudyPlan.StudyPlan);
         ui.fullCommand = "delete CS2040C from 5";
         String ModuleCode = "CS2040C";
         int Semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
@@ -120,14 +134,14 @@ public class deleteModuleCommandTest {
         }
         if(!flag){
             try {
-                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
+                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui,oldStudyPlan);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not inside the study plan", e.getMessage());
             }
         }else if(flag && semester_number != Semester){
             try {
-                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
+                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui, oldStudyPlan);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not in Sem "+(Semester+1)+" but inside Sem "+(semester_number+1), e.getMessage());
@@ -135,7 +149,7 @@ public class deleteModuleCommandTest {
 
         }else {
             try {
-                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
+                new DeleteModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui,oldStudyPlan);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module " + ModuleCode + " has been successfully deleted from Sem" + 5+".", e.getMessage());
