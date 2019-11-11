@@ -3,14 +3,18 @@ package tests;
 import duke.command.ArgCommand;
 import duke.command.Command;
 import duke.command.ObjCommand;
+import duke.command.impression.ImpressionDeleteSpec;
 import duke.command.impression.ImpressionEditSpec;
 import duke.command.impression.ImpressionNewSpec;
 import duke.command.impression.ImpressionPrimarySpec;
+import duke.command.impression.ImpressionPrioritySpec;
+import duke.command.impression.ImpressionStatusSpec;
 import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
 import duke.data.Result;
 import duke.exception.DukeException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -19,6 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -26,6 +31,8 @@ public class ImpressionCommandTest extends CommandTest {
 
     private Impression impression;
     private Patient patient;
+    private Result result;
+    private Medicine med;
 
     /**
      * Sets up the core of this object to have a patient and impression, opens the impression, and stores those
@@ -37,12 +44,25 @@ public class ImpressionCommandTest extends CommandTest {
                 0, 0, "", "");
         impression = new Impression("name", "description", patient);
         try {
-            patient.addNewImpression(impression);
             core.patientData.addPatient(patient);
+            patient.addNewImpression(impression);
+            result = new Result("result name", impression, 0, "Result summary");
+            med = new Medicine("test medicine", impression, 2, "1", "test dose",
+                    "today", "next two weeks");
+            impression.addNewEvidence(result);
+            impression.addNewTreatment(med);
         } catch (DukeException excp) {
             fail("Failed to setup patient and impression for testing!");
         }
         core.uiContext.open(impression);
+    }
+
+    @AfterEach
+    public void cleanup() {
+        patient = null;
+        impression = null;
+        med = null;
+        result = null;
     }
 
     @Test
@@ -113,25 +133,23 @@ public class ImpressionCommandTest extends CommandTest {
     @Test
     public void impressionEditCommand_editData_dataEdited() {
         ObjCommand editCmd = null;
-        Result origData = null;
         Result newData = null;
         String[] switchNames = {"evidence", "name", "priority", "summary"};
         String[] switchVals = {"1", "Edited", "1", "New result summary"};
 
         try {
             editCmd = new ObjCommand(ImpressionEditSpec.getSpec(), null, switchNames, switchVals);
-            origData = new Result("Original", impression, 0, "Result summary");
             newData = new Result("Edited", impression, 1, "New result summary");
         } catch (DukeException excp) {
             fail("Error thrown while setting up Command and Result for editing!");
         }
 
         try {
-            editCmd.execute(core, origData); // assume origData was correctly identified by user
+            editCmd.execute(core, result); // assume origData was correctly identified by user
         } catch (DukeException excp) {
             fail("Error thrown while executing valid edit in Impression context!");
         }
-        assertTrue(newData.equals(origData));
+        assertTrue(newData.equals(result));
     }
 
     @Test
@@ -158,5 +176,72 @@ public class ImpressionCommandTest extends CommandTest {
         assertTrue(newImpression.equals(impression));
     }
 
+    @Test
+    public void impressionDeleteCommand_validItem_itemDeleted() {
+        ObjCommand delCmd = null;
+        String[] switchNames = {"evidence"};
+        String[] switchVals = {"1"};
 
+        try {
+            delCmd = new ObjCommand(ImpressionDeleteSpec.getSpec(), null, switchNames, switchVals);
+
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            delCmd.execute(core, result);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid deletion in Impression context: "
+                    + excp.getMessage());
+        }
+        assertNull(impression.getEvidence("result name"));
+    }
+
+    @Test
+    public void impressionPriorityCommand_validItem_itemPrioritySet() {
+        ObjCommand prioCmd = null;
+        String[] switchNames = {"evidence", "set"};
+        String[] switchVals = {"1", "1"};
+
+        try {
+            assertEquals(0, impression.getEvidenceAtIdx(0).getPriority());
+            prioCmd = new ObjCommand(ImpressionPrioritySpec.getSpec(), null, switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            prioCmd.execute(core); // unambiguous
+            assertEquals(1, impression.getEvidenceAtIdx(0).getPriority());
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid deletion in Impression context: "
+                    + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void impressionStatusCommand_validItem_itemStatusSet() {
+        ObjCommand statusCmd = null;
+        String[] switchNames = {"set"};
+        String[] switchVals = {"completed"};
+
+        try {
+            assertEquals(1, impression.getTreatmentAtIdx(0).getStatusIdx());
+            statusCmd = new ObjCommand(ImpressionStatusSpec.getSpec(), "1", switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            statusCmd.execute(core); // unambiguous
+            assertEquals(2, impression.getTreatmentAtIdx(0).getStatusIdx());
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid deletion in Impression context: "
+                    + excp.getMessage());
+        }
+    }
 }

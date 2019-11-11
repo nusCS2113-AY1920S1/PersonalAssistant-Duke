@@ -77,12 +77,16 @@ public abstract class Treatment extends DukeData {
                 setStatus(Integer.parseInt(status));
             } catch (NumberFormatException excp) { // not numeric
                 // TODO: parse with autocorrect?
+                boolean isValidStatus = false;
                 for (int i = 0; i < getStatusArr().size(); ++i) {
                     if (getStatusArr().get(i).equalsIgnoreCase(status)) {
                         statusIdx = i;
+                        isValidStatus = true;
                     }
                 }
-                throw new DukeUtilException("'" + status + "' is not a valid status name!");
+                if (!isValidStatus) {
+                    throw new DukeUtilException("'" + status + "' is not a valid status name!");
+                }
             }
         }
     }
