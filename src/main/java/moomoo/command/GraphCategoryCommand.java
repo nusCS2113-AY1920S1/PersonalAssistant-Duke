@@ -52,6 +52,8 @@ public class GraphCategoryCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage)
             throws MooMooException {
+        DetectOsCommand getOS = new DetectOsCommand();
+        
         Category cat;
         try {
             cat = categoryList.get(categoryName);
@@ -73,9 +75,11 @@ public class GraphCategoryCommand extends Command {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
         }
-    
-        horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
-        horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
+        
+        if (!getOS.osName.contains("win")) {
+            horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
+            horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
+        }
         
         String topSpace = "";
         for (int i = 0; i < cat.getLongestExpenditure(); i += 1) {
@@ -90,7 +94,7 @@ public class GraphCategoryCommand extends Command {
                 
             }
             
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && !getOS.osName.contains("win")) {
                 output = output + ANSI_CYAN + expenditureName;
             } else {
                 output = output + expenditureName;
@@ -112,7 +116,7 @@ public class GraphCategoryCommand extends Command {
             }
             output = output + "  " + roundToTwoDp(percentage) + "%\n";
             
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && !getOS.osName.contains("win")) {
                 output = output + ANSI_RESET;
             }
         }
