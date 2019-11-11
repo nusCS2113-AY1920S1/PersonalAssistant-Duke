@@ -671,11 +671,12 @@ public class Profile {
      * @throws BankException If cannot add income.
      */
     public void profileUpdate(Ui ui) throws BankException {
+        ui.printMessage("Updating profile...");
         bankList.bankListUpdateRecurringTransactions(ui);
         goalsList.updateGoals();
         profileAddAchievement();
-        logger.info("Profile updated");
-        ui.printMessage("Profile has been updated");
+        logger.info("Profile checks done");
+        ui.printMessage("Update checks done");
     }
 
     /**
