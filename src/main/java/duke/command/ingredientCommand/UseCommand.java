@@ -27,13 +27,16 @@ public class UseCommand extends Command {
      */
     public UseCommand(Ingredient ingredient) throws DukeException {
         assert ingredient != null;
-        if (ingredient.getAmount() == 0)
-            throw new DukeException("Enter a valid amount to use, at least 1!");
         toUse = ingredient;
     }
 
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
+        assert fridge != null;
+        assert fridgeStorage != null;
+        assert ui != null;
+        if (toUse.getAmount() == 0)
+            throw new DukeException("Enter a valid amount to use, at least 1!");
         ui.showLine();
         if (fridge.useIngredient(toUse)) {
             ui.show("Great you used " + toUse.toStringWithoutDate()); // if the fridge was able to provide the required amount of the ingredient

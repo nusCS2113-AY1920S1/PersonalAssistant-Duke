@@ -16,13 +16,15 @@ import java.util.List;
 
 /**
  * Represents a storage used to load entries from a text {@link File} and store entries in it.
+ *
+ * @author Sara Djambazovska
  */
 public abstract class Storage<T> {
 
-    protected String filePath;
-    protected Path path;
-    protected List<String> contentSoFar;
-    protected GenericList<T> entries;
+    private String filePath;
+    private Path path;
+    List<String> contentSoFar;
+    GenericList<T> entries;
 
     /**
      * The constructor method for Storage.
@@ -30,7 +32,7 @@ public abstract class Storage<T> {
      * @param fp used to specify the location of the file in the hard disc.
      */
     public Storage(String fp) {
-        assert fp!=null;
+        assert fp != null;
         filePath = fp;
         path = Paths.get(fp);
     }
@@ -57,7 +59,9 @@ public abstract class Storage<T> {
         return entries;
     }
 
-    public GenericList<T> getEntries() { return entries; }
+    public GenericList<T> getEntries() {
+        return entries;
+    }
 
     /**
      * Part of the load method, taken out.
@@ -86,7 +90,7 @@ public abstract class Storage<T> {
      */
     public void changeContent(int index) throws DukeException {
         if (index < 0) {
-            throw new DukeException("The task number should be positive, task number entered was: " + index);
+            throw new DukeException("The entry number should be positive, entry number entered was: " + index);
         }
         try {
             contentSoFar = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
@@ -96,10 +100,11 @@ public abstract class Storage<T> {
             throw new DukeException("Error while updating the file");
         }
     }
+
     /**
-     * Updates the content in the text file, by changing the specific {@link Ingredient} indicated by the taskNb.
+     * Updates the content in the text file to match the entries stored in the @link GenericList}
      *
-     * @throws DukeException if the taskNb is invalid or there was an I/O Exception
+     * @throws DukeException if there was an I/O Exception
      */
     public void update() throws DukeException {
         try {
@@ -132,18 +137,21 @@ public abstract class Storage<T> {
 
     /**
      * @author VirginiaYu
-     *
+     * <p>
      * Used to clear all info in the storage txt file.
-     *
      */
     public void clearInfoForFile() throws DukeException {
         File file = new File(filePath);
         try {
-            if (!file.exists()) { file.createNewFile(); }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write("");
             fileWriter.flush();
             fileWriter.close();
-        } catch (IOException e) { throw new DukeException("Error when clearing the list"); }
+        } catch (IOException e) {
+            throw new DukeException("Error when clearing the list");
+        }
     }
 }
