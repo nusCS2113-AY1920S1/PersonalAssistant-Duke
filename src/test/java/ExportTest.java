@@ -1,8 +1,8 @@
 import chronologer.command.Command;
 import chronologer.command.ExportCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.storage.ChronologerStateList;
-import chronologer.storage.Storage;
+import chronologer.parser.ParserFactory;
+import chronologer.storage.CalendarOutput;
 import chronologer.task.Deadline;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -10,23 +10,34 @@ import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
 import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Summary;
+import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.MapTimeZoneCache;
+import net.fortuna.ical4j.util.RandomUidGenerator;
+import net.fortuna.ical4j.util.UidGenerator;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 
 /**
  * Test class for export command.
@@ -34,25 +45,18 @@ import java.util.GregorianCalendar;
  * @author Tan Yi Xiang
  * @version 1.3
  */
+
 class ExportTest {
 
-    private static TaskList tasks;
-    private static File file;
-    private static Storage storage;
+    private static final String PROD_ID = "-//Chronologer//iCal4j Test 1.2//EN";
+    private static String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/Christmas.ics";
 
-    /**
-     * Setups the necessary base to carry out the test operations.
-     */
-    @BeforeAll
-    static void setup() {
-        ArrayList<Task> list = new ArrayList<>();
-        tasks = new TaskList(list);
-        file = new File(System.getProperty("user.dir") + "/src/test/Test");
-        storage = new Storage(file);
-        LocalDateTime startDate = LocalDateTime.now().plusDays(3);
-        Deadline deadline = new Deadline("Test", startDate);
-        deadline.setComment("Testing description");
-        tasks.add(deadline);
+    private Calendar initializeCalendar() {
+        Calendar calendar = new Calendar();
+        calendar.getProperties().add(new ProdId(PROD_ID));
+        calendar.getProperties().add(Version.VERSION_2_0);
+        calendar.getProperties().add(CalScale.GREGORIAN);
+        return calendar;
     }
 
     /**
@@ -71,16 +75,53 @@ class ExportTest {
         return utilCalendar;
     }
 
+    @Test
+    void testError() {
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            ParserFactory.parse("export");
+        });
+    }
 
     @Test
-    void testExport() throws ChronologerException, IOException, ParserException, ParseException {
-        File placeHolder = new File(System.getProperty("user.dir") + "/src/test/States");
-        ChronologerStateList history = new ChronologerStateList(placeHolder, placeHolder, placeHolder);
+    @Order(1)
+    void testFileCreation() throws ChronologerException {
 
-        Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
-        export.execute(tasks, storage, history);
+        java.util.Calendar testCalendar = java.util.Calendar.getInstance();
+        testCalendar.set(java.util.Calendar.MONTH, java.util.Calendar.DECEMBER);
+        testCalendar.set(java.util.Calendar.DAY_OF_MONTH, 25);
+
+        VEvent christmas = new VEvent(new Date(testCalendar.getTime()), "Christmas");
+
+        Calendar calendar = initializeCalendar();
+        UidGenerator generator = new RandomUidGenerator();
+        christmas.getProperties().add(generator.generateUid());
+        calendar.getComponents().add(christmas);
+
+        CalendarOutput.outputCalendar("Christmas", calendar);
+
+        Path path = Paths.get(filePath);
+        Assertions.assertTrue(Files.exists(path));
+
+        File file = new File(filePath);
+        file.delete();
+    }
+
+    @Test
+    @Order(2)
+    void testExportCommand() throws ChronologerException, IOException, ParserException, ParseException {
 
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
+        ArrayList<Task> list = new ArrayList<>();
+        TaskList tasks = new TaskList(list);
+
+        LocalDateTime startDate = LocalDateTime.now().plusDays(3);
+        Deadline deadline = new Deadline("Test", startDate);
+        deadline.setComment("Testing description");
+        tasks.add(deadline);
+
+        Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+        export.execute(tasks, null, null);
+
         File calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);
         CalendarBuilder builder = new CalendarBuilder();
@@ -101,7 +142,6 @@ class ExportTest {
 
         inputStream.close();
         calendarFile.delete();
-        file.delete();
     }
 
 }
