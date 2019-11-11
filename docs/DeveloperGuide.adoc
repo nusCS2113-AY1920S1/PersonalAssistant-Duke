@@ -648,7 +648,7 @@ called.
 Step 4: The instrumentAdded() method from the Ui class is then called, which prints a message stating that the instrument has
 been added.
 
-==== Viewing a list of instruments
+==== Viewing the list of instruments stored in the system
 
 Step 1: The user will type in the command `instrument view instruments`. The getInstruments() method from the InstrumentList 
 class is called.
