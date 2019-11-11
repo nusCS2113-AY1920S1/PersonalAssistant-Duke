@@ -39,14 +39,14 @@ public class CapTest extends InputTest {
     private static User user;
     private String expectedHi = "_______________________________\n"
         +
-        "Welcome to ModPlanner, your one stop solution to module planning!\n"
+        "Welcome to ModPlan, your one stop solution to module planning!\n"
         +
         "Begin typing to get started!\n"
         +
         "_______________________________\n";
     private String expectedBye = "_______________________________\n"
         +
-        "Thanks for using ModPlanner!\n"
+        "Thanks for using ModPlan!\n"
         +
         "Your data will be stored in file shortly!\n"
         +
@@ -81,7 +81,7 @@ public class CapTest extends InputTest {
         CliLauncher.main(hold);
         String expectedCapMessage = "_______________________________\n"
             +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            "Welcome to ModPlan, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -103,7 +103,7 @@ public class CapTest extends InputTest {
             +
             "_______________________________\n"
             +
-            "Thanks for using ModPlanner!\n"
+            "Thanks for using ModPlan!\n"
             +
             "Your data will be stored in file shortly!\n"
             +
@@ -128,7 +128,7 @@ public class CapTest extends InputTest {
         CliLauncher.main(hold);
         String expectedCapListMessage = "_______________________________\n"
             +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            "Welcome to ModPlan, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +

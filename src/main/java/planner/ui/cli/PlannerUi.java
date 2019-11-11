@@ -353,7 +353,7 @@ public class PlannerUi {
     public void helloMsg() {
         showLine();
         print(
-                "Welcome to ModPlanner, your one stop solution to module planning!\n"
+                "Welcome to ModPlan, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"
         );
         showLine();
@@ -365,7 +365,7 @@ public class PlannerUi {
     public void goodbyeMsg() {
         showLine();
         print(
-                "Thanks for using ModPlanner!\n"
+                "Thanks for using ModPlan!\n"
                  + "Your data will be stored in file shortly!\n"
         );
         showLine();

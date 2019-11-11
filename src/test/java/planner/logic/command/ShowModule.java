@@ -31,7 +31,7 @@ public class ShowModule extends InputTest {
     private transient ByteArrayOutputStream output;
     private String expectedBye = "_______________________________\n"
             +
-            "Thanks for using ModPlanner!\n"
+            "Thanks for using ModPlan!\n"
             +
             "Your data will be stored in file shortly!\n"
             +
@@ -64,7 +64,7 @@ public class ShowModule extends InputTest {
         CliLauncher.main(hold);
         String expectedShowModule = "_______________________________\n"
                 +
-                "Welcome to ModPlanner, your one stop solution to module planning!\n"
+                "Welcome to ModPlan, your one stop solution to module planning!\n"
                 +
                 "Begin typing to get started!\n"
                 +

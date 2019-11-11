@@ -394,7 +394,7 @@ As both the modules and ccas inherit from the class `TaskWithMultipleWeeklyPerio
 
 image::SortCommandSequentialDiagram.png[width="800"]
 
-=== ShowCommand
+=== Showing Module Reports
 
 ==== Current implementation
 
@@ -447,11 +447,11 @@ image::ShowCommandSequenceDiagram.png[width="600"]
 
 ****
 
-=== ReminderCommand
+=== Update Reminders
 
 ==== Current implementation
 
-The `reminder` feature is opearted by the `ReminderCommand` class, which is called by the `Parser` class. Upon user input of `reminder TYPE`, the Parser will return a new `ReminderCommand`. +
+The `reminder` feature is operated by the `ReminderCommand` class, which is called by the `Parser` class. Upon user input of `reminder TYPE`, the Parser will return a new `ReminderCommand`. +
 
 Since `ReminderCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `reminder` command. +
 
@@ -477,16 +477,16 @@ As stated above, there are six methods that can be executed depending on the `TY
 If the argument read for `toReminder` is "list", the reminderList() method in plannerUI class is called. A list of the different reminder interval options are being printed. The four different options allow user to determine how often the user want to set the update reminder message. User can set the reminder message to pop up every 10 seconds, 30 seconds, 1 minute or 2 minutes.
 
 * Case 2: `reminder one` + 
-If the argument read for `toReminder` is "one", the printEveryTenSec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 10000ms, which eqautes to 10 seconds.
+If the argument read for `toReminder` is "one", the printEveryTenSec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 10000ms, which equates to 10 seconds.
 
 * Case 3: `reminder two` + 
-If the argument read for `toReminder` is "two", the printEveryThirtySec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 30000ms, which eqautes to 30 seconds.
+If the argument read for `toReminder` is "two", the printEveryThirtySec() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 30000ms, which equates to 30 seconds.
 
 * Case 4: `reminder three` + 
-If the argument read for `toReminder` is "three", the printEveryOneMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 60000ms, which eqautes to 1 minute.
+If the argument read for `toReminder` is "three", the printEveryOneMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 60000ms, which equates to 1 minute.
 
 * Case 5: `reminder four` + 
-If the argument read for `toReminder` is "four", the printEveryTwoMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 120000ms, which eqautes to 2 minutes.
+If the argument read for `toReminder` is "four", the printEveryTwoMin() method is called. The `time` variable initialised by the Timer class is used to schedule the reminder message in ScheduledTask class every 120000ms, which equates to 2 minutes.
 
 * Case 6: `reminder stop` + 
 If the argument read for `toReminder` is "stop", the killAllTimers() method is called. A Timer iterator loops through the list of all the Timer threads and cancels all the Timer tasks. A message is then printed to notify the user that the reminder message for the update is being stopped.
@@ -498,11 +498,11 @@ image::ReminderCommandSequenceDiagram.png[width="600"]
 
 ****
 
-=== UpdateModuleInfo
+=== Update Module Info
 
 ==== Current implementation
 
-The `update` feature is opearted by the `UpdateModuleInfo` class, which is called by the `Parser` class. Upon user input of `update YEAR_SEM_1-YEAR_SEM_2`, the Parser will return a new `UpdateModuleInfo`. +
+The `update` feature is operated by the `UpdateModuleInfo` class, which is called by the `Parser` class. Upon user input of `update YEAR_SEM_1-YEAR_SEM_2`, the Parser will return a new `UpdateModuleInfo`. +
 
 Since `UpdateModuleInfo` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `update` command. +
 
@@ -832,11 +832,14 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 2. ModPlan should be fast to view and input commands.
 3. ModPlan should require as few steps as possible for the user to do what they want to do.
 4. ModPlan should store data between sessions so the user does not have to input all their information again.
-5. ModPlan should scrape data from NUSMODS API at least once a day to keep up to date with any changes in modules.
+5. ModPlan should scrape data from NUSMODS API at least once a semester to keep up to date with any changes in modules.
 
 [appendix]
 == Manual Testing Instructions
-(TBD)
+We have included a base data file populated with ~20 modules and ~5 CCAs for manual testing. The program will load from these data files upon the first startup if a save file is not found. 
+
+To test our product manually, kindly open the `[CS2113T-F10-1][ModPlan].jar` file from the `v1.4` release using the command prompt of your preferred OS, and test using commands featured in our https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/UserGuide.adoc[User Guide].
+
 
 [appendix]
 == Glossary

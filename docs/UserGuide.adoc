@@ -79,20 +79,17 @@ Adds the specified module or CCA to the module list or CCA list respectively.
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE`
 
-image::AddModuleSample.png[width="450"]
-
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
 * Example: `add module CG2028`
-
 ****
+
+image::AddModuleSample.png[width="450"]
 
 ==== Searching and adding a module with time period of the week: `add module`
 
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
-
-image::AddModuleScheduleSample.png[width="450"]
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
@@ -101,12 +98,12 @@ image::AddModuleScheduleSample.png[width="450"]
 * Example: `add module CG2028 --begin 14:00 --end 17:00 --dayOfWeek Tuesday`
 ****
 
+image::AddModuleScheduleSample.png[width="450"]
+
 ==== Adding CCA : `add cca`
 
 Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
-
-image::AddCcaSample.png[width="450"]
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
@@ -114,6 +111,8 @@ image::AddCcaSample.png[width="450"]
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc.
 * Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
 ****
+
+image::AddCcaSample.png[width="450"]
 
 === Listing modules or cca : `show`
 
@@ -146,8 +145,9 @@ image::ShowGeSample.png[width="450"]
 
 ****
 * If more than one type of GE module is being added, the programme will inform you and prompt you to add only one type of GE module.
-* image::showGeDuplicate.png[width="450"]
 ****
+
+image::showGeDuplicate.png[width="450"]
 
 ==== Giving a report on Unrestricted Electives modules: `show ue`
 
@@ -191,8 +191,6 @@ Removes the 2nd module in the module list.
 Removes a CCA which is added. +
 Format: `remove cca INDEX`
 
-image::RemoveCcaSample.png[width="450"]
-
 ****
 * Removes the CCA at the specified `INDEX`.
 * The index refers to the index number shown in the displayed CCA list.
@@ -205,12 +203,12 @@ Examples:
 `remove cca 2` +
 Removes the 2nd CCA in the CCA list.
 
+image::RemoveCcaSample.png[width="450"]
+
 === Grading your modules: `grade`
 
 Allows you to input your letter grade received for the modules you have taken. +
 Format: `grade MOD_CODE LETTER_GRADE`
-
-image::GradeSample.png[width="450"]
 
 ****
 * Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
@@ -223,6 +221,9 @@ Example: +
 `grade CS1010 A-` +
 `grade CS1231 S`
 
+image::GradeSample.png[width="450"]
+
+
 === Calculating the CAP : `cap`
 
 Calculates your overall CAP or predicted CAP in different ways.
@@ -230,8 +231,6 @@ Calculates your overall CAP or predicted CAP in different ways.
 ==== Calculating CAP from user input. +
 Calculates your CAP according to your custom input of modules and grades. +
 Format: `cap overall`
-
-image::CapOverallSample.png[width="450"]
 
 ****
 * Typing `cap overall` into the command line shows a CAP calculation message.
@@ -248,11 +247,11 @@ Example: +
 `CG2027 B-` +
 `done`
 
+image::CapOverallSample.png[width="450"]
+
 ==== Calculating CAP from the module list. +
 Calculates your CAP from the `taken` modules in your list.
 Format: `cap list`
-
-image::CapListSample.png[width="450"]
 
 ****
 * Type `cap list` into the command line.
@@ -264,11 +263,11 @@ image::CapListSample.png[width="450"]
 Example: +
 `cap list`
 
+image::CapListSample.png[width="450"]
+
 ==== Calculating predicted CAP of a module from it's prerequisites. +
 Calculates the predicted CAP of a module based on the prerequisites of the inputted module.
 Format: `cap module`
-
-image::CapModuleSample.png[width="450"]
 
 ****
 * Type `cap module` into the command line.
@@ -284,9 +283,12 @@ Example: +
 `cap module` +
 `CS2040C`
 
+image::CapModuleSample.png[width="450"]
+
+
 === Sorting and printing the modules and/or ccas : `sort`
 
-Sorts out modules and/or ccas accordingly. For all the sorting methods listed below, enter the optional flag `--r` to sort in the reverse order.
+Sorts out modules and/or ccas accordingly. For all the sorting methods listed below, enter the optional flag `--r` to sort in the reverse order. +
 Example: +
 `sort cca --r` +
 `sort module code --r`
@@ -301,12 +303,14 @@ image::SortCcaSample.png[width="450"]
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
-Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday`. + 
 
-image::SortTimeSample.png[width="450"]
+** Note that if two ccas have the same name, only the first one will be considered for sorting. +
 
 Example: +
-`sort time monday`
+`sort time tuesday`
+
+image::SortTimeSample.png[width="450"]
 
 ==== Sorting and printing the modules : `sort module code`
 
