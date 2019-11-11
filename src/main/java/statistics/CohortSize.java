@@ -76,7 +76,7 @@ public class CohortSize implements Statistics  {
         for (int i = 21; i < 24; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("EE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ElecE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 25; i < 28; i++) {
@@ -130,7 +130,7 @@ public class CohortSize implements Statistics  {
             title = "Industrial Systems Engineering";
         if(input.equals("ME"))
             title = "Mechanical Engineering";
-        if(input.equals("EE"))
+        if(input.equals("ElecE"))
             title = "Electrical Engineering";
         Cohort_BarChart chart = new Cohort_BarChart("Cohort Size Statistics",
                 title, input);
