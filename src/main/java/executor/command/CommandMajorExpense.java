@@ -18,7 +18,7 @@ public class CommandMajorExpense extends Command {
         this.userInput = userInput;
         this.description = "Lists all major expense receipts higher than user cash input \n"
                 + "FORMAT : majorexpense <positive integer cash input>"
-                + " "
+                + "\n"
                 + "Lists all major expenses above/equal to $100\n"
                 + "FORMAT : majorexpense";
         this.commandType = CommandType.MAJOREXPENSE;

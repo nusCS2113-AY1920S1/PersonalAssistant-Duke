@@ -161,7 +161,7 @@ public class StorageManager {
     public ReceiptTracker getReceiptsByTag(String tag) throws DukeException {
         try {
             return this.wallet.getReceipts().getReceiptsByTag(tag);
-        } catch (Exception e) {
+        }  catch (Exception e) {
             throw new DukeException("Unable to get receipts with tag: " + tag + "\n");
         }
     }
@@ -178,6 +178,8 @@ public class StorageManager {
             return this.wallet.getReceipts().getMajorExpenses(amount).getPrintableReceipts();
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid cash input. Please enter integer");
+        } catch (DukeException e) {
+            throw e;
         } catch (Exception e) {
             throw new DukeException("Unable to get major expenses");
         }
@@ -192,8 +194,10 @@ public class StorageManager {
     public String getMajorReceipt() throws DukeException {
         try {
             return this.wallet.getReceipts().getMajorReceipts().getPrintableReceipts();
+        } catch (DukeException e) {
+            throw e;
         } catch (Exception e) {
-            throw new DukeException("Unable to get major receipt");
+            throw new DukeException("Unable to get major receipts");
         }
     }
 
