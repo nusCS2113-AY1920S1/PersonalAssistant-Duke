@@ -30,8 +30,8 @@ public class DegreeListStorage {
     public void ReadFile(List<String> st) throws DukeException {
         //Check for existence of external save file first
         if (!file.exists()) { //If it does not exist, read from internally
-            this.filename = "/data/savedegree.txt"; //text file that stores all the information
-            this.file = new File(filename);
+            //this.filename = "/data/savedegree.txt"; //text file that stores all the information
+            //this.file = new File(filename);
         }
         try {
             for (int i = 0; i < st.size(); i++) {

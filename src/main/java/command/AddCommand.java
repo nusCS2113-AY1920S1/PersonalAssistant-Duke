@@ -70,7 +70,7 @@ public class AddCommand extends Command {
                 tasksBuffer = tasks.deepClone();
                 memento1 = new Memento(degreesBuffer);
                 memento2 = new Memento(tasksBuffer);
-                lists.add_custom(this.arguments, storage);
+                lists.add_custom(this.arguments);
                 NUSEventList NUSEventList = new NUSEventList();
                 NUSEventList.addDegreeTasks(fullDegreeName, tasks);
             }

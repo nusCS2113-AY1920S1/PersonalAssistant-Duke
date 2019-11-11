@@ -169,7 +169,7 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree as specified by the user.
      * @throws DukeException The degree does not exist?
      */
-    public void add_custom(String input, Storage storage) throws DukeException {
+    public void add_custom(String input) throws DukeException {
         String fullDegreeName = Parser.degreeFullNameMap.get(input.toLowerCase());
         int flag = check_for_duplicates(fullDegreeName);
         if(flag == 0) {
@@ -231,7 +231,6 @@ public class DegreeList implements Serializable, Cloneable {
      * The user can input 2 indices to rank 2 degrees based on his order of preference.
      *
      * @param input
-     * @param dd DegreeList Storage makes changes in the text file
      * @throws DukeException
      */
     public void swap(String input) throws DukeException {
