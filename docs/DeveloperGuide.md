@@ -210,13 +210,17 @@ The dynamic change in the text file contents during execution, is handled primar
 
 The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
 
+The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
+
+<img src=" https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
+
 ##### 2.5.2 FridgeStorage
 
 API: `FridgeStorage.java` 
 
 A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
 
-The format print in file follows `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
+The format print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
 
 ```
 milk|3|09/09/2019
@@ -224,7 +228,7 @@ cheese|4|12/12/2019
 rice|50|12/12/2019
 ```
 
-Calling the `load()` method on the text file above, would result in an `IngredientList` containing the  four ingredients with their respective amounts and expiry dates.
+Calling the `load()` method on the text file above, would result in an `IngredientList` containing the four ingredients with their respective amounts and expiry dates.
 
 ##### 2.5.3 OrderStorage
 
