@@ -44,8 +44,6 @@ public class CommandParseHelperTest {
         model.setEmailList(emailList);
 
         ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
-        //ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
-        //        "msg", "do after description")));
         ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
                 "msg", "do after description"), new Command.Option("tag", "123")));
 
@@ -80,6 +78,12 @@ public class CommandParseHelperTest {
             assertTrue(method.invoke(null, "email show -1", null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "email update 4", optionListExtra) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "email update a", optionListExtra) instanceof InvalidCommand);
+
+            // input format error
+            assertTrue(method.invoke(null, "email", optionListEmpty) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "email", optionListExtra) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "task", optionListEmpty) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "task", optionListExtra) instanceof InvalidCommand);
 
         } catch (ClassNotFoundException e) {
             fail("No such class");
