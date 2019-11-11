@@ -11,6 +11,7 @@ import ducats.components.SongList;
  */
 public class HelpCommand extends Command<SongList> {
 
+    //@@author SalonetheGreat
     /**
      * Constructor for the command to display help.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
@@ -19,6 +20,7 @@ public class HelpCommand extends Command<SongList> {
         this.message = message;
     }
 
+    //@@author SalonetheGreat
     /**
      * Displays the command list in use; returns the help messages intended to be displayed.
      *
@@ -37,6 +39,7 @@ public class HelpCommand extends Command<SongList> {
         return ui.formatHelp(helpMessage);
     }
 
+    //@@author SalonetheGreat
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.
