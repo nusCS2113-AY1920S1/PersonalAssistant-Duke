@@ -23,7 +23,7 @@ public abstract class SummaryTreatment extends Treatment {
     public SummaryTreatment(String name, Impression impression, int priority, String status, String summary)
             throws DukeException {
         super(name, impression, priority, status);
-        this.summary = summary;
+        setSummary(summary);
     }
 
     public String getSummary() {

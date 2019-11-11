@@ -393,9 +393,7 @@ public class Patient extends DukeObject {
      * @return The number of critical DukeData items for this patient.
      */
     public String getCriticalCountStr() {
-        if (criticalList == null) {
-            update();
-        }
+        update();
         int count = criticalList.size();
         if (count == 0) {
             return "No critical issues";

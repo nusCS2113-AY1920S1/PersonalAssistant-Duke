@@ -1,6 +1,8 @@
 package tests;
 
 import duke.command.ArgCommand;
+import duke.command.patient.PatientDeleteSpec;
+import duke.command.patient.PatientEditSpec;
 import duke.command.patient.PatientNewSpec;
 import duke.data.Impression;
 import duke.data.Patient;
@@ -52,7 +54,7 @@ public class PatientCommandTest extends CommandTest {
         String[] switchVals = {"test", "test description"};
         Impression imp = new Impression("test", "test description", patient);
         try {
-            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
+            ArgCommand newImpCmd = new ArgCommand(PatientEditSpec.getSpec(), null, switchNames, switchVals);
             newImpCmd.execute(core);
             assertTrue(imp.equals(patient.getImpression("test")));
         } catch (DukeException excp) {
@@ -61,12 +63,17 @@ public class PatientCommandTest extends CommandTest {
     }
 
     @Test
-    public void patientDeleteCommand_validTarget_correctImpressionDeleted() {
-        String[] switchNames = {"name", "description"};
-        String[] switchVals = {"test", "test description"};
+    public void patientDeleteCommand_validTarget_correctObjectsDeleted() {
+        String[] impSwitchNames = {"name", "description"};
+        String[] impSwitchVals = {"test", "test description"};
+        String[] treatSwitchNames = {"name", "description"};
+        String[] treatSwitchNames = {"name", "description"};
+        String[] evidSwitchVals = {"test", "test description"};
+        String[] evidSwitchVals = {"test", "test description"};
         Impression imp = new Impression("test", "test description", patient);
+
         try {
-            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
+            ArgCommand newImpCmd = new ArgCommand(PatientDeleteSpec.getSpec(), null, switchNames, switchVals);
             newImpCmd.execute(core);
             assertTrue(imp.equals(patient.getImpression("test")));
         } catch (DukeException excp) {

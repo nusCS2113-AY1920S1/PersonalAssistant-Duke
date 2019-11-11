@@ -26,7 +26,7 @@ public class Observation extends Evidence {
     public Observation(String name, Impression impression, int priority, String summary, boolean isObjective)
             throws DukeException {
         super(name, impression, priority, summary);
-        this.isObjective = isObjective;
+        setObjective(isObjective);
     }
 
     @Override

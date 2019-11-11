@@ -45,7 +45,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
         );
     }
 
-    // TODO refactor into 5 different methods for each type
+    // TODO refactor constructors
     @Override
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
