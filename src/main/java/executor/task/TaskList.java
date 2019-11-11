@@ -108,10 +108,17 @@ public class TaskList extends ArrayList<Task> {
      * @param userInput The saved string
      * @return Created Task Object
      */
-    public static Task createTaskFromString(String userInput) throws DukeException {
+    public static Task createTaskFromString(String userInput) {
         String[] parsedInput = Parser.parseStoredTaskDetails(userInput);
         TaskType taskType = TaskType.valueOf(parsedInput[0]);
-        Task newTask = TaskList.createTask(taskType, parsedInput[1]);
+        Task newTask;
+        try {
+            newTask = TaskList.createTask(taskType, parsedInput[1]);
+        } catch (DukeException e) {
+            newTask = new Task(parsedInput[1]);
+            newTask.recordTaskDetails(parsedInput[1]);
+            newTask.setTaskType(taskType);
+        }
         if (Boolean.parseBoolean(parsedInput[2])) {
             newTask.markDone();
         }
