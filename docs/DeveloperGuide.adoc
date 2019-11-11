@@ -211,7 +211,11 @@ The `PaymentManager` is an abstract class that is subclassed in the payments pac
 * PaymentManager#deletePayments
 * PaymentManager#editPayee
 * PaymentManager#findPayee
-* PaymentManafer#checkStatus
+* PaymentManager#checkStatus
+
+[[fig-AddPayeeSeqDiagram]]
+.Sequence Diagram of the add payee command
+image::AddPayeeSeqDiagram.png[]
 
 A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other. +
 1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Command where the input will be parsed to determine the command to execute. +
