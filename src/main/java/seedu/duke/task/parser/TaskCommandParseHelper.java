@@ -3,6 +3,7 @@ package seedu.duke.task.parser;
 import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.common.storage.StorageHelper;
 import seedu.duke.task.command.TaskLinkCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.Command;
@@ -26,7 +27,9 @@ import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -127,6 +130,8 @@ public class TaskCommandParseHelper {
             throw new TaskParseException("Invalid index. Index should be integer of range 1 ~ 99999.");
         }
         int index = Integer.parseInt(input) - 1;
+        Model.getInstance().getTaskListLength();
+        //return index;
         if (index < 0 || index >= Model.getInstance().getTaskListLength()) {
             throw new TaskParseException("Index " + (index + 1) + " out of bounds of 1 to "
                     + Model.getInstance().getTaskListLength());

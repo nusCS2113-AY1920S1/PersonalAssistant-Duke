@@ -441,6 +441,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseUpdateCommandTest() {
         try {
+            fakeModel();
             Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseUpdateCommand", String.class, ArrayList.class);
             method.setAccessible(true);
@@ -540,6 +541,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseLinkCommandTest() {
         try {
+            fakeModel();
             Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseLinkCommand", String.class, ArrayList.class);
             method.setAccessible(true);
