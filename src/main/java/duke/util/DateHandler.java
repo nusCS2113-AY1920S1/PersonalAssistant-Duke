@@ -38,6 +38,9 @@ public class DateHandler {
      * @return dateExists check to see if the date is valid
      */
     public static boolean dateCheck(int day, int month) {
+        if (month >= 13) {
+            return false;
+        }
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2019);
         cal.set(Calendar.MONTH, month - 1);
@@ -69,7 +72,8 @@ public class DateHandler {
     /**
      * Validate date is in correct format.
      *
-     * @param date The date to check
+     * @param time The time to check
+     * @param timeFormat The format to check against to see if it is correct
      */
     public static boolean correctTime(String timeFormat, String time) {
         SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
