@@ -1,6 +1,5 @@
 package javacake.storage;
 
-import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.tasks.Task;
 import org.apache.commons.io.FileUtils;
@@ -13,8 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Storage {
+    private static final Logger LOGGER = Logger.getLogger(Storage.class.getPackageName());
     private int stringBuffer = 7;
     private ArrayList<Task> tempTaskData = new ArrayList<>();
     public TaskList currentTaskData;
@@ -38,6 +39,10 @@ public class Storage {
      * @throws CakeException Exception when file is not found
      */
     public Storage(String altPath) throws CakeException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "Storage");
+
         this.currentTaskData = new TaskList();
         defaultFilePath = altPath;
         //Initialise new deadline file
@@ -46,11 +51,11 @@ public class Storage {
         //Initialise new notes directory
         File notesFile = new File(defaultFilePath + "/notes/");
         generateFolder(notesFile);
-        JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
+        LOGGER.info("Filepath[s]: " + filepath);
         try {
             initialiseStorage(tasksFile, altPath);
         } catch (IOException e) {
-            JavaCake.logger.log(Level.WARNING, "Unable to create deadline file");
+            LOGGER.severe("Reader failed[s]");
             throw new CakeException("Failed to create storage.");
         }
 
@@ -85,49 +90,52 @@ public class Storage {
 
                 System.out.println("CurrStr: " + currStr);
                 if (!isChecked) {
-                    TaskList.runDeadline(tempTaskData, currStr, TaskList.TaskState.NOT_DONE);
+                    TaskList.runDeadline(tempTaskData, currStr, TaskState.NOT_DONE);
                     this.currentTaskData.add(tempTaskData.get(0));
                     tempTaskData.clear();
                 } else {
-                    TaskList.runDeadline(tempTaskData, currStr, TaskList.TaskState.DONE);
+                    TaskList.runDeadline(tempTaskData, currStr, TaskState.DONE);
                     this.currentTaskData.add(tempTaskData.get(0));
                     tempTaskData.clear();
                 }
             }
             reader.close();
         } catch (IOException e) {
-            JavaCake.logger.log(Level.WARNING, "Unable to find deadline file");
+            LOGGER.severe("Unable to find deadline file");
             throw new CakeException("Failed to create storage.");
         }
-
+        LOGGER.exiting(getClass().getName(), "Storage");
     }
 
     private void initialiseStorage(File tasksFile, String altPath) throws IOException {
+        LOGGER.entering(getClass().getName(), "initialiseStorage");
         boolean isCleanSlate = true;
         if (!tasksFile.getParentFile().getParentFile().exists()) {
             tasksFile.getParentFile().getParentFile().mkdir();
-            JavaCake.logger.log(Level.INFO, "StoreGrandpa");
+            LOGGER.info("Creating grandpa file[s]");
         }
         if (!tasksFile.getParentFile().exists()) {
             tasksFile.getParentFile().mkdir();
-            JavaCake.logger.log(Level.INFO, "StorePapa");
+            LOGGER.info("Creating papa file[s]");
         }
         if (!tasksFile.exists()) {
             tasksFile.createNewFile();
-            JavaCake.logger.log(Level.INFO, "StoreP");
+            LOGGER.info("Creating file[s]");
         } else {
             isCleanSlate = false;
-            JavaCake.logger.log(Level.INFO, filepath + " is found!");
+            LOGGER.info(filepath + " is found![s]");
         }
 
         //populate with testing trash
         if (!isResetFresh && isCleanSlate && "data".equals(altPath)) {
+            LOGGER.info("Testing Storage initiated");
             PrintWriter out = new PrintWriter(filepath);
             out.println("D|✗|testmessage to show the39characterlimit|01 01 2019 0001");
             out.println("D|✗|finish javacake|31-12-19 23:59");
             out.println("D|✗|start dieting on java|01/01/2019");
             out.close();
         }
+        LOGGER.exiting(getClass().getName(), "initialiseStorage");
     }
 
     public static String returnNotesDefaultFilePath() {

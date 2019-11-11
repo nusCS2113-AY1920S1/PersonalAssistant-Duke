@@ -14,7 +14,7 @@ import javacake.ui.Ui;
 public class EditCommand extends Command {
 
     public EditCommand(String str) {
-        type = CmdType.EDIT;
+        type = CmdType.SNOOZE;
         input = str;
     }
 

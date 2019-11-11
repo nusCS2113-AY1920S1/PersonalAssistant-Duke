@@ -13,6 +13,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
 
     private String fileName;
     private static String defaultFilePath = Storage.returnNotesDefaultFilePath();
+    private static final String BY_SPACES = "\\s+";
 
     /**
      * Constructor for ViewNoteCommand.
@@ -32,17 +33,17 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @param inputCommand View note command by user.
      * @return Name of file specified for viewing.
      */
-    private String returnFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
-        return parametersInCommand[1];
+    private String returnFileName(String inputCommand) throws CakeException {
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
+        String nameOfFile = IFileUtilities.returnOriginalFileName(defaultFilePath, parametersInCommand[1]);
+        return nameOfFile;
     }
 
     /**
      * Checks the parameters of input by user.
      * Checks if user inputs file name.
      * Checks if command contains multiple parameters.
-     * Checks if command contains illegal characters.
+     * Checks if command contains special characters.
      * Checks if file exists in save directory.
      * Checks if file specified is empty.
      * @param inputCommand View note command by user.
@@ -55,7 +56,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
         } else if (containsMultipleParameters(inputCommand)) {
             throw new CakeException("Please only enter one file name! E.g. viewnote [name of file]");
         } else if (Command.containsIllegalCharacter(inputCommand)) {
-            throw new CakeException("Invalid file name: Illegal character in file name detected!");
+            throw new CakeException("Invalid file name: Special character(s) in file name detected!");
         } else if (fileDoesNotExist(inputCommand)) {
             throw new CakeException("File specified does not exist! "
             + "Please refer to the notes window to view existing notes file!");
@@ -71,8 +72,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if file specified by user is empty.
      */
     private boolean fileIsEmpty(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         String fileName = parametersInCommand[1];
         String filePath = defaultFilePath + fileName + ".txt";
         File tempFile = new File(filePath);
@@ -85,8 +85,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if file does not exist.
      */
     private boolean fileDoesNotExist(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         String fileName = parametersInCommand[1];
         String filePath = defaultFilePath + fileName + ".txt";
         File tempFile = new File(filePath);
@@ -99,8 +98,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if user inputs multiple parameters.
      */
     private boolean containsMultipleParameters(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return (parametersInCommand.length > 2);
     }
 
@@ -110,8 +108,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if user does not input name of file to view.
      */
     private boolean doesNotContainFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return (parametersInCommand.length == 1);
     }
 

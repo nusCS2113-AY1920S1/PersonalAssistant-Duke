@@ -13,8 +13,8 @@ public abstract class Command {
      * Types of commands that are possible.
      */
     public enum CmdType {
-        EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE,
+        EXIT, LIST, FIND, DONE, DELETE, DEADLINE, REMIND,
+        SNOOZE, BACK, GOTO, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE,
         LIST_NOTE, DELETE_NOTE, VIEW_NOTE
     }
 
@@ -31,7 +31,11 @@ public abstract class Command {
     public static void checksParam(String inputCommand) throws CakeException {
         String bySpaces = "\\s+";
         String[] subStrings = inputCommand.split(bySpaces);
-        if (subStrings.length > 1) {
+        String effectiveInput = "";
+        for (String str : subStrings) {
+            effectiveInput += str;
+        }
+        if (subStrings.length > 1 || !inputCommand.equals(effectiveInput)) {
             throw new CakeException("Please ensure there is no parameter(s) for this command");
         }
     }
@@ -41,7 +45,7 @@ public abstract class Command {
      * @param inputCommand Command input from user
      * @return True if command contains illegal characters.
      */
-    public static boolean containsIllegalCharacter(String inputCommand) {
+    static boolean containsIllegalCharacter(String inputCommand) {
         String bySpaces = "\\s+";
         String[] subStrings = inputCommand.split(bySpaces);
         if (subStrings.length > 1) {
@@ -58,7 +62,10 @@ public abstract class Command {
      */
     private static boolean checkForIllegalChar(String word) {
         for (char illegalChar : ILLEGAL_CHARACTERS) {
-            return (word.indexOf(illegalChar) >= 0);
+            if (word.indexOf(illegalChar) >= 0) {
+                return true;
+            }
+
         }
         return false;
     }

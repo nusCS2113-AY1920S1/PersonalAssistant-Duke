@@ -1,6 +1,5 @@
 package javacake.commands;
 
-import javacake.JavaCake;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
@@ -15,13 +14,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EditNoteCommand extends Command implements IFileUtilities {
-
+    private static final Logger LOGGER = Logger.getLogger(EditNoteCommand.class.getPackageName());
     private static String defaultDirectoryPath = "data/notes/";
 
     private static String nameOfEditFile;
     private static String currentFilePath;
+    private static final String GUI_CODEWORD_FOR_EDIT_NOTE = "!@#_EDIT_NOTE";
+    private static final String BY_SPACES = "\\s+";
 
     private static String headingMessage = "Write your notes below!\n"
             + "To save edited content, type '/save' and enter!\n";
@@ -38,10 +40,46 @@ public class EditNoteCommand extends Command implements IFileUtilities {
      * @throws CakeException if invalid command or invalid file name.
      */
     public EditNoteCommand(String inputCommand) throws CakeException {
-        JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "EditNoteCommand");
+        LOGGER.info("Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDIT_NOTE;
         updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
+        LOGGER.exiting(getClass().getName(), "EditNoteCommand");
+    }
+
+    /**
+     * Executes the EditNoteCommand accordingly depends on CLI or GUI.
+     * If CLI, use ui and readAndSaveNewContent method to generate message for user.
+     * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
+     * @param logic tracks current location in program
+     * @param ui the Ui responsible for outputting messages
+     * @param storageManager storage container
+     * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
+     * @throws CakeException File does not exist.
+     */
+    @Override
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
+
+        if (storageManager.profile.isCli) {
+            if (checkFileIsEmpty(currentFilePath)) {
+                ui.showMessage("Write your notes below!\n");
+                ui.showMessage("To save edited content, type '/save' and enter!\n");
+                readAndSaveNewContent();
+                return endingMessage;
+            } else {
+                ui.showMessage("Below is your previous saved content! "
+                        + "Copy your previous content and edit accordingly\n");
+                ui.showMessage("To save edited content, type '/save' and enter!\n");
+                ui.showMessage(displayContentInFile());
+                readAndSaveNewContent();
+                return endingMessage;
+            }
+        } else {
+            return GUI_CODEWORD_FOR_EDIT_NOTE; // used for GUI
+        }
     }
 
     /**
@@ -58,14 +96,14 @@ public class EditNoteCommand extends Command implements IFileUtilities {
      */
     private void verifyCommand(String inputCommand) throws CakeException {
 
-        String bySpaces = "\\s+";
-        String[] wordsInInputCommand = inputCommand.split(bySpaces);
+
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
 
         if (wordsInInputCommand.length == 2) {
             String fileName = wordsInInputCommand[1];
             checkIfFileExist(fileName);
         } else {
-            JavaCake.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
+            LOGGER.warning(inputCommand + " invalid EditNoteCommand.");
             throw new CakeException("Pls enter a valid editnote command:"
                     + " 'editnote - [name of the file you wish you edit]'");
         }
@@ -82,7 +120,7 @@ public class EditNoteCommand extends Command implements IFileUtilities {
             nameOfEditFile = IFileUtilities.returnOriginalFileName(defaultDirectoryPath, fileName);
             createCurrentFilePath();
         } else {
-            JavaCake.logger.log(Level.INFO, fileName + " contains illegal file name.");
+            LOGGER.warning(fileName + " contains illegal file name.");
             throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
         }
     }
@@ -94,12 +132,12 @@ public class EditNoteCommand extends Command implements IFileUtilities {
      */
     private boolean fileExist(String fileName) {
         File file = new File(defaultDirectoryPath + fileName + ".txt");
-        JavaCake.logger.log(Level.INFO, "Checking if file: " + fileName + " exist.");
+        LOGGER.info("Checking if file: " + fileName + " exist.");
         if (file.exists()) {
-            JavaCake.logger.log(Level.INFO, fileName + " exist.");
+            LOGGER.info(fileName + " exist.");
             return true;
         }
-        JavaCake.logger.log(Level.INFO, fileName + " does not exist.");
+        LOGGER.info(fileName + " does not exist.");
         return false;
     }
 
@@ -165,38 +203,6 @@ public class EditNoteCommand extends Command implements IFileUtilities {
     }
 
     /**
-     * Executes the EditNoteCommand accordingly depends on CLI or GUI.
-     * If CLI, use ui and readAndSaveNewContent method to generate message for user.
-     * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param logic tracks current location in program
-     * @param ui the Ui responsible for outputting messages
-     * @param storageManager storage container
-     * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
-     * @throws CakeException File does not exist.
-     */
-    @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
-
-        if (storageManager.profile.isCli) {
-            if (checkFileIsEmpty(currentFilePath)) {
-                ui.showMessage("Write your notes below!\n");
-                ui.showMessage("To save edited content, type '/save' and enter!\n");
-                readAndSaveNewContent();
-                return endingMessage;
-            } else {
-                ui.showMessage("Below is your previous saved content! "
-                        + "Copy your previous content and edit accordingly\n");
-                ui.showMessage("To save edited content, type '/save' and enter!\n");
-                ui.showMessage(displayContentInFile());
-                readAndSaveNewContent();
-                return endingMessage;
-            }
-        } else {
-            return "!@#_EDIT_NOTE"; // used for GUI
-        }
-    }
-
-    /**
      * Informs user if the file to be edited is empty.
      * If file is empty, print headingMessage.
      * Else, print secondHeadingMessage and the content of the edit file.
@@ -255,7 +261,6 @@ public class EditNoteCommand extends Command implements IFileUtilities {
         } catch (IOException e) {
             throw new CakeException(e.getMessage());
         }
-
         return headingMessage + readTextFileContent();
     }
 

@@ -14,6 +14,8 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AvatarScreen extends VBox {
     @FXML
@@ -25,6 +27,7 @@ public class AvatarScreen extends VBox {
         HAPPY, EXTHAPPY, SAD, POUT
     }
 
+    private static final Logger LOGGER = Logger.getLogger(AvatarScreen.class.getPackageName());
     private Image avatarHappy1 = new Image(this.getClass().getResourceAsStream(
             "/images/avatar/happyopen.png"));
     private Image avatarHappy2 = new Image(this.getClass().getResourceAsStream(
@@ -61,6 +64,9 @@ public class AvatarScreen extends VBox {
      * @param type Type of face Avatar makes
      */
     public AvatarScreen(AvatarMode type) {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "AvatarScreen");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/AvatarScreen.fxml"));
             fxmlLoader.setController(this);
@@ -74,6 +80,11 @@ public class AvatarScreen extends VBox {
         initialiseList();
         avatarMode = type;
         setStyleLoop();
+        avatarImage.setOnMouseClicked(event -> {
+            LOGGER.info("Bully waifu STARTO!");
+            MainWindow.isStupidUser = true;
+        });
+        LOGGER.exiting(getClass().getName(), "AvatarScreen");
     }
 
     /**

@@ -1,6 +1,5 @@
 package javacake.quiz;
 
-import javacake.JavaCake;
 import javacake.Logic;
 import javacake.Parser;
 import javacake.commands.Command;
@@ -11,8 +10,10 @@ import javacake.ui.TopBar;
 import javacake.ui.Ui;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QuizSession implements QuizManager {
+    private static final Logger LOGGER = Logger.getLogger(QuizSession.class.getPackageName());
     private QuestionList questionList;
     public String filePath;
     private QuestionType qnType;
@@ -39,6 +40,9 @@ public class QuizSession implements QuizManager {
      */
     public QuizSession(QuestionType questionType, QuestionDifficulty questionDifficulty, boolean isCli)
             throws CakeException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "QuizSession");
         questionList = new QuestionList(questionType);
         qnType = questionType;
         qnDifficulty = questionDifficulty;
@@ -46,6 +50,9 @@ public class QuizSession implements QuizManager {
             runGui();
         }
         isQuizComplete = false;
+        LOGGER.info("initialized quiz session: " + qnType + ", " + qnDifficulty);
+
+        LOGGER.exiting(getClass().getName(), "QuizSession");
     }
 
     /**
@@ -55,6 +62,7 @@ public class QuizSession implements QuizManager {
      */
     @Override
     public String getQuestion(int index) {
+        LOGGER.info("Question " + index + ":\n" + questionList.getQuestion(index));
         return questionList.getQuestion(index);
     }
 
@@ -70,11 +78,13 @@ public class QuizSession implements QuizManager {
         if (isQuizComplete) {
             switch (input) {
             case ("review"):
+                LOGGER.info("User chose to REVIEW");
                 return "!@#_REVIEW";
             case ("back"):
-                // TODO tie BackCommand identifier to MainWindow
+                LOGGER.info("User chose to go BACK");
                 return "!@#_BACK";
             default:
+                LOGGER.warning("User entered invalid command: " + input);
                 throw new CakeException("[!] Invalid command at this point in the program [!]\n"
                         + "    Try \"review\" or \"back\"."
                         + "\n\n" + getQuizResult());
@@ -203,7 +213,6 @@ public class QuizSession implements QuizManager {
             if (!profile.isCli) {
                 switch (overallTopicIdx) {
                 case 0:
-                    JavaCake.logger.log(Level.INFO, totalScore + " YEET");
                     TopBar.progValueA = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 1:
@@ -215,10 +224,11 @@ public class QuizSession implements QuizManager {
                 case 3:
                     TopBar.progValueD = (double) totalScore / TotalMaxQuestions;
                     break;
-
                 default:
                 }
                 TopBar.progValueT = (double) profile.getTotalProgress() / (TotalMaxQuestions * 4);
+
+                LOGGER.info("user score updated in profile");
             }
         }
     }
@@ -231,7 +241,8 @@ public class QuizSession implements QuizManager {
      */
     private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
-            String userWarning = "[!] Please input answers in the form of integer [!]\n";
+            String userWarning = "[!] Please input answers in the form of a valid integer [!]\n";
+            LOGGER.warning("User entered non-valid input");
             throw new CakeException(userWarning);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
@@ -241,7 +252,7 @@ public class QuizSession implements QuizManager {
 
     private static boolean isNumeric(String input) {
         try {
-            Integer.parseInt(input);
+            Integer.parseInt(input.trim());
         } catch (NumberFormatException | NullPointerException e) {
             return false;
         }
@@ -271,6 +282,8 @@ public class QuizSession implements QuizManager {
 
         stringBuilder.append("\nType \"review\" to review your answers.");
         stringBuilder.append("\nType \"back\" to go back to the table of contents.");
+
+        LOGGER.info("Quiz result\nScore: " + currScore + "ScoreGrade: " + scoreGrade);
 
         overwriteOldScore(currScore, profile);
         isQuizComplete = true;

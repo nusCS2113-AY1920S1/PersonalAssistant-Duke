@@ -6,7 +6,10 @@ https://www.codacy.com/manual/RusdiHaizim/main?utm_source=github.com&amp;utm_med
 
 == Introduction
 
-JavaCake is for those who prefer to use a desktop app for managing events preceding a wedding. More importantly, JavaCake is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, JavaCake can get your wedding planning tasks done faster than traditional GUI apps.
+JavaCake is a desktop-based application designed for inexperienced programmers who are either interested in learning the basics of the Java programming language and also for NUS students without Java experience who are going to take CS2113T. 
+The application breaks down the wordy online documentation into smaller snippets of information to make learning the language less intimidating. You can easily and quickly jump from topic to topic by typing inside the in-built command line interface.
+
+On top of that, quizzes of various difficulties can be found at the end of each topic to test your understanding. Not only that, JavaCake keeps track of your quiz attempts and records your progression.
 
 == User Interface
 
@@ -25,8 +28,8 @@ endif::[]
 
 == Site Map
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
+* https://docs.google.com/document/d/1d3DjnNXfN4VEOuYAOKus7Pr4GDzpLRI2oMUGOsH5pfE/edit?usp=sharing[User Guide]
+* https://docs.google.com/document/d/139pbcwMxzCet7jHuV6-FC0zt3xCKlfPrKC9SMHz_Kes/edit?usp=sharing[Developer Guide]
 * <<AboutUs#, About Us>>
 
 == Acknowledgements
