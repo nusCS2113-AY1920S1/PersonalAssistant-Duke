@@ -9,16 +9,29 @@ import ducats.components.UndoRedoStack;
 /**
  * An abstract class used to represent a command interpreted from an input message. Extended by
  * <ul>
- *     <li>AddCommand</li>
- *     <li>ListCommand</li>
- *     <li>DoneCommand</li>
- *     <li>DeleteCommand</li>
- *     <li>FindCommand</li>
- *     <li>ByeCommand</li>
- *     <li>NewCommand</li>
- *     <li>HelpCommand</li>
- *     <li>ViewCommand</li>
  *     <li>AddBarCommand</li>
+ *     <li>AddOverlayCommand</li>
+ *     <li>AsciiCommand</li>
+ *     <li>ByeCommand</li>
+ *     <li>CopyCommand</li>
+ *     <li>DeleteBarCommand</li>
+ *     <li>DeleteCommand</li>
+ *     <li>EditBarCommand</li>
+ *     <li>GroupCommand</li>
+ *     <li>HelpCommand</li>
+ *     <li>InsertBarCommand</li>
+ *     <li>ListCommand</li>
+ *     <li>ListGroupCommand</li>
+ *     <li>MetronomeCommand</li>
+ *     <li>NewCommand</li>
+ *     <li>OpenCommand</li>
+ *     <li>OverlayBarGroupCommand</li>
+ *     <li>OverlayBarSongCommand</li>
+ *     <li>OverlayGroupGroupCommand</li>
+ *     <li>RedoCommand</li>
+ *     <li>SwapBarCommand</li>
+ *     <li>UndoCommand</li>
+ *     <li>ViewCommand</li>
  * </ul>
  */
 public abstract class Command {
