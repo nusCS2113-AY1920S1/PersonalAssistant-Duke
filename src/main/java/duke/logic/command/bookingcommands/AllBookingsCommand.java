@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import static duke.common.BookingMessages.MESSAGE_ALL_CURRENT_BOOKINGS;
 
+//@@author lizihan95
 /**
  * Handles the list all bookings command.
  */

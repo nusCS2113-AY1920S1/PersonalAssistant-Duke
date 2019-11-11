@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//@@author lizihan95
 /**
  * Booking class use to create booking object.
  */

@@ -30,6 +30,7 @@ import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_DATE;
 import static duke.common.BookingMessages.ERROR_MESSAGE_OVERFLOW_DATE;
 import static duke.common.BookingMessages.ERROR_MESSAGE_UNAVAILABLE_DATE;
 
+//@@author lizihan95
 /**
  * Handles the add new booking command.
  */

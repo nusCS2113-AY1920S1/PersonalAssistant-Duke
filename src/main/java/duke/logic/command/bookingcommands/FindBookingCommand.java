@@ -13,6 +13,7 @@ import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_NAME;
 import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_NAME_FIND;
 import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_FIND_COMMAND;
 
+//@@author lizihan95
 /**
  * Handles the find booking command by filtering the bookings by keyword.
  */

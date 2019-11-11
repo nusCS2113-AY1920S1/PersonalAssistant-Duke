@@ -1,5 +1,9 @@
 package duke.common;
 
+//@@author lizihan95
+/**
+ * Contains all booking related messages or error prompts to display to user.
+ */
 public class BookingMessages {
     public static final String COMMAND_LIST_BOOKINGS = "listallbookings";
     public static final String COMMAND_ADD_BOOKING = "addbooking";
