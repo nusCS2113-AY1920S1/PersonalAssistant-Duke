@@ -11,7 +11,8 @@ public class BuyAnomaly extends DetectAnomaly {
     /**
      * The message to output if user inputs an out of bounds index.
      */
-    private static final String OUT_OF_BOUNDS_MSG = "Please input the correct index! Recheck the shop size by typing \"/shop\"";
+    private static final String OUT_OF_BOUNDS_MSG = "Please input the correct index!"
+        + "Recheck the shop size by typing \"/shop\"";
 
     /**
      * The message to output if user inputs the wrong format.
@@ -21,10 +22,10 @@ public class BuyAnomaly extends DetectAnomaly {
     @Override
     public void detect(String[] userInput) throws CommandLineException {
         try {
-           int index = Integer.parseInt(userInput[1]);
-           if (index <= 0 || index > Hustler.shopList.size()) {
-               throw new CommandLineException(OUT_OF_BOUNDS_MSG);
-           }
+            int index = Integer.parseInt(userInput[1]);
+            if (index <= 0 || index > Hustler.shopList.size()) {
+                throw new CommandLineException(OUT_OF_BOUNDS_MSG);
+            }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new CommandLineException(WRONG_FORMAT_MSG);
         }
