@@ -2,7 +2,6 @@ package dolla.ui;
 
 public class ViewUi extends Ui {
 
-    private static String AnsiColor;
     private static String sign = "";
     private static double absAmount;
 
@@ -12,10 +11,9 @@ public class ViewUi extends Ui {
      * @param desc description of entry
      */
     public static void printViewSingleExpense(double amount, String desc) {
-        AnsiColor = setColor(amount);
+        setSign(amount);
         absAmount = Math.abs(amount);
-        System.out.println(AnsiColor + "\t[" + sign + "$" + absAmount + "] [" + desc + "]"
-                + ANSI_RESET);
+        System.out.println("\t[" + sign + "$" + absAmount + "] [" + desc + "]");
     }
 
     /**
@@ -24,9 +22,9 @@ public class ViewUi extends Ui {
      * @param date String version of the view date.
      */
     public static void printOverallExpense(double sum, String date) {
-        AnsiColor = setColor(sum);
-        System.out.println(AnsiColor + "\n\t==Overall finances for " + date + ": " + sign + "$" + sum
-                + ANSI_RESET);
+        setSign(sum);
+        sum = Math.abs(sum);
+        System.out.println("\n\t==Overall finances for " + date + ": " + sign + "$" + sum);
         System.out.println(line);
     }
 
@@ -36,15 +34,11 @@ public class ViewUi extends Ui {
      * @param amount of money of the entry.
      * @return ANSI color corresponding to whether amount is positive or negative.
      */
-    private static String setColor(double amount) {
+    private static void setSign(double amount) {
         if (amount < 0) {
             sign = "-";
-            return ANSI_RED;
         } else if (amount > 0) {
             sign = "+";
-            return ANSI_GREEN;
-        } else {
-            return ANSI_RESET;
         }
     }
 

@@ -22,11 +22,12 @@ public class ModifyUi extends Ui {
     public static void printInvalidPartialModifyFormatError() {
         System.out.println(line);
         System.out.println("\tFor quick modify, please follow the format "
-                + "\n\t'modify [LIST NUM] {/type [TYPE]} {/amount [AMOUNT]} {/desc [DESCRIPTION]} {/on [DATE]}'"
-                + "\n\tinclude the fields for whatever component you want to change :)");
+                + "\n\t'modify [LIST NUM] {/[COMPONENT] [NEW DATA]}... "
+                + "\n\tDepending on the mode you are in, different components can be changed!"
+                + "\n\tDo check the User Guide for a list of components for each mode. :)");
         System.out.println(line);
     }
-
+    
     /**
      * Prints a message asking what the user wants to modify the selected log to.
      */

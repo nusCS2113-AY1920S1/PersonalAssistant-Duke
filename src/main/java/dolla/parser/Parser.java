@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.LogsCentreUtil;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.model.RecordList;
@@ -22,6 +23,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static dolla.parser.LimitParser.verifyLimitType;
 import static dolla.parser.LimitParser.verifyLimitDuration;
@@ -85,6 +87,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             date = Time.readDate(dateString.trim());
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid date.", e);
             throw new DollaException(INVALID_DATE_EXCEPTION);
         }
     }
@@ -116,6 +119,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid amount", e);
             throw new NumberFormatException(INVALID_AMOUNT_EXCEPTION);
         }
         return newDouble;
@@ -141,6 +145,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return s;
         } else {
             EntryUi.printInvalidEntryType();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid entry type.");
             throw new DollaException(DollaException.invalidType());
         }
     }
@@ -157,8 +162,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             extractDescTime();
         } catch (IndexOutOfBoundsException e) {
             EntryUi.printInvalidEntryFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid entry format.", e);
             return false;
         } catch (Exception e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs.", e);
             return false; // If error occurs, stop the method!
         }
         return true;
@@ -177,6 +184,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 DebtUi.printInvalidNameMessage();
                 return false;
             } catch (Exception ignored) {
+                LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs");
                 //do nothing
             }
             amount = stringToDouble(inputArray[2]);
@@ -186,6 +194,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return checkDate(dateString[1]);
         } catch (Exception e) {
             DebtUi.printInvalidDebtFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid debt format", e);
             return false;
         }
     }
@@ -201,6 +210,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             date = Time.readDate(dateString);
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Date format error", e);
             return false;
         }
         return true;
@@ -274,6 +284,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return false;
             }
         } catch (NumberFormatException e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid remove message.", e);
             RemoveUi.printInvalidRemoveMessage();
             return false;
         }
@@ -292,6 +303,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return false;
             }
         } catch (NumberFormatException e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid number.", e);
             return false;
         }
         return true;
@@ -335,6 +347,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                         return true;
                     }
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid number.", e);
                     return false;
                 }
             } else {
@@ -360,6 +373,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (NumberFormatException e) {
             ShortcutUi.printInvalidShortcutMessage();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid shortcut", e);
             return false;
         }
         return true;
@@ -378,6 +392,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
             ModifyUi.printInvalidFullModifyFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid full modify format.", e);
             return false;
         }
         return true;
@@ -401,7 +416,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         try {
             modifyRecordNum = Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
-            ModifyUi.printInvalidFullModifyFormatError();
+            ModifyUi.printInvalidPartialModifyFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid partial modify format", e);
             return false;
         }
 
@@ -448,11 +464,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ModifyUi.printMissingComponentInfoError(currStr);
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Missing component information error", e);
                     return false;
                 } catch (DateTimeParseException e) {
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Date format error", e);
                     Ui.printDateFormatError();
                     return false;
                 } catch (Exception e) {
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs", e);
                     return false;
                 }
 
@@ -517,10 +536,17 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
+<<<<<<< HEAD
      * Checks if the first word is "owe" or "borrow".
      * @param s String to be analysed.
      * @return Either 'expense' or 'income' if either are passed in.
      * @throws Exception ???
+=======
+     *      * Checks if the first word after 'add' is either 'income' or 'expense'.
+     *      * @param s String to be analysed.
+     *      * @return Either 'expense' or 'income' if either are passed in.
+     *      * @throws Exception ???
+>>>>>>> upstream/master
      */
     private static String verifyDebtType(String s) throws Exception {
         if (s.equals(TYPE_OWE) || s.equals(TYPE_BORROW)) {
@@ -644,6 +670,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return true;
             }
         } catch (Exception e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs.", e);
             return false;
         }
     }
@@ -681,6 +708,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             SearchUi.printInvalidSearchFormat();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             return false;
         }
     }
@@ -698,6 +726,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return false;
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             SearchUi.printInvalidSearchFormat();
             return false;
         }
@@ -717,6 +746,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             SearchUi.printInvalidSearchFormat();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             return false;
         }
     }
@@ -735,6 +765,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             SearchUi.printInvalidSearchFormat();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             return false;
         }
     }
@@ -776,6 +807,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             stringToDouble(inputArray[2]);
         } catch (Exception e) {
             DebtUi.printInvalidBillFormatError();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid bill format.", e);
             return false;
         }
         return true;
@@ -805,8 +837,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException e) {
             DebtUi.printWrongPeopleNumberMessage(Integer.parseInt(inputArray[1]));
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Wrong people number.", e);
             return false;
         } catch (Exception e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs.", e);
             return false;
         }
         return true;
@@ -819,6 +853,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             amount = stringToDouble(inputArray[2]);
             duration = verifyLimitDuration(inputArray[3]);
         } catch (Exception e) {
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs", e);
             return false;
         }
         return true;
