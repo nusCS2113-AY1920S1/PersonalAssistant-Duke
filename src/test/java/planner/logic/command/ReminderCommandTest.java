@@ -11,7 +11,7 @@ import planner.util.legacy.schedule.ModTimer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReminderCommandTest{
+public class ReminderCommandTest {
     private String reminderMessage = "_______________________________\n"
             +
             "Please remember to update your module information!\n"
