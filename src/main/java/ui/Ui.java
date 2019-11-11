@@ -338,7 +338,7 @@ public class Ui extends AnchorPane {
                 + "Find booking by index: findindex <index>\n"
                 + "--------------\n"
                 + "Rooms\n"
-                + "Add room: addroom <room code> /date <DD/MM/YYYY> <HHMM> /to <HHMM>\n"
+                + "Add room: addroom <room code> <capacity>\n"
                 + "List room: listroom\n"
                 + "Delete room: deleteroom <index>\n"
                 + "--------------\n"

@@ -30,5 +30,7 @@ public class BookingConstants {
             + "Please create the booking you want to reject"
             + " with the following format: reject INDEX";
     public static final String INDEXERROR2 = ":-( OOPS!!! Please enter an index in integer form!";
+    public static final String MONTHERROR1 = ":-( OOPS!!! Please enter the month in integer form!";
+    public static final String MONTHERROR2 = ":-( OOPS!!! Please enter a valid month!";
     public static final String EDITSUCCESS = "The description of this request has been changed!";
 }
