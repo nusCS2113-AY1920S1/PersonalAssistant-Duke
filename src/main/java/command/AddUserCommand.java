@@ -25,9 +25,8 @@ public class AddUserCommand extends Command {
      */
     public AddUserCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to register "
-                    + "in the following format:\n"
-                    + "adduser <name>");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to register!\n"
+                    + "adduser <username>");
         }
         this.splitL = input.split("adduser ");
     }

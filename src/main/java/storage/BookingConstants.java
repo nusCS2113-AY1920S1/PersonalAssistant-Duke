@@ -10,9 +10,9 @@ public class BookingConstants {
     public static final int STATUS = 5;
     public static final int APPROVEDBY = 6;
     public static final String DATETIMEERROR = ":-( Not able to parse the date for all patterns given, "
-            + "please use this format: add <NAME> <DESCRIPTION> /at <ROOM_CODE> "
-            + "/from <DATE TIMESTART> /to <TIMEEND>.\n"
-            + "<DATE TIMESTART> format is <dd/mm/yyyy HHMM>, <TIMEEND> is <HHMM>.";
+            + "please use this format:\n" + "add <name> <description> /at <room code> "
+            + "/from <date start-time> /to <end-time>.\n"
+            + "<date start-time>: <dd/mm/yyyy HHMM>, <end-time>: <HHMM>.";
     public static final String DATEERROR = "Not able to parse the date for all patterns given, "
             + "please use this format: DATE" + ", DATE format is dd/mm/yyyy";
     public static final String MONTHERROR = ":-( OOPS!!! Please create your booking with the "
@@ -27,8 +27,8 @@ public class BookingConstants {
             + "Please enter the index of the item you want to edit as well as the "
             + "updated description of your booking!";
     public static final String REJECTERROR = ":-( OOPS!!! "
-            + "Please create the booking you want to reject"
-            + " with the following format: reject INDEX";
+            + "Please enter the correct format!\n"
+            + "reject <index>";
     public static final String INDEXERROR2 = ":-( OOPS!!! Please enter an index in integer form!";
     public static final String MONTHERROR1 = ":-( OOPS!!! Please enter the month in integer form!";
     public static final String MONTHERROR2 = ":-( OOPS!!! Please enter a valid month!";
