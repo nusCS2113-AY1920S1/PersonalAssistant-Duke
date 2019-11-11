@@ -629,8 +629,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a word
 
 . Deleting a word while all words are listed
@@ -643,7 +641,13 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete w/NON-EXISTENCE-WORD` {give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a word
+
+. Adding a new word to the word bank.
+.. Test case: `add w/WORD m/MEANING` +
+   Expected: The word will be added to the word bank. To verify, enter `list` to see the new list of words.
+.. Test case: `add w/WORD` +
+   Expected: The word will not be added. Instead, an error message that the user needs to input the meaning as well will be shown.
 
 === Saving data
 
