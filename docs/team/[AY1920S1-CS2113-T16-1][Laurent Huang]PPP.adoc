@@ -58,6 +58,7 @@ Leduc is a task management application geared to help high school students manag
 
 * *Manage releases*
 *** Managed releases with setting for milestones in Github, creation of jar files for the different milestones thanks to gradle: https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.1[leduc-v1.1.jar], https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.2[leduc-v1.2.jar], https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.2.1[leduc-v1.2.1jar] and https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.3[leduc-v1.3.jar].
+*** Make jar file work without initial data file : https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/storage/Storage.java[Generate data file when executing jar file]
 
 * *Manage Github*
 *** Set up the labels and milestone.

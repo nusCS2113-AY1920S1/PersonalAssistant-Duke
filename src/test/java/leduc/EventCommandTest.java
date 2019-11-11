@@ -38,6 +38,8 @@ public class EventCommandTest {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
+        } catch (NonExistentDateException e) {
+            e.printStackTrace();
         }
         List<Task> tasksList = new ArrayList<>();
         tasks = new TaskList( tasksList);

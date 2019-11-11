@@ -38,6 +38,8 @@ public class RescheduleCommandTest {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
+        } catch (NonExistentDateException e) {
+            e.printStackTrace();
         }
 
         tasks = new TaskList(new ArrayList<>());

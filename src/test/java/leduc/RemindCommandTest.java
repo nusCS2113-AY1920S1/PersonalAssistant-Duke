@@ -46,6 +46,8 @@ class RemindCommandTest {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
+        } catch (NonExistentDateException e) {
+            e.printStackTrace();
         }
         tasks = new TaskList(tasklist);
     }
