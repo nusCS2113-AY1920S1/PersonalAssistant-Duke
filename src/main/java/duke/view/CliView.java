@@ -3,6 +3,7 @@ package duke.view;
 import duke.command.ExitCommand;
 import duke.exceptions.DukeException;
 import duke.parser.ParserCommand;
+import duke.util.ApacheLogger;
 
 import java.util.Scanner;
 
@@ -35,6 +36,7 @@ public class CliView {
                 String input = scan.nextLine();
                 if (input.equals(String.valueOf(goodBye))) {
                     showGoodBye();
+                    ApacheLogger.logMessage("CliView", "Exit Coach Manager");
                     exitCommand.exitProgram();
                 } else if (input.equals("home")) {
                     showMainMenu();

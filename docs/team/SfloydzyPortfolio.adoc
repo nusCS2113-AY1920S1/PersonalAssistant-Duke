@@ -17,45 +17,55 @@ This is what our project looks like.
 
 image::mainmenu.png[align="Center"]
 
-My role was to manage the overall project and manage the Git Repo. I also ensured code quality across pull requests. I designed and wrote the code for the `Schedule Manager`, `GUI` and `Storage` features. I have added to the user guide and developer guides in relation to these features as well.
+My role was to manage the overall project and manage the Git Repo. I also ensured code quality across pull requests. I designed and wrote the code for the `Schedule`, `Saving\Reading JSON` and `GUI` features. I have added to the user guide and developer guides in relation to these features as well.
 
 == Summary of contributions
 
-* *Feature*: Supplied code source of the project
-** Provided the code outline for the OOP interaction between classes
 
 * *Feature*: Navigation
-** What it does: Created menu to get between different features
-** Highlights: The menu allows for multiple commands from the same feature to be executed without exiting the feature.
+** What it does: Created menu to get between different features and clearly see the instructions available to that section.
+** Justification: This feature allows the user to make mistakes in the commands and not exit the entire section of the feature. If errors are made, the user will remain in that feature's menu and will be allowed to correct their mistake.
+** Highlights: This enhancement allows for future features to be added on by just creating a new menu for the feature and adding on to the existing list of options in the menu.
 
 * *Feature*: Saving/Loading JSON file
 ** What it does: Allows saving/reading of data in JSON file format.
 ** Justification: Allows for clear organisation of data and allows user to easily edit the scheduled classes outside of the program as well.
-** Highlights: User who loads the .jar file will always have some temporary data packaged into the jar file. Prevents any "FileNotFound" errors.
+** Highlights: User who loads the .jar file will always have some temporary data packaged into the jar file. Prevents any "FileNotFound" errors. The data saved inside the json file can be implement to be used across all other features (V2.0).
 * *Feature*: Schedule Manager
 *** What it does: Manages all the schedule classes and represents them in a daily/weekly/monthly view that is easy to see
 
-* *Feature*: GUI V2.0
+* *Feature*: GUI (V2.0)
 *** What it does: Provides a graphic user interface that is easy to see and navigate.
 *** Justification: Clearly represents the system for the user. Navigation and accessibility of functions are graphically represented. No mistakes from the user side will be made when keying in commands.
 *** Highlights: This feature works to be implemented in the future v2.0 update.
 
+* *Feature*: Schedule
+** What it does:
+
 
 * *Code contributed*:
-** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
-** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/models/Schedule.java[Schedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/models/Schedule.java[Schedule]]
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/data/ScheduleStorage.java[Schedule Storage]]
-** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/launcher/gui/Controller.java[Gui Controller]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserScheduleTable]] [https://github.com/AY1920S1-CS2113T-W13-1/main/tree/master/src/test/java/parsertests/ParserScheduleTableTest.java[ParserScheduleTableTest]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/util/DateHandler[DateHandler]] [https://github.com/AY1920S1-CS2113T-W13-1/main/tree/master/src/test/java/utiltests/DateHandler.java[DateHandlerTest]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/models/ToDo.java[ToDo]] [https://github.com/AY1920S1-CS2113T-W13-1/main/tree/master/src/test/java/modeltests/ToDoTest.java[ToDoTest]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/launcher/gui/Controller.java[Gui Controller]]
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/tree/master/src/main/resources/view[FXML View Files for GUI]]
 
-
-* *Project management*:
-** Managed releases 1.0 - 1.4 on GitHub
+* *Other Contributions*:
+** *Project management*:
+*** Supplied code source of the project
+*** Managed releases 1.0 - 1.4 on GitHub
+*** Helped develop the navigation menu with danisheddie
 *** Refactoring main code
 *** Maintaining code quality with CheckStyle https://github.com/AY1920S1-CS2113T-W13-1/main/pull/208[#208]
-** Tools:
-*** Installed Travis on Git Repo for Continuous Integration
+** *Tools*:
+*** Installed Travis on as Github plugin for Continuous Integration
 *** Implemented Logger in to Code https://github.com/AY1920S1-CS2113T-W13-1/main/pull/275/[#275]
+** *Community*:
+*** Contributed to forum discussion https://github.com/nusCS2113-AY1920S1/forum/issues/9[#9], https://github.com/nusCS2113-AY1920S1/forum/issues/35[#35]
+*** Some parts of the logger tool I added was adopted by several other class mates from team https://github.com/AY1920S1-CS2113-T13-1/main[ArchDuke]
 
 == Contributions to Developer Guide
 

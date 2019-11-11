@@ -14,9 +14,9 @@
   }, {
     "Status" : "Upcoming",
     "Start Time" : "1000",
-    "Name" : "Competition",
+    "Name" : "Training",
     "End Time" : "1100",
-    "Location" : "Kr"
+    "Location" : "NUS"
   } ],
 
   "2019-11-11" : [ {
@@ -24,7 +24,7 @@
     "Start Time" : "0800",
     "Name" : "Swimming",
     "End Time" : "0900",
-    "Location" : "Kr"
+    "Location" : "NUS"
   }, {
     "Status" : "Upcoming",
     "Start Time" : "1100",
@@ -35,11 +35,30 @@
     "Status" : "Upcoming",
     "Start Time" : "1000",
     "Name" : "Competition",
-    "End Time" : "1100",
+    "End Time" : "1300",
     "Location" : "Kr"
   } ],
 
-  "2019-11-12" : [ {
+  "2019-09-11" : [ {
+    "Status" : "Upcoming",
+    "Start Time" : "0800",
+    "Name" : "Diving",
+    "End Time" : "0900",
+    "Location" : "NUS"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1100",
+    "Name" : "Swimming Test",
+    "End Time" : "1200",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1000",
+    "Name" : "Training",
+    "End Time" : "1300",
+    "Location" : "NUS"
+  } ],
+  "2019-05-05" : [ {
     "Status" : "Upcoming",
     "Start Time" : "0800",
     "Name" : "Swimming",
@@ -50,7 +69,7 @@
     "Start Time" : "1100",
     "Name" : "Swimming Test",
     "End Time" : "1200",
-    "Location" : "Kr"
+    "Location" : "NUS"
   }, {
     "Status" : "Upcoming",
     "Start Time" : "1000",

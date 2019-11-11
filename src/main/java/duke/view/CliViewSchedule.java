@@ -67,19 +67,18 @@ public class CliViewSchedule extends CliView {
     public void tableHeader() {
         System.out.println(
             String.format(
-                "%-10s %10s %-10s %10s %-10s %10s %-10s %10s %-10s",
+                "%-30s %-1s %-20s %-1s %-10s %-1s %-10s %-1s",
                 "Lesson", "|",
                 "Location", "|",
                 "Start Time", "|",
-                "End Time", "|",
-                "Status"
+                "End Time", "|"
             )
         );
         System.out.println(
             String.format(
                 "%s",
-                "----------------------------------------------------"
-                    + "-------------------------------------------------"));
+                "---------------------------------------------------"
+                    + "------------------------------"));
     }
 
     /**
@@ -90,12 +89,12 @@ public class CliViewSchedule extends CliView {
             //Iterate through and print ever item that is listed in the day.
             for (ToDo i : todo) {
                 System.out.println(
-                    String.format("%-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s %-10s",
+                    String.format(
+                        "%-30s %-1s %-20s %-1s %-10s %-1s %-10s %-1s",
                         i.getClassName(), "|",
                         i.getLocation(), "|",
                         i.getStartTime(), "|",
-                        i.getEndTime(), "|",
-                        i.getStatus()
+                        i.getEndTime(), "|"
                     )
                 );
             }
@@ -122,7 +121,7 @@ public class CliViewSchedule extends CliView {
      */
     public void tableMenu() {
         bufferLine();
-        message("Add Class: add n/[CLASS NAME] s/[START TIME] d/[END TIME] loc/[LOCATION]");
+        message("Add Class: add n/[CLASS NAME] s/[START TIME-24HR] d/[END TIME-24HR] loc/[LOCATION]");
         message("Go back: back");
     }
 }
