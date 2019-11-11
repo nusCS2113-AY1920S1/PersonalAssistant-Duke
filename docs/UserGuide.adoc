@@ -1054,7 +1054,7 @@ can delete your credit card bill, which will delete the bill expenditure and reb
 
 *Command Syntax*
 
-`/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME /expno`
+`/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME`
 
 [WARNING]
 ====
