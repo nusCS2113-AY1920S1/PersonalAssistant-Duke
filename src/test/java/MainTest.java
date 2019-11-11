@@ -368,23 +368,4 @@ public class MainTest {
         assertEquals(calendarCompare, calendarTest.getStringForOutput());
     }
 
-    //@@author Dng132FEI
-    /*
-    public void reminderTest() {
-        ArrayList<String> testListString = new ArrayList<>();
-        EventList testList = new EventList(testListString);
-        Date now = new Date();
-        Calendar dateToSet = Calendar.getInstance();
-        dateToSet.setTime(now);
-        dateToSet.add(Calendar.DATE, 2);
-        Date twoDays = dateToSet.getTime();
-        dateToSet.add(Calendar.DATE, 1);
-        Date threeDays = dateToSet.getTime();
-        dateToSet.add(Calendar.DATE, 4);
-        Date fourDays = dateToSet.getTime();
-        dateToSet.add(Calendar.DATE, 4);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
-    }
-
- */
 }
