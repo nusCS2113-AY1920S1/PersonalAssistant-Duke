@@ -794,7 +794,6 @@ public class Process {
      * @param expected expected order of arguments
      * @param ui       used to print exception message
      * @return an array with the split string
-     * @throws IllegalClassFormatException to alert that arguments are not ordered
      */
     private String[] splitInput(String input, String cmd, int limit, String regex, String expected, Ui ui) {
         String[] splitspace = input.split(cmd, limit);
@@ -826,8 +825,6 @@ public class Process {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     :( OOPS!!! Please input the correct command format"
                     + "The input format is: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT");
-        } catch (IllegalClassFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please make sure the arguments are ordered correctly!");
         }
     }
 
@@ -864,8 +861,6 @@ public class Process {
             ui.printSuggestion(dict, input, payeename);
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!!");
-        } catch (IllegalClassFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please make sure the arguments are ordered correctly!");
         }
     }
 
@@ -907,8 +902,6 @@ public class Process {
             ui.exceptionMessage("     :( OOPS!!! There is no payee with that name yet, please add the payee first!");
         } catch (AlphaNUSException e) {
             e.printStackTrace();
-        } catch (IllegalClassFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please make sure the arguments are ordered correctly!");
         }
     }
 
@@ -948,8 +941,6 @@ public class Process {
                 + currProjectName + " yet, please add the payee first!");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is a payee with that name in the record!");
-        } catch (IllegalClassFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please make sure the arguments are ordered correctly!");
         } 
     }
 
@@ -1056,8 +1047,6 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Payment not found, check item field again!");
             Set<String> dict = storage.readFromDictFile();
             ui.printSuggestion(dict, input, item);
-        } catch (IllegalClassFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please make sure the arguments are ordered correctly!");
         }
     }
 
