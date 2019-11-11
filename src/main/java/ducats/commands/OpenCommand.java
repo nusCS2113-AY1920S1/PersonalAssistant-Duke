@@ -8,7 +8,7 @@ import ducats.components.SongList;
 
 //@@author rohan-av
 
-public class OpenCommand extends Command<SongList> {
+public class OpenCommand extends Command {
 
     public OpenCommand(String message) {
         this.message = message;

@@ -1,6 +1,7 @@
 package ducats.commands;
 
 import ducats.DucatsException;
+import ducats.Parser;
 import ducats.Storage;
 import ducats.Ui;
 import ducats.components.Bar;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to add a new bar of notes at the end of the current song.
  */
-public class AddBarCommand extends Command<SongList> {
+public class AddBarCommand extends Command {
 
     private int songIndex;
 
@@ -39,9 +40,6 @@ public class AddBarCommand extends Command<SongList> {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         int barNo;
-        if (message.length() < 8 || !message.substring(0, 7).equals("addbar ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         try {
             songIndex = songList.getActiveIndex();
             Song activeSong = songList.getSongIndex(songIndex);
@@ -55,7 +53,11 @@ public class AddBarCommand extends Command<SongList> {
             return ui.formatAddBar(temp, newBar, activeSong);
 
         } catch (Exception e) {
-            throw new DucatsException(message, "addbar");
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            } else {
+                throw new DucatsException(message, "addbar");
+            }
         }
     }
 

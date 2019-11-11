@@ -1,12 +1,11 @@
 package ducats.commands;
 
-import ducats.Ducats;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
 import ducats.components.SongList;
 
-public class MetronomeCommand extends Command<SongList> {
+public class MetronomeCommand extends Command {
 
     private int duration;
     private int tempo;
