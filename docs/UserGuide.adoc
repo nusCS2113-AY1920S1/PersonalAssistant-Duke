@@ -415,12 +415,51 @@ _Example_: `overlay_bar_song twinkle 3 jingle 4 repeat`
 
 The above command overlays bar 3 onto jingle's bar 4 and onwards. 
 
-The output will be an ascii printed version of the song after overlaying. 
+The output will be an ascii printed version of the song after overlaying.
 
 
 === Viewing your list of groups in a song: `list_group`
+Gets the list of groups in the current or opened song so that you can refer to it later when calling it.
+Format:
+list_group
+
+Additionally you can add the starting characters of the group that you want to find as a parameter.
+Format:
+list_group -starting_substring
+
+Example: list_group twi
+In the above example, if there exists two groups named “twilight” and “twinkle”, both of them will be displayed and the groups that do not start with “twi” will not be displayed.
+
 
 === Displaying song in ASCII format: `ascii song`
+This command lets you view the song you are creating as a songsheet in ASCII format. Different symbols are used to represent music notes, rest note and different durations. The song sheet comprises of 15 rows. At the start of each row, the pitch is indicated. The bars in the song sheet are separated with by “|”. The design of this ascii song sheet is very similar to the actual musical song sheet, except, symbols are used to represent the different notes.
+
+==== Displaying song in ASCII format: `ascii song SONG_NAME`
+To display a song as ascii song sheet, simply use the following command
+
+Format: `ascii song SONG_NAME`
+
+Example: `ascii song twinkle`
+
+The above command lets you view the song sheet for the song twinkle.
+
+==== Displaying group in ASCII format: `ascii group GROUP_NAME`
+To display a group in the song in the ascii song sheet format, simply use the following command
+
+Format: `ascii group GROUP_NAME`
+
+Example: `ascii group twilight`
+
+The above command lets you view the song sheet for the group twilight.
+
+==== Displaying bar in ASCII format: `ascii bar BAR_INDEX`
+To display a bar in the song in the ascii song sheet format, simply use the following command
+
+Format: `ascii bar BAR_INDEX`
+
+Example: `ascii bar 1`
+
+The following command lets you view the song sheet for the group twilight.
 
 This command lets you view the song you are creating as a song sheet in ASCII format. Here’s an example of how it looks like:
 
