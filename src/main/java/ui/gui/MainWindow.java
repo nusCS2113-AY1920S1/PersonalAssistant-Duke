@@ -1,28 +1,19 @@
 package ui.gui;
 
 import duke.exception.DukeException;
-import executor.task.TaskList;
 import interpreter.Interpreter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import main.Duke;
-import storage.StorageTask;
-import storage.StorageWallet;
 import ui.UiCode;
-import ui.Wallet;
 import utils.InfoCapsule;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MainWindow extends AnchorPane {
 

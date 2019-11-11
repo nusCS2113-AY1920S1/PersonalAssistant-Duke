@@ -7,25 +7,30 @@ import executor.task.TaskList;
 import executor.task.TaskType;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommandReminderTest {
 
     @Test
     void execute() {
-        String date = LocalDate.now().toString();
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+
         Task testTask = null;
         try {
             testTask = TaskList.createTask(TaskType.DEADLINE, "deadline finish assignment /by "
-                    + date);
+                    + date.format(dateFormatter) + " 2359");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
         StorageManager storageManager = new StorageManager();
         storageManager.getTaskList().addTask(testTask);
         CommandReminder testCommand = new CommandReminder("deadline finish assignment /by "
-                + date);
+                + date.format(dateFormatter) + " 1900");
         testCommand.execute(storageManager);
         Task mainTask = storageManager.getTaskList().get(0);
         assertEquals(TaskType.DEADLINE, mainTask.getTaskType());

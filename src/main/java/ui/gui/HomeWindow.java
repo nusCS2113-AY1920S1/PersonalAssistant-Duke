@@ -80,12 +80,10 @@ public class HomeWindow extends AnchorPane {
         if (expensesCapsule.getUiCode() == UiCode.ERROR) {
             throw new DukeException(expensesCapsule.getOutputStr());
         }
-        this.pieChartData.get(0).setPieValue(expensesCapsule.getOutputDouble());
-        this.pieChartData.get(1).setPieValue(balanceCapsule.getOutputDouble()
-                - expensesCapsule.getOutputDouble());
+            this.pieChartData.get(0).setPieValue(expensesCapsule.getOutputDouble());
+        this.pieChartData.get(1).setPieValue(balanceCapsule.getOutputDouble());
         DecimalFormat decimalFormat = new DecimalFormat("$#0");
-        this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()
-                - expensesCapsule.getOutputDouble()));
+        this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()));
     }
 
     private void displayBalanceChart() throws DukeException {
@@ -104,9 +102,8 @@ public class HomeWindow extends AnchorPane {
 
     private Double getWalletBalance() throws DukeException {
         InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.BALANCE, null);
-        InfoCapsule infoCapsule1 = this.interpreterLayer.request(AccessType.EXPENSES, null);
         if (infoCapsule.getUiCode() == UiCode.UPDATE) {
-            return infoCapsule.getOutputDouble() - infoCapsule1.getOutputDouble();
+            return infoCapsule.getOutputDouble();
         } else if (infoCapsule.getUiCode() == UiCode.ERROR) {
             throw new DukeException(infoCapsule.getOutputStr());
         } else {
