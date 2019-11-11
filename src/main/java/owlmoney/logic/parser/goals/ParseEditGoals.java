@@ -34,18 +34,21 @@ public class ParseEditGoals extends ParseGoals {
     @Override
     public void checkParameter() throws ParserException {
         Iterator<String> goalIterator = goalsParameters.keySet().iterator();
+        checkOptionalParameter(goalsParameters.get(BY_PARAMETER), goalsParameters.get(IN_PARAMETER));
+
         int changeCounter = 0;
         int markDoneCounter = 0;
         while (goalIterator.hasNext()) {
             String key = goalIterator.next();
             String value = goalsParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("Name provided was empty");
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkGoalsName(NAME_PARAMETER, value);
             }
             if (AMOUNT_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
-                checkAmount(value);
+                checkGoalsAmount(value);
                 changeCounter++;
             }
             if (NEW_NAME_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
@@ -72,13 +75,17 @@ public class ParseEditGoals extends ParseGoals {
             }
         }
         if (changeCounter != 0 && markDoneCounter != 0) {
+            logger.warning("/mark cannot be accompanied by additional parameters");
             throw new ParserException("Cannot /mark and edit parameters of your goals!");
         }
 
         if (changeCounter == 0 && markDoneCounter == 0) {
+            logger.warning("Did not provide correct parameters to change");
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }
+
+
 
     /**
      * Returns command to execute editing of goals.

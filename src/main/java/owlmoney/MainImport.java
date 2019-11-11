@@ -1,13 +1,13 @@
 package owlmoney;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
+import owlmoney.model.profile.Profile;
+import owlmoney.storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import owlmoney.model.profile.Profile;
-import owlmoney.storage.Storage;
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Generates dummy data and writes to CSV files for v1.4 test so that the application can import them.
@@ -630,7 +630,7 @@ class MainImport {
         exportArrayList.add(new String[]{
             "Car COE",
             "35000.00",
-            "29/11/2019",
+            "19/11/2019",
             "MayBank Savings Account",
             "false",
             "false"});

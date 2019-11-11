@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Represents the parsing of inputs for editing a profile name.
@@ -22,6 +25,7 @@ public class ParseEditProfile {
     private static final String NEW_NAME_PARAMETER = "/newname";
     private static final String[] PROFILE_KEYWORD = new String[] {NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> PROFILE_KEYWORD_LISTS = Arrays.asList(PROFILE_KEYWORD);
+    private static final Logger logger = getLogger(ParseEditProfile.class);
 
     /**
      * Creates instance of ParseEditProfile class.
@@ -42,6 +46,7 @@ public class ParseEditProfile {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!PROFILE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameters provided, must be /name or /newname");
             throw new ParserException("Incorrect parameter: " + rawDateSplit[0]);
         }
     }
@@ -67,6 +72,7 @@ public class ParseEditProfile {
      */
     void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning("New name provided exceeded 30 characters");
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
@@ -84,6 +90,7 @@ public class ParseEditProfile {
             String value = profileParameters.get(key);
 
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/name parameter provided was empty");
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
@@ -94,6 +101,7 @@ public class ParseEditProfile {
             }
         }
         if (changeCounter == 0) {
+            logger.warning("Did not specify /newname parameter");
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }

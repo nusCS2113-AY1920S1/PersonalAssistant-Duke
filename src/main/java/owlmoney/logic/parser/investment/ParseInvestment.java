@@ -1,8 +1,11 @@
 package owlmoney.logic.parser.investment;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -22,6 +25,7 @@ public abstract class ParseInvestment {
     private static final String[] INVESTMENT_KEYWORD = new String[] {AMOUNT_PARAMETER,
         NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> INVESTMENT_KEYWORD_LISTS = Arrays.asList(INVESTMENT_KEYWORD);
+    static final Logger logger = getLogger(ParseInvestment.class);
 
     /**
      * Creates an instance of any ParseInvestment type object.
@@ -41,6 +45,7 @@ public abstract class ParseInvestment {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + "/investment should not contain " + parameter);
             throw new ParserException(command + "/investment should not contain " + parameter);
         }
     }
@@ -53,6 +58,7 @@ public abstract class ParseInvestment {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!INVESTMENT_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -79,6 +85,8 @@ public abstract class ParseInvestment {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
+            logger.warning("/amount can only be numbers with at most 9 digits, 2 decimal places"
+                    + " and a value of at least 0");
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
                     + " and a value of at least 0");
         }
@@ -93,6 +101,7 @@ public abstract class ParseInvestment {
      */
     void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning(key + " can only be alphanumeric and at most 30 characters");
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }

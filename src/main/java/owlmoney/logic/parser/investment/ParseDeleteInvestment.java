@@ -36,6 +36,7 @@ public class ParseDeleteInvestment extends ParseInvestment {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when deleting an investment account");
                 throw new ParserException(key + " cannot be empty when deleting an investment account");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
@@ -51,6 +52,7 @@ public class ParseDeleteInvestment extends ParseInvestment {
     public Command getCommand() {
         DeleteInvestmentCommand newDeleteInvestmentCommand =
                 new DeleteInvestmentCommand(investmentParameters.get(NAME_PARAMETER));
+        logger.info("Successful creation of DeleteInvestmentCommand object");
         return newDeleteInvestmentCommand;
     }
 }

@@ -972,7 +972,9 @@ At least one of `/desc`, `/category`, `/amount` or `/date` must be used.
 
 [TIP]
 ====
-To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`
+To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`.
+
+Only unpaid expenditures can be edited.
 ====
 
 *Example*
@@ -1000,6 +1002,8 @@ Accidentally added a transaction that did not happen? You can delete it!
 [TIP]
 ====
 To find out which expenditure to delete, use the `/list` or `/find` function to find the expenditure number.
+
+Only unpaid expenditures can be deleted.
 ====
 
 *Example*
@@ -1375,6 +1379,12 @@ Take note that there is a maximum of *30* character limit.
 
 Take note that there is a maximum of *50* character limit.
 
+| `CATEGORY`
+| Indicates the category of the transaction.
+| `CATEGORY` should contain alphabetic characters, and spaces only.
+
+Take note that there is a maximum of *15* character limit.
+
 | `DATE`
 | Indicates the date the transaction was made.
 
@@ -1383,10 +1393,6 @@ Take note that there is a maximum of *50* character limit.
 | `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
 
 |======
-
-
-
-
 
 ===== Finding savings account details `/find /savings`
 
@@ -1397,7 +1403,7 @@ your bank account as long as you remember part of your account name.
 
 `/find /savings /name ACCOUNT_NAME`
 
-[WARNING]
+[NOTE]
 ====
 `ACCOUNT_NAME` used for searching is case-insensitive.
 ====
@@ -1420,7 +1426,7 @@ your bank account as long as you remember part of your account name.
 
 `/find /investment /name ACCOUNT_NAME`
 
-[WARNING]
+[NOTE]
 ====
 `ACCOUNT_NAME` used for searching is case-insensitive.
 ====
@@ -1442,7 +1448,7 @@ Searching for a Credit Card but forgot the name? *OwlMoney* helps you by providi
 
 `/find /card /name CARD_NAME`
 
-[WARNING]
+[NOTE]
 ====
 `CARD_NAME` used for searching is case-insensitive.
 ====
@@ -1465,7 +1471,7 @@ you various ways to do it!
 
 `/find /bonds /name BOND_NAME /from ACCOUNT_NAME`
 
-[WARNING]
+[NOTE]
 ====
 `BOND_NAME` used for searching is case-insensitive.
 
@@ -1494,15 +1500,15 @@ to do it! It allows you to search by description, category or a date range!
 [NOTE]
 ====
 Transactions includes both expenditures and deposits.
+
+`DESCRIPTION` used for searching is case-insensitive.
+
+`CATEGORY` used for searching is case-insensitive.
 ====
 
 [WARNING]
 ====
 At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
-
-`DESCRIPTION` used for searching is case-insensitive.
-
-`CATEGORY` used for searching is case-insensitive.
 ====
 
 *Example*
@@ -1566,15 +1572,15 @@ do it! It allows you to search by description, category or a date range!
 [NOTE]
 ====
 Transactions includes both expenditures and deposits.
+
+`DESCRIPTION` used for searching is case-insensitive.
+
+`CATEGORY` used for searching is case-insensitive.
 ====
 
 [WARNING]
 ====
 At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
-
-`DESCRIPTION` used for searching is case-insensitive.
-
-`CATEGORY` used for searching is case-insensitive.
 ====
 
 *Example*
@@ -1638,15 +1644,15 @@ various ways to do it! It allows you to search by description or category!
 [NOTE]
 ====
 Recurring expenditure only exists in savings account.
+
+`DESCRIPTION` used for searching is case-insensitive.
+
+`CATEGORY` used for searching is case-insensitive.
 ====
 
 [WARNING]
 ====
 At least one of `/desc` or `/category` must be used.
-
-`DESCRIPTION` used for searching is case-insensitive.
-
-`CATEGORY` used for searching is case-insensitive.
 ====
 
 *Example*

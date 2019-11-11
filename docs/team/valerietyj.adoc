@@ -36,8 +36,7 @@ Here are the links as a reference to my implementation for `goals` Features:
 
 * {repoURL}/pulls?q=is%3Apr+is%3Aclosed+author%3Avalerietyj[Pull Requests]
 
-* https://nuscs2113-ay1920s1.github.io/dashboard/#search=valerietyj[RepoSense
-Code Contribution Dashboard]
+* https://nuscs2113-ay1920s1.github.io/dashboard/#search=valerietyj[RepoSense Code Contribution Dashboard]
 
 ==== Enhancement added
 `goals` features functionality for users to `add`, `delete`, `edit` and `list` financial goals.
@@ -88,9 +87,9 @@ identify suitable target users, user stories and use cases.
 ** Fixed code bugs and implemented ability to edit profile.
 * Community:
 ** Reported critical and helpful bugs in another team's project, link:{ArchDukeURL}[ArchDuke] +
-(Full issues reported can be found {pedURL}[here] and some examples are: {ArchDukeURL}/issues/296[#296], {ArchDukeURL}/issues/297[#297],
-{ArchDukeURL}/issues/298[#296], {ArchDukeURL}/issues/306[#306], {ArchDukeURL}/issues/307[#307],
-{ArchDukeURL}/issues/308[#308])
+(Full issues reported can be found {pedURL}[here] and some examples are: {ArchDukeURL}/issues/296[#296],
+{ArchDukeURL}/issues/297[#297], {ArchDukeURL}/issues/298[#296], {ArchDukeURL}/issues/306[#306],
+{ArchDukeURL}/issues/307[#307], {ArchDukeURL}/issues/308[#308])
 
 
 

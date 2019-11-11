@@ -76,7 +76,8 @@ to manually edit the bank amount.
 undergraduates. By allowing them to track their investments, users are able to track more than just their savings
 * Highlights: This enhancement automatically credits the 6 month interest into the bank account. This allows
 effective tracking of the user's investments while reducing errors from user input.
-* Credits: A majority of this class inherits from the parent class `bank` which was collaborated by
+* Credits: A majority of these features was done by <<shamussy#,Shamus>>. I assisted him when he had difficulties in
+implementing certain features.
 
 *Code contributed:*
 [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=briantkm[RepoSense]],
