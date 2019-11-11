@@ -98,6 +98,7 @@ public class Ducats {
                         || c instanceof ListGroupCommand) {
                     output = c.execute(songs, ui, storage);
                     DucatsLogger.info(c.getClass().getName() + " has finished execution");
+                    //@@author SalonetheGreat
                     if (!(c instanceof HelpCommand
                         || c instanceof ViewCommand
                         || c instanceof ListCommand
@@ -106,6 +107,7 @@ public class Ducats {
                         undoRedoStack.add(songs);
                     }
                 } else if (c instanceof UndoCommand || c instanceof RedoCommand) {
+                    //@@author SalonetheGreat
                     output = c.execute(songs, ui, storage, undoRedoStack);
                     songs = undoRedoStack.getCurrentVersion();
                 } else {
@@ -116,7 +118,7 @@ public class Ducats {
                 metronome.start(c.startMetronome());
                 isExit = c.isExit();
             } catch (DucatsException e) {
-                DucatsLogger.severe("A fatal error has occured: " + ui.showError(e));
+                DucatsLogger.severe("A fatal error has occurred: " + ui.showError(e));
                 System.out.println(ui.showError(e));
             }
         }

@@ -24,7 +24,10 @@ Ducats is a music composition tool geared towards music lovers with little knowl
 
 This user guide aims to guide the user in installing Ducats and provide information about the multitude of features of Ducats. To effectively understand the documentation and utilize Ducats, it is best if you are familiar with basic music theory. If you are unfamiliar, Section 5: Introduction to Basic Music Theory is a good start to your understanding.
 
-The table below explains the meaning behind the formatting used in this document:
+[NOTE]
+This formatting indicates that this is important additional information.
+
+The table below explains the meaning behind the text formatting used in this document:
 
 [cols=2*]
 |===
@@ -36,11 +39,8 @@ The table below explains the meaning behind the formatting used in this document
 
 | _preface_
 | A paragraph in italics indicates that the paragraph is a preface to the section below.
-
-a| image::info.png[50,50]
-| A section with the tooltip at the side indicates that the additional information provided in the section is important.
-
 |===
+
 == Quick Start
 
 _This section provides a quick guide on firing up Ducats. Follow the steps below to install and launch Ducats:_
@@ -110,7 +110,7 @@ _Examples_:
 creates a song titled “Twinkle Twinkle”, in the default key of C Major, with time signature of 4 4 and tempo of 120bpm (beats per minute).
 
 * `new Vicarious F 5/4 116`
-creates a song titled “Vicarious”, in the key of F Major, with time signature of 5 4 and a tempo of 116bpm.
+creates a song titled “Vicarious”, in the key of F Major, with time signature of 5 4 and a tempo of 116 beats per minute (BPM).
 
 * `new Hello,_Waltz Am 3/4 120`
 creates a song with the title “Hello,_Waltz”, in the key of A Minor, with time signature of 3 4 and a tempo of 120bpm.
@@ -217,6 +217,24 @@ _Example_: `overlay_group_group twinkle 1 jingle 3`
  
 The above command overlays group 1 from twinkle onto group 4 of jingle 
 
+_Example_: `overlay_group_group twinkle 1 twinkle 2`
+
+If group 1 from twinkle is overlayed onto group 2 of twinkle, where 1 is from bar 1 to 2 and group 2 consists of bar 3 to 5. 
+
+image::example_song_annotation.png[]
+
+
+The output of the above command must be: 
+
+image::smaller_group_onto_bigger_one.png[]
+
+If we try to run `overlay_group_group twinkle 2 twinkle 1` 
+
+The output will be: 
+
+image::bigger_group_onto_smaller_group.png[]
+
+
 The repeat parameter can be added to the end to overlay the group from the required start point till the end. 
 
 _Format_:
@@ -240,10 +258,18 @@ _Format_:
 
 `overlay_bar_group <bar_number to be overlayed> <group_number to be overlayed to>`
 
-_Example_: `overlay_bar_group 1 3`
+_Example_: `overlay_bar_group 1 2`
 
 
-The above command overlays bar 1 from the opened song onto group 3. 
+The above command overlays bar 1 from the opened song onto group 2. 
+
+If the group 2 was from bar 3 to 5 on the following song: 
+image::example_song_annotation.png[]
+
+The expected output will be: 
+
+image::overlay_bar_group_1_2.png[]
+
 
 The repeat parameter can be added to the end to overlay the bar from the required start point till the last group. 
 
@@ -313,13 +339,30 @@ _Format_:
 `metronome n/DURATION_IN_BARS n/TEMPO s/TIME_SIGNATURE`
 
 _Example_:
-`metronome 10 120 4/4` will start a metronome for 10 bars, each consisting of four notes, with a tempo of 120 beats per minute. In the UI, the numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second.
+`metronome 10 120 4/4` will start a metronome for 10 bars, each consisting of four notes, with a tempo of 120 beats per minute.
+
+The metronome can be started from anywhere, and the only step is to type in the command according to the format provided above. This is shown below:
+
+image::ducats_metronome1.png[]
+
+Upon pressing 'Enter', the metronome will appear on the screen. The numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second. The number 1 will be accompanied by a hash ('#') for emphasis, as the first beat of every bar is considered more significant in music.
+
+image::ducats_metronome2.png[]
+
+Upon execution, the user interface will output 'Done!', and you are free to key in your next command.
+
+image::ducats_metronome3.png[]
+
 
 === Exiting Ducats: `bye`
 
 Want to take a break or finish composing for the day? This command exits and closes Ducats. The closing message will be displayed and then Ducats will be closed. After this, you will be returned to your original Terminal command line.
 
 _Format_: `bye`
+
+[NOTE]
+When coming back to Ducats, your songs will be sorted in alphabetical order when you view the list so that you can easily find the creation you intend to work on.
+
 
 === Saving the data
 
@@ -349,7 +392,7 @@ LOWER_C, LOWER_D, LOWER_E, LOWER_F, LOWER_G, LOWER_A, LOWER_B, MIDDLE_C, UPPER_D
 
 The pitches in the upper octave have twice the frequency of the corresponding pitches in the lower octave. For example, a note with pitch of UPPER_F has twice the frequency of a note with pitch of LOWER_F. Other than the aforementioned pitches, in order to facilitate breaks and pauses, there is also the option for a REST, which is a special type of note which signifies silence. In Ducats command syntax, the pitch is represented by the last two letters of the note. For example, 1_MC represents a note of pitch MIDDLE_C with a relative duration of 1
 
-In music, duration is referred to in relative terms. Each note has a duration that is relative to that of a “whole” note, which corresponds to a fixed duration of time. Generally, the durations are in powers of half, with the exception of dotted notes, which lengthen the duration of an undotted note by half. The available durations of notes in Ducats are shown as follows:
+In music, duration is referred to in relative terms. Each note has a duration that is relative to that of a “whole” note, which corresponds to a fixed duration of time. Generally, the durations are in powers of half, with the exception of dotted notes, which lengthen the duration of an non-dotted note by half. The available durations of notes in Ducats are shown as follows:
 
 [cols=3*]
 |===
@@ -394,17 +437,26 @@ A Bar is the collection of multiple chords. In Ducats, the duration of a bar is 
 
 Music can be thought of as the accumulation of different patterns of rhythm and pitch. Formally, each song has three main attributes, which are implemented in Ducats, namely key, tempo and time signature. The latter two are to do with the rhythm of the song, while the key relates to the pitch of the song.
 
+[NOTE]
+In order to create a new song, all three of these attributes need to be specified, although they do not presently affect the modification of the songs and the execution of the features in v1.4. This is to ensure that, upon upgrade to v2.0, you will not lose all your composition data.
+
 *KEY*
 
 A key consists of a group of pitches that sounds pleasant and consistent when put together. There are minor and major keys, with major keys usually sounding happier and minor keys sounding sadder.
+
+For Ducats, the default key for all songs is C Major, with the ability to change the Notes added based on the key coming in v2.0.
 
 *TEMPO*
 
 In most basic terms, tempo refers to the speed at which the song progresses. In the case of Ducats, tempo is measured in beats per minute, where one beat consists of one rhythmic unit of time as specified in the time signature.
 
+If you are unsure of the appropriate tempo for your song, you can start the integrated visual metronome, as described in Section 4.19. In v2.0, with the Play functionality, you will be able to hear your composed music at the specified tempo.
+
 *TIME SIGNATURE*
 
-The time signature of a song consists of two numbers that signify how many how many beats are in a bar and what note duration does each beat correspond to respectively. For example, a song with a time signature of 4 4 has 4 beats in each bar, with each beat corresponding to the duration of a quarter note. Hence, a bar in a 4 4 song can have any combination of notes whose duration is equivalent to 1 whole note, such as four quarter notes, eight eighth notes, or a dotted half note and a quarter note. 4 4 is the most common time signature for modern popular music. With that in consideration, the default time signature for songs composed in Ducats is 4 4, with the functionality to support other time signatures coming in v2.0.
+The time signature of a song consists of two numbers that signify how many how many beats are in a bar and what note duration does each beat correspond to respectively. For example, a song with a time signature of 4 4 has 4 beats in each bar, with each beat corresponding to the duration of a quarter note. Hence, a bar in a 4 4 song can have any combination of notes whose duration is equivalent to 1 whole note, such as four quarter notes, eight eighth notes, or a dotted half note and a quarter note.
+
+4 4 is the most common time signature for modern popular music. Considering this, the default time signature for songs composed in Ducats is 4 4, with the functionality to support other time signatures coming in v2.0.
 
 == FAQ
 
