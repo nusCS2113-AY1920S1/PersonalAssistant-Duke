@@ -230,7 +230,7 @@ public class Process {
                     ui.printSetFundMessage(fund);
                 } else {
                     ui.exceptionMessage("     :( OOPS!!! The fund is set already. "
-                            + "Please use reset fund command instead.");
+                            + "Please use change fund command to modify instead.");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -330,9 +330,9 @@ public class Process {
 
     //@@author lijiayu980606
     /**
-     * Process the reset fund command to add fund value to all projects.
+     * Process the change fund command to add fund value to all projects.
      * TODO future implementation: user need to key in password to enable this action.
-     * Command format: reset fund new/AMOUNT_OF_FUND.
+     * Command format: change fund new/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param fund the total fund the that the organisation owns

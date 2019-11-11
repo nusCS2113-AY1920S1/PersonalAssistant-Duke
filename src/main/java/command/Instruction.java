@@ -139,7 +139,7 @@ public class Instruction {
     }
 
     public boolean isResetFund(String input) {
-        return input.startsWith("reset fund");
+        return input.startsWith("change fund");
     }
 
     public boolean isShowBudget(String input) {
