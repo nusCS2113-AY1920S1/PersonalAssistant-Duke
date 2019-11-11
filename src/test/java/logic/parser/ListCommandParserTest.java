@@ -27,7 +27,7 @@ public class ListCommandParserTest {
     @Test
     public void listTask_wrong_listType() {
         assertThrows(DukeException.class, () ->
-                ListTasksParser.parseListTasks("something"));
+                ListTasksParser.parseListTasks("some"));
     }
 
     @Test
