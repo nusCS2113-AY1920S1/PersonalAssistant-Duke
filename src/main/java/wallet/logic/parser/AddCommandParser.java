@@ -147,7 +147,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         String[] info = input.split("\\$", 2);
         String description = info[0].trim();
-        info = info[1].split(" ", 4);
+        info = info[1].split("\\s+", 4);
         double amount = Double.parseDouble(info[0].trim());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate createdDate = LocalDate.parse(info[1].trim(), formatter);
@@ -155,10 +155,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         info = info[3].split("/c ");
         int contactId = Integer.parseInt(info[1].trim());
 
-        if (input.contains("/l")) {
+        if (input.matches("(?s).*\\b( /l)\\b.*")) {
             isLend = true;
-        } else if (input.contains("/b")) {
+        } else if (input.matches("(?s).*\\b( /b)\\b.*")) {
             isLend = false;
+        } else {
+            return null;
         }
 
         ArrayList<Contact> contactList = LogicManager.getWalletList().getWalletList()
