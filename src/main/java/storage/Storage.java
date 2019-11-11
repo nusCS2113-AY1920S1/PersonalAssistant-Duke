@@ -33,7 +33,7 @@ public class Storage {
     private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
     private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
     private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
-    private static String dictFilePath = "/localdata/dict.json";
+    private static String dictFilePath = basefilepath + "/localdata/dict.json";
     private static String backuphistoryfilepath = "Backuphistory.json";
     private static String backupfundfilepath = "BackupFund.json";
     private static String backupprojectsfilepath = "BackupProjects.json";
@@ -66,8 +66,6 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + dictFilePath);
         }
     }
-
-
 
     /**
      * Writes current projectmap in ProjectManager to local storage.

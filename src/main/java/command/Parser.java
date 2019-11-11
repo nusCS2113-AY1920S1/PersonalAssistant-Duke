@@ -4,6 +4,7 @@ import storage.Storage;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
+import project.ProjectManager;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -35,7 +36,8 @@ public class Parser {
                                 Storage storage, ArrayList<String> list, Set<String> dict) {
         try {
             input = trimInput(input);
-
+            process.projectManager.updateDict(dict);
+            storage.writeToDictFile(dict);
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectManager.projectmap);
                 storage.writeToFundFile(fund);
@@ -86,7 +88,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, ui, storage);
+                process.deletePayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFind(input)) {

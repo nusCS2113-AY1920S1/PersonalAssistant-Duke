@@ -6,6 +6,7 @@ import project.Fund;
 import ui.Ui;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -34,7 +35,7 @@ public class AlphaNUS {
         fund = storage.readFromFundFile();
         commandList = storage.readFromCommandsFile();
         parser = new Parser();
-        dict = storage.readFromDictFile();
+        dict = new HashSet<>();
     }
 
     /**
