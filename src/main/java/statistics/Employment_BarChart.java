@@ -20,22 +20,25 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.*;
 
 /**
- * This demo shows how to create a dual axis bar chart.  A workaround is used because the
- * {@link BarRenderer} and {@link CategoryAxis} classes will overlap the bars for the two
- * datasets - to get around this, an an additional series (containing 'null' values) is added
+ * This class create a dual axis bar chart to display Employment statistics.  A workaround is used because the
+ * BarRenderer and  CategoryAxis classes will overlap the bars for the two
+ * datasets - to get around this, an  additional series (containing 'null' values) is added
  * to each dataset, and the getLegendItems() method in the plot is overridden.
  *
  */
+
 public class Employment_BarChart extends JFrame {
     ArrayList<GraduateStats> cohortStats = GraduateEmployment.getStats();
     ArrayList<Double> percentage = new ArrayList<>();
     ArrayList<Integer> salary = new ArrayList<>();
     private String degree;
     private String title;
+
     /**
-     * Creates a new demo instance.
+     * Creates a new instance of the Employment_BarChart and sets the String degree declared earlier to input_degree
      *
      * @param title  the frame title.
+     * @param input_degree the degree inputted by the user
      */
     public Employment_BarChart(final String title, String input_degree) {
         super(title);
@@ -50,7 +53,8 @@ public class Employment_BarChart extends JFrame {
 
 
     /**
-     * Creates a sample dataset.
+     * Creates a dataset containing salary details for the years 2016-2018 if the degree matches the user input
+     * An arraylist named percentage and salary are populated with the corresponding values
      *
      * @return  The dataset.
      */
@@ -88,7 +92,8 @@ public class Employment_BarChart extends JFrame {
     }
 
     /**
-     * Creates a sample dataset.
+     * Creates a dataset containing employment percentage rates for years 2016-2018
+     * The percentages are obtained from the ArrayList that was populated during the creation of the earlier dataset
      *
      * @return  The dataset.
      */
