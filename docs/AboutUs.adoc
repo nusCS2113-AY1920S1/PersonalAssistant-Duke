@@ -30,7 +30,7 @@ image::hanskw4267.png[width="150", align="left"]
 {empty}[https://github.com/hanskw4267[github]] [<<Hans Kurnia#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities: School tasks management
 
 '''
 
