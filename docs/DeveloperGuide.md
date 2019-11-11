@@ -73,7 +73,7 @@ The Ui will be used to reply to the User with the following messages:
 ```
 the `Ui` also consist of templates for the different sections of the program, such as a template for dish, orders and ingredient
 
-<u>ingredient</u> 
+<u>Ingredient</u> 
 
 ```
          _________________________________________________________________________________________
@@ -85,22 +85,21 @@ the `Ui` also consist of templates for the different sections of the program, su
          use <ingredient name> <amount> *always use most recently expiring ingredients 			 first, to prevent food waste!*
 ```
 
-<u>order</u>
+<u>Order</u>
 
 ```
-         _________________________________________________________________________________________
-         Continue by adding, removing, altering, listing order and initializing order 			 list.
-         Command Template:
-         _________________________________________________________________________________________
-         init
-         add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], 						 	 DISH2_NAME[*DISH_AMOUNT]
-         alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)
-         remove ORDER_INDEX
-         done ORDER_INDEX
-         list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]
-         list -n DISH_NAME    *** Find the dishes in today's undone orders ***
-         list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]
-         _________________________________________________________________________________________
+       _______________________________________________________________________________
+    	     ___   _______     ______   ________  _______
+    	   .'   `.|_   __ \   |_   _ `.|_   __  ||_   __ \    
+    	  /  .-.  \ | |__) |    | | `. \ | |_ \_|  | |__) |   
+    	  | |   | | |  __ /     | |  | | |  _| _   |  __ /    
+    	  \  `-'  /_| |  \ \_  _| |_.' /_| |__/ | _| |  \ \_
+    	   `.___.'|____| |___||______.'|________||____| |___|
+    
+    
+    	 Managing order now
+    	 Type 'template' to retrieve command format
+    	 _______________________________________________________________________________
 ```
 
 <u>Dish</u>
