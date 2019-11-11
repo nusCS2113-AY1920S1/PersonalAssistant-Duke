@@ -458,9 +458,9 @@ but that would limit its potential utility
 === G.2. View all Commands:
 * *View all the commands the user can make*
 *  Command: `help`
-. Test Case: `help`
+* Test Case: `help`
 
-.. Expected:
+** Expected:
 ```
 help
 ---------------------------------------------------------------------------------
@@ -508,10 +508,10 @@ help : show the list of all command
 === G.3. Adding a Todo Task:
 * *Add a task of type Todo*
 * Command `todo DESCRIPTION` or `todo DESCRIPTION prio INDEX` or
-. Test Case `todo read book`
+* Test Case `todo read book`
 
-.. Expected:
-... The task will be given a default priority of 5 (Priorities range from 1-9)
+** Expected:
+*** The task will be given a default priority of 5 (Priorities range from 1-9)
 ```
 ---------------------------------------------------------------------------------
 Got it. I've added this task:
@@ -520,9 +520,9 @@ Now you have 14 tasks in the list.
 ---------------------------------------------------------------------------------
 ```
 
-. Test Case `todo sell book prio 3`
+* Test Case `todo sell book prio 3`
 
-.. Expected:
+** Expected:
 ```
  ---------------------------------------------------------------------------------
          Got it. I've added this task:
@@ -547,11 +547,11 @@ Now you have 14 tasks in the list.
 
 ---
 
-. Test Case `homework CS4239: lab3 /by 21/09/2019 23:59`
+* Test Case `homework CS4239: lab3 /by 21/09/2019 23:59`
 
-.. Expected:
+** Expected:
 
-... Homework is given a default priority of 5
+*** Homework is given a default priority of 5
 ```
 ---------------------------------------------------------------------------------
          Got it. I've added this task:
@@ -561,9 +561,9 @@ Now you have 14 tasks in the list.
 
 ```
 
-. Test Case `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
-.. Expected:
-... The task is given a priority of 7
+* Test Case `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
+** Expected:
+*** The task is given a priority of 7
 ```
  ---------------------------------------------------------------------------------
          Got it. I've added this task:
@@ -571,9 +571,9 @@ Now you have 14 tasks in the list.
          Now you have 17 tasks in the list.
         ---------------------------------------------------------------------------------
 ```
-. Test Case `homework test code /by 25/09/2019 23:59 recu day 3`
-.. Expected:
-... Three recurrent tasks are also created, one for each of the next 3 days
+* Test Case `homework test code /by 25/09/2019 23:59 recu day 3`
+** Expected:
+*** Three recurrent tasks are also created, one for each of the next 3 days
 ```
 ---------------------------------------------------------------------------------
          Here are the tasks in your list:
@@ -607,11 +607,11 @@ previous one, it will
 
 ---
 
-. Test Case `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
+* Test Case `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
 
-.. Expected:
+** Expected:
 
-... Event is created with default priority of 5
+*** Event is created with default priority of 5
 
 ```
  ---------------------------------------------------------------------------------
@@ -621,10 +621,10 @@ previous one, it will
         ---------------------------------------------------------------------------------
 
 ```
-. Test Case `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
-.. Expected:
+* Test Case `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
+** Expected:
 
-... Event is created with priority 8
+*** Event is created with priority 8
 
 ```
  ---------------------------------------------------------------------------------
@@ -635,10 +635,10 @@ previous one, it will
 
 ```
 
-. Test Case `event CS4211: sport /at 07/10/2001 09:00 - 07/10/2001 11:00 recu day 3`
-.. Expected:
+* *Test Case `event CS4211: sport /at 07/10/2001 09:00 - 07/10/2001 11:00 recu day 3`*
+** Expected:
 
-... 3 recurrent tasks are created, each one day apart
+*** 3 recurrent tasks are created, each one day apart
 
 ```
  ---------------------------------------------------------------------------------
@@ -650,9 +650,9 @@ previous one, it will
         ---------------------------------------------------------------------------------
 ```
 
-. Test Case `event CS4211: cooking session /at 17/12/2019 09:00 - 17/12/2019 11:00 prio 8 recu week 2`
-.. Expected:
-... Will create 3 events, each one being 1 week apart
+* *Test Case `event CS4211: cooking session /at 17/12/2019 09:00 - 17/12/2019 11:00 prio 8 recu week 2`*
+**  Expected:
+***  Will create 3 events, each one being 1 week apart
 ```
 ---------------------------------------------------------------------------------
          Here are the tasks in your list:
@@ -661,3 +661,39 @@ previous one, it will
          30. [E][X] CS4211: cooking session at: 31/12/2019 09:00 - 31/12/2019 11:00 [Priority: 8]
         ---------------------------------------------------------------------------------
 ```
+=== G.6. Find a Task by Relevancy:
+
+* *Searches For a task by Character Relevancy (Not Keyword Relevancy!)*
+* Command `Find`
+** The "Sorensen Dice" character matching algorithm is used to generate relevance scores for each task
+** Tasks are scored based on % character match across the entire description, and a 50% minimum match threshold value.
+* Test Case `find homewasrdtyst`
+** Expected:
+*** Despite typos, the correct result will be returned
+```
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         13. [T][X] homework [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+```
+
+
+* Test Case `
+** Expected:
+*** Despite Partial queries, relevant tasks are still returned.
+
+```
+find CS4221:
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         24. [E][X] CS4211: sport at: 07/10/2001 09:00 - 07/10/2001 11:00 [Priority: 5]
+         25. [E][X] CS4211: sport at: 08/10/2001 09:00 - 08/10/2001 11:00 [Priority: 5]
+         26. [E][X] CS4211: sport at: 09/10/2001 09:00 - 09/10/2001 11:00 [Priority: 5]
+         27. [E][X] CS4211: sport at: 10/10/2001 09:00 - 10/10/2001 11:00 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+
+```
+
