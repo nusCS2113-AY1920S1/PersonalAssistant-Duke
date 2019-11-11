@@ -48,21 +48,6 @@ Developed and maintained by the link:{repoURL}//tree/master/docs/AboutUs.adoc[AY
 
 .  Refer to <<Features>> for details of each command.
 
-== Manual User Testing
-
-=== Loading Manual Test Data
-==== Test Data
-
-To demonstrate the functionality of the product, the `JAR` release contains sample data so that the user can easily test
-and observe that the application runs as intended.
-
-Type `show module` and observe that the following output is obtained:
-
-The following should be obtained after running `show cca`:
-
-Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
-is operational.
-
 [[Features]]
 == Features
 
