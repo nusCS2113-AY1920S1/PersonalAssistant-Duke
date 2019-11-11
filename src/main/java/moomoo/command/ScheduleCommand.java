@@ -129,7 +129,7 @@ public class ScheduleCommand extends Command {
         int index = money.length - 1;
         task = money[0];
         for (int i = 1; i < index; i++) {
-            task += money[i];
+            task += " " + money[i];
         }
         String blank2 = " ";
         blank = 31 - task.length();
