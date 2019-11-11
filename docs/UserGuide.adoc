@@ -100,8 +100,9 @@ Deletes a resource from the user's inventory in RIMS.
 +
 image:delete.png[]
 +
-* The IDs must be inputted as a positive integer.
+* The ID must be inputted as a non-negative integer.
 * If multiple resources are to be simultaneously deleted, the multiple resource IDs must be separated from each other by a single whitespace character.
+* If the ID(s) inputted by the user are invalid, the program will send an error message to the UI.
 ====
 ... If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
 ... Quantity must be a positive integer.
@@ -140,6 +141,7 @@ While loans take effect from the current date to a specified deadline, reservati
 .*Format*:
 * `reserve /item ITEM /qty QUANTITY /id USER_ID /from BORROW_DATE /by DEADLINE`
 * `reserve /room ROOM /id USER_ID /from BORROW_DATE /by DEADLINE`
+... For logistical purposes, only a resource that is currently in the user's inventory (i.e. is not currently out on loan) can be reserved.
 ... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
 ... Quantity must be a positive integer above 0.
 ... User ID must be a non-negative integer, with a value of 0 and above.
@@ -155,14 +157,23 @@ While loans take effect from the current date to a specified deadline, reservati
 
 
 ==== Return resources: `return`
-Registers an item / room as having been returned, and is thus available to be loaned again.
+Registers a resource that has been loaned or reserved as returned to the user's inventory, and is thus available to be loaned out or reserved again.
 
 .*Format*:
-. `return /item ITEM /qty QUANTITY`
-. `return /room ROOM`
-* Quantity must be a positive integer.
-* Rooms are unique and thus do not require quantities.
-* If the user attempts to return a room / a quantity of items that have not been borrowed, the UI will send an error message to the user.
+* `return /id USER_ID`
+====
+* RIMS will display a list of all reservations made by the requester whose ID was specified in the previous input, and prompt the user to input the reservation IDs of the reservations to be marked as returned:
++
+image:return.png[]
++
+* Each reservation ID is denoted by square brackets `[]`.
+* The reservation IDs inputted must be non-negative integers.
+* If multiple resources are to be simultaneously deleted, the multiple reservation IDs must be separated from each other by a single whitespace character.
+* If the ID(s) inputted by the user are invalid or are not amongst the reservation IDs displayed, the program will send an error message to the UI.
+====
+... The `return` command takes the resource borrower's individual ID as an argument.
+... The user ID must be a non-negative integer.
+... If the user attempts to return a quantity of resources that have not been borrowed, the UI will send an error message to the user. // change
 
 
 .*Examples*:
