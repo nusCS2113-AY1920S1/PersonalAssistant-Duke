@@ -1,33 +1,31 @@
 @startuml
-participant "Parser Logic"
-participant ":ArgCommand"
-participant ":ArgSpec"
+actor User
+activate ":DukeCore"
+participant ":ObjCommand"
+activate ":ObjSpec"
 
-activate "Parser Logic"
-activate ":ArgSpec"
-"Parser Logic" -> ":ArgCommand" : Construct
-activate ":ArgCommand"
-
-"Parser Logic" -> ":ArgCommand" : Request Specification
-":ArgCommand" -> ":ArgSpec" : Get Specification
-":ArgCommand" <-- ":ArgSpec" : Return Specification
-"Parser Logic" <-- ":ArgCommand" : Return Specification
-
-activate "Parser Logic"
-"Parser Logic" -> "Parser Logic" : Parse
-"Parser Logic" -> ":ArgCommand" : Load Parameters
-"Parser Logic" -> ":ArgCommand" : execute()
-deactivate "Parser Logic"
-
-":ArgCommand" -> ":ArgSpec" : executeWithCmd()
-note right
-  This provides ArgSpec with a
-  reference to ArgCommand, to 
-  allow it to access switch 
-  and argument values
-end note
-activate ":ArgSpec"
-":ArgSpec" ->] : execute()
-deactivate ":ArgSpec"
-destroy ":ArgCommand"
+User -> ":DukeCore" : Provide Input
+":DukeCore" -> ":ObjCommand" : Construct and Load Parameters
+activate ":ObjCommand"
+":DukeCore" <-- ":ObjCommand" : Return Loaded Command
+":DukeCore" -> ":ObjCommand" : execute(DukeCore)
+":ObjCommand" -> ":ObjSpec" : executeWithCmd(DukeCore, ArgCommand)
+activate ":ObjSpec"
+note right : find target object
+":ObjSpec" -> ":ObjSpec" : execute(DukeCore) 
+group if ambiguous
+  ":DukeCore" <-- ":ObjSpec" : search(SearchResults, ObjCommand)
+  activate ":DukeCore"
+  User <-- ":DukeCore" : Request Selection
+  User -> ":DukeCore" : Provide Selection
+  ":DukeCore" -> ":ObjCommand" : execute(DukeCore, DukeObject)
+  deactivate ":DukeCore"
+  ":ObjCommand" -> ":ObjSpec" : execute(DukeCore, ObjCommand, DukeObject)
+end
+note right : actual command execution
+":ObjSpec" -> ":ObjSpec" : executeWithObj(DukeCore, DukeObject)
+":DukeCore" <-- ":ObjSpec" : Return Command Results
+deactivate ":ObjSpec"
+destroy ":ObjCommand"
+User <-- ":DukeCore" : Provide Feedback
 @enduml

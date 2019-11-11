@@ -28,7 +28,7 @@ note right
 end note
 activate ":ArgSpec"
 ":ArgSpec" -> ":ArgSpec" : execute()
-":ArgSpec" ->] : Update system via DukeCore
+":ArgSpec" ->] : Return Results via DukeCore
 deactivate ":ArgSpec"
 destroy ":ArgCommand"
 @enduml

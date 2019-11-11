@@ -126,7 +126,6 @@ If this command requires arguments, in addition to doing the above for a subclas
 .. Construct the switches for the command and supply them as arguments to `switchInit()`
 ... If there are no switches, call `switchInit()` with no arguments
 
-=======
 Switch values are accessed from the `ArgCommand` with the `getSwitchVal()` method, which takes the name of a switch, as a String, as an argument, and returns the String representing the argument supplied for the switch.
 
 NOTE: If there is no argument given for a switch, `getSwitchVal(<switch name>)` returns `null`. However, if a switch is not given, `getSwitchVal(<switch name>)` also returns `null`. The former case can be distinguished by the fact that `switchVals` will contain `<switch name>` as a key.
@@ -159,23 +158,6 @@ The state transitions are as follows:
 ** `STRING` -> `STRING` (add char to elementBuilder) : <any other character>
 * `ARG` 
 ** `ARG` -> `EMPTY`: <Space> or <Newline>
-=======
-* `EMPTY`
-** `EMPTY` -> `EMPTY`: <Newline> or <Space>
-** `EMPTY` -> `SWITCH`: `-`
-** `EMPTY` -> `STRING`: `"`
-** `EMPTY` -> `ARG`: <any other character>
-* `SWITCH`
-** `SWITCH` -> `EMPTY`: <Newline> or <Space>
-** `SWITCH` -> `SWITCH` (add current switch and begin processing a new switch): `-`
-** `SWITCH` -> `STRING` (add current switch and begin parsing a string as an argument): `"`
-** `SWITCH` -> `SWITCH`: <any other character>
-* `STRING`
-** `STRING` -> `EMPTY`: `"`
-** `STRING` -> `STRING`: <any other character>
-* `ARG`
-** `ARG` -> `EMPTY`: <Newline> or <Space>
->>>>>>> 0804eb317cf9bb3ad8f92a8095bcc4052546b121
 ** `ARG` -> `DukeException`: Unescaped `"` or `-`
 ** `ARG` -> `ARG` (add char to elementBuilder): <any other character>
 
@@ -363,7 +345,7 @@ If there is only one result in the returned `SearchResults` object (or if a vali
 
 When viewing a `SearchResults` object, the user can only issue one command, by selecting the index of the item he wishes to execute. This command, specified by `SearchSpec`, calls `core.executeQueuedCmd(DukeObject obj)` on the object identified. This method would then call the `execute(DukeCore core, DukeObject obj)` of the stored `queuedCmd`, providing the identified `DukeObject` as an argument. The `ObjCommand` thus gains access to the object selected by the user, clearing up the ambiguity and allowing the user's desired operation to be executed.
 
-This entire sequence of operations is summarised in this diagram (note that the UI has been abstracted into the `DukeCore` object):
+This entire sequence of operations is summarised in this diagram (note that the UI and Parser have been abstracted into the `DukeCore` object):
 
 image::plantuml/objcommand.svg[]
 
