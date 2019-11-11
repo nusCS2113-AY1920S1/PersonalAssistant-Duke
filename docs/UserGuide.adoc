@@ -397,7 +397,7 @@ An itinerary with multiple venues in 1 day.
 
 [TIP]
 ====
-The newItinerary command does not allow for venues to be entered with spaces in between them. +
+The newItinerary command does not allow for venue names to be entered with spaces in between them. +
 This *is* intended and is not a bug. +
 It is to make the syntax more succinct and encourage the user to use the recommend command instead  +
 It will be treated as invalid format if user attempts to introduce spaces.
