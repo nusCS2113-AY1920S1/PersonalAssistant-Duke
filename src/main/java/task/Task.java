@@ -15,7 +15,7 @@ public class Task implements Serializable {
     protected Date date;
     protected String after;
 
-    private static SimpleDateFormat dataformat = new SimpleDateFormat("dd-MM-yyyy");
+    private static SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
      * Creates a Task instance and initialises the required attributes.
@@ -93,7 +93,7 @@ public class Task implements Serializable {
      * @return Task Date.
      */
     public String getDateStr() {
-        return dataformat.format(this.date);
+        return dateformat.format(this.date);
     }
 
 

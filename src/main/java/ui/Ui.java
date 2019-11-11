@@ -24,7 +24,7 @@ import java.util.Set;
 public class Ui {
     public static final String line = "    ____________________________________________________________\n";
     private static CommandFormat commandFormat = new CommandFormat();
-    Scanner in;
+    private Scanner in;
 
     /**
      * Creates a Ui instance with a scanner to read user input.

@@ -30,7 +30,7 @@ import java.util.Set;
 import java.util.Calendar;
 
 public class Process {
-    private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectManager = new ProjectManager();
     private payment.Status status;
@@ -620,8 +620,8 @@ public class Process {
             String[] splittime = splitslash[1].split(" ", 2);
             String taskTime = splittime[1];
             if (taskTime.contains("/")) {
-                Date formattedtime = dataformat.parse(taskTime);
-                DoAfterTasks after = new DoAfterTasks(taskDescription, dataformat.format(formattedtime));
+                Date formattedtime = dateformat.parse(taskTime);
+                DoAfterTasks after = new DoAfterTasks(taskDescription, dateformat.format(formattedtime));
                 tasklist.addTask(after);
                 ui.printAddedMessage(after, tasklist);
             } else {
@@ -651,10 +651,10 @@ public class Process {
             String[] splitand = splittime[1].split("and ", 2);
             String taskstart = splitand[0];
             String taskend = splitand[1];
-            Date formattedtimestart = dataformat.parse(taskstart);
-            Date formattedtimeend = dataformat.parse(taskend);
+            Date formattedtimestart = dateformat.parse(taskstart);
+            Date formattedtimeend = dateformat.parse(taskend);
             WithinPeriodTask withinPeriodTask = new WithinPeriodTask(taskDescription,
-                    dataformat.format(formattedtimestart), dataformat.format(formattedtimeend));
+                    dateformat.format(formattedtimestart), dateformat.format(formattedtimeend));
             tasklist.addTask(withinPeriodTask);
             ui.printAddedMessage(withinPeriodTask, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
