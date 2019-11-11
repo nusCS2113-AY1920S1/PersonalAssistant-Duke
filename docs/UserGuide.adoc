@@ -241,7 +241,7 @@ Format: `sort cca`
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
-Format: `sort time DAYOFWEEK`, replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
 
 Example: +
 `sort time monday`
@@ -516,7 +516,7 @@ e.g `grade CS101 A-` +
 * *Sort* : 
 ** `sort cca`
 ** `sort cca --r`
-** `sort time`, `DAYOFWEEK` +
+** `sort time`, `DAY_OF_WEEK` +
 eg. `sort time monday` +
 ** `sort module code`
 ** `sort module grade`
