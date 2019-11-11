@@ -235,7 +235,7 @@ public class Parser {
         if (words[1].equals("/item")) {
             int itemIndex = input.indexOf("/item") + 6;
             int qtyIndex = input.indexOf(" /qty");
-            if (itemIndex > input.length()){
+            if (itemIndex > input.length()) {
                 throw new RimsException("Please specify the name of the item to add to your inventory.");
             }
             if (qtyIndex == -1) {
@@ -250,8 +250,8 @@ public class Parser {
             }
             String itemname = item.trim();
             char[] charArray = itemname.toCharArray();
-            for (int i = 0; i < charArray.length; i ++){
-                if (charArray[i]==','){
+            for (int i = 0; i < charArray.length; i++) {
+                if (charArray[i] == ',') {
                     throw new RimsException("Please do not enter ',' in your input!");
                 }
             }

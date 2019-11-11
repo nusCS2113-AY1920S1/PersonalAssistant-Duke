@@ -68,6 +68,9 @@ public class ListCommand extends Command {
         return dateValue;
     }
 
+    /**
+     * Obtains the list of resources available on a specified day, in String format.
+     */
     //@@author danielcyc
     public static ArrayList<String> getListForSpecificDay(Date day, ResourceList resources, Ui ui)
             throws ParseException, RimsException {
