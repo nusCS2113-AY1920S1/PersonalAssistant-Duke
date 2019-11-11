@@ -192,6 +192,9 @@ Finds members who possess skills required by a task +
 * Ranking works in descending order.
 * e.g
 * These are the members with the relevant skills:
+* 1. James
+* 2. Alan
+* This would mean James has more skills that the specified task requires as compared to Alan
 ****
 
 === Commands related to members
@@ -227,6 +230,25 @@ e.g `edit member phone Jason /to 98765432`
 Shows the full details of the selected member. +
 `show member MEMBER_NAME` +
 e.g `show member 1`
+
+==== Matching a member to tasks : `match member`
+
+Finds members who possess skills required by a task +
+`match member [NAME]` +
+
+****
+* Finds tasks which require skills of the member with the specified name
+* The name refers to the name tied to a member.
+* The name can be alphanumeric.
+* The gui will show tasks which require the member's skills
+* Ranking works in descending order.
+* e.g
+* These are the tasks that require the skills of [NAME]:
+* 1. Website Design
+* 2. Website Wireframe
+* This would website design has more skill matches with member [NAME] as compared to website wireframe
+* If tasks have the same number of skill matches, there will be no order.
+****
 
 === Commands related to both tasks and members
 
