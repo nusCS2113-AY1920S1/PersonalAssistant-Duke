@@ -33,6 +33,9 @@ public class GradeTest extends InputTest {
     private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
     private static User user;
+    static {
+        User.setPath("data/test/userProfile.json");
+    }
     private String expectedBye = "_______________________________\n"
         +
         "Thanks for using ModPlan!\n"
