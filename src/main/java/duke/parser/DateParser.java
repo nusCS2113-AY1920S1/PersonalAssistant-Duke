@@ -145,13 +145,13 @@ public class DateParser {
         if (dateArray.length != Numbers.THREE.value) {
             throw new DukeException("Invalid date format");
         }
-
         if (dateDesc.contains("-")) {
             throw new DukeException("Invalid date format");
         }
         int day;
         int month;
         int year;
+
         try {
             day = Integer.parseInt(dateArray[Numbers.ZERO.value]);
         } catch (Exception e) {
@@ -170,22 +170,18 @@ public class DateParser {
 
         if (year < Numbers.ONE.value) {
             throw new DukeException("Invalid year, and year 0 does not exist");
-        }
-        if (month < Numbers.ONE.value || month > TWELVE) {
+        } else if (month < Numbers.ONE.value || month > TWELVE) {
             throw new DukeException("Invalid month");
-        }
-        if (month == Numbers.ONE.value || month == Numbers.THREE.value || month == Numbers.FIVE.value
+        } else if (month == Numbers.ONE.value || month == Numbers.THREE.value || month == Numbers.FIVE.value
                 || month == SEVEN || month == EIGHT || month == TEN || month == TWELVE) {
             if (day < Numbers.ONE.value || day > Numbers.THIRTY_ONE.value) {
                 throw new DukeException("Invalid day");
             }
-        }
-        if (month == Numbers.FOUR.value || month == Numbers.SIX.value || month == NINE || month == ELEVEN) {
+        } else if (month == Numbers.FOUR.value || month == Numbers.SIX.value || month == NINE || month == ELEVEN) {
             if (day < Numbers.ONE.value || day > THIRTY) {
                 throw new DukeException("Invalid day");
             }
-        }
-        if (month == Numbers.TWO.value) {
+        } else if (month == Numbers.TWO.value) {
             if (day < Numbers.ONE.value || day > TWENTY_NINE) {
                 throw new DukeException("Invalid day");
             }
