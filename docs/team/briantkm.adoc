@@ -17,7 +17,7 @@ Hello there I am Brian. I am a current student from National University of Singa
 degree in Information Security.
 
 I have collaborated with
-<<shamussy#,Shamus New Zhi Kai>>,
+<<shamussy#,Shamus Neo Zhi Kai>>,
 <<mong-nus#,Mong Zheng Wei>>,
 <<terencetanwt#,Tan Wee Theng Terence>> and
 <<valerietyj#,Valerie Tan Yi Jia>>
