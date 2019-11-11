@@ -1,0 +1,39 @@
+@startuml
+autoactivate on
+skinparam sequence {
+	ArrowColor Red
+	LifeLineBorderColor blue
+	LifeLineBackgroundColor #A9DCDF
+	
+	ParticipantBorderColor Green
+	ParticipantBackgroundColor Green
+	ParticipantFontName Impact
+	ParticipantFontSize 17
+	ParticipantFontColor #A9DCDF
+
+}
+":Start" -> ":MooMoo" : execute(budget set) 
+":MooMoo" -> Parser : parseBudget()
+Parser --> ":MooMoo" : s
+Parser -> "s:SetBudgetCommand"
+"s:SetBudgetCommand" --> Parser
+":MooMoo" -> "s:SetBudgetCommand" : execute()
+
+loop
+"s:SetBudgetCommand" -> ":CategoryList" : getCategory()
+":CategoryList" --> "s:SetBudgetCommand": category
+":CategoryList" -> ":Category" : toString()
+":Category" --> ":CategoryList" : categoryName
+"s:SetBudgetCommand" -> ":Budget" : addNewBudget(categoryName, budgetValue)
+":Budget" --> "s:SetBudgetCommand"
+end
+
+"s:SetBudgetCommand" -> ":Storage" : saveBudgetToFile(budget)
+":Storage" -> ":Storage" : createFileAndDirectory()
+":Storage" --> ":Storage"
+":Storage" --> "s:SetBudgetCommand"
+"s:SetBudgetCommand" --> ":MooMoo" : result
+":MooMoo"-> "s:SetBudgetCommand" !!
+":MooMoo" --> ":Start"
+
+@enduml
