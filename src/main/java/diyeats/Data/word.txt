@@ -3,12 +3,9 @@ calcium
 breakfast
 lunch
 dinner
-<<<<<<< HEAD
-=======
 edit
 clear
 exit
->>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
 update
 date
 month
@@ -31,7 +28,6 @@ deposit
 done
 list
 listtransaction
-<<<<<<< HEAD
 clear
 startdate
 enddate
@@ -44,7 +40,5 @@ type
 start
 end
 stats
-=======
 suggestmeal
 type
->>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
