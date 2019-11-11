@@ -20,9 +20,6 @@ public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
     public ReminderCommand parse(String[] args) throws ParserException {
         String[] params = new String[]{"-s","-d"};
 
-        if (args.length == 1) {
-            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
-        }
         if (ParserUtil.hasInvalidParameters(args,params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }

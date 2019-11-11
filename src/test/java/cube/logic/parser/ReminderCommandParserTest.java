@@ -21,17 +21,6 @@ class ReminderCommandParserTest {
     }
 
     @Test
-    public void execute_not_enough_parameter() {
-        String[] inputs = {"reminder"};
-        try {
-            new ReminderCommandParser().parse(inputs);
-            fail("Fail to detect not enough parameter");
-        } catch (ParserException e) {
-            assertEquals(ParserErrorMessage.NOT_ENOUGH_PARAMETER, e.getMessage());
-        }
-    }
-
-    @Test
     public void execute_invalid_parameter() {
         String[] inputs = {"reminder", "-x", "field"};
         try {
