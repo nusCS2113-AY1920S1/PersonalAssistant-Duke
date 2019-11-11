@@ -120,7 +120,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
             DucatsLogger.fine("overlay_group_group sucessfully updated the song " + songAddTo.getName());
             Command ascii = new AsciiCommand("ascii song " + songAddTo.getName());
             return ascii.execute(songList,ui,storage);
-            //return ui.formatAddOverlay(songList.getSongList(), groupIndexToAddTo,songAddTo);
+
 
 
         } catch (DucatsException e) {
