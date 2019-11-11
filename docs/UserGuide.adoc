@@ -118,7 +118,7 @@ Displays information for ALL possible commands and switches to the `[Help]` tab.
 
 How it will be displayed with just `help`: +
 
-image::https://github.com/AY1920S1-CS2113T-F10-2/main/blob/master/docs/images/UIhelp.JPG[width="600"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIhelp.png[width="600"]
 
 === Display keywords and aliases that are compatible with <DEGREE>: `keywords`
 
@@ -131,7 +131,7 @@ Format: `keywords`
 
 How it will be displayed: +
 
-image::https://github.com/AY1920S1-CS2113T-F10-2/main/blob/master/docs/images/UIkeywords.JPG[width="600"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIkeywords.png[width="600"]
 
 <<<
 === Viewing detailed information about a degree: `detail | detail <DEGREE>`
@@ -217,7 +217,7 @@ Format: `tasks`
 
 How it will be displayed: +
 
-image::https://github.com/AY1920S1-CS2113T-F10-2/main/blob/master/docs/images/UItasks.JPG[width="600"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UItasks.png[width="600"]
 
 === Listing all degrees in your degree list: `choices`
 
@@ -228,7 +228,7 @@ Format: `choices`
 
 How it will be displayed: +
 
-image::https://github.com/AY1920S1-CS2113T-F10-2/main/blob/master/docs/images/UIchoices.JPG[width="600"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIchoices.png[width="600"]
 
 === Swapping degrees in your degree list: `swap <ID> <ID>`
 
