@@ -211,7 +211,7 @@ The alternative design that was considered was a nested switch statements. Each 
 
 *Cons*:  Doing so would introduce a lot of possibilities for error.  The complexity of the command parser would also quickly blow out of proportions once the command structure gets bigger and more complicated. This would therefore indicate an unscalable code. Additionally, this would also mean the logic in the spellchecker and other commandDebugger functions has to be changed to accommodate the additional commands added.
 
-== Autocomplete:
+=== Autocomplete:
 The auto complete functionality enables greater convenience for the users by auto completing the input for them based on its predictions derived by the input of the user. This functionality is invoked by the [tab] button. 
 
 *Current implementation:* +
@@ -250,7 +250,154 @@ the getPossibilitiesForRoot() function from the CommandContext class is then cal
 * Carrying on, if the user were to press  again, the program deduces that the user has already completed typing the root and sub root commands and is requesting autocompletion for the payload. 
 * The commandSpecificHints() function is invoked and this in turn invokes the getBlacklistHints() function from the Blacklist class. The contents of the blacklist is then returned as possible options to the user for the user to choose and conveniently have auto-completed.
 
+*Design Considerations:*
+** Alternative: Using a single context class to manage the word bank from which predictions were to be made. So this word bank would contain the root command, sub root command keywords, movie and tv show titles from the search results, blacklisted item  as well as watchlist items all under the same class. 
+* Pros: This would reduce the complexity of the code as predictions will be made purely based on the string comparison of the strings in the word bank and the incomplete user input. 
+* Cons: Users will receive irrelevant predictions. As this design prevents the program from differentiating search results from command keywords, the autocomplete feature may give suggestions for movie names when the true intentions of the user is to type in the Root command.
 
+=== Blacklist:
+The blacklist features enables users to blacklist certain types of movies or movies that contain a certain keyword. Users will be able to add or remove blacklisted movies and keywords to or from the blacklist. User search results are then filtered and only search results that are not part of the blacklist is henceforth shown to the user.
+
+The Blacklist command syntax is as follows:
+
+** To add movies to the blacklist:
+** blacklist add <MOVIE_NAME>
+** blacklist add <MOVIE_ITEM_NUMBER_FROM_SEARCH_RESULT>
+
+To add keywords to the blacklist:
+** blacklist add <keyword> -k
+
+To remove movies from the blacklist
+** blacklist remove <MOVIE_NAME>
+
+To remove keywords to the blacklist:
+** blacklist remove <keyword> -k
+
+The blacklist is maintained in a Blacklist class which maintains 3 static arraylists, one for movie item, one for movie titles and one for keywords. The movie item is an object containing the movie title and id. The class also contains many helper functions to interface with these 3 arraylist to add, remove, items from them, initialize them from their storage file, print from them, filter search results based on them as well as get hints when user presses the tab key.
+
+The feature was implemented as such so that the user has the freedom to blacklist certain movies as well as movies containing certain keywords. If only either one of them is used, it might not cater to the needs of the users. For instance, if the user hates the ironman series then he or she can add it to the list of blacklisted keywords in order to prevent it from appearing from future searches rather than having to add all the many movies one by one. Conversely, the user might only dislike the ironman 3 movie and might want to only blacklist that movie. Both possibilities are now possible with the current set up. 
+
+Given below is the sequence of actions and function calls that occur when the user decides to add new items to the blacklist
+** Upon starting the program, the blacklist content is initialised from the BlacklistStorage.json file using the load() function in the BlacklistStorage class. The 3 arraylists,  ArrayList<String>  blackListKeyWords , ArrayList<MovieModel>  blackListMovies , ArrayList<String>  blackListMoviesTitle are populated with the content from the files
+** If such a file does not exist, the file is created and the 3 arraylists are initialized to be empty
+** The executeCommands() function in the BlacklistCommand class is invoked when the above mentioned commands are entered.
+** As the subRoot command for this example is add , the addToBlackList() function is called.
+** The function retrieves the payload from its class member variables (payload is retrieved from the user input by the CommandSuper class. See section 3.1 for more details)
+** The payload is split into items using the comma as the delimiter.
+** Flag map is also retrieved and the presence of the ‘-k’  input flag is checked 
+** If True, the item is regarded as a keyword to be blacklisted
+** If False, the item is regarded as a movie/tv show title to be blacklisted
+** Each item is checked to see if its an integer.
+** If true, the corresponding movie/tv show item is retrieved by the SearchResultContext class which invokes the getItemAtIndex() with the integer as input parameter to retrieve the corresponding movie/tv show at the specified index in the form of a MovieInfoObject object
+** If false, the item is regarded as a string and as a keyword or the title to be blacklisted.
+** If step 5 deemed that the user is attempting to add a keyword to the blacklist, the addToBlacklistKeyWord() function in the Blacklist class is invoked using the item as the keyword to be blacklisted. The item is added to the arraylist of keywords(ArrayList<String>  blackListKeyWords) after validation checks have been made to ensure that such an item don’t already exists in the blacklist
+** If step 5 deemed otherwise, one of  2 things will occur
+** If step 6 returned true, addToBlacklistMoviesID() function from the Blacklist class is invoked on the MovieInfoObject object that was retrieved from the SearchResultContext class in step 6. The object is consequently added to the  ArrayList<MovieModel>  blackListMovies  arraylist. 
+** If false , addToBlacklistMovie() function is invoked on the item, regarding it as the movie title to be blacklisted and the title is added to the arraylist of movie titles, ArrayList<String> blackListMoviesTitles,  in the Blacklist class.
+** In both cases checks are performed to ensure that such an item don’t already exists in the arraylists. If they do, DuplicateEntryException is thrown and the user is prompted that such an item already exists in their Blacklist.
+** The data is then saved to the file immediately so that any abrupt termination of the program will not result in the loss of data for the user.
+
+The sequence diagram below illustrates the process that takes place for the example command: blacklist add 1, Joker
+
+.Sequence diagram for blacklist 
+image::Blacklist_sequence_diagram.png[height="400" width="700"]
+
+** Design Considerations:
+
+The alternative implementation would have been to maintain only an arraylist of keywords to be blacklisted. Instead of giving the user the option to blacklist movies and shows either as titles or keywords, they are only allowed to blacklist them as keywords. 
+* Pros
+The implementation is way simpler as this would only require us to maintain the 1 arraylist of blacklisted keywords instead of 3.
+* Cons
+This implementation severely limits the flexibility of the program to be able to blacklist movies and tv shows. For example in cases where the movie title is just a single word like ‘joker’, blacklisting such movies might result in the program user blacklisting movies which have nothing to do with the original movie joker, but were blacklisted anyways simply because they contain the word ‘joker’ in their movie title.
+
+=== Help:
+
+The help feature enables users to get help with available commands. They can type help followed by a root command to get a short guide to help them with that particular command. Th guide includes detailed description about that command’s  syntax along with the feature’s description and usage’s instructions.
+
+The help details for each root command was written in a text file that is named after the root command itself. Upon starting the application, the help details are loaded and stored in a static map of Root Command to String description in the HelpStorage class. Whenever this help command is executed, the corresponding help message is then loaded onto the UI and displayed to the user.
+
+** Design Considerations:
+
+The alternative implementation would have been to hardcode the helper messages in the code itself as a String
+
+* Pros
+There is no need for file I/O processing, which reduces the chances for error and simplifies the code
+* Cons
+It is harder to craft the helper messages through code and it is harder to design them to be easily readable. Additionally, if the helper messages are very long, it can be cumbersome to read and manage in the code.
+
+
+=== Executing past commands
+
+This feature allows users to be able to view commands that they have entered in the past. This provides convenience to the users in scenarios where they wish to enter the same command again or a slight modification of the same command again. 
+
+The command history can be revisited by pressing the  button on the keyboard. Doing so will display your historical commands one at a time with each button click. Once the correct command is loaded into the command text field, the user can edit it or press  straight away to execute the command.
+
+The correct command to be loaded is maintained by the static variable counter which is incremented on the modulo of the size of the CommandList. The corresponding command at the counter position is then returned and displayed to the user. The static variable lastexec
+also keeps track of the last time the  button was pressed so that if the user did not press  for a long time (> 3 seconds), the counter is reset to the latest command so that the latest command is returned and not the command of the current counter value.
+
+=== User Profile:
+The user profile allows users to store their details and preferences in the application, which can be easily accessed by other features (such as Search Profile), making the overall user experience more personalised to each user. There are a total of 7 attributes in the UserProfile.java class and users will be able to edit each of them individually. The attributes are: name, age, playlist names, adult content restriction, genre preferences, genre restriction, and sorting method.
+
+** userName — Saves the user’s name
+** userAge — Saves the user’s age
+** genreIdPreference — Saves the list genre IDs that the user wants to be able to include in searches quickly
+** genreIdRestriction — Saves the list of genre IDs that the user wants to be able to exclude from searches quickly
+** adult — Saves user’s preference on allowing adult content to be shown to them
+** playlistName — Saves the list of names of playlists that the user has created
+** sortByAlphabetical — Saves user’s preference on wanting search results to be displayed alphabetically
+** sortByHighestRating — Saves user’s preference on wanting search results to be displayed in descending ratings
+** sortByLatestRelease — Saves user’s preference on wanting search results to be displayed with latest release dates first
+
+These attributes are maintained in the UserProfile.java class which maintains a String for user’s name, an int for user’s age, 3 ArrayList, one for genre preferences, one for genre restrictions, and one for playlist names, and 4 boolean values, one represents whether the user allows adult content while the other 3 represent the sorting method selected by the user. The class also contains many helper functions to interface with all these attributes.
+
+The logic for the commands available are maintained in a ProfileCommands.java class which handles the parsing of command attributes (payload and input flags) such that the right helper function in UserProfile.java is called to perform the command.
+The storage of the user profile is maintained in a EditProfileJson.java class which handles the reading from and writing to the JSON file storing the values in UserProfile so that this data will be available offline.
+
+The UML Diagram below summarises the relationship between the 3 classes:
+
+.UML diagram for userprofile
+image::UserProfile_UML.jpg[height="400" width="700"]
+
+Given below is an example usage scenario and how the UserProfile mechanism behaves throughout the application’s lifetime.
+** Step 1. The user launches the application for the first time. The UserProfile will be initialised with the initial user profile state.
+** Step 2. The user enters a profile command and the Command Parser an executable command depending on the root and sub-root of the command entered. Relevant root commands that deals with the UserProfile are SetCommand and PreferenceCommand.
+** Step 3. The user’s command is checked for validity before execution. If the command is of invalid format or contains invalid attributes, the user will be prompted to enter another command. If command is valid, execution starts. 
+An example of a valid command is set preference (which will be elaborated further below).
+** Step 4. ProfileCommands is initialised to make changes to UserProfile.
+** Step 5. EditProfileJson is initialised to make changes to the JSON file containing data from UserProfile.
+** Step 6. The changes are reflected to the user using the GUI.
+
+.UML diagram for userprofile
+image::UserProfile_UML_2.jpg[height="400" width="700"]
+
+=== Logging
+
+We are using `java.util.logging` package for logging.
+
+* The `Logger` for a class can be obtained using `Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)`
+* Log level can be indicated using `logger.log(Level.INFO, MESSAGE)` which logs messages according to the log level
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
+[appendix]
+== Product Scope
 
 *Target user profile*:
 
