@@ -1159,7 +1159,7 @@ Regardless whether it's a short-term goal [.small]_like saving for a holiday_ or
 
 `TARGET_AMOUNT` is based on the total amount of money you aim to have in your savings bank account.
 
-YOU CAN ONLY ADD UP TO *20* GOALS
+YOU CAN ONLY ADD UP TO *20* GOALS.
 ====
 
 *Example*
@@ -1215,13 +1215,13 @@ Made changes to one of your goals? Amend it easily with our `edit` feature!
 ====
 At least one of `/newname`, `/amount`, `/in`, `/by`, `/from`, `/mark` must be used.
 
-`/in` and `/by` cannot be used together at the same time
+`/in` and `/by` cannot be used together at the same time.
 
 `ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
 
 `/mark` is used to manually mark *un-tracked* goals status and cannot contain trailing arguments!
 
-Untie your currently linked goals with the same ACCOUNT_NAME `/from ACCOUNT_NAME`
+Untie your currently linked goals with the *same ACCOUNT_NAME* that you link to using `/from ACCOUNT_NAME`.
 ====
 
 *Example*
@@ -1239,6 +1239,7 @@ ifndef::env-github[]
 image::GoalsEditName.png[width="970"]
 endif::[]
 
+
 * `/edit /goals /name BTO for Tampines HDB */amount* 27500`
 
 Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021` and amount to `$27500`.
@@ -1252,6 +1253,11 @@ ifndef::env-github[]
 image::GoalsEditDate.png[width="970"]
 endif::[]
 
+[TIP]
+====
+You can also add a savings account using the edit feature if your existing goal has no account linked to it.
+====
+
 * `/edit /goals /name BTO for Tampines HDB /from JunBank Savings Account`
 
 Edits the savings account tied to `BTO for Tampines HDB` to `JunBank Savings Account`.
@@ -1263,8 +1269,7 @@ Change your current goal to an un-tracked goals.
 * `/edit /goals /name BTO for Tampines HDB /mark 1`
 Marks un-tracked goals as done.
 
-.Successful edition of goal to link to savings account, untie from savings account and marking an
-un-tracked goal as achieved.
+.Successful use of edit feature to link / unlink goals to / from savings account and mark done an un-tracked goals.
 ifdef::env-github[]
 image::GoalsEditMultiple.png[width="800"]
 endif::[]
@@ -1272,12 +1277,6 @@ endif::[]
 ifndef::env-github[]
 image::GoalsEditMultiple.png[width="970"]
 endif::[]
-
-[TIP]
-====
-You can also add a savings account if your existing goal has no account linked to it.
-
-====
 
 ===== Deleting financial goals `/delete /goals`
 

@@ -387,7 +387,7 @@ allowing these *2* parameters to be changed was because we wanted consistency ac
 interest throughout the lifespan of the investment `bond`.
 
 .Sequence Diagram of Editing Bonds
-image::editBondCommand.png[width="800"]
+image::editBondCommand.png[width="970"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
@@ -648,7 +648,7 @@ The reason for providing these two options to users is that we consider that som
 while others would prefer tracking them using an existing savings account.
 
 .Sequence Diagram of Adding Goals
-image::AddGoalsCommand.png[width="800"]
+image::AddGoalsCommand.png[width="970"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
