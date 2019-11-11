@@ -372,13 +372,13 @@ Examples:
 `set 2 -priority med`
 
 [NOTE]
-The PRIORITY input is restricted to only *high*, *med* or *low* (case insensitive).
+The PRIORITY input is restricted to only *high*, *medium/med* or *low* (case insensitive).
 Any other PRIORITY inputted will be invalid.
 
 [WARNING]
 This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
-and vice versa.
-
+and vice versa. It also overrides the priority set to a task by the `todo`, `deadline` or `event` command,
+but not the other way round.
 
 ==== Snooze a task: `snooze`
 Format: `snooze ITEM_NUMBER [-by NO_OF_DAYS]`
@@ -392,8 +392,12 @@ Examples:
 `snooze 1 -by 4`
 
 [NOTE]
-If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
+If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days. +
 Only tasks of type `deadline` and `event` can be snoozed.
+
+[WARNING]
+Once a task is snoozed, there is no undo option. To modify the date and time of the task, use the `update`
+command.
 
 [[update]]
 ==== Update Tasks Commands: `update`
@@ -434,6 +438,24 @@ Examples:
 [NOTE]
 Any links created will only be visible from the task it is added to.
 Emails will not be able to show any links to tasks.
+
+==== Sort task list: `sort`
+Format: `sort SORT_TYPE`
+
+This command sorts the task list according to the SORT_TYPE.
+
+Examples:
+
+`sort priority`
+
+`sort status`
+
+[NOTE]
+Task list is sorted according to `time` by default. The list can be sorted by `priority`, `status` and
+`time`. +
+*Sorted by `priority`*: tasks with higher priority will be at the top of the task list. +
+*Sorted by `status`*: tasks that are not completed will be displayed at the top of the task list. +
+*Sorted by `time`*: deadline or events tasks with nearest date and time will be at the top of the task list.
 
 ==== Clear task list: `clear`
 Format: `clear`
@@ -480,6 +502,38 @@ Fetches email from Outlook.com.
 [WARNING]
 The window might freeze for a while as it is fetching and parsing emails. Please wait patiently.
 
+==== Fuzzy search on emails
+Format: `fuzzySearch TARGET`
+
+This feature searches for the target string across all emails including their subject, sender and body,
+with some tolerance of difference. This tolerance is represented by the **edit distance** between two words.
+For more details about the **edit distance**, you can find more details
+https://en.wikipedia.org/wiki/Edit_distance[here]. The lower the **edit distance** is, the more similar are
+these two strings. This helps you to search through the emails even if you made some typos or when you are
+not sure about some names.
+
+This fuzzy search functionality tolerates up to an **edit distance** of 2 and is insensitive to cases. This
+means "CS2102" will match to "CS2100" and "S210" but not "CS2211".
+
+It will list all the emails which contain words that match the target string in their subject, sender or
+body. Emails are listed in descending order of a **relevance score**. The general idea is, the higher the
+score, the more relevant is the email. Lower **edit distance**, more occurrence, or occurrence in subject
+and sender will all
+contribute to a higher **relevance score**.
+
+[NOTE]
+For performance reasons, fuzzy search will only be done word by word. For example, if "project demo" is to
+be searched through a sentence "This is a project demo", both "project" and "demo" will be compared against
+"this", "is", "a", "project", "demo" and produce a relevance score.
+
+[NOTE]
+Using short target string like "is" is not recommended, since it can be matched to many other words like
+"a", "I", "am" etc, which appears in almost every email.
+
+Examples:
+
+`fuzzySearch project demo`
+
 ==== Auto parsing and tagging of emails
 This feature is automatically triggered by fetching emails from Outlook Server and adding new keyword. It
 will automatically parse "keywords" that might be  shown in your emails in different forms/expressions.
@@ -521,9 +575,9 @@ expression.
 
 Examples:
 
-`addKeyword School -exp luminus -exp op`
+`addKeyword Project -exp project -exp demo`
 
-`addKeyword ICM -exp ICM Career`
+`addKeyword Notice -exp announcement`
 
 [TIP]
 The easiest way to verify whether this command is working properly is to check whether the email
