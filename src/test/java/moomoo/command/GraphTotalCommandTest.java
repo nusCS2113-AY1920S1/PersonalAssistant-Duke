@@ -45,6 +45,7 @@ public class GraphTotalCommandTest {
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";
+    DetectOsCommand getOS = new DetectOsCommand();
     
     
     @Test
@@ -80,11 +81,19 @@ public class GraphTotalCommandTest {
         StorageStub newStorage = new StorageStub();
         Command testGraph = new GraphTotalCommand();
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("              " + ANSI_YELLOW + "" + ANSI_RESET + "\n"
-                + ANSI_CYAN + "shoes" + "            " + "0.0%\n" + ANSI_RESET
-                + "food" + "             " + "0.0%\n"
-                + ANSI_CYAN + "transportation" + "   " + "0.0%\n" + ANSI_RESET
-                + "              " + ANSI_YELLOW + "" + ANSI_RESET + "\n", Ui.getOutput());
+        if (!getOS.osName.contains("win")) {
+            assertEquals("              " + ANSI_YELLOW + "" + ANSI_RESET + "\n"
+                    + ANSI_CYAN + "shoes" + "            " + "0.0%\n" + ANSI_RESET
+                    + "food" + "             " + "0.0%\n"
+                    + ANSI_CYAN + "transportation" + "   " + "0.0%\n" + ANSI_RESET
+                    + "              " + ANSI_YELLOW + "" + ANSI_RESET + "\n", Ui.getOutput());
+        } else {
+            assertEquals("              " + "\n"
+                    + "shoes" + "            " + "0.0%\n"
+                    + "food" + "             " + "0.0%\n"
+                    + "transportation" + "   " + "0.0%\n"
+                    + "              " + "\n", Ui.getOutput());
+        }
     }
     
     
@@ -119,13 +128,24 @@ public class GraphTotalCommandTest {
         StorageStub newStorage = new StorageStub();
         Command testGraph = new GraphTotalCommand();
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("     " + ANSI_YELLOW + completeTop
-                + ANSI_RESET + "\n"
-                + ANSI_CYAN + "shoes " + completeBlock
-                + "  " + "50.0%\n" + ANSI_RESET
-                + "food  " + completeBlock
-                + "  " + "50.0%\n"
-                + "     " + ANSI_YELLOW + completeBottom
-                + ANSI_RESET + "\n", Ui.getOutput());
+        if (!getOS.osName.contains("win")) {
+            assertEquals("     " + ANSI_YELLOW + completeTop
+                    + ANSI_RESET + "\n"
+                    + ANSI_CYAN + "shoes " + completeBlock
+                    + "  " + "50.0%\n" + ANSI_RESET
+                    + "food  " + completeBlock
+                    + "  " + "50.0%\n"
+                    + "     " + ANSI_YELLOW + completeBottom
+                    + ANSI_RESET + "\n", Ui.getOutput());
+        } else {
+            assertEquals("     " + completeTop
+                    + "\n"
+                    + "shoes " + completeBlock
+                    + "  " + "50.0%\n"
+                    + "food  " + completeBlock
+                    + "  " + "50.0%\n"
+                    + "     " + completeBottom
+                    + "\n", Ui.getOutput());
+        }
     }
 }

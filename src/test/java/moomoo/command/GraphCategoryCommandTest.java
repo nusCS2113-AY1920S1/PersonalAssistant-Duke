@@ -45,6 +45,7 @@ public class GraphCategoryCommandTest {
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";
+    DetectOsCommand getOS = new DetectOsCommand();
     
     
     @Test
@@ -93,12 +94,22 @@ public class GraphCategoryCommandTest {
         StorageStub newStorage = new StorageStub();
         Command testGraph = new GraphCategoryCommand("food", 10, 2019);
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("       " + ANSI_YELLOW + completeTop
-                + ANSI_RESET + "\n"
-                + ANSI_CYAN + "Value 6 " + completeBlock
-                + "  " + "100.0%\n" + ANSI_RESET
-                + "       " + ANSI_YELLOW + completeBottom
-                + ANSI_RESET + "\n", Ui.getOutput());
+        
+        if (!getOS.osName.contains("win")) {
+            assertEquals("       " + ANSI_YELLOW + completeTop
+                    + ANSI_RESET + "\n"
+                    + ANSI_CYAN + "Value 6 " + completeBlock
+                    + "  " + "100.0%\n" + ANSI_RESET
+                    + "       " + ANSI_YELLOW + completeBottom
+                    + ANSI_RESET + "\n", Ui.getOutput());
+        } else {
+            assertEquals("       " + completeTop
+                    + "\n"
+                    + "Value 6 " + completeBlock
+                    + "  " + "100.0%\n"
+                    + "       " + completeBottom
+                    + "\n", Ui.getOutput());
+        }
     }
     
     
