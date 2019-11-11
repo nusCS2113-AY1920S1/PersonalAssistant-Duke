@@ -21,6 +21,7 @@ public class DeleteDishCommand extends Command {
 
     //@@ Author 9hafidz6
     /**
+     * Deletes a dish from dishlist using given index
      * @param fridge ingredients found in fridge
      * @param dishList list of dishes
      * @param ol list of orders

@@ -912,6 +912,10 @@ Therefore, the program will record information of every trial, such as ingredien
 
 Upon the draft recipe is regarded as fixed and no longer changes, it will be added into recipebook.
 
+### 3.9 Changing ingredients of a dish `[Coming in V2.0]`
+
+The DishList contains all the dishes which also contains a list of ingredients each. However, there may be a case where there is a large number of ingredients for a dish. Thus there may be be a typo and the chef needs to amend the error. additionally, the ingredients for a certain dish may need changes as the chef may want to change the recipe, hence with this feature, he may be able to do so. 
+
 ## 4. Command Summary
 
 <u>Main Menu</u>
