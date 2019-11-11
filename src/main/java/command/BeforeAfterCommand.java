@@ -1,6 +1,6 @@
 package command;
 
-import command.Storage;
+import storage.Storage;
 import common.AlphaNUSException;
 import project.ProjectManager;
 
