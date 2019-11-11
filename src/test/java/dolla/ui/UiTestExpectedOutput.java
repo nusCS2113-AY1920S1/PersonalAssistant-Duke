@@ -211,7 +211,7 @@ public interface UiTestExpectedOutput {
     String LIMIT_UI_EXPECTED_11 =
             "____________________________________________________________" + System.getProperty(LINE_SEPARATOR)
             + "\tYour remaining weekly budget is: $25.0" + System.getProperty(LINE_SEPARATOR)
-            + "\tHere is a visual representation of your current goal:" + System.getProperty(LINE_SEPARATOR)
+            + "\tHere is a visual representation of your current limit goal:" + System.getProperty(LINE_SEPARATOR)
             + "\t[xxxxxxxxxxxxxxx                                           ]" + System.getProperty(LINE_SEPARATOR)
             + "\tKeep up the good work!" + System.getProperty(LINE_SEPARATOR)
             + "\t____________________________________________________________";
@@ -220,7 +220,7 @@ public interface UiTestExpectedOutput {
             "____________________________________________________________" + System.getProperty(LINE_SEPARATOR)
             + "\tYou still have $40.0 more to go before you reach your weekly saving goal. Keep it up!"
             + System.getProperty(LINE_SEPARATOR)
-            + "\tHere is a visual representation of your current goal:" + System.getProperty(LINE_SEPARATOR)
+            + "\tHere is a visual representation of your current limit goal:" + System.getProperty(LINE_SEPARATOR)
             + "\t[xxxxxxxxxxxxxxxxxxxxxxxx                                  ]"
             + System.getProperty(LINE_SEPARATOR)
             + "\tKeep up the good work!" + System.getProperty(LINE_SEPARATOR)

@@ -2,7 +2,7 @@ package dolla.command;
 
 import dolla.command.action.Undo;
 import dolla.model.DollaData;
-import dolla.command.action.Redo;;
+import dolla.command.action.Redo;
 import dolla.model.Limit;
 import dolla.model.LimitList;
 import dolla.model.Record;
