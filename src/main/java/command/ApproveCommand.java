@@ -37,8 +37,9 @@ public class ApproveCommand extends Command {
         if (splitStr.length <= 1) {
             throw new DukeException(BookingConstants.INDEXERROR1);
         }
+        String indexString = input.substring("approve".length()).trim();
         try {
-            index = Integer.parseInt(splitStr[1]);
+            index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
             throw new DukeException(BookingConstants.INDEXERROR2);
         }
