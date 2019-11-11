@@ -44,23 +44,23 @@ public class CheckAnomalyTest {
     }
 
     @Test
-    public void durationClashOverlap() { assertEquals(0, new CheckAnomaly().checkTimeClash(meeting1)); }
+    public void durationClashOverlap() { assertEquals(0, new CheckAnomaly().isTimeClash(meeting1)); }
 
     @Test
-    public void durationClashIntersect() { assertEquals(0, new CheckAnomaly().checkTimeClash(meeting2)); }
+    public void durationClashIntersect() { assertEquals(0, new CheckAnomaly().isTimeClash(meeting2)); }
 
     @Test
-    public void fixedClashIntersect() { assertEquals(1, new CheckAnomaly().checkTimeClash(meeting3)); }
+    public void fixedClashIntersect() { assertEquals(1, new CheckAnomaly().isTimeClash(meeting3)); }
 
     @Test
-    public void fixedClashOverlap() { assertEquals(1, new CheckAnomaly().checkTimeClash(meeting4)); }
+    public void fixedClashOverlap() { assertEquals(1, new CheckAnomaly().isTimeClash(meeting4)); }
 
     @Test
-    public void noClash() { assertEquals(-1, new CheckAnomaly().checkTimeClash(meeting5)); }
+    public void noClash() { assertEquals(-1, new CheckAnomaly().isTimeClash(meeting5)); }
 
     @Test
-    public void duplicateClash() { assertEquals(3, new CheckAnomaly().checkDuplicate(assignment1)); }
+    public void duplicateClash() { assertEquals(3, new CheckAnomaly().isDuplicate(assignment1)); }
 
     @Test
-    public void noDuplicate() { assertEquals(-1, new CheckAnomaly().checkTimeClash(assignment2)); }
+    public void noDuplicate() { assertEquals(-1, new CheckAnomaly().isTimeClash(assignment2)); }
 }

@@ -29,8 +29,8 @@ class subTaskCreatorTest {
 
     @Test
     public void testSubtask() {
-        String one = ((Assignment) TaskList.currentList().get(3)).getSubTasks().get(0);
-        String two = ((Assignment) TaskList.currentList().get(3)).getSubTasks().get(1);
+        String one = ((Assignment) TaskList.getCurrentList().get(3)).getSubTasks().get(0);
+        String two = ((Assignment) TaskList.getCurrentList().get(3)).getSubTasks().get(1);
         assertEquals(one, "one");
         assertEquals(two, "two");
     }

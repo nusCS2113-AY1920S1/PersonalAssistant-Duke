@@ -32,9 +32,7 @@ public class Assignment extends Task {
      * @param addList array list containing subtasks
      */
     public void addSubTasks(ArrayList<String> addList) {
-        for (String output : addList) {
-            subTasks.add(output);
-        }
+        subTasks.addAll(addList);
     }
 
     /**
