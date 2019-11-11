@@ -60,40 +60,40 @@ public class ConvertGradeToScoreCommand {
     public double converter(final String grade) {
         double score;
         switch (grade) {
-            case "A+":
-            case "A":
-                score = A_SCORE;
-                break;
-            case "A-":
-                score = A_MINUS_SCORE;
-                break;
-            case "B+":
-                score = B_PLUS_SCORE;
-                break;
-            case "B":
-                score = B_SCORE;
-                break;
-            case "B-":
-                score = B_MINUS_SCORE;
-                break;
-            case "C+":
-                score = C_PLUS_SCORE;
-                break;
-            case "C":
-                score = C_SCORE;
-                break;
-            case "D+":
-                score = D_PLUS_SCORE;
-                break;
-            case "D":
-                score = D_SCORE;
-                break;
-            case "F":
-                score = F_SCORE;
-                break;
-            default:
-                score = DONT_COUNT_SCORE;
-                break;
+        case "A+":
+        case "A":
+            score = A_SCORE;
+            break;
+        case "A-":
+            score = A_MINUS_SCORE;
+            break;
+        case "B+":
+            score = B_PLUS_SCORE;
+            break;
+        case "B":
+            score = B_SCORE;
+            break;
+        case "B-":
+            score = B_MINUS_SCORE;
+            break;
+        case "C+":
+            score = C_PLUS_SCORE;
+            break;
+        case "C":
+            score = C_SCORE;
+            break;
+        case "D+":
+            score = D_PLUS_SCORE;
+            break;
+        case "D":
+            score = D_SCORE;
+            break;
+        case "F":
+            score = F_SCORE;
+            break;
+        default:
+            score = DONT_COUNT_SCORE;
+            break;
         }
         return score;
     }

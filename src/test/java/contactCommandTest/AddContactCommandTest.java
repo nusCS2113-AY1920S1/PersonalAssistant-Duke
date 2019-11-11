@@ -1,5 +1,6 @@
 //@@author JasonLeeWeiHern
-package ContactCommandTest;
+
+package contactCommandTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.contact.AddContactCommand;

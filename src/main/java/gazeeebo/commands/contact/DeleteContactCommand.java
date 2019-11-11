@@ -1,4 +1,5 @@
 //@@author JasonLeeWeiHern
+
 package gazeeebo.commands.contact;
 
 import gazeeebo.UI.Ui;
@@ -24,8 +25,7 @@ public class DeleteContactCommand {
                 nameToDelete = ui.fullCommand;
             } else if (ui.fullCommand.split(" ").length == 2) {
                 for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
-                    nameToDelete = nameToDelete.
-                            concat(ui.fullCommand.split(" ")[i] + " ");
+                    nameToDelete = nameToDelete.concat(ui.fullCommand.split(" ")[i] + " ");
                 }
                 nameToDelete = nameToDelete.trim();
             } else {

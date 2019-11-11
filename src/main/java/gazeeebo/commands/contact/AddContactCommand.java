@@ -26,16 +26,16 @@ public class AddContactCommand {
             String toAdd = "";
             String[] splitInput = ui.fullCommand.split(" ");
             switch (splitInput.length) {
-                case 1:
-                    System.out.print("Input in this format: Name,Number\n");
-                    ui.readCommand();
-                    toAdd = ui.fullCommand;
-                    break;
-                case 2:
-                    toAdd = splitInput[1];
-                    break;
-                default:
-                    throw new ArrayIndexOutOfBoundsException();
+            case 1:
+                System.out.print("Input in this format: Name,Number\n");
+                ui.readCommand();
+                toAdd = ui.fullCommand;
+                break;
+            case 2:
+                toAdd = splitInput[1];
+                break;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
             }
             String[] splitCommand = toAdd.split(",");
             String name = splitCommand[0];

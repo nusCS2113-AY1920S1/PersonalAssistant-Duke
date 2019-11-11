@@ -33,23 +33,23 @@ public class FindCapCommand {
         try {
             String findInput = "";
             switch (ui.fullCommand.split(" ").length) {
-                case (1):
-                    System.out.print("Which modules do you want to find?\n");
-                    ui.readCommand();
-                    findInput = ui.fullCommand;
-                    break;
-                case (2):
-                    findInput = ui.fullCommand.split(" ")[1];
-                    break;
-                default:
-                    throw new ArrayIndexOutOfBoundsException();
+            case (1):
+                System.out.print("Which modules do you want to find?\n");
+                ui.readCommand();
+                findInput = ui.fullCommand;
+                break;
+            case (2):
+                findInput = ui.fullCommand.split(" ")[1];
+                break;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
             }
             String toPrint = "";
             boolean isExist = false;
             for (String key : caplist.keySet()) {
-                for (int i = 0; i < caplist.get(key).size(); i++) {
-                    if (caplist.get(key).get(i).
-                            moduleCode.equals(findInput)) {
+                for (int i = 0; i < caplist
+                        .get(key).size(); i++) {
+                    if (caplist.get(key).get(i).moduleCode.equals(findInput)) {
                         int noBlankSpacing = BLANK_SPACING
                                 - caplist.get(key).get(i).moduleCode.length();
                         toPrint += key + "   | "
@@ -57,8 +57,8 @@ public class FindCapCommand {
                         for (int j = 0; j < noBlankSpacing; j++) {
                             toPrint += " ";
                         }
-                        toPrint += "| " + caplist.get(key).
-                                get(i).moduleCredit + "  | "
+                        toPrint += "| " + caplist.get(key)
+                                .get(i).moduleCredit + "  | "
                                 + caplist.get(key).get(i).grade
                                 + "\n" + lineBreak;
                         isExist = true;

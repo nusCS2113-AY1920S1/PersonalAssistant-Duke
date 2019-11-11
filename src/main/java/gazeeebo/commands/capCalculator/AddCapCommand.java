@@ -31,30 +31,30 @@ public class AddCapCommand {
         try {
             String toAdd = "";
             switch (ui.fullCommand.split(" ").length) {
-                case 1:
-                    System.out.print("Input in this format: "
-                            + "semNumber,Module_Code,total_MC,CAP\n");
-                    ui.readCommand();
-                    toAdd = ui.fullCommand;
-                    break;
-                case 2:
-                    toAdd = ui.fullCommand.split(" ")[1];
-                    break;
-                default:
-                    throw new ArrayIndexOutOfBoundsException();
+            case 1:
+                System.out.print("Input in this format: "
+                        + "semNumber,Module_Code,total_MC,CAP\n");
+                ui.readCommand();
+                toAdd = ui.fullCommand;
+                break;
+            case 2:
+                toAdd = ui.fullCommand.split(" ")[1];
+                break;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
             }
             String[] splitAddInput = toAdd.split(",");
             String semNumber = splitAddInput[0];
             String moduleCode = splitAddInput[1];
             int moduleCredit = Integer.parseInt(splitAddInput[2]);
             String grade = splitAddInput[GRADE_INDEX];
-            CapCommandParser newCAP =
+            CapCommandParser newCap =
                     new CapCommandParser(moduleCode, moduleCredit, grade);
             if (caplist.containsKey(semNumber)) {
-                caplist.get(semNumber).add(newCAP);
+                caplist.get(semNumber).add(newCap);
             } else {
                 ArrayList<CapCommandParser> semInfo = new ArrayList<>();
-                semInfo.add(newCAP);
+                semInfo.add(newCap);
                 caplist.put(semNumber, semInfo);
             }
             System.out.print("Successfully added: " + moduleCode + "\n");

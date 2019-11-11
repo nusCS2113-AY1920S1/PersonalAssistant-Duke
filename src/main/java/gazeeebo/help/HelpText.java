@@ -801,6 +801,13 @@ public class HelpText {
                     + "\tExample:\n"
                     + "\t\t- delete Jason\n";
 
+    private static final String CONTACT_COMMANDS =
+            "\t[ View commands in Contact page ]\n"
+                    + "\tView commands in contact page.\n\n"
+                    + "\tFormat: commands\n\n"
+                    + "\tExample:\n"
+                    + "\t\t- commands\n";
+
     private  static final String CONTACT_UNDO =
             "\t[ Undo previous contact command ]\n"
                     + "\tUndo the previous contact command.\n"
@@ -1157,7 +1164,8 @@ public class HelpText {
             + CONTACT_FIND + SEPARATOR_COMMAND
             + CONTACT_LIST + SEPARATOR_COMMAND
             + CONTACT_DELETE + SEPARATOR_COMMAND
-            + CONTACT_UNDO + SEPARATOR_PAGE;
+            + CONTACT_UNDO + SEPARATOR_COMMAND
+            + CONTACT_COMMANDS + SEPARATOR_PAGE;
 
     public static final String CAP_PAGE = SEPARATOR_PAGE
             + HEADER_CAP_PAGE + SEPARATOR_COMMAND
@@ -1188,8 +1196,4 @@ public class HelpText {
             + MODULE_PLANNER_SHIFT + SEPARATOR_COMMAND
             + MODULE_PLANNER_PREREQ + SEPARATOR_COMMAND
             + MODULE_PLANNER_UNDO + SEPARATOR_PAGE;
-
-
 }
-
-

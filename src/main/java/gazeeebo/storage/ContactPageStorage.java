@@ -35,8 +35,7 @@ public class ContactPageStorage {
      * This method read from the file
      * Contact.txt and put the details into a HashMap.
      *
-     * @return Returns the HashMap of contacts, key
-     * is the contact name and the value is the phone number.
+     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number.
      * @throws FileNotFoundException catch the error if the read file fails.
      */
     public HashMap<String, String> readFromContactFile()
