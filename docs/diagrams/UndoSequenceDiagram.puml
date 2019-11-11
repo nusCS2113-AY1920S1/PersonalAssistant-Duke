@@ -7,7 +7,10 @@ participant ":UndoStateList" as UndoStateList LOGIC_COLOR_T2
 participant ":State" as State LOGIC_COLOR_T2
 participant ":Redo" as Redo LOGIC_COLOR_T2
 participant ":RedoStateList" as RedoStateList LOGIC_COLOR_T2
-participant "dollaData:DollaData" as DollaData LOGIC_COLOR_T2
+end box
+
+box Model MODEL_COLOR_T1
+participant "dollaData:DollaData" as DollaData MODEL_COLOR_T2
 end box
 
 box Ui UI_COLOR_T1

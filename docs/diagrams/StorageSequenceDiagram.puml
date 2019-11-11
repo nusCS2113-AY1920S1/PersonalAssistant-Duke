@@ -1,11 +1,15 @@
 @startuml
 !include style.puml
-box Logic STORAGE_COLOR_T1
+
+box Model MODEL_COLOR_T1
 participant ":Dolla" as Dolla STORAGE_COLOR
-participant ":StorageRead" as StorageRead STORAGE_COLOR
-participant ":Storage" as Storage STORAGE_COLOR
 participant "dollaData:DollaData" as DollaData STORAGE_COLOR
 participant ":DebtList" as DebtList STORAGE_COLOR
+end box
+
+box Logic STORAGE_COLOR_T1
+participant ":StorageRead" as StorageRead STORAGE_COLOR
+participant ":Storage" as Storage STORAGE_COLOR
 participant ":StorageWrite" as StorageWrite STORAGE_COLOR
 end box
 
