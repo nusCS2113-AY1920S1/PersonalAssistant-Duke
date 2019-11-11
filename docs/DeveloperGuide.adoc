@@ -609,6 +609,12 @@ How DegreeManager handles the checking of valid degree names:
 *** Complicated to use when handling non-integer members.
 *** Extra Containers and functions needed to support the Disjoint Set.
 
+=== Graduate Employment Statistics Feature
+==== Implementation
+
+A class GraduateEmployment is used in order to display employment percentage rates and basic mean salary of recent graduates in the form of a dual axis bar chart. This class is an implementation of the Statistics interface. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/umlinheritance.png[width="900", align = "left"]
 
 == Testing
 
