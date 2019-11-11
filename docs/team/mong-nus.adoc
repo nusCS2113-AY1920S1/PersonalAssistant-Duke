@@ -30,16 +30,21 @@ contain important details:
 
 [NOTE]
 ====
-This symbol denotes information that you might want to read as it might contain some important information.
+This symbol denotes information that you may want to take note of.
 ====
 [TIP]
 ====
-This symbol denotes a tip that you may find useful when using our application, but it is up to you to decide.
+This symbol denotes a tip that you may find useful when using our application.
 ====
 [WARNING]
 ====
-This symbol denotes a warning message which you need to be careful of when using our application. You are strongly
-advised to read the content within this block.
+This symbol denotes a warning message which you need to be careful of when using our application.
+====
+
+Additionally, you may also encounter the following text styles:
+====
+* Commands, parameters, and file paths will be in this `format`
+* Important messages will be *bold*
 ====
 
 == Summary of Contributions

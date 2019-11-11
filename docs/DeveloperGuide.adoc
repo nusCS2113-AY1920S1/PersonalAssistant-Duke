@@ -2499,7 +2499,7 @@ Expected: Updated name of the `card` being displayed after being edited.
 .. Prerequisites: There is an existing `card` to be edited and there must be no unpaid card expenditures.
 
 .. Test case:
-`/edit /card /name POBB Tomorrow Card /limit 10000` +
+`/edit /card /name JunBank GoodVibes Card /limit 10000` +
 Expected: Updated limit of the `card` being displayed after being edited.
 
 === Deleting a credit card
@@ -2509,7 +2509,7 @@ Expected: Updated limit of the `card` being displayed after being edited.
 .. Prerequisites: The `card` to be deleted exist.
 
 .. Test case:
-`/delete /card /name POBB Tomorrow Card` +
+`/delete /card /name JunBank GoodVibes Card` +
 Expected: Deleted `card` details will be displayed after being deleted.
 
 . Deleting a `card` that do not exist
