@@ -65,7 +65,7 @@ _The following section details the features and the command line interface comma
 
 For each command, a format is specified for the user to key in. The following is a guide to the syntax used in expressing these formats:
 
-* Words n UPPER_CASE are parameters to be supplied by the user. For example, in the following command: `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`, SONG_NAME, KEY and TIME_SIGNATURE are parameters to be provided by the user.
+* Words in UPPER_CASE are parameters to be supplied by the user. For example, in the following command: `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`, SONG_NAME, KEY and TIME_SIGNATURE are parameters to be provided by the user.
 * The type of the parameters is indicated by a tag as follows:
 ** `s/` - String (i.e. a word consisting of different characters)
 ** `n/` - Number (Integer)
@@ -223,7 +223,7 @@ swaps the existing first and third bar of your opened song.
 In music, repetition of tunes and rhythms are very common. The group command allows users to efficiently save tunes and rhythms for each of their songs. The user can group a continuous range of bars between two indices (inclusive) in the song track and give a name to this group. However, this group will be saved only under that song and will not be accessible from other songs. Grouping is very useful as this allows the user to easily insert groups into their song tracks instead of manually adding the same bars again.
 
 _Format_:
-`group START_NUM END_NUM GROUP_NAME`
+`group n/START_NUM n/END_NUM s/GROUP_NAME`
 
 _Example_: `group 2 4 sunlight`
 
@@ -241,10 +241,14 @@ This command allows the user to overlay a bar from the same song to another bar 
 _Format_:
 `overlay <bar_num to be overlayed> <bar_num to be overlayed to>`
 
-_Example_: `overlay 1 3`
+_Example_: `overlay 1 2`
 
 
-The above command overlays bar 1 onto bar 3. 
+The above command overlays bar 1 onto bar 2 (see Figure 3.4 for example demo). 
+
+image::overlay_1_2.png[]
+Figure 3.4: overlaying of bar 1 onto bar 2.
+
 
 The repeat parameter can be added to the end to overlay the bar from the required start point till the end. 
 
@@ -258,7 +262,6 @@ The above command overlays bar 1 onto bar 3 and onwards.
 
 The output will be an ascii printed version of the song after overlaying. 
 
-image::overlay_demo.png[]
 
 ==== Combining group-group: `overlay_group_group`
 Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
@@ -280,21 +283,24 @@ The above command overlays group 1 from twinkle onto group 4 of jingle
 
 _Example_: `overlay_group_group twinkle 1 twinkle 2`
 
-If group 1 from twinkle is overlayed onto group 2 of twinkle, where 1 is from bar 1 to 2 and group 2 consists of bar 3 to 5. 
+If group 1 from twinkle is overlayed onto group 2 of twinkle, where group 1 contains bar 1 to 2 and group 2 consists of bar 3 to 5. See Figure 3.5 for example) 
 
 image::example_song_annotation.png[]
+Figure 3.5: Example song 
 
 
-The output of the above command must be: 
+The output of the above command ( `overlay_group_group twinkle 1 twinkle 2` ) must be (Figure 3.6): 
 
-image::smaller_group_onto_bigger_one.png[]
+image::overlay_group_group_1_2.png[]
+Figure 3.6: `overlay_group_group twinkle 1 twinkle 2` 
 
-If we try to run `overlay_group_group twinkle 2 twinkle 1` 
+
+If we try to run `overlay_group_group twinkle 2 twinkle 1` (Figure 3.7) 
 
 The output will be: 
 
-image::bigger_group_onto_smaller_group.png[]
-
+image::overlay_group_group_2_1.png[]
+Figure 3.7: `overlay_group_group twinkle 2 twinkle 1`
 
 The repeat parameter can be added to the end to overlay the group from the required start point till the end. 
 
@@ -324,13 +330,14 @@ _Example_: `overlay_bar_group 1 2`
 
 The above command overlays bar 1 from the opened song onto group 2. 
 
-If the group 2 was from bar 3 to 5 on the following song: 
+If the group 2 was from bar 3 to 5 on the following song (Figure 3.8): 
 image::example_song_annotation.png[]
+Figure 3.8: Example song 
 
-The expected output will be: 
+The expected output will be (Figure 3.9): 
 
 image::overlay_bar_group_1_2.png[]
-
+Figure 3.9: `overlay_bar_group 1 2`
 
 The repeat parameter can be added to the end to overlay the bar from the required start point till the last group. 
 
@@ -378,16 +385,22 @@ The output will be an ascii printed version of the song after overlaying.
 
 === Undoing your previous action: `undo`
 
-Undo Command can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
-For `help`, `view`, `list`, `list_group`, and `ascii`, UndoCommand will not undo it since they didn't change the song list.
-Note that although `open` does not change the song list, since it opens a song to edit, `undo` still works on it.
+UndoCommand can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
+Currently UndoCommand only works for adding songs and deleting songs, which are `new` and `delete`.
+
+The next version of `undo` will be released in v2.0, when the undo can be applied for all the commands except
+for commands that do not change the song list.
 
 _Format_:
 `undo`
 
 === Redoing your previous action: `redo`
 
-Redo Command can redo the most recent commands that have been undone until there is no more commands that can be redone.
+RedoCommand can redo the most recent commands that have been undone until there is no more commands that can be redone.
+Currently RedoCommand only works for adding songs and deleting songs, which are `new` and `delete`.
+
+The next version of `redo` will be released in v2.0, when the redo can be applied for all the commands except
+for commands that do not change the song list.
 
 _Format_:
 `redo`
@@ -402,11 +415,7 @@ _Format_:
 _Example_:
 `metronome 10 120 4/4` will start a metronome for 10 bars, each consisting of four notes, with a tempo of 120 beats per minute.
 
-The metronome can be started from anywhere, and the only step is to type in the command according to the format provided above. This is shown below:
-
-image::ducats_metronome1.png[]
-
-Upon pressing 'Enter', the metronome will appear on the screen. The numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second. The number 1 will be accompanied by a hash ('#') for emphasis, as the first beat of every bar is considered more significant in music.
+The metronome can be started from anywhere, and the only step is to type in the command according to the format provided above. Upon pressing 'Enter', the metronome will appear on the screen. The numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second. The number 1 will be accompanied by a hash ('#') for emphasis, as the first beat of every bar is considered more significant in music.
 
 image::ducats_metronome2.png[]
 
@@ -427,7 +436,34 @@ When coming back to Ducats, your songs will be sorted in alphabetical order when
 
 === Saving the data
 
-All of the song data is saved to the hard disk automatically after any modifications have been made through a command. There is no need to save manually. To access the data in order to export or import songs, simply access the `data` folder in the directory that contains the program file. By putting in `.txt` files of a similar data format, the data will be imported seamlessly the next time you start up Ducats.
+All of the song data is saved to the hard disk automatically after any modifications have been made through a command. There is no need to save manually. To access the data in order to export or import songs, simply access the `data` folder in the directory that contains the program file. By putting in `.txt` files of the same data format, the data will be imported seamlessly the next time you start up Ducats. Additionally, you can also edit the data directly on the `.txt` file if you need to make minor changes to the data without booting up Ducats.
+
+[NOTE]
+Direct data manipulation is only recommended for more advanced users. Ducats will be unable to read your song data if it detects an invalid format.
+
+The data found in the `.txt` file is structured as follows:
+
+    NAME KEY TEMPO
+    BAR_1
+    BAR_2
+    ...
+    BAR_N
+    groups:
+    GROUP_1_NAME BAR_1 ... BAR_N
+    ...
+    GROUP_N_NAME BAR_1 ... BAR_N
+
+Each bar, represented above by `BAR_1`, `BAR_2` and so on, is formatted as follows, with the segments representing each individual bar, chord and note being labelled with B, C and N respectively:
+
+    [[UAs;UCs],[UA;UC],[UA;UC],[UA;UC],[MCs;LDs],[MC;LD],[MC;UDs],[MC,UD]]
+    |----------------------------------B---------------------------------|
+     |---C---|
+      |N|
+
+[NOTE]
+The above bar is populated with different chords and notes for the purposes of demonstration.
+
+Since the default time signature of a Song you create is in 4 4, each Bar consists of eight Chords.The “s”, if present, signifies that that Note that has the duration of a 1/8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of 1/2 and an Upper C Note with the same duration in the first four chords.
 
 === Auto-suggesting commands
 

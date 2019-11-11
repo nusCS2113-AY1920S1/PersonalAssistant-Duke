@@ -37,8 +37,7 @@ print it in command line.
 This document describes the coding style and the architecture of the Ducats project built by Team CS2113T F09-4.
 This document is intended for our major release v1.4.
 
-The document will allow any developer to start to work on the project by first learning about the system
-architecture, then the implementation and lastly on how to document the code that is written.
+This document will allow any developer to start to work on the project by first learning about the system  architecture, then the implementation and lastly the testing and logging features of the Ducats.
 
 
 == Setting up
@@ -225,11 +224,24 @@ After some deliberation, that method was decided against. Even though it means l
 
 ==== Undo/Redo
 
-UndoCommand and RedoCommand is implemented using a typical undo-redo stack, which is also a important component called `UndoRedoStack`, which records all the versions of the `SongList` object that the user is currently using.
+UndoCommand and RedoCommand is implemented using a typical undo-redo stack, which is also an important component called `UndoRedoStack`, which records all the versions of the `SongList` object that the user is currently using.
 The implementation of UndoRedoStack is similar to git history tree.
 Each node on the UndoRedoStack is a version of the SongList.
 
-Once the user enters a command that may change the SongList, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
+Design Considerations
+
+* Save copies
+** Pros: Easy to implement
+** Cons: Heavy burden for memory usage, especially when there are a lot of operations.
+
+* Each command has a undo/redo method
+** Pros: Will use less memory
+** Cons: Need to ensure that implementation is correct
+
+The reason why we choose the first design consideration is that there are some command that is hard to implement undo/redo method
+such as delete. It is impossible to restore a deleted song unless you keep a copy of it. That's why we choose the first song.
+
+Once the user enters a command that is either `new` or `delete`, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
 
 Before each `undo` or `redo`, UndoRedoStack will check the undoability/redoability of the UndoRedoStack.
 
@@ -246,14 +258,19 @@ Impact of UndoCommand/RedoCommand:
 * `undo` - moves the UndoRedoStack to its previous version.
 * `redo` - moves the UndoRedoStack to its next version.
 
-Note that after user enters a command that could change the SongList, if the current version of SongList is not the latest version, which means the the UndoRedoStack is not at its latest node,
+Note that after user enters a command, if the current version of SongList is not the latest version, which means the UndoRedoStack is not at its latest node,
 all the nodes after current node will be dropped, and the new version of the UndoRedoStack will be treated as the current and the latest node,
 and you cannot visit the previous branch of nodes anymore.
 
-==== Overlay
-For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
+Currently UndoRedoStack only works for commands that add or delete songs in a SongList, which are `new` and `delete`.
+In v2.0, UndoRedoStack will work for all commands that could modify the SongList.
 
-image::overlay_demo.png[]
+==== Overlay
+For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar , bar-group, group - group. See Figure 1.4 for an example.
+
+image::overlay_1_2.png[]
+Figure 1.4 - Example of `overlay 1 2`
+
 
 `overlay`: 
 
@@ -303,10 +320,11 @@ We repeat this process till the end of the array list.
 
 If there is no repeat function, then we just get the bar to be overlayed from the array and call the combiner's `combineBar` function. 
 
-After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function: 
+After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function (Figure 1.5): 
 
 
 image::overlaysequencediagram.png[]
+Figure 1.5 - `overlay` command sequence diagram
 
 ==== overlay_bar_song
 
@@ -338,10 +356,11 @@ If there isnt a repeat parameter,then we just get the bar to be overlayed from t
 
 After which, we call the updatefile function of storage to store the new song and then return the string from the execute function of ascii to properly display the new song to the user through the UI. 
 
-Below is the action sequence diagram: 
+Below is the action sequence diagram (Figure 1.6): 
 
 
 image::overlay_bar_song_actionsequence.png[]
+Figure 1.6 - `overlay_bar_song` action sequence diagram
 
 ==== overlay_group_group
 
@@ -375,9 +394,93 @@ Allows the users to overlay a  bar onto a group from the same song. It works in 
 The group number can be obtained from the `list_group` function. 
 
 
-==== Group and Copy
+==== Group
+
+In music, there is often repetition of tunes. This command allows the users to group continuous bars together on the current track give a name to it. This group is then stored under that song. 
+
+
+image::image_1_sam.jpeg[]
+
+
+`group`:
+`group START_NUM END_NUM GROUP_NAME`
+
+How to go about it?
+
+The `group` command gets the command from the Parser and stores it in its private variable message.
+
+When the execute method of GroupCommand is invoked, it will first check if the message is valid by checking if it is a group command. Then, it takes the user input after the word "group" and splits it by spaces. It then gets the starting and ending indices of the group by parsing them into integers. The third parameter will be taken as the name of the group. With these information, first the createGroup method is called.
+
+    createGroup(songList, startNo, endNo, name);
+
+The createGroup method will check if the group name already exists or if there are no songs in the user's songlist. If there are songs in the songlist and the group name requested by the user does not exist, then it will proceed to do a final verifcation by calling the verifyAndCreateGroup method.
+   
+    verifyAndCreateGroup(song, name, start, end);
+
+This checks if both the start and end indices indicated by the user falls within the range of the song indices of the current track. If it does, it will create the group and pass this group to createGroup method. This method then adds the group to the song using:
+
+    song.getGroups().add(group);
+
+Finally, a message is printed to the user saying that the group has been successfully added to the song by using the formatGroupBar method in the Ui class as follows:
+
+    ui.formatGroupBar(startNo, endNo, name);
+
+Here's the sequence diagram for the GroupCommand class:
+
+    
+image::image_2_sam.jpeg[]
+
+==== Copy
+
+This command allows users to copy the group to the end of the current song track:
+`copy GROUP_NAME`
+
+This command allows users to copy a range of continuous bars (inclusive) to the end of the current track. Note that in particular, to copy just one bar to the end of the track, simply put the same numbers for starting and ending index.
+`copy START_INDEX END_INDEX`
+
+This command will copy a group and paste it into a specified index. All bars starting from that index will be pushed forward to make space for this group. Note that paste index cannot exceed the last index of the current track.
+`copy GROUP_NAME PASTE_INDEX`
+
+This command allows users to copy a continuous series of bars from the starting index to the ending index specified and paste it into the specified PASTE_INDEX. Note that users cannot paste index cannot exceed the last index of the current track. All the bars starting from the bar at the PASTE_INDEX will be pushed forward to make space for the copied bars.
+`copy START_INDEX END_INDEX PASTE_INDEX`
+
+When the execute method of the CopyCommand is invoked, it first substrings it to remove the "group " part and then it splits the remaining message by spaces.
+
+If the length of the resulting message is only 1, it is understood that the user wants to copy a group to the end of the current music track. Hence, the copyVerseToEnd method is called. Verse and group mean the same thing.
+
+    copyVerseToEnd(verseName);
+
+This method copies the bars in the group (if it exists) to the end of the current music track.
+
+If the length of the resulting message is two, it could mean two things. The user wants to copy a range of bars to the end of he wants to copy a group to a particular index in the music track. If two numbers are the input, it will be understood that the user wants to copy a range of bars. Hence the copyBarsToEnd method will be called.
+
+    copyBarsToEnd(startNum, endNum);
+
+This method simply copies all the bars in the input range (if the range is valid) to the end of the current music track.
+
+Where as, if the first input is a String, it will be understood that the user wants to copy a group to a particular index of the music track. Hence the insertVerse method is called.
+
+    insertVerse(verseName, startNum);
+
+This method will insert the bars in that said group into that particular index and push forward all the original bars starting from that index. 
+
+Also, if the user is found to have input 3 parameters and all of them are integers, it will be known that the user wants to copy a range of bars and insert into a particular index. Hence the insertCopiedBars method will be called.
+
+    insertCopiedBars(copyStartNum, copyEndNum, pasteStartNum);
+
+This method will check if all the input parameters are indices within the range of the current music track. If they are, it will proceed to insert those copied bars into the music track.
+
+
+Here's the sequence diagram for copy command
+
+
+image::image_3_sam.jpeg[]
+
 
 === Display
+
+
+
 
 === Metronome
 
@@ -389,16 +492,14 @@ Due to a reliance on multi-threading through the Timer library, the execution of
 * tempo (in BPM)
 * time signature
 
-Following this, the `TimerTask` of generating the appropriate output to the console will be executed by a new `Timer` object initialized in the `start()` method of the `Metronome` object. The overall sequence diagram can be seen in Figure X.
-
-<insert seq diagram specific to Metronome>
+Following this, the `TimerTask` of generating the appropriate output to the console will be executed by a new `Timer` object initialized in the `start()` method of the `Metronome` object.
 
 === Autosuggest
 
-This feature was built to ensure that the system can autocorrect for minor mistakes while typing the commands such as helo instead of help. There is no need to call a command to get the closest command but rather it will automatically try to understand the command that is being typed. 
+This feature was built to ensure that the system can autocorrect for minor mistakes while typing the commands such as helo instead of help. There is no need to call a command to get the closest command but rather it will automatically try to understand the command that is being typed. (FIgure 1.1) 
 
 image::autosuggest.png[]
-
+Figure 1.1 - Example of Autocorrect working 
 
 The feature works on the basis of the Jaccard theorem that finds the intersection between the 2 words and divides it by the union of the 2 words and hence gets the word with the highest ratio and is above a threshold as to account for random inputs. The intersection function is a custom function and uses hashmaps to keep count of the number of common alphabets between the 2 commands. Hahsmaps were choosen to help increase the efficiency. 
 
@@ -438,39 +539,37 @@ Each `BAR_N`, where N is a positive integer, is formatted as follows, with the s
      |---C---|
       |N|
 
-For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of a 1⁄8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of ½ and an Upper C Note with the same duration in the first four chords.
+For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of an eighth note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of half and an Upper C Note with the same duration in the first four chords.
 
-By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the .txt file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion due to the composition structure of the Song component (as can be seen in Figure X). Inversely, in order for the StorageParser class to parse the data found in the .txt file into Song objects that are to be stored in the SongList, the following methods are defined under the `StorageParser` class:
-
-* `convertNoteFromString(String s)` (converts a String into a Note)
-* `convertChordFromString(String s)` (converts a String into a Chord) _(uses the above)_
-* `convertBarFromString(String s)` (converts a String into a Bar) _(uses the above)_
-* `convertSongFromString(String s)` (converts a String into a Song) _(uses the above)_
+By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the `.txt` file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion. Inversely, in order for the StorageParser class to parse the data found in the `.txt` file into Song objects that are to be stored in the SongList, the `convertSongFromString(String s)` method is defined.
 
 _Design Considerations_:
 
-* Using a single .txt file to store all the data
+* Using a single `.txt` file to store all the data
 ** _Pros_: easier implementation of `Storage`
-** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
-* Using .csv files instead of .txt files to store the data
-** _Pros_: arguably a more organized method of data management
-** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+** _Cons_: harder for the user to import and export files without corrupting the data, hard for the user to view the data if the song is too long due to line length limits
 
-We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
+We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this neater implementation, it is easy for the user to export and import songs by just copying out or inserting `.txt` files of the same format respectively.
 
 === Logging
 
+This feature allows our app to constantly log important information that the user inputs to better understand the user behavior in our application. Logging also helps us identify command pathways in the app that lead to unexpected bugs and we can remedy them without asking the user to repeat their actions. Furthermore, in the future, we can train our AI depending on how the amateur musicians learn and to give them a better learning experience. 
+
+
+
 == Adding a New Function
 
-When creating a new command for Ducats, one must first create a class separately for this command. This class must extend the abstract class Command.  One must also implement the method execute which is in charge of executing the command depending on the user’s input. Furthermore, the parser class must be changed to include the command, by editing the switch case. It should also be included in the Ducats class’s run method. It can be included by using c instance of <Class Name> .If the undo-redo function is not applicable to the implemented command, then it must be included the nested if statement in the code (Refer to Fig 1.3) . Furthermore the command must be included in the  WordGetter class’s commandList array of String (Fig 1.4 for more details).
+When creating a new command for Ducats, one must first create a class separately for this command. This class must extend the abstract class Command.  One must also implement the method execute which is in charge of executing the command depending on the user’s input. Furthermore, the parser class must be changed to include the command, by editing the switch case. It should also be included in the Ducats class’s run method. It can be included by using c instance of <Class Name> .If the undo-redo function is not applicable to the implemented command, then it must be included the nested if statement in the code (Refer to Figure 1.3) . Furthermore the command must be included in the  WordGetter class’s commandList array of String (Figure 1.4 for more details).
 
 
 image::adding_new_functionality_1.png[1.3]
+Figure 1.3 - Nested if statement in the Parser class. 
 
 image::adding_new_functionality_2.png[1.4]
-
+Figure 1.4 - `Commandlist` in `WordGetter class`
 
 == Testing
+We have used Junit Testing for our application and have done extensive testing on each feature. We have tried to be as broad in our test cases and used `jacoco` as way to test the extensiveness of our tests. We have achieved an overall extensiveness for our commands to be 78%. We will continue to increase this in the upcoming versions. 
 
 [appendix]
 == Product Scope
@@ -654,3 +753,66 @@ Extensions:
 * The product should be intuitive and easily utilized with reference to an accompanying User Guide and/or Developer Guide.
 * The product should have clear updates that indicate what features have been added, removed or modified.
 * The product should not be excessively battery and resource intensive.
+
+[appendix]
+== Instructions for Manual Testing
+
+Since Ducats has many features, it can be difficult to figure out how to test it. The main purpose of this Appendix is to provide you, the tester, with a brief overview of the initial few tests that you can do so that you can better understand and more effectively test Ducats.
+
+For each command, a format is specified for the user to key in. The following is a guide to the syntax used in expressing these formats:
+
+* Words in UPPER_CASE are parameters to be supplied by the user. For example, in the following command: `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`, SONG_NAME, KEY and TIME_SIGNATURE are parameters to be provided by the user.
+* The type of the parameters is indicated by a tag as follows:
+** `s/` - String (i.e. a word consisting of different characters)
+** `n/` - Number (Integer)
+* When representing Notes, the DURATION_PITCH format is observed:
+** The pitches available are: UC, UB, UA, UG, UF, UE, UD, MC, LB, LA, LG, LF, LE, LD, LC
+** The durations available are: 1, 2*, 2, 4*, 4, 8.
+
+=== Creating a new song
+
+Using the `new` command, you can create a new song according to the following format:
+
+`new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`
+
+Hence, the following commands can be run to create two new songs:
+
+    new twinkle c 4/4 120
+    new hello c 4/4 131
+
+=== Adding bars to a song
+
+The `addbar` command is used to add bars of music to a song. By default, the first song is open for editing (in this case, twinkle). To demonstrate this,
+
+    addbar 1_MC
+
+should add a whole note with the pitch of Pitch.MIDDLE_C to the song named twinkle. This can be seen by the `ascii song` command, which displays the specified song in a form reminiscent of sheet music. The command to view the song is as follows:
+
+    ascii song twinkle
+
+=== Opening other songs
+
+The `open` command is used for navigating to a particular song you want to edit. The syntax for the open message is as follows:
+
+`open s/SONG_NAME`
+
+Hence, you should be able to open hello with
+
+    open hello
+
+, after which you can edit it using `addbar` and view it using `ascii song`. To display both songs together, the `list` command can be used, of which the command to input is simply
+
+    list
+
+=== Grouping bars together
+
+Since music contains a lot of repeating parts, we have implemented a grouping feature so that you can group Bars together and insert them at places. To group bars together for an opened song, use the `group` command, of which the syntax is as follows:
+
+`group START_NUM END_NUM GROUP_NAME`
+
+//todo
+
+
+
+
+
