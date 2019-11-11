@@ -85,7 +85,7 @@ public class BlacklistCommand extends CommandSuper {
         try {
 
             if (getFlagMap().get("-k") != null) {
-                String movies[] = payload.split(",");
+                String[] movies = payload.split(",");
                 for (String movie : movies) {
                     if (isInteger(movie.trim(), 10)) {
                         Blacklist.addToBlacklistKeyWord(SearchResultContext
@@ -95,7 +95,7 @@ public class BlacklistCommand extends CommandSuper {
                     }
                 }
             } else {
-                String movies[] = payload.split(",");
+                String[] movies = payload.split(",");
                 for (String movie : movies) {
                     if (isInteger(movie.trim(), 10)) {
                         Blacklist.addToBlacklistMoviesID(SearchResultContext
@@ -128,7 +128,7 @@ public class BlacklistCommand extends CommandSuper {
 
         boolean stat = false;
         if (getFlagMap().get("-k") != null) {
-            String movies[] = payload.split(",");
+            String[] movies = payload.split(",");
             for (String movie : movies) {
                 if (isInteger(movie.trim(), 10)) {
                     stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext
@@ -140,7 +140,7 @@ public class BlacklistCommand extends CommandSuper {
             }
 
         } else {
-            String movies[] = payload.split(",");
+            String[] movies = payload.split(",");
             for (String movie : movies) {
                 if (isInteger(movie.trim(), 10)) {
                     stat = Blacklist.removeFromBlacklistMovies(SearchResultContext

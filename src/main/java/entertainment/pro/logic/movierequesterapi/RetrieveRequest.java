@@ -46,6 +46,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
     private static final String TO_SPECIFY_ADULT = "adult";
     private static final int MAX_FILES = 20;
+    private static final String TO_SPECIFY_NAME = "name" ;
     private static RequestListener requestListener;
     public static ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     public static SearchProfile searchProfile;
@@ -891,7 +892,7 @@ public class RetrieveRequest implements InfoFetcher {
      */
     public static boolean checkCondition(JSONObject entryInfo) {
         if (isOffline) {
-            System.out.println(entryInfo.get("name"));
+            System.out.println(entryInfo.get(TO_SPECIFY_NAME));
             if ((!(searchProfile.isAdult())) && (entryInfo.get(TO_SPECIFY_ADULT).equals(TO_SPECIFY_TRUE))) {
                 logger.log(Level.INFO, PromptMessages.FAILED_ADULT_REQUIREMENT);
                 return false;

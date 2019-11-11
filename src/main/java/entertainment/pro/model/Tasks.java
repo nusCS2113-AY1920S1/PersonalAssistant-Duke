@@ -46,19 +46,5 @@ public abstract class Tasks {
         return (done ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
-     */
-    public String parseDescription() {
-        if (type.equals("E")) {
-            String[] tokens = description.split(Pattern.quote("(at: "));
-            return tokens[0];
-        } else if (type.equals("D")) {
-            String[] tokens = description.split(Pattern.quote("(by: "));
-            return tokens[0];
-        } else {
-            return description;
-        }
-    }
 }
 

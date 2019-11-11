@@ -1,7 +1,5 @@
 package entertainment.pro.model;
 
-import entertainment.pro.logic.parsers.commands.SearchCommand;
-
 import java.util.ArrayList;
 
 public class SearchProfile extends UserProfile {
@@ -27,41 +25,19 @@ public class SearchProfile extends UserProfile {
                          ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames,
                          boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
                          String name, boolean isMovie) {
-//        super.setUserName(userName);
-//        super.setUserAge(userAge);
-//        super.setGenreIdPreference(genreIdPreference);
-//        super.setGenreIdRestriction(genreIdRestriction);
-//        super.setAdult(adult);
-//        super.setPlaylistNames(playlistNames);
-//        super.setSortByAlphabetical(sortByAlphabetical);
-//        super.setSortByHighestRating(sortByHighestRating);
-//        super.setSortByLatestRelease(sortByLatestRelease);
         super(userName, userAge, genreIdPreference, genreIdRestriction, adult, playlistNames, sortByAlphabetical,
                 sortByHighestRating, sortByLatestRelease);
         this.name = name;
         this.isMovie = isMovie;
     }
 
-    public SearchProfile() {
+    /**
+     * constructor to initialise search profile to initial state.
+     */
+    private SearchProfile() {
         this.name = "";
         this.isMovie = true;
     }
-
-
-    public SearchProfile(ArrayList<Integer> genreIdPreference,
-                         ArrayList<Integer> genreIdRestriction, boolean adult,
-                         boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
-                         String name, boolean isMovie) {
-        super.setGenreIdPreference(genreIdPreference);
-        super.setGenreIdRestriction(genreIdRestriction);
-        super.setAdult(adult);
-        super.setSortByAlphabetical(sortByAlphabetical);
-        super.setSortByHighestRating(sortByHighestRating);
-        super.setSortByLatestRelease(sortByLatestRelease);
-        this.name = name;
-        this.isMovie = isMovie;
-    }
-
 
     /**
      * Responsible for returning the name of movie/TV show that user want search results to be based on.
@@ -99,36 +75,54 @@ public class SearchProfile extends UserProfile {
                 this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), movie);
     }
 
+    /**
+     * Set genreId Preference.
+     */
     public SearchProfile setGenreIdPreference(ArrayList<Integer> genreIdPreference) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(),
                 this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(),
                 this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set genreId Restriction.
+     */
     public SearchProfile setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdRestriction,
                 this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(),
                 this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set adult.
+     */
     public SearchProfile setAdult(boolean adult) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), adult, this.getPlaylistNames(), this.isSortByAlphabetical(),
                 this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set sort by alphabetical order.
+     */
     public SearchProfile setSortByAlphabetical(boolean sortByAlphabetical) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), sortByAlphabetical,
                 this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set sort by release dates.
+     */
     public SearchProfile setSortByLatestRelease(boolean sortByLatestRelease) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
                 this.isSortByHighestRating(), sortByLatestRelease, this.getName(), this.isMovie);
     }
 
+    /**
+     * Set sort by highest ratings.
+     */
     public SearchProfile setSortByHighestRating(boolean sortByHighestRating) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
@@ -136,7 +130,7 @@ public class SearchProfile extends UserProfile {
     }
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Set search profile from userprofile.
      */
     public SearchProfile setFromUserPreference(String entryName, boolean isMovie, UserProfile userProfile) {
         SearchProfile searchProfile = new SearchProfile();
@@ -152,13 +146,13 @@ public class SearchProfile extends UserProfile {
     }
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Initialize search profile.
      */
     public SearchProfile iniitalizeBackSearchProfile() {
         SearchProfile searchProfile = new SearchProfile();
         ArrayList<Integer> newEmptyGenrePref = new ArrayList<>();
         ArrayList<Integer> newEmptyGenreRestrict = new ArrayList<>();
-        String newEmptyEntry = "";
+        final String newEmptyEntry = "";
         searchProfile = searchProfile.setGenreIdPreference(newEmptyGenrePref);
         searchProfile = searchProfile.setGenreIdRestriction(newEmptyGenreRestrict);
         searchProfile = searchProfile.setAdult(false);

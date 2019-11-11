@@ -34,7 +34,11 @@ public class BlacklistStorage {
     private InputStream inputStream;
     private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() { };
 
-    private enum BlacklistKeys { KEYS, MOVIES, ID };
+    private enum BlacklistKeys {
+        KEYS,
+        MOVIES,
+        ID
+    };
 
     /**
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
