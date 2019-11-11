@@ -22,8 +22,8 @@ public class ModuleInfoDetailed {
     private String grade = "";
     private ExamInfo[] semesterData = new ExamInfo[0];
     private String[] semester = {""};
-    private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
-        "B-", "C+", "C", "D+", "D", "F", "S", "U"));
+    private ArrayList<String> validGrades = new ArrayList<>(Arrays.asList("A+", "A", "A-", "B+", "B",
+        "B-", "C+", "C", "D+", "D", "F", "S", "U", "CS", "CU"));
 
 
     public String getModuleCode() {
@@ -70,6 +70,11 @@ public class ModuleInfoDetailed {
         return semester;
     }
 
+    //@@author andrewleow97
+    public void setModuleCredit(String moduleCredit) {
+        this.moduleCredit = moduleCredit;
+    }
+
     //@@author e0313687
     public String getGrade() {
         return grade;
@@ -80,25 +85,27 @@ public class ModuleInfoDetailed {
     }
 
     //@@author andrewleow97
-    public void setModuleCredit(String moduleCredit) {
-        this.moduleCredit = moduleCredit;
-    }
-
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
      */
     public void setGrade(String score) throws ModBadGradeException, ModBadSuException {
-        if (!validGrades.contains(score)) {
-            throw new ModBadGradeException();
-        }
-        if (score.equalsIgnoreCase("S") || score.equalsIgnoreCase("U")) {
+        if (score.equalsIgnoreCase("S")
+            ||
+            score.equalsIgnoreCase("U")
+            ||
+            score.equalsIgnoreCase("CS")
+            ||
+            score.equalsIgnoreCase("CU")) {
             if (this.attributes.isSu()) {
                 this.grade = score;
             } else {
                 throw new ModBadSuException();
             }
+        } else if (!this.validGrades.contains(score)) {
+            throw new ModBadGradeException();
+        } else {
+            this.grade = score;
         }
-        this.grade = score;
     }
 
     @Override
@@ -108,7 +115,7 @@ public class ModuleInfoDetailed {
                 + ", MC:"
                 + getModuleCredit()
                 + ", SU:"
-                + getAttributes().isSu()
+                + getAttributes().convertSu()
                 + ", grade:"
                 + getGrade();
     }

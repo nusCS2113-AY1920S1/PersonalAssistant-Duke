@@ -60,7 +60,7 @@ public class ShowCoreTest extends InputTest {
         final String test = "show core\n";
 
         final String bye = "bye";
-        provideInput("password\n" + test + bye);
+        provideInput(test + bye);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedShowModule = "_______________________________\n"

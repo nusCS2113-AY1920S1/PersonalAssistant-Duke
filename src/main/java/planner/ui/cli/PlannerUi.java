@@ -447,7 +447,7 @@ public class PlannerUi {
         }
         println("If you have completed any of these modules preclusions/co-requisites/equivalents,"
             +
-                "please add them to your module list with the appropriate grade and try again.");
+                "please add them to your module list with the same grade and try again.");
     }
 
     /**
@@ -585,7 +585,7 @@ public class PlannerUi {
                             +
                             "To do so, you can input the update command in the following format:\n"
                             +
-                            "update YEAR_SEM_1-YEAR_SEM_2 ");
+                            "update module");
     }
 
     /**
