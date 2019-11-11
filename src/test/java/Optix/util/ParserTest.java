@@ -116,19 +116,6 @@ class ParserTest {
     }
 
     @Test
-    @DisplayName("test show")
-    void testShow() {
-        Command outputCommand = null;
-        try {
-            outputCommand = testParser.parse("show");
-        } catch (OptixException e) {
-            fail("Should not throw exception");
-        }
-        assertEquals(outputCommand.getClass(), TabCommand.class);
-    }
-
-
-    @Test
     @DisplayName("test finance")
     void testFinance() {
         Command outputCommand = null;
