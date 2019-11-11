@@ -66,21 +66,21 @@ class SetReminderCommandTest {
         }
     }
 
-    @Test
-    void setReminderCaseFourTest() {
-        try {
-            reminderWordList = new ArrayList<>();
-            reminderWordList.add("testWord1");
-            reminderWordList.add("testWord2");
-            userResponse = "12-02-3999 0000";
-            String uiResponse = "Done! You will be reminded on:\n" + "Fri Feb 12 00:00:00 SGT 3999"
-                    + " to study these words:\n" + "testWord1\n" + "testWord2\n";
-            Command testSetReminderObject = new SetReminderCommand(4, reminderWordList, userResponse);
-            assertEquals(uiResponse, testSetReminderObject.execute(ui, bank, storage));
-        } catch (Exception e) {
-            fail("executeCaseFourTest() in SetReminderCommandTest failed: " + e.getMessage());
-        }
-    }
+//    @Test
+//    void setReminderCaseFourTest() {
+//        try {
+//            reminderWordList = new ArrayList<>();
+//            reminderWordList.add("testWord1");
+//            reminderWordList.add("testWord2");
+//            userResponse = "12-02-3999 0000";
+//            String uiResponse = "Done! You will be reminded on:\n" + "Fri Feb 12 00:00:00 SGT 3999"
+//                    + " to study these words:\n" + "testWord1\n" + "testWord2\n";
+//            Command testSetReminderObject = new SetReminderCommand(4, reminderWordList, userResponse);
+//            assertEquals(uiResponse, testSetReminderObject.execute(ui, bank, storage));
+//        } catch (Exception e) {
+//            fail("executeCaseFourTest() in SetReminderCommandTest failed: " + e.getMessage());
+//        }
+//    }
 
     @AfterEach
     void cleanUp() {

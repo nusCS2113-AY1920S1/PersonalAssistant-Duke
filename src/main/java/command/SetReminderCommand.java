@@ -55,6 +55,11 @@ public class SetReminderCommand extends Command {
         userResponse = userInput;
     }
 
+    /**
+     * Assigns the state to reminderSetupState variable and assigns a value from user input to userResponse.
+     * @param state the case to execute
+     * @param userInput the user input text
+     */
     public SetReminderCommand(int state, String userInput) {
         reminderSetupState = state;
         userResponse = userInput;
