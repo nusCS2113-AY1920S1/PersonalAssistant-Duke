@@ -17,6 +17,7 @@ public class DukeUi {
     private static DukeUi dukeUi;
     private String dukeResponses = "";
     private String userInput;
+    private int maxInputSize = 140;
 
     /**
      * static method to create instance of Singleton class.
@@ -61,7 +62,11 @@ public class DukeUi {
      *
      * @param userInput User input
      */
-    public void readUserInputFromGui(String userInput) {
+    public void readUserInputFromGui(String userInput) throws DukeException {
+        if (userInput.length() > maxInputSize) {
+            throw new DukeException("Your input size is too large! Please limit your input " 
+                                    + "to 140 characters.");
+        }
         this.userInput = userInput;
     }
 
