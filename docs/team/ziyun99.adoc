@@ -13,7 +13,7 @@ that allows users to view email and task details in an appealing, well-organized
 The figure below shows interface of our app:
 
 .GUI interface of Email Manager
-image::..\images\annotatedUI.png[Duke Email Manager, 600]
+image::..\images\UI(2).png[Duke Email Manager, 600]
 
 My role was mainly to design and write the codes for email managing including email showing, email tagging
 and email filtering. The following sections illustrate these enhancements in more detail, as well as the
@@ -28,16 +28,6 @@ https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=ziyun99[Summar
 
 ==== Enhancement added
 
-* Email Tagging
-** What it does: Students can tag their emails with the command `email update <index> -tag <TagName1> -tag
-<TagName2> ...`
-** Justification: By tagging the emails, students can have a clearer overview of their list of
-emails. Hence, they can attend important emails in the fastest time. This also minimizes the chances of
-missing out crucial information being informed by email.
-** Highlights: Multiple tags can be added to an email. Duplicated tags can be detected and not added to the
-email again.
-** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/82[#82]
-
 * Email Filtering by Tag(s)
 ** What it does: Students can filter the emails by the tags added with the command `email list -tag
 <TagName1> -tag <TagName2>`
@@ -45,17 +35,10 @@ email again.
 helping them to filter out relevant emails to keep their email organised.
 ** Highlights: Maximum number of input tags allowed is two, this will shows emails that are tagged with
 both tags.
-** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/97[#97] https://github.com/AY1920S1-CS2113T-F11-3/main/pull/105[#105]
-
-* Switching mode between email and task
-** What it does: Students can easily switch the mode between `email` and `task` with the command `flip`. In
-the user input text field, a prefix either `email` or `task` will be displayed with
-respect to the current mode.
-** Justification: Students will need to frequently change their input when they try to handle their tasks
-and emails, this feature allows them to navigate between both modes easily.
-** Highlights: The prefix in the user input text field is design to reduce the amount of typing required
-from the students. The prefix is non-deletable.
-** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/54[#54]
+** Code contributed:
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/97[#97]
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/105[#105]
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/194[#194]
 
 ==== Other contributions
 
@@ -84,13 +67,17 @@ https://github.com/AY1920S1-CS2113T-F11-3/main/pull/102[#102])
 view purpose (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/114[#114])
 *** Resize window to fit screen (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/71[#71])
 
-** Other functionalities or feature:
+** Other enhancement or feature:
 *** Clearing all emails feature, deleting email feature, listing email tags feature
 (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/194[#194])
 *** Listing email keywords feature
 (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/186[#186])
+*** Email Tagging feature
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/82[#82])
 *** Display of email using WebView and toggling email list view and email content view by pressing `ESC` key
 (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/71[#71])
+*** Switching mode between email and task
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/54[#54])
 *** Task detection of anomalies (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/32[#32])
 *** Basic email class implementation
 (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/48[#48]
@@ -106,12 +93,10 @@ https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#70])
 
 
 === Contributions to the User Guide
-We had to update the  User Guide with instructions for the enhancements that we had added. The following is
-an excerpt from our *Email Manager User Guide*, showing additions that I have made for the email managing
-features.
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_We have updated the User Guide with instructions for the enhancements that we had added. Given below
+are sections I contributed to the *Email Manager User Guide*. They showcase my ability to write documentation targeting end-users._
 |===
 
 ==== Change Mode: `flip`
@@ -123,6 +108,7 @@ changed.
 [NOTE]
 In task mode, the text box will display `task` as a prefix.
 In email mode, the text box will display `email` as a prefix.
+
 
 ==== Listing all emails: `list`
 Format: `list`
@@ -163,20 +149,38 @@ Format: `listTag`
 Gives a list of all existing tags in the list of emails.
 
 ==== Filtering email by tags: `list`
-Format: `list [-tag TAG1] [-tag TAG2]...`
+Format: `list [-tag TAG1] [-tag TAG2]`
 
-Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
+Gives a list of emails with the tags given. Minimum number of tags is 1, and the maximum number of tags is 2.
+
+[NOTE]
+`TAG1` *exists* if there is at least an email tagged with `TAG1`.
+
+[NOTE]
+`TAG1` and `TAG2` *co-exist* if there is at least an email tagged with both tags at the same time.
+
+[NOTE]
+Both `TAG1` and `TAG2` *exist but not co-exist* means that there is at least one email with `TAG1` and
+another email with `TAG2`, but no email is tagged with both `TAG1` and `TAG2`.
 
 Examples:
 
-`list -tag CS2113T -tag Tutorial`
+`list -tag Spam`: If `Spam` does not exist, an error will be returned. If `Spam` exists, for *each* tag
+co-existing with `Spam`, a list of emails tagged with the `co-existing tag` and `Spam` will be listed out.
 
-`list -tag Spam`
+`list -tag CS2113T -tag Tutorial`: If `CS2113T` and `Tutorial` do not co-exist, emails tagged with both
+`CS2113T` and `Tutorial` will be listed out. If no email is tagged with both tags (`CS2113T` and `Tutorial`
+do not co-exist), emails tagged with each of the tags will be listed out respectively.
+
+[TIP]
+After obtaining the list of emails with the tags, you can enter `show ITEM_NUMBER` to view the content
+of email, `ITEM_NUMBER` of an email is the index number of the email in the list.
+
 
 ==== Deleting an email: `delete`
 Format: `delete ITEM_NUMBER`
 
-Deletes the item specified.
+Deletes the email specified.
 
 Examples:
 
@@ -186,22 +190,29 @@ Examples:
 If you enter `show ITEM_NUMBER`, then followed with `delete ITEM_NUMBER`, the content of email at
 `ITEM_NUMBER` will still remains displayed although the email has been deleted.
 
+[NOTE]
+This command will only delete email from local storage. If you enter `delete 1`, after that enter `fetch`
+command, provided that the deleted email is present in your remote server, that particular email will be
+loaded into your local storage again even if you have deleted it before.
+
 ==== Clear email list: `clear`
 Format: `clear`
 
-This command deletes all emails in the list.
+This command deletes all emails in the list from local storage.
 
 [WARNING]
 Once executed, you will not be able to undo this command.
 
 [TIP]
-After clearing all the emails, you can enter `fetch` to retrieve latest emails from server.
+After clearing all the emails from local storage, you can enter `fetch` to retrieve latest 60 emails from
+server.
 
 === Contributions to the Developer Guide
-The following section shows my additions to the *Email Manager Developer Guide* for the email tagging and
-filtering by tags features.
+
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the *Email Manager Developer Guide* for the *email tagging and
+filtering by tags* features. They showcase my ability to write technical documentation and the technical
+depth of my contributions to the project._
 |===
 
 
@@ -209,10 +220,7 @@ filtering by tags features.
 *Email Manager* allows user to tag emails by tags.
 
 ===== Current Implementation
-* Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]…`​
-* Note: Tags the specified item with the tag(s) minimum number of tags is 1.
-* Eg: `email update 2 -tag Fun -tag Project` : tags 2nd email in the list with the tags "Fun" and "Project".
-
+* Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]`​
 Following is the activity diagram when the command is executed:
 
 .Activity diagram for email tagging
@@ -221,7 +229,7 @@ image::..\images\emailTagActivityDiagram.jpg[Email Tag Activity Diagram, 500]
 The following sequence diagram below will explain how the `email update` command works in detail:
 
 .Sequence diagram for email tagging
-image::..\images\emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram, 800]
+image::..\images\emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram, 700]
 
 An example usage of the command is as follows:
 
@@ -257,7 +265,7 @@ the `EmailTagCommand` to `CommandParseHelper` and then to `UI`
 ** `responseMsg` here is: +
  "Tags added: [Project, Fun] to email: <title of email at index 2>"
 
-==== Design Considerations
+===== Design Considerations
 
 Aspect: Handling updating of tags
 
@@ -271,10 +279,10 @@ Aspect: Handling updating of tags
 ** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
 ** Cons: added complexity in commands
 
-=== Email Filtering by Tag(s)
+==== Email Filtering by Tag(s)
 *Email Manager* allows user to filter emails by tag(s).
 
-==== Current Implementation
+===== Current Implementation
 * Format: `list [-tag TAG1] [-tag TAG2]…`
 * Note: Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
 * Eg: `email list -tag Fun -tag Project`
@@ -282,13 +290,12 @@ Aspect: Handling updating of tags
 Following is the activity diagram when the command is executed:
 
 .Activity diagram for email filtering by tags
-image::..\images\emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 600]
+image::..\images\emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 500]
 
 The following sequence diagram below will explain how the `email update` command works in detail:
 
 .Sequence diagram for email filtering by tags
 image::..\images\emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
-
 An example usage of the command is as follows:
 
 *Step 1* : The user launches the application. The user wishes to tag the 2nd email in the list with "Fun"
@@ -308,26 +315,31 @@ stores it in ArrayList<String> `tags`.
 * `EmailCommandParseHelper` creates a new `EmailTagListCommand` by passing in `tags`, then return
 the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
 
-*Step 3* : `EmailTagListCommand#execute(model)` is called by `UI`.
+*Step 3* : `EmailFilterByTagCommand#execute(model)` is called by `UI`.
 
-*Step 4*: `EmailTagListCommand` calls `EmailTags#displayEmailTagList(tags)`.
+*Step 4*: `EmailFilterByTagCommand` calls `EmailTags#filterByEmailTag(tags, emailList)`, which calls
+`EmailTags#getTaggedEmailList(tags, emailList)`.
 
-*Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there
+*Step 5*: `getTaggedEmailList()` checks the conditions of the each tags in `tags`, we say that a tag exists
+if there
 is email with the tag. If none of the emails has the tag, we say that the tag does not exist. We say that
 both tags co-exist if there is email tagged with both tags.
 
 ** In this example, both tags `Fun` and `Project` co-exist.
 
-*Step 6*: `EmailTags` call `TagMap.get("Fun").get("Project")`. `TagMap` returns `emailList` which is the
-email(s) tagged with both `Fun` and `Project`.
+*Step 6*: `getTaggedEmailList()` calls `TagMap.get("Fun").get("Project")`. `TagMap` returns `indexList`
+which is the *index* of all email(s) tagged with both `Fun` and `Project`.
 
-*Step 7*: `EmailTags` returns a String `responseMsg` to `EmailTagListCommand`.
+*Step 7*: `getTaggedEmailList()` constructs a String `responseMsg` containing the list of title of emails
+from the `indexList`. After that, `getTaggedEmailList()` returns the `responseMsg` to `filterByEmailTag`, then
+to `EmailFilterByTagCommand` and to the `UI`.
 
 ** `responseMsg` here is: +
 "Here is the email tagged with both #Project and #Fun: <list of title of email(s)
 with both tags>"
 
-==== Design Considerations
+
+===== Design Considerations
 
 * Alternative 1 (current choice): +
 The tags associated with emails is stored in `TagMap`:
