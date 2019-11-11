@@ -4,10 +4,14 @@ import util.date.DateTimeHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 
-import static util.constant.ConstantHelper.*;
+import static util.constant.ConstantHelper.BORDER_CORNER;
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.HORI_BORDER_UNIT;
+import static util.constant.ConstantHelper.LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN;
+import static util.constant.ConstantHelper.SPACING;
+import static util.constant.ConstantHelper.VERTI_BORDER_UNIT;
 
 //@@author seanlimhx
 public class ViewHelper {
@@ -238,17 +242,15 @@ public class ViewHelper {
             }
             if (currentMonthTasks.get(i) != null) {
                 if (i / 10 == 0) {
-                    taskLine.append(SPACING).append(" ");
-                    taskLine.append("X".repeat(Math.max(0, currentMonthTasks.get(i))));
+                    taskLine.append(SPACING).append(" ").append("X");
                 } else {
-                    taskLine.append(SPACING);
-                    taskLine.append("X".repeat(Math.max(0, currentMonthTasks.get(i))));
+                    taskLine.append(SPACING).append(" ").append("X");
                 }
             } else {
                 if (i / 10 == 0) {
                     taskLine.append(SPACING).append("  ");
                 } else {
-                    taskLine.append(SPACING).append(" ");
+                    taskLine.append(SPACING).append("  ");
                 }
             }
         }

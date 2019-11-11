@@ -1,12 +1,12 @@
 package repositorytests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 //@@author Lucria
 class ProjectRepositoryTest {
@@ -86,7 +86,7 @@ class ProjectRepositoryTest {
         simulatedUserinput = "create Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         assertEquals(projectRepository.getAll().size(), 1);
-        assertTrue(projectRepository.deleteItem(1));
+        projectRepository.deleteItem(1);
         assertEquals(projectRepository.getAll().size(), 0);
     }
 
@@ -96,7 +96,14 @@ class ProjectRepositoryTest {
             projectRepository.deleteItem(1);
         }
         assertEquals(projectRepository.getAll().size(), 0);
-        boolean isProjectDeleted = projectRepository.deleteItem(1);
-        assertFalse(isProjectDeleted);
+        String[] simulatedOutput = projectRepository.deleteItem(1);
+        String[] expectedOutput = new String[] {
+            "Error occurred! There could be three possibilities:",
+            "You could have attempted to delete a Project after renaming it's JSON file",
+            "You could have entered a Project index is out of bounds.",
+            "You could have attempted to delete the default Project loaded immediately. "
+                + "Do not panic if this was you. The default Project is deleted correctly"
+        };
+        assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }
