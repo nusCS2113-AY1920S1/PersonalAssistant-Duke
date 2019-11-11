@@ -494,7 +494,7 @@ The `/delete /card` feature aims to help users remove credit cards that they no 
 profile. This could be because the credit card has expired and they no longer wish to keep track of it.
 
 ==== Current Implementation
-The current implementation of deleting `card` allow users to remove a credit card from their profile by entering
+The current implementation of deleting `card` allows users to remove a credit card from their profile by entering
 the credit card name. Because we allow entering of card name that is case and trailing whitespace insensitive, users do
 not need to worry about typing the exact card name. Although each credit card has it's own Universal Unique Identifier
 (UUID), it is not exposed to the users because UUID is a string of 32 alphanumeric characters and it will be very
@@ -539,45 +539,45 @@ This section describes the various design considerations taken when implementing
 |======
 | *Approach* | *Pros* | *Cons*
 
-| *1.* Allowing deletion of credit cards by specifying the card name (case and trailing whitespace insensitive).
+| *1.* Allowing the deletion of credit cards by specifying the card name (case and trailing whitespace insensitive).
 
-a| * More intuitive because users typically remembers their card by it's name.
+a| * More intuitive because users typically remember their cards by its name.
 * Users do not need to worry about remembering the exact card name because it is case insensitive.
 
-a| * Harder to implement because additional functions are required for trimming of spaces from card name and also
-converting the card name to a common case for comparison.
-* Users cannot have multiple cards with same name but different cases (e.g. VISA, Visa, ViSa).
+a| * Harder to implement because additional functions are required for the trimming of spaces from card names and also
+converting it to a common case for comparison.
+* Users cannot have multiple cards with the same name but different cases (e.g. VISA, Visa, ViSa).
 
 
-| *2.* Allowing deletion of credit cards by specifying the exact card name (case and trailing whitespace sensitive).
+| *2.* Allowing the deletion of credit cards by specifying the exact card name (case and trailing whitespace sensitive).
 
-a| * Allows for multiple cards to have the same name with different cases (e.g. VISA, Visa, ViSa).
+a| * It allows for multiple cards to have the same name with different cases (e.g. VISA, Visa, ViSa).
 
-a| * User may forget their exact card name because it is difficult to remember multiple variations of the same names
+a| * Users may forget their exact card name because it is difficult to remember multiple variations of the same names
 with different cases.
-* User will be more prone to deleting a wrong card because card with same name but different cases may look alike.
+* Users will be more prone to deleting a wrong card because cards with the same name but different cases may look alike.
 
 
-| *3.* Allowing deletion of credit cards by specifying the card's order number.
-a| * Easiest to implement because we can directly remove the card from the array list using it's index number.
+| *3.* Allowing the deletion of credit cards by specifying the card's order number.
+a| * Easiest to implement because we can directly remove the card from the array list using its index number.
 
-a| * Unintuitive for user because they have to remember the card's order number. If they forget the order number,
-they will have to `list` the credit cards to find out it's order number.
+a| * Unintuitive for the user because they have to remember the card's order number. If they forget the order number,
+they will have to `list` the credit cards to find out its order number.
 
 
-| *4.* Allowing deletion of credit cards by specifying the card's UUID.
+| *4.* Allowing the deletion of credit cards by specifying the card's UUID.
 a| * Easy to implement because we do not have to worry about case sensitiveness.
 
-a| * Unintuitive for user because they will be unable to remember a random 32 character alphanumeric string.
+a| * Unintuitive for the user because they will be unable to remember a random 32 character alphanumeric string.
 
 |======
 
-After careful considering and weighing of pros and cons, we decided to use *approach 1*.
+After careful consideration and weighing of pros and cons, we decided to use *approach 1*.
 
 Although approach 1 is the hardest to implement, it is the most intuitive for users because they do not need to
-memorise unnecessary order number, random 32 characters alphanumeric string, or the exact name. In addition, we have
-decided for cards to have case insensitive names, so that users cannot add cards with same name but different cases.
-Therefore, since card names are case insensitive , it make sense for users to expect case insensitive names
+memorise unnecessary order numbers, random 32 characters alphanumeric string, or the exact name. In addition, we have
+decided for cards to have case insensitive names, so that users cannot add cards with the same name but different cases.
+Therefore, since card names are case insensitive, it makes sense for users to expect case insensitive names
 in the command.
 
 // end::DeleteCreditCard_SequenceDiagram[]

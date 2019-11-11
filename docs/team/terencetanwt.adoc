@@ -20,20 +20,26 @@ endif::[]
 
 == Introduction
 
-Hello there, I am Terence. I am currently pursuing a degree in Information Security at the National University of
+I am Terence, currently pursuing a degree in Information Security at the National University of
 Singapore (NUS). +
 This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software Engineering &
-Object-Oriented Programming.
+Object-Oriented Programming. It aims to demonstrate the theoretical and practical knowledge I have gained in this
+module over the semester.
 
 == About the Project
 
-My team and I were tasked with enhancing the basic command line interface (CLI) personal assistant,
+My team (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+) and I were tasked with enhancing the basic command line interface (CLI) personal assistant,
 Duke, for our software engineering project. We choose to morph it into a command line financial tracker called
 *OwlMoney*. This enhanced application is designed to assist undergraduates and fresh graduates to track and manage
 their finances. *OwlMoney* provides a simple and minimalistic CLI that presents information in an organized manner.
 It is intuitive so that users who are unfamiliar with CLI can use it with ease.
 
-My role was to design and write codes for the `card` feature, which allow users to track and manage
+My role was to design and write codes for the `card` feature, which allows users to track and manage
 their credit cards. The following sections illustrate the enhancements in detail, and also the relevant
 information that I have added to the user and developer guide with reference to the enhancements.
 
@@ -48,12 +54,12 @@ and other helpful contributions.
 
 ==== Features Implemented: Ability to Manage Credit Cards
 
-* *What it does*: The `card` feature has `add`, `delete`, `edit`, and `list` commands which helps users manage
+* *What it does*: The `card` feature has `add`, `delete`, `edit`, and `list` commands which help users manage
 their credit cards.
-* *Justification*: Due to the popularity of credit cards, many people including students has one.
-Because different cards provide different benefits, some people owns several cards.
+* *Justification*: Due to the popularity of credit cards, many people including students have one.
+Because different cards provide different benefits, some people own several cards.
 This feature gives users the ability to manage their credit cards.
-* *Highlights*: In line with real credit cards, users will be able to set their monthly spending limit
+* *Highlights*: In line with real credit cards, users will be able to set their monthly spending limits
 and rebates.
 * *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the /edit function.
 
@@ -61,12 +67,12 @@ and rebates.
 
 * *What it does*: Each `card` is able to `add`, `delete`, `edit`, and `list` card expenditures which
 helps users manage their credit card spending.
-* *Justification*: Many people enjoys the convenience of credit cards that allows them  to purchase things
+* *Justification*: Many people enjoys the convenience of credit cards that allows them to purchase things
 on credit and making payment at the end of the month.
-In addition, most credit cards also has benefits such as reward points or rebates.
+In addition, most credit cards also have benefits such as reward points or rebates.
 This feature will allow users to track and manage their credit card expenditures on each of their cards.
-* *Highlights*: In line with a real credit cards, users will have to abide by their monthly card limit
-when adding expenditures. When a particular card has reached its monthly limit, user will no longer be able to
+* *Highlights*: In line with real credit cards, users will have to abide by their monthly card limit
+when adding expenditures. When a particular card has reached its monthly limit, the user will no longer be able to
 add any expenditures to the card for that particular month.
 * *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the `add` and `list`
 card expenditures function.
@@ -75,7 +81,7 @@ card expenditures function.
 
 * *What it does*: Each `card` is able to `add` and `delete` credit card bill payment to their savings account,
 so that users can keep track of their monthly credit card bill in their savings account expenditures.
-* *Justification*: At the end of every month, users are expected to pay their credit card bill.
+* *Justification*: At the end of every month, users are expected to pay their credit card bills.
 Thus, this feature will allow users to keep track of their monthly credit card bills and
 rebates in their savings account.
 * *Highlights*: When making a credit card bill payment, the credit card rebates will automatically
@@ -125,18 +131,17 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamus
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
 ).
 
-* User Guide (UG)
-** Contributed and wrote the sections for all parts of
+* Contributed and wrote the sections for all parts of
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#Features[Features] and
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#command-summary[Command Summary]
-while collaborating with everyone (
+in the User Guide (UG) while collaborating with everyone (
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
 ).
 
-** Contributed and wrote the sections for all part of
+* Contributed and wrote the sections for all part of
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#design++[Design],
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide
 .adoc#implementation++[Implementation],
@@ -146,20 +151,22 @@ link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/Developer
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases], and
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#instructions-
 for-manual-testing++[Instructions for
-Manual Testing] while collaborating with everyone (
+Manual Testing] in the Developer Guide (DG) while collaborating with everyone (
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
 ).
 
-* Helped team members debug issues related to parser and also performed regression testing of their codes.
+* Helped team members debug issues related to parser class and also performed regression testing of their codes.
 
 ==== Documentation
-* Came up with the initial set of User Stories and Use Cases for the Developer Guide.
+* Wrote the initial set of User Stories and Use Cases for the Developer Guide.
 * Vetted and resolved User Guide and Developer Guide errors.
 
 ==== Community
+* Helped another team to resolve issues with their program on the forum
+(link:https://github.com/nusCS2113-AY1920S1/forum/issues/95[#95])
 * Reported bugs in another team's project, link:https://github.com/AY1920S1-CS2113T-W13-3/main[SGTravel] (
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/176[#176],
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/177[#177],
@@ -174,8 +181,9 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valeri
 
 == Contributions to the User Guide
 
-I wrote the sections of the user guide related to the `card` function. The following contains an excerpt from our
-*OwlMoney* link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide],
+I wrote various sections of the user guide, including sections related to the `card` function. The following contains
+an excerpt from our *OwlMoney*
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide],
 showing additions that I have made for the `card` function.
 
 === Credit Card Management
@@ -216,13 +224,13 @@ Take note that there is a maximum of *30* character limit.
 | `YEARMONTH` should be in *MM/YYYY* format and cannot be ahead of the current month.
 |======
 
-=== Credit Card Bill Management Commands: `/cardbill`
+==== Credit Card Bill Management Commands: `/cardbill`
 
-==== Adding Credit Card Bill to Savings Account `/add /cardbill`
+===== 4.1.1.1. Adding Credit Card Bill to Savings Account `/add /cardbill`
 
 include::../UserGuide.adoc[tag=AddCreditCardBill_Command]
 
-==== Deleting Credit Card Bill from Savings Account `/delete /cardbill`
+===== 4.1.1.2. Deleting Credit Card Bill from Savings Account `/delete /cardbill`
 
 include::../UserGuide.adoc[tag=DeleteCreditCardBill_Command]
 
