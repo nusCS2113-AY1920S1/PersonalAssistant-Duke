@@ -48,7 +48,11 @@ public class SearchResults extends DukeObject {
     }
 
     public void addAll(SearchResults other) {
-        searchList.addAll(other.searchList);
+        for (DukeObject obj : other.searchList) {
+            if (!searchList.contains(obj)) {
+                searchList.add(obj);
+            }
+        }
     }
 
     public int getCount() {
