@@ -2315,7 +2315,7 @@ user*
 
 `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
 
-| *Finding recurring expenditure records within a specified savings account account that matches with the keyword
+| *Finding recurring expenditure records within a specified savings account that matches with the keyword
 specified by the user*
 | List the recurring expenditure records within a specified savings account that matches with the keyword specified.
 | `/find /recurbankexp /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY]`
