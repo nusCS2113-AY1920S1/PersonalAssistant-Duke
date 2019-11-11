@@ -1,85 +1,35 @@
 {
   "2019-11-11": [
     {
-      "description": "burger",
+      "description": "kueh",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 100
+        "calorie": 300
       },
-      "costStr": "2.5"
+      "costStr": "0"
     },
     {
-      "description": "burger",
+      "description": "fried rice",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": true,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "casdasd",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 1000
-        "sodium": 20,
-        "calorie": 600
-      },
-      "costStr": "0"
-    },
-    {
-      "description": "burger",
-      "type": "L",
-      "mealType": "LUNCH",
-      "isDone": false,
-      "date": "2019-11-11",
-      "nutritionValue": {
-        "calorie": 600
-      },
-      "costStr": "0"
-    }
-  ],
-  "2019-11-10": [
-    {
-      "mealPreferenceParameter": "calorie",
-      "description": "Turkey Bacon Burger",
-      "type": "L",
-      "isDone": false,
-      "date": "2019-11-11",
-      "nutritionValue": {
-        "calorie": 400
-      },
-      "costStr": "0"
-    },
-    {
-      "mealPreferenceParameter": "calorie",
-      "description": "Turkey Bacon Burger",
-      "type": "L",
-      "isDone": false,
-      "date": "2019-11-11",
-      "nutritionValue": {
-        "calorie": 400
-      },
-      "costStr": "0"
-    }
-  ],
-  "2019-11-10": [
-    {
-      "description": "keuh",
-      "type": "B",
-      "mealType": "BREAKFAST",
-      "isDone": false,
-      "date": "2019-11-10",
-      "nutritionValue": {
-        "calorie": 250
-      },
-      "costStr": "20"
-    },
-    {
-      "description": "mee sotong",
-      "type": "D",
-      "mealType": "DINNER",
-      "isDone": false,
-      "date": "2019-11-10",
-      "nutritionValue": {
-        "calorie": 240
+        "calorie": 300
       },
       "costStr": "0"
     }

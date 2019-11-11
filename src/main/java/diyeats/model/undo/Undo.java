@@ -63,7 +63,6 @@ public class Undo {
             throw new ProgramException("There is no previous command to undo.");
         }
         String temp = history.pop();
-        System.out.println(temp);
         String[] execution = temp.split(" ",2);
         String type = execution[0];
         String info = execution[1];
@@ -162,6 +161,11 @@ public class Undo {
         temp += "/date " + meal.getDate().format(dateFormat);
         if (!meal.getCostStr().equals("0")) {
             temp += "/cost " + meal.getCostStr();
+        }
+        if (meal.getIsDone()) {
+            temp += "," + 1;
+        } else {
+            temp += "," + 0;
         }
         history.push(temp);
     }
@@ -272,10 +276,14 @@ public class Undo {
                 if (!meal.getCostStr().equals("0")) {
                     mealInfo += "/cost " + meal.getCostStr();
                 }
+                if (meal.getIsDone()) {
+                    mealInfo += "," + 1;
+                } else {
+                    mealInfo += "," + 0;
+                }
                 temp += mealInfo + "|";
             }
         }
-        System.out.println(temp);
         history.push(temp);
     }
 
@@ -390,7 +398,9 @@ public class Undo {
      */
 
     public void addBreakfast(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
-        AddCommand c = new AddBreakfastCommandParser().parse(toBeParsed);
+        String[] lineSplit = toBeParsed.split(",");
+        AddCommand c = new AddBreakfastCommandParser().parse(lineSplit[0]);
+        c.setIsDone(lineSplit[1]);
         c.undo(meals, storage, user, wallet);
     }
 
@@ -404,7 +414,9 @@ public class Undo {
      */
 
     public void addLunch(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
-        AddCommand c = new AddLunchCommandParser().parse(toBeParsed);
+        String[] lineSplit = toBeParsed.split(",");
+        AddCommand c = new AddBreakfastCommandParser().parse(lineSplit[0]);
+        c.setIsDone(lineSplit[1]);
         c.undo(meals, storage, user, wallet);
     }
 
@@ -418,7 +430,9 @@ public class Undo {
      */
 
     public void addDinner(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
-        AddCommand c = new AddDinnerCommandParser().parse(toBeParsed);
+        String[] lineSplit = toBeParsed.split(",");
+        AddCommand c = new AddBreakfastCommandParser().parse(lineSplit[0]);
+        c.setIsDone(lineSplit[1]);
         c.undo(meals, storage, user, wallet);
     }
 

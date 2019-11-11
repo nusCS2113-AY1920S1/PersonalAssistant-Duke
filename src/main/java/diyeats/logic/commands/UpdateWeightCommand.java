@@ -1,6 +1,7 @@
 package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
+import diyeats.logic.parsers.InputValidator;
 import diyeats.model.meal.MealList;
 import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
@@ -53,6 +54,7 @@ public class UpdateWeightCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the undo object which holds the history of inverse changes to be undone
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
@@ -143,8 +145,13 @@ public class UpdateWeightCommand extends Command {
      * @param response user input response
      */
 
-    public void setResponseStr(String response) {
-        this.responseStr = response.toLowerCase().substring(0,1);
+    public void setResponseStr(String response) throws ProgramException{
+        try {
+            InputValidator.validate(response);
+            this.responseStr = response.toLowerCase().substring(0,1);
+        } catch (ProgramException e) {
+            throw new ProgramException("Please enter a proper input.(Y/N)");
+        }
     }
 
     /**
