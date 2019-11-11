@@ -5,6 +5,9 @@ import duke.logic.command.shopping.ClearShoppingCommand;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code ClearShoppingCommand}.
+ */
 public class ClearShoppingCommandParser implements Parser<ClearShoppingCommand> {
 
     @Override

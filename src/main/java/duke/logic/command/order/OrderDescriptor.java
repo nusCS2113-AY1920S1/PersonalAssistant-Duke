@@ -17,7 +17,7 @@ import static duke.model.order.Customer.isValidCustomerContact;
 import static duke.model.order.Customer.isValidCustomerName;
 
 /**
- * A class that stores the details an order.
+ * A class that stores the details of an order.
  */
 public class OrderDescriptor {
     private String customerName;

@@ -6,6 +6,9 @@ import java.util.Objects;
 import static duke.commons.util.AppUtil.checkArgument;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents an ingredient in BakingHome.
+ */
 public class Ingredient {
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 

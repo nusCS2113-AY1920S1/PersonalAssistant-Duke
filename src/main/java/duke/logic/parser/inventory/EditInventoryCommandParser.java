@@ -13,6 +13,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 import static duke.logic.parser.inventory.InventoryParserUtil.createInventoryDescriptor;
 
+/**
+ * A parser that parses {@code EditInventoryCommand}.
+ */
 public class EditInventoryCommandParser implements Parser<EditInventoryCommand> {
 
     private static final String MESSAGE_EMPTY_INDEX = "Index cannot be empty.";

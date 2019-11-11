@@ -10,6 +10,9 @@ import duke.logic.command.inventory.ShowInventoryCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code InventoryCommand}.
+ */
 public class InventoryCommandParser implements SubCommandParser<InventoryCommand> {
 
     @Override

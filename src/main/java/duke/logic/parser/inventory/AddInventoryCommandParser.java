@@ -14,6 +14,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 
+/**
+ * A parser that parses {@code AddInventoryCommand}.
+ */
 public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
 
     private static final String DEFAULT_QUANTITY = "0.0";
