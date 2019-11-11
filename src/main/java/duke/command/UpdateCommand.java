@@ -70,7 +70,7 @@ public class UpdateCommand extends Command {
                     } else {
                         newtaskObj = new Todo(items.get(index).getDescription());
                     }
-                } else if (typeDesc.equals("deadline")) {
+                } else if (typeDesc.equals("deadline") || typeDesc.equals("dl")) {
                     if (items.get(index) instanceof Deadline) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (Deadline)";
                     } else {
@@ -80,7 +80,7 @@ public class UpdateCommand extends Command {
                         newtaskObj = new Deadline(items.get(index).getDescription(), datetimeStr);
                         str += "     The date and time will be set to current date/time by default.\n";
                     }
-                } else if (typeDesc.equals("fixedduration")) {
+                } else if (typeDesc.equals("fixedduration") || typeDesc.equals("fd")) {
                     if (items.get(index) instanceof FixedDuration) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (FixedDuration)";
                     } else {

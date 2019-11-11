@@ -173,7 +173,8 @@ public class HelpWindow extends AnchorPane {
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("friendlier syntax")) {
                     getDescription.setText(" Alternative shortened commands for inputting the equivalent commands.\n"
                                             + " Format is as follows : | command: shortened cmd |");
-                    getFormat.setText(" | deadline: dl | fixedduration: fd | setpriority: sp | findpriority: fp |\n"
+                    getFormat.setText(" | deadline: dl | fixedduration: fd | setpriority: sp |"
+                            + " findpriority: fp | priority: lp |\n"
                             + " | addcontacts: ac | listcontacts: lc | deletecontacts: dc | findcontacts: fc |\n"
                             + " | budget add: budget + | budget minus: budget - | budget view: budget list |\n");
                     getExample.setText(" ac Prof Lim, 81234567, limkopi@nus.edu.sg, Singapore \n"
