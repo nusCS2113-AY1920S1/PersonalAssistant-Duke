@@ -258,6 +258,25 @@ The user is able to set the budget for concerts of each month by using the `budg
 Format: `budget set <new budget>` +
 FOR example, `budget set 87` will set the budget for every month to $87.
 
+=== Instruments handling : `instruments`
+This function allows the user to store maintenance information about the instruments that the user possesses.
+
+==== Adding an instrument
+`instrument add /<instrument name>`
+This adds an instrument named `<instrument name>` to the list of instruments stored in the system.
+
+==== Viewing list of instruments stored in the system
+`instrument view instruments`
+This lists out the instruments stored in the system in order of their indexes.
+
+==== Servicing an instrument
+`instrument service <instrument index> /<brief description of servicing> /<date>`
+This adds the information that the instrument with instrument index `<instrument index>` is serviced on `<date>`.
+
+==== Viewing list of instruments stored in the system
+`instrument view services <instrument index>`
+This lists out the servicing done to the instrument with instrument index `<instrument index>`.
+
 === Exiting the program : `bye`
 
 Exits the program. +
