@@ -1,16 +1,14 @@
 package templates;
 
 import duke.DukeCore;
-import duke.data.storage.GsonStorage;
 import duke.data.PatientData;
+import duke.data.storage.GsonStorage;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -19,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public abstract class CommandTest {
     protected static DukeCore core;
-    protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
-    protected static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
     protected static final String testFilePath = "data" + File.separator + "test.json";
 
     /**
@@ -45,8 +41,6 @@ public abstract class CommandTest {
     @AfterEach
     public void clearPatientMap() {
         core.patientData = new PatientData();
-        testPrint.flush();
-        testOut.reset();
     }
 
     /**

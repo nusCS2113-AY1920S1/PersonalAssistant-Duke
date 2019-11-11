@@ -33,10 +33,20 @@ public class DukeCore extends Application {
     public PatientData patientData;
     public ObjCommand queuedCmd;
 
-    /**
-     * Constructs a DukeCore object with the specified stdtestout.
-     */
     public DukeCore() {
+        ui = new UiManager(this);
+        uiContext = new UiContext();
+
+        try {
+            storage = new GsonStorage(storagePath);
+            patientData = new PatientData(storage);
+            setupLoggers();
+        } catch (DukeFatalException e) {
+            ui.showErrorDialogAndShutdown("Error encountered!", e);
+        }
+    }
+
+    public DukeCore(String storagePath) {
         ui = new UiManager(this);
         uiContext = new UiContext();
 
@@ -53,8 +63,6 @@ public class DukeCore extends Application {
      * Displays a set of search results, while storing a {@link ObjCommand} object (the one that calls the search),
      * so that it can resume execution after receiving the search results. Note that {@code queuedCmd} is saved between
      * invocations and cannot be used as a marker for command execution.
-     *
-     * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void search(SearchResults results, ObjCommand objCmd) {
         queuedCmd = objCmd;

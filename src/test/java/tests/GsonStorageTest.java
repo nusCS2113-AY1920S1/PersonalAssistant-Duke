@@ -14,7 +14,11 @@ import templates.CommandTest;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -171,7 +175,6 @@ public class GsonStorageTest extends CommandTest {
     /**
      * Tests if patients are transformed from the hash map to the json file properly.
      */
-    /*
     @Test
     public void writeJsonFileTest() throws IOException, DukeException {
         core.patientData = core.storage.resetAllData();
@@ -182,10 +185,9 @@ public class GsonStorageTest extends CommandTest {
         core.patientData.addPatient(createComplexPatient());
         core.storage.writeJsonFile(core.patientData.getPatientList());
         String json = Files.readString(Paths.get(testFilePath), StandardCharsets.US_ASCII);
-        int i = json.length() / 2;
-        assertEquals(expected.substring(0, i), json.substring(0, i));
-        assertEquals(expected.substring(i, json.length() - 1), json.substring(i, json.length() - 1));
-    }*/
+        printDifferences(expected, json);
+        assertEquals(expected, json);
+    }
 
     /**
      * Creates the Json representation of a dummy patient. Then recreates the patient objects based on what
