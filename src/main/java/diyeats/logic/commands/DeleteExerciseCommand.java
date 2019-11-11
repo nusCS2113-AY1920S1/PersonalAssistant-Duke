@@ -44,6 +44,7 @@ public class DeleteExerciseCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {

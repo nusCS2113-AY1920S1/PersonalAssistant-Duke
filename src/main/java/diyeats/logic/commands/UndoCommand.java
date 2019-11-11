@@ -7,6 +7,7 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
+//@@author koushireo
 /**
  * AddCommand is a public class that inherits from abstract class Command.
  * An AddCommand object encapsulates the current meal that is to be added.
@@ -30,7 +31,9 @@ public class UndoCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
+
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         try {
             String answer = undo.execute(meals, storage, user, wallet);

@@ -68,16 +68,18 @@ public class ListCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
-        ui.showLine();
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         if (!meals.checkDate(currentDate)) {
             ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
         }
-        undo.undoSort(currentDate);
+        if (!sortBy.equals("default")) {
+            undo.undoSort(currentDate);
+        }
         switch (sortBy) {
             case "calorieAscending":
                 currentMeals.sort(new SortMealByCalorie());
@@ -97,7 +99,6 @@ public class ListCommand extends Command {
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
         ui.showExerciseOnDate(meals.getExerciseList(), currentDate);
-        ui.showLine();
     }
 
     public void undo(MealList meals,  Storage storage, User user, Wallet wallet) {

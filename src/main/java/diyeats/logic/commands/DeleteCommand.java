@@ -57,10 +57,10 @@ public class DeleteCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
-        ui.showLine();
         if (index < 0 || index >= meals.getMealsList(deleteDate).size()) {
             String errorMsg = "Index provided out of bounds for list of meals on the indicated date. ";
             if (meals.getMealsList(deleteDate).size() == 0) {
@@ -79,7 +79,6 @@ public class DeleteCommand extends Command {
                 ui.showMessage(e.getMessage());
             }
         }
-        ui.showLine();
     }
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {

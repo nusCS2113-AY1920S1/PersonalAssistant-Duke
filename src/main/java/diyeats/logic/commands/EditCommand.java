@@ -66,6 +66,7 @@ public class EditCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
@@ -78,7 +79,6 @@ public class EditCommand extends Command {
         Meal updatedMeal = getUpdatedMeal(oldMeal, this.nutritionInfoMap);
         meals.updateMealList(localDate, mealIndex, updatedMeal);
 
-        ui.showLine();
         try {
             LocalDate date = updatedMeal.getDate();
             ui.showUpdated(oldMeal, updatedMeal, meals.getMealsList(updatedMeal.getDate()), user, date);
@@ -86,6 +86,5 @@ public class EditCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showLine();
     }
 }
