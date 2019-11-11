@@ -344,7 +344,7 @@ The suffix `-m` indicates member index numbers, while `-t` indicates tasks index
 The keyword `all` can be used to show the assignments for all members, or all tasks. It is recommended
 to use this keyword if the user would like to get an overview of all the assignments in the project.
 
-* Format: view assignments MODIFIER
+* Format: `view assignments MODIFIER`
 * Examples:
 ** `view assignments -m all`    | view tasks assigned to all members.
 ** `view assignments -m 1 2 3`  | view tasks assigned to members 1, 2 and 3.
