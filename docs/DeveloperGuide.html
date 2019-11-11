@@ -788,7 +788,7 @@ and store them correspondingly into 7 queues, representing the 7 days. This is f
 <p>It initiates an empty string to store all info of the calendar and for later printing.</p>
 </li>
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-128">
-<p>It puts the header of he table into the string.</p>
+<p>It puts the header of the table into the string.</p>
 </li>
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-129">
 <p>It puts the days of week and dates info into the string.</p>
@@ -1618,8 +1618,8 @@ of days is 3 by default.</p>
 <p>After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the
 Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
 EventList.filteredList method to filter out a list of events that are due or are happening before 2359 the input number
-of days after the current date. The EventList.filteredList method filters out events from the stored list of events
-according to a certain input predicate.</p>
+of days after the current date. The EventList.filteredListTwoPredicates method filters out events from the stored list of
+events according to two input predicates.</p>
 </div>
 <div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-601">
 <p>The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the
@@ -1629,25 +1629,26 @@ The Predicate.check method takes in an input and checks if reference (comp) inpu
 in the Predicate class depending on the type of the reference and input.</p>
 </div>
 <div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-607">
-<p>In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to
-2359 the input number of days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder
-method calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of
-Events in <code>eventArrayList</code>.The EventDate object stored in the Event object is passed into the Predicate.check method. If the
-EventDate object stored in the Event object is a date before the reference date, the Predicate.check method returns true
-and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
-EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time,
-the date and time at 2359 the input number of days after the current date, and the filtered list of events. This string is
-printed to stdout in the Ui.printReminders function.</p>
+<p>In the EventList.getReminder method, the reference of the one of the two input Predicate objects is an eventDate object set to
+2359 the input number of days after the current date, and the comparator is GREATER_THAN. The reference of the other
+input Predicate object is an eventDate object set to the current time. After that, the EventList.getReminder
+method calls the EventList.filteredListTwoPredicates method. In the EventList.filteredListTwoPredicates method, the system
+iterates through the list of Events in <code>eventArrayList</code>.The EventDate object stored in the Event object is passed into the
+Predicate.check method. If the EventDate object stored in the Event object is a date before the reference date, the Predicate.check
+method returns true and the Event object is added to the output. After all the elements in EventList.filteredListTwoPredicates are
+parsed and the EventList.filteredListTwoPredicates method terminates, EventList.getReminder method returns a string containing the
+current date and time, the date and time at 2359 the input number of days after the current date, and the filtered list of events.
+This string is printed to stdout in the Ui.printReminders function.</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-617">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-618">
 <h4 id="_sequence_diagram_6">3.10.2. Sequence diagram</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-618">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-619">
 <p>The following sequence diagram shows how the reminder functionality works.</p>
 </div>
-<div class="exampleblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-619">
+<div class="exampleblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-620">
 <div class="content">
-<div class="imageblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-620">
+<div class="imageblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-621">
 <div class="content">
 <img src="images/reminderSequenceDiagram.png" alt="reminderSequenceDiagram">
 </div>
@@ -1655,118 +1656,118 @@ printed to stdout in the Ui.printReminders function.</p>
 </div>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-623">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-624">
 <h4 id="_why_it_is_implemented_this_way_3">3.10.3. Why it is implemented this way</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-624">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-625">
 <p>The reminder function is split the various components into different methods for easier testing. In this case, Ui.printReminders
 prints the output to the user interface, EventList.getReminder is responsible for compiling the output whereas EventList.filteredList
 obtains the filtered list of events from <code>eventArrayList</code>.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-628">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-629">
 <p>This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
 functions.</p>
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-631">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-632">
 <h3 id="_instruments">3.11. Instruments</h3>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-633">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-634">
 <h4 id="_how_it_is_implemented_4">3.11.1. How it is implemented</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-634">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-635">
 <p>The mistermusik.commons.Instruments.InstrumentList class stores an array list of instruments. Instruments are objects of class
 mistermusic.commons.Instruments.Instrument. Each instance of the mistermusic.commons.Instruments.Instrument class also has an
 array list of services. Services are objects of class mistermusic.commons.Instruments.Services.</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-638">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-639">
 <h4 id="_adding_an_instrument">3.11.2. Adding an instrument</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-640">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-641">
 <p>Step 1: The user will type in the command <code>instrument add /&lt;instrument name&gt;</code>. The addInstrument() method from the InstrumentList
 class is called.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-643">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-644">
 <p>Step 2: The addInstrument() method creates a new instance of Instrument with the given input name.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-645">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-646">
 <p>Step 3: The getInstrumentIndexAndName() method, which returns a string containing the index of the instrument and the name, is
 called.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-648">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-649">
 <p>Step 4: The instrumentAdded() method from the Ui class is then called, which prints a message stating that the instrument has
 been added.</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-651">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-652">
 <h4 id="_viewing_the_list_of_instruments_stored_in_the_system">3.11.3. Viewing the list of instruments stored in the system</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-653">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-654">
 <p>Step 1: The user will type in the command <code>instrument view instruments</code>. The getInstruments() method from the InstrumentList
 class is called.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-656">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-657">
 <p>Step 2: The getInstruments() method returns a string containing a list of instruments stored in the InstrumentList instance used
 for the program.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-659">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-660">
 <p>Step 3: The printInstruments() method from the Ui class is then called, which prints out the list of instruments stored in the
 InstrumentList instance used for the program.</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-662">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-663">
 <h4 id="_servicing_an_instrument">3.11.4. Servicing an instrument</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-664">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-665">
 <p>Step 1: The user will type in the command <code>instrument service &lt;instrument index&gt; /&lt;brief description of servicing&gt; /&lt;date&gt;</code>.
 The service() method from the InstrumentList instance is called.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-667">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-668">
 <p>Step 2: The service() method of the InstrumentList instance calls the addService() method of the referenced Instrument stored in the
 InstrumentList instance based on the input index.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-670">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-671">
 <p>Step 3: The addService() method adds the relevant servicing information to the Instrument instance by creating a new ServiceInfo
 instance and adding it to the array list of ServiceInfo stored in the Instrument instance, and returns the number of ServiceInfo
 instances stored in the array list.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-674">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-675">
 <p>Step 4: The getInstrumentIndexAndName() method of the InstrumentList instance, which returns a string containing the index of
 the instrument and the name, is called.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-677">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-678">
 <p>Step 5: The getIndexAndService() method of the InstrumentList instance is called, which in turn calls the getIndexAndService()
 method of the relevant Instrument instance stored in the InstrumentList instance used for the program. Both methods return the
 index of the required servicing and the brief description of the servicing. The getIndexAndService() method of the Instrument
 instance calls the getServiceInfo() method on the relevant service to obtain the brief description of the servicing.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-682">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-683">
 <p>Step 6: The serviceAdded() method of the Ui class, which prints a message notifying the user that the servicing information has
 been added, is then called.</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-685">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-686">
 <h4 id="_viewing_the_list_of_servicing_done_for_a_particular_instrument">3.11.5. Viewing the list of servicing done for a particular instrument</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-687">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-688">
 <p>Step 1: The user will type in the command <code>instrument view services &lt;instrument index&gt;</code>. The getInstrumentServiceInfo() method from
 the InstrumentList class is called, which in turn calls the getServiceInfos() method of the relevant Instrument instance stored in
 the array list of Instruments in the InstrumentList instance. Both methods return the list of servicing done to the relevant
 instrument. The getServiceInfos() function iterates through the stored list of ServiceInfo instances and calls getServiceInfo() on
 all the ServieInfo instances to obtain the descriptions of the servicings.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-693">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-694">
 <p>Step 2: The getInstrumentIndexAndName() method of the InstrumentList instance, which returns a string containing the index of
 the instrument and the name, is called.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-696">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-697">
 <p>Step 3: The printServices() method from the Ui class is then called, which prints out the list of servicing stored in a particular
 Instrument instance.</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-699">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-700">
 <h4 id="_sequence_diagram_7">3.11.6. Sequence diagram</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-700">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-701">
 <p>The following sequence diagram shows how the view services functionality works.</p>
 </div>
-<div class="exampleblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-701">
+<div class="exampleblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-702">
 <div class="content">
-<div class="imageblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-702">
+<div class="imageblock has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-703">
 <div class="content">
 <img src="images/getServicesInstrumentSequenceDiagram.png" alt="getServicesInstrumentSequenceDiagram">
 </div>
@@ -1774,9 +1775,9 @@ Instrument instance.</p>
 </div>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-705">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-706">
 <h4 id="_why_it_is_implemented_this_way_4">3.11.7. Why it is implemented this way</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-706">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-707">
 <p>The implementation makes use of three classes, which are InstrumentList, Instrument and ServiceInfo. This allows for easier
 testing as each of the classes represent a different component of the functionality. The InstrumentList instance stores an array
 list of Instrument instances, an Instrument instance stores an array list of ServiceInfo instances.</p>
@@ -1785,13 +1786,13 @@ list of Instrument instances, an Instrument instance stores an array list of Ser
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-711">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-712">
 <h2 id="_documentation">4. Documentation</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-712">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-713">
 <p>We use asciidoc for writing documentation.</p>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-714">
+<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-715">
 <table>
 <tr>
 <td class="icon">
@@ -1806,24 +1807,24 @@ in formatting.
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-717">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-718">
 <h2 id="_testing">5. Testing</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-718">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-719">
 <p>The testing for our application is done through Junit tests (also viable to run these through gradle) and
 manual testing, covered in <a href="#_instructions_for_manual_testing">Appendix E: Instructions for manual testing</a></p>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-721">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-722">
 <h3 id="_junit_testing">5.1. Junit testing</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-722">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-723">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-722">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-723">
 <p>IntelliJ: Simply right click the src/test/java directory and select <code>Run 'Tests in 'seedu.duke&#8230;&#8203;'</code> or right
 click the individual test class you wish to run, and select <code>Run 'BudgetTest'</code> for example when testing
 individual components. This can also be done through the Gradle sidebar (double click the corresponding test
 under <code>run configurations</code>).</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-726">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-727">
 <p>Command prompt: Simply type the command <code>gradlew clean test</code></p>
 </li>
 </ol>
@@ -1831,15 +1832,15 @@ under <code>run configurations</code>).</p>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-728">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-729">
 <h2 id="_dev_ops">6. Dev Ops</h2>
 <div class="sectionbody">
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-729">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-730">
 <p>For build automation, we chose to use gradle, allowing for a more convenient process when running tests and
 checking for coding standard violations. Here are some of the gradle tasks that are essential to the
 development of the application.</p>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-733">
+<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-734">
 <table>
 <tr>
 <td class="icon">
@@ -1853,12 +1854,12 @@ information is still relevant regarding their functions.
 </tr>
 </table>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-737">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-738">
 <h3 id="_how_to_run_gradle_commands">6.1. How to run gradle commands</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-738">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-739">
 <p>Use the command <code>gradlew &lt;taskname&gt;</code></p>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-740">
+<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-741">
 <table>
 <tr>
 <td class="icon">
@@ -1871,7 +1872,7 @@ Different tasks can be run at the same time by using a format such as
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-743">
+<div class="admonitionblock warning has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-744">
 <table>
 <tr>
 <td class="icon">
@@ -1885,20 +1886,20 @@ For Mac users, you will need to add a <code>./</code> prefix before the command.
 </table>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-746">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-747">
 <h3 id="_building_a_jar_file">6.2. Building a jar file</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-747">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-748">
 <p>The command <code>shadowJar</code> will build a jar file using the current source code and store it under
 the <mark>build/libs</mark> directory.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-750">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-751">
 <h3 id="_clean">6.3. Clean</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-751">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-752">
 <p>The command <code>gradlew clean</code> will remove the buildDir folder, thus removing everything including leftover
 files from previous builds which are no longer necessary.</p>
 </div>
-<div class="admonitionblock warning has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-754">
+<div class="admonitionblock warning has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-755">
 <table>
 <tr>
 <td class="icon">
@@ -1912,33 +1913,33 @@ was packaged.
 </tr>
 </table>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-758">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-759">
 <p>In order to force gradle to execute the task, the <code>clean</code> command can be used. For instance,
 <code>gradlew clean shadowJar</code> will force a new jar file to be built.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-761">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-762">
 <h3 id="_running_the_application">6.4. Running the application</h3>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-763">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-764">
 <h4 id="_run_as_per_normal">6.4.1. Run as per normal:</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-764">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-765">
 <p>The command <code>gradlew run</code> will build and run the application</p>
 </div>
 </div>
-<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-766">
+<div class="sect3 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-767">
 <h4 id="_run_as_jar_file">6.4.2. Run as jar file:</h4>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-767">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-768">
 <p>The command <code>gradlew runShadow</code> will build the project as a jar file, and then run it.</p>
 </div>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-769">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-770">
 <h3 id="_checkstyle">6.5. Checkstyle</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-770">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-771">
 <p>Using the command <code>checkstyleMain</code> will check for style violations in the <strong>main</strong> source code.
 Using the command <code>checkstyleTest</code> will check for style violations in the <strong>test</strong> source code.</p>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-773">
+<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-774">
 <table>
 <tr>
 <td class="icon">
@@ -1954,96 +1955,96 @@ file.
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-778">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-779">
 <h2 id="_product_scope">Appendix A: Product Scope</h2>
 <div class="sectionbody">
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-779">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-780">
 <h3 id="_target_user_profile">A.1. Target User Profile</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-780">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-781">
 <p>MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western
 classical music performer.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-783">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-784">
 <p>The program is designed to automate and streamline most of the process in scheduling and organisation of materials,
 allowing the students to focus more on the important aspects of their education.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-787">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-788">
 <h2 id="_user_stories">Appendix B: User Stories</h2>
 <div class="sectionbody">
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-788">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-789">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-788">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-789">
 <p>As a busy music student with multiple classes, I want to be able to track my practice sessions so that I won’t miss any trainings.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-789">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-790">
 <p>As a music student with a heavy workload, I want to be able to track my upcoming recitals and their details so I can prioritize which pieces/what techniques to practice and focus on.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-790">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-791">
 <p>As a music student with a tendency to procrastinate in things I need to do, I want to be constantly reminded of my examination dates so i do not wait till the last minute to prepare for them.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-791">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-792">
 <p>As a student who wants to maximize my efficiency in practice sessions (performer), I want to be able to rate and comment on the efficiency of my practice sessions and be able to review them to make sure that I learn and improve faster.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-792">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-793">
 <p>As a student who wants to categorize what I learn in classes, I want to be able to take notes and organize them into different categories, so that I can easily review it anytime.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-793">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-794">
 <p>As a student who wishes to be aware of his upcoming events, I wish to be able to view my schedule within a selected number of weeks so that I can plan for it.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-797">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-798">
 <h2 id="_use_cases">Appendix C: Use cases</h2>
 <div class="sectionbody">
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-799">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-800">
 <h3 id="_entering_a_practice_schedule_into_the_system">C.1. Entering a practice schedule into the system</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-800">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-801">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-800">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-801">
 <p>User enters a command to add a practice followed by a date, and the details of the intended practice.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-801">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-802">
 <p>System prompts user about whether or not he wishes to make this a recurring practice (e.g every Tuesday).</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-802">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-803">
 <p>User responds to the prompt accordingly.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-803">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-804">
 <p>System adds practice session to a stored list and saves it to a file on the user’s hard drive.</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-805">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-806">
 <h3 id="_entering_the_details_of_a_recital_into_the_system">C.2. Entering the details of a recital into the system</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-806">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-807">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-806">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-807">
 <p>User choose to enter a recital.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-807">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-808">
 <p>System requires details of the recital.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-808">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-809">
 <p>User enters date, time, venue, the pieces to be performed, and a description if needed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-809">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-810">
 <p>System adds recital to a stored list and saves it to a file on the user’s hard drive.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-811">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-812">
 <p>Extension 3.1: System detects there is a clash with a concert/practice session at step 3.
 3.1.1.  System generates warnings and ask user to delete the corresponding entry and forgo that event.
 3.1.2.  User responds to the warning, deleting or rescheduling one of the events in a clash if necessary.
 3.1.3. System updates the stored list and saves it to the file on the user’s hard disk.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-816">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-817">
 <p>Extension 3.2: System detects a clash with another recital or an examination at step 3.
 3.2.1.  System generates warnings and ask user to reschedule and re-enter one of the events that clash.
 3.2.2.  User responds to the warning, rescheduling and re-entering one of the events in a clash.
@@ -2051,147 +2052,147 @@ allowing the students to focus more on the important aspects of their education.
 Use case ends</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-822">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-823">
 <h3 id="_making_notes">C.3. Making notes</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-823">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-824">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-823">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-824">
 <p>User chooses to enter a command to start a note-taking/viewing session</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-824">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-825">
 <p>System shows the user a list of categories (directories) of notes that have been made previously and prompts the user to enter one or create a new file.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-825">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-826">
 <p>User makes a choice to enter a category directory or create a new one.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-826">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-827">
 <p>System shows the user a list of files containing notes, each file is named with the corresponding date, and a description of the file decided by the user. System also prompts the user if he wants to create a new file or enter an existing one.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-827">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-828">
 <p>User selects a file to enter or chooses to create a new file.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-828">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-829">
 <p>System opens the file for viewing and editing. The user can choose to make changes to the notes using commands: delete, add and move to delete, add or move notes around the file accordingly.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-830">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-831">
 <p>Extension 3.1: System detects there is no category file that user commands to edit on
 3.1.1. System generates warnings and ask the user whether or not he wishes to add a new category and take notes in
 3.1.2. User responds to the warning, and choose to add a new category
 3.1.3. System adds and opens a new category file with the name given by user</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-835">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-836">
 <h3 id="_viewing_upcoming_events">C.4. Viewing upcoming events</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-836">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-837">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-836">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-837">
 <p>User enters command <code>list</code> followed by an integer N representing the number of weeks in advance he would like to view his schedule.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-837">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-838">
 <p>System responds by showing the user a list of events in the next N weeks.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-838">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-839">
 <p>User may enter a command to remove specific tasks from the list, to have a cleaner viewing experience.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-840">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-841">
 <p>Extension 3.1: System can remove types of events from list at user’s command
 3.1.1. User can enter commands <code>remove examinations</code> for example, to remove the examinations from the display.
 3.1.2. System responds accordingly, removing the type of event from the list and altering the list of events displayed.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-844">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-845">
 <p>Extension: 3.2. System can allow the user to only view a specific type of event.
 3.2.1. User can also enter commands <code>show examinations</code> for example, to only show examinations in the list of events.
 3.2.2. System will respond accordingly, displaying only type of event that the user specified.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-848">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-849">
 <p>Extension: 3.3. System can allow the user to only view events on a specific date.
 3.3.1. User can enter the command "view &lt;dd-MM-yyyy&gt;"" to view all events on that specific date.
 3.3.2. System will display the events, and the user can edit the events accordingly.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-852">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-853">
 <h3 id="_entering_the_examination_details">C.5. Entering the examination details</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-853">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-854">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-853">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-854">
 <p>User enters command <code>examination</code>, together with a description of the examination, along with the date, time, venue and any other notes in a given format.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-854">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-855">
 <p>The system adds the examination to the list of events.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-856">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-857">
 <p>Extension 1.1: System detects a clash with the examination date entered and another event.
 1.1.1. System will prompt the user to reschedule the event of lower priority. (examinations and recitals are of highest priority, followed by concerts and then practices). If the clash is with an event of the same priority, the user is prompted to choose which one to reschedule(simple y/n response).
 1.1.2. User reschedules the specified event by entering a date and time. The user is also able to delete an event with the delete command to free up the schedule if he wishes to do so.
 1.1.3. System once again checks for clashes and repeats the process of rescheduling if necessary.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-861">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-862">
 <h3 id="_rate_and_comment_on_the_efficiency_of_practice_sessions">C.6. Rate and comment on the efficiency of practice sessions</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-862">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-863">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-862">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-863">
 <p>User enters a command to rate a practice session</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-863">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-864">
 <p>System brings up a list of practice sessions that the user has already completed</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-864">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-865">
 <p>User selects a practice session</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-865">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-866">
 <p>System displays the details of the selected practice session and prompts the user to select an efficiency rating along with any additional notes</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-866">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-867">
 <p>User rates the efficiency of the practice session and takes down any notes or feedback from their instructor</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-867">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-868">
 <p>System saves the entry onto the hard disk</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-869">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-870">
 <h3 id="_edit_descriptions_of_any_existing_event">C.7. Edit descriptions of any existing event</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-870">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-871">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-870">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-871">
 <p>User enters a command to edit the description of an event</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-871">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-872">
 <p>System edits corresponding description and prompts user of success</p>
 </li>
 </ol>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-873">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-874">
 <p>Extension 1: System detects a clash of incorrect format entered by the user.
 1.1. System will prompt the user that the entered format was incorrect.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-876">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-877">
 <p>Extensions 4.1: Selected practice session has already been rated.
 4.1.1. If the selected practice session has already been rated, the system notifies the user and allows them to edit.
 4.1.2. The user edits the rating and notes of the practice session accordingly
 4.1.3. System saves the changes onto the hard disk</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-881">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-882">
 <p>Extensions 5.1: User inputs an invalid rating.
 5.1.1. System displays an error message to inform the user of the correct rating format until a valid input is detected.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-884">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-885">
 <h3 id="_viewing_all_events_in_the_coming_7_days">C.8. Viewing all events in the coming 7 days.</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-885">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-886">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-885">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-886">
 <p>User enters a command to view all events in the next 7 days.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-886">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-887">
 <p>System shows all events in the next 7 days in a calendar table.</p>
 </li>
 </ol>
@@ -2199,45 +2200,45 @@ Use case ends</p>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-889">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-890">
 <h2 id="_non_functional_requirements">Appendix D: Non-functional requirements</h2>
 <div class="sectionbody">
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-890">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-891">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-890">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-891">
 <p>System should work on windows and linux.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-891">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-892">
 <p>System response within 1 second.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-892">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-893">
 <p>Usable by non tech-savvy individuals.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-893">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-894">
 <p>Clear user prompts</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-894">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-895">
 <p>Visually pleasing display</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
-<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-898">
+<div class="sect1 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-899">
 <h2 id="_instructions_for_manual_testing">Appendix E: Instructions for Manual Testing</h2>
 <div class="sectionbody">
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-900">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-901">
 <h3 id="_launch_and_shutdown">E.1. Launch and Shutdown</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-901">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-902">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-901">
-<p>Initial Launch</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-902">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-902">
+<p>Initial Launch</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-903">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-903">
 <p>Double click the jar executable</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-903">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-904">
 <p>Expected: The Welcome Message is printed in stdout and the system requests for an input.</p>
 </li>
 </ol>
@@ -2245,7 +2246,7 @@ Use case ends</p>
 </li>
 </ol>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-905">
+<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-906">
 <table>
 <tr>
 <td class="icon">
@@ -2261,13 +2262,13 @@ with the storing of information to a txt file.
 </tr>
 </table>
 </div>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-911">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-912">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-911">
-<p>Shutdown</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-912">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-912">
+<p>Shutdown</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-913">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-913">
 <p>Key in <code>bye</code> as input.<br>
 Expected: The Goodbye Message ('Bye. Hope to see you again soon!') is printed in stdout and the process exits.</p>
 </li>
@@ -2277,49 +2278,49 @@ Expected: The Goodbye Message ('Bye. Hope to see you again soon!') is printed in
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-915">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-916">
 <h3 id="_obtain_the_list_of_items_currently_in_stored_in_the_system">E.2. Obtain the list of items currently in stored in the system</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-916">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-917">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-916">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-917">
 <p>Key in <code>list</code> as input<br>
 Expected: A list of items is printed in stdout.</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-919">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-920">
 <h3 id="_help_list_for_input_format">E.3. Help list for input format</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-920">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-921">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-920">
-<p>Find help for basic commands' format</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-921">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-921">
+<p>Find help for basic commands' format</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-922">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-922">
 <p>Test case: <code>help</code><br>
 Expected: The whole help list with basic commands will be printed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-923">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-924">
 <p>Test case: <code>help list</code><br>
 Expected: The whole help list including list command will be printed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-925">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-926">
 <p>Test case: <code>help reminder</code><br>
 Expected: The whole help list including reminder command will be printed.</p>
 </li>
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-928">
-<p>Find help for additional commands' format</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-929">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-929">
+<p>Find help for additional commands' format</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-930">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-930">
 <p>Test case: <code>help event</code><br>
 Expected: The list of command formats of adding events will be printed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-931">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-932">
 <p>Test case: <code>help done</code><br>
 Expected: The list of command formats of changing event&#8217;s information including setting a todo as done will be printed.</p>
 </li>
@@ -2329,11 +2330,11 @@ Expected: The list of command formats of changing event&#8217;s information incl
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-934">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-935">
 <h3 id="_add_an_event">E.4. Add an Event</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-935">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-936">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-935">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-936">
 <p>Add Todo<br>
 Key in <code>todo tdtask /15-11-2019</code><br>
 Expected: Output should be<br>
@@ -2341,7 +2342,7 @@ Got it. I&#8217;ve added this task:<br>
 [x][T] tdtask  BY: Fri, 15 Nov 2019<br>
 Now you have &lt;previous number of items + 1&gt; items in the list.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-942">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-943">
 <p>Add Exam<br>
 Key in <code>exam Music Rudiments /19-11-2019 0800 0900</code><br>
 Expected: Output should be<br>
@@ -2349,7 +2350,7 @@ Got it. I&#8217;ve added this task:<br>
 [x][E] Music Rudiments  START: Tue, 19 Nov 2019, 08:00 END: Tue, 19 Nov 2019, 09:00<br>
 Now you have &lt;previous number of items + 1&gt; tasks in the list.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-949">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-950">
 <p>Add Practice session<br>
 Key in <code>practice morningprac /19-11-2019 0700 0800</code><br>
 Expected: Output should be<br>
@@ -2357,7 +2358,7 @@ Got it. I&#8217;ve added this event:<br>
 [x][P] morningprac  START: Tue, 19 Nov 2019, 07:00 END: Tue, 19 Nov 2019, 08:00<br>
 Now you have &lt;previous number of items + 1&gt; tasks in the list.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-956">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-957">
 <p>Add Concert<br>
 Key in <code>concert Noon Concert /1-1-2020 1200 1400/15</code><br>
 Expected: Output should be<br>
@@ -2367,7 +2368,7 @@ Now you have &lt;previous number of items + 1&gt; tasks in the list.<br>
 Note: The final value (in this case 15) represents the cost of the concert in dollars.
 The significance of this is explained under section E.13 budgeting.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-965">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-966">
 <p>Add Recital<br>
 Key in <code>recital Evening Recital /10-12-2019 1900 2100</code><br>
 Expected: Output should be<br>
@@ -2375,7 +2376,7 @@ Got it. I&#8217;ve added this task:<br>
 [x][R] Evening Recital  START: Tue, 10 Dec 2019, 19:00 END: Tue, 10 Dec 2019, 21:00<br>
 Now you have &lt;previous number of items + 1&gt; tasks in the list.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-972">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-973">
 <p>Add Lesson<br>
 Key in <code>lesson Class /2-1-2020 0900 1000</code><br>
 Expected: Output should be<br>
@@ -2386,20 +2387,20 @@ Now you have &lt;previous number of items + 1&gt; tasks in the list.</p>
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-979">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-980">
 <h3 id="_add_recurring_events_2">E.5. Add recurring events</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-980">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-981">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-980">
-<p>Add lessons and practices within correct period range</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-981">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-981">
+<p>Add lessons and practices within correct period range</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-982">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-982">
 <p>Test case: <code>lesson recurring lesson /01-01-2020 1800 2000 /7</code><br>
 Expected: 17 events with 7 days period are added to the list. And details of the first recurring event will be printed
 out. The number of events in the list printed should be &lt;previous number of items + 17&gt;.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-984">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-985">
 <p>Test case: <code>practice recurring practice /02-01-2020 0600 0800 /20</code><br>
 Expected: 6 events with 20 days period are added to the list. And details of the first recurring event will be printed
 out. The number of events in the list printed should be &lt;previous number of items + 6&gt;.</p>
@@ -2407,11 +2408,11 @@ out. The number of events in the list printed should be &lt;previous number of i
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-988">
-<p>Add recurring events with period larger than default range</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-989">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-989">
+<p>Add recurring events with period larger than default range</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-990">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-990">
 <p>Test case: <code>lesson large period /03-01-2020 1000 1200 /365</code><br>
 Expected: Only one event will be added to the list. And details of it will be printed out. The number of events in the
 list printed should be &lt;previous number of items + 1&gt;.</p>
@@ -2419,15 +2420,15 @@ list printed should be &lt;previous number of items + 1&gt;.</p>
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-993">
-<p>Add recurring events with non-positive period</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-994">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-994">
+<p>Add recurring events with non-positive period</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-995">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-995">
 <p>Test case: <code>practice negative period /04-01-2020 1200 1300 /-4</code><br>
 Expected: A message inform users to ensure the period number is positive integer is printed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-996">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-997">
 <p>Test case: <code>lesson zero period /05-01-2020 1200 1300 /0</code><br>
 Expected: A message inform users to ensure the period number is positive integer is printed.</p>
 </li>
@@ -2437,62 +2438,62 @@ Expected: A message inform users to ensure the period number is positive integer
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-999">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1000">
 <h3 id="_set_a_task_as_done">E.6. Set a Task as done</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1000">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1001">
 <p>Key in <code>done 3</code><br>
 Expected: Prints a message that the first task on the list has been marked as done.
 Note: Only works for To-Dos.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1004">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1005">
 <h3 id="_find_tasks_that_contains_a_certain_keyword_or_key_phrase">E.7. Find tasks that contains a certain keyword or key phrase</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1005">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1006">
 <p>Key in <code>find MU2113T</code> to search for all events that contain the keyphrase "MU2113T"<br>
 Expected: Prints a list of tasks that contains the <code>&lt;key&gt;</code>.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1008">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1009">
 <h3 id="_get_reminder">E.8. Get reminder</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1009">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1010">
 <p>Key in <code>reminder</code><br>
 Expected: Prints a list of tasks to be completed in the next few days. Without any
 second argument, 3 days is the default. See below for getting reminder for a specific
 number of days.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1014">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1015">
 <p>Key in <code>reminder 2</code><br>
 Expected: Prints a list of tasks to be completed in the next two days.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1017">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1018">
 <h3 id="_view_all_tasks_in_a_certain_day">E.9. View all tasks in a certain day</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1018">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1019">
 <p>Key in <code>view 19-11-2019</code>, note that the date is in the format dd-MM-yyyy.<br>
 Expected: Prints a list of tasks that occurs on the given date.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1021">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1022">
 <h3 id="_edit_description_of_an_event">E.10. Edit description of an event</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1022">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1023">
 <p>Key in <code>edit 2/Promenade</code>.<br>
 "2" is the index of the event we want to edit, and "Promenade" is the
 new description we wish to change the event to having.<br>
 Expected: Prints success message and edits event of index <code>&lt;event index&gt;</code> to new description.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1027">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1028">
 <h3 id="_reschedule_an_event">E.11. Reschedule an event</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1028">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1029">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1028">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1029">
 <p>Prerequisites: Event list is not empty, and at least has one type of event.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1030">
-<p>Reschedule an event in the list</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1031">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1031">
+<p>Reschedule an event in the list</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1032">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1032">
 <p>Test case: <code>reschedule 1 01-01-2020 0000 0100</code><br>
 Expected: If clash with other event in the list, the details of clash will be printed. Otherwise,
 a success message will be printed and the event will be rescheduled.</p>
@@ -2502,7 +2503,7 @@ a success message will be printed and the event will be rescheduled.</p>
 </li>
 </ol>
 </div>
-<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1035">
+<div class="admonitionblock note has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1036">
 <table>
 <tr>
 <td class="icon">
@@ -2514,21 +2515,21 @@ This does not work on to-do type events.
 </tr>
 </table>
 </div>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1037">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1038">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1037">
-<p>Reschedule an event which is not in the list</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1038">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1038">
+<p>Reschedule an event which is not in the list</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1039">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1039">
 <p>Test case: <code>reschedule 0 01-09-2019 1300 1400</code><br>
 Expected: The message notice users the correct input format of rescheduling will be printed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1040">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1041">
 <p>Test case: <code>reschedule -3 01-09-2019 1300 1400</code><br>
 Expected: The message notice users the correct input format of rescheduling will be printed.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1042">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1043">
 <p>Test case: <code>reschedule abc 01-09-2019 1300 1400</code><br>
 Expected: The message notice users the correct input format of rescheduling will be printed.</p>
 </li>
@@ -2538,49 +2539,49 @@ Expected: The message notice users the correct input format of rescheduling will
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1045">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1046">
 <h3 id="_check_the_next_3_free_days">E.12. Check the next 3 free days</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1046">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1047">
 <p>Key in <code>check</code>.<br>
 Expected: Prints the next 3 days without any events.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1049">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1050">
 <h3 id="_view_the_calendar_table_of_the_next_7_days">E.13. View the calendar table of the next 7 days.</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1050">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1051">
 <p>Key in <code>calendar</code>.+
 Expected: Prints the calendar table containing all events of the next 7 days,
 where the first column of the table is the current day.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1054">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1055">
 <h3 id="_goal_management">E.14. Goal management</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1055">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1056">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1055">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1056">
 <p>Prerequisites: Event list is not empty, and at least has one type of event.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1056">
-<p>Add goal to an event in the list</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1057">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1057">
+<p>Add goal to an event in the list</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1058">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1058">
 <p>Test case: <code>goal add 1/finish theory chapter 1</code><br>
 Expected: The goal will be added to the event with index 1. Prints out the success of the operation.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1059">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1060">
 <p>Test case: <code>goal view 1</code><br>
 Expected: Prints out all the goals of event with index 1.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1061">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1062">
 <p>Test case: <code>goal edit 1 1/finish theory chapter 2</code><br>
 Expected: The goal with index 1 of event 1 will be updated to the new goal. Prints out the success of the operation.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1063">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1064">
 <p>Test case: <code>goal achieved 1 1</code><br>
 Expected: Goal 1 of event 1 will be set as achieved. Prints out the success of the operation.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1065">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1066">
 <p>Test case: <code>goal delete 1 1</code><br>
 Expected: Goal 1 of event 1 will be removed from the list. Prints out the success of the operation.</p>
 </li>
@@ -2590,71 +2591,71 @@ Expected: Goal 1 of event 1 will be removed from the list. Prints out the succes
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1068">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1069">
 <h3 id="_past_event_management_2">E.15. Past event management</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1069">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1070">
 <p>Key in <code>list</code>.<br>
 Expected: The printed list does not contain any events that are over, and any unachieved goals for any past events is
 printed out at the bottom of the list.</p>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1073">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1074">
 <h3 id="_contact_management">E.16. Contact management</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1074">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1075">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1074">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1075">
 <p>Prerequisites: Event list is not empty, and at least has one type of event.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1076">
-<p>Add contact to an event in the list</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1077">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1077">
+<p>Add contact to an event in the list</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1078">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1078">
 <p>Test case: <code>contact add 1 /name a,email a,phone a</code><br>
 Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1079">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1080">
 <p>Test case: <code>contact add 1 /name c,email c,</code><br>
 Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1081">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1082">
 <p>Test case: <code>contact add 1 /name d, ,</code><br>
 Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.</p>
 </li>
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1084">
-<p>View contact of an specified event</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1085">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1085">
+<p>View contact of an specified event</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1086">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1086">
 <p>Test case: <code>contact view 1</code><br>
 Expected: Prints all of the contacts information in No.1 event.</p>
 </li>
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1088">
-<p>Delete a contact in a specified event</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1089">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1089">
+<p>Delete a contact in a specified event</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1090">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1090">
 <p>Test case: <code>contact delete 1 3</code><br>
 Expected: Prints the success of deleting the contact.</p>
 </li>
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1092">
-<p>Edit a contact in a specified event</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1093">
-<ol class="loweralpha" type="a">
 <li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1093">
+<p>Edit a contact in a specified event</p>
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1094">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1094">
 <p>Test case: <code>contact edit 1 2 name /new name</code><br>
 Expected: Prints the success of editing the contact, and the contact details.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1095">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1096">
 <p>Test case: <code>contact edit 1 2 email /new email</code><br>
 Expected: Prints the success of editing the contact, and the contact details.</p>
 </li>
@@ -2664,21 +2665,21 @@ Expected: Prints the success of editing the contact, and the contact details.</p
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1098">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1099">
 <h3 id="_budgeting">E.17. Budgeting</h3>
-<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1099">
+<div class="olist arabic has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1100">
 <ol class="arabic">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1099">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1100">
 <p>Each concert added to the list has a cost denoted at the end of the user input.
 For example, the user input command <code>concert MyConcert/2-12-2019 1500 1600/30</code> will
 have a cost of $30.</p>
-<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1103">
+<div class="olist loweralpha has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1104">
 <ol class="loweralpha" type="a">
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1103">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1104">
 <p>Notice earlier that the concert entry events have an extra field at the end. This denotes
 the cost of the concert to be added.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1105">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1106">
 <p>Attempting to add two concerts to the same month that exceeds the stipulated budget
 (set at $50) will result in a message telling the user so, and that the operation has been
 cancelled. Try <code>concert NewConcert/1-11-2019 1400 1600/60</code> for example.</p>
@@ -2686,35 +2687,35 @@ cancelled. Try <code>concert NewConcert/1-11-2019 1400 1600/60</code> for exampl
 </ol>
 </div>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1109">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1110">
 <p>The user command <code>budget MM-yyyy</code> will result in the program displaying the costs
 of all concerts in the month denoted by MM-yyyy.<br>
 e.g <code>budget 11-2019</code> will display the costs for the month of November 2019.</p>
 </li>
-<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1113">
+<li class="has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1114">
 <p>The user command <code>budget set 35</code> will change the stipulated budget to the value stated ($35).
 Similarly, <code>budget set 70</code> will set the budget to a value of $70.</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1116">
+<div class="sect2 has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1117">
 <h3 id="_instruments_2">E.18. Instruments</h3>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1117">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1118">
 <p>Key in <code>instrument add /violin</code><br>
 Expected: An instrument named 'violin' is added to the stored list of instruments, and a message
 is printed stating that this has been done.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1121">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1122">
 <p>Key in <code>instrument view instruments</code><br>
 Expected: The list of instruments stored in the system is printed out in order of their indexing.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1124">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1125">
 <p>Key in <code>instrument service 1 /rehair bow /12-12-2012</code><br>
 Expected: A servicing information is added to the instrument stored with index 1 that 'rehair bow' is
 done to the instrument on 12-12-2012. A message is also printed stating that this has been done.</p>
 </div>
-<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1128">
+<div class="paragraph has-source-line data-line-D:/CS2113T Git Repos/mistermusik/docs/DeveloperGuide.adoc-1129">
 <p>Key in <code>instrument view services 1</code><br>
 Expected: The list of servicing done to the instrument stored with index 1 is printed out.</p>
 </div>
@@ -2724,7 +2725,7 @@ Expected: The list of servicing done to the instrument stored with index 1 is pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-11 22:42:34 +0800
+Last updated 2019-11-11 23:20:46 +0800
 </div>
 </div>
 </body>
