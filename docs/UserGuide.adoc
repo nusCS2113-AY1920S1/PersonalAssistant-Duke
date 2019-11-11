@@ -21,7 +21,7 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 === The Product
 DEGREES.NUS is a desktop application developed to help *prospective applicants of NUS Faculty of Engineering* view, choose  and manage engineering degrees, modules, and course events in a coherent and systematic manner.
 
-DEGREES.NUS offers various functionalitites that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list and viewing past statistics of the degrees. Moroever, as a task manager, DEGREES.NUS is suitable to be used as a personal assistant as it lets you organise and remind you of the important tasks pertaining to university application, such as document submission deadlines or freshman events.
+DEGREES.NUS offers various functionalities that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list and viewing past statistics of the degrees. Moreover, as a task manager, DEGREES.NUS is suitable to be used as a personal assistant as it lets you organise and remind you of the important tasks pertaining to university application, such as document submission deadlines or freshman events.
 
 DEGREES.NUS specifically fits users who prefer to work with a Command Line Interface (CLI), while still having the benefits of an appealing Graphical User Interface (GUI). Also, if you are particularly adept at typing fast, DEGREES.NUS will handle your commands more quickly than traditional GUI apps. 
 
@@ -72,7 +72,7 @@ If it does, you have successfully run DEGREES.NUS on your machine!
 === Getting Used to DEGREES.NUS
 Here are some other examples of commands you can try to get used to DEGREES.NUS:
 
-* **`tasks`** : displays all deadlines and events in the current tasklist (will be empty initially).
+* **`tasks`** : displays all deadlines and events in the current task list (will be empty initially).
 * **`event`**`University Talk /at 25-09-2019 2359` : adds an event named `University Talk` to the task list with "Normal" priority.
 * **`delete`**`3` : deletes the 3rd item shown in the current list.
 * **`detail`**`bme` : displays module information for Biomedical Engineering.
@@ -90,7 +90,7 @@ Here are some other examples of commands you can try to get used to DEGREES.NUS:
 * Words enclosed in `<>` are the parameters to be supplied by the user e.g. in `delete <ID>`, `<ID>` is a parameter which can be used as `delete 4`.
 * Items in square brackets represent tabs e.g `[Help]` signifies the help tab. As a rule, any changes to any of the tabs should automatically open that tab.
 * Items separated by `|` can be used either way. e.g `detail <DEGREE> | detail` can be used as `detail ceg` or as simply `detail`.
-* Items in curly brackets are optional e.g `event MISTA /at dd-MM-yyyy HHmm {/priority High}` can be used as `event MISTA /at 04-04-2004 0444` or as `event MISTA /at 04-04-2004 0444 /priority High`.
+* Items in curly brackets are optional e.g `event MISTA /at DD-MM-YYYY HHmm {/priority High}` can be used as `event MISTA /at 04-04-2004 0444` or as `event MISTA /at 04-04-2004 0444 /priority High`.
 ====
 
 === Viewing Helpful Commands : `help | help <COMMAND>`
@@ -191,7 +191,7 @@ Adds Material Science Engineering to your degree list and faculty events to your
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
-=== Listing all degrees in your degree list : `choices`
+=== Listing all degrees in your degree list: `choices`
 
 Displays a list of all the degrees you are interested in currently. +
 Will switch to the `[Degree Choices]` tab.
@@ -217,7 +217,7 @@ Swaps degrees with ID 1 and 2.
 Swaps degrees with ID 1 and 3.
 
 <<<
-=== Removing a degree in your degree list : `remove <ID>`
+=== Removing a degree in your degree list: `remove <ID>`
 
 Removes the degree with the specified ID from your degree list. +
 Will switch to the `[Degree Choices]` tab.
@@ -234,7 +234,7 @@ Removes the 3rd degree in your degree list.
 
 
 // tag::delete[]
-=== Deleting a task in your task list : `delete <ID>`
+=== Deleting a task in your task list: `delete <ID>`
 
 Deletes the task with the specified ID from your task list. +
 Will switch to the `[Tasks]` tab.
@@ -251,7 +251,7 @@ Deletes the 5th task in your task list.
 // end::delete[]
 
 <<<
-=== Sorting items in tasklist: `sort by <CATEGORY>`
+=== Sorting items in task list: `sort by <CATEGORY>`
 
 [NOTE]
 The help command accepts only `help sort`, not `help sort by`.
@@ -456,7 +456,7 @@ You can also redo previous undone commands if you wish to revert back the undo. 
 
 Format: `redo`
 
-=== Exiting the program : `bye`
+=== Exiting the program: `bye`
 
 Exits the program after a short delay. +
 
