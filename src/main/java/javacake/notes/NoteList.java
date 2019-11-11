@@ -19,6 +19,9 @@ import org.apache.commons.io.FilenameUtils;
 public class NoteList {
 
     private ArrayList<Note> al = new ArrayList<>();
+    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+
 
     /**
      * Using Depth-First-Search to find all text files.
@@ -34,7 +37,9 @@ public class NoteList {
 
             for (String resultName : result) {
                 String processedName = processFileNames(resultName);
-                al.add(new Note(processedName));
+                if (processedName != null) {
+                    al.add(new Note(processedName));
+                }
             }
         } catch (NullPointerException | IOException e) {
             throw new CakeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
@@ -52,9 +57,31 @@ public class NoteList {
         try {
             File file = new File(resultName);
             String fileName = file.getName();
-            return FilenameUtils.removeExtension(fileName);
+            String rawFileName = FilenameUtils.removeExtension(fileName);
+            System.out.println("RAW" + rawFileName);
+            if (!checkForIllegalChar(rawFileName) && !rawFileName.contains(" ")) {
+                return rawFileName;
+            } else {
+                return null;
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new CakeException(e.getMessage());
         }
+    }
+
+
+    /**
+     * Checks for illegal characters in a keyword.
+     * @param word Parameter within a input command.
+     * @return True if illegal character is found.
+     */
+    private static boolean checkForIllegalChar(String word) {
+        for (char illegalChar : ILLEGAL_CHARACTERS) {
+            if (word.indexOf(illegalChar) >= 0) {
+                return true;
+            }
+
+        }
+        return false;
     }
 }
