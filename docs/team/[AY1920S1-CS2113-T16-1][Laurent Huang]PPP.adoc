@@ -68,6 +68,9 @@ Leduc is a task management application geared to help high school students manag
 *** JUnit : [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PostponeCommandTest.java[PostponeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SnoozeCommandTest.java[SnoozeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/RescheduleCommandTest.java[RescheduleCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/EditCommandTest.java[EditCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PrioritizeCommandTest.java[PrioritizeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SortCommandTest.java[SortCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/TodoCommandTest.java[TodoCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/HomeworkCommandTest.java[HomeworkCommandTest priority part]]
 *** Text-ui-test : [https://github.com/AY1920S1-CS2113-T16-1/main/tree/master/src/test/text-ui-test/test6[Edit text-ui-test for multi-steps part]]
 
+* *Debugging after the PE*
+*** Pull requests: https://github.com/AY1920S1-CS2113-T16-1/main/pull/140[#140], https://github.com/AY1920S1-CS2113-T16-1/main/pull/141[#141], https://github.com/AY1920S1-CS2113-T16-1/main/pull/142[#142], https://github.com/AY1920S1-CS2113-T16-1/main/pull/143[#143], https://github.com/AY1920S1-CS2113-T16-1/main/pull/157[#157] and https://github.com/AY1920S1-CS2113-T16-1/main/pull/162[#162]
+
 * *Community*
 *** Reviews important pull request: https://github.com/AY1920S1-CS2113-T16-1/main/pull/21[#21], https://github.com/AY1920S1-CS2113-T16-1/main/pull/75[#75] ...
 

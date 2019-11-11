@@ -453,7 +453,7 @@ but that would limit its potential utility
 == Appendix G: Instructions for Manual Testing
 === G.1. Launch and Shutdown:
 * Download the Jar file and copy it into an empty folder
-* Run the Jar file from the command line, with command "[CS2113-T16-1][Le Duc].jar"
+* Run the Jar file from the command line : "[CS2113-T16-1][Le Duc].jar"
 
 === G.2. View all Commands:
 * *View all the commands the user can make*
@@ -660,4 +660,684 @@ previous one, it will
          29. [E][X] CS4211: cooking session at: 24/12/2019 09:00 - 24/12/2019 11:00 [Priority: 8]
          30. [E][X] CS4211: cooking session at: 31/12/2019 09:00 - 31/12/2019 11:00 [Priority: 8]
         ---------------------------------------------------------------------------------
+```
+
+=== G.18. Sort by: `sort`
+
+
+Sort all task by date, description, priority, type of task or either it is done or not: `sort SORTTYPE`
+
+SORTTYPE is either date, description, priority, type or done
+
+Be careful:
+
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not
+
+Examples:
+
+* `sort date`
+* `sort priority`
+* `sort description`
+* `sort type`
+* `sort done`
+
+---
+* Test Case `sort date`
+** Expected:
+*** sort the tasks list by date
+
+```
+	---------------------------------------------------------------------------------
+	 This is the new task list order:
+	---------------------------------------------------------------------------------
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 2. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 3. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 4. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 5. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 6. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 7. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 8. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 9. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 10. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+	 11. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+	 12. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+	 13. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+	 14. [H][X] Semester report by: 07/01/2020 23:59 [Priority: 5]
+	 15. [T][X] CS2113 demo [Priority: 2]
+	 16. [T][V] Software security: lab 4: exercice 2 [Priority: 2]
+	 17. [T][X] Software security: lab 5: exercice 1 [Priority: 2]
+	 18. [T][X] Software security: lab 5: exercice 2 [Priority: 1]
+	 19. [T][X] Software security: lab 6: exercice 1 [Priority: 1]
+	 20. [T][V] Software security: lab 6: exercice 2 [Priority: 1]
+	 21. [T][X] return book [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+* Test Case `sort priority`
+** Expected:
+*** sort the tasks list by priority
+```
+	---------------------------------------------------------------------------------
+	 This is the new task list order:
+	---------------------------------------------------------------------------------
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [T][X] Software security: lab 5: exercice 2 [Priority: 1]
+	 2. [T][X] Software security: lab 6: exercice 1 [Priority: 1]
+	 3. [T][V] Software security: lab 6: exercice 2 [Priority: 1]
+	 4. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 5. [T][X] CS2113 demo [Priority: 2]
+	 6. [T][V] Software security: lab 4: exercice 2 [Priority: 2]
+	 7. [T][X] Software security: lab 5: exercice 1 [Priority: 2]
+	 8. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+	 9. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 10. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 11. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 12. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 13. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 14. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 15. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 16. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 17. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+	 18. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+	 19. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+	 20. [H][X] Semester report by: 07/01/2020 23:59 [Priority: 5]
+	 21. [T][X] return book [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+* Test Case `sort description`
+** Expected:
+*** sort the tasks list by description
+
+```
+	---------------------------------------------------------------------------------
+	 This is the new task list order:
+	---------------------------------------------------------------------------------
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [T][X] CS2113 demo [Priority: 2]
+	 2. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+	 3. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+	 4. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+	 5. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+	 6. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 7. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 8. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 9. [H][X] Semester report by: 07/01/2020 23:59 [Priority: 5]
+	 10. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 11. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 12. [T][V] Software security: lab 4: exercice 2 [Priority: 2]
+	 13. [T][X] Software security: lab 5: exercice 1 [Priority: 2]
+	 14. [T][X] Software security: lab 5: exercice 2 [Priority: 1]
+	 15. [T][X] Software security: lab 6: exercice 1 [Priority: 1]
+	 16. [T][V] Software security: lab 6: exercice 2 [Priority: 1]
+	 17. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 18. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 19. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 20. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 21. [T][X] return book [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+* Test Case `sort type`
+** Expected:
+*** sort the tasks list by type of task
+
+```
+	---------------------------------------------------------------------------------
+	 This is the new task list order:
+	---------------------------------------------------------------------------------
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+	 2. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+	 3. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 4. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 5. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 6. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 7. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+	 8. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+	 9. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 10. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 11. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 12. [H][X] Semester report by: 07/01/2020 23:59 [Priority: 5]
+	 13. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 14. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 15. [T][X] CS2113 demo [Priority: 2]
+	 16. [T][V] Software security: lab 4: exercice 2 [Priority: 2]
+	 17. [T][X] Software security: lab 5: exercice 1 [Priority: 2]
+	 18. [T][X] Software security: lab 5: exercice 2 [Priority: 1]
+	 19. [T][X] Software security: lab 6: exercice 1 [Priority: 1]
+	 20. [T][V] Software security: lab 6: exercice 2 [Priority: 1]
+	 21. [T][X] return book [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+* Test Case `sort done`
+** Expected:
+*** sort the tasks list by wheather the task is done or not
+
+```
+	---------------------------------------------------------------------------------
+	 This is the new task list order:
+	---------------------------------------------------------------------------------
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 2. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 3. [T][V] Software security: lab 4: exercice 2 [Priority: 2]
+	 4. [T][V] Software security: lab 6: exercice 2 [Priority: 1]
+	 5. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+	 6. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+	 7. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 8. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 9. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 10. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 11. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+	 12. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+	 13. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 14. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 15. [H][X] Semester report by: 07/01/2020 23:59 [Priority: 5]
+	 16. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 17. [T][X] CS2113 demo [Priority: 2]
+	 18. [T][X] Software security: lab 5: exercice 1 [Priority: 2]
+	 19. [T][X] Software security: lab 5: exercice 2 [Priority: 1]
+	 20. [T][X] Software security: lab 6: exercice 1 [Priority: 1]
+	 21. [T][X] return book [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+=== G.19. Prioritize:  `prioritize`
+
+Giving priority to task: `prioritize INDEX prio INDEX`
+
+The first INDEX is the task index
+
+The second INDEX is the priority (goes from 1 to 9)
+
+Be careful:
+
+* The second INDEX can’t be less than 1 nor greater than 9.
+* 1 is the less urgent, 9 is the most urgent
+* When creating a task, specifying the priority is optional. When the priority is not specified, the task will automatically have a priority of 5.
+
+Example:
+
+* `prioritize 4 prio 2`
+* `prioritize 5 prio 8`
+
+---
+
+* Test Case `prioritize 4 prio 2`
+** Expected:
+*** modify the priority of the number 4 task to 2
+
+```
+	---------------------------------------------------------------------------------
+	 Got it. I've set the priority of this task:
+	   [T][V] Software security: lab 6: exercice 2 [Priority: 2]
+	---------------------------------------------------------------------------------
+```
+
+=== G.20. Display by day/week/month: `show`
+
+Display all the task for one particular day/week/month: `show DATETYPE DATE`
+
+DATETYPE is day, dayofweek, today, week, month, year.
+
+The DATE argument depends on the DATETYPE
+
+* day :
+** shows all the tasks for the given date
+** DATE : DD/MM/YYYY
+
+* dayofweek :
+** shows all the tasks for the given day of week
+** DATE : monday, tuesday, wednesday, thursday, friday, saturday, sunday
+
+* today :
+** shows all the tasks for the user's today
+** DATE : nothing should be written !!
+
+* week :
+** shows all the tasks, starting from user's today to 7 days later (the last days is not included)
+** DATE : nothing should be written !!
+
+* month :
+** shows all the tasks for the given month
+** DATE : MM/YYYY
+
+* year
+** shows all the tasks for the given year
+** DATE : YYYY
+
+There are two behaviour, one line command and multi-step command
+
+Example (one line command) :
+
+* `show day 29/10/2019`
+* `show dayofweek monday`
+* `show today`
+* `show week`
+* `show month 10/2019`
+* `show year 2019`
+
+Example (multi-step command) :
+
+* `show day`
+
+* The console ask to enter the day :
+
+* `29/10/2019`
+
+or
+
+* `show dayofweek`
+
+* The program ask to enter the day :
+
+* `monday`
+
+---
+
+* Test Case `show day 09/11/2019`
+** Expected:
+*** shows all the tasks for 09/11/2019
+```
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 14. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	---------------------------------------------------------------------------------
+
+```
+
+* Test Case `show dayofweek monday`
+** Expected:
+*** shows all the tasks for monday of the upcoming week
+```
+---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 23. [H][X] LAC2202:revision by: 18/11/2019 18:00 [Priority: 5]
+---------------------------------------------------------------------------------
+```
+* Test Case `show today`
+** Expected:
+*** shows all the tasks for today
+
+```
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 22. [H][X] LAC2202:revision by: 11/11/2019 18:00 [Priority: 5]
+	 24. [H][X] CS4239: exercice revision by: 11/11/2019 18:00 [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+* Test Case `show week`
+** Expected:
+*** shows all the tasks, starting from user's today to 7 days later (the last days is not included)
+
+```
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 13. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 22. [H][X] LAC2202:revision by: 11/11/2019 18:00 [Priority: 5]
+	 24. [H][X] CS4239: exercice revision by: 11/11/2019 18:00 [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+* Test Case `show month 11/2019`
+** Expected:
+*** shows all the tasks for november 2019
+
+```
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 2. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 7. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 8. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 9. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 10. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 13. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 14. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 16. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 22. [H][X] LAC2202:revision by: 11/11/2019 18:00 [Priority: 5]
+	 23. [H][X] LAC2202:revision by: 18/11/2019 18:00 [Priority: 5]
+	 24. [H][X] CS4239: exercice revision by: 11/11/2019 18:00 [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+* Test Case `show year 2019`
+** Expected:
+*** shows all the tasks for 2019
+
+```
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [H][V] Science exercice 2 by: 09/11/2019 05:05 [Priority: 2]
+	 2. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	 5. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+	 6. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+	 7. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+	 8. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+	 9. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+	 10. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+	 11. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+	 12. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+	 13. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+	 14. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+	 16. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 22. [H][X] LAC2202:revision by: 11/11/2019 18:00 [Priority: 5]
+	 23. [H][X] LAC2202:revision by: 18/11/2019 18:00 [Priority: 5]
+	 24. [H][X] CS4239: exercice revision by: 11/11/2019 18:00 [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+* Test Case : multiline commands: `show dayofweek` , `monday`
+** Expected:
+*** shows all the tasks for monday of the upcoming week
+
+```
+show dayofweek
+You have enter the show day of week mode. Please enter the day of the week as : monday, tuesday, wednesday, thursday, friday, saturday, sunday
+monday
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 23. [H][X] LAC2202:revision by: 18/11/2019 18:00 [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+
+=== G.21. Shortcut : `shortcut`
+
+Give shortcut to command : `shortcut COMMANDNAME SHORTCUTNAME`
+
+COMMANDNAME is the name of the command (like todo, sort, show ...)
+
+SHORTCUTNAME is the new shortcut name for the command
+
+There are three behaviour : One line command, multi-step command, multi-step customize all command
+
+Be careful :
+
+* There can't be 2 same shortcut name.
+* The shortcut name can't be the same as one of the default command name (for example, the shortcut name can't be todo because it is a default command name).
+
+
+
+Example (One line command) :
+
+* `shortcut todo t`
+* `shortcut prioritize prio`
+
+Example (multi-step command) :
+
+* `shortcut todo`
+* The program ask to enter the shortcut
+* `t`
+
+Example (multi-step customize all command)
+
+* `shortcut`
+* The program enter in customize shortcut mode
+* The program display the first command with his shortcut and ask to enter for a new shortcut name
+* `shortcutname`
+* The program display the first command with his shortcut and ask to enter for a new shortcut name
+* `shortcutname2`
+* ...
+* The program display all the shortcut
+
+
+Be careful :
+
+* There can't be 2 same shortcut name. If we enter a shortcut that already exists, we are in one line command or multi-step command behaviour, it will show an error, and if we are in multi-step customize all command, it will ask again.
+* The shortcut name can't be the same as one of the default command name (for example, the shortcut name can't be todo because it is a default command name).
+
+For each command, the console will output the command name.
+
+The user (you) have to input the shortcut you want.
+
+If the shortcut already exists, the console will tell you to assign another shortcut
+
+---
+
+* Test Case : `shortcut todo t`
+** Expected:
+*** Set the todo's command shortcut to t
+
+```
+	---------------------------------------------------------------------------------
+The shortcut for todo has been set
+	---------------------------------------------------------------------------------
+```
+
+* Test Case : multiline command `shortcut todo`, `to`
+** Expected:
+*** Set the todo's command shortcut to to
+
+```
+shortcut todo
+	---------------------------------------------------------------------------------
+Please enter a shortcut for todo
+	---------------------------------------------------------------------------------
+to
+	---------------------------------------------------------------------------------
+The shortcut for todo has been set
+	---------------------------------------------------------------------------------
+```
+* Test Case : multiline command  `shortcut`, then give all shortcuts
+** Expected:
+*** Set all command shortcut
+
+```
+shortcut
+	---------------------------------------------------------------------------------
+The precedent shortcut for bye is bye please enter new shortcut
+	---------------------------------------------------------------------------------
+b
+	---------------------------------------------------------------------------------
+The precedent shortcut for list is list please enter new shortcut
+	---------------------------------------------------------------------------------
+l
+	---------------------------------------------------------------------------------
+The precedent shortcut for help is help please enter new shortcut
+	---------------------------------------------------------------------------------
+h
+	---------------------------------------------------------------------------------
+The precedent shortcut for done is done please enter new shortcut
+	---------------------------------------------------------------------------------
+d
+	---------------------------------------------------------------------------------
+The precedent shortcut for find is find please enter new shortcut
+	---------------------------------------------------------------------------------
+f
+	---------------------------------------------------------------------------------
+The precedent shortcut for delete is delete please enter new shortcut
+	---------------------------------------------------------------------------------
+de
+	---------------------------------------------------------------------------------
+The precedent shortcut for homework is homework please enter new shortcut
+	---------------------------------------------------------------------------------
+ho
+	---------------------------------------------------------------------------------
+The precedent shortcut for event is event please enter new shortcut
+	---------------------------------------------------------------------------------
+e
+	---------------------------------------------------------------------------------
+The precedent shortcut for todo is to please enter new shortcut
+	---------------------------------------------------------------------------------
+t
+	---------------------------------------------------------------------------------
+The precedent shortcut for edit is edit please enter new shortcut
+	---------------------------------------------------------------------------------
+ed
+	---------------------------------------------------------------------------------
+The precedent shortcut for postpone is postpone please enter new shortcut
+	---------------------------------------------------------------------------------
+p
+	---------------------------------------------------------------------------------
+The precedent shortcut for snooze is snooze please enter new shortcut
+	---------------------------------------------------------------------------------
+s
+	---------------------------------------------------------------------------------
+The precedent shortcut for reschedule is reschedule please enter new shortcut
+	---------------------------------------------------------------------------------
+r
+	---------------------------------------------------------------------------------
+The precedent shortcut for remind is remind please enter new shortcut
+	---------------------------------------------------------------------------------
+re
+	---------------------------------------------------------------------------------
+The precedent shortcut for sort is sort please enter new shortcut
+	---------------------------------------------------------------------------------
+so
+	---------------------------------------------------------------------------------
+The precedent shortcut for setWelcome is setwelcome please enter new shortcut
+	---------------------------------------------------------------------------------
+se
+	---------------------------------------------------------------------------------
+The precedent shortcut for show is show please enter new shortcut
+	---------------------------------------------------------------------------------
+sh
+	---------------------------------------------------------------------------------
+The precedent shortcut for prioritize is prioritize please enter new shortcut
+	---------------------------------------------------------------------------------
+pr
+	---------------------------------------------------------------------------------
+The precedent shortcut for unfinished is unfinished please enter new shortcut
+	---------------------------------------------------------------------------------
+un
+	---------------------------------------------------------------------------------
+The precedent shortcut for language is language please enter new shortcut
+	---------------------------------------------------------------------------------
+la
+	---------------------------------------------------------------------------------
+All shortcut has been set
+	---------------------------------------------------------------------------------
+
+```
+
+* Test Case : multiline command  `shortcut`, `by`, `bye`
+** Expected:
+*** Set bye command's shortcut and then exit the shortcut command with bye
+
+```
+shortcut
+	---------------------------------------------------------------------------------
+The precedent shortcut for bye is b please enter new shortcut
+	---------------------------------------------------------------------------------
+by
+	---------------------------------------------------------------------------------
+The precedent shortcut for list is l please enter new shortcut
+	---------------------------------------------------------------------------------
+bye
+The shortcut edit mode is being terminated earlier. All shortcut edited until now has been saved
+```
+
+=== G.22. View Unfinished tasks : `unfinished`
+
+
+
+Find and display all unfinished tasks : `unfinished`
+
+Example:
+
+* `unfinished`
+* Output:
+
+```
+ unfinished
+        ---------------------------------------------------------------------------------
+         Here are the unfinished tasks in your list:
+         1. [T][X] td1 [Priority: 5]
+         2. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         3. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         4. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+```
+
+---
+* Test Case : multiline command  `unfinished`
+** Expected:
+*** Show all unfinished tasks
+
+```
+unfinished
+---------------------------------------------------------------------------------
+Here are the unfinished tasks in your list:
+1. [E][X] CS4211 Final exam  at: 12/12/2019 11:00 - 12/12/2019 13:00 [Priority: 5]
+2. [E][X] CS4239 Final exam  at: 08/12/2019 11:00 - 08/12/2019 13:00 [Priority: 5]
+3. [E][X] Software security Final exam  at: 20/11/2019 11:00 - 20/11/2019 13:00 [Priority: 5]
+4. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]
+5. [E][X] Sport  at: 22/11/2019 13:00 - 22/11/2019 15:00 [Priority: 5]
+6. [E][X] Sport  at: 25/11/2019 11:00 - 25/11/2019 17:00 [Priority: 5]
+7. [H][X] Formals Methods assignment 1 by: 01/12/2019 21:59 [Priority: 5]
+8. [H][X] Formals Methods assignment 2 by: 03/12/2019 21:59 [Priority: 3]
+9. [H][X] Optimized algorithm assignement  by: 12/11/2019 10:30 [Priority: 4]
+10. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]
+11. [H][X] Semester report by: 07/01/2020 23:59 [Priority: 5]
+12. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+13. [T][X] CS2113 demo [Priority: 2]
+14. [T][X] Software security: lab 5: exercice 1 [Priority: 2]
+15. [T][X] Software security: lab 5: exercice 2 [Priority: 1]
+16. [T][X] Software security: lab 6: exercice 1 [Priority: 1]
+17. [T][X] return book [Priority: 5]
+18. [H][X] LAC2202:revision by: 11/11/2019 18:00 [Priority: 5]
+19. [H][X] LAC2202:revision by: 18/11/2019 18:00 [Priority: 5]
+20. [H][X] CS4239: exercice revision by: 11/11/2019 18:00 [Priority: 5]
+21. [H][X] CS2111: exercice by: 11/11/2019 23:59 [Priority: 5]
+
+	---------------------------------------------------------------------------------
+```
+
+=== G.23. Change language : `language`
+
+Change the language for all the display message : `language LANGUAGE`
+
+`LANGUAGE` can be en or fr (only two language is available).
+The language will be set after the program is closed and open again.
+Example :
+
+* `language fr`
+* `language en`
+
+---
+* Test Case : `language fr`, `bye`, reopen the program, `bye`
+** Expected:
+*** Set the language to french
+
+```
+language fr
+---------------------------------------------------------------------------------
+This is the language that will be used after the next execution :French
+---------------------------------------------------------------------------------
+bye
+	---------------------------------------------------------------------------------
+	 Bye. Hope to see you again soon!
+	---------------------------------------------------------------------------------
+```
+Reopen the program
+```
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+	---------------------------------------------------------------------------------
+	bonjour les amis
+
+	---------------------------------------------------------------------------------
+bye
+
+	---------------------------------------------------------------------------------
+	 Bye. J'espère qu'on vous reverra bientôt!
+	---------------------------------------------------------------------------------
 ```
