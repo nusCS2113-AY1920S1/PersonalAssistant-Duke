@@ -1,7 +1,10 @@
 package duke.storage;
 
 import duke.exceptions.DukeException;
+
 import duke.models.LockerList;
+
+import java.util.ArrayList;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,6 +16,8 @@ public class StorageManager implements Storage {
     private FileStorage fileStorage;
     private ExportCsv writeToCsv;
     private ExportSelection selectionCsv;
+    private StateList stateList;
+    private CommandHistoryList historyList;
 
     /**
      * This function managers storage data from the file.
@@ -21,7 +26,8 @@ public class StorageManager implements Storage {
         fileStorage = new FileStorage(fileName);
         writeToCsv = new ExportCsv();
         selectionCsv = new ExportSelection();
-
+        stateList = new StateList();
+        historyList = new CommandHistoryList();
     }
 
     @Override
@@ -45,5 +51,39 @@ public class StorageManager implements Storage {
     public void exportSelection(LockerList lockerList, String input) throws DukeException {
         requireNonNull(lockerList);
         selectionCsv.exportSelect(lockerList.getLockerList(),input);
+    }
+
+
+    @Override
+    public void initializeStateList(LockerList lockerList) {
+        stateList.initializeStateList(lockerList);
+    }
+
+    @Override
+    public void updateStateList(LockerList lockerList) {
+        stateList.commit();
+        stateList.updateStateList(lockerList);
+    }
+
+    @Override
+    public LockerList undoStateList() throws DukeException {
+        return stateList.undo();
+    }
+
+    @Override
+    public LockerList redoStateList() throws DukeException {
+        return stateList.redo();
+    }
+
+    @Override
+    public void updateHistoryList(String cmd) {
+        if (!cmd.equalsIgnoreCase("history")) {
+            historyList.updateHistoryList(cmd);
+        }
+    }
+
+    @Override
+    public ArrayList<String> getHistoryList() {
+        return historyList.getHistoryList();
     }
 }

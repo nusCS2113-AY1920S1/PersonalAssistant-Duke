@@ -55,6 +55,7 @@ public class EditUsageCommand extends Command {
         Locker editedLocker = editUsageDetails(lockerList);
         ui.showSuccessfullyEdited(editedLocker.toString());
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 
     private Locker editUsageDetails(LockerList lockerList) throws DukeException {

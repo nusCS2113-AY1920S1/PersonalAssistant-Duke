@@ -41,5 +41,6 @@ public class DeleteUsageCommand extends Command {
                 lockerList.getIndexOfLocker(lockerToDelete));
         ui.showDeleteUsage();
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 }

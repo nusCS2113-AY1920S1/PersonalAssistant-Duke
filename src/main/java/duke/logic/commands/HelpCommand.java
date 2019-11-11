@@ -4,6 +4,9 @@ import duke.models.LockerList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Command to display the help manual.
+ */
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";

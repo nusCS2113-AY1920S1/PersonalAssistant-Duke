@@ -10,6 +10,9 @@ import java.util.Collections;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Command to sort the lockers in the list of lockers.
+ */
 public class SortCommand extends Command {
     private final String sortBy;
     private final int checkAscOrDes;
@@ -21,8 +24,8 @@ public class SortCommand extends Command {
 
     /**
      * This constructor instantiates the SortCommand object.
-     * @param sortBy stores the attribute of the locker to be sorted by.
-     * @param checkAscOrDes stores a flag to indicate if the command is ascending or descending.
+     * @param sortBy stores the attribute of the locker to be sorted by
+     * @param checkAscOrDes stores a flag to indicate if the command is ascending or descending
      */
 
     public SortCommand(String sortBy, int checkAscOrDes) {

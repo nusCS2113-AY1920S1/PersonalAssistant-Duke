@@ -29,12 +29,12 @@ public class AddLockerCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
-
         if (lockerList.isPresentLocker(addLocker)) {
             throw new DukeException(LockerList.DUPLICATE_LOCKERS_FOUND);
         }
         lockerList.addLocker(addLocker);
         ui.printAddLocker(lockerList.numLockers(), addLocker.toString());
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 }

@@ -58,6 +58,7 @@ public class EditLockerCommand extends Command {
         Locker editedLocker = editLockerDetails(lockerList, ui);
         ui.showSuccessfullyEdited(editedLocker.toString());
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 
     private Locker editLockerDetails(LockerList lockerList, Ui ui) throws DukeException {

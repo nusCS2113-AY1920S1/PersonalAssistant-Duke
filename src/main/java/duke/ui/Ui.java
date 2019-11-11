@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.models.locker.Locker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -37,7 +38,7 @@ public class Ui {
         printDash();
         printSpaces(" Hello! I am SpongeBob. I am here to manage lockers for you!");
         printSpaces(" What can I do for you?");
-        printSpaces(" If you need any assistance, please type 'help' to access to User Manual.");
+        printSpaces(" If you need any assistance, please type 'help' to access to Help Manual.");
         printDash();
     }
 
@@ -268,6 +269,24 @@ public class Ui {
     }
 
     /**
+     * This function prints the syntax for deleteusage command.
+     */
+    public void showDeleteUsageSyntax() {
+        printSpaces("To delete the usage of a locker:");
+        printSpaces("  deleteusage XXXX");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the syntax for editusage command.
+     */
+    public void showEditUsageSyntax() {
+        printSpaces("To edit the usage of a locker:");
+        printSpaces("  editusage XXXX n/__ i/__ e/__ m/__ f/__ t/__");
+        System.out.println();
+    }
+
+    /**
      * This function prints the syntax for find command.
      */
     public void showFindSyntax() {
@@ -291,16 +310,38 @@ public class Ui {
      * This function prints the syntax for list and bye command.
      */
     public void showOtherSyntax() {
+        printSpaces("To select a locker and view its information:");
+        printSpaces("  selectlocker XXXX");
+        System.out.println();
         printSpaces("To show the list of lockers:");
         printSpaces("  list");
         System.out.println();
-        printSpaces("To show your Reminders:");
+        printSpaces("To clear all lockers in the list:");
+        printSpaces("  clear");
+        System.out.println();
+        printSpaces("To show your reminders:");
         printSpaces("  reminders");
+        System.out.println();
+        printSpaces("To undo a command:");
+        printSpaces("  undo");
+        System.out.println();
+        printSpaces("To redo a command:");
+        printSpaces("  redo");
+        System.out.println();
+        printSpaces("To show the statistics of lockers:");
+        printSpaces("  stats");
+        System.out.println();
+        printSpaces("To export the locker list as a CSV file:");
+        printSpaces("  export");
+        System.out.println();
+        printSpaces("To view the history of commands:");
+        printSpaces("  history");
         System.out.println();
         printSpaces("To exit SpongeBob:");
         printSpaces("  bye");
         System.out.println();
     }
+
 
     /**
      * This function prints the legends for help manual.
@@ -341,6 +382,8 @@ public class Ui {
         showDeleteSyntax();
         showEditSyntax();
         showAssignSyntax();
+        showDeleteUsageSyntax();
+        showEditUsageSyntax();
         showFindSyntax();
         showSortSyntax();
         showOtherSyntax();
@@ -395,7 +438,7 @@ public class Ui {
 
     /**
      * This function prints the serial number of a locker for table of lockers.
-     * @param str stores the serial number of a locker.
+     * @param str stores the serial number of a locker
      */
     public void printListSerialNumber(String str) {
         System.out.print("|");
@@ -409,7 +452,7 @@ public class Ui {
 
     /**
      * This function prints the tag of a locker for table of lockers.
-     * @param str stores the tag of a locker.
+     * @param str stores the tag of a locker
      */
     public void printListTag(String str) {
         System.out.print("|");
@@ -433,7 +476,7 @@ public class Ui {
 
     /**
      * This function prints the located zone of a locker for table of lockers.
-     * @param str stores the located zone of a locker.
+     * @param str stores the located zone of a locker
      */
     public void printListZone(String str) {
         System.out.print("|");
@@ -444,7 +487,7 @@ public class Ui {
 
     /**
      * This function prints the located area of a locker for table of lockers.
-     * @param str stores the located area of a locker.
+     * @param str stores the located area of a locker
      */
     public void printListArea(String str) {
         System.out.print("|");
@@ -491,7 +534,7 @@ public class Ui {
 
     /**
      * This function shows a table of all lockers that was searched by the user.
-     * @param foundLockers stores the list of lockers that match the search parameters.
+     * @param foundLockers stores the list of lockers that match the search parameters
      */
 
     public void printFoundLockers(List<Locker> foundLockers) {
@@ -506,7 +549,7 @@ public class Ui {
 
     /**
      * This function shows a table of all sorted lockers based on the user input.
-     * @param sortedLockers stores the list of lockers that were sorted based on the user input.
+     * @param sortedLockers stores the list of lockers that were sorted based on the user input
      */
 
     public void printSortedLockers(List<Locker> sortedLockers) {
@@ -518,8 +561,8 @@ public class Ui {
 
     /**
      * This function shows a table of all sorted lockers based on the user input.
-     * @param unauthorizedLockers stores the list of unauthorized lockers.
-     * @param brokenLockers stores the list of unauthorized lockers.
+     * @param unauthorizedLockers stores the list of unauthorized lockers
+     * @param brokenLockers stores the list of unauthorized lockers
      */
 
     public void printReminders(List<Locker> expiringLockers,
@@ -558,5 +601,221 @@ public class Ui {
 
         }
 
+    }
+
+    /**
+     * This function prints the message when undo operation is successful.
+     */
+    public void printSuccessfulUndo() {
+        printSpaces("I have successfully undo the previous command!");
+        printDash();
+    }
+
+    /**
+     * This function prints the message when redo operation is successful.
+     */
+    public void printSuccessfulRedo() {
+        printSpaces("I have successfully redo the previous command!");
+        printDash();
+    }
+
+    /**
+     * This function prints the serial number of the selected locker.
+     * @param str stores the serial number of the locker
+     */
+    public void printSerialNumber(String str) {
+        System.out.print("|");
+        System.out.print("Serial Number: #" + str);
+        printEmptySpace(50 - (str.length() + 16));
+        System.out.print("|");
+    }
+
+    /**
+     * This function prints the tag of the selected locker.
+     * @param str stores the tag of the locker
+     */
+    public void printTag(String str) {
+        System.out.print("|");
+        System.out.print("Tag: " + str);
+        printEmptySpace(50 - (str.length() + 5));
+        System.out.print("|");
+    }
+
+    /**
+     * This function prints the located zone of the selected locker.
+     * @param str stores the located zone of the locker
+     */
+    public void printZone(String str) {
+        System.out.print("|");
+        System.out.print("Zone: " + str);
+        printEmptySpace(50 - (str.length() + 6));
+        System.out.print("|");
+    }
+
+    /**
+     * This function prints the located area of the selected locker.
+     * @param str stores the located area of the locker
+     */
+    public void printArea(String str) {
+        System.out.print("|");
+        System.out.print("Area: ");
+        if (str.length() < 45) {
+            System.out.print(str);
+            printEmptySpace(50 - (str.length() + 6));
+        } else {
+            System.out.print(str.substring(0, 41));
+            System.out.print("...");
+        }
+        System.out.print("|");
+    }
+
+    /**
+     * This function prints the name of the student assigned (if any) to the selected locker.
+     * @param str stores the name of student (if any)
+     */
+    public void printStudentName(String str) {
+        System.out.print("Student Name: ");
+        if (str.length() < 37) {
+            System.out.print(str);
+            printEmptySpace(50 - (str.length() + 14));
+        } else {
+            System.out.print(str.substring(0, 33));
+            System.out.print("...");
+        }
+        System.out.println("|");
+    }
+
+
+    /**
+     * This function prints the matric number of the student assigned (if any) to the selected locker.
+     * @param str stores the matric number of student (if any)
+     */
+    public void printStudentID(String str) {
+        System.out.print("Student ID: " + str);
+        printEmptySpace(50 - (str.length() + 12));
+        System.out.println("|");
+    }
+
+    /**
+     * This function prints the email of the student assigned (if any) to the selected locker.
+     * @param str stores the email of student (if any)
+     */
+    public void printStudentEmail(String str) {
+        System.out.print("Student Email: ");
+        if (str.length() < 36) {
+            System.out.print(str);
+            printEmptySpace(50 - (str.length() + 15));
+        } else {
+            System.out.print(str.substring(0, 32));
+            System.out.print("...");
+        }
+        System.out.println("|");
+    }
+
+    /**
+     * This function prints the name of the student assigned (if any) to the selected locker.
+     * @param str stores the name of student (if any)
+     */
+    public void printStudentMajor(String str) {
+        System.out.print("Student Major: ");
+        if (str.length() < 36) {
+            System.out.print(str);
+            printEmptySpace(50 - (str.length() + 15));
+        } else {
+            System.out.print(str.substring(0, 32));
+            System.out.print("...");
+        }
+        System.out.println("|");
+    }
+
+    /**
+     * This function prints the start date of rental (if any) of the selected locker.
+     * @param str stores the start date of rental (if any)
+     */
+    public void printStartDate(String str) {
+        System.out.print("|");
+        System.out.print("Rental Start Date: " + str);
+        printEmptySpace(50 - (str.length() + 19));
+        System.out.print("|");
+    }
+
+    /**
+     * This function prints the end date of rental (if any) of the selected locker.
+     * @param str stores the end date of rental (if any)
+     */
+    public void printEndDate(String str) {
+        System.out.print("Rental End Date: " + str);
+        printEmptySpace(50 - (str.length() + 17));
+        System.out.println("|");
+    }
+
+    /**
+     * This function prints the borders for user to view the information of the selected locker.
+     */
+    public void printBorder() {
+        String str = "";
+        for (int i = 0; i < 103; i++) {
+            if (i == 0 || i == 51 || i == 102) {
+                str += "+";
+            } else {
+                str += "-";
+            }
+        }
+        printSpaces(str);
+    }
+
+    /**
+     * This function shows a the information of a selected locker.
+     * @param serialNumber stores the serial number of the locker
+     * @param tag stores the tag of the locker
+     * @param zone stores the located zone of the locker
+     * @param area stores the located area of the locker
+     * @param studentName stores the name of the student assigned (if any) to the locker
+     * @param studentID stores the matic number of the student assigned (if any) to the locker
+     * @param studentEmail stores the email of the student assigned (if any) to the locker
+     * @param studentMajor stores the major of the student assigned (if any) to the locker
+     * @param startDate stores the start date of rental (if any) of the locker
+     * @param endDate stores the end date of rental (if any) of the locker
+     */
+    public void selectMessage(String serialNumber, String tag, String zone, String area, String studentName,
+                              String studentID, String studentEmail, String studentMajor, String startDate,
+                              String endDate) {
+        printSpaces("Here are the information of the locker you have selected:");
+        System.out.println();
+        printBorder();
+        System.out.print("    ");
+        printSerialNumber(serialNumber);
+        printStudentName(studentName);
+        System.out.print("    ");
+        printTag(tag);
+        printStudentID(studentID);
+        System.out.print("    ");
+        printZone(zone);
+        printStudentEmail(studentEmail);
+        System.out.print("    ");
+        printArea(area);
+        printStudentMajor(studentMajor);
+        System.out.print("    ");
+        printStartDate(startDate);
+        printEndDate(endDate);
+        printBorder();
+        printDash();
+    }
+
+    /**
+     * This function prints the list of command history typed by the user.
+     * @param historyList stores the list of command history
+     */
+    public void printHistory(ArrayList<String> historyList) {
+        if (historyList.isEmpty()) {
+            printSpaces("There are no history of commands.");
+        } else {
+            printSpaces("Here are the history of commands you have typed in:");
+            System.out.println();
+            for (int i = 0; i < historyList.size(); i++) {
+                printSpaces((i + 1) + ". " + historyList.get(i));
+            }
+        }
+        printDash();
     }
 }

@@ -6,7 +6,7 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Command to list all the lockers managed by SpongeBob.
+ * Command to list all the lockers.
  */
 public class ListCommand extends Command {
 

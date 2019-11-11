@@ -46,6 +46,7 @@ public class AssignLockerCommand extends Command {
         int storeIndex = assignLockerToStudent(lockerList, ui);
         ui.printSuccessfulAllocation(lockerList.getLocker(storeIndex).toString());
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 
     private int assignLockerToStudent(LockerList lockerList, Ui ui) throws DukeException {

@@ -12,6 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Command to show reminders to the user.
+ */
 public class RemindersCommand extends Command {
 
     public static final String COMMAND_WORD = "reminders";

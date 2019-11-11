@@ -34,6 +34,7 @@ public class Duke {
             ui.showLoadingError(e.getMessage());
             lockers = SampleData.getSampleLockerList();
         }
+        storage.initializeStateList(lockers);
     }
 
     /**
@@ -46,6 +47,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.printDash();
+                storage.updateHistoryList(fullCommand);
                 Command c = parser.parse(fullCommand);
                 c.execute(lockers, ui, storage);
                 isExit = c.isExit();

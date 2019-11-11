@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to display the statistics of locker list.
+ */
 public class StatsCommand extends Command {
 
     private static final int zone = 0;
@@ -20,7 +23,7 @@ public class StatsCommand extends Command {
 
     /**
      * This function lists out the stats for each tag.
-     * @throws DukeException when there are errors while handling the file.
+     * @throws DukeException when there are errors while handling the file
      */
 
     public static void readStats(List<Locker> lockerList, Ui ui) throws DukeException {

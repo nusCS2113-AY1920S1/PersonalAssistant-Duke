@@ -33,12 +33,12 @@ public class AddBatchCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
-
         if (lockerList.areLockersPresent(batchOfLockers)) {
             throw new DukeException(LockerList.DUPLICATE_LOCKERS_FOUND);
         }
         lockerList.addAllLockersInList(batchOfLockers);
         ui.printBatch(batchOfLockers.size());
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 }

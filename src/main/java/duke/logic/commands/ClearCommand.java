@@ -17,5 +17,6 @@ public class ClearCommand extends Command {
         lockerList.removeAllLockers();
         ui.showAllLockersRemoved();
         storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 }
