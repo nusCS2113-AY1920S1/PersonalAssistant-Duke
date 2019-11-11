@@ -4,8 +4,8 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
+:imagesdir: images
+:stylesdir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -496,6 +496,7 @@ Use case resumes at step 3.
 +
 Use case resumes at step 3.
 // end::nova2[]
+
 [discrete]
 === Use case 2: Create a recurring task
 
