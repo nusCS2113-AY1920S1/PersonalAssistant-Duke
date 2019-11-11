@@ -13,13 +13,6 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-
-// todo: java docs
-// todo: add a resize function V
-// todo: make headings - month and year V
-// todo: add "X more..." for when cell cannot display all rows V
-// todo: print days of the week
-
 //@@author danielcyc
 
 /**
@@ -27,8 +20,8 @@ import java.util.Date;
  */
 
 public class CalendarCommand extends Command {
-    private int cellLength = 18;
-    private int cellHeight = 6;
+    private static int cellLength = 18;
+    private static int cellHeight = 6;
     private int calHeight = 5;
     private int calWidth = 7;
     private int minCellHeight = 5;
@@ -477,5 +470,3 @@ public class CalendarCommand extends Command {
         return result;
     }
 }
-
-
