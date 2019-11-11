@@ -28,7 +28,7 @@ A reminder to trigger forgetful users' memory about upcoming tasks so that they 
 
 ## Site map
 * [User Guide](docs/UserGuide.md)
-* [Developer Guide](docs/DeveloperGuide.md)
+* [Developer Guide](https://docs.google.com/document/d/1J2znTbX9idocybH2tEC3P-DCys8h_SqwjAnqrSNVYqk/edit?ts=5d75f831#)
 * [About Us](docs/AboutUs.md)
 
 ## Acknowledgements
