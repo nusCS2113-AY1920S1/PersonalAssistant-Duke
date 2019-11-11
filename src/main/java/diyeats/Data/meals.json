@@ -1,15 +1,39 @@
 {
-  "2019-11-10": [
+  "2019-11-11": [
     {
-      "description": "Turkey Bacon Burger",
+      "description": "kueh",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": true,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "keuh",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "20"
+    }
+  ],
+  "2019-11-10": [
+    {
+      "description": "keuh",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": true,
       "date": "2019-11-10",
       "nutritionValue": {
-        "calorie": 400
+        "calorie": 250
       },
-      "costStr": "0"
+      "costStr": "20"
     }
   ]
 }

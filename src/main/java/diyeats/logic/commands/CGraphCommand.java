@@ -3,6 +3,7 @@ package diyeats.logic.commands;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
+import diyeats.model.undo.Undo;
 import diyeats.model.wallet.Transaction;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -45,10 +46,10 @@ public class CGraphCommand extends Command {
     }
 
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ArrayList<Integer> intHolder = new ArrayList();
         double highest = 1;
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.of(year,month,1);
         int month = date.getMonthValue();
         date = date.withMonth(month);
         //start of month :

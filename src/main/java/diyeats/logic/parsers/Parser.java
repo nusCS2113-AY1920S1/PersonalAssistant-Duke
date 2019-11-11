@@ -5,6 +5,7 @@ import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.Command;
 import diyeats.logic.commands.ExitCommand;
 import diyeats.logic.commands.StatsCommand;
+import diyeats.logic.commands.UndoCommand;
 
 import static diyeats.commons.constants.CommandSyntax.PARSER_ADD_DEFAULT_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_ADD_EXERCISE_COMMAND;
@@ -31,6 +32,7 @@ import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_EXERCISE_CO
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_MEAL_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_UPDATE_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_LIST_TRANSACTION_COMMAND;
+import static diyeats.commons.constants.CommandSyntax.PARSER_UNDO_COMMAND;
 
 //@@author
 /**
@@ -122,6 +124,8 @@ public class Parser {
                 return new DeleteExerciseCommandParser().parse(argumentStr);
             case PARSER_LIST_TRANSACTION_COMMAND:
                 return new ListTransactionCommandParser().parse(argumentStr);
+            case PARSER_UNDO_COMMAND:
+                return new UndoCommand();
             default:
                 throw new ProgramException("I'm sorry, but I don't know what the command "
                         + "you have just entered means");

@@ -2,6 +2,7 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -48,7 +49,7 @@ public class UpdateWeightCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         switch (stage) {
             case 0:
                 stage0(user, storage);
@@ -64,31 +65,27 @@ public class UpdateWeightCommand extends Command {
 
     public void stage0(User user, Storage storage) {
         ui.showLine();
-        if (Integer.parseInt(weight) > 2) {
-            HashMap<LocalDate, Double> allWeight = user.getAllWeight();
-            if (!allWeight.containsKey(currentDate)) {
-                try {
-                    user.setWeight(Integer.parseInt(weight), currentDate);
-                    ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
-                } catch (NumberFormatException e) {
-                    ui.showMessage("Please input a proper number for weight");
-                }
-            } else {
-                try {
-                    int temp = Integer.parseInt(weight);
-                    isDone = false;
-                    ui.showConfirmation(weight, currentDate);
-                } catch (NumberFormatException e) {
-                    ui.showMessage("Please input a proper number for weight");
-                }
+        try {
+            if (Integer.parseInt(weight) < 2) {
+                ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
+                return;
             }
-            try {
-                storage.writeUser(user);
-            } catch (ProgramException e) {
-                ui.showMessage(e.getMessage());
-            }
+        } catch (NumberFormatException e) {
+            ui.showMessage("Please input a proper number for weight");
+            return;
+        }
+        HashMap<LocalDate, Double> allWeight = user.getAllWeight();
+        if (!allWeight.containsKey(currentDate)) {
+            user.setWeight(Integer.parseInt(weight), currentDate);
+            ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
         } else {
-            ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
+            isDone = false;
+            ui.showConfirmation(weight, currentDate);
+        }
+        try {
+            storage.writeUser(user);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
         }
         ui.showLine();
     }
@@ -140,4 +137,14 @@ public class UpdateWeightCommand extends Command {
         }
         ui.showLine();
     }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        user.setWeight(Integer.parseInt(weight), currentDate);
+        try {
+            storage.writeUser(user);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
 }

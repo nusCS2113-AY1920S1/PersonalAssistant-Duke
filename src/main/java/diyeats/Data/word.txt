@@ -1,11 +1,8 @@
 calorie
 calcium
 breakfast
-end
 lunch
 dinner
-edit
-exit
 update
 date
 month
@@ -28,3 +25,11 @@ deposit
 done
 list
 listtransaction
+clear
+startdate
+enddate
+undo
+edit
+pay
+deposit
+bye

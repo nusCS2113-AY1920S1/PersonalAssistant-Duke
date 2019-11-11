@@ -3,9 +3,11 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
+import diyeats.model.undo.Undo;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,10 @@ import java.util.ArrayList;
  */
 public class AddCommand extends Command {
     private Meal meal;
+
+    public AddCommand() {
+    }
+
     /**
      * Constructor for AddCommand.
      * the meal specified as the instance field meal.
@@ -39,9 +45,13 @@ public class AddCommand extends Command {
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
      */
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         try {
+            if (!meals.getMealTracker().containsKey(this.meal.getDate())) {
+                undo.undoAdd(this.meal, new ArrayList<Meal>());
+            } else {
+                undo.undoAdd(this.meal, (ArrayList) meals.getMealTracker().get(this.meal.getDate()).clone());
+            }
             meals.addMeals(this.meal);
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
             ui.showAdded(this.meal, mealData, user, this.meal.getDate());
@@ -49,5 +59,19 @@ public class AddCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        try {
+            meals.addMeals(this.meal);
+            ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
+            storage.writeFile(meals);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    public Meal getMeal() {
+        return this.meal;
     }
 }

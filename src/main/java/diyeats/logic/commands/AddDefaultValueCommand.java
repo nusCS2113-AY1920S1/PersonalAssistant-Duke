@@ -3,6 +3,7 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -15,7 +16,11 @@ import diyeats.storage.Storage;
  */
 public class AddDefaultValueCommand extends Command {
     private Meal meal;
+    private String toBeUndone;
 
+    public AddDefaultValueCommand(String name) {
+        toBeUndone = name;
+    }
     /**
      * Constructor for AddDefaultValueCommand.
      * @param meal The meal to be added.
@@ -38,9 +43,19 @@ public class AddDefaultValueCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         meals.addDefaultValues(this.meal);
+        undo.undoDefaultValues(this.meal.getDescription());
         ui.showAddedItem(this.meal);
+        try {
+            storage.writeDefaults(meals);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        meals.addDefaultValues(this.meal);
         try {
             storage.writeDefaults(meals);
         } catch (ProgramException e) {

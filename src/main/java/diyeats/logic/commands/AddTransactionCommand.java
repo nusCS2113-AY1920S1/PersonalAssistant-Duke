@@ -2,6 +2,7 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Transaction;
 import diyeats.model.wallet.Wallet;
@@ -20,6 +21,7 @@ public class AddTransactionCommand extends Command {
      * Constructor for AddTransactionCommand.
      * @param transaction the transaction object to be stored within wallet
      */
+
     public AddTransactionCommand(Transaction transaction) {
         this.transaction = transaction;
     }
@@ -42,12 +44,19 @@ public class AddTransactionCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo)
+            throws ProgramException {
         ui.showLine();
+        undo.undoTransaction(this.transaction);
         wallet.getTransactions().addTransaction(this.transaction);
         wallet.updateAccountBalance(this.transaction);
         storage.writeTransaction(wallet);
         ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
         ui.showLine();
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
+        wallet.updateAccountBalance(this.transaction);
+        storage.writeTransaction(wallet);
     }
 }

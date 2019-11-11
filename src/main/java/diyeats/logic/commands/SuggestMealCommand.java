@@ -3,6 +3,7 @@ package diyeats.logic.commands;
 import diyeats.logic.suggestion.MealSuggestionAnalytics;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -51,14 +52,14 @@ public class SuggestMealCommand extends Command {
     }
 
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         switch (stage) {
             case 0:
                 execute_stage_0(meals, storage, user, wallet);
                 stage++;
                 break;
             case 1:
-                execute_stage_1(meals, storage, user, wallet);
+                execute_stage_1(meals, storage, user, wallet, undo);
                 break;
             default:
                 isDone = true;
@@ -84,7 +85,7 @@ public class SuggestMealCommand extends Command {
     }
 
     // second stage user input execution
-    public void execute_stage_1(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute_stage_1(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         int mealSelectedIndex;
         try {
             mealSelectedIndex = Integer.parseInt(this.responseStr);
@@ -106,7 +107,7 @@ public class SuggestMealCommand extends Command {
 
         Meal chosenMeal = suggestedMealList.get(mealSelectedIndex - 1);
         addCommand = new AddCommand(chosenMeal);
-        addCommand.execute(meals, storage, user, wallet);
+        addCommand.execute(meals, storage, user, wallet, undo);
         isDone = true;
     }
 }

@@ -26,6 +26,13 @@ public class TransactionList {
         transactionTracker.get(date).add(transaction);
     }
 
+    //To facilitate undo
+    public Transaction deleteTransaction(LocalDate date) {
+        Transaction deletedTransaction = this.transactionTracker
+                .get(date).get(this.transactionTracker.get(date).size() - 1);
+        this.transactionTracker.get(date).remove(this.transactionTracker.get(date).size() - 1);
+        return deletedTransaction;
+    }
     /**
      * gets a list of transactions based on a date.
      * @param date the date in which the list of transactions is to be taken from.
@@ -46,6 +53,10 @@ public class TransactionList {
      */
     public HashMap<LocalDate, ArrayList<Transaction>> getTransactionList() {
         return this.transactionTracker;
+    }
+
+    public HashMap<LocalDate, ArrayList<Transaction>> getTransactionTracker() {
+        return transactionTracker;
     }
 
 }

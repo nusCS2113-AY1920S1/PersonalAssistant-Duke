@@ -3,7 +3,9 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
+import diyeats.model.wallet.Deposit;
 import diyeats.model.wallet.Payment;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -69,7 +71,7 @@ public class MarkDoneCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             logger.log(Level.WARNING, "the index " + index + " is out of bound");
@@ -85,6 +87,7 @@ public class MarkDoneCommand extends Command {
             } else if (wallet.addPaymentTransaction(payment)) {
                 logger.log(Level.FINE, "Adding payment transaction");
                 Meal markedDoneMeal = meals.markDone(currentDate, index);
+                undo.undoMarkDone(currentDate, index);
                 try {
                     storage.writeFile(meals);
                     storage.writeTransaction(wallet);
@@ -105,5 +108,21 @@ public class MarkDoneCommand extends Command {
             }
         }
         ui.showLine();
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        Meal currentMeal = meals.getMeal(currentDate, index);
+        String foodCostStr = currentMeal.getCostStr();
+        Deposit deposit = new Deposit(foodCostStr, currentMeal.getDate());
+        meals.markUnDone(currentDate, index);
+        wallet.updateAccountBalance(deposit);
+        wallet.getTransactions().deleteTransaction(currentDate);
+        try {
+            storage.writeFile(meals);
+            storage.writeTransaction(wallet);
+        } catch (ProgramException e) {
+            logger.log(Level.WARNING, "error in storing transactions");
+            ui.showMessage(e.getMessage());
+        }
     }
 }
