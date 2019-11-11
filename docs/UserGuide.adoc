@@ -74,6 +74,9 @@ Note: The number of days must be an integer.
 Adds a task defined by the user to the to-do list with a deadline. +
 
 Format: `todo <name of task> /dd-MM-yyyy [HHmm]` +
+
+NOTE: Reminder that the bracketed input is optional. +
+
 E.g. `todo complete theory homework /10-10-2019`
 adds a deadline to complete the user's theory homework by 10 October 2019.
 
@@ -97,8 +100,9 @@ Format: `exam <exam description> /dd-MM-yyyy HHmm HHmm`
 Format: `recital <recital description> /dd-MM-yyyy HHmm HHmm`
 +
 . Concerts : `concert` +
-Format: `concert <concert description> /dd-MM-yyyy HHmm HHmm [/<cost of concert>]` +
-Note: Cost of concert must be an integer (for simplicity regarding budgeting).
+Format: `concert <concert description> /dd-MM-yyyy HHmm HHmm /[<cost of concert>]` +
+
+NOTE: Cost of concert must be an integer (for simplicity regarding budgeting).
 
 
 === Recurring events :
