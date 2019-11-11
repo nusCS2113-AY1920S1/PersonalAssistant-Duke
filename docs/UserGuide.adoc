@@ -44,7 +44,7 @@ image::Ui.png[width="939", align="left"]
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 . Some example commands you can try:
-* `list tasks` : lists all tasks
+* `list tasks all` : lists all tasks
 * `add task complete event banners /at 12/12/2019 1000` : adds a task to the list
 * `done 1` : marks the 1st task shown in the current list as done
 * `delete task 1` : removes the 1st task shown in the current list
@@ -92,7 +92,7 @@ e.g `add task final defence /at 23/11/2019 1300`
 * task with member(s): assign task to member(s) when creating the task +
 `add task [TASK_NAME] /to [MEMBER_NAME] ...` +
 e.g `add task restructure parsers /to Alice` +
-e.g `add task restructure parsers /to Alice Bob Carol`
+e.g `add task restructure parsers /to Alice, Bob, Carol`
 
 * task with time and member(s): +
 `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...` +
@@ -111,10 +111,10 @@ Finds tasks whose names or description contain any of the given keywords. +
 e.g `find defence`
 
 ****
-* The search is case sensitive. e.g banner will not match Banner
-* If multiple words in [KEYWORD], the length of the space matters. e.g read    book will not match read book
-* Only the Task name is searched
-* Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Banner will return Complete Banner, Brainstorm Banner
+* The search is case sensitive. e.g `banner` will not match `Banner`
+* If multiple words in [KEYWORD], the length of the space matters. e.g `read    book` will not match `read book`
+* Search for both name and description
+* Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Banner` will return `Complete Banner`, `Brainstorm Banner`
 ****
 
 
@@ -252,7 +252,7 @@ Finds members who possess skills required by a task +
 
 === Commands related to both tasks and members
 
-====  Listing task(s) or member(s): `list`
+====  Listing task(s), member(s) or reminder(s): `list`
 lists all the task in the CLI output and switches to task view +
 `list tasks all`
 
@@ -273,6 +273,9 @@ lists all the members in order of progress from high to low in the CLI output an
 
 lists all the members in order of todo task num from low to high in the CLI output and switches to members view +
 `list members todonum`
+
+lists all reminders +
+`list reminders`
 
 ****
 * For listing task in order of time, please refer to `schedule`
@@ -318,6 +321,7 @@ A: Copy and replace the /data folder to the other Team Manager
 * Removing a member: `delete member [MEMBER_NAME],...`
 * Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
 * Listing for members: `list members (todonum/progress)`
+* Listing for reminders: `list reminders`
 * View Schedule: `schedule tasks {all/todo}`
 * View Schedule for a member: `schedule member {all/todo} [MEMBER_NAME]`
 * Find Task by Name: `find [KEYWORD]`

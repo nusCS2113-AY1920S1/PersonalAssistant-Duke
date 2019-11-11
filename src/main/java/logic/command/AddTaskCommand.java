@@ -36,8 +36,8 @@ public class AddTaskCommand extends Command {
     /**
      * Sets the required skill list
      */
-    public void setReqSkill(String fullSkill) throws DukeException{
-        if(fullSkill.length()==0) {
+    public void setReqSkill(String fullSkill) throws DukeException {
+        if (fullSkill.length() == 0) {
             throw new DukeException("empty skill input");
         }
         reqSkill = Arrays.asList(fullSkill.split("\\s+"));
