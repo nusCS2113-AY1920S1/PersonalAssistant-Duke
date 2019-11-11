@@ -20,6 +20,8 @@ public class FindCommandTest {
         Command command = FindCommandParser.parseFindCommand("test2");
         CommandOutput out = command.execute(model);
         assertEquals("No such task with keyword: test2", out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -32,6 +34,8 @@ public class FindCommandTest {
         assertEquals("The tasks below are with keyword: tes\n"
                         + "1. [✕]*tes*t task",
                 out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -47,6 +51,8 @@ public class FindCommandTest {
                         + "1. [✕] test task\n"
                         + "Description: *use*less description",
                 out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
 
     }
 
@@ -60,6 +66,8 @@ public class FindCommandTest {
         assertEquals("The tasks below are with keyword: sk\n"
                         + "1. [✕]test ta*sk*",
                 out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
 
     }
 }

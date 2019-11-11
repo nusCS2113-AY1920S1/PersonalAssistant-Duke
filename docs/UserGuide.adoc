@@ -154,6 +154,8 @@ Deletes the specified task from the schedule list. +
 
 Edits the details of the tasks. +
 `edit task {name/time/des} TASK_INDEX /to [change content]` +
+e.g `edit task des 1 /to This is a very tough task` +
+e.g `edit task tim 1 /to 11/11/2019 1111`
 e.g `edit task name 1 /to Create swim meet poster` +
 e.g `edit task time 1 /to 12/12/2019 1010`
 
@@ -194,7 +196,11 @@ e.g `unlink 1 /from Alice` +
 e.g `unlink 2 3 /from Alice, Bob` +
 
 ==== Editing the profile of member: `edit`
-`edit member {name/bio/email/phone} MEMBER_NAME /to [change content]` +
+
+`edit member {name/bio/email/phone} [MEMBER_NAME] /to [change content]` +
+e.g `edit member bio Annie /to She is a programmer` +
+e.g `edit member email Justin /to justin@cs.com` +
+e.g `edit member phone Jason /to 11112222`
 e.g `edit member name Alex /to Alexia`
 
 ==== Showing the full details of Member : `show`
@@ -234,10 +240,10 @@ lists all the members in order of todo task num from low to high in the CLI outp
 ==== Viewing Schedule for the whole team or a member: `schedule`
 
 view the whole team tasks in chronological order +
-`schedule team {all/todo}`
+`schedule tasks {all/todo}`
 
 view tasks for a specific member +
-`schedule member {all/todo} ([MEMBER_NAME])`
+`schedule member {all/todo} [MEMBER_NAME]`
 
 ****
 * The DATE has to be of pattern “dd/MM/yyyy”
@@ -257,7 +263,6 @@ it will output the member name, date and tasks' names.
 Q: How do I transfer my data to another Computer? +
 A: Copy and replace the /data folder to the other Team Manager
 
-{to be implemented}
 
 == Command Summary
 * Viewing Available Commands: `help`
@@ -272,7 +277,8 @@ A: Copy and replace the /data folder to the other Team Manager
 * Removing a member: `delete member [MEMBER_NAME],...`
 * Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
 * Listing for members: `list members (todonum/progress)`
-* View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
+* View Schedule: `schedule tasks {all/todo}`
+* View Schedule for a member: `schedule member {all/todo} [MEMBER_NAME]`
 * Find Task by Name: `find [KEYWORD]`
 * Mark Task as Complete: `done [INDEX] ...`
 * Mark Task as Incomplete: `undone [INDEX] ...`

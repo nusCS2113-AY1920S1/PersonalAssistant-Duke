@@ -70,6 +70,9 @@ public class CheckCommandTest {
                 + "5. task5\n"
                 + "[END OF test3 ]",
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -78,5 +81,8 @@ public class CheckCommandTest {
         DoneCommandParser.parseDoneCommand("1 2 3 4 5 6").execute(model);
         CommandOutput out = CheckCommandParser.parseCheckCommand("").execute(model);
         assertEquals("All tasks have proper deadlines.", out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 }
