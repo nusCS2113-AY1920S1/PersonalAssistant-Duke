@@ -33,7 +33,7 @@ public class AddCommandTest {
     @BeforeAll
     private static void init() throws RimsException {
         ui = new Ui();
-        storage = new Storage("unitTestDate/resources.txt","unitTestDate/reserves.txt");
+        storage = new Storage("unitTestData/resources.txt","unitTestData/reserves.txt");
         ArrayList<Resource> emptyList = new ArrayList<Resource>();
         listUnderTest = new ResourceList(ui,emptyList);
         resource_1 = new Item(1, "testitem");

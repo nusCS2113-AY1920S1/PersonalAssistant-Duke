@@ -47,7 +47,7 @@ public class ReturnCommandTest {
 
         listUnderTest.add(ResourceUnderTest);
 
-        storage = new Storage("unitTestData/resources.txt", "unitTestData/reserves.txt");
+        storage = new Storage("unitTestData/resources.txt","unitTestData/reserves.txt");
     }
 
     /**
