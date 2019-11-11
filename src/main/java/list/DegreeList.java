@@ -234,7 +234,7 @@ public class DegreeList implements Serializable, Cloneable {
      * @param dd DegreeList Storage makes changes in the text file
      * @throws DukeException
      */
-    public void swap(String input, DegreeListStorage dd) throws DukeException {
+    public void swap(String input) throws DukeException {
         String[] split = input.split(" ");
         if(split.length < 2) {
             throw new DukeException("Please mention both the indices to swap the degrees.");
