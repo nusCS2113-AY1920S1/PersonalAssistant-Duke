@@ -135,7 +135,7 @@ public class ProjectInputController implements IController {
         } else if (projectFullCommand.matches("view reminders"))  {
             responseToView = projectViewReminder(this.projectToManage);
         }  else if (projectFullCommand.matches("view reminders by list"))  {
-            responseToView = projectViewReminderCategory(this.projectToManage);
+            responseToView = projectViewReminderByList(this.projectToManage);
         } else if (projectFullCommand.matches("edit reminder.*")) {
             responseToView = projectEditReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("delete reminder.*")) {
@@ -765,7 +765,7 @@ public class ProjectInputController implements IController {
      * The method view the reminder in categories.
      * @param projectToManage The project specified by the user.
      */
-    public String[] projectViewReminderCategory(Project projectToManage) {
+    public String[] projectViewReminderByList(Project projectToManage) {
         ArrayList<ArrayList<String>> reminderCategory = new ArrayList<>();
         HashMap<String, ArrayList<Reminder>> reminderCategoryList = projectToManage.getCategoryReminderList();
         int indexCategory = 1;
