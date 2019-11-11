@@ -32,6 +32,18 @@ public class OverlayGroupGroup  extends Command {
 
     }
 
+    private void repeatLoop(ArrayList<Group> groupListAddTo, int groupIndexToAddTo, int groupIndexToAddFrom,
+                             Group overlayingGroup, Combiner combine) {
+        Iterator<Group> iterator1 = groupListAddTo.iterator();
+        int i = 0;
+        while (iterator1.hasNext()) {
+            Group temp = iterator1.next();
+            if (i >= groupIndexToAddTo && i != groupIndexToAddFrom) {
+                combine.combineGroup(overlayingGroup,temp);
+            }
+            i += 1;
+        }
+    }
 
     /**
      * Overlays 2 groups together and when the groups are of unequal length, when a
@@ -94,19 +106,10 @@ public class OverlayGroupGroup  extends Command {
             Group overlayingGroup = overlayingGroupToBeCopied.copy(overlayingGroupToBeCopied);
 
             if (sections.length > 4 && sections[4].equals("repeat")) {
-                Iterator<Group> iterator1 = groupListAddTo.iterator();
-                int i = 0;
-                while (iterator1.hasNext()) {
-                    Group temp = iterator1.next();
-                    if (i >= groupIndexToAddTo && i != groupIndexToAddFrom) {
-                        combine.combineGroup(overlayingGroup,temp);
-                    }
-                    i += 1;
-                }
+                repeatLoop(groupListAddTo, groupIndexToAddTo, groupIndexToAddFrom, overlayingGroup,combine);
             } else {
 
                 Group groupToBeCopiedTo = groupListAddTo.get(groupIndexToAddTo);
-
                 combine.combineGroup(overlayingGroup,groupToBeCopiedTo);
             }
 
@@ -115,9 +118,6 @@ public class OverlayGroupGroup  extends Command {
             DucatsLogger.fine("overlay_group_group sucessfully updated the song " + songAddTo.getName());
             Command ascii = new AsciiCommand("ascii song " + songAddTo.getName());
             return ascii.execute(songList,ui,storage);
-            //return ui.formatAddOverlay(songList.getSongList(), groupIndexToAddTo,songAddTo);
-
-
         } catch (DucatsException e) {
             //System.out.println(e.getType());
             throw new DucatsException(message, e.getType());
@@ -129,6 +129,8 @@ public class OverlayGroupGroup  extends Command {
             throw new DucatsException(message,"IO");
         } catch (java.lang.NumberFormatException e) {
             throw new DucatsException(message,"number_index");
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            throw new DucatsException(message,"no_index");
         }
     }
 

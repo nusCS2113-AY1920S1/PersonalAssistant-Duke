@@ -22,7 +22,7 @@ Amateur musicians find it difficult to start with music theory as they are unabl
 practical method and quit. Our application allows amateur musicians to learn music theory and apply their learning by
 creating songs.
 
-This application allows you to learn what you have learnt through:
+This application allows you to apply what you have learnt through:
 
 * Ease of adding, deleting components to the songs
 
@@ -35,9 +35,9 @@ the  basics of creating a song.
 print it in command line.
 
 This document describes the coding style and the architecture of the Ducats project built by Team CS2113T F09-4.
-This document is intended for our major release v1.3.
+This document is intended for our major release v1.4.
 
-The documentation will allow any developer to start to work on the project by first learning about the system
+The documentat will allow any developer to start to work on the project by first learning about the system
 architecture, then the implementation and lastly on how to document the code that is written.
 
 
@@ -71,17 +71,40 @@ Ducats, the main class, is responsible for the initialization of the different c
 
 DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
 
-Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components.
+Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components making use of the services provided by the lower-level components. The remaining seven components are as follows:
+
+* `UI`: interacts with the console (reading and writing)
+* `Parser`: parses the input command and creates of the appropriate Command object
+* `WordGetter`: suggests the correct command to the user if the user misspells his command
+* `Command`: executed to modify the UI, SongList and Storage
+* `SongList`: contains the list of Song objects
+* `Metronome`: displays a visual metronome on screen when initialized through a `MetronomeCommand`
+* `StorageParser`: parses data in persistent storage and converts song data to a form friendly to be stored in persistent storage
+* `Storage`: Reads data from and writes data to persistent storage in the hard disk
+
+Each of these classes have their API illustrated in their respective files.
 
 === UI
 
-This layer consists of the `UI` Class which is in charge of printing the output to the command line in a specific format. This was chosen instead of printing the output from every individual class as we opted to do abstraction to make it simpler when adding new features. This class also receives messages from users and pass it to parser layer, which decides which class to be called.
+*API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/Ui.java[`Ui.java`]
+
+This layer consists of the `UI` Class which is in charge of printing the output to the command line in a specific format. This was chosen instead of printing the output from every individual class as we opted to do abstraction to make it simpler when adding new features. This class also receives messages from users and passes them to the parser layer, which decides which class to be called.
 
 === Parser and Commands
+
+This layer consists of the `Parser` Class. This layer takes the message from the `UI` Class and then processes it to check through the list of commands and call the constructor of the required class. The `Parser` Class calls the `WordGetter` Class (Autocorrect class) to get the closest command to the users input as to account for typos. It achieves this by splitting the input or throwing a Duke Exception if the user did not enter the command properly. 
+
+=== AutoCorrect 
+
+This layer consists of the `WordGetter` Class, which works on the basis of the Jaccard theorem that finds the intersection between the 2 words and divides it by the union of the 2 words and hence gets the word with the highest ratio and is above a threshold as to account for random inputs. 
 
 === SongList
 
 === Storage and StorageParser
+
+*Storage API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/Storage.java[`Storage.java`]
+
+*StorageParser API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/StorageParser.java[`StorageParser.java`]
 
 The Storage layer, implemented by the `Storage` class, is responsible for Ducats' interaction with persistent storage of the SongList, which is in the form of a directory called *data* containing `.txt` files that each contain the full data for one Song.
 
@@ -100,7 +123,7 @@ image::Command_Sequence_Diagram.png[]
 
 In the above diagram, 'XYZ' is used to represent a general command or function. There are several different types of possible commands that can be created after parsing, and hence the object is labelled "XYZCommand". Similarly, to format the output string, there are multiple method within the UI class of doing so, hence being represented here by "XYZFormat()".
 
-It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute. In accordance with this, a new `Command` object is created and then the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
+It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute, and then creates the appropriate command with the full message text as a parameter. Then, the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
 
 A slightly different schedule is used for the Metronome functionality, which will be discussed in further detail in Section 4.5.
 
@@ -122,9 +145,38 @@ The created Song object will then be inserted into the SongList object, which co
 
 In order to enable the modification of certain songs when there are multiple songs without the forced provision of additional parameters by the user, a system of navigation has been implemented, where a song can be "opened" in order for it to be edited, with the first song in the SongList being "opened" by default. "Opening" a song is carried out by the execution of the `OpenCommand`, which changes a variable in the `SongList` object known as the `activeIndex`.
 
-`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. The overall sequence for the parsing and execution of `OpenCommand` is shown below in Figure X.
+`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. For example, consider the situation where the SongList contains two songs titled "twinkle" and "dreams".
 
-<insert sequence diagram specific to OpenCommand>
+image::songlist_activeIndex1.png[]
+
+In this case, as the default `activeIndex` is set to `0`, the user can enter `open dreams` in the CLI to make sure he is editing the song titled "dreams".
+
+image::songlist_activeIndex2.png[]
+
+When the main class executes the command, the command will first try to find the index of the provided song in the song list.
+
+    String songName = message.substring(5);
+    int songIndex = songList.findSongIndex(songName);
+
+findSongIndex(songName) conducts a linear search on the SongList to return the index of the song that has the given name, and returns -1 is the song is not found. By querying the return value, Ducats either sets the activeIndex of the SongList or throws and then handles a DucatsException. The former is carried out with the `setActiveIndex()` method of the SongList class.
+
+    songList.setActiveIndex(songList.findSongIndex(songName));
+
+For future CRUD commands, the specific SongList method invoked by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below. This means that you can utilize the SongList API function `setActiveIndex()` in other created components to achieve the same functionality.
+
+image::songlist_activeIndex3.png[]
+
+_Design Considerations_:
+
+* Use binary search instead of linear search for `findSongIndex()`
+** _Pros_: Higher efficiency in navigation
+** _Cons_: the `list` in the SongList needs to be sorted, and insertion in a sorted manner, along with the implementation of binary search, for minimal gains in efficiency, seems to violate KISS
+
+* Let the user input the index of the song rather than the name
+** _Pros_: Faster input of command for the user, no need for `findSongIndex()`
+** _Cons_: User needs to look at the full list first, so overall, time is not saved. For the user, querying a name is more natural than an index.
+
+Hence, we have decided to go for a linear search for `findSongIndex()`, and let the user input the song name to open the song instead of the index.
 
 ==== Modifying a Song
 
@@ -132,7 +184,140 @@ In order to enable the modification of certain songs when there are multiple son
 
 ==== Undo/Redo
 
+UndoCommand and RedoCommand is implemented using a typical undo-redo stack, which is also a important component called `UndoRedoStack`, which records all the versions of the `SongList` object that the user is currently using.
+The implementation of UndoRedoStack is similar to git history tree.
+Each node on the UndoRedoStack is a version of the SongList.
+
+Once the user enters a command that may change the SongList, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
+
+Before each `undo` or `redo`, UndoRedoStack will check the undoability/redoability of the UndoRedoStack.
+
+* `undo` - `canUndo()`:
+** If the tree is at the very first version, then cannot undo anymore.
+** Else, the UndoRedoStack can be undone.
+
+* `redo` - `canRedo()`:
+** If the tree is at the very last version, then cannot redo anymore.
+** Else, the UndoRedoStack can be redone.
+
+Impact of UndoCommand/RedoCommand:
+
+* `undo` - moves the UndoRedoStack to its previous version.
+* `redo` - moves the UndoRedoStack to its next version.
+
+Note that after user enters a command that could change the SongList, if the current version of SongList is not the latest version, which means the the UndoRedoStack is not at its latest node,
+all the nodes after current node will be dropped, and the new version of the UndoRedoStack will be treated as the current and the latest node,
+and you cannot visit the previous branch of nodes anymore.
+
 ==== Overlay
+For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
+
+image::overlay_demo.png[]
+
+`overlay`: 
+
+`overlay <bar_num to be overlayed> <bar_num to be overlayed to>`
+
+Allows the users to overlay a bar from the same song to another bar on the same song. This feature is really useful when the song is really big and we just need to get the index of the bars to be overlayed and the overlaying bar. 
+
+*How to go about it?* 
+
+The `overlay` command gets the command from the Parser and checks if all the required parameters are provided by spliting the string by spaces. For instance if the user inputs 1 number instead of 2, then a DucatsException is thrown. 
+
+The index of the current Song is obtained by calling the `getActiveIndex()` function of SongList. 
+
+    songList.getActiveIndex();
+
+After which the required song is obtained by calling the `getSongIndex(songIndex)` function of SongList: 
+
+    songList.getSongIndex(songIndex);
+
+The list of bars of the song are obtained by calling the getter function 
+
+    song.getBars(); 
+
+After which, we try to get the bar depending on the user's input (user's input - 1 because in Ducats we use a 1 based indexing) 
+
+We make a copy of the overlayingBar by calling the `copy` function of the bar. 
+
+    Bar.copy(bar_to_be_copied); 
+
+This function returns a bar and hence allows us to pass the bar by value rather than reference. Therefore,any modification does not affect the overlaying bar. 
+
+We create a `Combiner` class, which combines 2 same components of a song. 
+
+    combiner = new Combiner(); 
+
+After creating the combiner, we check if there is any 3rd parameter (`repeat`) to repeat the overlaying throughout the song from the bar that needs to be overlayed to.
+
+
+
+If there is a `repeat` parameter. We use a iterator to loop through the array of bars as an iterator allows us to modify the object in the array while looping through it. The current index of the loop is stored in the form of a variable.
+
+If the condition is fulfilled,  we call the combiner's `combineBar` function.
+
+    combiner.combineBar(Bar_to_be_combined_on, Bar_to_be_combined_to);
+
+We repeat this process till the end of the array list. 
+
+If there is no repeat function, then we just get the bar to be overlayed from the array and call the combiner's `combineBar` function. 
+
+After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function: 
+
+
+image::overlaysequencediagram.png[]
+
+==== overlay_bar_song
+
+
+`overlay_bar_song`: 
+
+`overlay_bar_song <song_name to be overlayed from> <bar_number> <song_name to be overlayed to> <bar_number>`
+ 
+Allows the users to overlay a bar from a different song to another bar from another song. This especially useful when the composer has already made a song or liked a part of a song from another composer. 
+
+
+*How to go about it?* 
+
+
+The command is sent from the parser class and appropriate checking of the command is done to check if the user has inputed the right number of parameters by splitting the message space by a ` `.
+
+
+This command allows the user to input the song name rather than by index and hence once the command message has been split. The splitting is performed by the  `message.split(" ")`. 
+
+The exact song is obtained by calling the `findSong` function of songList. If the array sent by songList is smaller than 1, then the song doesnt exists and a Ducats exception is thrown. 
+
+    songList.findSong(songName); 
+
+The respective bar array is obtained by calling the `getBars()` function for each song obtained and the combiner class is invoked. 
+
+If there is a repeat parameter, an iterator is used to loop through the bar list and check if the current index is greater than or equal to the required index and perform the combineBar function, which splits each bar into chords and combines the chords using the arrayList combination. 
+
+If there isnt a repeat parameter,then we just get the bar to be overlayed from the array and call the combiner's combineBar() function. 
+
+After which, we call the updatefile function of storage to store the new song and then return the string from the execute function of ascii to properly display the new song to the user through the UI. 
+
+Below is the action sequence diagram: 
+
+
+image::overlay_bar_song_actionsequence.png[]
+
+==== overlay_group_group
+
+`overlay_group_group`: 
+
+`overlay_group_group <song_name to be overlayed from> <group_number> <song_name to be overlayed to> <group_number>` 
+
+
+Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
+
+
+* Group 1: {Bar X Bar Y} 
+* Group 2 : {Bar A Bar B Bar C Bar D}
+* Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
+* Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
+
+
 
 ==== Group and Copy
 
@@ -154,22 +339,254 @@ Following this, the `TimerTask` of generating the appropriate output to the cons
 
 === Autosuggest
 
-=== Storage
+=== Storage and StorageParser
+
+In order to ensure that the songs the user has created, deleted or modified can be retrieved even after exiting Ducats, a form of persistent storage is needed. This is implemented as a folder containing `.txt` files, and a `Storage` class that will interact with the said folder to read and modify its contents. Since the `Storage` class can create and modify files, it is important to understand the exact procedures executed within the class for the reading and writing of files. The two swimlane diagrams below display the sequence of events, as well as how the `Storage` class interacts with the `StorageParser` class. Each activity is annotated with the function within which it occurs for easy reference.
+
+.Reading files (for each file)
+image::storage_read.png[]
+
+Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure X is then repeated for each file in the file list.
+
+.Writing to files (for each song)
+image::storage_write.png[]
+
+Regardless of whether the `.txt` file corresponding to the specific song exists, the `Storage` class will attempt the creation of the file to ensure its existence. Due to the modification of data being involved, changes to the files are logged by DucatsLogger.
+
+_Data Format:_
+
+In order to convert each Song object to a human-readable String, and to be able to parse it back, a format must be decided for the storing of the Song object in persistent storage. The following format has been adopted:
+
+    NAME KEY TEMPO
+    BAR_1
+    BAR_2
+    ...
+    BAR_N
+    groups:
+    GROUP_1_NAME BAR_1 ... BAR_N
+    ...
+    GROUP_N_NAME BAR_1 ... BAR_N
+
+Each `BAR_N`, where N is a positive integer, is formatted as follows, with the segments representing each individual bar, chord and note being labelled with B, C and N respectively:
+
+    [[UAs;UCs],[UA;UC],[UA;UC],[UA;UC],[MCs;LDs],[MC;LD],[MC;UDs],[MC,UD]]
+    |----------------------------------B---------------------------------|
+     |---C---|
+      |N|
+
+For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of a 1⁄8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of ½ and an Upper C Note with the same duration in the first four chords.
+
+By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the .txt file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion due to the composition structure of the Song component (as can be seen in Figure X). Inversely, in order for the StorageParser class to parse the data found in the .txt file into Song objects that are to be stored in the SongList, the following methods are defined under the `StorageParser` class:
+
+* `convertNoteFromString(String s)` (converts a String into a Note)
+* `convertChordFromString(String s)` (converts a String into a Chord) _(uses the above)_
+* `convertBarFromString(String s)` (converts a String into a Bar) _(uses the above)_
+* `convertSongFromString(String s)` (converts a String into a Song) _(uses the above)_
+
+_Design Considerations_:
+
+* Using a single .txt file to store all the data
+** _Pros_: easier implementation of `Storage`
+** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
+* Using .csv files instead of .txt files to store the data
+** _Pros_: arguably a more organized method of data management
+** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+
+We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
 
 === Logging
 
 == Adding a New Function
+
+When creating a new command for Ducats, one must first create a class separately for this command. This class must extend the abstract class Command.  One must also implement the method execute which is in charge of executing the command depending on the user’s input. Furthermore, the parser class must be changed to include the command, by editing the switch case. It should also be included in the Ducats class’s run method. It can be included by using c instance of <Class Name> .If the undo-redo function is not applicable to the implemented command, then it must be included the nested if statement in the code (Refer to Fig 1.3) . Furthermore the command must be included in the  WordGetter class’s commandList array of String (Fig 1.4 for more details).
+
+
+image::adding_new_functionality_1.png[1.3]
+
+image::adding_new_functionality_2.png[1.4]
+
 
 == Testing
 
 [appendix]
 == Product Scope
 
+Target user profile:
+
+* Is passionate in producing music
+* Is new to music composition
+* Has little to no background in music theory
+* Can effectively use the keyboard
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
+
+_Value proposition_:
+Quick and seamless composing, editing and saving of music.
+
+
 [appendix]
 == User Stories
+
+[cols=4*]
+|===
+|Priority
+|As a(an) ...
+|I want to ...
+|So that ...
+
+|3
+|amateur composer who does not want to be overwhelmed with music theory
+|know the different ways and options to compose music in a simplified way
+|I have a way to start learning about music composition
+
+|3
+| a self-taught musician who has no prior musical theory knowledge
+| visualize the songs I create and play in an intuitive yet comprehensive way to
+| I have a tangible way to represent and record my songs.
+| 3
+| pianist who is not pitch perfect
+| check out how certain specific chords sound in a convenient way
+| I can identify when I play the wrong chords
+| 2
+| electronic music enthusiast
+| create music that cannot be created with a physical musical instrument
+| I can create new music
+| 2
+| electronic music composer
+| save my music as mp3 file
+| I can share it with others
+| 1
+| musician who wants to start composing my own accompaniment
+| an easy-to-use platform to test out how the accompaniment would sound together with my musical piece
+| it is easier for me to create my accompaniment
+| 3
+| As someone who doesn’t have any musical instruments
+| I want to be able to learn about basic music theory without buying any instruments
+| I can create my own music and feel proud
+| 2
+| As an electronic music enthusiast,
+| I want to create music that cannot be created with a physical musical instrument
+| that I can create new music.
+| 3
+| As an electronic music composer
+| I want to save my music as mp3 file
+| so that I can share it with others
+| 2
+| As a newcomer to music
+| I want to have tips or tutorial on creating good music in the software
+| so that I can learn to create good and simple music through the app
+| 3
+| As a newcomer to music
+| I want the app to tell me about my progress in learning music
+| So that I can gauge my performance.
+| 2
+| As an amateur music creator
+| I want to be able to group certain rhythms and melodies that I compose
+| So that I can easily copy paste these rhythms and melodies to create long music
+| 3
+| As an amateur music creator
+| I want to group together notes that I find sounds good to create rhythms and melodies
+| so that I can reuse them later as I compose the music.
+| 4
+| As an experienced composer
+| I want an fast and easy way to hear out small snippets of my musical pieces.
+| This is so that it is easier for me pick out which notes to improve on and alter.
+| 4
+| As a wannabe composer
+| I want to be able to change the key of the song I am working on.
+| So that I can create or remix new songs.
+| 3
+| As a wannabe composer
+| I want to be able to easily set the time signature of the song I want to compose.
+| So that I can create or remix new songs.
+| 4
+| As an experimentalist musician
+| I want to be able to explore the sounds of different chords. Priority.
+| So that I can test it and create new songs.
+| 3
+| As a fan of music
+| I want to quickly listen to what I have composed.
+| So that I can share with my friends.
+| 4
+| As a music lover
+| I want to be able to easily edit songs in a command line interface.
+| I can share it with my musical buddies.
+| 4
+| As a person who enjoys music
+| I want to be able to jot down my musical ideas in a quick and seamless way.
+| I can share it with my friends.
+| 3
+| As a computer engineer with little to no experience in music
+| I need a tool to instantly combine two songs or voice for a presentation
+| I can share it with my friends.
+| 4
+| As a parent
+| I want to teach my kid the practicality approach of creating a song
+| so that i can gauge their interest level in music.
+| 4
+| As a person who is just starting off with piano
+| I would love to know if there is an app that allows me to compose music
+| so that I can learn practically.
+| 3
+| As a person who loves to analyse music
+| I want to know the notes in the music.
+| I can learn from it.
+| 4
+| As a person who is into remixing
+| I want a simple tool to remix different songs in a simple and intuitive way.
+| I can create my own songs
+| 4
+| A person who loves to create music
+| I really want to copy portions of a song into another
+| I can do it as a hobby!
+|===
 
 [appendix]
 == Use Cases
 
+(For all use cases below, the *System* is the Ducats program and the *Actor* is the user)
+
+Use case: Delete song
+
+. User requests to list songs
+. Ducats shows a list of songs
+. User requests to delete a specific song in the list
+. Ducats deletes the song _[Use case ends]_
+
+Extensions:
+
+2a. The list is empty _[Use case ends]_
+
+3a. The given song name is invalid
+
+3a1. Ducats shows an error message _[Use case ends]_
+
+Use case: Create song
+
+. User requests the format to create song using help
+. Ducats shows a list of commands
+. User lookup for the specific song creation command
+. Ducats shows the format for creating a song
+. User input a song according to the format
+. Ducats create the song and store it into the storage
+
+Extensions:
+
+3a. The input command name is invalid
+
+3a1. Ducats shows an error message _[Use case ends]_
+
+5a. The input format is incorrect
+
+5a1. Ducats shows an error message _[Use case ends]_
+
+
 [appendix]
 == Non-Functional Requirements
+
+* Response should be as fast as possible as there is no online communication and any complicated back-end algorithms. Response should be within 0.7s.
+* The product should work on all modern devices regardless of Operating System.
+* The product should show data in a human-readable, human-editable way in order to allow for easy manual entry and easy exporting of data.
+* The product should be intuitive and easily utilized with reference to an accompanying User Guide and/or Developer Guide.
+* The product should have clear updates that indicate what features have been added, removed or modified.
+* The product should not be excessively battery and resource intensive.

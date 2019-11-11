@@ -122,6 +122,7 @@ public class Storage {
      * @throws DucatsException in the case of IO exceptions
      */
     public void loadToList(SongList songList) throws DucatsException {
+        assert dataFolder.listFiles() != null;
         for (final File songFile: dataFolder.listFiles()) {
             String filepath = dirpath + fileDelimiter + songFile.getName();
             loadSongToList(songList, filepath);

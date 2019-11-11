@@ -190,17 +190,20 @@ public class Ui {
      * Returns a String formatted for display that shows all the groups available
      * in the current song.
      *
-     * @param songList list of songs from storage
+     * @param groups list of groups pertaining to that search from ListGroupCommand
      * @return the formatted String to be displayed
      */
-    public String formatListGroups(SongList songList) {
-        int songIndex = songList.getActiveIndex();
-        ArrayList<Group> groups = songList.getSongIndex(songIndex).getGroups();
+    public String formatListGroups(ArrayList<Group> groups) {
         String result = "Here are the groups available: \n";
         int groupCount = 1;
-        for (Group group : groups) {
-            result += groupCount + ". " + group.getName() + "\n";
-            groupCount++;
+        if (groups.size() == 0) {
+            //no groups found
+            result = "No groups are found for that search";
+        } else {
+            for (Group group : groups) {
+                result += groupCount + ". " + group.getName() + "\n";
+                groupCount++;
+            }
         }
         return result;
     }

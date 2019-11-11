@@ -31,6 +31,26 @@ public class OverlayBarGroup  extends Command {
         this.message = message;
     }
 
+    private void repeatLoop(ArrayList<Group> groupList, int groupIndexToBeCopiedTo, Bar overlayingBar,
+                            Combiner combine) {
+        Iterator<Group> iterator1 = groupList.iterator();
+        int i = 0;
+        while (iterator1.hasNext()) {
+            Group temp = iterator1.next();
+
+            if (i >= groupIndexToBeCopiedTo) {
+
+                Splitter splitItem = new Splitter("group split");
+                ArrayList<Bar> barListCopiedTo = splitItem.splitObject(temp);
+                Iterator<Bar> iteratorGroup = barListCopiedTo.iterator();
+                while (iteratorGroup.hasNext()) {
+                    Bar barCopiedTo = iteratorGroup.next();
+                    combine.combineBar(overlayingBar, barCopiedTo);
+                }
+            }
+            i += 1;
+        }
+    }
 
     /**
      * Overlays a bar onto a group from the same song.
@@ -95,23 +115,7 @@ public class OverlayBarGroup  extends Command {
                 }
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
                 if (sections.length > 2 && sections[2].equals("repeat")) {
-                    Iterator<Group> iterator1 = groupList.iterator();
-                    int i = 0;
-                    while (iterator1.hasNext()) {
-                        Group temp = iterator1.next();
-
-                        if (i >= groupIndexToBeCopiedTo) {
-
-                            Splitter splitItem = new Splitter("group split");
-                            ArrayList<Bar> barListCopiedTo = splitItem.splitObject(temp);
-                            Iterator<Bar> iteratorGroup = barListCopiedTo.iterator();
-                            while (iteratorGroup.hasNext()) {
-                                Bar barCopiedTo = iteratorGroup.next();
-                                combine.combineBar(overlayingBar, barCopiedTo);
-                            }
-                        }
-                        i += 1;
-                    }
+                    repeatLoop(groupList, groupIndexToBeCopiedTo, overlayingBar, combine);
                 } else {
 
                     Group groupToBeCopied = groupList.get(groupIndexToBeCopiedTo);
@@ -143,6 +147,8 @@ public class OverlayBarGroup  extends Command {
             throw new DucatsException(message, "IO");
         } catch (java.lang.NumberFormatException e) {
             throw new DucatsException(message,"number_index");
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            throw new DucatsException(message,"no_index");
         }
     }
     /**

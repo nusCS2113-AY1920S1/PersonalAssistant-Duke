@@ -33,6 +33,19 @@ public class AddOverlayCommand extends Command {
     }
 
 
+    private void repeatLoop(ArrayList<Bar> barList, int barIndexToBeCopiedTo, int barIndexToAdd, Bar overlayingBar,
+                             Combiner combine) {
+        Iterator<Bar> iterator1 = barList.iterator();
+        int i = 0;
+
+        while (iterator1.hasNext()) {
+            Bar temp = iterator1.next();
+            if (i >= barIndexToBeCopiedTo && i != barIndexToAdd) {
+                combine.combineBar(overlayingBar, temp);
+            }
+            i += 1;
+        }
+    }
     /**
      * This is the ovelay function for overlaying bars from the opened song.
      *
@@ -79,21 +92,12 @@ public class AddOverlayCommand extends Command {
                     DucatsLogger.severe("overlay command was called when the bar index did not exist");
                     throw new DucatsException(message, "no_index");
                 }
+
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
 
-                ArrayList<Chord> chordsToAdd = overlayingBar.getChords();
                 Combiner combine = new Combiner();
                 if (sections.length > 2 && sections[2].equals("repeat")) {
-                    Iterator<Bar> iterator1 = barList.iterator();
-                    int i = 0;
-
-                    while (iterator1.hasNext()) {
-                        Bar temp = iterator1.next();
-                        if (i >= barIndexToBeCopiedTo && i != barIndexToAdd) {
-                            combine.combineBar(overlayingBar, temp);
-                        }
-                        i += 1;
-                    }
+                    repeatLoop(barList,  barIndexToBeCopiedTo,  barIndexToAdd,  overlayingBar, combine);
 
                 } else {
 
@@ -124,6 +128,8 @@ public class AddOverlayCommand extends Command {
             throw new DucatsException(message,"IO");
         } catch (java.lang.NumberFormatException e) {
             throw new DucatsException(message,"number_index");
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            throw new DucatsException(message,"no_index");
         }
     }
 
