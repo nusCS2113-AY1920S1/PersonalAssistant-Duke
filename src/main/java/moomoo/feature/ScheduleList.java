@@ -41,8 +41,6 @@ public class ScheduleList {
         }
         if (calendar.containsKey(date)) {
             for (String n : calendar.get(date)) {
-                String[] amount = n.split(" ");
-                int index = amount.length - 1;
                 String blanks = " ";
                 n = n.replaceAll("[0-9]","");
                 int blank = 19 - n.length();
@@ -52,6 +50,8 @@ public class ScheduleList {
                 if (n.length() > 19) {
                     n = n.substring(0,16) + "...";
                 }
+                String[] amount = n.split(" ");
+                int index = amount.length - 1;
                 String blank2 = " ";
                 blank = 4 - amount[index].length();
                 for (int i = 1; i <= blank; i++) {
