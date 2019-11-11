@@ -96,8 +96,61 @@ When you are ready to start coding, we recommend that you get some sense of the 
 === Architecture
 
 .Architecture Diagram
-[appendix]
-== Product Scope
+image::Architechture_Diagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of Entertainment-Pro. Entertainment-Pro adopts a n-tier style architecture where higher layers make use of services provided by lower layers. Here is a quick overview of each layer/component:
+
+* <<Design-Ui,*`UI`*>>: The user interface of the application
+* <<Design-Commons,*`Commons`*>>: A collection of classes used by multiple other components
+* <<Design-Logic,*`Logic`*>>: The main controller of the entire application
+* <<Design-Model,*`Model`*>>: Holds the data of the application in-memory
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk
+
+[[Design-Ui]]
+=== UI component
+
+This collection includes every class that is directly associated with the user interface of the application. All Ui controller classes are part of this collection.
+
+The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/entertainment-pro/ui/MovieHandler.java[`Main`] is specified in link:{repoURL}/src/main/resources/view/MainPage.fxml[`MainPage.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Recives commannd results from `Logic` component so that the `UI` can be updated with the modified data.
+
+[[Design-Commons]]
+=== Common component
+
+Commons represent a collection of classes common to many other classes. This package includes all enumerations declared in the scope of the project, exceptions, as well as String prompt messages and constants that are used throughout the project. 
+
+[[Design-Logic]]
+=== Logic component
+
+This collection includes every logical class that deals with the logical processing of information and data. Classes that deal with the command parsing, command execution, autocompletion and prediction as well as API requests come under this collection. 
+
+
+[[Design-Model]]
+=== Model component
+
+The Model collection defines the class templates for all custom objects created to encapsulate data. 
+
+[[Design-Storage]]
+=== Storage component
+The storage collection contains classes which deal with the storage of the application data both in-memory and hard disk. It also contains storage utility classes which deal with the writing and reading of data to and from the hard disk.
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Command Parser
+
+.UML diagram of how user input is handled
+image::Command_Parser_UML.png[width="800" align="left"]
+
+The command parser functionality enables the user commands to be processed effectively. Its implementation also allows for greater flexibility for developers to be able to introduce new commands to the program without having to deal with the underlying implementation of the command parser itself. This is made possible by giving each root command a class of its own. They inherit the CommandSuper class which contains member variables and functions that can be used to conveniently get the details (see section 1.1) from the user input. There is also an abstract function that needs to be implemented in the child classes. This function is named the executeCommand() , which defines the logic that needs to be implemented for each subroot command that is associated with the particular root command.
+
+
+
 
 *Target user profile*:
 
