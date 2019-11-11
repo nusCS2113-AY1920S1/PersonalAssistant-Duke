@@ -145,7 +145,7 @@ public class UpdateWeightCommand extends Command {
      * @param response user input response
      */
 
-    public void setResponseStr(String response) throws ProgramException{
+    public void setResponseStr(String response) throws ProgramException {
         try {
             InputValidator.validate(response);
             this.responseStr = response.toLowerCase().substring(0,1);
