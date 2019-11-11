@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
 class DoneCommandTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
@@ -24,6 +25,7 @@ class DoneCommandTest {
 
     /**
      * Helper method to create a sample task lists for the commands to work on
+     *
      * @return TaskList
      * @throws DukeException
      */
@@ -51,10 +53,10 @@ class DoneCommandTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,"l"));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,"l"));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,"l"));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4, "l"));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4, "l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5, "l"));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4, "l"));
 
         return t;
     }

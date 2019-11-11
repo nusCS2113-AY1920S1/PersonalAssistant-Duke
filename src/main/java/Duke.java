@@ -26,8 +26,8 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            ui.showLine("I see this is your first time running this program! I've taken the " +
-                    "liberty to create a default task list for you!");
+            ui.showLine("I see this is your first time running this program! I've taken the "
+                    + "liberty to create a default task list for you!");
             tasks = new TaskList();
             tasks.preLoadTasks();
         } catch (Exception e) {

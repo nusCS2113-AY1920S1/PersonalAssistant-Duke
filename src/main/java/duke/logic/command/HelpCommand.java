@@ -12,8 +12,8 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine("Here is a summary of what you can do in El Duque. For a more detailed explanation, please" +
-                " read the User Guide\n");
+        ui.showLine("Here is a summary of what you can do in El Duque. For a more detailed explanation, please"
+                + " read the User Guide\n");
 
         ui.showLine("El Duque commands follow a general format: \n");
         ui.showLine("[-FILTER] COMMAND [-MODIFICATIONS] \n");
@@ -43,8 +43,8 @@ public class HelpCommand extends Command {
         ui.showLine("   bye         | Exits the program\n");
 
         ui.showLine("Filter");
-        ui.showLine("They are similar to sublist, they work with all the commands that references a certain tasks and" +
-                " the index indicated is \nrespective to the filtered list.");
+        ui.showLine("They are similar to sublist, they work with all the commands that references a certain tasks and"
+                + " the index indicated is \nrespective to the filtered list.");
         ui.showLine("e.g. -cs2113 list\n");
 
         ui.showLine("Modifications Available:");
@@ -52,8 +52,8 @@ public class HelpCommand extends Command {
         ui.showLine("   -r       | reccurence, indicates the period for recurrence either daily or weekly");
         ui.showLine("   -d       | duration in hours assigned to a task");
         ui.showLine("   -p       | priority tag, l, m or h");
-        ui.showLine("   -t       | date and time, follows ddMMyy, ddMMyy HHmm, today/tomorrow, today/tomorrow " +
-                "HHmm\n");
+        ui.showLine("   -t       | date and time, follows ddMMyy, ddMMyy HHmm, today/tomorrow, today/tomorrow "
+                + "HHmm\n");
         ui.showLine("edit ");
         ui.showLine("   -desc    | edits the description");
         ui.showLine("   -f       | edits the filter\n");
@@ -78,7 +78,8 @@ public class HelpCommand extends Command {
 
     /**
      * Not applicable for this Command.
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      * @throws DukeException NA
      */

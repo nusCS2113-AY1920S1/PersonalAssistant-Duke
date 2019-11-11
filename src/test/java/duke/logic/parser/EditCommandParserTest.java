@@ -1,14 +1,13 @@
-package duke.logic;
+package duke.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-import duke.exception.DukeException;
-import duke.logic.parser.EditCommandParser;
-import duke.logic.parser.KeywordAndField;
 import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
 
 /**
  * Contains tests to tests for exception thrown when parameters parsed in is of incorrect format

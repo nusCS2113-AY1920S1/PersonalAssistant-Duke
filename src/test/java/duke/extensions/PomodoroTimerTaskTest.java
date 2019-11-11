@@ -7,9 +7,9 @@ import java.util.Timer;
 import org.junit.jupiter.api.Test;
 
 class PomodoroTimerTaskTest {
-    Timer t = new Timer();
+    private Timer t = new Timer();
 
-    PomodoroTimerTask timerTask = new PomodoroTimerTask(t, 25);
+    private PomodoroTimerTask timerTask = new PomodoroTimerTask(t, 25);
 
     /**
      * Tests for getMinutesRemaining of timer task

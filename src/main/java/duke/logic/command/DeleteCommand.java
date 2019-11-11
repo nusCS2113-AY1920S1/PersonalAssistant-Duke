@@ -21,8 +21,9 @@ public class DeleteCommand extends Command {
     /**
      * Constructor for DeleteCommand
      * Filter and index enable the locating of the actual location of the task in TaskList
+     *
      * @param filter filter for each task
-     * @param index given index of the task
+     * @param index  given index of the task
      */
     public DeleteCommand(Optional<String> filter, String index) throws DukeException {
         this.filter = filter;
@@ -36,11 +37,11 @@ public class DeleteCommand extends Command {
     /**
      * Executes teh deletion of the Task at the given location from the TaskList
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handing saving and loading of TaskList
      * @throws DukeException if invalid index is given
-     * @throws IOException NA
+     * @throws IOException   NA
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
@@ -59,7 +60,8 @@ public class DeleteCommand extends Command {
     /**
      * Adds a mirror command to the UndoStack
      * Can undo the DeleteCommand by creating a new InsertCommand at the same index containing the original task
-     * @param tasks TaskList of all of user's tasks
+     *
+     * @param tasks     TaskList of all of user's tasks
      * @param undoStack UndoStack containing all the mirror commands
      * @throws DukeException if invalid index is given
      */

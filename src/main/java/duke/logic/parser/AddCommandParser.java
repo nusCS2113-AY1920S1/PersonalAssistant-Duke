@@ -1,13 +1,12 @@
 package duke.logic.parser;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import duke.logic.command.AddCommand;
 import duke.exception.DukeException;
+import duke.logic.command.AddCommand;
 
 /**
  * Class that parsers the parameters of the add command and creates the corresponding command
@@ -25,6 +24,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     /**
      * Method that takes in the raw parameters and converts it to the respective keywords and fields
+     *
      * @param rawParameters of the command
      * @throws DukeException throws an exception of wrong format entered
      */
@@ -68,6 +68,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     /**
      * Function to split the string into the respective task type and description
+     *
      * @param s command string
      */
     private void getTypeAndDescription(String s) throws DukeException {
@@ -82,8 +83,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     /**
      * Inherited method that takes in an optional string and a string for the command
+     *
      * @param filter an optional string of the filter of the task
-     * @param args rest of the arguments to be parsed into the correct attributes
+     * @param args   rest of the arguments to be parsed into the correct attributes
      * @return returns the correct addCommand
      * @throws DukeException throws an exception if submethods throws an exception
      */

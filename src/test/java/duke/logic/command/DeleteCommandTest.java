@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
-import duke.logic.parser.EditCommandParser;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
@@ -17,7 +16,6 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-
 class DeleteCommandTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
 
@@ -26,6 +24,7 @@ class DeleteCommandTest {
 
     /**
      * Helper method to create a sample task lists for the commands to work on
+     *
      * @return TaskList
      * @throws DukeException
      */
@@ -53,13 +52,14 @@ class DeleteCommandTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,"l"));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,"l"));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,"l"));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4, "l"));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4, "l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5, "l"));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4, "l"));
 
         return t;
     }
+
     @Test
     public void constructor_nonNumericalIndex_failure() throws DukeException {
         Optional<String> cs = Optional.of("cs");
@@ -67,12 +67,13 @@ class DeleteCommandTest {
                 new DeleteCommand(Optional.of("cs"), "g"));
         assertEquals("Please enter a numerical field for the index!", exception.getMessage());
     }
+
     @Test
     public void execute_filteredDelete_success() throws DukeException, IOException {
         TaskList tasks = createTaskList();
         DeleteCommand deleteCommand = new DeleteCommand(Optional.of("cs"), "1");
         deleteCommand.execute(tasks, ui, storage);
-        String expectedDescriptionOfTask = "cg2271 is the best :') 29/10/2018 00:00";
+        String expectedDescriptionOfTask = "cg2271 is the best :')";
         String actualTaskDescription = tasks.get(1).getDescription();
         assertEquals(expectedDescriptionOfTask, actualTaskDescription);
     }

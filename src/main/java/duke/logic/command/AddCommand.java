@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import duke.exception.DukeException;
-import duke.logic.AbnormalityChecker;
 import duke.extensions.Recurrence;
+import duke.logic.AbnormalityChecker;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
 import duke.task.Event;
@@ -15,7 +15,8 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 /**
- * duke.logic.parser.command.AddCommand that deals with the adding of new duke.task.Task objects to the duke.tasklist.TaskList
+ * duke.logic.parser.command.AddCommand that deals with the adding of new duke.task.Task objects to the
+ * duke.tasklist.TaskList
  */
 public class AddCommand extends Command {
     private String description;
@@ -31,12 +32,12 @@ public class AddCommand extends Command {
      * Constructor for AddCommand
      * Creates a new task or event based on the inputs given
      *
-     * @param filter filter for each task
-     * @param dateTime datetime for each task
-     * @param recurrence recurrence period for each task
+     * @param filter      filter for each task
+     * @param dateTime    datetime for each task
+     * @param recurrence  recurrence period for each task
      * @param description description for each task
-     * @param taskType type of each task
-     * @param duration time taken to complete each task
+     * @param taskType    type of each task
+     * @param duration    time taken to complete each task
      * @throws DukeException if event has no starting time
      */
     public AddCommand(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrence,
@@ -53,8 +54,8 @@ public class AddCommand extends Command {
     /**
      * Executes the adding of a task to the TaskList
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handling saving and loading of TaskList
      * @throws IOException
      * @throws DukeException
@@ -86,7 +87,7 @@ public class AddCommand extends Command {
      * Adds mirror command to savePrevState
      * Mirror command is a delete command at the same location as where the add was done.
      *
-     * @param tasks TaskList of all of user's tasks
+     * @param tasks     TaskList of all of user's tasks
      * @param undoStack UndoStack of all mirror commands
      */
     @Override

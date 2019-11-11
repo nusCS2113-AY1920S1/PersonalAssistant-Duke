@@ -30,7 +30,7 @@ public class PomodoroTimerTask extends TimerTask {
 
     public void setMinutesRemaining(int minutesRemaining) {
         this.minutesRemaining = minutesRemaining;
-    };
+    }
 
     /**
      * Run method that prints out the time remaining and ends the timer task once the time is up

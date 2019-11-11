@@ -164,7 +164,8 @@ public class TaskAssigner {
      * @return Map of filter to average VectorCount of filter
      */
     public static Map<String, ArrayList<Integer>> getFilterVectors(Set<String> filters, TaskList tasks,
-                                                                   ArrayList<ArrayList<Integer>> vectorCounts) throws DukeException {
+                                                                   ArrayList<ArrayList<Integer>> vectorCounts)
+            throws DukeException {
         Map<String, ArrayList<Integer>> filterVectorCounts = new HashMap<String, ArrayList<Integer>>();
         for (int i = 0; i < tasks.size(); i++) {
             Optional<String> filter = tasks.get(i).getFilter();

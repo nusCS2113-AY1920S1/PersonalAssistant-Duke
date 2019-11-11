@@ -11,8 +11,6 @@ import duke.extensions.PreloadTasks;
 import duke.task.Task;
 import duke.ui.Ui;
 
-import javax.swing.text.html.Option;
-
 /**
  * Represents the data structure containing all tasks added to the task manager
  * Uses java.util.ArrayList as the main container
@@ -107,7 +105,7 @@ public class TaskList {
                 }
             }
         } else {
-            while(taskList.size() > 0) {
+            while (taskList.size() > 0) {
                 isEmptyList = false;
                 taskList.remove(0);
             }

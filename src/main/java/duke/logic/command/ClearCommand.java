@@ -19,7 +19,7 @@ public class ClearCommand extends Command {
     /**
      * Constructor for ClearCommand that takes in the filter to allow you to clear a specific filtered list
      *
-     * @param filter Optional<String> of the filter to be passed in
+     * @param filter Optional string of the filter to be passed in
      */
     public ClearCommand(Optional<String> filter) {
         this.filter = filter;
@@ -27,6 +27,7 @@ public class ClearCommand extends Command {
 
     /**
      * execute() that clears the task list specified
+     *
      * @param tasks
      * @param ui
      * @param storage
@@ -35,13 +36,13 @@ public class ClearCommand extends Command {
      * @throws IOException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         if (tasks.clear(filter)) {
-            throw new DukeException("Your" + (filter.isPresent() ? " " + filter.get() : "") +
-                    " task list is already empty!");
+            throw new DukeException("Your" + (filter.isPresent() ? " " + filter.get() : "")
+                    + " task list is already empty!");
         } else {
-            ui.showLine("Your" + (filter.isPresent() ? " " + filter.get() : "") +
-                    " task list has been cleared!");
+            ui.showLine("Your" + (filter.isPresent() ? " " + filter.get() : "")
+                    + " task list has been cleared!");
         }
         storage.save(tasks);
     }
@@ -51,7 +52,7 @@ public class ClearCommand extends Command {
      * command to ClearCommand, ReplaceCommand, which will undo the clearing of tasks executed by this instance of
      * ClearCommand
      *
-     * @param tasks the current TaskList
+     * @param tasks     the current TaskList
      * @param undoStack data structure storing all of the current undo commands
      * @throws DukeException NA
      */

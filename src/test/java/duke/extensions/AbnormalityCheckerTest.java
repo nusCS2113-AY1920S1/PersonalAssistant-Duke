@@ -3,16 +3,6 @@ package duke.extensions;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import duke.exception.DukeException;
-import duke.logic.AbnormalityChecker;
-import duke.storage.Storage;
-import duke.task.Event;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -26,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
+import duke.logic.AbnormalityChecker;
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.tasklist.TaskList;

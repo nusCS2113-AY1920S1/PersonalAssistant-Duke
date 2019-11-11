@@ -1,11 +1,11 @@
 package duke.ui;
 
+import java.util.Optional;
+
 import duke.exception.DukeException;
 import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
-
-import java.util.Optional;
 
 /**
  * Class that handles the printing of the TaskList for the user to view
@@ -14,7 +14,7 @@ public class TaskListPrinter {
     /**
      * Method that handles bulk of the logic of printing the TaskList for the user to view
      *
-     * @param ui the Ui object that handles user interactions
+     * @param ui   the Ui object that handles user interactions
      * @param list the TaskList to be printed for the user
      */
     public static void print(Ui ui, TaskList list) throws DukeException {
@@ -22,8 +22,8 @@ public class TaskListPrinter {
         int filterLength = list.getLongestFilter();
         String filterHead = createFilterHead(filterLength);
         filterLength = filterHead.length();
-        ui.showLine("ID | " + filterHead + " |  Type  | Priority | Recurrence | " +
-                "Duration | Done? |     DateTime     | Description");
+        ui.showLine("ID | " + filterHead + " |  Type  | Priority | Recurrence | "
+                + "Duration | Done? |     DateTime     | Description");
         String rowBreak = createRowBreak(filterLength);
         for (int i = 0; i < taskCount; i++) {
             ui.showLine(rowBreak);
@@ -40,7 +40,7 @@ public class TaskListPrinter {
             curr.append(" | ").append(padRecurrence(t.getRecurrenceCode()));
             curr.append(" | ").append(padDuration(t.getDuration()));
             curr.append(" |   ").append(t.getStatusIcon());
-            curr.append("   | ").append(t.getDTString());
+            curr.append("   | ").append(t.getDtString());
             curr.append(" | ").append(t.getDescription());
             ui.showLine(curr.toString());
         }
@@ -144,7 +144,7 @@ public class TaskListPrinter {
     private static String padFilter(Optional<String> filter, int filterLength) {
         StringBuilder result;
         if (filter.isEmpty()) {
-            result = new StringBuilder("");
+            result = new StringBuilder();
         } else {
             result = new StringBuilder(filter.get());
         }
