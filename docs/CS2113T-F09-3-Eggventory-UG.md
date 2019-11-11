@@ -396,17 +396,22 @@ Format: `find description <Query>`
   
 #### 3.10.1 Undoing a command: `undo`
   
-If you accidentally entered a command by accident, the effects of any command can be reversed with the undo command.  
-  Format: `undo`  
+If you accidentally entered a command by accident, the effects of any command can be reversed with the undo command. You can undo the following previous commands:
+
+- add
+-  delete
+- edit
+  
+ Format: `undo`  
   
 #### 3.10.2 Reversing an undo command: `redo`  
     
 Undoing a command can be reversed using the redo command.  
-  
-
 
 Format: `redo`  
-  
+
+  e.g.
+   ![](images/add_below_undoredo.png)
 ---  
 ### 3.11 Setting autosave options: **[coming in v2.0]**
   Eggventory automatically saves the current inventory to the disk every time data is added, removed, or edited. You can disable this feature with this command. Eggventory will then save only when the program exits.  

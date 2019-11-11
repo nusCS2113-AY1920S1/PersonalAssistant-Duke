@@ -5,7 +5,6 @@ undo:       undo
 Undo works with the following previous commands:
 add
 delete
-loan
 edit
 
 E.g.

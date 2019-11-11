@@ -7,7 +7,6 @@ the previous state of your data. It works with the following
 commands:
 add
 delete
-loan
 edit
 
 E.g.
