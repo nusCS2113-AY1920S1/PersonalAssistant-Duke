@@ -452,10 +452,14 @@ Examples:
 
 [NOTE]
 Task list is sorted according to `time` by default. The list can be sorted by `priority`, `status` and
-`time`. +
-*Sorted by `priority`*: tasks with higher priority will be at the top of the task list. +
-*Sorted by `status`*: tasks that are not completed will be displayed at the top of the task list. +
-*Sorted by `time`*: deadline or events tasks with nearest date and time will be at the top of the task list.
+`time`.
+
+|===
+|Sorted by|How the task list is displayed
+|*`priority`*|tasks with higher priority will be at the top of the task list.
+|*`status`*|tasks that are not completed will be displayed at the top of the task list. +
+|*`time`*|deadline or events tasks with nearest date and time will be at the top of the task list.
+|===
 
 ==== Clear task list: `clear`
 Format: `clear`
