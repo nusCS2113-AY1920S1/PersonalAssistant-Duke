@@ -33,7 +33,7 @@ public class DetectAnomalies {
                 continue;
             }
             if (splitInput.contains("/at")) {
-                if (taskDateTime.isEqual(list.get(i).getDateTime()) || list.get(i).toSaveFormat().contains("E|")) {
+                if (taskDateTime.isEqual(list.get(i).getDateTime()) && list.get(i).toSaveFormat().contains("E|")) {
                     return true;
                 }
             }
