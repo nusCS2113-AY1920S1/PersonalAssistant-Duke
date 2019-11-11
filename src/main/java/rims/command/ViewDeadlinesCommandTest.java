@@ -18,7 +18,7 @@ import rims.exception.RimsException;
 /**
  * Shows a sorted list of all the upcoming/overdue deadlines.
  */
-public class ViewDeadlinesCommand extends Command {
+public class ViewDeadlinesCommandTest extends Command {
     /**
      * Prints out a sorted list of all the upcoming/overdue deadlines.
      *

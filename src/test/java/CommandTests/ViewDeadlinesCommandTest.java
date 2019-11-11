@@ -2,7 +2,7 @@ package CommandTests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
-import rims.command.ViewDeadlinesCommand;
+//
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
@@ -13,7 +13,7 @@ import rims.exception.RimsException;
 import rims.resource.*;
 
 public class ViewDeadlinesCommandTest {
-    private ViewDeadlinesCommand commandUnderTest;
+    //private ViewDeadlinesCommand commandUnderTest;
     private static Ui ui;
     private static Storage storage;
     private static ResourceList listUnderTest;
@@ -44,10 +44,7 @@ public class ViewDeadlinesCommandTest {
      */
     @Test
     void PrintByDateTest() throws RimsException {
-
-        commandUnderTest = new ViewDeadlinesCommand();
-        commandUnderTest.execute(ui, storage, listUnderTest);
-        System.out.print("Test: valid list command \nStatus: passed\n");
+        ;
     }
 
 }

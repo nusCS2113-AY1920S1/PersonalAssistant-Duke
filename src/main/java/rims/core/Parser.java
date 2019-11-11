@@ -12,7 +12,6 @@ import rims.command.ReturnCommand;
 import rims.command.StatsCommand;
 import rims.command.UndoCommand;
 import rims.command.TagCommand;
-import rims.command.ViewDeadlinesCommand;
 
 import rims.exception.RimsException;
 
@@ -166,7 +165,7 @@ public class Parser {
     public Command parseInput(String input) throws RimsException, ParseException {
         input = input.trim();
         String[] words = input.split(" ");
-        Command c;
+        Command c = null;
 
         if (input.equals("bye") && words.length == 1) {
             c = new CloseCommand();
@@ -176,7 +175,7 @@ public class Parser {
             c = listParser(input, words);
         //@@author aarushisingh1
         } else if (input.equals("deadlines") && words.length == 1) {
-            c = new ViewDeadlinesCommand();
+            //c = new ViewDeadlinesCommand();
         //@@author rabhijit
         } else if (input.equals("help") && words.length == 1) {
             c = new HelpCommand();

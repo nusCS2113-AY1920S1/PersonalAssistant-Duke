@@ -28,7 +28,7 @@ public class ReserveCommandTest {
         ui = new Ui();
         ArrayList<Resource> emptyList = new ArrayList<Resource>();
         listUnderTest = new ResourceList(ui, emptyList);
-        storage = new Storage("unitTestData/resources.txt","unitTestData/reserves.txt");
+        storage = new Storage("unitTestData/resources.txt","unitTestData/reserves.txt","unitTestData/tags.txt");
     }
 
     /**
