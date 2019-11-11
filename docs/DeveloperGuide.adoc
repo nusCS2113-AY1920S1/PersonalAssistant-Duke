@@ -1231,7 +1231,124 @@ Use case resumes at step 1.
 
 [appendix]
 == Instructions for Manual Testing
+The following is a summary of all the commands in ArchDuke, and some examples of input.
+The commands are organised into sections, each relating to a particular feature. There is
+already some data preloaded into the ArchDuke jar file. You may follow the
+steps in numerical order to test all the features of ArchDuke.
 
+[NOTE]
+Inputs in square brackets `[EXAMPLE]` are optional.
+
+=== Command Summary and Testing Instructions
+*Project Commands*
+
+. Creating projects.
+.. Please use the following commands to create, view or delete projects.
+
+* Create project: `create PROJECT_NAME`
+** Example: `create Infinity Gauntlet`
+** Example: `create New Project`
+* View projects: `list`
+* Delete project: `delete PROJECT_INDEX`
+** Example: `delete 3`
+
+. Managing projects.
+.. Please use this command to select a project you would like to manage.
+The rest of the commands can only be used after this command is successfully executed.
+For the purposes of this test, we will manage the project `avengers` preloaded in the ArchDuke jar file.
+* Manage project: `manage PROJECT_INDEX`
+** Example: `manage 1`
+
+. Managing members
+.. Please use these commands to manage members in the project. Before starting, ensure that you are
+managing the project `avengers`.
+You may follow the commands provided in sequence to test the member functionalities.
+
+*Member Commands*
+
+... View members: `view members`
+*** To check that member details were updated successfully, you may use `view members` again at any
+point in time.
+... Add members: `add member -n NAME [-i PHONE_NUMBER] [-e EMAIL] [-r ROLE]`
+**** Example: `add member -n Cynthia`
+**** Example: `add member -n Jerry Zuang -i 9123456 -e jerryzhang@gmail.com -r Lead`
+... Delete members: `delete member INDEX1 [INDEX2]`
+**** Example: `delete member 1 2`
+... Edit members: `edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL]`
+**** Example: `edit member 5 -n Jerry Zhang -e zhangjerry@u.nus.edu`
+**** Example: `edit member 1 -n Sean -e seanlimxh@github.com`
+**** Example: `edit member 2 -n Abhishek -i 91234567`
+**** Example: `edit member 3 -n Dillen -e dillen@yahoo.com`
+... Give roles for members: `role INDEX -n ROLE_NAME`
+**** Example: `role 2 -n Tester`
+
+. Managing members
+.. Please use these commands to manage tasks.
+You may follow these commands in sequence to test task functionalities.
+
+*Task Commands*
+You may first view all the tasks existing in the project by using `view tasks`
+
+... Add task: `add task -n TASK_NAME -p TASK_PRIORITY [-d TASK_DUEDATE-(dd/mm/yyyy)] -c TASK_CREDIT [-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]`
+**** Example: `add task -n Hello World Code -p 5 -c 5`
+**** Example: `add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing -r do another thing`
+... Edit task: `edit task TASK_INDEX [-n TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE-(dd/mm/yyyy)] [-c TASK_CREDIT] [-s TASK_STATE]`
+**** Example: `edit task 1 -n Finish CS2113 -p 4 -c 80 -d 11/11/2019`
+**** Example: `edit task 2 -n JUnit tests -s doing -c 55 -d 5/11/2019`
+**** Example: `edit task 3 -n Submit UG -s done -d 8/11/2019 -c 35`
+... Delete tasks: `delete task INDEX`
+**** Example: `delete task 4 5`
+... View tasks: `view tasks MODIFIER`
+*** The following are examples of `MODIFIER` suffixes which can be added to be tested.
+**** Example: `view tasks -state done`
+**** Example: `view tasks -name`
+**** Example: `view tasks -priority`
+**** Example: `view tasks -credits`
+**** Example: `view tasks -date`
+**** Example: `view tasks -who EXISTING_MEMBER_NAME`
+... View task requirements: `view task requirements TASK_INDEX`
+**** Example: `view task requirements 2`
+... View task requirements: `view task requirements TASK_INDEX`
+**** Example: `view task requirements 1`
+... Edit task requirements: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
+**** Example: `edit task requirements 1 -r Testing -r Documentation`
+**** Example: `edit task requirements 1 -rm 1 2 3 -r Submit`
+... Agenda of Tasks: `agenda`
+
+. *Assignment Commands*
+... Assign/Unassign members to tasks: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
+**** Example: `assign task -i 1 2 -to 1 2`
+**** Example: `assign task -i 2 4 -to 3 4 5`
+**** Example: `assign task -i 1 -to 5 -rm 2`
+**** Example: `assign task -i 3 -to all`
+... View assignments: `view assignments MODIFIER`
+**** Example: `view assignments -m all` (show all members' tasks)
+**** Example: `view assignments -m 1 2` (show tasks of member 1 and 2)
+**** Example: `view assignments -t all` (show all the members assigned to a task)
+**** Example: `view assignments -t 3 4` (show members assigned to tasks 3, 4, 5)
+... View total credits completed by each member: `view credits`
+
+. *Requirement Commands*
+... Create reminder: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+**** Example: `add reminder -n Fix important bug -d 21/09/2019 -l Software Reminder List`
+... View reminders: `view reminders [by list]`
+**** Example: `view reminders`
+**** Example: `view reminders by list`
+... Delete reminder: `delete reminder INDEX_NUMBER`
+**** Example: `delete reminder 1`
+... Edit reminder: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+**** Example: `edit reminder 1 -n Fix important bug -d 21/09/2019`
+... Mark reminder: `mark reminder INDEX_NUMBER`
+**** Example: `mark reminder 1`
+
+. *Miscellaneous*
+... View current details of project: `view`
+... Edit the name of the current project : `rename PROJECT_NAME`
+**** Example: rename Avengers
+... Report progress : `report` [coming in v2.0]
+... Exit managing a project: `exit`
+... Exiting the program from anywhere: `bye`
+... Display help: `help`
 
 
 [appendix]
