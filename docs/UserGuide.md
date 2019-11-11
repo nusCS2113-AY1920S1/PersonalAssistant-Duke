@@ -338,7 +338,7 @@ If the ingredient index does not exist in the list, the following message is pri
   'q' to exit
 ```
 
-This example was done when the size of the ingredient list is 14.
+This example was done when the size of the `IngredientList` was initially 14.
 
 Examples: 
 
@@ -350,9 +350,8 @@ Examples:
 
      Noted. I've removed this ingredient:
 	 salt, amount is: 50 expiring on 31st of October 2019
-	 Now you have 14 ingredients in the list.
-   
-         _________________________________________________________________________________________
+	 Now you have 13 ingredients in the list.
+        _________________________________________________________________________________________
 ```
 
 #### 3.3.3 Finding Ingredient

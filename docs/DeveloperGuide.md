@@ -210,7 +210,7 @@ The dynamic change in the text file contents during execution, is handled primar
 
 The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
 
-The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
+The interactions between the `GenericList` and the `Storage` and their subclasses is shown in the figure below.
 
 <img src=" https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
 
@@ -220,7 +220,7 @@ API: `FridgeStorage.java`
 
 A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
 
-The format print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
+The format that print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below as printed in the `fridge.txt` file during the program execution:
 
 ```
 milk|3|09/09/2019
@@ -583,8 +583,15 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
 - **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
-
 ### 3. Implementation
+
+UseCommand Implementation:
+
+This Command is implemented, such that it makes use of the IngredientList's method for removing a specific amount of an ingredient, `removeEntry(Ingredient )`. At every moment the ingredients kept in the Fridge are sorted by their expiry date. This method will loop (in a sorted order, most recently expiring ingredients first) trough all of the ingredients stored that have the same name as the ingredient to be used, only taking the non-expired ingredients. Each time that there is a match, the needed amount is checked against the amount of the match
+
+Assuming the Fridge contains the 5 Ingredients: pepper(amount 2, expired 10/11/2019), rice(amount 100, expiring 12/2/2020), pepper(amount 3, expiring 12/3/2020), chicken (amount 3, expiring 12/3/2020), pepper (amount 3, expiring 14/3/2020).
+
+Upon typing `use pepper 5`, the `UseCommand` is created with the `Ingredient` having the name `pepper` and amount `5`. Calling execute on this command will re
 
 ### 4. Documentation
 
