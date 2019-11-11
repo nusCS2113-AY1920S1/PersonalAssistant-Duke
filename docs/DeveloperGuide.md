@@ -886,7 +886,17 @@ Expected: output a message to user that he must specify an amount
 
 #### E5. Listing all ingredient
 
-1. Adding an ingredient to the List
+Using an ingredient from the Fridge
+
+*prerequisite:* user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming the list is not empty,
+
+Test case 1: `show`
+
+Expected: List every ingredients in the `Fridge`, as well as their attributes, name, amount and expiry date.
+
+If the list is empty,
+
+Expected: The program will prompt to the user telling him that the `Fridge` is empty. 
 
 #### E6. Removing all expired ingredients
 
