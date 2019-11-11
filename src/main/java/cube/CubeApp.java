@@ -25,7 +25,6 @@ public class CubeApp extends Application {
     private FileUtilJson<StorageManager> storage;
     private final Logger logger = LogUtil.getLogger(CubeApp.class);
 
-
     @Override
     public void init() throws Exception {
         super.init();
@@ -44,7 +43,6 @@ public class CubeApp extends Application {
     public void start(Stage stage) {
         try {
             MainWindow mwc = new MainWindow(stage, storageManager, storage);
-
             mwc.initComponents();
             mwc.show();
         } catch (Exception e) {
