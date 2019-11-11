@@ -44,8 +44,22 @@ public class TransactionList {
      * the getter of the transactionTracker.
      * @return the transactionTracker to be returned.
      */
-    public HashMap<LocalDate, ArrayList<Transaction>> getTransactionList() {
+    public HashMap<LocalDate, ArrayList<Transaction>> getTransactionTracker() {
         return this.transactionTracker;
     }
+
+    /**
+     * delete the transaction specified by the index and its date.
+     * @param date the date of the deleted transaction.
+     * @param index the index of the deleted transaction.
+     * @return Returns the transaction that was deleted.
+     */
+    public Transaction delete(LocalDate date, int index) {
+        Transaction deletedTransaction = this.transactionTracker.get(date).get(index - 1);
+        this.transactionTracker.get(date).remove(index - 1);
+        return deletedTransaction;
+    }
+
+
 
 }

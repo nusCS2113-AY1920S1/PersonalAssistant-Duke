@@ -128,6 +128,12 @@ public class Ui {
         System.out.println(UI_PADDING + "Now you have " + meals.size()  + " meals in the list.");
     }
 
+    public void showDeletedTransaction(Transaction deletedTransaction, ArrayList<Transaction> transactions) {
+        System.out.println(UI_PADDING + "Noted. I've removed this transaction:");
+        System.out.println(UI_PADDING + deletedTransaction);
+        System.out.println(UI_PADDING + "Now you have " + transactions.size() + " transactions in the list.");
+    }
+
     public void showCleared(String startDateStr, String endDateStr) {
         System.out.println(UI_PADDING + "Noted. Meals from " + startDateStr + " to "
                 + endDateStr + " have been cleared");

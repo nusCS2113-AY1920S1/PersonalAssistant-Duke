@@ -1,39 +1,20 @@
-package diyeats.storage;
+package diyeats.logic.dummy;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import diyeats.commons.exceptions.ProgramException;
-import diyeats.commons.file.LocalDateAdapter;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
-import diyeats.model.wallet.TransactionList;
 import diyeats.model.wallet.Wallet;
+import diyeats.storage.Storage;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-//@@author Fractalisk
-
-/**
- * Storage is a public class that handles all file I/O during application runtime.
- */
-public class Storage {
-    private Load loader;
-    private Write writer;
-    private int stage = 0;
-    private boolean isMealDone = false;
+public class DummyStorage extends Storage {
 
     /**
      * Constructor for Storage.
      */
-    public Storage() {
-        //sets gson to generate json with indentation, and use custom typeAdapter for Localdate
-        Gson gson = new GsonBuilder().setPrettyPrinting()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-
-        loader = new Load(gson);
-        writer = new Write(gson);
+    public DummyStorage() {
     }
 
     /**
@@ -41,25 +22,8 @@ public class Storage {
      * @param meals the MealList object ot be initialized
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void loadMealInfo(MealList meals) throws ProgramException {
-        switch (stage) {
-            case 0:
-                stage++;
-                isMealDone = false;
-                loader.loadMealListData(meals);
-                break;
-            case 1:
-                stage++;
-                loader.loadDefaultMealData(meals);
-                break;
-            case 2:
-                isMealDone = true;
-                loader.loadExercises(meals);
-                break;
-            default:
-                isMealDone = true;
-                throw new ProgramException("The storage function has entered an invalid state");
-        }
     }
 
     /**
@@ -67,10 +31,9 @@ public class Storage {
      * @return an instance of User
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public User loadUser() throws ProgramException {
-        User user = loader.loadUser();
-        loader.loadGoals(user);
-        return user;
+        return null;
     }
 
     /**
@@ -78,8 +41,8 @@ public class Storage {
      * @param autocorrect autocorrect object to be loaded with correctable words
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void loadWord(Autocorrect autocorrect) throws ProgramException {
-        loader.loadAutoCorrect(autocorrect);
     }
 
     /**
@@ -88,8 +51,8 @@ public class Storage {
      * @param specifiedHelp type of help requested
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws ProgramException {
-        loader.loadHelp(lines, specifiedHelp);
     }
 
     /**
@@ -97,8 +60,8 @@ public class Storage {
      * @param wallet container to store transactions
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void loadTransactions(Wallet wallet) throws ProgramException {
-        loader.loadTransactions(wallet);
     }
 
     /**
@@ -106,8 +69,8 @@ public class Storage {
      * @param meals container storing meal records
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void writeFile(MealList meals) throws ProgramException {
-        writer.writeFile(meals);
     }
 
     /**
@@ -115,8 +78,8 @@ public class Storage {
      * @param meals container storing exercise records
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void writeExercises(MealList meals) throws ProgramException {
-        writer.writeExercises(meals);
     }
 
     /**
@@ -124,8 +87,8 @@ public class Storage {
      * @param meals container storing default meal values
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void writeDefaults(MealList meals) throws ProgramException {
-        writer.writeDefaults(meals);
     }
 
     /**
@@ -133,8 +96,8 @@ public class Storage {
      * @param user container storing goal
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void writeGoal(User user) throws ProgramException {
-        writer.writeGoal(user);
     }
 
     /**
@@ -142,8 +105,8 @@ public class Storage {
      * @param user container storing user information
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void writeUser(User user) throws ProgramException {
-        writer.writeUser(user);
     }
 
     /**
@@ -151,15 +114,16 @@ public class Storage {
      * @param wallet container storing transactions
      * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
+    @Override
     public void writeTransaction(Wallet wallet) throws ProgramException {
-        writer.writeTransaction(wallet);
     }
 
     /**
      * Getter for isMealDone.
      * @return true if meallist object is completely loaded, false otherwise
      */
+    @Override
     public boolean isMealDone() {
-        return this.isMealDone;
+        return true;
     }
 }

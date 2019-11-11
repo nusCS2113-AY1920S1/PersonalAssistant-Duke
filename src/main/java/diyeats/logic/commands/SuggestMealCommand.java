@@ -42,9 +42,9 @@ public class SuggestMealCommand extends Command {
 
     private int getCalorieLimit(User user, ArrayList<Meal> meals) {
         int totalConsume = 0;
-        for (int i = 0; i < meals.size(); i += 1) {
+        for (Meal meal : meals) {
             // add all meals regardless whether it is done or not.
-            totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+            totalConsume += meal.getNutritionalValue().get("calorie");
         }
 
         return user.getDailyCalorie() - totalConsume;
@@ -84,7 +84,7 @@ public class SuggestMealCommand extends Command {
     }
 
     // second stage user input execution
-    public void execute_stage_1(MealList meals, Storage storage, User user, Wallet wallet) {
+    private void execute_stage_1(MealList meals, Storage storage, User user, Wallet wallet) {
         int mealSelectedIndex;
         try {
             mealSelectedIndex = Integer.parseInt(this.responseStr);

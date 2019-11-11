@@ -161,4 +161,5 @@ public class MealList {
     public ExerciseList getExerciseList() {
         return this.exerciseList;
     }
+
 }
