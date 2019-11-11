@@ -5,33 +5,39 @@ import java.util.Optional;
 
 /**
  * The abstract class that all armor that the avatar yields inherits from.
+ * @see ShopItem for the documentation of the functions.
  */
 public abstract class Armor implements ShopItem {
 
     /**
-     * The cost of the shop item.
+     * The type in string, of the armor.
      */
-    protected int cost;
-    /**
-     * Boolean if the shop item has been purchased.
-     */
-
-    protected Boolean isPurchased;
+    private static final String TYPE = "Armor";
 
     /**
-     * The type in string, of each item.
+     * The name of the armor.
      */
-    protected String type = "Armor";
+    private final String name;
+
+    /**
+     * The cost of the armor.
+     */
+    private final int cost;
+
+    /**
+     * Boolean if the armor has been purchased.
+     */
+    private final Boolean isPurchased;
 
     /**
      * The defence increment of the armor.
      */
-    private final int DEF_INCR;
+    private final int defIncr;
 
     /**
      * The stamina increment of the armor.
      */
-    private final int STA_INCR;
+    private final int staIncr;
 
     /**
      * Constructs a new armor with the given cost, hasPurchased, defence increment
@@ -41,11 +47,12 @@ public abstract class Armor implements ShopItem {
      * @param defIcr the defence increment of the armor.
      * @param staIcr the stamina increment of the armor.
      */
-    public Armor(int cost, boolean hasPurchased, int defIcr, int staIcr) {
+    public Armor(int cost, boolean hasPurchased, int defIcr, int staIcr, String name) {
         this.cost = cost;
         this.isPurchased = hasPurchased;
-        this.DEF_INCR = defIcr;
-        this.STA_INCR = staIcr;
+        this.defIncr = defIcr;
+        this.staIncr = staIcr;
+        this.name = name;
     }
 
     /**
@@ -55,15 +62,21 @@ public abstract class Armor implements ShopItem {
      */
     public static Optional<ShopItem> getArmor(String name) {
         if (name.contains("Chainmail")) {
-            return Optional.of(new Chainmail());
+            return Optional.of(new Chainmail(false));
         } else if (name.contains("Iron")) {
-            return Optional.of(new IronArmor());
+            return Optional.of(new IronArmor(false));
         } else if (name.contains("Leather")) {
-            return Optional.of(new LeatherArmor());
+            return Optional.of(new LeatherArmor(false));
         }
         return Optional.empty();
     }
 
+    /**
+     * Gets the damage increment of the armor.
+     * @implNote All types of weapons currently do not implement damage increment.
+     *     and hence this function should not be used.
+     * @return the damage increment of the armor.
+     */
     public int getDamageIncr() {
         return 0;
     }
@@ -73,7 +86,7 @@ public abstract class Armor implements ShopItem {
      * @return the defence increment of the armor.
      */
     public int getDefenceIncr() {
-        return DEF_INCR;
+        return defIncr;
     }
 
     /**
@@ -81,12 +94,12 @@ public abstract class Armor implements ShopItem {
      * @return the stamina increment of the armor.
      */
     public int getStaminaIncr() {
-        return STA_INCR;
+        return staIncr;
     }
 
     @Override
     public String toString() {
-        return "+" + DEF_INCR + " DEF, +" + STA_INCR + " STA ";
+        return this.name + ", " + "+" + defIncr + " DEF, +" + staIncr + " STA ";
     }
 
     @Override
@@ -101,17 +114,12 @@ public abstract class Armor implements ShopItem {
 
     @Override
     public String getType() {
-        return this.type;
-    }
-
-    @Override
-    public void setPurchased(Boolean purchased) {
-        this.isPurchased = purchased;
+        return TYPE;
     }
 
     @Override
     public Boolean isSameType(ShopItem other) {
-        return this.type.equals(other.getType());
+        return TYPE.equals(other.getType());
     }
 
     @Override

@@ -1,8 +1,6 @@
 package seedu.hustler.game.avatar;
 
 import seedu.hustler.game.shop.items.ShopItem;
-import seedu.hustler.game.shop.items.armors.Armor;
-import seedu.hustler.game.shop.items.weapons.Weapon;
 import java.util.Optional;
 
 /**
@@ -50,15 +48,15 @@ public class Avatar implements Convertible {
     /**
      * Constructs the avatar instance with the name, level and stat with the equipment
      * of the avatar, if any.
-     * @param avatarLevel the level of the avatar.
-     * @param avatarStats the statistics of the avatar.
+     * @param level the level of the avatar.
+     * @param stats the statistics of the avatar.
      * @param weapon the weapon equipped by the avatar, if any.
      * @param armor the armor equipped by the avatar, if any.
      */
-    public Avatar(String name, Level avatarLevel, Stats avatarStats, Optional<ShopItem> weapon, Optional<ShopItem> armor) {
+    public Avatar(String name, Level level, Stats stats, Optional<ShopItem> weapon, Optional<ShopItem> armor) {
         this.name = name;
-        this.level = avatarLevel;
-        this.stats = avatarStats;
+        this.level = level;
+        this.stats = stats;
         this.weapon = weapon;
         this.armor = armor;
     }
@@ -77,6 +75,20 @@ public class Avatar implements Convertible {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Gets the level of the avatar.
+     */
+    public Level getLevel() {
+        return this.level;
+    }
+
+    /**
+     * Gets the stats of the avatar.
+     */
+    public Stats getStats() {
+        return this.stats;
     }
 
     /**
@@ -123,8 +135,8 @@ public class Avatar implements Convertible {
     @Override
     public String toString() {
         String equipment = (weapon.isEmpty() && armor.isEmpty()) ? "" : ("\n\t------ Equipped ------"
-            + (weapon.map(x -> "\n\t[ " + x.toString() + "]").orElse(""))
-                + (armor.map(x -> "\n\t[ " + x.toString() + "]").orElse("")));
+            + (weapon.map(x -> "\n[ " + x.toString() + "]").orElse(""))
+                + (armor.map(x -> "\n[ " + x.toString() + "]").orElse("")));
         return this.name + ", " + this.level.toString() + "\n"
             + this.stats.getStats(weapon, armor) + "\n" + equipment;
     }
@@ -140,7 +152,15 @@ public class Avatar implements Convertible {
 
     @Override
     public boolean equals(Object other) {
-        return other == this ||
-                other instanceof Avatar && this.toTxt().equals(((Avatar) other).toTxt());
+        return other == this
+            || (other instanceof Avatar && this.name.equals(((Avatar) other).name)
+            && this.level.getLevel() == (((Avatar) other).level).getLevel()
+            && this.level.getXp() == (((Avatar) other).level).getXp()
+            && this.stats.getDamage() == (((Avatar) other).stats).getDamage()
+            && this.stats.getDefence() == (((Avatar) other).stats).getDefence()
+            && this.stats.getStamina() == (((Avatar) other).stats).getStamina()
+            && this.stats.getSpeed() == (((Avatar) other).stats).getSpeed()
+            && this.weapon.equals(((Avatar) other).weapon)
+            && this.armor.equals(((Avatar) other).armor));
     }
 }

@@ -41,7 +41,7 @@ public class ShopListTest {
         assertTrue(present.isPresent());
 
         // Sufficient total points but item has been purchased gives back an Optional.empty().
-        oneItemShopList.getItem(0).setPurchased(true);
+        oneItemShopList.getItem(0).setIsPurchased(true);
         Optional<ShopItem> alsoEmpty = oneItemShopList.buy(0, 1);
         assertTrue(alsoEmpty.isEmpty());
     }
@@ -61,7 +61,7 @@ public class ShopListTest {
         assertEquals("false\nfalse\nfalse", shopListTest.itemsStatus());
 
         // Should return the first item stub as true.
-        shopListTest.getItem(0).setPurchased(true);
+        shopListTest.getItem(0).setIsPurchased(true);
         assertEquals("true\nfalse\nfalse", shopListTest.itemsStatus());
     }
 
@@ -75,7 +75,7 @@ public class ShopListTest {
 
         // Should return the arraylist with size of one.
         ShopItemStub purchasedStub = new ShopItemStub();
-        purchasedStub.setPurchased(true);
+        purchasedStub.setIsPurchased(true);
         shopListTest = shopListTest.addItem(purchasedStub);
         assertEquals(1, shopListTest.getPurchasedItems().size());
     }
@@ -113,8 +113,9 @@ public class ShopListTest {
         }
 
         @Override
-        public void setPurchased(Boolean purchased) {
-            this.isPurchased = purchased;
+        public ShopItem setIsPurchased(boolean isPurchased) {
+            this.isPurchased = true;
+            return this;
         }
 
         @Override

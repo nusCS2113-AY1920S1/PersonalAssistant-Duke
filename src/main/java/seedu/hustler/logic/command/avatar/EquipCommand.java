@@ -1,13 +1,11 @@
 package seedu.hustler.logic.command.avatar;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.InventoryAnomaly;
 import seedu.hustler.ui.Ui;
-import java.io.IOException;
 
 /**
  * The command which handles the equipping of shop items.
@@ -33,7 +31,7 @@ public class EquipCommand extends Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         Ui ui = new Ui();
         Inventory inventory = Hustler.inventory;
         try {

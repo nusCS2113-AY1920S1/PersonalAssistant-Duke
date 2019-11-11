@@ -1,11 +1,14 @@
 package seedu.hustler.game.shop.items.armors;
 
-import seedu.hustler.game.shop.items.ShopItem;
-
 /**
  * The cheapest armor in the shop.
  */
 public class LeatherArmor extends Armor {
+
+    /**
+     * The name of the armor.
+     */
+    private static final String NAME = "Leather Armor";
 
     /**
      * The defence increment of the leather armor.
@@ -25,12 +28,12 @@ public class LeatherArmor extends Armor {
     /**
      * Constructs a new leather armor with its default variables.
      */
-    public LeatherArmor() {
-        super(COST, false, DEF_INCR, STA_INCR);
+    public LeatherArmor(boolean isPurchased) {
+        super(COST, isPurchased, DEF_INCR, STA_INCR, NAME);
     }
 
     @Override
-    public String toString() {
-        return "Leather Armor, " + super.toString();
+    public LeatherArmor setIsPurchased(boolean isPurchased) {
+        return new LeatherArmor(isPurchased);
     }
 }

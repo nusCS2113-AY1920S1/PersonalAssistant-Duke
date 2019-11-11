@@ -5,15 +5,12 @@ import seedu.hustler.game.avatar.AvatarLevel;
 import seedu.hustler.game.avatar.AvatarStats;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
-import seedu.hustler.game.shop.items.weapons.Broadsword;
 import seedu.hustler.game.shop.items.weapons.Weapon;
-
 import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
-import java.util.Formatter;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -22,9 +19,15 @@ import java.util.Scanner;
  */
 public class AvatarStorage {
 
+    /**
+     * The file path of the avatar storage.
+     */
     public static final String FILEPATH = "data/avatar.txt";
+
+    /**
+     * The file path of the backup of avatar storage.
+     */
     public static final String FILEPATHBACKUP = FILEPATH.split("avatar.txt")[0] + "backup/avatarBackup.txt";
-    private static Formatter formatter;
 
     /**
      * Loads up the current avatar on the destination of this
@@ -101,7 +104,9 @@ public class AvatarStorage {
             avatarBackupTxt.close();
             avatar = new Avatar(name, avatarLevel, avatarStats, weapon, armor);
         } catch (FileNotFoundException e) {
-
+            System.out.println("\t_____________________________________");
+            System.out.println("\tNo Avatar saved in database, creating a new Avatar now.");
+            System.out.println("\t_____________________________________\n\n");
         }
         return avatar;
     }

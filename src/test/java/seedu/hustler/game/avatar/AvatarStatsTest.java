@@ -175,7 +175,7 @@ public class AvatarStatsTest {
         }
 
         @Override
-        public void setPurchased(Boolean purchased) {
+        public ShopItem setIsPurchased(boolean isPurchased) {
             throw new AssertionError("This method should not be called.");
         }
 
