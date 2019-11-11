@@ -21,16 +21,16 @@ public class MoviePosterController {
         return movieTitleLabel;
     }
 
-    public void setMovieTitleLabel(Label mMovieTitleLabel) {
-        mMovieTitleLabel = mMovieTitleLabel;
+    public void setMovieTitleLabel(Label movieTitleLabel) {
+        movieTitleLabel = movieTitleLabel;
     }
 
     public ImageView getPosterImageView() {
         return moviePosterImageView;
     }
 
-    public void setPosterImageView(ImageView mPosterImageView) {
-        mPosterImageView = mPosterImageView;
+    public void setPosterImageView(ImageView posterImageView) {
+        posterImageView = posterImageView;
     }
 
     public Label getMovieNumberLabel() {
