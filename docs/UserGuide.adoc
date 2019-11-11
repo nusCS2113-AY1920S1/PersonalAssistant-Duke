@@ -286,14 +286,18 @@ Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
 
 If there are more than one synonym to be added, please separate them by spaces.
 
+image:add-synonym-eg.png[]
 //end::addsynonyms[]
 // tag::search_synonyms[]
+
 === Searching synonyms of a word : `search_syn`
 
-Search for al the synonyms to an existing word in the database. +
+Search for all the synonyms to an existing word in the database. +
 Format: `search_syn w/WORD` +
 
 Synonyms are chained together, so even new words will be recognize.
+
+image:synonymExample.PNG[]
 
 //end::search_synonyms[]
 
