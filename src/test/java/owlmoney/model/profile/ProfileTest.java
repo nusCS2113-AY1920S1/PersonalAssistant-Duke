@@ -8,7 +8,6 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.profile.exception.ProfileException;
-import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 import java.io.ByteArrayOutputStream;
@@ -269,8 +268,6 @@ class ProfileTest {
     void editProfile_validNewName_success() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        Storage testStorage = new Storage("data/");
-        testStorage.createDirectoryIfNotExist("data/");
         Ui uiTest = new Ui();
         Profile profileTest = new Profile("Test User", uiTest);
 
@@ -281,13 +278,12 @@ class ProfileTest {
         }
         String expectedOutput = NEWLINE + "Profile name was: Test User" + NEWLINE + "Now changed to: User" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
+        outContent.toString();
     }
 
     @Test
     void editProfile_providedWrongName_throwsErrorMessage() {
         Ui uiTest = new Ui();
-        Storage testStorage = new Storage("data/");
-        testStorage.createDirectoryIfNotExist("data/");
         Profile profileTest = new Profile("Test User", uiTest);
         try {
             profileTest.profileSetUsername("TestUser", "User", uiTest);
@@ -299,5 +295,6 @@ class ProfileTest {
                 "Expected to throw error, but it didn't");
         String expectedOutput = "No profile name with TestUser found!" + NEWLINE + "Try this instead: Test User";
         assertEquals(expectedOutput, thrown.toString());
+        thrown.toString();
     }
 }
