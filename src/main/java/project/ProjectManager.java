@@ -3,10 +3,12 @@ package project;
 import storage.Storage;
 import common.AlphaNUSException;
 import payment.Payee;
+import payment.Payments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 public class ProjectManager {
     public String currentprojectname;
@@ -94,6 +96,7 @@ public class ProjectManager {
         return projectslist;
     }
 
+    //@@author lijiayu980606
     /**
      * Assigns a budget to the project.
      * @param projectname Name of the project.
@@ -115,6 +118,7 @@ public class ProjectManager {
         return projectallocated; //TODO --> allocates budget to a project
     }
 
+    //@@author
     public HashMap<String, Payee> getCurrentProjectManagerMap() {
         return projectmap.get(currentprojectname).managermap;
     }
@@ -127,5 +131,21 @@ public class ProjectManager {
     public void loadBackup(LinkedHashMap<String, Project> projectmap) {
         this.projectmap = projectmap;
         this.currentprojectname = null;
+    }
+
+    /**
+     * Clears the dictionary and updates it with current vocabulary.
+     * @param dict the dictionary containing vocabulary
+     */
+    public void updateDict(Set<String> dict) {
+        dict.clear();
+        for (String currProjectName : this.projectmap.keySet()) {
+            for (Payee payee : this.projectmap.get(currProjectName).managermap.values()) {
+                payee.payeeToDict(dict);
+                for (Payments payment : payee.payments) {
+                    payment.paymentToDict(dict);
+                }
+            }
+        }
     }
 }

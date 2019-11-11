@@ -2,9 +2,8 @@ package command;
 
 import storage.Storage;
 import common.AlphaNUSException;
-import common.TaskList;
+import task.TaskList;
 import project.Fund;
-import project.ProjectManager;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -17,7 +16,6 @@ import java.util.Set;
 public class Parser {
     public static Instruction instr = new Instruction();
     public Process process = new Process();
-    public ProjectManager projectManager = new ProjectManager();
 
     public Parser() throws AlphaNUSException {
     }
@@ -39,12 +37,14 @@ public class Parser {
                                 Storage storage, ArrayList<String> list, Set<String> dict) {
         try {
             input = trimInput(input);
-
+            process.projectManager.updateDict(dict);
+            storage.writeToDictFile(dict);
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectManager.projectmap);
                 storage.writeToFundFile(fund);
                 storage.writeToDictFile(dict);
                 storage.writeTocurrentprojectnameFile(process.projectManager.currentprojectname);
+                storage.writeToTaskListFile(tasklist);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -52,7 +52,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 process.undo(storage, ui);
             } else if (instr.isLoad(input)) {
-                process.backupProjects(ui, fund, storage, list);
+                process.backupProjects(ui, fund, storage, list, tasklist);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.redo(storage, ui);
@@ -90,10 +90,10 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, ui, storage);
+                process.deletePayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isFind(input)) {
+            } else if (instr.isFindPayee(input)) {
                 process.findPayee(input, storage, ui);
             } else if (instr.isFindTask(input)) {
                 process.findTask(input, tasklist, ui);

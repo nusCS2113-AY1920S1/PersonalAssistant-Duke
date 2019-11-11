@@ -11,20 +11,12 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Akshay Narayan
-image::AkshayNarayan.png[width="150", align="left"]
-{empty}[https://www.comp.nus.edu.sg/~anarayan[homepage]] [github] [<<akshaynarayan#, portfolio>>]
-
-Role: Lecturer
-
-'''
-
 === Leow Yong Heng
 image::leowyh.png[width="150", align="left"]
 {empty}[http://github.com/leowyh[github]] [<<leowyongheng#, portfolio>>]
 
-Role: Team Lead, Documentation +
-Responsibilities: UI
+Role: Team Lead, Regular Testing +
+Responsibilities: Handling data and storage, conduct jar file testing and ensure good performance of the product.
 
 '''
 
@@ -32,8 +24,8 @@ Responsibilities: UI
 image::e0373902.png[width="150", align="left"]
 {empty}[http://github.com/E0373902[github]] [<<shriyasaxena#, portfolio>>]
 
-Role: Testing, Code quality +
-Responsibilities: Data
+Role: Testing, Integration +
+Responsibilities: Regular testing the functions and handle conflicts.
 
 '''
 
@@ -41,8 +33,8 @@ Responsibilities: Data
 image::lijiayu980606.png[width="150", align="left"]
 {empty}[http://github.com/lijiayu980606[github]] [<<lijiayu#, portfolio>>]
 
-Role: Deliverables and deadlines, Integration +
-Responsibilities: Storage
+Role: Documentation, Code Quality +
+Responsibilities: Handling documentation and code quality and ensuring coherence of thecode.
 
 '''
 
@@ -51,6 +43,6 @@ image::karansarat.png[width="150", align="left"]
 {empty}[http://github.com/karansarat[github]] [<<karansarat#, portfolio>>]
 
 Role: Scheduling and tracking,  +
-Responsibilities: UI
+Responsibilities: Developing implementations and designing user interface to provide better user experience.
 
 '''

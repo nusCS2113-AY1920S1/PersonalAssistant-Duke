@@ -184,7 +184,10 @@ public abstract class PaymentManager {
      * @return the payee object that was deleted from managermap to print out a confirmation.
      */
     public static Payments deletePayments(String payee, String item, 
-        HashMap<String, Payee> managermap) {
+        HashMap<String, Payee> managermap, Set<String> dict) {
+        if (!managermap.containsKey(payee)) {
+            throw new IllegalAccessError();
+        }
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
@@ -194,6 +197,7 @@ public abstract class PaymentManager {
                 Payments deleted = new Payments(prName, payee, item, cost, inv);
                 managermap.get(payee).payments.remove(i);
                 checkStatus(deleted);
+                deleted.cleanDict(dict);
                 return deleted;
             }
         }

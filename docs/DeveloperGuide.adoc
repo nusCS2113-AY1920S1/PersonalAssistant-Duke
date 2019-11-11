@@ -235,58 +235,11 @@ image::sequenceDiagramforHistory.PNG[]
 ===== Aspect: How `view history h/DATE to DATE` is implemented
 * Alternative 1: The application loops through the arraylist of all the input commands loaded from the txt file in storage. In the for loop, it is checked if the date beside the command is within the date range provided in the input. If yes, then it is added to a new arraylist, which is printed once the application has gone through the for loop.
 
-//tag::deadline
-=== Add Invoices
+=== Fund and Budget feature
 
-==== Implementation
-The add invoice function is an extending feature for `payment`. It considers real life situations and automatically set up the deadline for submission of payment forms for the users.
+=== Task feature
 
-Given below is an example usage scenario and how the `add invoice` behaves at each step.
-
-Step 1: The user add in a new payment form form submission. Now there is no invoice for this submission, therefore both invoice and deadline should be shown as null.
-
-Step 2: The user gets the corresponding invoice. He then sets the invoice number to the deadline using the command `invoice ID i/INVOICE_NUMBER`.
-
-Step 3: The user then call the `list` command, he can observe that the deadline is automatically set to 30 days after the current date. The invoice number is not null anymore as well.
-
-==== Design Considerations
-
-===== Aspect: How add invoice executes
-
-* **Alternative 1 (current choice):** The deadline is set to a fixed date(30 days after the invoice comes). The deadline can be adjusted using `reschedule` and `snooze`.
-** Pros: Easy for the NUS treasurers to use.
-** Cons: The customers cannot customize the time gap between the submission deadline and the date they get the deadline.
-* **Alternative 2:** The user can set the gap time by themselves.
-** Pros: In this way the application is more customized and can be applied to different situations.
-** Cons: This might cause unnecessary inconvenience.
-
-.Sequence Diagram of the add invoice command
-image::AddInvoiceSeqDiagram.png[]
-//end of add invoice
-
-//tag: reminder
-=== (Proposed) Reminder
-==== Proposed Implementation
-The reminder function is another extending feature for payment. By calling the relative command `reminder`, AlphaNUS will return the deadline with the highest priority (i.e. the earliest deadline). The deadline with the highest priority will also be shown at the starting page so as to perform as a reminder for the user.
-
-Given below is an example usage scenario and how the `reminder` behaves at each step.
-
-Step 1: The user launches the application for the first time. No reminder will be shown on the starting page as there is no deadline.
-
-Step 2: The user adds in new deadlines and assigns different deadlines to it by adding invoice at different dates.
-
-Step 3: Now the user can perform 'reminder' command. AlphaNUS will return a deadline task which has the earliest deadline among all the current deadlines that have received their invoices. If there is no submissions with their deadlines set, AlphaNUS will return a null result.
-
-Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the application, the reminder of the deadline with the highest priority will be shown on the starting page.
-
-==== Design Considerations
-===== Aspect: How reminder executes
-* **Alternative 1 (current choice):** the application performs sorting on the tasklist and returns the first element everytime the command is called
-** Pros: The result is accurate
-** Cons: This will cause the application to be slow when there are many tasks to be processed.
-* **Alternative 2:** The application only performs sorting once when a new task is added. The result id will be stored in a single integer.
-** Pros: This method saves memory required and minimize the runtime when the command is called.
-** Cons: It might be inaccurate when the user applies reschedule. Possible solution is to sort the list everytime the user reschedule a task. This will make the reschedule command to be slow on the other hand.
+=== Reminder feature
 
 == Documentation
 
@@ -665,14 +618,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Copy the file to the folder you want to use as the home folder.
 .. Run the commmand `java -jar alphanus.jar` on your terminal in the home folder.
 
-   Expected: Shows welcome message of AlphaNUS!
++
+Expected: Shows welcome message of AlphaNUS!
 
 . Shutdown and Saving of Data
 
 .. Input the `bye` command to exit the application.
 .. Re-launch the app by running the command `java -jar alphanus.jar` on your terminal in the home folder again.
 
-   Expected: The application starts with your previously saved data.
++
+Expected: The application starts with your previously saved data.
 
 [NOTE]
 If the application is prematurely closed or crashes without the `bye` command, all data from when the application is started will be lost.
@@ -682,6 +637,9 @@ If the application is prematurely closed or crashes without the `bye` command, a
 
 . Loading Backup Files
 .. After launching the app, enter the `load` command to load backup projects into the application.
+
++
+Expected: Backup Projects and Funds will be loaded into the application.
 
 [NOTE]
 All previously changed data will be removed after executing the `load` command.
@@ -694,11 +652,13 @@ All previously changed data will be removed after executing the `load` command.
 .. Prerequisites: The total fund has not yet been set.
 .. Test case: `set fund am/10000` +
 
-    Expected: Total fund is set. Fund details are printed.
++
+Expected: Total fund is set. Fund details are printed.
 
 .. Test case: `set fund am/aaa`
 
-    Expected: Total fund is not set. Error message is printed requesting for correct input.
++
+Expected: Total fund is not set. Error message is printed requesting for correct input.
 
 .. Other incorrect set fund commands to try: `set fund`, `set fund am/`.
 
@@ -708,22 +668,26 @@ All previously changed data will be removed after executing the `load` command.
 . Adds a new project to the record without assigning budget.
 .. Test case: `add project pr/FSC am/`
 
-    Expected: Project called FSC is added to record. Budget and spending are set to 0. Number of projects in the record is shown.
++
+Expected: Project called FSC is added to record. Budget and spending are set to 0. Number of projects in the record is shown.
 
 . Adds a new project to the record and assigns budget from total funds.
 .. Prerequisites: Total Fund is set and there is sufficient funds.
 
 .. Test case: `add project pr/Open Day am/1000`
 
-    Expected: Project called Open Day is added to record. Budget is set to 1000.0 and Spending is set to 0. Number of projects in the record is shown.
++
+Expected: Project called Open Day is added to record. Budget is set to 1000.0 and Spending is set to 0. Number of projects in the record is shown.
 
 .. Test case: `add project pr/ am/`
 
-    Expected: No project is added. Error message is printed stating that the project name cannot be empty.
++
+Expected: No project is added. Error message is printed stating that the project name cannot be empty.
 
 .. Test case: `add project pr/FSC am/`
 
-    Expected: No project is added. Error message is printed stating that the project already exists in the record.
++
+Expected: No project is added. Error message is printed stating that the project already exists in the record.
 
 
 ==== Deleting a project
@@ -732,12 +696,14 @@ All previously changed data will be removed after executing the `load` command.
 .. Prerequisites: There are projects in the record.
 .. Test case: `delete project pr/FSC`
 
-    Expected: Existing Project with name FSC is deleted from the record. The updated funds is also printed.
++
+Expected: Existing Project with name FSC is deleted from the record. The updated funds is also printed.
 
 . Deleting a non-existing project from the record.
 .. Test case: `delete project pr/Lalaland`
 
-    Expected: No project is deleted. Error message indicating that the project does not exist is printed.
++
+Expected: No project is deleted. Error message indicating that the project does not exist is printed.
 
 
 ==== Add fund to total fund (TO CHANGE)
@@ -752,34 +718,72 @@ All previously changed data will be removed after executing the `load` command.
 .. Prerequisites: Total funds is already set.
 .. Test case: `reset fund new/15000`
 
-    Expected: Total funds is set to 15000. Fund details are printed.
++
+Expected: Total funds is set to 15000. Fund details are printed.
 
 . Decrease total funds above allocated funds.
 .. Prerequisites: Total funds is already set.
 .. Test case: `reset fund new/9000`
 
-    Expected: Total funds is decreased to 9000. Fund details are printed.
++
+Expected: Total funds is decreased to 9000. Fund details are printed.
 
 . Decrease total funds below allocated funds.
 .. Prerequisites: Total funds is already set.
 .. Test case: `reset fund new/1`
 
-    Expected: Total funds not changed. Error message is printed along with the amount of allocated funds.
++
+Expected: Total funds not changed. Error message is printed along with the amount of allocated funds.
 
 
-==== Reduce Budget
+==== Reduce budget for a project
 
-TODO
+. Reduce budget for a project but budget remains above total spending of the project.
+.. Prerequisites: Budget is assigned to a project from total fund.
+.. Test case: `reduce budget pr/Open Day am/100`
 
++
+Expected: Allocated budget for a project is reduced by 100. Updated budget details for a project is shown along with new fund details.
+
+. Reduce budget for a project but amount to reduce is lower than total spending of the project.
+.. Prerequisites: Budget is assigned to a project from total fund.
+.. Test Case: `reduce budget pr/Open Day am/10000`
+
++
+Expected: Allocated budget is not changed. Error message is shown and budget details of project is printed.
 
 ==== List Projects
 
-TODO
+. List Projects in the record with existing projects.
+.. Prerequisites: Projects exist in the record.
+.. Test case: `list projects`
+
++
+Expected: Projects in the record are listed along with their budget details. Current Project being managed is also shown at the bottom.
+
+. List Projects in the record.
+.. Prerequisites: No projects exist int eh record.
+.. Test case: `list projects`
+
++
+Expected: No projects are listed. Message requesting user to add projects is printed.
 
 
 ==== Go to Project
 
-TODO
+. Goes to an existing project to manage its payment and payees.
+.. Prerequisites: Projects exist in the record.
+.. Test case: `goto 1`
+
++
+Expected: Current project being managed is set as the project index according to the `list projects` command.
+
+. Go to a non-existing project.
+.. Prerequisites: Projects exist in the record.
+.. Test case: `goto 1000`
+
++
+Expected: Error message stating that the project with that index does not exist is printed.
 
 === Managing Payments and Payees for a Project
 [NOTE]
@@ -787,11 +791,25 @@ You need to use the `goto` command to manage the payments and payees in a projec
 
 
 ==== Add Payee
-TODO
+
+. Adds a payee to a project currently being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command.
+.. Test case: `add payee p/John e/e013021@u.nus.edu m/A0182310A ph/91993312`
+
++
+Expected: The payee is added to the record.
+
+. Adds a payee to a project with an existing payee already added.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee with the same name exists in the project.
+.. Test case: `add payee p/John e/e0131111@u.nus.edu m/A0182399A ph/99993312`
+
++
+Expected: Payee is not added to the project. Error message stating that a payee with the same name is printed.
 
 
 ==== Delete Payee
-TODO
+
+. Deletes a payee from a project.
 
 
 
