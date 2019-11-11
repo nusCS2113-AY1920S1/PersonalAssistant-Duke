@@ -680,7 +680,7 @@ The Statistics interface comprises of two methods that are overridden in the Coh
 
 The CohortSize class also has the following function:
 
-CohortSize#getStats(): This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
+`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CohortStats.png[width="300", align = "center"]
 
