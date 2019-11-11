@@ -98,14 +98,15 @@ public class AddSemesterCommand extends Command {
         String name = arguments.get(INDEX_NAME);
         String startDate = parseDate(arguments.get(INDEX_DATE_START));
         String endDate = parseDate(arguments.get(INDEX_DATE_END));
-        if (exceedsMaxLength(year, SEMESTER_YEAR_LENGTH_MAX)) {
+        if (!isDateValid(startDate) || !isDateValid(endDate)) {
+            throw new InvalidArgumentException("OOPS!! The date is invalid.");
+        } else if (exceedsMaxLength(year, SEMESTER_YEAR_LENGTH_MAX)) {
             throw new InvalidArgumentException("OOPS!!! Semester Year exceeds maximum length of "
                     + SEMESTER_YEAR_LENGTH_MAX + "!");
         } else if (exceedsMaxLength(name, SEMESTER_NAME_LENGTH_MAX)) {
             throw new InvalidArgumentException("OOPS!!! Semester Name exceeds maximum length of "
                     + SEMESTER_NAME_LENGTH_MAX + "!");
-        }
-        if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {
+        } else if (hasClashes(semesterList, startDate, endDate)) {
             throw new InvalidArgumentException("OOPS!! The semester clashes with another semester.");
         }
         Semester semester = new Semester(year, name, startDate, endDate);
