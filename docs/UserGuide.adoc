@@ -131,11 +131,14 @@ starting from a specified day, including the events within this time period. +
 
 === Viewing schedules : `view`
 
-Brings up a list of tasks for a particular date. +
+Brings up a list of events for a particular date. +
+
+Note: This only displays the schedule for events. Viewing of todo tasks on a particular date will be
+implemented in v2.0.
 
 Format: `view dd-MM-yyyy` +
 E.g. “view 18-09-2019”
-displays all events/todos on/by the date 18 September 2019.
+displays all events on the date 18 September 2019.
 
 
 === Checking for free days : `check`
