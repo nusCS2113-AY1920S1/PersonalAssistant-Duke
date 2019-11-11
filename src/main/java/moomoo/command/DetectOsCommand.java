@@ -7,6 +7,6 @@ public class DetectOsCommand {
      * Get operating system name the user is running on.
      */
     public DetectOsCommand() {
-        this.osName = System.getProperty("os.name");
+        this.osName = System.getProperty("os.name").toLowerCase();
     }
 }
