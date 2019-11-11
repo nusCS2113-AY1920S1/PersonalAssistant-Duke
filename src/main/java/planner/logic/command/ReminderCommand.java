@@ -90,7 +90,7 @@ public class ReminderCommand extends ModuleCommand {
                 try {
                     printEveryTenSec();
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }
@@ -99,7 +99,7 @@ public class ReminderCommand extends ModuleCommand {
                 try {
                     printEveryThirtySec();
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }
@@ -108,7 +108,7 @@ public class ReminderCommand extends ModuleCommand {
                 try {
                     printEveryOneMin();
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }
@@ -117,7 +117,7 @@ public class ReminderCommand extends ModuleCommand {
                 try {
                     printEveryTwoMin();
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }

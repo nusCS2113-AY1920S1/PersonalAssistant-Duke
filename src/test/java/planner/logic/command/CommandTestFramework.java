@@ -12,7 +12,7 @@ import planner.util.storage.Storage;
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 
-class CommandTestFramework extends InputTest {
+public class CommandTestFramework extends InputTest {
 
     User user;
     HashMap<String, ModuleInfoDetailed> modDetail;
@@ -22,7 +22,7 @@ class CommandTestFramework extends InputTest {
     ModuleCommand command;
     Parser parser;
 
-    CommandTestFramework() throws ModException {
+    public CommandTestFramework() throws ModException {
         init();
     }
 
@@ -38,12 +38,16 @@ class CommandTestFramework extends InputTest {
         parser = new Parser();
     }
 
-    void execute(String input) {
+    /**
+     * Execute command.
+     * @param input to be parsed into command
+     */
+    public void execute(String input) {
         ByteArrayInputStream inputStream = getInputStream(input);
         ui.setInput(inputStream);
         for (input = ui.readInput(inputStream);
              input != null;
-             input = ui.readInput(inputStream)){
+             input = ui.readInput(inputStream)) {
             try {
                 command = parser.parseCommand(input);
                 if (command != null) {
@@ -59,7 +63,12 @@ class CommandTestFramework extends InputTest {
         return new ByteArrayInputStream(input.getBytes());
     }
 
-    String getOut(boolean reset) {
+    /**
+     * Get output.
+     * @param reset whether to reset output stream
+     * @return output
+     */
+    public String getOut(boolean reset) {
         String outputString = outContent.toString();
         if (reset) {
             outContent.reset();
@@ -67,11 +76,16 @@ class CommandTestFramework extends InputTest {
         return standardize(outputString);
     }
 
-    String getOut() {
+    public String getOut() {
         return getOut(true);
     }
 
-    String getErr(boolean reset) {
+    /**
+     * Get error.
+     * @param reset whether to reset error stream
+     * @return error
+     */
+    public String getErr(boolean reset) {
         String outputString = errContent.toString();
         if (reset) {
             errContent.reset();
@@ -79,7 +93,7 @@ class CommandTestFramework extends InputTest {
         return standardize(outputString);
     }
 
-    String getErr() {
+    public String getErr() {
         return getErr(true);
     }
 
@@ -87,7 +101,10 @@ class CommandTestFramework extends InputTest {
         return s.replaceAll("\r\n", "\n");
     }
 
-    void resetAll() { // For clean test
+    /**
+     * Reset all data for clean test.
+     */
+    public void resetAll() { // For clean test
         user.clear();
         outContent.reset();
         errContent.reset();

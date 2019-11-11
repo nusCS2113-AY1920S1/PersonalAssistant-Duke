@@ -5,6 +5,7 @@ package planner.ui.gui;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -16,17 +17,29 @@ import planner.main.CliLauncher;
  */
 public class Main extends Application {
 
-    private CliLauncher planner = new CliLauncher(true);
+    public static CliLauncher planner;
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/duke.MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(this.planner);
+            stage.setResizable(false);
+            MainWindow mainWindow = fxmlLoader.<MainWindow>getController();
+            planner = new CliLauncher(mainWindow);
+            mainWindow.setPlanner(planner);
+            planner.setup();
             stage.show();
+            Task task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    planner.run();
+                    return null;
+                }
+            };
+            new Thread(task).start();
         } catch (IOException e) {
             e.getCause().getCause().printStackTrace();
         }
