@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * Dolla is a chat-bot styled expense manager.
  */
-public class Dolla implements ModeStringList, ParserStringList {
+public class Dolla  implements ModeStringList, ParserStringList  {
 
     private DollaData dollaData = new DollaData();
     private boolean isExit = false;
@@ -28,6 +28,8 @@ public class Dolla implements ModeStringList, ParserStringList {
     }
 
     private void run() throws DollaException {
+        LogsCentre.logSetter();
+        LogsCentre.setLogger.info("***********************DOLLA RUNNING***********************");
         Reminder reminder = new Reminder(MODE_DEBT);
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
@@ -38,7 +40,9 @@ public class Dolla implements ModeStringList, ParserStringList {
             Command c = MainParser.handleInput(mode, inputLine);
             c.execute(dollaData);
         }
+        LogsCentre.setLogger.info("************************DOLLA TERMINATED************************");
     }
+
 
     public static void main(String[] args) throws DollaException {
         new Dolla().run();
