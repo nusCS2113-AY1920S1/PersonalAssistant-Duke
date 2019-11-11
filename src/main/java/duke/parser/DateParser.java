@@ -52,7 +52,7 @@ public class DateParser {
     //    }
 
     /**
-     * Checks the date if its valid.
+     * Checks the date/time if its valid.
      *
      * @param dateDesc The description of the task.
      * @throws Exception when date is invalid.
@@ -130,6 +130,65 @@ public class DateParser {
         }
         if (minutes < Numbers.ZERO.value || minutes > FIFTY_NINE) {
             throw new DukeException("Invalid minutes");
+        }
+    }
+
+    /**
+     * Checks the date if its valid.
+     *
+     * @param dateDesc The description of the task.
+     * @throws Exception when date is invalid.
+     */
+    protected void isValidDate(String dateDesc) throws Exception {
+        String[] dateArray = dateDesc.split("/");
+
+        if (dateArray.length != Numbers.THREE.value) {
+            throw new DukeException("Invalid date format");
+        }
+
+        if (dateDesc.contains("-")) {
+            throw new DukeException("Invalid date format");
+        }
+        int day;
+        int month;
+        int year;
+        try {
+            day = Integer.parseInt(dateArray[Numbers.ZERO.value]);
+        } catch (Exception e) {
+            throw new DukeException("Invalid day");
+        }
+        try {
+            month = Integer.parseInt(dateArray[Numbers.ONE.value]);
+        } catch (Exception e) {
+            throw new DukeException("Invalid month");
+        }
+        try {
+            year = Integer.parseInt(dateArray[Numbers.TWO.value]);
+        } catch (Exception e) {
+            throw new DukeException("Invalid year");
+        }
+
+        if (year < Numbers.ONE.value) {
+            throw new DukeException("Invalid year, and year 0 does not exist");
+        }
+        if (month < Numbers.ONE.value || month > TWELVE) {
+            throw new DukeException("Invalid month");
+        }
+        if (month == Numbers.ONE.value || month == Numbers.THREE.value || month == Numbers.FIVE.value
+                || month == SEVEN || month == EIGHT || month == TEN || month == TWELVE) {
+            if (day < Numbers.ONE.value || day > Numbers.THIRTY_ONE.value) {
+                throw new DukeException("Invalid day");
+            }
+        }
+        if (month == Numbers.FOUR.value || month == Numbers.SIX.value || month == NINE || month == ELEVEN) {
+            if (day < Numbers.ONE.value || day > THIRTY) {
+                throw new DukeException("Invalid day");
+            }
+        }
+        if (month == Numbers.TWO.value) {
+            if (day < Numbers.ONE.value || day > TWENTY_NINE) {
+                throw new DukeException("Invalid day");
+            }
         }
     }
 }
