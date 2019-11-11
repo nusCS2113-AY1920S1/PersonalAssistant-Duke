@@ -31,6 +31,7 @@ import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
 import static util.constant.ConstantHelper.COMMAND_ROLE_CORRECT_LENGTH;
 import static util.constant.ConstantHelper.COMMAND_ROLE_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
@@ -78,11 +79,11 @@ public class ProjectInputController implements IController {
             projectNumber = Integer.parseInt(input);
         } catch (NumberFormatException err) {
             isManagingAProject = false;
-            return new String[] {"Input is not a number! Please input a proper project index!"};
+            return COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
         }
         this.projectToManage = projectRepository.getItem(projectNumber);
         isManagingAProject = true;
-        return new String[] {"Please enter a new command:"};
+        return COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
     }
 
     /**

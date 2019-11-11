@@ -95,6 +95,14 @@ public class ConstantHelper {
         "Please follow the member index using the correct command format role INDEX -n ROLE_NAME"
     };
 
+    public static final String[] COMMAND_MANAGE_PROJECT_INVALID_NUMBER = new String[] {
+        "Input is not a number! Please input a proper project index!Input is not a number! Please input a proper project index!"
+    };
+
+    public static final String[] COMAMAND_MANAGE_PROJECT_REQUEST_INPUT = new String[] {
+        "Please enter a new command:"
+    };
+
     public static final String COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG = "-m";
 
     public static final String COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG = "-t";
