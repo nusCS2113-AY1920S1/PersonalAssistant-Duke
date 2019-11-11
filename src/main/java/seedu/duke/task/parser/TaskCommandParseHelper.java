@@ -85,7 +85,7 @@ public class TaskCommandParseHelper {
         } else if (input.startsWith("sort")) {
             return parseSortCommand(input);
         }
-        return new InvalidCommand("Invalid command word. Please enter \'help\' for more information");
+        return new InvalidCommand("Invalid command word.");
     }
 
     private static Matcher prepareCommandMatcher(String input, String s) {
@@ -553,6 +553,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a valid task index");
         } catch (EmailParseException e) {
             return new InvalidCommand("Please ensure all email indexes are valid");
+        } catch (NumberFormatException e) {
+            return new InvalidCommand("Please enter a valid index");
         }
     }
 
