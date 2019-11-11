@@ -9,17 +9,21 @@ import duke.data.PatientData;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * JUnit class testing the class GsonStorage.
@@ -51,38 +55,17 @@ public class GsonStorageTest extends CommandTest {
      * The expected Json representation of dummy1, dummy2, dummy3 and the complex patient that is created with
      * the createComplexPatient method.
      */
-    private String expected =
-            "[{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressionList\":[],\"height\":0,\"weight\":0,\"age\":0,"
-        + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy1\"},{\"bedNo\":\"A200\",\"allergies\":\"\","
-        + "\"impressionList\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"address\":\"\",\"history\":\"\","
-        + "\"name\":\"dummy2\"},{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressionList\":[],\"height\":0,"
-        + "\"weight\":0,\"age\":0,\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy3\"},{\"bedNo\":"
-        + "\"C1\",\"allergies\":\"test allergies\",\"primaryDiagnosis\":{\"description\":\"test description 1\","
-        + "\"evidences\":[{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,\"priority\":0,\"summary\":"
-        + "\"test summary 1\",\"name\":\"test obs 1\"}},{\"type\":\"Observation\",\"properties\":{\"isObjective\":true,"
-        + "\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}},{\"type\":\"Result\",\"properties\":"
-        + "{\"priority\":2,\"summary\":\"test summary 1\",\"name\":\"test result 1\"}},{\"type\":\"Result\","
-        + "\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":\"test result 2\"}}],\"treatments\":"
-        + "[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 2\",\"name\":"
-        + "\"test plan 1\"}},{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":"
-        + "\"test summary 1\",\"name\":\"test inv 1\"}}],\"name\":\"test imp 1\"},\"impressionList\":[{\"description\":"
-        + "\"test description 1\",\"evidences\":[{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,"
-        + "\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test obs 1\"}},{\"type\":\"Observation\","
-        + "\"properties\":{\"isObjective\":true,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}}"
-        + ",{\"type\":\"Result\",\"properties\":{\"priority\":2,\"summary\":\"test summary 1\",\"name\":"
-        + "\"test result 1\"}},{\"type\":\"Result\",\"properties\":{\"priority\":3,\"summary\":\"test summary 2\","
-        + "\"name\":\"test result 2\"}}],\"treatments\":[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,"
-        + "\"priority\":0,\"summary\":\"test summary 2\",\"name\":\"test plan 1\"}},{\"type\":\"Investigation\","
-        + "\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}}],"
-        + "\"name\":\"test imp 1\"},{\"description\":\"test description 2\",\"evidences\":[],\"treatments\":[{\"type\":"
-        + "\"Medicine\",\"properties\":{\"dose\":\"test dose 1\",\"startDate\":\"test start date\",\"duration\":"
-        + "\"test duration\",\"statusIdx\":1,\"priority\":0,\"name\":\"test medicine 2\"}},{\"type\":\"Plan\","
-        + "\"properties\":{\"statusIdx\":2,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test plan 2\"}},"
-        + "{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":0,\"priority\":2,\"summary\":\"test summary 2\","
-        + "\"name\":\"test inv 2\"}},{\"type\":\"Medicine\",\"properties\":{\"dose\":\"test dose 2\",\"startDate\":"
-        + "\"test start date\",\"duration\":\"test duration\",\"statusIdx\":2,\"priority\":2,\"name\":"
-        + "\"test medicine 1\"}}],\"name\":\"test imp 2\"}],\"height\":123,\"weight\":456,\"age\":100,\"number\":"
-        + "6582447,\"address\":\"test address\",\"history\":\"test history\",\"name\":\"testCPatient\"}]\n";
+    private static String expected;
+
+    @BeforeAll
+    public static void loadExpected() {
+        try {
+            expected = new Scanner(new File("data" + File.separator + "expected.json"))
+                    .useDelimiter("\\Z").next();
+        } catch (IOException excp) {
+            fail("Could not load expected values for test!");
+        }
+    }
 
     /**
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
