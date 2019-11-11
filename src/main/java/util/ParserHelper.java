@@ -333,7 +333,7 @@ public class ParserHelper {
                         detailedCriteria[1], project);
                 break;
             case "-state":
-                taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
+                taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1].toLowerCase());
                 break;
             default:
                 break;
