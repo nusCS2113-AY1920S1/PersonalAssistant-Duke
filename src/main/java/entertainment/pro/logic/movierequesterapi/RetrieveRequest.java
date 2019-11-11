@@ -5,6 +5,7 @@ import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.EmptyResultExceptions;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -135,7 +136,6 @@ public class RetrieveRequest implements InfoFetcher {
     private static String[] resultsPosterSizes;
     private static String[] resultsBackdropSizes;
     private boolean configWasRead;
-
 
     /**
      * Enumerates different types of requests that can be done with MovieDB API.

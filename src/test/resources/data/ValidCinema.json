@@ -1,0 +1,47 @@
+{
+  "html_attributions" : [],
+  "results" : [
+    {
+      "formatted_address" : "321 Clementi Ave 3, #03-03 321, Singapore 129905",
+      "geometry" : {
+        "location" : {
+          "lat" : 1.3119172,
+          "lng" : 103.7650692
+        },
+        "viewport" : {
+          "northeast" : {
+            "lat" : 1.313184979892722,
+            "lng" : 103.7663153798927
+          },
+          "southwest" : {
+            "lat" : 1.310485320107278,
+            "lng" : 103.7636157201073
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/movies-71.png",
+      "id" : "72283adc8e916b57df806defafdf5307fdb2dfd6",
+      "name" : "WE Cinemas",
+      "photos" : [
+        {
+          "height" : 1836,
+          "html_attributions" : [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/114630621165040729787/photos\"\u003eAaron Ng\u003c/a\u003e"
+          ],
+          "photo_reference" : "CmRaAAAAPd4dHRTNHOpEu9k3flc_uEtwTfcHLHS9nw7Hu4waBuEEHUCOUBTw5WCTHwD_Ktn8Ihl7EBnJ047CaizOSvkpz74NUsqQl0f_q17Y0GeHdq6IfI6OuyoAAmeIYamFfxT4EhC9wQdOb86GolM6ctl8JsBDGhTGcfU8gyliVq3Z_g68JEPgWkh53w",
+          "width" : 3264
+        }
+      ],
+      "place_id" : "ChIJ91kj6o0a2jERgiLubxWHDTo",
+      "plus_code" : {
+        "compound_code" : "8Q68+Q2 Singapore",
+        "global_code" : "6PH58Q68+Q2"
+      },
+      "rating" : 4.3,
+      "reference" : "ChIJ91kj6o0a2jERgiLubxWHDTo",
+      "types" : [ "movie_theater", "point_of_interest", "establishment" ],
+      "user_ratings_total" : 972
+    }
+  ],
+  "status" : "OK"
+}
