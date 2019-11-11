@@ -24,7 +24,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `wordup.jar` https://github.com/AY1920S1-CS2113-T14-3/main/releases/tag/v1.3[here].
-.  Copy the file to an empty folder you want to use as the home folder for your WordUp.
+.  Copy the file to an *_empty folder_* you want to use as the home folder for your WordUp.
 .  Ensure that you have `JavaFX` installed.
 .  Double click on the Jar file.
 
