@@ -5,7 +5,6 @@
 
 == Product Name: Le Duc
 
----
 == Overview
 Le Duc is a schedule management software aiming to assist high school students manage their academic and extracurricular tasks, with the goal of increasing their time management/productivity. User-Software interaction occurs on the command line, from which they have access to a variety of commands/operations.
 
@@ -31,7 +30,6 @@ Le Duc is a schedule management software aiming to assist high school students m
 ** What it does: Modified most of the software to allow compatibility with the Homework task type. Please note (for RepoSense purposes) that this required line by line changes in almost every file that cannot be tagged in blocks. All former mentions of the Duke "Deadline" task was converted for the new "Homework" task type.
 ** Justification: Le Duc is targeting High School students, thus a Homework task type is necessary for our users.
 
-
 * *Minor enhancement*: Code refactoring: offloaded helper methods to higher layers to increase cohesion between the Command and Ui classes.
 
 * *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=rshah918&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=rshah918&tabRepo=AY1920S1-CS2113-T16-1%2Fmain%5Bmaster%5D[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RemindCommand.java[Remind Command]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/FindCommand.java[Find Command]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/UnfinishedCommand.java[UnfinishedCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SetWelcomeCommand.java[Set Welcome Message]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/StatsCommand.java[Generate Statistics]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HomeworkCommand.java[Create Homework Object]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/task/TaskList.java[Filter and Sort Tasklist]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiEn.java[Ui-English Refactoring]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiFr.java[Ui-French Refactoring]]
@@ -40,7 +38,6 @@ Le Duc is a schedule management software aiming to assist high school students m
 
 ** Project management:
 *** Assisted with releases `v1.1` `v1.2` `v1.3` `v1.4`
-** Code Refactoring:
 *** Cohesion Improvement Refactoring (Portion of Pull Request https://github.com/AY1920S1-CS2113-T16-1/main/pull/145/[#145] )
 *** Project wide Code Refactoring (Pull Request https://github.com/AY1920S1-CS2113-T16-1/main/pull/96[#96])
 *** PR reviews: (Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/pull/24[#24], https://github.com/AY1920S1-CS2113-T16-1/main/pull/25[#25], https://github.com/AY1920S1-CS2113-T16-1/main/pull/76[#76])
@@ -109,7 +106,6 @@ ____        _
         ---------------------------------------------------------------------------------
         Hello I'm Duke
         What can I do for you ?
-
         ---------------------------------------------------------------------------------
 ```
 
@@ -132,9 +128,7 @@ setwelcome Hello World
 
         ---------------------------------------------------------------------------------
         Hello World
-
         ---------------------------------------------------------------------------------
-
 
 ```
 
@@ -224,7 +218,6 @@ Percent of tasks with priority 1: 0.0%
 
 
 ```
-
 === View Unfinished tasks : `unfinished`
 
 Find and display all unfinished tasks : `unfinished`
@@ -241,56 +234,45 @@ Example:
          1. [T][X] td1 [Priority: 5]
          2. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
          3. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
-         4. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
-
         ---------------------------------------------------------------------------------
 ```
-
-=== Reminder for upcoming tasks : `remind`
-
-Reminds the user of the 3 most upcoming tasks : `remind`
-
-Example:
-
-* `remind`
-```
-remind
-         1. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
-         4. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
-         5. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-
-```
+* *Remind section omitted. Please see the user guide*
 
 == Contributions to the Developer Guide
 
-Overview: I have added the implementations of my features to the Developer Guide : remind, statistics, and find. Our Developer Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-DG.pdf[here].
+Overview: I have added the implementations of my features to the Developer Guide : remind, statistics, and find. I also created all of the Appendix Sections. Our Developer Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-DG.pdf[here].
 
-* *Implementation for remind:*
+=== Remind
 
-Display the 3 most upcoming unfinished tasks : `remind`
 
-Tasks with associated timestamps are prioritized.
-Non-timestamp tasks are pushed to the back of the filtered and chronologically sorted tasklist. Completed tasks are not displayed.
-
-Helper Methods:
+The Remind feature is done by the RemindCommand. Along with all of the other implemented commands, it extends Command. The feature will process each tasks date/timestamps to order them, and then remind the user of the top 3 upcoming tasks. The following methods were implemented in this feature:
 
 * `filterTasks` - Extracts the Homework and Event tasks into a seperate ArrayList
 * `sort` - Orders the filtered TaskList in chronological order.
 
 * *Sequence Diagram of the Remind Feature:*
 
-image::RemindSequenceDiagram.png[width="790"]
+image::RemindSequenceDiagram.png[width="500"]
+There are 4 cases:
 
-There are 3 cases:
-
-* TaskList contains a mix of all objects
+* TaskList contains only Homework and Event objects
 * TaskList contains only Todo objects
+* TaskList contains a mix of all objects
 * TaskList contains no objects
 
-==== TaskList contains only homework/Event objects
+The task of sorting the tasklist in chronological order becomes challenging as not all tasks have associated timestamps.
+This problem is divded into 4 subproblems, each of which are handled seperately.
 
-* The original TaskList is passed through a filter.
-* The filtered TaskList is equal to the original TaskList, as there are no Todo objects to filter out. The filtered TaskList will then be sorted by TakList.sort(). The method will call each tasks .getDate() and build a sorted ArrayList. All Todo's will be appended to the end of the sortedlist
+
+==== TaskList contains only Homework/Event tasks
+
+* The original TaskList is passed through a filter to isolate the Homework and event tasks.
+* The TaskList.extractTodo() method will attempt to isolate all todo tasks. It will return an empty array in this case
+* After filtering by TaskList.filterTasks(), the filtered TaskList will be equal to the original TaskList, as there are no Todo objects to filter out in this particular case.
+* The filtered TaskList will then be sorted by TaskList.sort().
+* The sort() method will call each tasks task.getDate() method in preparation for sorting. For "Event" tasks, the first timestamp will be used for the purposes of sorting.
+* After performing insertion sort, the array of Todo's will be appended to the end of the sorted list. In this case, there are no
+"todo" tasks, so nothing will be appended.
 * The first 3 most upcoming tasks will be displayed to the user.
 * *Output:*
 
@@ -298,11 +280,17 @@ There are 3 cases:
 remind
 1. [H][X] d1 by: 14/09/2019 22:33 [Priority: 5]
 2. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-3. [T][X] td1 [Priority: 5]
+3. [H][X] d2 by: 22/09/2019 22:33 [Priority: 5]
 ```
-==== TaskList only contains Todo Objects
+==== TaskList only contains Todo tasks
 
-* The TaskList.sort() method will return the original list containing only Todo's. Todo tasks have no associated date, so the order in which they were created will be preserved. This is assuming that the order they were created by the user is the order of the intended completion.
+* The original TaskList is passed through a filter to isolate the Homework and Event tasks. Because there are only Todo tasks, it will return an empty array.
+* The TaskList.extractTodo() method will attempt to isolate all todo tasks. It will return the original tasklist in this case, becase every task is a "todo"
+* The filtered TaskList will then be sorted by TaskList.sort(). The method will return an empty array, because the input array containing Homework and Event tasks is empty.
+* The sort method will return an empty array, as the input array of Homework/Event tasks is empty in this case.
+* The array of Todo's is appended to the empty, returned array from TaskList.sort(), resulting in the original tasklist of only Todo tasks.
+* *The original tasklist is considered to be the sorted tasklist. The order in which the Todo's were created are treated as an  "implicit order".*
+* The first 3 most upcoming tasks will be displayed to the user.
 * *Output:*
 ```---------------------------------------------------------------------------------
 remind
@@ -310,18 +298,7 @@ remind
 2. [T][X] todo2 [Priority: 5]
 3. [T][X] todo3 [Priority: 5]
 ```
-==== TaskList Contains No Objects
-
-```
----------------------------------------------------------------------------------
-    There are no upcoming tasks in your list
----------------------------------------------------------------------------------
-
-```
-
-==== Consideration
-* Sorting the TaskList in place was considered, but it reduced cohesion of the design.
-* It was considered to only remind the user of tasks that are coming up in the next week,
-but that would limit its potential utility
+*Last 3 sections are omitted. Please see Developer Guide*
 
 ---
+
