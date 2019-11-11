@@ -3,7 +3,7 @@ package duke.storage;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
-import duke.order.OrderList;
+import duke.list.OrderList;
 import duke.parser.Convert;
 
 import java.util.Date;

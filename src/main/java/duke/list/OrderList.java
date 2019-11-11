@@ -1,9 +1,8 @@
-package duke.order;
+package duke.list;
 
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.list.GenericList;
-import duke.list.TodayTodoList;
+import duke.order.Order;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,46 +130,6 @@ public class OrderList extends GenericList<Order> {
             }
         }
         return todayOrderList;
-    }
-
-    /**
-     * Used to alter the serving date of the {@link Order}.
-     * @param orderNb order index
-     * @param newDate reset date of the {@link Order}.
-     * @throws DukeException if the date is before the date today.
-     */
-    public void changeOrderDate(int orderNb, Date newDate) throws DukeException {
-        genList.get(orderNb).setDate(newDate);
-    }
-
-    /**
-     * Add dishes to the {@link Order}.
-     * Add one more if not specifying the amount.
-     * @param orderNb order index
-     * @param dishName dishes
-     */
-    public void addOrderDish(int orderNb, String dishName) {
-        genList.get(orderNb).addDish(dishName);
-    }
-
-    /**
-     * Add dishes to the {@link Order}.
-     * @param orderNb order index
-     * @param dishName dishes
-     * @param amount add amount of that dishes
-     */
-    public void addOrderDish(int orderNb, String dishName, int amount) {
-        genList.get(orderNb).addDish(dishName, amount);
-    }
-
-    /**
-     * Find dishes amount in the {@link Order}.
-     * @param orderNb order index
-     * @param dishName dishes
-     * @return the amount of that dishes
-     */
-    public int findDishesAmount(int orderNb, String dishName) {
-        return genList.get(orderNb).getDishesAmount(dishName);
     }
 
     /**

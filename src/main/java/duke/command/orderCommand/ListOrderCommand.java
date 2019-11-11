@@ -2,11 +2,11 @@ package duke.command.orderCommand;
 
 import duke.command.Command;
 import duke.command.ingredientCommand.ListCommand;
-import duke.dish.DishList;
+import duke.list.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
 import duke.order.Order;
-import duke.order.OrderList;
+import duke.list.OrderList;
 import duke.parser.Convert;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -22,7 +22,7 @@ import java.util.List;
  *
  * Represents a specific {@link Command} used to list all the {@link Order}s in the {@link OrderList}.
  */
-public class ListOrderCommand extends ListCommand {
+public class ListOrderCommand extends Command {
 
     private String[] listType;
 
