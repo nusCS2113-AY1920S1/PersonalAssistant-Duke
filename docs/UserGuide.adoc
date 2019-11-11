@@ -99,6 +99,11 @@ e.g `add task restructure parsers /to Alice Bob Carol`
 e.g `add task restructure parsers /at 30/10/2019 2359 /to Alice` +
 e.g `add task restructure parsers /at 30/10/2019 2359 /to Alice Bob Carol`
 
+* task with skill(s): add task whilst assigning skill(s). skills are separated by whitespaces +
+`add task [TASK_NAME] /skill [skill 1] [skill 2] etc.` +
+e.g `add task website /skill coding` +
+e.g `add task 2113 /skill teamwork coding`: this will add the 2 skills, teamwork and coding.
+
 ==== Finding a task with key word : `find`
 
 Finds tasks whose names or description contain any of the given keywords. +
@@ -173,6 +178,19 @@ e.g `reminder 1 2d`
 * Reminders can only be set on a task that has a time
 * `TIME_BEFORE` is specified by a numeric value followed by `m` for minutes, `h` for hours, `d` for days
 ****
+
+==== Matching a task to members : `match task`
+
+Finds members who possess skills required by a task +
+`match task [INDEX]` +
+
+****
+* Deletes the task at the specified INDEX.
+* The index refers to the index number shown in the displayed schedule list.
+* The index must be a positive integer 1, 2, 3, …
+* Any reminders set on the task will be deleted together​
+****
+
 
 === Commands related to members
 
