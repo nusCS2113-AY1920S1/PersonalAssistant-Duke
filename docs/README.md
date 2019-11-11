@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/namiwa/main.svg?branch=master)](https://travis-ci.org/namiwa/main)
-
-
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-F10-1/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-F10-1/main?branch=master)
 
 # Module planner for NUS CEG Students
 
@@ -63,7 +62,7 @@ External libraries used:
 * [Gson](https://github.com/google/gson) under [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license
 * [JUnit 5](https://github.com/junit-team/junit5) under [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license
 * [Argparse4j](https://github.com/argparse4j/argparse4j) under [License](https://github.com/argparse4j/argparse4j/blob/master/LICENSE.txt)
-
+* [Jacoco](https://github.com/jacoco/jacoco) under [License](https://github.com/jacoco/jacoco/blob/master/LICENSE.md)
 
 ## License
 

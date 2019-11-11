@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-1/main
 
-By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS School of Computing`
+By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `MIT`
 
 == Introduction
 
@@ -22,18 +22,20 @@ By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS Scho
 
 ModPlan is a module planning system that expands on NUSMODS to help NUS students to plan their modules for all four years of their bachelor’s degree.  +
 
-ModPlan is currently only designed to work for Computer Engineering students, and the requisite modules for graduation. +
+ModPlan is currently only designed to work for Computer Engineering students, and the requisite modules for graduation.
+
 ModPlan uses NUSMODS API to extract official module data from the NUS Registrar's Office. + 
 
-This Developer Guide is meant for any software developer who wishes to contribute to or test ModPlan, and can find architecture, implementation methods and high-level design considerations within this file.
+This Developer Guide is meant for anyone who wishes to contribute to ModPlan further, and serves to guide them through the architecture,
+implementation methods and high-level design considerations taken during our current development.
 
 == Setting up
 
 **Prerequisites**
 
-* JDK version:  `11` or above
-* Recommended IDE: `IntelliJ IDEA`
-* Fork this repo to your GitHub account and clone the fork to your computer
+* JDK version:  https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[`11`] or above
+* Recommended IDE: https://www.jetbrains.com/idea/[`IntelliJ IDEA`]
+* Fork this repo to your https://github.com/[GitHub account] and clone the fork to your computer
 
 **Importing the project into IntelliJ**
 
@@ -51,10 +53,12 @@ This Developer Guide is meant for any software developer who wishes to contribut
 
 **Running the Project**
 
-* If you wish to run the .jar file in a mainstream OS, simply double click the .jar file, and a command line interface should run in a few seconds. +
-This is assuming you have a JDK version of `11` and above.
+* If you wish to run the `Jar` file, simply run the command `java -jar [CS2113T-F10-1][ModPlan].jar` in any terminal application
+of your choice.
 
-* If you are not using `gradle`, simply locate the `Planner.java` file under `PROJECT_DIRECTORY/src/main/java/planner/main/CliLauncher.java`, and run it in your IDE.
+*This is assumes that JDK version `11` and above is installed.*
+
+* If you are not using `gradle`, simply locate the `CliLauncher.java` file under `PROJECT_DIRECTORY/src/main/java/planner/main/CliLauncher.java`, and run it in your IDE.
 
 * If you are using `gradle`, import the project as a gradle project using the `Import Gradle Project` function in IntelliJ, and run `gradlew run` from the command line.
 
@@ -68,11 +72,11 @@ In that way, our implementation approach would also be incremental as oppose to 
 
 The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 
-image::ArchitectureDiagram.png[]
+image::architecture.png[]
 
 As seen here, the user interacts with the *Parser* through the command line interface (CLI), which sorts through the user input and calls various commands under the *Command* section. 
 
-The classes within *Command* will then utilise data pulled from the *Storage* and *JsonWrapper*, who pull data both locally as well as from NUSMODS API through the *RequestsData*.
+The classes within *Command* will then utilise data pulled from the *Storage* and *JsonWrapper*, who pull data both locally as well as from NUSMODS API through the *RequestData*.
 
 Following which, the *Command* classes perform their execution of the feature, and update the *Storage* to store data that has changed. It also shows the user the completed function by printing any necessary information/feedback to the user through the *PlannerUi*.
 
@@ -90,7 +94,7 @@ The main wrapper over requesting data from NUSMODS API, Gson library for JSON pa
 
 image::JsonWrapper.png[width="350"]
 
-This class is also dependant on a RequestsData class which serves as the main API caller for ModPlanner, but it is not used anywhere else in the code base.
+This class is also dependant on a RequestData class which serves as the main API caller for ModPlanner, but it is not used anywhere else in the code base.
 
 === Storage
 
@@ -506,17 +510,20 @@ image::ReminderCommandSequenceDiagram.png[width="600"]
 
 ****
 
-=== Update Module Info
+
+=== UpdateModuleCommand
 
 ==== Current implementation
 
-The `update` feature is operated by the `UpdateModuleInfo` class, which is called by the `Parser` class. Upon user input of `update YEAR_SEM_1-YEAR_SEM_2`, the Parser will return a new `UpdateModuleInfo`. +
+The `update` feature is executed by the `UpdateModuleCommand` class, which is called by the `Parser` class. Upon user input of `update module`, the Parser will return a new `UpdateModuleCommand`. +
 
-Since `UpdateModuleInfo` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `update` command. +
+
+Since `UpdateModuleCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `update` command. +
 
 Below is a Sequence Diagram showing how `UpdateModuleInfo` works. +
 UpdateModuleCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1 arg arrow connecting the UpdateModuleCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 arg.
 It then uses an object in NattyWrapper class, which is removed from the memory, as shown by the 1.3.1 arrow. The UpdateModuleCommand also calls the dateToLocalDateTime method from the NattyWrapper as shown by the 1.3 and 1.4 arrows. The UpdateModuleCommand fetches the updated module information from the RequestData , Storage and PlannerLogger, as shown by the 1.5 arrows. To end off, the UpdateModuleCommand calls the showUpdateMsg method from the PlannerUi to print the updated message.
+
 
 image::UpdateModuleCommandSequenceDiagram.png[width="800"]
 
@@ -524,11 +531,11 @@ image::UpdateModuleCommandSequenceDiagram.png[width="800"]
 
 ==== Current implementation
 
-`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestData` to obtained the module data consolidated by `NUSMODS API`.
 
 image::PackageCrawler.png[]
 
-To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestData` to initialize the module data file.
 
 The sequence diagram of this implementation is shown below:
 
@@ -553,7 +560,7 @@ the data type found in the returned JSON string is strictly `boolean` or `double
 To allow for quick access to the module information classes, after parsing module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
 is the string containing the module code, and the value is the `ModuleInfoDetailed`.
 
-This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+This is `HashMap` is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
 data is accessible directly to the user. This functionality is handled by `JsonWrapper` since it involves parsing JSON files into direct Java Objects.
 
 ==== RequestData
@@ -578,10 +585,25 @@ For the proposed implementation of updating user data, there are a few alternati
 * Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
 ** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
 
-* Alternative 3 (Selected): The base data is packaged into the resources package, thus the JAR would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
+* Alternative 3 (Selected): The base data is packaged into the resources package, thus the `JAR` would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
 ** The existing implementation to connect to NUSMODS to obtain the module data would be converted to an Update command, giving the user flexibility to choose when to update their module data.
+** After the user ran their first update command, it ModPlan will no longer read module data from the internal resource file,
+but will read the data downloaded locally by the `update module` command.
 ****
 =======
+
+=== Logger
+
+The follow dependency diagram shows the relationship Logger has with the rest of the other classes.
+
+image::Logger.png[]
+
+`LoggerFormatter` formats the logging standard which all logging entries uses. `PlannerLogger` is called on every exception handling errors which occurs in `Parser`, `JsonWrapper` and the main `CliLauncher` class.
+
+It is present to capture all `ModException` errors as `WARNING`, while any other unhandled exceptions would be deemed as `SEVERE`.
+
+The logging data is written to the `logging.log` file found in the data folder when the application is started.
+
 
 // tag::Cca[]
 
@@ -620,7 +642,7 @@ ModPlan v2.0 will support GUI (Graphical User Interface). We have not decided wh
 [[Documentation]]
 
 == Documentation
-We utilise AsciiDoc as the default to write our documentation, as the layout is more flexible and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
+We utilise AsciiDoc as the default tool to write our documentation, as the layout is more flexible and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
 
 We also use link:http://plantuml.com/[PlantUML] and link:https://www.draw.io/[draw.io] to help use make our diagrams used in this Developer's Guide. These software enable us to create different types of diagrams easily, and for free.
 
@@ -639,18 +661,18 @@ There are two ways to run tests.
 
 *Method 2: Using Gradle*
 
-* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+* Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
 
 === Creating Tests
 Create new test classes under the `/main/src/test/java/planner` package to increase the coverage of the tests for the project. 
 
-* We have testing frameworks put in place such as `CommandTestFramework` to aid in testing implementation.
+* We have a sample testing framework put in place such as `CommandTest` to aid in testing implementation.
 * Remember to utilise the JUnit assertions in your testing, as well as ensure testing works before pushing the repo.
 
 [[DevOps]] 
 == Dev Ops
 === Build Automation
-We use Gradle to automate our build process, as well as to create our release .JAR file.
+We use https://gradle.org/[Gradle] to automate our build process, as well as to create our `JAR` release.
 
 === Continuous Integration
 We use https://travis-ci.org/[Travis CI] to perform continuous integration on our project through GitHub. 
@@ -671,6 +693,18 @@ Here are the steps to create a new release.
 
 //(TBD)
 
+== Manual User Testing
+
+The following should be obtained after running `show module`:
+
+image::SampleShowModule.PNG[]
+
+The following should be obtained after running `show cca`:
+
+image::SampleShowCCA.PNG[]
+
+Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
+is operational.
 
 
 [appendix]

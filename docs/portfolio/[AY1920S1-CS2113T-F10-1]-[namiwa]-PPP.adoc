@@ -81,6 +81,7 @@ to ModPlan.
 *** Integrated https://github.com/google/gson[GSON] for efficient `JSON` data parsing
 *** Added https://github.com/junit-team/junit5[JUnit 5] support to give team access to a testing framework https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
 *** Integrated Github plugins (TravisCI and Coveralls) to the team repository https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
+*** Research on diagram tools like PlantUml and Intellij Diagrams for ease of UML Diagram generation
 
 == Contributions to the User Guide
 
@@ -91,28 +92,52 @@ _The following has been extracted from the User's Guide_
 Allows the user to directly update the module data. +
 Format: `update module`
 
+//image::UpdateModuleSample.png[width="450"]
+
+****
+* This command requires Internet connection to download data from NUSMOD API.
+* If either their server is down or there is no stable Internet connection, a
+`ModBadRequestStatus` is thrown.
+****
+
 == Contributions to the Developer Guide
 
 _The following has been extracted from the Developer's Guide_
+
+=== UpdateModuleCommand
+
+==== Current implementation
+
+The `update` feature is executed by the `UpdateModuleCommand` class, which is called by the `Parser` class. Upon user input of `update module`, the Parser will return a new `UpdateModuleCommand`. +
+
+Since `UpdateModuleCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `update` command. +
+
+Below is a Sequence Diagram showing how `UpdateModuleCommand` works. +
+
+image::UpdateModuleInfoSequenceDiagram.png[width="800"]
 
 === JsonWrapper
 
 ==== Current implementation
 
-`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestData` to obtained the module data consolidated by `NUSMODS API`.
 
 image::PackageCrawler.png[]
 
-To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestData` to initialize the module data file.
+
+The sequence diagram of this implementation is shown below:
+
+image::JsonWrapperSequenceDiag.png[]
 
 The above function is done in the `CliLauncher` class, during the setup function call.
 
-Since `Gson` is able to internally read a JSON file when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
+Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
 
 This allows the application to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the
 following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
 
-image::PackageModules.png[]
+image::PackageModule.png[]
 
 Since some modules may not contain data for every field, each of the module classes above are required to have default values on initialisation so as to prevent `NullPointerExceptions` during runtime when such module data is accessed.
 
@@ -124,7 +149,7 @@ the data type found in the returned JSON string is strictly `boolean` or `double
 To allow for quick access to the module information classes, after parsing module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
 is the string containing the module code, and the value is the `ModuleInfoDetailed`.
 
-This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+This is `HashMap` is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
 data is accessible directly to the user. This functionality is handled by `JsonWrapper` since it involves parsing JSON files into direct Java Objects.
 
 ==== RequestData
@@ -135,7 +160,7 @@ image::FutureRequests.png[]
 
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
 
-A better implementation might be considered so that the class itself can be more customized for `ModPlanner`.
+A better implementation might be considered so that the class itself can be more customized for `ModPlan`.
 =======
 The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
 
@@ -149,8 +174,10 @@ For the proposed implementation of updating user data, there are a few alternati
 * Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
 ** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
 
-* Alternative 3 (Selected): The base data is packaged into the resources package, thus the JAR would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
+* Alternative 3 (Selected): The base data is packaged into the resources package, thus the `JAR` would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
 ** The existing implementation to connect to NUSMODS to obtain the module data would be converted to an Update command, giving the user flexibility to choose when to update their module data.
+** After the user ran their first update command, it ModPlan will no longer read module data from the internal resource file,
+but will read the data downloaded locally by the `update module` command.
 ****
 =======
 

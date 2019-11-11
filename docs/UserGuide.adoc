@@ -32,8 +32,8 @@ Developed and maintained by the link:{repoURL}//tree/master/docs/AboutUs.adoc[AY
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `ModPlan.jar` link:{repoURL}/releases[here].
+.  Ensure you have Java https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[`11`] or above installed in your Computer.
+.  Download the latest `[CS2113T-F10-1][ModPlan].jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ModPlan application.
 .  Open any terminal application, for example `Command Prompt` on Windows or `Terminal` on Mac in the folder directory containing ModPlan.
 .  Run the following `java -jar ModPlan-v1.4.0.jar` in the terminal application.
@@ -68,7 +68,7 @@ If you are still unsure on how to use the commands, keep reading the User Guide 
 
 Format: `--help`
 
-image::HelpSample.png
+image::HelpSample.png[]
 
 === Adding a module or CCA: `add`
 
@@ -397,8 +397,8 @@ Format: `update module`
 image::UpdateModuleSample.png[width="450"]
 
 ****
-* This command requires internet connection to download data from NUSMOD API.
-* If either their server is down or there is no stable internet connection, a
+* This command requires Internet connection to download data from NUSMOD API.
+* If either their server is down or there is no stable Internet connection, a
 `ModBadRequestStatus` is thrown.
 ****
 
@@ -521,7 +521,7 @@ image::ParserCouldNotConvert.png[]
 // end::ParserErrors[]
 
 === `ModBadRequestStatus`
-This error appears when there is bad internet connection. The information from the nusMods V2 API is not fully fetched.
+This error appears when there is poor or unstable Internet connection. The information from the nusMods V2 API is not fully fetched.
 
 Example of error message: `Error: Bad Status Connection!`
 
@@ -617,7 +617,7 @@ ModPlan v2.0 will support GUI (Graphical User Interface). We have not decided wh
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Data folder.
+*A*: Install the app in the other computer and overwrite the empty `userProfile.json` file it creates with the file from your previous Data folder.
 
 == Command Summary
 
@@ -665,6 +665,7 @@ eg. `sort time monday` +
 * *Clear* :
 ** `clear modules`
 ** `clear ccas`
+** `clear data`
 * *Schedule CCA* :
 ** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
 e.g `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
