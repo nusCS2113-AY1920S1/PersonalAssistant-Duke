@@ -26,6 +26,7 @@ import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -435,7 +436,13 @@ public class TaskCommandParseHelper {
             LocalDateTime time = parseTaskTime(optionList);
             ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
-            ArrayList<String> links = extractLinks(optionList);
+
+            ArrayList<String> invertedLinks = extractLinks(optionList);
+            ArrayList<String> links = new ArrayList<>();
+            for (int i = invertedLinks.size() - 1; i >= 0; i--) {
+                links.add(invertedLinks.get(i));
+            }
+
             String timeString = extractTime(optionList);
             if (input.startsWith("todo") && (!"".equals(timeString))) {
                 return new InvalidCommand("Date Time not allowed in todo tasks");
