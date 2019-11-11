@@ -8,8 +8,6 @@ import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
 import moomoo.feature.MainDisplay;
 
-import java.io.IOException;
-
 public class MainDisplayCommand extends Command {
     private int month;
     private int year;
