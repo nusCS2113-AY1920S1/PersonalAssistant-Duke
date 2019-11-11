@@ -316,9 +316,13 @@ task list to be sorted.
 
 Tasks have a variety of attributes that a user may want to add or change.
 This may be due to the user entering wrong information or differing needs as time passes.
-Thus this command affords the user some flexibility in the way he can edit tasks.
-The current attributes that can be modified are: `time`, `doafter`, `priority` and `tags`.
+This command affords the user some flexibility in the way he can edit tasks.
+Currently, the attributes that can be modified are: `time`, `doafter`, `priority` and `tags`.
 It is easy for you to add functionality for future attributes when the need arises.
+
+.Update command activity diagram
+image::UpdateCommandActivity.png[Update activity diagram, 800]
+
 The updating of task details is facilitated by `TaskUpdateCommand`. It extends `Command`, overriding the `execute` method.
 
 The details of the update mechanism are as follows:
@@ -347,9 +351,26 @@ method in `TaskList`.
 Step 4: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
 This process repeats for all the parameters that were passed in to `TaskUpdateCommand`.
 
+===== Design Considerations
+Aspect: Handling Tags
+
+* Alternative 1 (current choice): If at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
+** Pros: Makes it consistent with other parameters of the update command and keeps the command format simple for users to remember
+** Cons: If there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags together with the new tag into the command.
+
+* Alternative 2: If a tag is entered as part of the command, it will amend on top of existing tags.
+** Pros: This will save users time if they only want to add on tags
+** Cons: No option to remove tags
+
+* Alternative 3 (ideal choice): Create a way for users to add and delete the tags of a task, as well as a clear function to remove all the tags of a task. This will combine the pros and minimises the cons of alternatives 1 & 2.
+
+
 ==== Linking emails to task
 As Email Manager handles both emails and tasks, this command allows the connection of functionalities between the two modes.
 Users are able to add emails into a list within a task object.
+
+.link activity diagram
+image::parseLinkCommandActivity.png[Link activity diagram, 800]
 
 This command is able to take in two types of parameters: `email` and `delete`.
 `email` adds the specified email to the list, while `delete` removes the specified index from the list.
@@ -378,6 +399,32 @@ First it calls the convert SHA to subject to convert the SHA hash into a user re
 This is printed in a list format and the first email of the list is shown in the email pane.
 
 Step 6: The response message is displayed by the UI to feedback to the user what actions have been performed as well as the latest version of the list.
+
+===== Design Considerations
+Aspect: Storing the email links
+
+* Alternative 1 (current choice): The links from one task to any number of emails are stored in an array within the `Task` class (similar to the way tags are associated with a task).
+** Pros: Simple to create, all information associated with a task is consolidated
+** Cons: Email objects are unaware of the links created; the links are only accessible from the task side.
+* Alternative 2: Both `email` and `task` objects will contain lists of which tasks and emails respectively they are linked with.
+** Pros: Users are able to see links in both directions: they can see the emails associated with a particular task, and vice versa.
+** Cons: Bulky, each link will require two entries, one each in the respective task and email objects. Each addition or deletion of a link will also require two steps, one at the task and another at the email.
+* Alternative 3: Use a separate, 'centralised' data structure to maintain the links between tasks and emails.
+** Pros: One location to enter new links and delete existing links, no matter which mode the user is in.
+** Cons: May be difficult to integrate in the current project structure.
+
+Aspect: Format of storing links
+
+* Alternative 1 (current choice): Store the SHA hash for each linked email.
+** Pros: SHA hash is virtually unique, very small risk of conflicts
+** Cons: Not user readable and will require conversion when displaying information to the user.
+* Alternative 2: Store the subject line of the linked emails.
+** Pros: Subject lines are quite unique, and it is a string that is meaningful to users
+** Cons: Not unique enough (someone could send the same email twice), and the string is not easy to parse as it may contain special characters.
+* Alternative 3: Store the `EmailList` index of the linked emails.
+** Pros: This is easy to implement, and the user is able to easily see which email it is in the right pane of the UI.
+** Cons: As the index will change as emails are deleted or received, the linked emails list must be updated accordingly or the stored information will be incorrect.
+
 
 
 === Email Management
