@@ -2,8 +2,8 @@ package interpreter;
 
 import executor.command.CommandType;
 
-import executor.task.Task;
-import ui.Receipt;
+import storage.task.Task;
+import storage.wallet.Receipt;
 
 /**
  * Parser will parse through user inputs.

@@ -1,6 +1,6 @@
 package main;
 
-import executor.task.TaskList;
+import storage.task.TaskList;
 import ui.gui.MainGui;
 
 public class Duke {

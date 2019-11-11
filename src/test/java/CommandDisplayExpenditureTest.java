@@ -1,10 +1,4 @@
-import executor.command.Command;
-import executor.command.CommandDisplayExpenditure;
 import org.junit.jupiter.api.Test;
-import storage.StorageManager;
-import ui.Receipt;
-import ui.Wallet;
-import ui.gui.MainWindow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

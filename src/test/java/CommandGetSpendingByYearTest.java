@@ -1,7 +1,7 @@
 import executor.command.CommandGetSpendingByYear;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.Receipt;
+import storage.wallet.Receipt;
 
 import java.time.LocalDate;
 

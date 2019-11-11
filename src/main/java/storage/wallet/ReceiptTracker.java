@@ -1,4 +1,4 @@
-package ui;
+package storage.wallet;
 
 import duke.exception.DukeException;
 import java.text.DecimalFormat;

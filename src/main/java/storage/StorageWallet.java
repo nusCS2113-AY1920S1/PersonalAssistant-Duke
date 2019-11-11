@@ -5,11 +5,10 @@ import executor.command.CommandAddIncomeReceipt;
 import executor.command.CommandAddReceipt;
 import executor.command.CommandAddSpendingReceipt;
 import executor.command.CommandType;
-import executor.task.Task;
-import ui.IncomeReceipt;
-import ui.Wallet;
-import ui.Receipt;
 import interpreter.Parser;
+import storage.wallet.IncomeReceipt;
+import storage.wallet.Receipt;
+import storage.wallet.Wallet;
 import ui.gui.MainWindow;
 
 import java.io.File;

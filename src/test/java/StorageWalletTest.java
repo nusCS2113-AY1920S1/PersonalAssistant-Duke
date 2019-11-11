@@ -1,7 +1,7 @@
 import duke.exception.DukeException;
 import storage.StorageWallet;
-import ui.Wallet;
-import ui.Receipt;
+import storage.wallet.Wallet;
+import storage.wallet.Receipt;
 import org.junit.jupiter.api.Test;
 
 

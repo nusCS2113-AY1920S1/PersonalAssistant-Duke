@@ -1,8 +1,8 @@
 import executor.command.CommandStatistics;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.IncomeReceipt;
-import ui.Receipt;
+import storage.wallet.IncomeReceipt;
+import storage.wallet.Receipt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

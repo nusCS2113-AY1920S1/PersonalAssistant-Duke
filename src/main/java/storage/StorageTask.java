@@ -1,8 +1,8 @@
 package storage;
 
 import duke.exception.DukeException;
-import executor.task.Task;
-import executor.task.TaskList;
+import storage.task.Task;
+import storage.task.TaskList;
 import interpreter.Parser;
 import ui.gui.MainWindow;
 

@@ -1,6 +1,6 @@
 package interpreter;
 
-import utils.AccessType;
+import executor.accessors.AccessType;
 import executor.command.CommandType;
 import executor.Executor;
 import utils.InfoCapsule;

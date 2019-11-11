@@ -1,7 +1,7 @@
 import executor.command.CommandDateList;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.Receipt;
+import storage.wallet.Receipt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

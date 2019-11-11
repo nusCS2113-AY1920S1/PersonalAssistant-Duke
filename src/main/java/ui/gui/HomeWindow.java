@@ -1,7 +1,7 @@
 package ui.gui;
 
 import duke.exception.DukeException;
-import executor.task.Task;
+import storage.task.Task;
 import interpreter.Interpreter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,10 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import ui.ReceiptTracker;
+import storage.wallet.ReceiptTracker;
 import ui.UiCode;
-import ui.Wallet;
-import utils.AccessType;
+import storage.wallet.Wallet;
+import executor.accessors.AccessType;
 import utils.InfoCapsule;
 
 import java.text.DecimalFormat;

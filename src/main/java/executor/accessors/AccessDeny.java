@@ -1,8 +1,6 @@
 package executor.accessors;
 
 import storage.StorageManager;
-import ui.UiCode;
-import utils.AccessType;
 
 public class AccessDeny extends Accessor {
 

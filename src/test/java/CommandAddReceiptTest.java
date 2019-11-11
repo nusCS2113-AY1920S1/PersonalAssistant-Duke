@@ -1,12 +1,9 @@
-import com.sun.tools.javac.Main;
 import executor.command.CommandAddIncomeReceipt;
 import executor.command.CommandAddSpendingReceipt;
 import executor.command.CommandType;
 
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.Wallet;
-import ui.gui.MainWindow;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
