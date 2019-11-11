@@ -1,20 +1,5 @@
 package controllers;
 
-import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
-import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -34,7 +19,6 @@ import util.uiformatter.AssignmentViewHelper;
 import util.uiformatter.CommandHelper;
 import util.uiformatter.ViewHelper;
 
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,12 +31,24 @@ import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_INVALID_COMMAND;
+import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
+import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_REQUEST_INPUT;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_CORRUPTED;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_EMPTY_NAME;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_INVALID_COMMAND;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_MISSING_ARGUMENT;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_NOT_NUMBER;
+import static util.constant.ConstantHelper.COMMAND_ROLE_CORRECT_LENGTH;
+import static util.constant.ConstantHelper.COMMAND_ROLE_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS;
+import static util.constant.ConstantHelper.ROLE_MEMBER_INCOMPLETE_COMMAND;
+
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -90,11 +86,11 @@ public class ProjectInputController implements IController {
             projectNumber = Integer.parseInt(input);
         } catch (NumberFormatException err) {
             isManagingAProject = false;
-            return new String[] {"Input is not a number! Please input a proper project index!"};
+            return COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
         }
         this.projectToManage = projectRepository.getItem(projectNumber);
         isManagingAProject = true;
-        return new String[] {"Please enter a new command:"};
+        return COMMAND_MANAGE_PROJECT_REQUEST_INPUT;
     }
 
     /**
@@ -143,7 +139,7 @@ public class ProjectInputController implements IController {
         } else if (projectFullCommand.matches("view reminders"))  {
             responseToView = projectViewReminder(this.projectToManage);
         }  else if (projectFullCommand.matches("view reminders by list"))  {
-            responseToView = projectViewReminderCategory(this.projectToManage);
+            responseToView = projectViewReminderByList(this.projectToManage);
         } else if (projectFullCommand.matches("edit reminder.*")) {
             responseToView = projectEditReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("delete reminder.*")) {
@@ -161,27 +157,33 @@ public class ProjectInputController implements IController {
         } else if (projectFullCommand.matches("bye")) {
             return end();
         } else {
-            return new String[] {"Invalid command. Try again!"};
+            return COMMAND_MANAGE_PROJECT_INVALID_COMMAND;
         }
         projectRepository.saveToRepo(this.projectToManage);
         return responseToView;
     }
 
+    /**
+     * Method responsible for renaming a Project. Will only be called by manageProject.
+     * @param projectToManage : Project that is currently being managed by projectInputController.
+     * @param projectCommand : Full project command.
+     * @return : Returns an array of Strings for View layer to print
+     */
     private String[] projectRename(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRename] User input: '"
             + projectCommand + "'");
         if (projectCommand.length() < 7) {
-            return new String[] {"Please enter the command correctly in the format rename PROJECT_NAME"};
+            return COMMAND_RENAME_PROJECT_INVALID_COMMAND;
         }
         String parsedName = projectCommand.substring(7);
         if (("").equals(parsedName)) {
-            return new String[] {"Project Name cannot be empty!"};
+            return COMMAND_RENAME_PROJECT_EMPTY_NAME;
         }
         boolean isProjectEdited = projectRepository.updateItem(projectToManage, parsedName);
         if (isProjectEdited) {
             return new String[] {"Project name has been updated to " + parsedName + "."};
         } else {
-            return new String[] {"An error has occurred! Project JSON is not updated correctly!"};
+            return COMMAND_RENAME_PROJECT_CORRUPTED;
         }
     }
 
@@ -196,11 +198,15 @@ public class ProjectInputController implements IController {
     }
 
     //@@author seanlimhx
+    /**
+     * Method that calls viewHelper to return an array of Strings listing all available commands in current state.
+     * @return : Returns an array of Strings for View layer
+     */
     private String[] projectHelp() {
         return viewHelper.consolePrintTable(commandHelper.getCommandsForProject(), DEFAULT_HORI_BORDER_LENGTH);
     }
-    //@@author
 
+    //@@author Lucria
     /**
      * Adds roles to Members in a Project.
      * @param projectToManage : The project specified by the user.
@@ -208,27 +214,26 @@ public class ProjectInputController implements IController {
      */
     public String[] projectRoleMembers(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRoleMembers] User input: '"
-            + projectCommand + "'");
-        if (projectCommand.length() < 5) {
-            return new String[] {"Please follow the member index using the correct command format role INDEX -n "
-                + "ROLE_NAME"};
+                + projectCommand + "'");
+        if (projectCommand.length() < COMMAND_ROLE_MEMBER.length()) {
+            return ROLE_MEMBER_INCOMPLETE_COMMAND;
         }
-        String parsedCommands = projectCommand.substring(5);
+        String parsedCommands = projectCommand.substring(COMMAND_ROLE_MEMBER.length());
         String[] commandOptions = parsedCommands.split(" -n ");
-        if (commandOptions.length != 2) {
-            return new String[] {"Missing argument! Please enter role INDEX -n ROLE_NAME"};
+        if (commandOptions.length != COMMAND_ROLE_CORRECT_LENGTH) {
+            return COMMAND_RENAME_PROJECT_MISSING_ARGUMENT;
         }
         int memberIndex;
         try {
             memberIndex = Integer.parseInt(commandOptions[0]);
         } catch (NumberFormatException err) {
-            return new String[] {"Please enter an integer as member INDEX!"};
+            return COMMAND_RENAME_PROJECT_NOT_NUMBER;
         }
         IMember selectedMember = projectToManage.getMemberList().getMember(memberIndex);
         if (selectedMember.getClass() != NullMember.class) {
             selectedMember.setRole(commandOptions[1]);
             return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
-                + selectedMember.getRole() + "."};
+                    + selectedMember.getRole() + "."};
         }
         return new String[] {selectedMember.getDetails()};
     }
@@ -357,7 +362,7 @@ public class ProjectInputController implements IController {
         }
         return allCredits.toArray(new String[0]);
     }
-
+    //@@author
 
     /**
      * Adds a task to the current project.
@@ -378,8 +383,8 @@ public class ProjectInputController implements IController {
                 projectToManage.addTask((Task) newTask);
                 return new String[] {"Added new task to the list."};
             }
-            return new String[] {"Failed to create new task. Please ensure all "
-                + "necessary parameters are given correctly.",
+            return new String[] {
+                "Failed to create new task. Please ensure all necessary parameters are given correctly.",
                 "Task priority must be an integer between 1 to 5",
                 "Task credit must be an integer between 0 to 100",
                 "Date must be a valid date!"};
@@ -410,7 +415,7 @@ public class ProjectInputController implements IController {
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
                 if (!projectCommand.contains("-")) {
                     return new String[] {"No flags are found! Available flags for use are '-t', '-p, '-d', '-c' and "
-                        + "'-s' to indicate the new task details! Refer to the user guide for more help!"};
+                            + "'-s' to indicate the new task details! Refer to the user guide for more help!"};
                 }
                 String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
                 return projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
@@ -472,7 +477,7 @@ public class ProjectInputController implements IController {
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
                 if (!projectCommand.contains("-")) {
                     return new String[] {"No flags are found! Please use flags such as '-r' or '-rm' to indicate "
-                        + "the new requirements to be added or removed! Refer to the user guide for more help!"};
+                            + "the new requirements to be added or removed! Refer to the user guide for more help!"};
                 } else {
                     String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
                     return projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
@@ -636,7 +641,7 @@ public class ProjectInputController implements IController {
                         + "' to the Reminder List in the project."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
-                + "necessary parameters are given"};
+                    + "necessary parameters are given"};
 
         } catch (NumberFormatException | ParseException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddReminder] "
@@ -692,7 +697,7 @@ public class ProjectInputController implements IController {
             return outputMessages.toArray(new String[0]);
         } else if (index > projectToManage.getReminderListSize()) {
             return new String[] {"No reminder index number found in the list! "
-                + "Please enter the correct reminder index number."};
+                    + "Please enter the correct reminder index number."};
         } else {
             Reminder removedReminder = projectToManage.getReminder(index);
             projectToManage.removeReminder(index);
@@ -717,7 +722,7 @@ public class ProjectInputController implements IController {
             return outputMessages.toArray(new String[0]);
         } else if (index > projectToManage.getReminderListSize()) {
             return new String[] {"No reminder index number found in the list! "
-                + "Please enter the correct reminder index number."};
+                    + "Please enter the correct reminder index number."};
         } else {
 
             try {
@@ -765,7 +770,7 @@ public class ProjectInputController implements IController {
             int index = Integer.parseInt(checkReminderDetails.get(1));
             projectToManage.markReminder(status,index);
             return new String[] {projectToManage.getReminder(index).getReminderName() + " have been marked "
-                + projectToManage.getReminder(index).getStatus()};
+                    + projectToManage.getReminder(index).getStatus()};
         }
     }
 
@@ -773,7 +778,7 @@ public class ProjectInputController implements IController {
      * The method view the reminder in categories.
      * @param projectToManage The project specified by the user.
      */
-    public String[] projectViewReminderCategory(Project projectToManage) {
+    public String[] projectViewReminderByList(Project projectToManage) {
         ArrayList<ArrayList<String>> reminderCategory = new ArrayList<>();
         HashMap<String, ArrayList<Reminder>> reminderCategoryList = projectToManage.getCategoryReminderList();
         int indexCategory = 1;
