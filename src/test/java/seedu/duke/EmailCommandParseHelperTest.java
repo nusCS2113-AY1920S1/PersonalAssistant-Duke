@@ -13,7 +13,6 @@ import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.Email;
-import seedu.duke.task.command.TaskSetPriorityCommand;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
