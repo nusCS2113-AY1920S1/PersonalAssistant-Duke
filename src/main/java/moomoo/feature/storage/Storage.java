@@ -208,7 +208,7 @@ public class Storage {
                     String outputFile = outputFiles[i];
                     inStream = MooMoo.class.getResourceAsStream("/" + outputFile);
                     if (inStream == null) {
-                        throw new MooMooException("Stream is empty");
+                        throw new MooMooException("Error creating default files. Please add your own values.");
                     }
 
                     int readBytes;
@@ -223,7 +223,7 @@ public class Storage {
                 inStream.close();
                 outputStream.close();
             } catch (Exception e) {
-                throw new MooMooException(e.getMessage());
+                throw new MooMooException("Error creating default files. Please add your own values.");
             }
         }
 
