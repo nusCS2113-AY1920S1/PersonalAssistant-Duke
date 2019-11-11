@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Sujay R Subramanian
 image::rssujay.png[width="150", align="left"]
-{empty}[https://github.com/rssujay[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/rssujay[github]] [<<[CS2113T-F14-4][Sujay R Subramanian]PPP#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Code Quality and Integration
@@ -22,7 +22,7 @@ Responsibilities: Code Quality and Integration
 
 === Andrew Lau Jia Jun
 image::lackmoo.png[width="150", align="left"]
-{empty}[https://github.com/lackmoo[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/lackmoo[github]] [<<[CS2113T-F14-4][Andrew Lau Jia Jun]PPP#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation
@@ -31,7 +31,7 @@ Responsibilities: Documentation
 
 === Tan Chin Khang
 image::tck1997.png[width="150", align="left"]
-{empty}[https://github.com/TCK1997[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/TCK1997[github]] [<<[CS2113T-F14-4][Tan Chin Khang]PPP#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing
@@ -40,7 +40,7 @@ Responsibilities: Testing
 
 === Tanat Tippinyu
 image::ttippinyu.png[width="150", align="left"]
-{empty}[https://github.com/ttippinyu[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ttippinyu[github]] [<<[CS2113T-F14-4][Tanat Tippinyu]PPP#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Scheduling and Tracking
