@@ -1,5 +1,6 @@
 import command.Parser;
 import command.Storage;
+import command.UndoRedoStack;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
@@ -20,6 +21,7 @@ public class AlphaNUS {
     private static Fund fund;
     private static Storage storage;
     private static ArrayList<String> commandList;
+    private static UndoRedoStack undoRedoStack;
 
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
@@ -29,21 +31,21 @@ public class AlphaNUS {
         storage = new Storage();
         tasklist = new TaskList();
         fund = storage.readFromFundFile();
-        commandList = storage.readFromCommandsFile();
-
+        //commandList = storage.readFromCommandsFile();
+        undoRedoStack = new UndoRedoStack();
     }
 
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    public void run(){
+    public void run() throws AlphaNUSException {
         ui.startMessage();
 
         boolean isExit = false;
         while (!isExit) {
 
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList);
+            isExit = Parser.parse(input, tasklist, ui, fund, storage, undoRedoStack);
         }
     }
 

@@ -3,6 +3,7 @@ package command;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
+import project.ProjectManager;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 public class Parser {
     private static Instruction instr = new Instruction();
     private static Process process;
+    private static ProjectManager projectManager;
 
     static {
         try {
             process = new Process();
+            projectManager = new ProjectManager();
         } catch (AlphaNUSException e) {
             e.printStackTrace();
         }
@@ -26,16 +29,17 @@ public class Parser {
 
     /**
      * Method that parses input from the user and executes processes based on the input.
-     * @param input Input from the user.
+     *
+     * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
-     * @param ui Ui that interacts with the user.
-     * @param storage command.Storage for the Tasklist.
-     * @param list CommandList.
+     * @param ui       Ui that interacts with the user.
+     * @param storage  command.Storage for the Tasklist.
+     * @param list     CommandList.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
-                                Storage storage, ArrayList<String> list) {
+                                Storage storage, UndoRedoStack undoRedoStack) throws AlphaNUSException {
         try {
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
@@ -59,9 +63,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                process.addProject(input, ui, fund, storage);
+                process.addProject(input, ui, fund, storage, projectManager);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui, storage, fund);
+                process.deleteProject(input, ui, storage, fund, projectManager);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
@@ -81,7 +85,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 //command.Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, ui, storage);
+                process.deletePayment(input, ui, storage, projectManager);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFind(input)) {
@@ -117,16 +121,16 @@ public class Parser {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
-                process.addPayment(input, ui, storage);
+                process.addPayment(input, ui, storage, projectManager);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isgetpayee(input)) {
                 process.findPayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
-                process.addPayee(input, ui, storage);
+                process.addPayee(input, ui, storage, projectManager);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
-                process.deletePayee(input, ui, storage);
+                process.deletePayee(input, ui, storage, projectManager);
                 process.commandHistory(input, ui, storage);
             } else if (instr.istotalcost(input)) {
                 process.totalCost(input, ui, storage);
