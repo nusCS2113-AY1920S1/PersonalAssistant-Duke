@@ -36,9 +36,12 @@ class CategoryParser extends Parser {
         }
     }
 
-    private static Command parseAdd(Scanner scanner) {
+    private static Command parseAdd(Scanner scanner) throws MooMooException {
         String text = "What category would you like to add?";
         String categoryName = parseInput(scanner, text);
+        if (categoryName.contains("/")) {
+            throw new MooMooException("Sorry, your category name cannot contain a \"/\".");
+        }
         return new AddCategoryCommand(categoryName);
     }
 
