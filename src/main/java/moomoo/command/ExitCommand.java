@@ -6,6 +6,8 @@ import moomoo.feature.Budget;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
+import moomoo.command.DetectOsCommand;
+import moomoo.feature.Cow;
 
 import java.io.IOException;
 
@@ -35,6 +37,9 @@ public class ExitCommand extends Command {
                 throw new MooMooException("An error has occurred. Please close the terminal.");
             }
         }
-        Ui.showGoodbye();
+        Cow cow = new Cow();
+        String output = cow.getHappyCow() + "\nHope you had a great time using MooMooMoney!\n"
+                + "See you next time :)";
+        Ui.setOutput(output);
     }
 }

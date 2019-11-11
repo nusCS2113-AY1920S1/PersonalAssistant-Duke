@@ -31,6 +31,7 @@ public class ListBudgetCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
+        ArrayList<String> outputArray = new ArrayList<>();
         String outputValue = "";
         double currentBudget = 0;
         if (categories.size() == 0) {
@@ -38,15 +39,18 @@ public class ListBudgetCommand extends Command {
                 String categoryName = categoryList.getCategoryList().get(i).name().toLowerCase();
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
-                    outputValue += "Budget for " + categoryName + " has not been set\n";
+                    outputValue = "Budget for " + categoryName + " has not been set";
+                    outputArray.add(outputValue);
                     continue;
                 }
-                outputValue += "Budget for " + categoryName + " is $"
-                        + df.format(currentBudget) + "\n";
+                outputValue = "Budget for " + categoryName + " is $"
+                        + df.format(currentBudget);
+                outputArray.add(outputValue);
             }
             if ("".equals(outputValue)) {
                 throw new MooMooException("You have yet to set a budget for any category.");
             }
+            outputValue = Ui.showInCowBox(outputArray);
             Ui.setOutput(outputValue);
             return;
         }
@@ -58,13 +62,17 @@ public class ListBudgetCommand extends Command {
             if (categoryList.get(categoryName) != null) {
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
-                    outputValue += "Budget for " + categoryName + " has not been set.\n";
+                    outputValue = "Budget for " + categoryName + " has not been set.";
+                    outputArray.add(outputValue);
+                    outputValue = Ui.showInCowBox(outputArray);
                     continue;
                 }
-                outputValue += "Budget for " + categoryName + " is $"
-                        + df.format(currentBudget) + "\n";
+                outputValue = "Budget for " + categoryName + " is $"
+                        + df.format(currentBudget);
+                outputArray.add(outputValue);
+                outputValue = Ui.showInCowBox(outputArray);
             } else {
-                outputValue += categoryName + " category does not exist. Please add it first.\n";
+                outputValue = categoryName + " category does not exist. Please add it first.\n";
             }
         }
         Ui.setOutput(outputValue);

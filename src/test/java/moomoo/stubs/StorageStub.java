@@ -1,6 +1,7 @@
 package moomoo.stubs;
 
 import moomoo.feature.Budget;
+import moomoo.feature.ScheduleList;
 import moomoo.feature.category.Category;
 import moomoo.feature.storage.Storage;
 
@@ -30,5 +31,15 @@ public class StorageStub extends Storage {
     public HashMap<String, Double> loadBudget(ArrayList<Category> catList) {
         HashMap<String, Double> newHashMap = new HashMap<>();
         return newHashMap;
+    }
+
+    @Override
+    public void saveScheduleToFile(ScheduleList calendar) {
+    }
+
+    @Override
+    public HashMap<String, ArrayList<String>> loadCalendar() {
+        HashMap<String, ArrayList<String>> newCalendar = new HashMap<>();
+        return newCalendar;
     }
 }

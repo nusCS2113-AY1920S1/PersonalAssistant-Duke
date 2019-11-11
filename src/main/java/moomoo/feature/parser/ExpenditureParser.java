@@ -8,8 +8,12 @@ import moomoo.feature.MooMooException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 class ExpenditureParser extends Parser {
+
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_GREEN = "\u001B[32m";
 
     static Command parse(String commandType, Scanner scanner) throws MooMooException {
         switch (commandType) {
@@ -22,8 +26,9 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseAdd(Scanner scanner) throws MooMooException {
-        String text = "What expenditure do you wish to add? Please enter:\n"
-                + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[YYYY-MM-DD])";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        String text = ANSI_GREEN + "What expenditure do you wish to add? Please enter:\n" + ANSI_RESET
+                + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[d/MM/yyyy])\n";
         String input = parseInput(scanner, text);
 
         String categoryName = "";
@@ -32,11 +37,11 @@ class ExpenditureParser extends Parser {
         String dateString = "";
         double amount = 0;
         LocalDate date;
-        input = input.replace("c/", "/c/");
-        input = input.replace("a/", "/a/");
-        input = input.replace("n/", "/n/");
-        input = input.replace("d/", "/d/");
-        String[] tokens = input.split("/");
+        input = input.replace("c/", "-c-");
+        input = input.replace("a/", "-a-");
+        input = input.replace("n/", "-n-");
+        input = input.replace("d/", "-d-");
+        String[] tokens = input.split("-");
         int tokenCount = tokens.length;
         for (int i = 0; i < tokenCount; i++) {
             if (tokens[i].equals("c")) {
@@ -56,15 +61,25 @@ class ExpenditureParser extends Parser {
         if (expenditureName.isBlank()) {
             throw new MooMooException("Oops, you forgot to enter a name.");
         }
+
         try {
             amount = Double.parseDouble(amountString);
-            date = LocalDate.parse(dateString);
         } catch (NumberFormatException e) {
             throw new MooMooException("Oops, the amount you entered was not recognized,\n"
                     + "please use an double value e.g. 9.90.");
-        } catch (DateTimeException e) {
+        }
+
+        if (!dateString.isBlank()) {
+            try {
+                date = LocalDate.parse(dateString, formatter);
+            } catch (DateTimeException e) {
+                throw new MooMooException("Opps, the date you entered was not recognized,"
+                        + " please use a date in the format of dd/mm/yyyy");
+            }
+        } else {
             date = LocalDate.now();
         }
+
         if (amount > 0) {
             return new AddExpenditureCommand(expenditureName, amount, date, categoryName);
         }
@@ -72,7 +87,7 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseDelete(Scanner scanner) throws MooMooException {
-        String text = "What expenditure do you wish to add? Please enter:\n"
+        String text = ANSI_GREEN + "What expenditure do you wish to add? Please enter:\n" + ANSI_RESET
                 + "delete i/[INDEX] c/[CATEGORY]";
         String input = parseInput(scanner, text);
 
@@ -98,10 +113,10 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseSort(Scanner scanner) {
-        String text = "How would you like to sort your expenditures:"
+        String text = ANSI_GREEN + "How would you like to sort your expenditures:" + ANSI_RESET
                     + "\n<name>"
                     + "\n<cost>"
-                    + "\n<date>";
+                    + "\n<date>\n";
         String sortType = parseInput(scanner, text);
         return new SortCategoryCommand(sortType);
     }
