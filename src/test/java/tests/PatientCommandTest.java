@@ -45,4 +45,46 @@ public class PatientCommandTest extends CommandTest {
             fail("Exception thrown when validly creating patient from command!");
         }
     }
+
+    @Test
+    public void patientEditCommand_allSwitches_correctEditsMade() {
+        String[] switchNames = {"name", "description"};
+        String[] switchVals = {"test", "test description"};
+        Impression imp = new Impression("test", "test description", patient);
+        try {
+            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
+            newImpCmd.execute(core);
+            assertTrue(imp.equals(patient.getImpression("test")));
+        } catch (DukeException excp) {
+            fail("Exception thrown when validly creating patient from command!");
+        }
+    }
+
+    @Test
+    public void patientDeleteCommand_validTarget_correctImpressionDeleted() {
+        String[] switchNames = {"name", "description"};
+        String[] switchVals = {"test", "test description"};
+        Impression imp = new Impression("test", "test description", patient);
+        try {
+            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
+            newImpCmd.execute(core);
+            assertTrue(imp.equals(patient.getImpression("test")));
+        } catch (DukeException excp) {
+            fail("Exception thrown when validly creating patient from command!");
+        }
+    }
+
+    @Test
+    public void patientPrimaryCommand_validTarget_impressionSetAsPrimary() {
+        String[] switchNames = {"name", "description"};
+        String[] switchVals = {"test", "test description"};
+        Impression imp = new Impression("test", "test description", patient);
+        try {
+            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
+            newImpCmd.execute(core);
+            assertTrue(imp.equals(patient.getImpression("test")));
+        } catch (DukeException excp) {
+            fail("Exception thrown when validly creating patient from command!");
+        }
+    }
 }

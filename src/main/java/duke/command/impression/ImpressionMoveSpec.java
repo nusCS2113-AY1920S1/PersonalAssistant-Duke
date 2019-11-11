@@ -51,7 +51,7 @@ public class ImpressionMoveSpec extends ObjSpec {
             }
         }
 
-        SearchResults impressionResults = findImpression(core);
+        SearchResults impressionResults = findImpression();
         if (impressionResults.getCount() == 0) {
             throw new DukeException("No results found for '" + impressionResults.getName() + "'!");
         } else if (impressionResults.getCount() == 1) {
@@ -95,7 +95,7 @@ public class ImpressionMoveSpec extends ObjSpec {
         moveData = null;
     }
 
-    private SearchResults findImpression(DukeCore core) throws DukeException {
+    private SearchResults findImpression() {
         SearchResults results;
         String targetImpressionName = cmd.getSwitchVal("impression");
         Patient patient = currImpression.getParent();
