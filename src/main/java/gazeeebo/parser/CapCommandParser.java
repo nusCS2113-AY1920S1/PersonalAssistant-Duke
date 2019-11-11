@@ -161,7 +161,7 @@ public class CapCommandParser extends Command {
         } catch (IOException | NumberFormatException
                 | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in CAP.txt");
-            LOGGER.log(Level.SEVERE, "Error in CAP.txt");
+            LOGGER.log(Level.WARNING, "Error in CAP.txt", e);
         }
     }
 
