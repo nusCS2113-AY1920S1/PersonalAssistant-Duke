@@ -214,9 +214,6 @@ public class Ui extends AnchorPane {
                 addToList(customListBox(bookingList, i, index));
             }
         }
-        if (!found) {
-
-        }
     }
 
     private void showFoundIndex(BookingList bookingList, String index) throws DukeException {
