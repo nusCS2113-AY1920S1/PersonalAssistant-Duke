@@ -1,4 +1,4 @@
-= Duke 2.0 - Developer Guide
+= DEGREES.NUS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
