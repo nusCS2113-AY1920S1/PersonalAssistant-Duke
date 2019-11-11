@@ -215,7 +215,7 @@ After the values are stored in the mealList container, control is returned to Ad
 . AddDefaultValueCommand then invokes `Storage#writeDefaults()`, which writes the contents of storedItems in MealList to persistent storage. After the method executes, control is returned to AddDefaultValueCommand.
 . AddDefaultValueCommand finishes execution, and returns control to main, which awaits the next user input.
 
-The steps carried out by the program as described above are captured in figure 5, the sequence diagram as shown below.
+The steps carried out by the program as described above are captured in figure 7, the sequence diagram as shown below.
 
 .AddDefaultValue command sequence diagram
 image::AddDefaultValueUML.png[width="800"]
