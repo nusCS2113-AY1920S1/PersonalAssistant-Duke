@@ -396,6 +396,53 @@ image::shopBuySD.png[]
 ** Cons: The shopping list may become very cluttered with too many ingredients.
 Hence, a `shop list` command can be executed in the command line to filter out ingredients that have 0 quantity.
 
+=== Add Sale Feature
+
+For every purchase made under the shopping tab and every order delivered successfully under the orders tab,
+a sale entry is automatically added into BakingHome.
+Apart from that, users can manually add their own sale entries by using the `sale add` command.
+These entries can then be accessed under the Sales tab in the application.
+
+==== Implementation
+
+The `sale add` feature involves adding a `Sale` object to a `UniqueEntityList` named `sales` which is initialized inside BakingHome.
+A filtered copy of this list is also found inside ModelManager named `filteredSales`.
+Having two separate lists allow us to store all `Sale` objects that have been added while at the same time displaying only the desired entries using predicates.
+
+Similar to the other 3 features, the operations to edit the two lists are exposed in ModelManager as the following public methods:
+
+* `ModelManager#AddSale(sale)` – Adds a `Sale` object to the `UniqueEntityList` `sales`. The `filteredList` is also updated to show the new entry and filter predicate is reset to show all entries.
+
+* `ModelManager#AddSaleFromOrder(order)` – Same as the above. Except the argument being passed in is an `Order` object, from which the necessary fields are being copied over to a new `Sale` object being created and added to the two lists.
+
+* `ModelManager#AddSaleFromProduct(totalCost, toBuyList)` – Same as the above. Except the arguments being passed in are a `double` value (total cost) and an `ArrayList` (ingredients). A new `Sale` object is created with a fixed description denoting its origin from Products. The value and remarks are populated with the given value and ingredient lists respectively.
+
+==== Workflow
+
+Given below is an example usage scenario and how the add sale command works.
+
+*Step 1.* The user launches the application for the first time. The `UniqueEntityList` `sales` is initialized in BakingHome with the initial data stored in the storage.
+
+*Step 2.* The user inputs `sale add -desc TestDescription -val 12.34` to add a `Sale` entry with description “TestDescription” and positive value of 12.34 in revenue to sales.
+
+*Step 3.* The command is parsed by SaleParserUtil to collect the relevant `String` and `Double` data which are then copied over to the new `Sale` object. The fields that are not given are initialized to their default value.
+
+*Step 4.* `ModelManager#AddSale()` is called which in turn calls `BakingHome#AddSale()` and passes the created `Sale` object into the `UniqueEntityList` `sales`. At the same time, the `FilteredSaleList` is updated with the predicate `PREDICATE_SHOW_ALL_SALES` which as the name suggests, is used to display every sale entry.
+
+==== Design Consideration
+
+* Alternative 1 (current implementation): Store all sale entries in an observable list in BakingHome and keep a FilteredList in ModelManager.
+** Pros: Implementation is clearer and code is more readable.
+**	Cons: Memory is wasted in keeping two sets of the list.
+
+* Alternative 2: Store only one sale list. Loop through the list to get the desired entries for display.
+** Pros: Structure is simpler
+** Cons: Time complexity is higher, which may result in slower queries especially as the number of entries increase.
+
+* Alternative 3: Store a new list for each month / year.
+** Pros: Fast access times and easy transfer of data should new features require sale data for a specific month.
+** Cons: Potentially messier code.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
