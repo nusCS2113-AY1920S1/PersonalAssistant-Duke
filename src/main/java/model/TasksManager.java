@@ -428,7 +428,7 @@ public class TasksManager implements Serializable {
         for (int i = 0; i < tasksName.size(); i++) {
             tasks.add(getTaskByName(tasksName.get(i)));
         }
-        return showTasks(sortByTime(pickTodo(taskList)));
+        return showTasks(sortByTime(pickTodo(tasks)));
     }
 
 
