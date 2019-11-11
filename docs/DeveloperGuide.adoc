@@ -43,21 +43,49 @@ Users can use this app to manage projects faster than a typical mouse/gui driven
 
 == Design
 === Architecture
+image::SoftWareArchitecture.png[]
+
+1. The program enters from TeamManager(currently implemented as core.Duke)
+2. The `Software` consists of 3 main components: `UI` `Logic` `Model`
+3. The `UI` component holds the responsibility of gui and console ui
+4. The `Logic` component holds the responsibility of running business logic e.g manipulating the `Model`
+5. The `Model` exposes the software's data object models, including methods for manipulation
+6. The `Storage` component utilises gson to parse the data into a json format, which is easy to edit and maintain
+7. The Json data files are persistent and open for user editing.
+
 === UI component
 === Logic component
+image::LogicDiagram.png[]
 
 1. `LogicController` uses the `NewParser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicController`.
-3. The command execution talks to `Model` and do some behavior to get desired result and return it back.
-4. The command execution talks to `Storage` (if necessary, e.g. adding a member) throw `Model` (e.g. a save() method in `Model` API).
-5. The result of the command execution is encapsulated as a `CommandOutput` object which is passed back to the `Ui`.
+2. NewParser parses the commands and returns the correct command to be called
+3. Command takes from an `abstract` command class, following the command design pattern
+4. Each command must implement a execute method, where a `CommandOutput` is returned
+5. `CommandOuput` contains the string output to user, which is what the user sees, and flags such as the exit flag
+6. This results in a `Command` object which is executed by the `LogicController`.
+7. The command execution talks to `Model` and do some behavior to get desired result and return it back.
+8. The command execution talks to `Storage` (if necessary, e.g. adding a member) throw `Model` (e.g. a save() method in `Model` API).
+9. The result of the command execution is encapsulated as a `CommandOutput` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram interactions within the Logic component for the execute("delete task 1") call.
 
 image::Logic_delete.png[width="939", align="left"]
 
 === Model component
+image::ModelDiagram.png[]
+1. The `Model` component uses an interface `Model` to expose the api, while the actual implementation is in `ModelController`
+2. This allows for the implementation of the model to change without affecting the rest of the code(UI & Logic)
+3. The `Model Controller` calls two main data managers: `TasksManager` & `MemberManager`
+4. These two data managers handles the manipulation of the two data objects, `Task` & `Member`
+5. The fields associated with each data model is described in `Task` & `Manager`
+
 === Storage component
+1. The `Storage` component imports the gson library provided by google to perform serializing
+2. The `Save` method in `Storage` serializes the java objects into a json string before using a file IO to write to persistent storage
+3. The `Load` method in `Storage` uses a file IO to load the data into a string, before deserializing according to the original java object shape
+4. This method allows for easy maintenance, where we do not need to modify the parser(for storage) to accommodate for date model changes
+5. This methods also allows for easy editing by the user as it is stored in a json notation text file.
+
 === Common
 
 == Implementation
@@ -79,13 +107,18 @@ Then talk to `MemberManager` to delete corresponding task in every member. +
 Then talk to `TaskManager` to delete task.
 
 === Reminder Feature
-==== Proposed Implementation
-The reminder command implemented in ​ReminderCommand​, extending Command. ​
-The reminder command passes through the usual route of handling commands,
-then passes the information over to the ​ReminderManager.​
-Reminders are then created based on the task index and timing given.
-The ReminderManager runs a thread in the background,
-and sleeps until the time of the next reminder to alert the user of the reminder.
+==== Implementation
+The reminder command is implemented in ​ReminderCommand​, extending Command. ​
+The reminder command is handled in the same manner as other commands, and new reminders are added to a specified task.
+Upon creation of a new reminder, a refresh is called in the ReminderController. A refresh is also called upon deletion of a task and starting of the program. +
+Any current sleeping thread is interrupted and disposed. The Reminder Controller then searches for the earliest Reminder. A new thread is invoked and the thread is slept until the time of the reminder. +
+Upon waking, it calls for the ReminderController to display the reminder, and another refresh is called. +
+The following is the sequence diagram of the normal operation of the Reminders System.
+
+image::Reminders.png[width="939", align="left"]
+
+Upon invocation of the refresh function, if the earliest reminder has passed, the reminder is immediate displayed as a missed reminder and another refresh is called.
+
 
 === Input History Feature
 ==== Implementation
@@ -407,3 +440,13 @@ Expected: Jack's email will be updated. A message will show that you have succes
 .. Test case: `edit member email /to` +
 Expected: No one's email wii be updated. A message will show that tag(name or change content) can't be empty.
 
+=== Setting a reminder
+
+. Setting and receiving a reminder
+.. Prerequisites: A task with a deadline more than 5 minutes after current time exists
+.. Test case: `reminder TASK_INDEX 5m` +
+Expected: A success message is shown. At 5 minutes before the deadline of the task, a reminder is shown and a sound is played.
+.. Test case: `reminder TASK_INDEX -5m` +
+Expected: An error message is shown. No reminder is set or updated.
+.. Test case: `reminder TASK_INDEX 1000d` +
+Expected: If deadline is less than 1000 days away, and error message is shown. No reminder is set or updated.
