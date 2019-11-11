@@ -127,6 +127,25 @@ Upon invocation of the refresh function, if the earliest reminder has passed, th
 ==== Implementation
 Each line of input typed by the user is passed to the ​InputMemory.​ Each line is added to an ​ArrayList​ of strings, and sets a pointer to the last item. Up and down arrow keys will shift this pointer along the ArrayList and retrieved previously typed inputs and sets it into the input field.
 
+=== Match Feature
+==== Implementation
+The match command is implemented in `MatchTaskCommand` or `MatchMemberCommand`. In this explanation
+we will be looking at the MatchMember implementation. Both these commands extend the `Command` as per the
+agreed architecture for our software. The user first inputs the "match member John". This input is passed
+from the ui to the logic, and then to the parsers. The `NewParser` class parses the match word, before
+passing ito the `MatchCommandParser`. This class calls the correct MatchTaskCommand or MatchMemberCommand
+depending on the input. Finally the members name, which we want to find tasks that require this
+members skills, will be passed to the MatchMemberCommand.
+
+
+image::MatchSequence.png[]
+
+==== Design Analysis
+Most of the logic is handled in the `MatchMemberCommand` as per architecture. The model only returns the necessary
+data to manipulate. Filtering is done in the `MatchMemberCommand`, whereby we use a HashMap<String, Integer> matchedTasks
+to store both tasks that require John's skill and the number of occurrences. This HashMap is then used to sort an arrayList
+before being manipulated in the commandoutput for the user
+
 [appendix]
 
 == User Stories
