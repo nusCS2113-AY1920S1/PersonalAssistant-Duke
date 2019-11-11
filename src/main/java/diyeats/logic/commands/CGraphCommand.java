@@ -74,7 +74,7 @@ public class CGraphCommand extends Command {
                 }
             }
         } else if (this.type.equals("wallet")) {
-            HashMap<LocalDate, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionList();
+            HashMap<LocalDate, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionTracker();
             for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
                 String currentDate = dateItr.format(dateFormat);
                 int totalSpent = 0;
