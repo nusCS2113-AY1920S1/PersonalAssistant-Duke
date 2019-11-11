@@ -2,16 +2,21 @@
 
 package gazeeebo.storage;
 
+import gazeeebo.logger.LogCenter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PlacesPageStorage {
 
-    private final String relativePathPlacesResource
-            = "Places.txt";
+    private static final Logger LOGGER = Logger.getLogger(PlacesPageStorage.class.getName());
+
+    private final String relativePathPlacesResource = "Places.txt";
 
     /**
      * Write to Places.txt file
@@ -33,6 +38,7 @@ public class PlacesPageStorage {
      */
 
     public HashMap<String, String> readPlaces() throws IOException {
+        LogCenter.setUpLogger(LOGGER);
         HashMap<String, String> placesList = new HashMap<String, String>();
         File f = new File(relativePathPlacesResource);
         Scanner sc = new Scanner(f);
@@ -42,6 +48,7 @@ public class PlacesPageStorage {
                 placesList.put(split[0], split[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Places.txt cannot be read, check format of Places.txt");
+                LOGGER.log(Level.SEVERE,"Places.txt cannot be read, check format of Places.txt", e);
             }
         }
         return placesList;
