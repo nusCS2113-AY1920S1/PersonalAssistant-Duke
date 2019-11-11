@@ -403,15 +403,15 @@ command.
 
 [[update]]
 ==== Update Tasks Commands: `update`
-Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...`
+Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM][-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...`
 
-Updates attributes of the specified task. Requires minimum of one attribute to function.
+Updates attributes of the specified task. Requires minimum of one valid attribute to function.
 
 Examples:
 
 `update 1 -time Mon`
 
-`update 1 -priority low -doafter eat dinner -tag food`
+`update 1 -priority low -doafter eat dinner -tag food -tag yum`
 
 [TIP]
 Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
@@ -420,16 +420,19 @@ For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag
 -time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
 
 [NOTE]
-If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
+If there are more than one `time`, `doafter` or `priority` parameters, or if one parameter is in the wrong format,
+an invalid command error will be displayed.
 
 [WARNING]
 Any tags in the command will overwrite *all* current tags in the task
 
 ==== Linking tasks to emails: `link`
-Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...`
+Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...[-delete LINK_NUMBER]...`
 
 Notes which email is related to the task specified. If there is no email parameter,
-the command will return a list of the emails linked to the task.
+the command will return a list of the emails linked to the task. There is also an option
+to delete email links from the task specified. If there are emails in the list of links,
+using this command will display the first email in the list on the right pane.
 
 Examples:
 
@@ -437,9 +440,16 @@ Examples:
 
 `link 2 -email 2 -email 4` will link emails 2 and 4 to task 2.
 
+`link 2 -delete 1` will delete the first link.
+
+`link 2 -delete 2 -link 3` will delete the second email link, then add email 3 as a link.
+
 [NOTE]
 Any links created will only be visible from the task it is added to.
 Emails will not be able to show any links to tasks.
+
+[NOTE]
+Deletion of links will always be carried out first, no matter the order of the `email` and `delete` parameters.
 
 ==== Sort task list: `sort`
 Format: `sort SORT_TYPE`
