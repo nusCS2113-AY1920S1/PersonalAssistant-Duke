@@ -139,6 +139,7 @@ public class Duke {
                         break;
                     }
                     case "c": {
+                        ui.orderDrawing();
                         System.out.println("\t Managing order now\n\t Type 'template' to retrieve command format");
                         ui.showLine();
                         while (true) {

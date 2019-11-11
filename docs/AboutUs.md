@@ -1,7 +1,6 @@
 # About Us
 
-Duke - Level 3 was developed by the [se-edu](https://se-edu.github.io/docs/Team.html) team.
-*{The dummy content given below serves as a placeholder to be used by future forks of the project.}*
+Chef Duke v1.4 is developed by the CS2113-T14-2 team. 
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg/).
 
@@ -17,7 +16,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 Role: Team Lead
 
-Responsibilities:
+Responsibilities: develop the dishes feature
 
 ### Sara Djambazovska
 
@@ -27,7 +26,7 @@ Responsibilities:
 
 Role: Developer
 
-Responsibilities:
+Responsibilities: develop the fridge feature
 
 ### Jiahan Yu
 
@@ -37,7 +36,7 @@ Responsibilities:
 
 Role: Developer
 
-Responsibilities:
+Responsibilities: develop the order, todo list features
 
 ### Goh Zhen Hao Joey
 
@@ -47,7 +46,7 @@ Responsibilities:
 
 Role: Developer
 
-Responsibilities:
+Responsibilities: develop ingredient feature
 
 ### Lincoln Lim
 
@@ -57,4 +56,5 @@ Responsibilities:
 
 Role: Developer
 
-Responsibilities:
+Responsibilities: develop recipebook feature
+
