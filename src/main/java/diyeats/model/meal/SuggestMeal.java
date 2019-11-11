@@ -17,10 +17,10 @@ public class SuggestMeal extends Meal implements Comparable<SuggestMeal> {
     }
 
     public SuggestMeal(String description, HashMap<String, Integer> nutritionValue,
-                       LocalDate suggestionDate, String mealTypeStr) {
+                       LocalDate suggestionDate, MealType mealType) {
         super(description, nutritionValue);
         this.date = suggestionDate;
-        this.type = mealTypeStr;
+        this.setMealType(mealType);
     }
 
     /**

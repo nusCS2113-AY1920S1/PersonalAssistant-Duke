@@ -2,6 +2,7 @@ package diyeats.logic.suggestion;
 
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.meal.MealType;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class MealSuggestionTest {
     private LocalDate suggestionDate;
     private int calorieLimit;
     private int maxMealsToSuggest;
-    private String mealSuggestionTypeStr;
+    private MealType mealType;
     private MealSuggestionAnalytics mealSuggestionAnalytics;
 
     public MealSuggestionTest() {
@@ -24,7 +25,7 @@ public class MealSuggestionTest {
         suggestionDate = LocalDate.now(); // test meal suggestions for today
         calorieLimit = 500; // calorie limit from which suggestions are made
         maxMealsToSuggest = 4; // default value is 5, test if other numbers work
-        mealSuggestionTypeStr = "D"; // default value is "L", see if other values work
+        mealType = MealType.DINNER; // default value is Lunch, see if other values work
         mealSuggestionAnalytics = new MealSuggestionAnalytics();
     }
 
@@ -58,7 +59,7 @@ public class MealSuggestionTest {
     void mealSuggestionEmptyDefaultTest() {
         setupEmptyDefaultMealList();
         ArrayList<Meal> suggestedMeals = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
-                                                    maxMealsToSuggest, mealSuggestionTypeStr);
+                                                    maxMealsToSuggest, mealType);
         assertTrue(suggestedMeals.size() == 0);
     }
 
@@ -69,7 +70,7 @@ public class MealSuggestionTest {
     void mealSuggestionNormalTest() {
         setupNormalDefaultMealList();
         ArrayList<Meal> suggestedMeals = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
-                maxMealsToSuggest, mealSuggestionTypeStr);
+                maxMealsToSuggest, mealType);
         assertTrue(suggestedMeals.size() == maxMealsToSuggest);
     }
 
@@ -82,7 +83,7 @@ public class MealSuggestionTest {
         calorieLimit = 150;
         setupNormalDefaultMealList();
         ArrayList<Meal> suggestedMeals = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
-                maxMealsToSuggest, mealSuggestionTypeStr);
+                maxMealsToSuggest, mealType);
         assertTrue(suggestedMeals.size() == 3);
     }
 }

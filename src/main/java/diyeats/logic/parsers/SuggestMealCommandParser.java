@@ -2,6 +2,8 @@ package diyeats.logic.parsers;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.SuggestMealCommand;
+import diyeats.model.meal.Meal;
+import diyeats.model.meal.MealType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -19,7 +21,7 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
     // Default values for arguments
     private LocalDate suggestionDate = LocalDate.now();
     private int maxMealsToSuggest = 5;
-    private String mealTypeStr = "L";
+    private MealType mealType = MealType.LUNCH;
 
     /**
      * Parse user input and return SuggestCommand.
@@ -61,7 +63,13 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
             // TODO: Parameterize magic constants of meal type.
             String tempMealTypeStr = argumentsMap.get(mealTypeArgStr).toUpperCase();
             if (tempMealTypeStr.equals("B") || tempMealTypeStr.equals("L") || tempMealTypeStr.equals("D")) {
-                mealTypeStr = tempMealTypeStr;
+                if (tempMealTypeStr.equals("B")) {
+                    mealType = MealType.BREAKFAST;
+                } else if (tempMealTypeStr.equals("L")) {
+                    mealType = MealType.LUNCH;
+                } else if (tempMealTypeStr.equals("D")) {
+                    mealType = MealType.DINNER;
+                }
             } else {
                 return new SuggestMealCommand(true, "Unable to parse meal type as breakfast, "
                         + "lunch or dinner.\nPlease input a single character \"b\", \"l\" or \"d\""
@@ -69,6 +77,6 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
             }
         }
 
-        return new SuggestMealCommand(suggestionDate, maxMealsToSuggest, mealTypeStr);
+        return new SuggestMealCommand(suggestionDate, maxMealsToSuggest, mealType);
     }
 }
