@@ -28,7 +28,7 @@ public class EditTaskDesParser {
 
         if (name.length() == 0) {
             throw new DukeException(EditTaskParser.INDEX_NO_EMPTY + "\n" + EditTaskParser.EDIT_USAGE);
-        } else if (changeContent.length() == 0) {
+        } else if (changeContent == null || changeContent.length() == 0) {
             throw new DukeException(CHANGE_NO_EMPTY + "\n" + EditTaskParser.EDIT_USAGE);
         } else {
             name = name.trim();

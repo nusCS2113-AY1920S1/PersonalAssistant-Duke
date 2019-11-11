@@ -60,7 +60,7 @@ public class ShowTaskDetailsCommandTest {
         model.getTasksManager().addReqSkill("Complete event poster", "Java");   //add skills
         Date reminder = new SimpleDateFormat("dd/MM/yyyy HHmm").parse("10/10/2020 1010");
         model.getTasksManager().addReminder(0,reminder);    //set reminder
-
+        model.save();
         Command command = ShowCommandParser.parseShowCommand("task 1");
         CommandOutput out = command.execute(model);
         String expected = ("Here are the details for Task: 1\n"

@@ -52,11 +52,15 @@ public class ReminderController {
         int taskIndex = ReminderController.instance.activeReminder.getIndex();
         reminder += ReminderController.instance.model.getTasksManager().getTaskById(taskIndex).toString() + '\n';
         Window.instance.setOutputArea(reminder);
+        LoggerController.logInfo(ReminderController.class, "Reminder on task index: " + taskIndex + " triggered!");
         ReminderController.instance.model.getTasksManager().getTaskById(taskIndex).setReminder(null);
         ReminderController.instance.model.save();
         refreshAllReminders();
     }
 
+    /**
+     * Plays the sound effect
+     */
     private void playDing() {
         try {
             InputStream is = Duke.class.getClassLoader().getResourceAsStream("ding.wav");

@@ -56,16 +56,8 @@ public class Storage {
         memberDataFile = new File(memberFilePath);
 
         //@@author AugGust
-        //Generate folders and files if does not exist
-        taskDataFile.getParentFile().mkdirs();
-        memberDataFile.getParentFile().mkdirs();
-        try {
-            taskDataFile.createNewFile();
-            memberDataFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        //Generate folders, files and data if does not exist
+        DataGenerator.generateFiles(taskDataFile, memberDataFile);
     }
 
     //@@author chenyuheng

@@ -36,10 +36,11 @@ public class AddTaskCommand extends Command {
     /**
      * Sets the required skill list
      */
-    public void setReqSkill(String fullSkill) {
+    public void setReqSkill(String fullSkill) throws DukeException {
+        if (fullSkill.length() == 0) {
+            throw new DukeException("empty skill input");
+        }
         reqSkill = Arrays.asList(fullSkill.split("\\s+"));
-        //TODO parse for too long skill names
-        LoggerController.logDebug(AddTaskCommand.class, "Added skill " + reqSkill.get(0));
     }
 
     //@@author chenyuheng
