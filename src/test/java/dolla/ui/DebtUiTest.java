@@ -1,6 +1,5 @@
 package dolla.ui;
 
-import dolla.ui.DebtUi;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -9,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+//@@author yetong1895
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebtUiTest implements UiTestExpectedOutput {

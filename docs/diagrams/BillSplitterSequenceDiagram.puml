@@ -8,20 +8,20 @@ Participant ":Model" as model MODEL_COLOR_T2
 Participant ":Storage" as storage STORAGE_COLOR_T3
 Participant ":UI" as ui UI_COLOR_T2
 
-user -[USER_COLOR]> logic : "owe xx 2 water /due 25/10/2019"
+user -> logic : "bill 2 30 tata yuyu"
 activate logic LOGIC_COLOR_T2
-logic -> logic : verifyDebtCommand()
+logic -> logic : verifyAddBillCommand()
 activate logic LOGIC_COLOR_T1
 deactivate logic
 
-logic -> logic : AddDebtCommand()
+logic -> logic : AddBillCommand()
 activate logic LOGIC_COLOR_T1
 
-logic -> model : addToRecordList(mode, newDebt)
+logic -> model : addBillToRecordList()
 activate model MODEL_COLOR_T2
 deactivate logic
 
-model -> storage : setDebts(get())
+model -> storage : setBills(get())
 activate storage STORAGE_COLOR
 
 storage -> storage : save()

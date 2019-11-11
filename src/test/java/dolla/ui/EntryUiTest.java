@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+//@@author yetong1895
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EntryUiTest implements UiTestExpectedOutput {

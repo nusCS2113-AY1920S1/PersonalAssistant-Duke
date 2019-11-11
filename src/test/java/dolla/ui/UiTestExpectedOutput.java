@@ -1,5 +1,6 @@
 package dolla.ui;
 
+//@@author yetong1895
 public interface UiTestExpectedOutput {
 
     String LINE_SEPARATOR = "line.separator";

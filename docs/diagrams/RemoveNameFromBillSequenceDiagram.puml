@@ -8,11 +8,12 @@ Participant ":Model" as model MODEL_COLOR_T2
 Participant ":Storage" as storage STORAGE_COLOR_T3
 Participant ":UI" as ui UI_COLOR_T2
 
-user -[USER_COLOR]> logic : "owe xx 2 water /due 25/10/2019"
+user -[USER_COLOR]> logic : "paid 1 tata"
 activate logic LOGIC_COLOR_T2
-logic -> logic : verifyDebtCommand()
+logic -> logic : isPaidCmd()
 activate logic LOGIC_COLOR_T1
 deactivate logic
+logic -> logic : verifyPaidCommand
 
 logic -> logic : AddDebtCommand()
 activate logic LOGIC_COLOR_T1
@@ -21,25 +22,25 @@ logic -> model : addToRecordList(mode, newDebt)
 activate model MODEL_COLOR_T2
 deactivate logic
 
-model -> storage : setDebts(get())
+model -[LOGIC_COLOR]> storage : setDebts(get())
 activate storage STORAGE_COLOR
 
-storage -> storage : save()
+storage -[STORAGE_COLOR]> storage : save()
 activate storage STORAGE_COLOR_T1
 deactivate storage
 
-storage --> model
+storage --[STORAGE_COLOR]> model
 deactivate storage
 
-model --> logic
+model --[MODEL_COLOR]> logic
 deactivate model
 
-logic -> ui : echoAddDebt(newDebt)
+logic -[UI_COLOR]> ui : echoAddDebt(newDebt)
 activate ui UI_COLOR
 
-ui--> logic
+ui--[UI_COLOR]> logic
 deactivate ui
 
-logic --> user
+logic --[LOGIC_COLOR]> user
 deactivate logic
 @enduml

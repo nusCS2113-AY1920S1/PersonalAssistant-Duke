@@ -22,22 +22,6 @@ public class RecordList {
         return recordArrayList.get(index);
     }
 
-    public void setTypeInRecord(int index, String s) {
-        recordArrayList.get(index).setType(s);
-    }
-
-    public void setAmountInRecord(int index, double d) {
-        recordArrayList.get(index).setAmount(d);
-    }
-
-    public void setDescInRecord(int index, String s) {
-        recordArrayList.get(index).setDescription(s);
-    }
-
-    public void setDateInRecord(int index, LocalDate ld) {
-        recordArrayList.get(index).setDate(ld);
-    }
-
     public void setRecordList(ArrayList<Record> recordList) {
         this.recordArrayList = recordList;
     }
