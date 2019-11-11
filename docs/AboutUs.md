@@ -25,7 +25,7 @@ Responsibilities: Edit & Find Command,Storage Component
 
 <img src="images/catherinetan99.png" alt="Catherine" width="150"/>
 
-\[[github](http://github.com/catherinetan99)\] \[[portfolio](#catherinetan99#)\]
+\[[github](http://github.com/catherinetan99)\] \[[portfolio](teams/Catherinetan99.pdf)\]
 
 Role: Developer  
 Responsibilities: Set-Reminders,View-Reminders & FindFreeTimeSlot Commands
@@ -46,7 +46,7 @@ Responsibilities: Recurring Deadline & Help Command ,Model Component
 
 <img src="images/yueyeah.png" alt="Jun Yi" width="150"/>
 
-\[[github](http://github.com/yueyeah)\] \[[portfolio](#johndoe#)\]
+\[[github](http://github.com/yueyeah)\] \[[portfolio](teams/yueyeah.pdf)\]
 
 Role: Developer  
 Responsibilities: Recurring Events & Delete Command,Model Component 
