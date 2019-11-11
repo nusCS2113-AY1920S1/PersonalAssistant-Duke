@@ -4,12 +4,17 @@ package planner.main;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import planner.logic.command.CommandTestFramework;
+import planner.logic.exceptions.legacy.ModException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlannerTest extends InputTest {
+public class PlannerTest extends CommandTestFramework {
 
     private static final String LINE = "_______________________________";
+
+    public PlannerTest() throws ModException {
+    }
 
     /**
      * Testing the Planner class with bye as the only input
@@ -21,24 +26,14 @@ public class PlannerTest extends InputTest {
     @Test
     public void testPlan() {
         final String test = "bye";
-        provideInput(test);
-        final String[] hold = {""};
-        CliLauncher.main(hold);
+        execute(test);
         String expected =
-                LINE
-                + "\n"
-                + "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing to get started!\n"
-                + LINE
-                + "\n"
-                + LINE
+                  LINE
                 + "\n"
                 + "Thanks for using ModPlanner!\n"
                 + "Your data will be stored in file shortly!\n"
                 + LINE
-                + "\n"
-                + LINE
                 + "\n";
-        assertEquals(expected, getReplace());
+        assertEquals(expected, getOut());
     }
 }
