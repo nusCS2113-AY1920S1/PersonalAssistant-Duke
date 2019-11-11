@@ -162,6 +162,10 @@ reference their parent if needed. A `String` representation of `DukeObjects` can
 `toReportString` methods.
 
 ==== Patient
+.Class Diagram
+image::PatientModel.png[]
+
+The class diagram shown above shows the `Patient` class and how it is stored.
 
 Patients entered into our system are stored as `Patient` objects in our `PatientData` object. This can be converted to
 Gson easily after accounting for abstract objects. All patients may have `Impressions` associated with them which are
@@ -190,8 +194,11 @@ The `Impression` object should provide the following functionality:
 ** High priorities are the first metric
 
 ==== DukeData
+.Class Diagram
+image::DukeDataModel.png[]
 
-The `DukeData` objects represent evidence and treatment recorded by the doctor.
+The diagram above shows the DukeData class and its concrete implementations. The `DukeData` objects represent evidence
+and treatment recorded by the doctor.
 
 ==== Extension
 
@@ -317,6 +324,8 @@ image::SearchDiagram.png[]
 The above diagram shows the information a search result will store and the SearchContext its displayed in.
 
 image::SearchExample.PNG[]
+
+The picture above is an example of a `find` command.
 
 ==== Rationale
 
@@ -609,6 +618,22 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== `new` commands
+
+. Navigate to the context of the parent of the object you are creating. For patients, this is the `HOME` context.
+
+.. Prerequisites: Creating new objects require their parent objects to already exist. i.e. A `Patient` must exist before
+an `Impression` can be created.
+.. Test case: `new -n "Wong Jin Tine" -b A018 -a "Dust"` +
+    Expected: Remain at `HOME` context. The GUI display remains at `HomeContextWindow`. `CommandWindow` prompts a
+    message to notify the user that a patient has been added.
+.. Test case: `new -n flu -desc "Patient seems to have sever flu."`
+    Expected: Remain at `PATIENT` context. The GUI display remains at `PatientContextWindow`. `CommandWindow` prompts a
+     message to notify the user that an impression has been added.
+.. Test case: `new -ob -n "Blood Test"`
+    Expected: Remain at `IMPRESSION` context. The GUI display remains at `ImpressionContextWindow`. `CommandWindow`
+    prompts a message to notify the user that an observation has been added.
 
 === Navigating between contexts
 
