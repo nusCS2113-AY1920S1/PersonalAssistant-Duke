@@ -109,6 +109,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByTag(String tag) {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
+        taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
                 taggedReceipts.addReceipt(receipt);
@@ -121,29 +122,38 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * Find all the expenses more than or equal to the cash input.
      * @param amount Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with all the major expenses
+     * @throws DukeException not able to get majorexpense
      */
-    public ReceiptTracker getMajorExpenses(String amount) {
+    public ReceiptTracker getMajorExpenses(String amount) throws DukeException {
         int input = Integer.parseInt(amount);
         ReceiptTracker expenseReceipts = new ReceiptTracker();
+        expenseReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getCashSpent() >= input) {
                 expenseReceipts.addReceipt(receipt);
             }
+        }
+        if (expenseReceipts.isEmpty()) {
+            throw new DukeException("Unable to get major expenses for this case");
         }
         return expenseReceipts;
     }
 
     /**
      * Find all the expenses more than or equal to $100.
-     *
      * @return ArrayList containing all the receipts with expenses above/equal to $100
+     * @throws DukeException no receipt in the list that is of $100 or above
      */
-    public ReceiptTracker getMajorReceipts() {
+    public ReceiptTracker getMajorReceipts() throws DukeException {
         ReceiptTracker receipts = new ReceiptTracker();
+        receipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getCashSpent() >= 100) {
                 receipts.addReceipt(receipt);
             }
+        }
+        if (receipts.isEmpty()) {
+            throw new DukeException("No major expenses above/equal to $100 was found");
         }
         return receipts;
     }
@@ -155,6 +165,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByDate(String date) {
         ReceiptTracker dateReceipts = new ReceiptTracker();
+        dateReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.equalsDate(date)) {
                 dateReceipts.addReceipt(receipt);
@@ -172,6 +183,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByMonthYear(int month, int year) {
         ReceiptTracker receiptByMonthYear = new ReceiptTracker();
+        receiptByMonthYear.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if ((receipt.getDate().getMonthValue() == month) && (receipt.getDate().getYear() == year)) {
                 receiptByMonthYear.addReceipt(receipt);
@@ -187,6 +199,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByYear(int year) {
         ReceiptTracker receiptByYear = new ReceiptTracker();
+        receiptByYear.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getDate().getYear() == year) {
                 receiptByYear.addReceipt(receipt);
@@ -256,7 +269,6 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     /**
      * Deletes a receipt via its index.
-     *
      * @param index Index of the receipt to be deleted
      */
     public void deleteReceiptsByIndex(int index) {

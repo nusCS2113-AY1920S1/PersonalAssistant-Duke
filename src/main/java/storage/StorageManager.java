@@ -5,7 +5,6 @@ import executor.command.CommandType;
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
-import main.Duke;
 import ui.Receipt;
 import ui.ReceiptTracker;
 import ui.Wallet;
@@ -43,6 +42,15 @@ public class StorageManager {
     public void saveAllData() throws DukeException {
         this.taskStore.saveData(this.taskList);
         this.walletStore.saveData(this.wallet);
+    }
+
+    /**
+     * Loads both TaskList and Wallet Test Data for Testers.
+     * @throws DukeException Cannot find either Wallet or Test Data
+     */
+    public void loadTestData() throws DukeException {
+        this.taskStore.loadTestData(this.taskList);
+        this.walletStore.loadTestData(this.wallet);
     }
 
     /**
@@ -170,6 +178,8 @@ public class StorageManager {
             return this.wallet.getReceipts().getMajorExpenses(amount).getPrintableReceipts();
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid cash input. Please enter integer");
+        } catch (DukeException e) {
+            throw e;
         } catch (Exception e) {
             throw new DukeException("Unable to get major expenses");
         }
@@ -184,8 +194,10 @@ public class StorageManager {
     public String getMajorReceipt() throws DukeException {
         try {
             return this.wallet.getReceipts().getMajorReceipts().getPrintableReceipts();
+        } catch (DukeException e) {
+            throw e;
         } catch (Exception e) {
-            throw new DukeException("Unable to get major receipt");
+            throw new DukeException("Unable to get major receipts");
         }
     }
 

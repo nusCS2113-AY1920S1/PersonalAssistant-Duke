@@ -1,4 +1,4 @@
-100.0
+83.0
 -
 in $5.0 /date 2019-08-30 /tags street
 out $10.0 /date 2001-08-25 /tags 

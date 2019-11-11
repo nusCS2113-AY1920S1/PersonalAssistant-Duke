@@ -1,23 +1,16 @@
 package ui.gui;
 
 import duke.exception.DukeException;
-import executor.task.TaskList;
 import interpreter.Interpreter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import main.Duke;
-import storage.StorageTask;
-import storage.StorageWallet;
 import ui.UiCode;
-import ui.Wallet;
 import utils.InfoCapsule;
 
 import java.util.ArrayList;
@@ -88,8 +81,10 @@ public class MainWindow extends AnchorPane {
             this.contentPane.getChildren().add(homeDisplayRoot);
             this.displayType = DisplayType.HOME;
         } catch (DukeException e) {
+            e.printStackTrace();
             this.displayToast(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             // Catch Error
         }
         if (this.contentPane.getChildren().size() > 1) {
@@ -140,6 +135,10 @@ public class MainWindow extends AnchorPane {
                 break;
             case CLEAR_CLI:
                 this.cliController.clearCliDisplay();
+                break;
+            case TESTER:
+                this.enableTesterMode();
+                this.displayToast(infoCapsule.getOutputStr());
                 break;
             case UPDATE:
                 break;
@@ -208,6 +207,13 @@ public class MainWindow extends AnchorPane {
     private void printSeparator() {
         this.showCliDisplay();
         this.cliController.printSeparator();
+    }
+
+    private void enableTesterMode() {
+        InfoCapsule infoCapsule = this.interpreterLayer.requestTesterData();
+        this.showCliDisplay();
+        this.showHomeDisplay();
+        this.displayToast(infoCapsule.getOutputStr());
     }
 
 }

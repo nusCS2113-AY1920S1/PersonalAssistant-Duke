@@ -15,10 +15,8 @@ public enum CommandType {
     VIEWSCHEDULE(CommandSchedule.class),
     REMINDER(CommandReminder.class),
     BALANCE(CommandDisplayBalance.class),
-    PERCENT(CommandPercent.class),
     IN(CommandAddIncomeReceipt.class),
     OUT(CommandAddSpendingReceipt.class),
-    SETBALANCE(CommandUpdateBalance.class),
     BUDGET(CommandBudget.class),
     EXPORT(CommandExport.class),
     EXPENSES(CommandDisplayExpenditure.class),
@@ -28,7 +26,6 @@ public enum CommandType {
     TODO(CommandNewTask.class),
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
-    TAGLIST(CommandTagList.class),
     EXPENDEDDAY(CommandGetSpendingByDay.class),
     EXPENDEDWEEK(CommandGetSpendingByWeek.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
@@ -46,7 +43,8 @@ public enum CommandType {
     MUL(CommandMul.class),
     TRACK(CommandTrackTag.class),
     UNTRACK(CommandUntrackTag.class),
-    CLEAR(CommandClearCli.class);
+    CLEAR(CommandClearCli.class),
+    ENABLETEST(CommandEnableTesting.class);
 
     private final Class commandClass;
 

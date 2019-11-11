@@ -27,7 +27,7 @@ public class CommandHelp extends Command {
            exists in the list of available commands.*/
         if (!specificCommand.isEmpty()) {
             for (String b : CommandType.getNames()) {
-                if (b.equals(specificCommand)) {
+                if (b.equals(specificCommand) & this.checkValidCommand(b)) {
                     StringBuilder outputsSpecificCommandDesc = getDescriptionOfSpecificCommand(b);
                     this.infoCapsule.setCodeCli();
                     this.infoCapsule.setOutputStr(outputsSpecificCommandDesc.toString());
@@ -51,7 +51,7 @@ public class CommandHelp extends Command {
     private StringBuilder getDescriptionOfSpecificCommand(String b) {
         StringBuilder out = new StringBuilder();
         CommandType specificCommandType = CommandType.valueOf(b);
-        Command specific = Executor.createCommand(specificCommandType, "null");
+        Command specific = Executor.createCommand(specificCommandType, specificCommandType.toString());
         String specificDesc = specific.getDescription();
         String specificOut = b.toUpperCase() + " - " + specificDesc + "\n";
         out.append(specificOut).append("\n");
@@ -65,7 +65,7 @@ public class CommandHelp extends Command {
      */
     private void getDescriptionOfAllCommands(String s, ArrayList<String> newOut) {
         CommandType commandType = CommandType.valueOf(s);
-        Command c = Executor.createCommand(commandType, "null");
+        Command c = Executor.createCommand(commandType, commandType.toString());
         String commandDesc = c.getDescription();
         String temp = s.toUpperCase() + " - " + commandDesc + "\n";
         newOut.add(temp);

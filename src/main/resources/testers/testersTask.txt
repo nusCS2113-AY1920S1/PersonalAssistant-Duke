@@ -1,0 +1,20 @@
+TODO Refactor Code ####false
+EVENT Demo/at today####false
+DEADLINE Submit PPP/by Monday####false
+TODO Have Mercy pls ####false
+TODO Give Chance pls ####false
+EVENT Drinks on me/after bug test####false
+DEADLINE Find Love/before Finding Death####false
+DEADLINE Death ####false
+TODO Confess my undying love ####false
+EVENT Dig Grave/if Rejection####false
+EVENT Sleep by the Beach/after Finals####false
+TODO Book a Camping Spot ####false
+TODO Sleep/ whenever####false
+TODO Learn React Native ####false
+TODO Get a life ####false
+TODO Get a cat/ maybe####false
+EVENT Wake up from this nightmare/when Anytime Now####false
+DEADLINE Read Book/by 23/11/19####false
+TODO Fix Bugs ####false
+TODO eat icecream to console myself as I sink into despair ####false
