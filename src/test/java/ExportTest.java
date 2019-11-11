@@ -71,9 +71,12 @@ class ExportTest {
 
     @Test
     public void testExport() throws ChronologerException, IOException, ParserException, ParseException {
-        storage.saveFile(tasks.getTasks());
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
-        export.execute(tasks, storage, history);
+        try {
+            export.execute(tasks, storage, history);
+        } catch (ChronologerException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
@@ -96,7 +99,6 @@ class ExportTest {
 
         inputStream.close();
         assert calendarFile.delete();
-        assert file.delete();
     }
 
 }
