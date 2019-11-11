@@ -19,12 +19,12 @@ endif::[]
 
 == Table of Contents
 
-* <<#Usage, Quick Start>>
+* <<#Quick_Start, Quick Start>>
 * <<#Usage, Usage>>
 * <<#Acknowledgements, Acknowledgements>>
-* <<#Usage, Licence>>
+* <<#Licence, Licence>>
 
-== Quick Start
+== Quick_Start
 * Ensure you have Java version 11 or later installed in your computer.
 * Download the jar file for the latest version of link:https://github.com/AY1920S1-CS2113T-W12-2/main/releases[Financial Ghost] here.
 * Copy the file to the folder you want to use as the home folder for your Financial Ghost.
@@ -41,4 +41,5 @@ endif::[]
 
 * Libraries used: JavaFX, JUnit5, Hamcrest, Maven Repository, Gradle, ControlFX
 
-== Licence : NUS
+== Licence
+* NUS
