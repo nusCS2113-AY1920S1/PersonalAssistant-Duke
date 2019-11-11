@@ -1,20 +1,5 @@
 package controllers;
 
-import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
-import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -34,7 +19,6 @@ import util.uiformatter.AssignmentViewHelper;
 import util.uiformatter.CommandHelper;
 import util.uiformatter.ViewHelper;
 
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,12 +31,16 @@ import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_ROLE_CORRECT_LENGTH;
+import static util.constant.ConstantHelper.COMMAND_ROLE_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS;
+import static util.constant.ConstantHelper.ROLE_MEMBER_INCOMPLETE_COMMAND;
+
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -167,6 +155,12 @@ public class ProjectInputController implements IController {
         return responseToView;
     }
 
+    /**
+     * Method responsible for renaming a Project. Will only be called by manageProject.
+     * @param projectToManage : Project that is currently being managed by projectInputController.
+     * @param projectCommand : Full project command.
+     * @return : Returns an array of Strings for View layer to print
+     */
     private String[] projectRename(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRename] User input: '"
             + projectCommand + "'");
@@ -196,11 +190,15 @@ public class ProjectInputController implements IController {
     }
 
     //@@author seanlimhx
+    /**
+     * Method that calls viewHelper to return an array of Strings listing all available commands in current state.
+     * @return : Returns an array of Strings for View layer
+     */
     private String[] projectHelp() {
         return viewHelper.consolePrintTable(commandHelper.getCommandsForProject(), DEFAULT_HORI_BORDER_LENGTH);
     }
-    //@@author
 
+    //@@author Lucria
     /**
      * Adds roles to Members in a Project.
      * @param projectToManage : The project specified by the user.
@@ -208,14 +206,13 @@ public class ProjectInputController implements IController {
      */
     public String[] projectRoleMembers(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRoleMembers] User input: '"
-            + projectCommand + "'");
-        if (projectCommand.length() < 5) {
-            return new String[] {"Please follow the member index using the correct command format role INDEX -n "
-                + "ROLE_NAME"};
+                + projectCommand + "'");
+        if (projectCommand.length() < COMMAND_ROLE_MEMBER.length()) {
+            return ROLE_MEMBER_INCOMPLETE_COMMAND;
         }
-        String parsedCommands = projectCommand.substring(5);
+        String parsedCommands = projectCommand.substring(COMMAND_ROLE_MEMBER.length());
         String[] commandOptions = parsedCommands.split(" -n ");
-        if (commandOptions.length != 2) {
+        if (commandOptions.length != COMMAND_ROLE_CORRECT_LENGTH) {
             return new String[] {"Missing argument! Please enter role INDEX -n ROLE_NAME"};
         }
         int memberIndex;
