@@ -12,20 +12,20 @@ Duke will help you to sort, filter and clear you inbox.
 
 **Features**
 
-* Fetch emails from email provider
-* Filter, highlight and tag emails
-* Add and manage tasks related to these emails
-* Easy to use interface
+*   Fetch emails from email provider
+*   Filter, highlight and tag emails
+*   Add and manage tasks related to these emails
+*   Easy to use interface
 
 **Getting started**
 
-1. Download and save the jar file.
-2. Open the jar file.
-3. Enjoy using Duke!
-4. Additional info can be found in our user guide.
+1.  Download and save the jar file.
+2.  Open the jar file.
+3.  Enjoy using Duke!
+4.  Additional info can be found in our user guide.
 
 **Site Map**
 
-* [Developer Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/DeveloperGuide.adoc)
-* [User Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/UserGuide.adoc)
-* [About Us](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/AboutUs.adoc)
+*   [Developer Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/DeveloperGuide.adoc)
+*   [User Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/UserGuide.adoc)
+*   [About Us](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/AboutUs.adoc)

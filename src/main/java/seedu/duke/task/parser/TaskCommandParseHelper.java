@@ -26,6 +26,7 @@ import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -308,10 +309,8 @@ public class TaskCommandParseHelper {
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
                     + "than the number of tasks)");
-        } catch (TaskParseException e) {
-            return new InvalidCommand(e.getMessage());
         } catch (CommandParseHelper.CommandParseException e) {
-            return new InvalidCommand("Index out of bounds");
+            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -435,9 +434,15 @@ public class TaskCommandParseHelper {
             LocalDateTime time = parseTaskTime(optionList);
             ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
-            ArrayList<String> links = extractLinks(optionList);
+
+            ArrayList<String> invertedLinks = extractLinks(optionList);
+            ArrayList<String> links = new ArrayList<>();
+            for (int i = invertedLinks.size() - 1; i >= 0; i--) {
+                links.add(invertedLinks.get(i));
+            }
+
             String timeString = extractTime(optionList);
-            if (input.startsWith("todo") && !"".equals(timeString)) {
+            if (input.startsWith("todo") && (!"".equals(timeString))) {
                 return new InvalidCommand("Date Time not allowed in todo tasks");
             }
             return constructAddCommandByType(input, doAfter, time, tags, priority, links);
@@ -534,7 +539,7 @@ public class TaskCommandParseHelper {
     }
 
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
-        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]*)\\s*?");
+        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]+)\\s*?");
         if (!linkCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a valid task index (positive integer equal or less then "
                     + "the number of tasks) and email indexes (optional)");

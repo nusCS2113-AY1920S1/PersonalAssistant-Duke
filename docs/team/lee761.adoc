@@ -19,8 +19,8 @@ This is what our project looks like:
 image::../images/UI(2).png[Duke Email Manager]
 
 My role was to write codes to enhance the task manager in our project. These includes codes for more
-natural date format feature and priority feature. The following sections illustrate these
-implementations in more detail, as well as relevant documentation I have added to the user and developer
+natural date format feature, priority feature and sorting feature. The following sections illustrate these
+implementations in more detail, as well as relevant documentation I have contributed to the user and developer
 guides in relation to these implementations.
 
 Note the following symbols and formatting used in this document:
@@ -39,6 +39,7 @@ Note the following symbols and formatting used in this document:
 efforts.
 
 |===
+
 == Summary of contributions
 
 This section summarizes the contribution I made towards the project. They mainly include, but not
