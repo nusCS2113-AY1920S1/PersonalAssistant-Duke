@@ -693,10 +693,11 @@ called to fill up the remaining spaces.
 
 Step 7) When the String is longer than the full table width, it needs to be split into multiple lines in order to fit it
 within the table. Hence, the `getArrayOfSplitStrings()` method is called to split the string up nicely to fit the table width.
-It will ensure that the String is split at the spaces so that the words remain intact. If the point of the string that
-exceeds the table width is in the middle of a word and it is within a predefined length, the entire word will be shifted
-to the next line. If it exceeds that predefined length, that word will be split with a hyphen '-' with the remaining half
-of the word to be pushed to the next line. This process repeats and each line will be stored in an individual string.
+It will ensure that the String is split at the spaces as much as possible so that the words remain intact. If the
+point of the string that exceeds the table width is in the middle of a word and it is within a predefined length,
+the entire word will be shifted to the next line. If it exceeds that predefined length, that word will be split with
+a hyphen '-' with the remaining half of the word to be pushed to the next line. This process repeats and each
+line will be stored in an individual string.
 
 Step 8) The `consolePrintTableHoriBorder()` method is called at any point where the horizontal border of the table is required.
 
@@ -704,7 +705,7 @@ Step 9) After the tables are generated, the tables would be lined up in each col
 to the shortest column at any point in time. If 2 or more columns are of the same length, the next table will be added to
 the left most column.
 
-Step 10) The `consolePrintMMultipleTables()` method would then store the entire series of tables to be displayed into a
+Step 10) The `consolePrintMultipleTables()` method would then store the entire series of tables to be displayed into a
 String array with each element containing a line to be printed to be passed into `consolePrint()` where it will be
 printed with indentation and horizontal borders on the top and bottom.
 
