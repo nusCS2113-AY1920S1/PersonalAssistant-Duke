@@ -54,6 +54,39 @@
         "calorie": 232
       },
       "costStr": "0"
+    },
+    {
+      "description": "mee so tong",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 123
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "asd so tong",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 123
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "asdasdfasfd tong",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 123
+      },
+      "costStr": "0"
     }
   ]
 }

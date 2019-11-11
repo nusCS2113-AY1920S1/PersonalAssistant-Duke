@@ -9,6 +9,7 @@ import diyeats.logic.commands.AddGoalCommand;
 import diyeats.logic.commands.AddTransactionCommand;
 import diyeats.logic.commands.DeleteCommand;
 import diyeats.logic.commands.DeleteDefaultValueCommand;
+import diyeats.logic.commands.ListCommand;
 import diyeats.logic.commands.MarkDoneCommand;
 import diyeats.logic.commands.SuggestExerciseCommand;
 import diyeats.logic.commands.UpdateCommand;
@@ -43,10 +44,6 @@ public class Undo {
     private Stack<ArrayList<Meal>> mealListHistory = new Stack();
     private Stack<Meal> mealHistory = new Stack();
     private ArrayList<ArrayList<Meal>> clearHolder = new ArrayList();
-
-    public int getSize() {
-        return history.size();
-    }
 
     /**
      * Execute is a function that pops the latest instruction from history and execute it,
@@ -120,6 +117,9 @@ public class Undo {
                 break;
             case "deleteExercise":
                 deleteExercise(meals, storage, user, wallet, info);
+                break;
+            case "sort":
+                sort(meals, storage, user, wallet, info);
                 break;
             default:
                 break;
@@ -371,6 +371,17 @@ public class Undo {
     public void undoDeleteExercise(String name, int met) {
         String temp = "deleteExercise ";
         temp += name + " /value " + met;
+        history.push(temp);
+    }
+
+    /**
+     * Generates the inverse of a ListCommand.
+     * @param date the date of the arraylist sorted
+     */
+
+    public void undoSort(LocalDate date) {
+        String temp = "sort ";
+        temp += date.format(dateFormat);
         history.push(temp);
     }
 
@@ -654,5 +665,11 @@ public class Undo {
     public void deleteExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddExerciseCommand c = new AddExerciseCommandParser().parse(toBeParsed);
         c.undoForDelete(meals, storage, user, wallet);
+    }
+
+    public void sort(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
+        LocalDate date = LocalDate.parse(toBeParsed, dateFormat);
+        ListCommand c = new ListCommand(date);
+        c.undo(meals, storage, user, wallet);
     }
 }

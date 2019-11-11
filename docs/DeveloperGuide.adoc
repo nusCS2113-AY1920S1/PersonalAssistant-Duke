@@ -109,7 +109,7 @@ The Model component of the code is in charge of tracking and managing all of the
 * Being capable of operating independently of all the other code components.
 
 .Model Diagram: Cost Management
-image::TransactionDiagram.png[width="800"]
+image::Transaction_Diagram.png[width="800"]
 
 The Model component of the code is in charge of managing the transaction data involved during the application's runtime. It accomplishes this by:
 
@@ -166,21 +166,16 @@ This section describes the implementation and design considerations.
 
 ==== Current implementation
 
-On start up, `Main` will load `user.txt` file. If no data is found, `Main` class will instead ask for user information before starting the program.
+On start up, `Main` will load `user.gson` file. If no data is found, `Main` class will instead ask for user information before starting the program.
 
 The following step describes the flow of the initialisation:
 
-. The `Main` class will load `user.txt` via `Storage` class and check if there is user data already stored.
-.. If no data is found, `Main` will request for user to input personal data in this order:
-... `Name`
-... `Age`
-... `Weight`
-... `Height`
-... `Activity Level`
-... If they would like to maintain or lose weight
-.. If data is found, `Main` will load the data from `user.txt` via `Storage`
+. The `Main` class will load `user.gson` via `Storage` class and check if there is user data already stored.
+.. If no data is found, `Main` will request for user to input personal data in this format:
+... `/name <NAME> /age <AGE> /weight <WEIGHT> /height <HEIGHT> /activity <ACTIVITY_LEVEL> /gender <GENDER>`
+.. If data is found, `Main` will load the data from `user.gson` via `Storage`
 . The `Main` will continue on with the function.
-. On any commands that updates `user` class, `Storage` will save the updated user class to `user.txt`
+. On any commands that updates `user` class, `Storage` will save the updated user class to `user.gson`
 
 ==== Design considerations
 
@@ -190,7 +185,29 @@ Problem 1: *How to store weight data to be displayed over time*
 ** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap.
 
 .User Initialisation sequence diagram
-image::usersequencediagram.png[width="800"]
+image::User_Sequenced_Diagram.png[width="800"]
+
+=== Autocorrect
+
+Autocorrect corrects user's input with minor typo to the correct word.
+
+This section describes the implementation and design considerations
+
+==== Current implementation
+
+On start up, `Main` will load `word.txt` file.
+
+The following step describes the flow of the initialisation:
+
+. The `Main` class will load `word.txt` via `Storage` class and load the predefined word into an ArrayList
+. During any word input, the word will be passed to the `Autocorrect` object and `Autocorrect` will execute and find the correct word based on the distance.
+.. Distance in this case is defined as how many different letters there are between both words
+. The program will compare the user input word with all of the predefined word and attempt to find the predefined word with the lowest distance
+. If no words that are close enough are found, it will return the original word.
+
+.User Initialisation sequence diagram
+
+image::Autocorrect_Sequence_Diagram.png[width="800"]
 
 === Add Default command: `default`
 
@@ -251,7 +268,7 @@ Assuming that the index in the user input is not outside the boundary of the mea
 . The `MarkDoneCommand#execute()` function will also invoke the `ui#showCaloriesLeft` which will calculate the amount of calories left to be eaten in that day.
 
 .Mark as Done command sequence diagram
-image::DoneCommandUML.png[]
+image::Done_Command_UML.png[]
 
 === Transaction command
 
@@ -310,7 +327,7 @@ The list command gives the user the ability to display the list of meals on a pa
 . `Ui#showCaloriesLeft`, and `Ui#showExercisesOnDate` are further invoked to add additional information.
 
 .List command sequence diagram
-image::listcommandUML.png[]
+image::List_Command_UML.png[]
 
 ==== Design considerations
 
@@ -389,6 +406,25 @@ Problem 2: *How to prevent excessive repeated meal suggestions*
 
 ** Cons: Undeterministic meal suggestion that provides different meal suggestion given the same input parameters. There is still a small chance that the same meals can be suggested repeatedly.
 
+
+=== Update Command
+
+The Update Command provides the user with a method of updating their personal data so the program can be better tailored for them
+
+The following section describes the implementation and design considerations involved in the Update feature.
+
+==== Current implementation
+The user is able to specify which information to update via tags `/name`, `/age`, `/weight`, `/height` and `/activity`
+
+. User will specify the parameters of the data to be updated
+. After parsing through the input, `Parser` will make sense of the data and return a `UpdateCommand`.
+. `UpdateCommand` will then check for the existence of the tags
+. If the tag exists, it'll call for the appropriate function to update.
+.. For example, if `/age` exists, it'll call `UpdateAgeCommand` to update the user's age.
+. As `weight` is tracked over time for graphing and statistic purposes, the user is also able to specify the date of the weight to be inserted in via `/date` parameter.
+. If `UpdateWeightCommand` detects the existence of a `weight` on that particular `date`, it'll return to `Main` to request for confirmation of the user to overwrite the data.
+. After `UpdateCommand` is done updating the `user`, it will call `storage` to update `user.json`
+
 === Graph Command
 
 The Graph Command provides a visualisation of the data specified by the user over a month so they are able to better adjust their choices of meals
@@ -399,10 +435,10 @@ The following section describes the implementation and design considerations inv
 The user can specify the month and year of the category of data they would like to view as a plotted graph. The implementation is as follows:
 
 . User will specify the parameters of the data.
-. After parsing through the user input, `Parser` will make sense of the input and return a `CGraphCommand` with the relevant `type`, `month` and `year`.
-. `CGraphCommand` will then check the `type` and obtain the relevant data from the relevant objects.
-.. For example, if the `type` is specified as `weight`, `CGraphCommand` will obtain the `weight` data from `User`.
-. After obtaining the data in the form of a `HashMap`, `CGraphCommand` will run through the `HashMap` by checking for all dates in the specified `month` and `year`.
+. After parsing through the user input, `Parser` will make sense of the input and return a `GraphCommand` with the relevant `type`, `month` and `year`.
+. `GraphCommand` will then check the `type` and obtain the relevant data from the relevant objects.
+.. For example, if the `type` is specified as `weight`, `GraphCommand` will obtain the `weight` data from `User`.
+. After obtaining the data in the form of a `HashMap`, `GraphCommand` will run through the `HashMap` by checking for all dates in the specified `month` and `year`.
 .. If a date is not found in the `keySet` of the `HashMap`, the data for that date will be assumed to be 0.
 . The data found for each date is stored in an `ArrayList`.
 . The biggest data found will also be stored as a variable called `highest`. This will be used for scaling of the graph.
@@ -434,7 +470,7 @@ Problem 2: *Preventing data from being too large and taking too much space*
 ** Cons: If the data is too big, it may go out of the intended graph range and the desired output may be skewed. This may prevent users from being able to accurately see their progress.
 
 .CGraph command sequence diagram
-image::cgraphcommand.png[width="800"]
+image::Graph_Command.png[width="800"]
 
 == Documentation
 === Introduction

@@ -53,3 +53,5 @@ update
 wallet
 weight
 year
+calorieAscending
+calorieDescending

@@ -46,7 +46,7 @@ public class ListCommand extends Command {
         this(date);
         this.sortBy = sortBy;
     }
-
+    
     /**
      * Constructor when ListCommand encounters error.
      * @param flag the flag to indicate whether the parser fails.
@@ -77,6 +77,7 @@ public class ListCommand extends Command {
         if (!meals.checkDate(currentDate)) {
             ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
         }
+        undo.undoSort(currentDate);
         switch (sortBy) {
             case "calorieAscending":
                 currentMeals.sort(new SortMealByCalorie());
@@ -97,5 +98,10 @@ public class ListCommand extends Command {
         ui.showCaloriesLeft(currentMeals, user, currentDate);
         ui.showExerciseOnDate(meals.getExerciseList(), currentDate);
         ui.showLine();
+    }
+
+    public void undo(MealList meals,  Storage storage, User user, Wallet wallet) {
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
+        currentMeals.sort(new SortMealByDefault());
     }
 }
