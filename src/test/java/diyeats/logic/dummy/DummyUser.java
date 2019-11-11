@@ -23,16 +23,6 @@ public class DummyUser extends User {
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private double originalWeight = 0;
 
-    /**
-     * This is a contructor to create an user profile with all the info.
-     * Used during loading.
-     * @param name name of user
-     * @param age age of user
-     * @param height height of user
-     * @param gender biological gender of user
-     * @param activityLevel how active the user is
-     * @param originalWeight their original weight
-     */
     public DummyUser(String name, int age, int height, Gender gender, int activityLevel,
                 double originalWeight, LocalDate lastDate) {
         this.name = name;
@@ -49,10 +39,6 @@ public class DummyUser extends User {
         return true;
     }
 
-    /**
-     * This is a function to update weight at time of input.
-     * @param weight Weight at time of input
-     */
     public void setWeight(double weight) {
         LocalDate currentDate = LocalDate.now();
         this.weight.put(currentDate, weight);
@@ -61,11 +47,6 @@ public class DummyUser extends User {
         }
     }
 
-    /**
-     * This is a function to update weight at input date.
-     * @param weight Weight at time of input
-     * @param inputDate LocalDate of the date in DD/MM/YYYY format
-     */
     public void setWeight(double weight, LocalDate inputDate) {
         this.weight.put(inputDate, weight);
         if (lastDate == null || lastDate.isBefore(inputDate)) {
@@ -124,9 +105,6 @@ public class DummyUser extends User {
         return goal.daysLeftToGoal();
     }
 
-    /**
-     * This is a function to obtain all the weight at different date.
-     */
     public HashMap<LocalDate, Double> getAllWeight() {
         return this.weight;
     }
@@ -159,9 +137,6 @@ public class DummyUser extends User {
         return this.gender;
     }
 
-    /**
-     * This is a function to check if it's an empty profile.
-     */
     public boolean getIsSetup() {
         return this.isSetup;
     }
