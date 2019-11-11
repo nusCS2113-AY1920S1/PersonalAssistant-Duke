@@ -6,10 +6,15 @@ import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_VIEW_RECIPE;
+import static duke.common.RecipeMessages.MESSAGE_RECIPE_TO_BE_VIEWED;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST;
 
 /**
  * Handles the view recipe command.

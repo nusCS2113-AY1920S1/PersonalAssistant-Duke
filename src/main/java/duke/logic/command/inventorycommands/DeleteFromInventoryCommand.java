@@ -8,8 +8,13 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.InventoryMessages.*;
-import static duke.common.Messages.*;
+import static duke.common.InventoryMessages.COMMAND_DELETE_FROM_INVENTORY;
+import static duke.common.InventoryMessages.MESSAGE_INGREDIENT_DELETED;
+import static duke.common.InventoryMessages.ERROR_MESSAGE_DELETE_INGREDIENT_NOT_FOUND;
+
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.

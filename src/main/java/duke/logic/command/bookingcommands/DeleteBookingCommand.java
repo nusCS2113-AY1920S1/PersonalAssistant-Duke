@@ -6,12 +6,19 @@ import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
-import java.util.logging.*;
 
-import static duke.common.BookingMessages.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+import static duke.common.BookingMessages.COMMAND_DELETE_BOOKING;
+import static duke.common.BookingMessages.MESSAGE_EMPTY_BOOKING_LIST;
+import static duke.common.BookingMessages.MESSAGE_BOOKING_REMOVED;
+import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_BOOKING_INDEX;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_DELETE_COMMAND;
 import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
-
 
 /**
  * Handles the delete booking command.

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 //@@author wjlingg
 /**
- * Controller for ExitWindow
+ * Controller for ExitWindow.
  */
 public class ExitWindow extends HBox {
 
@@ -24,6 +24,9 @@ public class ExitWindow extends HBox {
 
     private static final String EXIT_MESSAGE = "Are you sure to exit?";
 
+    /**
+     * Creates a exit window.
+     */
     public ExitWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/ExitWindow.fxml"));

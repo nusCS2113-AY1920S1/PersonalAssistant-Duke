@@ -12,12 +12,36 @@ import duke.ui.Ui;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-import static duke.common.BookingMessages.*;
-import static duke.common.InventoryMessages.*;
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
+import static duke.common.BookingMessages.COMMAND_LIST_BOOKINGS;
+import static duke.common.BookingMessages.COMMAND_ADD_BOOKING;
+import static duke.common.BookingMessages.COMMAND_DELETE_BOOKING;
+import static duke.common.BookingMessages.COMMAND_VIEW_BOOKING_SCHEDULE;
+import static duke.common.BookingMessages.COMMAND_FIND_BOOKING;
+import static duke.common.BookingMessages.COMMAND_VIEW_ORDERS;
+
+import static duke.common.InventoryMessages.COMMAND_ADD_TO_INVENTORY;
+import static duke.common.InventoryMessages.COMMAND_LIST_INVENTORY;
+import static duke.common.InventoryMessages.COMMAND_DELETE_FROM_INVENTORY;
+import static duke.common.InventoryMessages.COMMAND_CLEAR_INVENTORY;
+import static duke.common.InventoryMessages.COMMAND_USE_RECIPE;
+
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
+import static duke.common.RecipeMessages.COMMAND_DELETE_RECIPE;
+import static duke.common.RecipeMessages.COMMAND_EDIT_REQ_INGREDIENT;
+import static duke.common.RecipeMessages.COMMAND_EDIT_RATING;
+import static duke.common.RecipeMessages.COMMAND_EDIT_FEEDBACK;
+import static duke.common.RecipeMessages.COMMAND_EDIT_PREPSTEP;
+import static duke.common.RecipeMessages.COMMAND_EDIT_PREPTIME;
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
+import static duke.common.RecipeMessages.COMMAND_VIEW_RECIPE;
+import static duke.common.RecipeMessages.COMMAND_VIEW_REQ_INGREDIENT;
 
 /**
  * Duke processes different commands.
@@ -44,20 +68,23 @@ public class Duke {
             FileHandler fh = new FileHandler("logFile.log",true);
             fh.setLevel(Level.WARNING);
             logger.addHandler(fh);
-        } catch (java.io.IOException e){
+        } catch (java.io.IOException e) {
             logger.log(Level.SEVERE, "File logger is not working.", e);
         }
     }
 
+    /**
+     * Constructor for class Duke.
+     *
+     * @param ui deals with interactions with the user
+     */
     public Duke(Ui ui) {
         this.ui = ui;
         String currentDir = System.getProperty("user.dir");
         String filePathInventory = currentDir + "\\data\\inventories.txt";
         String filePathBookings = currentDir + "\\data\\bookings.txt";
         String filePathRecipes = currentDir + "\\data\\recipes.txt";
-//        String filePathInventoryTest = currentDir + "\\data\\inventoriesTest.txt";
-//        String filePathBookingTest = currentDir + "\\data\\bookingsTest.txt";
-//        String filePathRecipeTest = currentDir + "\\data\\recipesTest.txt";
+
         inventoryStorage = new InventoryStorage(filePathInventory);
         bookingStorage = new BookingStorage(filePathBookings);
         recipeStorage = new RecipeStorage(filePathRecipes);
@@ -71,6 +98,11 @@ public class Duke {
         return ui.showWelcome();
     }
 
+    /**
+     * Processes all the input from user.
+     *
+     * @param userInput string containing the input from the user
+     */
     public ArrayList<String> runProgram(String userInput) throws ParseException {
         Duke.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
@@ -156,10 +188,7 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        }
-
-        // INVENTORY.
-        else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) {
+        } else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) { // INVENTORY.
             if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_TO_INVENTORY)) {
                 Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
                 return command.execute(inventoryList, ui, inventoryStorage);
@@ -199,11 +228,7 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        }
-
-
-        // BOOKING.
-        else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) {
+        } else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) { // BOOKING.
             Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
             return command.execute(bookingList, ui, bookingStorage);
 

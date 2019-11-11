@@ -6,10 +6,15 @@ import duke.model.task.ingredienttasks.Ingredient;
 import duke.storage.InventoryStorage;
 import duke.ui.Ui;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map;
 
 import static duke.common.InventoryMessages.COMMAND_LIST_INVENTORY;
 import static duke.common.InventoryMessages.MESSAGE_HERE_ARE_THE_INGREDIENTS;
+
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
