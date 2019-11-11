@@ -79,9 +79,9 @@ public class MainParser implements ParserStringList, ModeStringList {
     }
 
     private static boolean isSwitchModeCommand(String command) {
-        return command.equalsIgnoreCase(MODE_DOLLA) || command.equalsIgnoreCase(MODE_ENTRY)
-                || command.equalsIgnoreCase(MODE_LIMIT) || command.equalsIgnoreCase(MODE_DEBT)
-                || command.equalsIgnoreCase(MODE_SHORTCUT);
+        return command.equals(MODE_DOLLA) || command.equals(MODE_ENTRY)
+                || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
+                || command.equals(MODE_SHORTCUT);
     }
 
     /**
