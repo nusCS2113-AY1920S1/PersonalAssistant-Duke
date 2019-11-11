@@ -836,94 +836,86 @@ Different ways were considered to display the employment statistics:
 |As a student entering NUS, I can view all the details of the course and their modules in one place rather than going through multiple websites so that I can avoid confusion 
 |High
 
-|As a student applying to NUS, I wish to be able to save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for
+|As a student applying to NUS, I can save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for
 |High 
 
-|As a student applying to NUS, I wish to compare the details of two majors on a single platform so that I can clearly see what details of the major are important and relevant to me.
+|As a student applying to NUS, I can compare the details of two majors on a single platform so that I can clearly see what details of the major are important and relevant to me.
 |High
 
-|As an impulsive user, I can delete/rank degrees from my personal selection list so that I can correct old decisions that I made the last time in order to have my most updated list at all times.
+|As a student still making a decision, I can delete/rank degrees from my personal selection list so that I can correct old decisions that I made the last time in order to have my most updated list at all times.
 |High
 
-|As a student presented with too many options, I would want to have a narrowed-down view of the major requirements to make a clearer decision. 
+|As a student presented with too many options, I can have a narrowed-down view of the major requirements to make a clearer decision. 
 |High
 
-|As a student applying to NUS, I should be able to have a list wherein I can add general/unrestricted modules I am interested in and also have the option to delete them whenever needed so that I can have the most updated list at all times.
+|As a student applying to NUS, I can keep track of a list wherein I can add general/unrestricted modules I am interested in and also have the option to delete them whenever needed so that I can have the most updated list at all times.
+|Medium
+
+|As a prospective student choosing between NUS and other universities’ engineering courses, I can easily look up all the modules and their details required for the particular engineering degree in NUS
 |High
 
-|As a prospective student choosing between NUS and other universities’ engineering courses, I will prefer to easily look up all the modules and their details required for the engineering degree, and having one for NUS makes us more attractive than other unis
+|As a student applying to NUS, I can keep track of all the deadlines to submit documents or housing, and of the various freshman events so that I don't miss out any.
 |High
 
-|As a student applying to NUS, I would want to keep track of all the deadlines to submit documents or housing, and of the various freshman events so that I don't miss out any.
+|As a new student, I can view the module details of the courses as soon as possible, without resorting to manually searching through all modules so that I can know easily learn more about upcoming modules.
 |High
 
-|As a new student, I want to know the module details of the courses as soon as possible, without resorting to manually searching through all modules so that I can know easily learn more about upcoming modules.
+|As a student applying to NUS, I can view all the modules required and their details for the next few years so that I can make a more informed decision.
 |High
 
-|As a student applying to NUS, I want to know all the modules required and their details for the next few years so that I can make a more informed decision.
-|High
-
-|As a user who prefers side by side comparisons, I would want to be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
+|As a user who prefers side by side comparisons, I can be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
 |High
 
 |As a novice user, I can type a “help” command and receive all the possible commands that Duke 2.0 provides so that I can use the software to its fullest potential 
 |Medium
 
-|As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
+|As a student applying to NUS and having specific interests, I can see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
 |Medium
 
-|As a student applying to NUS and wishing to explore, it should able to propose to me a 2nd Major and point out how many overlaps are there with another degree, so that I am able to decide which second major would be the most beneficial for me.
+|As a practical person, I can view what majors are the most in demand by employers in the job market so that I make my choices on my job prospects.
 |Medium
 
-|As a student applying to NUS and who is organised, I would want to view the module requirements for the two degrees in a tabular format which can also provide a percentage similarity between the two.
+|As a student applying to NUS, I can view the past cohort sizes so that I know what sort of competition awaits me in my university career.
 |Medium
 
-|As a student, I would want to be able to view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
+|As a student applying to NUS and who is organised, I can view the module requirements for the two degrees in a tabular format for better clarity
 |Medium
 
-|As a careless typer, I can type mistakes into the command without Duke 2.0 crashing so that I do not have to re-run the program at every mistake.
+|As a student selecting a degree, I can view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
+|Medium
+
+|As a careless typer, I can type mistakes into the command without the application crashing so that I do not have to re-run the program at every mistake.
 |Medium
 
 |As a user, I can save my personal module selection list onto the hard drive so that I can go back to it when I turn on the program the next time.
 |Medium
 
-|As a student applying to NUS, I wish to see a recommended schedule so that I can better plan around
+|As a student applying to NUS, I can see a recommended schedule so that I can better plan around
 |Medium
 
-|As a student applying to NUS, it can show me past statistics of the module so that I can make a better decision when choosing my modules based on my competency level
+|As a student applying to NUS, I can see past statistics of the module so that I can make a better decision when choosing my modules based on my competency level
 |Medium
 
-|As a student applying to NUS, I would like to know the module workload for the upcoming semester so that I can better plan for electives.
+|As a student applying to NUS, I can see the module workload for the upcoming semester so that I can better plan for electives.
 |Medium
 
-|As a thorough decision-maker, I want to be able to visit the NUS website associated with the module so that I can view the official webpage of the degree for extremely specific details.
+|As a person interested in a certain engineering discipline, I can have access to  everything NUS offers such as modules, research projects, internships etc. for it on one platform so as to make a more informed decision.
 |Medium
 
-|As a person ambitious about a certain engineering discipline, I would want to know about everything NUS offers such as modules, research projects, internships etc. for it so as to make a more informed decision.
+
+|As a person who likes to keep it short, I can have access to the user commands to be as simple as possible to search up for anything so that I don’t have to memorize and remember many long commands
 |Medium
 
-|As an advanced user, there should be an option to toggle the Module Name display so that I can view it in a format suitable for me.
-|Medium
-
-|As a person who likes to keep it short, I would want the user commands to be as simple as possible to search up for anything so that I don’t have to memorize and remember many long commands
-|Medium
-
-|As an advanced user, I want to make/delete user defined commands which execute a certain command for me 
+|As an advanced user, I can make/delete user defined commands which execute a certain command for me 
 |Medium
 
 |As an ambitious student, I can see which majors have a rigorous course curriculum so that I can apply for degree that is personally challenging.
 |Medium
 
-|As an enthusiastic student applying to NUS, it can link me to resources (Eg textbooks, external websites) for the module so that I can have a headstart in my studies. 
+|As an enthusiastic student applying to NUS, I can have links to resources (Eg textbooks, external websites) for the module so that I can have a headstart in my studies. 
 |Low
 
-|As a practical person, I can view what majors are the most in demand by employers in the job market so that I make my choices on my job prospects.
-|Low
-
-|As a student applying to NUS, I would want to be able to view the past cohort sizes so that I know what sort of competition awaits me in my university career.
-|Low
-
-|As a lazy typer, duke will auto suggest things according to my most frequently used words so that DukeJr. becomes easier to use as time goes on
+|As a lazy typer, I can be able to enter commands through auto suggestions according to my most frequently used words so that DEGREES.NUS becomes easier to use as time goes on
 |Low
 
 |===
