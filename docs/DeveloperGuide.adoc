@@ -729,6 +729,89 @@ Different ways were considered to display the employment statistics:
 
 == Testing
 
+
+=== *Notes for testing* +
+
+* If you receive the jar file in the format [CS2113T-F10-2][DEGREES.NUS].jar and the jar is unable to run, remove the square brackets.
+* This jar release will automatically populate with save data if the "data" folder is missing. It comes with a few degrees and tasks already loaded into its internal saves. It will generate external save files on its own as long as you follow these instructions for installing carefully:
+. Download the jar file.
+. Navigate to a directory you wish to use for testing and create a folder in it
+. Place the jar file in that folder and run it.
+. It should create a "data" folder in the same directory, as such that directory now has 2 folders: one containing the save files, and one containing the jar file.
+* It is assumed that cli is primarily used to open tabs, however clicking the tabs is fine as well.
+* This is compatible with mac os. Instructions for installing on Mac is the same as above.
+* If any external save files are missing or if the "data" folder is missing, the jar will use its internal save file, create a new external save file, and save its data there.
+
+=== Testing `add`, `detail`, `help` commands +
+* You can try using integers and negative numbers for <DEGREE> and <COMMAND>.
+* Its designed to only accept keywords and aliases, which is viewed in the `[Keywords]` tabs. You can try any of them in various cases or with missing strings.
+* For `help`, only the commands in the help tab are accepted. You can try strings outside of those.
+* Also for `help`, it should swap tabs if used on its own. Whitespace is not acceptable.
+* Multiple inputs separated by spaces are also viable test cases.
+
+=== Testing `compare` command +
+* You can try using integers and negative numbers for <DEGREE>.
+* Can accept a combination of keywords and aliases.
+* Multiple inputs separated by spaces are viable test cases.
+* The limit for compare inputs is 7. You can try exceeding that.
+
+=== Testing `remove`, `delete`, `done` command +
+* You can try using words instead of numbers.
+* Negative numbers are viable test cases.
+* Multiple inputs in <ID>.
+
+=== Testing `undo`, `redo` command +
+* Only works for commands that modify the task or degree list: `add`, `remove`, `delete`, `done`, `swap`, `event`, `todo`, `deadline`, `snooze`, `sort`.
+* `undo` only works once those commands has already been input, it should not work when the program is just started.
+* Similarly, `redo` only works once an `undo` was successful.
+
+=== Testing `todo`, `event`, `deadline` command +
+* Try adding deadlines to `todo`.
+* Mix up /at, /by, /priority.
+* Input something else in priority other than the standard <LEVEL>: low, normal, high or very high.
+* Mix cases for /at, /by, /priority and <LEVEL>.
+* Mix date and time formats from the standard: DD-MM-YYYY HHmm.
+* Mix the order of the command i.e. place /at before `event`.
+
+=== Testing `view_employment`, `cohort_size` command +
+* Only accepts keywords and are case sensitive.
+* Multiple inputs, numbers, negatives, different casings.
+* It should produce a bar graph in a separate window with the full name of the degree you input.
+
+=== Testing `swap` command +
+* Only accepts 2 integers within the range of the size of the choices list.
+* Try adding 0s in front of your integers
+* Try more than 2 inputs.
+* Try integers outside the range, or negative numbers.
+
+=== Testing `done` command +
+* Only accepts 1 integer within the range of the size of the task list.
+* Try adding 0s in front of your integers
+* Try multiple inputs.
+* Try integers outside the range, or negative numbers.
+* Try marking a task that is already done.
+
+=== Testing `snooze` command +
+* Try multiple inputs and strings.
+* Mix the format of the date and time: DD-MM-YYYY HHmm.
+* Go outside the range.
+* Mix the format of the `snooze` command.
+
+=== Testing `schedule`, `find` command +
+* Try multiple inputs and strings.
+* Use gibberish inputs that are cannot be found in deadlines and descriptions.
+* Mix the format of the date: DD-MM-YYYY
+
+=== Testing `sort` command +
+* Try multiple inputs and strings.
+* Use strings not in the given <CATEGORY>: priority, date, degree
+* Add your own tasks and continue sorting.
+
+=== Testing `choices`, `tasks`, `keyword` command +
+* Switch tabs when used on their own.
+* White space not acceptable.
+
+
 == Documentation
 
 <<<
