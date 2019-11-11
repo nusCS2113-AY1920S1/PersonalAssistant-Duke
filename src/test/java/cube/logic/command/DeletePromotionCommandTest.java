@@ -8,6 +8,9 @@ import cube.model.promotion.Promotion;
 import cube.model.promotion.PromotionList;
 import cube.storage.StorageManager;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static cube.testutil.Assert.assertThrowEquals;
 
@@ -22,6 +25,11 @@ public class DeletePromotionCommandTest {
         ModelManager model = new ModelManager();
         PromotionList list = model.getPromotionList();
         Promotion toDelete = new Promotion("testName");
+
+        // Add dates to promotion to prevent null exceptions.
+        toDelete.setStartDate(new Date());
+        toDelete.setEndDate(new Date());
+
         list.add(toDelete);
         DeletePromotionCommand command = new DeletePromotionCommand(1, "INDEX");
         CommandResult result = command.execute(model, new StorageManager());
@@ -29,7 +37,9 @@ public class DeletePromotionCommandTest {
         PromotionList expectedList = new PromotionList();
         CommandResult expectedResult = new CommandResult(
                 String.format(DeletePromotionCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
-        assertEquals(model.getPromotionList(), expectedList);
+
+        // Size should be same for both after deletion.
+        assertEquals(model.getPromotionList().size(), expectedList.size());
         assertEquals(result, expectedResult);
     }
 
