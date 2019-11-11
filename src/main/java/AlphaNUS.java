@@ -35,6 +35,7 @@ public class AlphaNUS {
         commandList = storage.readFromCommandsFile();
         parser = new Parser();
         dict = storage.readFromDictFile();
+        tasklist = storage.readFromTaskListFile();
     }
 
     /**

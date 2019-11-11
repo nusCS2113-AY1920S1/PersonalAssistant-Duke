@@ -95,6 +95,7 @@ public class ProjectManager {
         return projectslist;
     }
 
+    //@@author lijiayu980606
     /**
      * Assigns a budget to the project.
      * @param projectname Name of the project.
@@ -116,6 +117,7 @@ public class ProjectManager {
         return projectallocated; //TODO --> allocates budget to a project
     }
 
+    //@@author
     public HashMap<String, Payee> getCurrentProjectManagerMap() {
         return projectmap.get(currentprojectname).managermap;
     }

@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Task containing information of a deadline.
  */
-
+//@@author lijiayu980606
 public class Deadline extends Task implements Serializable {
     //protected String by;
     private static SimpleDateFormat dataformat = new SimpleDateFormat("dd-MM-yyyy");

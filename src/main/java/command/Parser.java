@@ -41,6 +41,7 @@ public class Parser {
                 storage.writeToFundFile(fund);
                 storage.writeToDictFile(dict);
                 storage.writeTocurrentprojectnameFile(process.projectManager.currentprojectname);
+                storage.writeToTaskListFile(tasklist);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -48,7 +49,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 process.undo(storage, ui);
             } else if (instr.isLoad(input)) {
-                process.backupProjects(ui, fund, storage, list);
+                process.backupProjects(ui, fund, storage, list, tasklist);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.redo(storage, ui);
@@ -89,7 +90,7 @@ public class Parser {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isFind(input)) {
+            } else if (instr.isFindPayee(input)) {
                 process.findPayee(input, storage, ui);
             } else if (instr.isFindTask(input)) {
                 process.findTask(input, tasklist, ui);

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import common.AlphaNUSException;
+import common.TaskList;
 import project.Fund;
 import project.Project;
 
@@ -30,6 +31,7 @@ public class Storage {
     private static String projectsfilepath = basefilepath + "/localdata/Projects.json";
     private static String commandlistfilepath = basefilepath +  "/localdata/history.json";
     private static String fundfilepath =  basefilepath + "/localdata/Fund.json";
+    private static String tasklistfilepath =  basefilepath + "/localdata/TaskList.json";
     private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
     private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
     private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
@@ -37,6 +39,7 @@ public class Storage {
     private static String backuphistoryfilepath = "Backuphistory.json";
     private static String backupfundfilepath = "BackupFund.json";
     private static String backupprojectsfilepath = "BackupProjects.json";
+    private static String backupTaskListfilepath = "BackupTaskList.json";
 
 
 
@@ -138,6 +141,31 @@ public class Storage {
             bufferedWriter.close();
         } catch (IOException e) {
             throw new AlphaNUSException("Unable to write to file: " + fundfilepath);
+        }
+    }
+
+    //@@author lijiayu980606
+    /**
+     * Writes current tasklist to local storage.
+     * @param taskList tasklist object containing fund details.
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
+    public void writeToTaskListFile(TaskList taskList) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(taskList);
+        try {
+            File file = new File(tasklistfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + tasklistfilepath);
         }
     }
 
@@ -293,6 +321,33 @@ public class Storage {
         return fund;
     }
 
+//@@author lijiayu980606
+    /**
+     * Read Fund from local storage and return it.
+     * @return Fund stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public TaskList readFromTaskListFile() throws AlphaNUSException {
+        Type tasklistType = new TypeToken<TaskList>(){}.getType();
+        TaskList tasklist;
+        try {
+            File file = new File(tasklistfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            tasklist = gson.fromJson(bufferedReader, tasklistType);
+            bufferedReader.close();
+            if (tasklist == null) {
+                tasklist = new TaskList();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return tasklist;
+    }
+
     //@@author E0373902
     /**
      * Read HashMap of projects in the undo file from local storage and returns it.
@@ -443,6 +498,30 @@ public class Storage {
         return fund;
     }
 
+//@@author lijiayu980606
+    /**
+     * Reads array list of tasks from local storage and returns it.
+     * @return Tasklist stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public TaskList readFromBackupTaskListFile() throws AlphaNUSException {
+        Type tasklistType = new TypeToken<TaskList>(){}.getType();
+        TaskList tasklist;
+        try {
+            InputStream in = getClass().getResourceAsStream(backupTaskListfilepath);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            tasklist = gson.fromJson(bufferedReader, tasklistType);
+            bufferedReader.close();
+            if (tasklist == null) {
+                tasklist = new TaskList();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return tasklist;
+    }
+
+    //@@author leowyh
     /**
      * Read HashMap of projects from local storage and returns it.
      * @return HashMap of Project objects stored in local storage.

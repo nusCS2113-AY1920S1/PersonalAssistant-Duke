@@ -33,7 +33,7 @@ Apart from these features, AlphaNUS also act as a personal assistant to help the
 
 .  Some example commands you can try:
 
-* `add project pr/rag` : Adds a project called `rag` to the record.
+* `add project pr/rag am/200` : Adds a project called `rag` with budget of 200 dollars to the record.
 * `list projects`: Lists all projects in the record.
 * `bye` : exits the app
 
@@ -53,7 +53,9 @@ Apart from these features, AlphaNUS also act as a personal assistant to help the
 
 ====
 
-=== Command Help: `help`
+=== Help
+
+==== Command Help: `help`
 Lists all available commands of AlphaNUS. +
 Format: `help`
 
@@ -61,7 +63,11 @@ Examples:
 
 * `help`
 
-=== Adding a project: `add project`
+=== Project
+
+==== Load Backup: `load`
+
+==== Adding a project: `add project`
 Adds a project called `PROJECT_NAME` to the record with budget `AMOUNT`.
 If `AMOUNT` is empty, the budget will be set to 0. +
 Format: `add project pr/PROJECT_NAME am/AMOUNT`
@@ -77,7 +83,7 @@ Examples:
 * `add project pr/Rag am/`
 * `add project pr/Arts Night am/100`
 
-=== Deleting a project: `delete project`
+==== Deleting a project: `delete project`
 
 Deletes a project called `PROJECT_NAME` from the record +
 Format: `delete project pr/PROJECT_NAME`
@@ -87,7 +93,7 @@ Examples:
 * `delete project pr/Rag`
 * `delete project pr/Arts Night`
 
-=== Going to a project to edit it: `goto project`
+==== Going to a project to edit it: `goto project`
 
 Goes to a project with `PROJECT_INDEX` in the record +
 Format: `goto PROJECT_INDEX`
@@ -96,7 +102,7 @@ Examples:
 
 * `goto 1`
 
-=== List all projects: `list projects`
+==== List all projects: `list projects`
 
 List all projects in the record +
 Format: `list projects`
@@ -105,37 +111,110 @@ Examples:
 
 * `list projects`
 
-=== Set a total fund: `set fund`
+==== Show budget of a project: `show budget`
+Show the budget assigned to a specific project and its details.
+Format: `show budget pr/PROJECT_NAME`
+
+Examples:
+
+* `show budget pr/rag`
+
+UI:
+
+image::showBudget.png[]
+
+==== Reduce Budget of a project: `reduce budget`
+Reduce the amount of budget assigned to a specific project and the reduced fund will be add back to the fund.
+Format: `reduce budget pr/PROJECT_NAME am/AMOUNT`
+
+[TIP]
+The reduced budget should be enough to cover the current spending fo the project.
+
+Examples:
+
+*`reduce budget pr/rag am/30`
+
+UI:
+
+image::reduceBudget.png[]
+
+
+=== Fund
+//Jiayu
+==== Set a total fund: `set fund`
 
 Set a total fund where the projects get their budgets from +
 Format: `set fund am/AMOUNT`
+
+[TIP]
+The fund must be a positive number of no more than 500,000 dollars.
 
 Examples:
 
 * `set fund am/2000`
 
-=== Add value to the total fund: `add fund`
+UI:
+
+image::setFund.png[]
+//Jiayu
+==== Add value to the total fund: `add fund`
 
 Add a value to the total fund where the projects get their budgets from +
 Format: `add fund add/AMOUNT`
+
+[TIP]
+The amount to add should be a positive number. To reduce fund please use `change fund` command instead
+
+[TIP]
+The total fund after this command should not be more than 500,000
 
 Examples:
 
 * `add fund add/500`
 
-=== Assign a value from total fund to a project: `assign fund`
+UI:
+
+image::addFund.png[]
+
+//Jiayu
+==== Assign a value from total fund to a project: `assign budget`
 
 Assign a value from the total fund to a project +
-Format: `assign fund pr/PROJECT_NAME am/AMOUNT`
+Format: `assign budget pr/PROJECT_NAME am/AMOUNT`
 
 [TIP]
 If there is not enough value for the remaining fund, you will not be able to assign fund to a project.
+[TIP]
+The assign amount should not be negative.
 
 Examples:
 
-* `assign fund pr/Rag am/300`
+* `assign budget pr/Rag am/500`
 
-=== Show the current status of fund: `show fund`
+UI
+
+image::assignBudget.png[]
+//Jiayu
+==== Change the current value of fund: `change fund`
+
+Allows the user to change the value of total fund in case that they have input a wrong number
+or would like to reduce the total fund. +
+Format: `change fund new/NEW_FUND`
+
+[TIP]
+The new fund should not be less than the current sum of the assigned budget.
+[TIP]
+The new fund should be a positive number of no larger than 500,000 dollars.
+
+Example:
+
+* `change fund new/2000`
+
+UI:
+
+image::changeFund.png[]
+//Jiayu
+==== Show the current status of fund: `show fund`
 
 Show the total fund, assigned fund and remaining fund +
 Format: `show fund`
@@ -144,7 +223,12 @@ Examples:
 
 * `show fund`
 
-=== Adding a new payee: `add payee`
+UI:
+
+image::showFund.png[]
+
+=== Payments and Payee
+==== Adding a new payee: `add payee`
 
 Adds a new payee named `PAYEE` to project with details of `PAYEE` such as their email address `EMAIL`, matriculation number `MATRICNUM` and phone number `PHONENUM`. +
 Format: `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
@@ -160,7 +244,7 @@ Examples:
 * GOOD: `add payee p/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
 * BAD: `add payee pR/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
 
-=== Adding a new payment: `add payment`
+==== Adding a new payment: `add payment`
 
 Adds a new payment under a specified `PAYEE` with payment name `ITEM` that incurs cost `COST` and have an invoice number `INVOICE`. +
 Format: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
@@ -175,8 +259,12 @@ Examples:
 * GOOD: `add payment p/John Doe i/Welcome Tea c/12.00 v/INV-001`
 * BAD: `add payment p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
 
+==== Delete an existing payee: `delete payee`
+==== Delete an existing payment: `delete payment`
+==== List Payments: ` `
+==== Find an existing payee with all his/her payments: `find payee`
 
-=== Edit the payment details: `edit`
+==== Edit the payment details: `edit`
 
 Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
 If only the payee fields are being modified, `INVOICE` should be blank. +
@@ -195,42 +283,35 @@ Examples:
 * `edit p/John Doe v/ f/EMAIL r/johnyy@u.nus.edu`
 * `edit p/John Doe v/INV-001 f/COST r/10.00`
 
-//=== Find a payment or deadline based on its description: `find`
-//
-//Find a payment or deadline based on its description +
-//Format: `find d/DESCRIPTION`
-//
-//[TIP]
-//there can have spaces in the description
-//
-//Examples:
-//
-//* `find d/welcome tea`
+//Jiayu
+==== Get total cost of a payee in current project: `total cost`
+This command calculates the total cost of all payments under a certain payee's name in the current project. +
+Format: `total cost p/PAYEE_NAME`
 
+Example:
 
-=== Delete a payee: `delete payee`
+* `total cost p/John`
 
-Delete a payee and their details +
-Format: `delete payee p/payee`
+UI:
 
-Examples:
+image::totalCost.png[]
 
-* `delete payee p/John`
+//Jiayu
+==== Sort deadlines af all existing unapproved payments: `reminder`
+This command sort payments from all payments that are not approved yet according to its deadline, and
+print out a list of such payments. The earlier payments are printed first. +
+Format: `reminder`
 
-//=== Approve a payment form: `approve`
-//
-//Approve a payment form with a message +
-//Format: `approve ID [m/MESSAGE]`
-//
-//[TIP]
-//the index of the task should not be out of range
-//
-//Examples:
-//
-//* `approve 3 m/approved by xxx on Monday`
-//* `approve 3`
+Example:
 
-//=== List out all current submission deadlines: `list`
+* `reminder`
+
+UI:
+
+image::reminder.png[]
+
+=== Tasks Management
+//==== List out all current submission deadlines: `list`
 //
 //List out all payments, sorted into overdue, pending and approved statuses, in order of ascending deadlines+
 //Format: `list`
@@ -261,15 +342,6 @@ Examples:
 //
 //* `delete task id/3`
 //
-
-=== (Proposed)See the nearest deadline: `reminder`
-
-Show the deadline task with the nearest deadline. +
-Format: `reminder`
-
-[TIP]
-the result deadline usually has a higher priority than the other deadlines
-
 //=== Edit a task's description: `edit`
 //
 //Edit a previously added task's description and details +
@@ -308,14 +380,16 @@ the result deadline usually has a higher priority than the other deadlines
 //
 //* `postpone 5 12`
 
-=== View previous input commands: `history`
+=== History Management
+
+==== View previous input commands: `history`
 
 view input commands entered by the user from the start till the present +
 Format: `history`
 
 image::history.png[]
 
-=== View previous input commands within a certain period: `view history`
+==== View previous input commands within a certain period: `view history`
 
 view input commands entered by the user from a start date to an end date, provided in the input +
 Format: `view history h/DATE_1 to DATE_2`

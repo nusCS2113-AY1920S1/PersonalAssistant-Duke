@@ -65,4 +65,12 @@ public class TaskList {
     public ArrayList<Task> returnArrayList() {
         return tasklist;
     }
+
+    //@@author lijiayu980606
+    public  void loadBackup(TaskList taskList){
+        this.tasklist.clear();
+        for (Task t:taskList.tasklist){
+            this.tasklist.add(t);
+        }
+    }
 }

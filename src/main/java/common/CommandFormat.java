@@ -43,11 +43,7 @@ public class CommandFormat {
     }
 
     public String findPayeeFormat() {
-        return "find p/PAYEE";
-    }
-
-    public String getPayeeFormat() {
-        return "getpayee PAYEE";
+        return "find payee p/PAYEE";
     }
 
     public String deletePayeeFormat() {
@@ -67,7 +63,7 @@ public class CommandFormat {
     }
 
     public String assignFundFormat() {
-        return "assign fund pr/PROJECT_NAME am/AMOUNT";
+        return "assign budget pr/PROJECT_NAME am/AMOUNT";
     }
 
     public String reducebudgetFormat() {
@@ -75,7 +71,7 @@ public class CommandFormat {
     }
 
     public String resetFundFormat() {
-        return "reset fund am/AMOUNT";
+        return "change fund new/AMOUNT";
     }
 
     public String reminderFormat() {
