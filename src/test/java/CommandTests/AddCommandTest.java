@@ -1,59 +1,81 @@
-// package CommandTests;
+package CommandTests;
 
-// import org.junit.jupiter.api.BeforeAll;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-// import org.junit.jupiter.api.io.TempDir;
-// import rims.command.*;
-// import rims.core.*;
-// import rims.exception.RimsException;
+import rims.command.*;
+import rims.core.*;
+import rims.exception.RimsException;
+import rims.resource.Resource;
 
-// import java.io.ByteArrayOutputStream;
-// import java.io.File;
-// import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Path;
 
-// //@@author hin1
-// /**
-//  * Test class that tests the addition of a new resource
-//  * to ResourceList.
-//  */
-// public class AddCommandTest {
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//     private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//     private static final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-//     private static final PrintStream originalOut = System.out;
-//     private static final PrintStream originalErr = System.err;
+//@@author hin1
+/**
+ * Test class that tests the addition of a new resource
+ * to ResourceList.
+ */
+public class AddCommandTest {
 
-//     private static Ui tempUi;
-//     private static Storage tempStorage;
-//     private static ResourceList tempResources;
+    private Ui tempUi;
+    private Storage tempStorage;
+    private ResourceList tempResources;
 
-//     private AddCommand commandUnderTest;
+    private AddCommand commandUnderTest;
 
-//     @TempDir
-//     public static File tempDir;
+    private File testResourceFile;
+    private File testReservationsFile;
 
-//     @BeforeAll
-//     public static void setStreams() throws RimsException {
-//         System.setOut(new PrintStream(outContent));
-//         System.setErr(new PrintStream(errContent));
+    @BeforeEach
+    public void init() throws RimsException {
+        this.testResourceFile = new File("tempAddResources.txt");
+        this.testReservationsFile = new File("tempAddReservations.txt");
+        this.tempUi = new Ui();
+        this.tempStorage = new Storage(testResourceFile.getName(),testReservationsFile.getName());
+        this.tempResources = new ResourceList(tempUi,tempStorage.getResources());
+    }
 
-//         File testResourceFile = new File(tempDir.getName() + "tempResources.txt");
-//         File testReservationsFile = new File(tempDir.getName() + "tempReservations.txt");
+    @AfterEach
+    public void deleteTempFiles() {
+        testResourceFile.delete();
+        testReservationsFile.delete();
+    }
 
-//         tempUi = new Ui();
-//         tempStorage = new Storage(testResourceFile.getName(),testReservationsFile.getName());
-//         tempResources = new ResourceList(tempUi,tempStorage.getResources());
-//     }
+    @Test
+    public void duplicateRoomTest() throws RimsException {
+        commandUnderTest = new AddCommand("seminar room 1");
+        commandUnderTest.execute(tempUi, tempStorage, tempResources);
+        commandUnderTest = new AddCommand("seminar room 1");
+        assertThrows(RimsException.class, () -> commandUnderTest.execute(tempUi, tempStorage, tempResources));
+        System.out.println("RimsException thrown");
+    }
 
-//     @BeforeEach
-//     public void init() throws RimsException {
-//         commandUnderTest = new AddCommand("seminar room 1");
-//     }
+    @Test
+    public void validAddRoomTest() throws RimsException {
+        commandUnderTest = new AddCommand("seminar room 2");
+        commandUnderTest.execute(tempUi,tempStorage,tempResources);
+    }
 
-//     @Test
-//     public void testAddCommand() throws RimsException {
-//         commandUnderTest.execute(tempUi,tempStorage,tempResources);
-//     }
-// }
+    @Test
+    public void validAddItemTest() throws RimsException {
+        commandUnderTest = new AddCommand("ball", 1);
+        commandUnderTest.execute(tempUi,tempStorage,tempResources);
+    }
+
+    @Test
+    public void validAddItemsTest() throws RimsException {
+        commandUnderTest = new AddCommand("ball", 50);
+        commandUnderTest.execute(tempUi,tempStorage,tempResources);
+    }
+
+
+}
