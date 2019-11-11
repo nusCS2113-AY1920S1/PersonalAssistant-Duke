@@ -48,9 +48,6 @@ public class DeleteBarCommand extends Command {
 
             barIndex = Integer.parseInt(message.substring(10));
 
-//        if (barIndex > songList.getSongIndex(songList.getActiveIndex()).getBars().size() || barIndex < 1) {
-//            throw new DucatsException("", "index");
-//        } else {
             activeSong.getBars().remove(barIndex - 1);
             storage.updateFile(songList);
             return ui.formatDeleteBar(activeSong, barIndex);
@@ -61,8 +58,7 @@ public class DeleteBarCommand extends Command {
         } catch (Exception e) {
             if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
                 throw new DucatsException("", "io");
-            }
-            else {
+            } else {
                 throw new DucatsException(message, "deletebar");
             }
         }

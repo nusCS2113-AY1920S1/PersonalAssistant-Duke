@@ -64,8 +64,7 @@ public class EditBarCommand extends Command {
         } catch (Exception e) {
             if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
                 throw new DucatsException("", "io");
-            }
-            else {
+            } else {
                 throw new DucatsException(message, "edit");
             }
         }
