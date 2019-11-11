@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package gazeeebo.commands.capCalculator;
+package gazeeebo.commands.capcalculator;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.parser.CapCommandParser;
@@ -46,17 +46,17 @@ public class ListCapCommand {
             String listWhat = "";
             double cap;
             switch (ui.fullCommand.split(" ").length) {
-                case 1:
-                    System.out.print("Which sem do you want to list? "
-                            + "all,1,2,3,4,5,6,7,8\n");
-                    ui.readCommand();
-                    listWhat = ui.fullCommand;
-                    break;
-                case 2:
-                    listWhat = ui.fullCommand.split(" ")[1];
-                    break;
-                default:
-                    throw new ArrayIndexOutOfBoundsException();
+            case 1:
+                System.out.print("Which sem do you want to list? "
+                        + "all,1,2,3,4,5,6,7,8\n");
+                ui.readCommand();
+                listWhat = ui.fullCommand;
+                break;
+            case 2:
+                listWhat = ui.fullCommand.split(" ")[1];
+                break;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
             }
             if ("all".equals(listWhat)) {
                 cap = calculatedCap.calculateCap(caplist);
@@ -127,8 +127,7 @@ public class ListCapCommand {
                         for (int j = 0; j < noBlankSpacing; j++) {
                             System.out.print(" ");
                         }
-                        System.out.print("| " + caplist.get(key).
-                                get(i).moduleCredit
+                        System.out.print("| " + caplist.get(key).get(i).moduleCredit
                                 + "  | " + caplist.get(key).get(i).grade
                                 + "\n" + lineBreak);
                         isEmpty = false;

@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package gazeeebo.commands.capCalculator;
+package gazeeebo.commands.capcalculator;
 
 import gazeeebo.parser.CapCommandParser;
 
