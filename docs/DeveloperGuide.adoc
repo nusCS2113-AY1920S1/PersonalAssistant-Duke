@@ -102,7 +102,7 @@ When the user inputs a command, the command will be parsed through by the parser
     - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
 . If invalid, the InvalidCommand class will be called for. In the InvalidCommand class, the invalid command entered by the user will be compared to the enum of commands,
 thus returning the closest possible command, if any, to whatever was entered by the user. `OOPS!!! Error occurred. Please input a valid command. Did you mean... <command>`
-Else, the user will be notified to input a valid command: `OOPS!!! Error occurred. Please input a valid command. Enter 'menu' to view our list of commands and 'menu <command>' to find out how to use them!`.
+Else, the user will be notified to input a valid command: `OOPS!!! Error occurred. Please input a valid command. Enter 'menu' to view our list of commands and 'menu COMMAND' to find out how to use them!`.
 
 image::ParserandCommandClassDiagram.png[]
 
@@ -360,7 +360,8 @@ Cons: Un-scalable, and is a bad design practice to return the subclass in the su
 // end::print[]
 
 // tag::improvisedparser[]
-=== Improvising on current parser
+
+=== Improvisation of current parser
 
 ==== Implementation
 
@@ -374,21 +375,34 @@ the user, which makes it significantly harder for new users to use our applicati
 ===== Aspect: How the improvised parser works
 
 * ** Current Choice :** The original parser returns `???!` to the user.
+
 ** Pros: The user understands that the input command was not read correctly by the application.
 ** Cons: There is no help being provided to the user on the possible syntax of the command he wishes to use.
 * ** Alternative :** It will be implemented under the invalid command, where the input string will be compared with our existing commands,
 and the string with the highest similarity will be returned.
-For example, unnecessary spaces in `me n u` or an accidental typo such as `seect` will be taken into consideration
-and the strings `Did you mean.. menu?` and `Did you mean.. select?` would be returned respectively.
+For example, unnecessary spaces in `me n u` or an accidental typo such as `exig` will be taken into consideration
+and the strings `OOPS!!! Error occurred. Did you mean.. menu?` and `OOPS!!! Error occurred. Did you mean.. exit?` will be returned respectively.
 ** Pros: The application will be more robust against input errors by the user throughout the application and will be
-more user friendly since useful tips can be provided to them. Generally saves time and allows user to have a better
+more user friendly since useful tips can be provided to them. Generally saves time and allows users to have a better
 overall experience.
 ** Cons: This requires an extensive database of code to account for the different types of possible commands.
 
 ===== Aspect: Data structure to support the improvisation of parser
 
-* Include a function to compare the number of similar characters between two strings will be needed,
-and a function to pick out the command that is most similar to the command entered by the user will be needed.
+* Firstly, there is a boolean function named `contains` to check if any of the commands contains just one of the character(s)
+in the invalid command entered by the user.
+E.g. Should the user enter `f`, since none of the commands has `f` in it, the system will prompt the user to enter a valid command,
+or to enter `menu` to view the list of the available command and `menu COMMAND` on how to use it.
+- Next, if the above function returns true, the `hasStartWith` function is then used to check if any of the commands starts with the user's input.
+E.g. if the user enters `ar`, the function will return true since both `arcade` and `archive` starts with that.
+    .  If the function returns true, a `for` loop will run to identify the commands that starts with the user's input.
+The commands identified will be added into an ArrayList of Strings.
+    . Else, a `for` loop will run to calculate the minimum edit distance to convert each command to the user's input.
+The command that has the smallest minimum edit distance will be added into the ArrayList of Strings. Should there be multiple
+commands with the same minimum edit distance, all the commands will be added into the ArrayList.
+* Lastly, if the ArrayList is not empty, the system will return `OOPS!!! Error occurred. Did you mean...` and proceed to print out
+all the commands stored in the ArrayList. Else, system will output `OOPS!!! Error occurred. Please input a valid command.
+Enter 'menu' to view our list of commands or 'menu COMMAND to find out how to use them!`
 
 // end::improvisedparser[]
 
@@ -398,27 +412,27 @@ and a function to pick out the command that is most similar to the command enter
 
 ==== Implementation
 
-The reset command is to be implemented to remove all the existing data the system has about the user.
-That means that the storage is cleared, and there will be no history on the past quizzes attempted and the scores.
+The reset command shall be used to remove all the existing data that the system has on the user.
+This means that the storage will be cleared and there will be no records on the past quizzes attempted by the user and their respective scores.
 
 ==== Design Considerations
 
 ===== Aspect: How reset command works
 
-- User just has to enter `reset`
+- User has to enter `reset`
 - If the data has not been reset, the system will then notify the user that such an action cannot be undone and will seek the user's confirmation
 `Are you sure you want to reset? Data removed will not be retrievable. Y/N`
 If the user enters `Y`, the data will be cleared and the user will be notified that `Your program has been reset`.
-If the user enters `N` or any other random string, the system will inform the user that the `Reset operation failed!`.
+If the user enters `N` or any other random string, the system will inform the user that the `Reset operation failed!` and the reset will be aborted.
 
 
 ===== Aspect: Data structure to support the reset command
 
-- A reset command extending the existing command class will be needed
+- A reset command extending the existing command class will be needed.
 
 - Under the execute() block, the storage will then be called for it to be cleared.
 
-* Pros: Efficient memory allocation as user can decide when to reset
+* Pros: Efficient memory allocation as user has easy access to reset his data.
 
 // end::reset[]
 === [Proposed] ToDo Command

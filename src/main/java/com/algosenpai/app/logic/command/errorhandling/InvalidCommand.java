@@ -167,13 +167,4 @@ public class InvalidCommand extends Command {
         }
         return false;
     }
-
-    /*private static boolean contains(List<String> list, String input) {
-        for (String s : list) {
-            if (s.contains(input)) {
-                return true;
-            }
-        }
-        return false;
-    }*/
 }
