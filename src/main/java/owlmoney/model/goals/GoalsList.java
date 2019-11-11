@@ -440,8 +440,7 @@ public class GoalsList {
                             + "\n(You still have a remaining of $" + goalList.get(i).getRemainingAmount()
                             + " to reach your goal!)");
                     count++;
-                }
-                else if (goalList.get(i).getGoalsDateInDateFormat().after(new Date())
+                } else if (goalList.get(i).getGoalsDateInDateFormat().after(new Date())
                         && goalList.get(i).convertDateToDays() <= 10 && !goalList.get(i).getRawStatus()) {
                     ui.printMessage("- " + goalList.get(i).getGoalsName() + " is due in "
                             + goalList.get(i).convertDateToDays() + " days. " + "\n(You still have a remaining of $"
