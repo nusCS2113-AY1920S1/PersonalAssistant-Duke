@@ -29,7 +29,7 @@ El Duque is a desktop task manager made for computing students. More importantly
 
     java -jar El-Duque.jar
 +
-image::Ui.png[width="790"]
+image::Ui.png[]
 +
 
 [NOTE]
@@ -96,6 +96,8 @@ Adds an event to the task manager. Events support the same functionalities of ta
 
     event Student Life Fair -t tomorrow 1000
 
+//tag::nova[]
+
 === Modifications
 
 ==== Priority
@@ -104,7 +106,9 @@ Priority tagging for tasks have 3 levels. `l` , `m` and `h` to represent low, me
     -p h
 
 [NOTE]
-Feel free to type `low`, `medium` or `high` as well, El Duque understands. +
+Feel free to type `low`, `medium` or `high` as well, El Duque understands.
+
+//end::nova[]
 
 ==== Recurring Tasks
 Recurring tasks are tasks that will mark itself as undone after the recurrence period.
@@ -112,6 +116,8 @@ A daily task will be refreshed daily, saving you the trouble of having to recrea
 Recurrence periods supported are `daily` and `weekly`.
 
     -r daily
+
+//tag::nova[]
 
 ==== Duration
 Duration assigned to task denotes the amount of time in hours you assigned for the task.
@@ -130,6 +136,8 @@ El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` a
 [TIP]
 If a valid but non-existent date is passed in, El Duque will correct it to the closest existent date. +
 e.g `-t 310219` will be corrected to 28-02-19.
+
+//end::nova[]
 
 === Listing all tasks : `list`
 Shows a list of all tasks in the task manager. +
@@ -202,6 +210,8 @@ It is possible that there can be more than one eligible filter to be recommended
     Would you like to assign task "prepare food for cs party" to filter "cooking"? (Y/N)
     Y
 
+[NOTE]
+After executing the `autoassign` command, even if the user chose not to assign a filter, it will still cause an addition to our stored commands to be undone. If the user executes `undo` after executing `autoassign`, regardless of whether a task was autoassigned, a message "The autoassign command has been undone" will be shown to the user.
 //end::ajl[]
 
 //tag::shaun97[]
@@ -229,6 +239,7 @@ Shown below are the list of keywords and the respective attributes that they edi
 * `r` : recurrence
 
 //end::shaun97[]
+//tag::nova[]
 
 === Deleting a task : `delete`
 
@@ -252,8 +263,6 @@ Deletes the 2nd task in the task list.
 
 Deletes the 1st task in the list shown by the `-CS2113 list` command.
 
-
-// tag::undoredo[]
 === Undoing previous command : `undo`
 
 Restores the task manager to the state before the previous _undoable_ command was executed. +
@@ -262,29 +271,41 @@ Restores the task manager to the state before the previous _undoable_ command wa
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`task`, `event`, `edit`, `delete` and `done`).
+Undoable commands: those commands that modify the program's current state (`task`, `event`, `edit`, `delete`,`clear`,`autoassign`, and `done`).
 ====
-
+___
     delete 1
     list
     undo
 
-This will reverse the `delete 1` command.
+The above undo will reverse the `delete 1` command.
 
+___
     list
     undo
 
-The `undo` command fails as there are no undoable commands executed previously.
+This undo fails as there are no undoable commands executed previously.
 
+___
     delete 1
     edit 2 -p high
     undo
     undo
 
-This first undo will reverse the `delete 1` command. +
-The second undeo will reverse the `edit 2 -p high` command. +
+The first undo will reverse the `edit 2 -p high` command. +
+The second undo will reverse the `delete 1` command. +
 
-//end::undoredo[]
+___
+
+    autoassign 2
+    This task's description contains the filter "cs", would you like to assign to it? (Y/N)
+    N
+    Alright then.
+    There are no suitable filters to assign based on similar words.
+    undo
+
+This undo will reverse the `autoassign 2` command even though you chose to not assign the chosen filters to it. This is because the program recognises the autoassign command as being executed even though the state of the program has changed.
+//end::nova[]
 
 === Clear: `clear`
 Clears the entire task list.

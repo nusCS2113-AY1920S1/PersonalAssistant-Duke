@@ -52,7 +52,6 @@ public class AutoAssignCommand extends Command {
      */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
-        Task t = tasks.get(index);
-        undoStack.addAction(new SetCommand(Optional.empty(), index, new Task(t)));
+        undoStack.addAction(new ReplaceCommand(tasks.getList(), Optional.empty(), "autoassign"));
     }
 }

@@ -18,7 +18,19 @@ By: `CS2113-T16-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `El-Duque.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your personal Task Manager.
+.  Open the command line and navigate to the selected folder and type in the following command.
+
+    java -jar El-Duque.jar
++
+image::Ui.png[]
++
+
+[NOTE]
+If you are running the program for the first time, El Duque will preload 20 tasks to get you started!
 
 == Design
 
@@ -394,17 +406,58 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a task by name |locate details of tasks without having to go through the entire list
 
+|`* * *` |user |add a priority tag to a task |keep track of which tasks have a higher urgency to complete
+
+|`* * *` |user |add a task type |differentiate between tasks and events
+
+|`* * *` |user |save all my tasks |keep track of every task I need even after I turn off the program
+
+|`* * *` |user |add a task date time |know when my task is due or when my event will start
+
+|`* * *` |user |display all tasks |see an overview of all my tasks and events
+
+|`* * *` |user |display tasks fulfilling a specific criteria |see an overview of only tasks and events which I am currently interested in
+
+|`* * *` |user |check how many tasks I need to complete in different time frames |prioritise my tasks based on their deadlines and better manage my time in the near future
+
+|`* * *` |user |add location tag to events |better keep track of where my event is held at
+
+|`* * *` |user |view different lists for different projects |visualise what are the tasks I need to complete for each project
+
+|`* *` |user |type commands in natural language |input tasks more quickly without thinking about a strict format
+
+|`* *` |user |view only undone tasks |see all the tasks which I have not done to get a feel of how much work I need to do
+
+|`* *` |user |view only urgent tasks |see all the tasks which I have to complete as soon as possible
+
+|`* *` |user |have my tasks automatically sorted by urgency based on date time and priority | view all of my urgent tasks
+
+|`* *` |user |schedule tasks |keep adding repeat tasks
+
+|`* *` |user |create a new Task type |better segregate my task list for my ease in interpreting and saving task data
+
+|`* *` |user |auto update task priority based on the current task priority and how soon the deadline of the task is | better priorities which tasks to complete
+
+|`* *` |user |auto startup program at certain important times |be reminded of impending tasks to complete
+
+|`* *` |user |auto predict the urgency of tasks I create |spend less time organising the priority of tasks
+
+|`* *` |user |edit the config file of the program |change how the program works to better suit my needs
+
+|`*` |user |cloud save my tasks |access my tasks from all my devices
+
+|`*` |user |share tasks with peers |collaborate with friends on common tasks e.g. projects
+
 |=======================================================================
 
-_{More to be added}_
-
+// tag::nova2[]
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `El-Duque` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Create a task
+=== Use case 1: Create a task
 
 *MSS*
 
@@ -439,15 +492,91 @@ Use case resumes at step 3.
 ** 4a1. System informs the user of conflict and requests for correct input.
 +
 Use case resumes at step 3.
+// end::nova2[]
+[discrete]
+=== Use case 2: Create a recurring task
 
-_{More to be added}_
-// tag::nova2[]
+*MSS*
+
+. Invoked from Use Case 1 Extension 3a
+. System will populate task with the recurring period
+. System will inform the user that the task has been scheduled successfully
+. System will refresh task every period
++
+Use case ends.
+
+[discrete]
+=== Use case 3: List existing tasks
+
+*MSS*
+
+. Start system
+. System starts with a welcome message
+. User uses the List command
+. System will display the relevant current tasks and information if they exist
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User enters additional flags for list command (flag effected can be nested) +
+[none]
+** 3a1. User uses a filter to show a list of only tasks belonging to that filter.
++
+Use case ends.
+
+[discrete]
+=== Use case 4: Edit task
+
+*MSS*
+
+. Start system
+. System starts with a welcome message
+. User uses the Edit command to update a task's information
+. System will update the task
+. System will inform the user that the task has been updated succesfully.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. System detects invalid input +
+[none]
+** 3a1. System requests for correct information
+** 3a2. User enters input again
+** 3a3. Steps 3a1 and 3a2 repeat until ser enters valid input or kill command
+** 3a4. Use case resumes from step 4
+
+[discrete]
+=== Use case 5: Search for a task using keywords
+
+*MSS*
+
+. Start system
+. System starts with a welcome message
+. User uses the Find command to search for a task with keywords
+. System will display tasks that contain the keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. There are no tasks found +
+[none]
+** 4a1. System informs the user that there are no tasks found.
++
+Use case ends.4
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. User interface should be clean and easily understood for users.
 
 [appendix]
 == Glossary
@@ -455,6 +584,9 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+
+
+// tag::nova2[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -494,22 +626,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting a task
 
-. Deleting a person while all tasks are listed
+. Deleting a task while all tasks are listed
 
 .. Prerequisites: List all tasks using the `list` command. At least one task in list.
 .. Test case: `delete 1` +
    Expected: First task is deleted from the list. Details of the deleted task shown in the status message.
 .. Test case: `delete 0` +
    Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-. Deleting a person while filtered tasks are listed
+. Deleting a task while filtered tasks are listed
 
 .. Prerequisites: List filtered tasks using the `<filter> list` command. At least one task in filtered list.
 .. Test case: `<filter> delete 1` +
    Expected: First task is deleted from the `<filter> list`. Details of the deleted task shown in the status message.
 .. Test case: `<filter> delete 0` +
    Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `<filter> delete`, `<filter> delete x` (where x is larger than the filtered list size) _
+.. Other incorrect delete commands to try: `<filter> delete`, `<filter> delete x` (where x is larger than the filtered list size) +
    Expected: Similar to previous.

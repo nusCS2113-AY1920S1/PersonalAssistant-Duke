@@ -58,7 +58,7 @@ public class ClearCommand extends Command {
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
         if (!tasks.isEmpty(filter)) {
-            undoStack.addAction(new ReplaceCommand(tasks.getList(), filter));
+            undoStack.addAction(new ReplaceCommand(tasks.getList(), filter, "clear"));
         }
     }
 }
