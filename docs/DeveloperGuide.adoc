@@ -874,26 +874,39 @@ Sales can be filtered by time.
 
 |===
 
-=== Ingredeint operations
+=== Shopping List operations
 
-. Buying a single ingredient
-.. Prerequisites: At least 1 ingredient in Shopping List
-.. Test case: `shop buy 1` +
-   Expected: The first ingredient is bought and transferred to Inventory List.
-.. Test case: `shop buy 0` +
-   Expected: No ingredients are bought.
+[cols="1,1,1",options="header"]
+
+.Buying Operation
+|===
+|Feature
+|Test Case
+|Expected
+
+.3+|Buying a single ingredient. Prerequisites: At least 1 ingredient in Shopping List.
+|`shop buy 1`
+|The first ingredient is bought and transferred to Inventory List.
+
+|`shop buy 0`
+|No ingredients are bought.
 Error details shown in the pop-up bar.
 
-. Buying multiple ingredients
-.. Prerequisites: At least 2 ingredients in Shopping List
-.. Test case: `shop buy 1, 2` +
-   Expected: The first and second ingredients are bought and transferred to Inventory List.
-.. Test case: `shop buy Cheese` +
-   Expected: No ingredients are bought.
+|`shop buy Cheese`
+|No ingredients are bought.
 Error details shown in the pop-up bar.
+
+.2+|Buying multiple ingredients. Prerequisites: At least 2 ingredients in Shopping List.
+|`shop buy 1, 2`
+|The first and second ingredients are bought and transferred to Inventory List.
+
+|`shop buy 0, 2`
+|No ingredients are bought.
+Error details shown in the pop-up bar.
+
+|===
 
 === Product operations
-
 
 [cols="1,1,1",options="header"]
 .Filter Operation
