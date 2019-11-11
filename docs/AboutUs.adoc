@@ -21,7 +21,7 @@ Responsibilities: Developer Guide, Documentation, Architecture
 
 === Shaun
 image::shaun97.png[width="150", align="left"]
-{empty}[http://github.com/shaun97[github]]  [<<[CS2113-T16-2][TeoWeiJieShaun]PPP#, portfolio>>]
+{empty}[http://github.com/shaun97[github]]  [<<ShaunPPP#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities:  Code Quality, User Guide, Unit Tests
