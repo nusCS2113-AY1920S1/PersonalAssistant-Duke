@@ -85,7 +85,20 @@ public class ParseEditGoals extends ParseGoals {
         }
     }
 
-
+    /**
+     * Checks if only one of /by or /in is provided for Goals deadline.
+     *
+     * @param by Date of goals deadline.
+     * @param in Days of goals deadline.
+     * @throws ParserException If both /by and /in provided, or none provided.
+     */
+    @Override
+    void checkOptionalParameter(String by, String in) throws ParserException {
+        if (!by.isBlank() && !in.isBlank()) {
+            logger.warning("Cannot specify both /in and /by when editing goals");
+            throw new ParserException("/by and /in cannot be specified concurrently when editing goals");
+        }
+    }
 
     /**
      * Returns command to execute editing of goals.

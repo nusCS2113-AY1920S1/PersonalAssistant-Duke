@@ -1499,7 +1499,7 @@ public class Profile {
      * Prints reminder for goals that is due in 10 days.
      */
     public void profileReminderForGoals() {
-        goalsList.reminderForGoals(ui);
         goalsList.overdueGoals(ui);
+        goalsList.reminderForGoals(ui);
     }
 }
