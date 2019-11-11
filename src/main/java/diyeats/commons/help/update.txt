@@ -1,8 +1,8 @@
 update the user profile
 
-    update [/reset] [/TAG]<VALUE>...
+    update [/TAG]<VALUE>...
 
-Tags you can use are: /name /age /weight /gender
+Tags you can use are: /name /age /weight /date /height /activity
 
 For example:
 
@@ -10,6 +10,6 @@ For example:
 
     update /weight 50
 
-2. You want to reset your personal information
+2. You want to update your body weight on 10/11/2019 to 52 kg
 
-    update /reset
+    update /weight 52 /date 10/11/2019

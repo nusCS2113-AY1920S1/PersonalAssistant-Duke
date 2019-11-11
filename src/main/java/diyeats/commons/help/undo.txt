@@ -1,3 +1,10 @@
 undo the previous command.
 
     undo
+
+For example:
+
+1. You made an erroneous command and you want to undo
+
+    undo
+
