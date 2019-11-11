@@ -24,7 +24,7 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `rims.jar` link:{repoURL/releases}[here].
+.  Download the latest `rims.jar` link:{https://github.com/AY1920S1-CS2113T-W12-1/main/releases}[here].
 .  Copy the file to the folder you want to use as the home folder for your local version of RIMS.
 .  In your terminal, navigate to this folder and run the command `java -jar {FILENAME.jar}`, where `{FILENAME.jar}` should be replaced with the name of the latest RIMS file.
 .  The user interface should appear in a few seconds.
