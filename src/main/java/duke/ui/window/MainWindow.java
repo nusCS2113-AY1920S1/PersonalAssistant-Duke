@@ -99,7 +99,10 @@ public class MainWindow extends UiElement<Stage> {
      * @param message Output message.
      */
     public void updateUi(String message) throws DukeFatalException {
-        currentContextWindow.updateUi();
+        if (currentContextWindow != null) {
+            currentContextWindow.updateUi();
+        }
+
         showMessage(message);
     }
 
