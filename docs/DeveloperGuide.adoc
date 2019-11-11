@@ -248,16 +248,19 @@ The usage statistics feature includes a collection of commands that can allow th
 
 ==== Recently Added
 The Recently Added feature allows the user to quickly check back on the words he had recently added to the application. It is facilitated by the RecentlyAddedCommand, which extends the Command class.
+
 It contains the following attributes:
-* numberOfWordsToDisplay: int
-This represents the number of words the user has requested to be displayed.
-* wordHistory: Stack<Word>
-The Word objects in the word bank will be stored in a first-in first-out data-structure of a stack so that the words can be retrieved quickly and in chronological order of addition to the word bank.
+
+* numberOfWordsToDisplay: int - This represents the number of words the user has requested to be displayed.
+* wordHistory: Stack<Word> - The Word objects in the word bank will be stored in a first-in first-out data-structure of a stack so that the words can be retrieved quickly and in chronological order of addition to the word bank.
+
 It implements the following operations:
+
 * RecentlyAddedCommand(int) - Assigns the value of words requested to the numberOfWordsToDisplay attribute on the construction of the command object.
 * execute(Ui, WordBank, Storage, WordCount) - Creates the wordHistory stack and calls Ui to display the recently added words accordingly.
 
 The following is an example usage scenario for the Recently Added feature.
+
 Step 1: The user enters history 5 command to see the last 5 words he has added to the word bank. The history command instantiates a RecentlyAddedCommand, which creates the wordHistory Stack. This is done by Storage calling the loadHistoryFromFile() method. A wordHistory stack containing the list of words in order of addition to the word bank is then created.
 
 .Sample stack containing list of words
@@ -269,54 +272,76 @@ Step 2: Ui is then called to display the numberOfWordsToDisplay, which in this c
 image::RecentlyAdded_wordHistory_stack.png[align='center']
 
 If the wordBank currently contains less than 5 entries, an exception will not be thrown. Instead, the Ui will display the full current list of words (less than 5) on the screen for the user. This is to account for the fact that a user may not recall precisely the number of words in his wordBank.
+
 The following sequence diagram shows how the RecentlyAdded feature works:
+
 [INSERT DIAGRAM]
+
+===== Design Considerations
+
+===== Aspect: Data structure to support the recently added command
+
+* **Alternative 1 (current choice):** Use a stack structure to store the word adding history in the word bank.
+** Pros: The data can be directly read and stored into a stack without any additional code to change the order the words were stored in. It is also very easy to list the word history since storing it into the stack automatically reverses the order of the words, such that the top-most entry in the stack is the latest added word.
+** Cons: Words have to be stored in order of being added for maximum efficiency. This just means that the file writer can only use append methods when adding instead of writing directly from the TreeMap structure which holds the word bank, but is not a problem in the overall code implementation.
+* **Alternative 2:** Use a list to store the word adding history in the word bank.
+** Pros: Easy to implement since it is one of the most widely used `collections` data structure.
+** Cons: Requires a loop to iterate through the items, and extra code to first sort the word in reverse order.
 
 ==== Search Frequency
 The Search Frequency feature allows the user to see the words with the highest/lowest search counts as a reflection of which words he was most unfamiliar with and therefore had to repeatedly search its meaning for. It is facilitated by the SearchFrequencyCommand, which extends the Command class, and the SearchCommand.
+
 SearchFrequencyCommand contains the following attributes:
+
 * order : String
 This represents the order the list displayed should be in (i.e. highest search count first or lowest search count first).
 It implements the following operations:
 * SearchFrequencyCommand(int) - Assigns the value of the display order to the displayOrder attribute on the construction of the command object.
 * execute(Ui, WordBank, Storage, WordCount) - Calls Ui to display the words from wordCount to the user
 SearchCommand contains the following attributes:
-* searchTerm : String
-This represents the word being queried.
+* searchTerm : String - This represents the word being queried.
+
 It implements the following operations:
+
 * SearchCommand(String) - Assigns the value of the word being queried to the searchTerm attribute on construction of the command object.
 * execute(Ui, WordBank, Storage, WordCount) - Obtains the meaning of the word from wordBank and increases the search count in wordCount
-The following is an example usage scenario for the Search Frequency feature.
+
+The following is an example usage scenario for the Search Frequency feature:
+
 Step 1: The user enters search w/happy to check the meaning of the word ‘happy’. Through the SearchCommand, the meaning of the word is retrieved by the wordBank and wordCount calls the increaseSearchCount method to increase the search count. Ui is called to display the meaning of the word to the user.
+
 Step 2: After a few searches of different words, which is carried out following the process described in Step 1, the user enters the command freq o/desc. SearchFrequencyCommand then tells Ui the displayOrder to display the word and their word counts in.
 
-==== Schedule Revision feature
-The schedule revision feature allows the user to schedule words existing in the wordbank for recurring revision notifications up till the deadline set. It is facilitated by ScheduledRevision and Date.
-When the user enters a word, he is able to set a deadline for the word, such as the test date on which the word will be tested. The system then schedules a series of recurring reminders up to the deadline that reminds him of the word and its meaning. In future versions this reminder could include sample sentences using the word or a small fill-in-the-blanks quiz for the user to enhance his learning.
+The following sequence shows how the Search Frequency feature works:
+
+[INSERT SEQUENCE DIAGRAM]
+
+==== Schedule Reminders feature
+The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
+
+[INSERT OBJECT DIAGRAMS]
+
 The following is a sample usage case:
+
 Step 1: Assume that the current date is 01/01/2019 and the word ‘happy’ and its meaning is stored in the wordBank.
+
 Step 2: The user enters schedule w/happy by/01/02/2019. The system should store the reminder deadline onto permanent storage. It calculates the number of days to the deadline, and schedules the recurring reminder for every 3 days until the deadline.
+
 Step 3: On each reminder date, there will be a notification showing the word and its meaning for the user to revise, thereby automating his learning process.
 
-==== Design Considerations
+[INSERT SEQUENCE DIAGRAM]
 
-===== Aspect: How undo & redo executes
+===== Design Considerations
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+===== Aspect: Where to show the reminder
 
-===== Aspect: Data structure to support the undo/redo commands
+* **Alternative 1 (current choice):** Use a popup window when the reminder is to be shown.
+** Pros: Allows users to get the reminder without disrupting their work flow, since they can continue using and referring to the app screen as is. Users can minimise this window and refer to the words to be revised later on.
+** Cons: Leads to extra javafx code to be implemented since a new window is needed.
+* **Alternative 2:** Show the reminder on the same main screen as the app.
+** Pros: More straightforward implementation.
+** Cons: Users might be working on something and the reminder popup may cause the view window to scroll past the line which they were referring to before the reminder. They may also easily miss the reminder when adding more commands.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
 === Word Synonyms feature
 ==== Adding Synonym
