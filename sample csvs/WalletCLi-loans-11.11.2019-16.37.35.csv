@@ -1,0 +1,6 @@
+"S/N","Description","Amount($)","Created Date","Name","Phone","Other Details","Lend/Borrow","Settled"
+"1","lunch","10.0","12/10/2019","Mary","91837362","Sister","borrow","no"
+"2","textbook","150.0","11/10/2019","Tom","81276251","Friend","borrow","no"
+"3","dinner","8.0","10/10/2019","Mary","91837362","Sister","lend","no"
+"4","phone bills","50.0","11/10/2019","Mary","91837362","Sister","borrow","no"
+"5","groceries","15.0","12/10/2019","Mary","91837362","Sister","borrow","no"
