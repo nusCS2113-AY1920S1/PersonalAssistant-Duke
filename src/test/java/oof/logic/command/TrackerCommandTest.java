@@ -61,7 +61,7 @@ public class TrackerCommandTest {
             oof.executeCommand("tracker /view");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Invalid Commmand!", e.getMessage());
+            assertEquals("Invalid Command!", e.getMessage());
         }
     }
 
