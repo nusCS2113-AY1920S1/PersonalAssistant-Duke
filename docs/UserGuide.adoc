@@ -258,12 +258,15 @@ Example: +
 ==== Sorting and printing the CCAs : `sort cca`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort cca f` 
+Format: `sort cca` 
 
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
-Format: `sort time DAYOFWEEK` , replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+
+Example: +
+`sort time monday`
 
 ==== Sorting and printing the modules : `sort module code`
 
@@ -280,7 +283,7 @@ Format: `sort module grade`
 Sorts the module list by the numerical order and prints the module list. + 
 Format: `sort module level`
 
-==== Sorting and printing the module : `sort modules mc`
+==== Sorting and printing the modules : `sort module mc`
 
 Sorts the module list according to the number of mcs and prints the module list. + 
 Format: `sort module mc`
@@ -289,17 +292,29 @@ Format: `sort module mc`
 
 Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to reconfirm that you want to clear your data. +
 [TIP]
-You should type either `y` or `n` to confirm or deny ModPlan's request to clear your module/cca data.
+You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data.
 
-==== Clearing the modules data : `clear modules`
+==== Clearing the modules data : `clear module`
 
 Clears and empties the list of modules being added. +
-Format: `clear modules`
+Format: `clear module`
 
-==== Clearing the CCA data : `clear ccas`
+==== Clearing the CCA data : `clear cca`
 
 Clears and empties the list of CCAs being added. +
-Format: `clear ccas`
+Format: `clear cca`
+
+==== Clearing the password : `clear password`
+
+Remove the current password. +
+ModPlan will ask for your current password if you have previously setup one. If the current password cannot be provided, clearing password will fail. +
+_Note that the password protection feature is currently disabled to facilitate feature testing and you will only be reactivated in ModPlan 2.0_ +
+Format: `clear password`
+
+==== Clearing all the data : `clear data`
+
+Remove all current user data. +
+Format: `clear data`
 
 === Adding another schedule to a CCA : `scheduleCca`
 
@@ -549,7 +564,7 @@ e.g `grade CS101 A-` +
 * *Sort* : 
 ** `sort cca`
 ** `sort cca --r`
-** `sort time`, `DAYOFWEEK` +
+** `sort time`, `DAY_OF_WEEK` +
 eg. `sort time monday` +
 ** `sort module code`
 ** `sort module grade`

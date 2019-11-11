@@ -2,9 +2,10 @@
 
 package planner.logic.command;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,26 +27,6 @@ import planner.logic.exceptions.legacy.ModEmptyListException;
 
 public class CapCommand extends ModuleCommand {
 
-    /* TO-DO
-
-    Cap report overall METHOD
-    get list of done modules from tasklist, store as tuple? new class? (mcs, letter grade, s/u) in a new arraylist
-    calculate mc weightage and cap, request for additional cap info if necessary eg. letter grade missing, s/u options
-    show cap
-
-    Cap what-if report one module METHOD
-    get list of prereq/preclusions of that module, store in arraylist
-    iterate through donemodules from tasklist, remove from above arraylist if done
-    if empty, proceed, else throw new exception modules not completed
-    calculate expected cap from the donemodules and their mc weightages
-    print expected cap
-
-    Cap what-if report overall METHOD ? dont know if needed
-    repeat call above method for all 2k modules and above
-    print expected cap @ graduation
-
-    */
-
     public String[] command;
     //public ArrayList<ModuleInfoSummary> completedModuleList = new ArrayList<>();
     //public ModuleList specificModuleCap;
@@ -53,6 +34,8 @@ public class CapCommand extends ModuleCommand {
     private double projectedModuleCap;
     private double projectedCap;
     private double mcCount;
+    private ArrayList<String> validGrades = new ArrayList<>(Arrays.asList("A+", "A", "A-", "B+", "B",
+        "B-", "C+", "C", "D+", "D", "F", "S", "U", "CS", "CU"));
 
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP.
@@ -64,6 +47,16 @@ public class CapCommand extends ModuleCommand {
      */
     public CapCommand(Arguments args) {
         super(args);
+        mcCount = 0;
+        currentCap = 0;
+        projectedModuleCap = 0;
+        projectedCap = 0;
+    }
+
+    /**
+     * Constructor for testing.
+     */
+    public CapCommand() {
         mcCount = 0;
         currentCap = 0;
         projectedModuleCap = 0;
@@ -127,20 +120,19 @@ public class CapCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper,
                         User profile)
         throws ModException {
-        Scanner scanner = new Scanner(System.in);
         switch (arg("toCap")) {
             case "overall":
                 plannerUi.capStartMsg();
-                calculateOverallCap(profile.getModules(), detailedMap, plannerUi, store, scanner);
+                calculateOverallCap(profile.getModules(), detailedMap, plannerUi, store);
                 break;
             case "module":
                 plannerUi.capModStartMsg();
-                calculateModuleCap(profile.getModules(), detailedMap, plannerUi, store, scanner);
+                calculateModuleCap(detailedMap, plannerUi, store, profile);
                 break;
             case "list":
                 TaskList<ModuleTask> hold = profile.getModules();
                 plannerUi.capListStartMsg(hold);
-                calculateListCap(profile.getModules(), detailedMap, plannerUi, store, scanner, hold);
+                calculateListCap(profile.getModules(), detailedMap, plannerUi, store, hold);
                 break;
             default:
                 throw new ModCommandException();
@@ -154,11 +146,10 @@ public class CapCommand extends ModuleCommand {
     public void calculateOverallCap(TaskList<ModuleTask> moduleTasksList,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
-                                    Storage store,
-                                    Scanner scanner)
+                                    Storage store)
         throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException,
         ModBadGradeException {
-        String userInput = scanner.nextLine();
+        String userInput = plannerUi.readInput();
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
                 throw new ModEmptyCommandException();
@@ -167,20 +158,21 @@ public class CapCommand extends ModuleCommand {
             if (userInfo.length <= 1) {
                 throw new ModBadGradeException();
             }
+            if (!validGrades.contains(userInfo[1].toUpperCase())) {
+                throw new ModBadGradeException();
+            }
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
             double mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
-            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu()
-                || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
+            if (letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
                 mcCount += mcTemp;
+                currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             }
             if (userInfo[1].isEmpty() || userInfo[1].isBlank()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
-
-            currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
-            userInput = scanner.nextLine();
+            userInput = plannerUi.readInput();
         }
         if (currentCap == 0 && mcCount == 0) {
             plannerUi.capMsg(0.00);
@@ -193,28 +185,27 @@ public class CapCommand extends ModuleCommand {
     /**
      * Calculates a predicted CAP for a module based on the grades attained for it's prerequisites.
      */
-    public void calculateModuleCap(TaskList<ModuleTask> moduleTasksList,
-                                    HashMap<String, ModuleInfoDetailed> detailedMap,
+    public void calculateModuleCap(HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
                                     Storage store,
-                                    Scanner scanner)
+                                    User profile)
         throws ModNotFoundException,
         ModNoPrerequisiteException,
         ModEmptyListException {
-        String moduleCode = scanner.next().toUpperCase();
+        String moduleCode = plannerUi.readInput().toUpperCase();
+        if (!detailedMap.containsKey(moduleCode)) {
+            throw new ModNotFoundException();
+        }
         if (detailedMap.get(moduleCode).getPrerequisites().isEmpty()
             ||
             detailedMap.get(moduleCode).getPrerequisites().isBlank()) {
             throw new ModNoPrerequisiteException();
         }
-        if (!detailedMap.containsKey(moduleCode)) {
-            throw new ModNotFoundException();
-        }
-        if (moduleTasksList.isEmpty()) {
+        if (profile.getModules().isEmpty()) {
             throw new ModEmptyListException();
         }
         ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
-        for (ModuleTask x : moduleTasksList) {
+        for (ModuleTask x : profile.getModules()) {
             if (prunedModules.contains(x.getModuleCode())) {
                 if (letterGradeToCap(x.getGrade()) != 0.00) {
                     mcCount += x.getModuleCredit();
@@ -223,11 +214,14 @@ public class CapCommand extends ModuleCommand {
                 prunedModules.remove(x.getModuleCode());
             }
         }
+        ArrayList<String> toBeRemoved = new ArrayList<>();
         if (!prunedModules.isEmpty()) {
             for (String module : prunedModules) {
                 boolean hasPreclusions = false;
-                for (ModuleTask x : moduleTasksList) {
-                    if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())) {
+                for (ModuleTask x : profile.getModules()) {
+                    if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())
+                        ||
+                        (detailedMap.get(x.getModuleCode()).getPreclusion().contains(module))) {
                         hasPreclusions = true;
                         mcCount += x.getModuleCredit();
                         projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
@@ -235,9 +229,12 @@ public class CapCommand extends ModuleCommand {
                     }
                 }
                 if (hasPreclusions) {
-                    prunedModules.remove(module);
+                    toBeRemoved.add(module);
                 }
             }
+        }
+        for (String x : toBeRemoved) {
+            prunedModules.remove(x);
         }
         if (prunedModules.isEmpty()) {
             if (projectedModuleCap == 0 && mcCount == 0) {
@@ -251,12 +248,6 @@ public class CapCommand extends ModuleCommand {
         }
     }
 
-
-
-    // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
-    // check if isempty, if it is then print cap score according to the cloned list of lists
-    //}
-
     /**
      * Calculates CAP according to the modules with grades in the ModuleTaskList.
      */
@@ -264,7 +255,6 @@ public class CapCommand extends ModuleCommand {
                                  HashMap<String, ModuleInfoDetailed> detailedMap,
                                  PlannerUi plannerUi,
                                  Storage store,
-                                 Scanner scanner,
                                  TaskList<ModuleTask> moduleList) {
         for (ModuleTask task : moduleList) {
             if (letterGradeToCap(task.getGrade()) != 0.00) {
@@ -299,3 +289,4 @@ public class CapCommand extends ModuleCommand {
         return prerequisiteModules;
     }
 }
+
