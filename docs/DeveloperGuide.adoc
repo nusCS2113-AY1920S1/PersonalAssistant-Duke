@@ -124,7 +124,6 @@ when the application is modified, we only had to rework the specific layer deali
 helped us in logically structuring the elements which made up ArchDuke. The Architecture Diagram given below explains the
 high-level design of ArchDuke.
 
-// TODO UPDATE architecture DIAGRAM
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
 
@@ -345,7 +344,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
-===3.2 CRUD functionality for Members
+=== 3.2 CRUD functionality for Members
 ==== Implementation
 
 CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
