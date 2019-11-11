@@ -121,7 +121,7 @@ Registers a resource as having been loaned out, from the current date until a us
 * `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE`
 * `loan /room ROOM_NAME /id USER_ID /by DEADLINE`
 ... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
-... `QUANTITY` specified must be a positive integer above 0.
+... `QUANTITY` must be a positive integer above 0.
 ... `USER_ID` must be a non-negative integer, with a value of 0 and above.
 ... If either of these values specified are invalid, the program will send an error message to the UI.
 ... If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
@@ -177,22 +177,10 @@ image:return.png[]
 
 
 .*Examples*:
-* `return /item frisbee`
+* `return /item frisbee` -> `2`
 * `return /room seminar room 1`
 
 
-==== View upcoming deadlines of items/rooms on loan: `deadlines`
-View a sorted list of upcoming deadlines for active loans.
-
-.*Format*:
-. `deadlines`
-* If the command entered is incorrect, the UI will prompt the user to type in the correct command.
-
-.*Examples*:
-* `deadlines`
-
-
-=======
 === Retrieving resource information
 
 ==== List resources and their statuses: `list`
@@ -243,6 +231,15 @@ Generates a variable-size calendar which shows a monthly view of all the loaned 
 ... Decreases the cell size of the calendar, decreasing its overall size for more concise reading.
 ... The calendar has a minimum cell size, beyond which it cannot be decreased.
 
+==== View stats: `stats`
+View how many resources are in used between two dates with interval less than 15 in the form of a simple bar graph.
+
+.*Format*:
+. `stats /from DATE /till DATE`
+
+.*Example*:
+. `stats /from 20/11/2019 1000 /till 29/11/2019 1000`
+
 === Others
 
 ==== Undo last command: `undo`
@@ -251,7 +248,7 @@ Undoes the last command that made changes to RIMS.
 .*Format*:
 * `undo`
 
-==== View resource statistics: 'stats'
+==== View resource statistics: `stats`
 View statistics on the loan and reservation frequencies of resources between a user-specified time period.
 
 The command generates a bar graph of resource reservations and loans per day, for the specified time period.
@@ -276,7 +273,7 @@ Reminds user about items or rooms due within a specific period of time, upon sta
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous RIMS folder.
 
 == Command Summary
-=======
+* *Add resource*:
 ** `add /room ROOM` +
 e.g. `add /room seminar room 1`
 * *Delete resource*:
@@ -318,7 +315,8 @@ To decrease calendar cell size.
 * *View reservation statistics*:
 ** `stats /from FROM_DATE /till TILL_DATE` +
 e.g. `stats /from 11/11/2019 1111 /till Wednesday 1300`
-* *Tag resources*: `tag /item ITEM /tag TAG` +
+* *Tag resources*: 
+** `tag /item ITEM /tag TAG` +
 e.g. `tag /item pen /tag study`
 * *Exiting the program*:
 ** `bye`

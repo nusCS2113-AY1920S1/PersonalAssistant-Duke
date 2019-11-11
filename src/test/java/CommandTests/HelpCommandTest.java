@@ -3,7 +3,6 @@ package CommandTests;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import rims.command.HelpCommand;
-import rims.command.ReserveCommand;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
@@ -11,11 +10,7 @@ import rims.exception.RimsException;
 import rims.resource.Resource;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HelpCommandTest {
     private HelpCommand commandUnderTest;
