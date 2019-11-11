@@ -78,13 +78,11 @@ public abstract class CommandSyntaxMessage {
             put("overlay_bar_group", overlay_bar_groupSyntax);
             put("overlay_bar_song", overlay_bar_songSyntax);
             put("list_group", list_groupSyntax);
-            put("ascii", asciiSyntax);
+            put("ascii song", asciiSyntax);
             put("undo", undoSyntax);
             put("redo", redoSyntax);
             put("metronome", metronomeSyntax);
             put("play", playSyntax);
-            put("close", closeSyntax);
-            put("clear", clearSyntax);
             put("exit", exitSyntax);
         }
     };
