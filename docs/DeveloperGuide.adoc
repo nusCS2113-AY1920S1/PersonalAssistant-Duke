@@ -1,4 +1,4 @@
-= Duke 2.0 - Developer Guide
+= DEGREES.NUS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -20,16 +20,18 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 === Purpose
 
-This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application DEGREES.NUS.
+
+DEGREES.NUS (DN) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
 
 === Scope
 
-This document describes the software architecture and various other software decisions undertaken for the implementation of D2. The intended audience of this document are developers, designers, software testers of D2 and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
+This document describes the software architecture and various other software decisions undertaken for the implementation of DN. The intended audience of this document are developers, designers, software testers of DN and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
 
 <<<
 == Setting Up
 === Prerequisites
-While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
+While DEGREES.NUS may work using different versions of Java and with other IDEs, the following are recommended because they have been used for testing:
 
 * Java Development Kit '11'
 * Intellij IDE
@@ -65,7 +67,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 === Verifying Setup
 . Ensure that Gradle has been imported by running `src/java/javafx/Launcher.java`
-. Test out basic Duke 2.0 commands by referring to the User Guide 
+. Test out basic commands by referring to the User Guide 
 
 <<<
 == Design
@@ -300,21 +302,29 @@ Aspect: [Proposed] Priority for Tasks
 ** Con: Requires saving different states of the list, or introducing more sorting commands
 
 === Degreelist Feature
-==== Implementation (Subjected to change later) 
+==== Implementation
 
-(Diagrams to be added in later)
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/degreelist.png[width="300", align = "left"]
 
 The degree list is a customizable list for the users to maintain a list to keep track of the degrees they are interested in and they can rank them in order of their preference as well. The degree list functionalities are facilitated by the class `DegreeList`. It makes use of a private static ArrayList of Strings to keep track of all the degrees entered. It implements the following methods that are needed for the user to add, remove or re-arrange degrees: 
 
-`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, following which it is written to the text file to keep a record. It is written to the text file using `BufferedWriter`. 
+`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, after checking if duplicates of the degree or its common aliases already exist in the ArrayList.
 
-`DegreeList#delete(String input, DegreeListStorage dd)`: This function takes in two parameters, the first being a string which contains index of the degree the user wishes to remove from the degree list and the second being the class DegreeListStorage (to be changed and linked to main Storage). This function not only deletes the degree the user wishes to remove from the ArrayList, but the function AddRemoved also updates the text file and adds the word ‘REMOVED’ next to the degree removed and is not considered in further analysis. 
+`DegreeList#delete(String input)`: This function takes in a string which contains index of the degree the user wishes to remove from the degree list. This function deletes the degree the user wishes to remove from the ArrayList, after checking if if it within bounds or not.
 
-`DegreeList#swap(String input, DegreeListStorage dd)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function. A method from the DegreeListStorage is then called in order to update the text file with the current index of the degree after the swap. 
+`DegreeList#swap(String input)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function.  
 
-==== [Proposed] Display of degree-related statistics in a tabular format or in a bar chart
+An example usage scenario details how the mechanism behaves at each step:
 
-In the future releases, upon adding a degree, the user will see the related information of the degree such as the cohort sizes of the past 3-4 years, and the employment rate post graduation and the average salary. This information will be deployed in a tabular format or using visual aids, such as bar graphs
+*Step 1*: The user launches the application, and Duke will initialize the ArrayList by reading the corresponding text file of degrees using the `DegreeListStorage#ReadFile()` method. 
+
+*Step 2 (i)*: The user inputs the command `add ComE` to add Computer Engineering to his/her choice of degree programmes and this is then added to the ArrayList of degrees.
+
+*Step 2 (ii)*: The user inputs the command `remove 2` to remove the second degree on their list, and this is then removed from the ArrayList of degrees
+
+*Step 2 (iii)*: The user inputs the command `swap 1 2` to swap the degrees at index 1 and 2, according to their preference and this is then updated on the ArrayList of degrees.
+
+*Step 3*: The user inputs `bye`. The `Storage#add_degrees` method is then called in order to over-write the text file with the current degrees in the ArrayList in the specific order the user wants.
 
 ==== Design considerations
 
@@ -585,7 +595,7 @@ Given below is the UML Diagram relating how DegreeManager is linked to the main(
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeManagerInit.png[width="900", align = "left"]
 
-As detailed in the diagram above, when the main logic is initialized, an instance of Duke is created. Duke will subsequently create a Storage class. Duke will then create DegreeManager which will use Duke's instance of Storage. DegreeManager will fetch the information regarding the list of degrees from Storage. Subsequently, for each degree in the list, it will crete a Degree class to be stored within itself.
+As detailed in the diagram above, when the main logic is initialized, an instance of Duke is created. Duke will subsequently create a Storage class. Duke will then create DegreeManager which will use Duke's instance of Storage. DegreeManager will fetch the information regarding the list of degrees from Storage. Subsequently, for each degree in the list, it will create a Degree class to be stored within itself.
 
 ==== Design Considerations
 
@@ -605,10 +615,117 @@ How DegreeManager handles the checking of valid degree names:
 *** Can be used to instantly determine if two keys belong to the same set as well.
 *** Becomes faster over time through usage of Path Compression techniques.
 ** Cons: 
-*** Non-primitve storage container, requires self implementation which may be flawed.
+*** Non-primitive storage container, requires self implementation which may be flawed.
 *** Complicated to use when handling non-integer members.
 *** Extra Containers and functions needed to support the Disjoint Set.
 
+=== Graduate Employment Statistics Feature
+==== Implementation
+
+A class GraduateEmployment is used in order to display employment percentage rates and basic mean salary of recent graduates in the form of a dual axis bar chart. This class is an implementation of the Statistics interface. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/umlinheritance.png[width="300", align = "center"]
+
+The Statistics interface comprises of two methods that are overridden in the GraduateEmployment class. These two methods are:
+
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats (Fig xyz) and stored.
+
+`Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In the case of GraduateEmployment, an instance of the class Employment_BarChart is created and a dual axis bar chart is displayed with information for the employment percentage rates and basic mean salary. 
+
+
+The GraduateEmployment class also has the following function:
+
+`GraduateEmployment#getStats()`: This method returns an ArrayList of type Graduate Stats, namely Stats, when called and is used to store the information needed. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/gradstats.png[width="300", align = "center"]
+
+The Graduate Stats class as mentioned above allows to store the a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
+
+Following is a sequence diagram to depict the process of the statistics being loaded and stored in the ArrayList:
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/sqdges.png[width="500", align = "left"]
+
+==== Design Considerations
+
+Different ways were considered to display the employment statistics:
+
+* Alternative 1 (Current Choice): Display a dual axis bar chart
+** Pros: 
+*** Concise and clear display of data
+*** Visually pleasing
+*** Easy for the user to understand the data
+** Cons: 
+*** Needs two datasets to be rendered and then added to a single chart panel
+*** Complicated implementation as a work-around needs to be used and a series of null values need to be added to prevent overlap the axes 
+
+* Alternative 2: Display in the form of a table
+** Pros: 
+*** Easy implementation only requiring to manually draw a table
+*** Data read is directly displayed on the CLI
+** Cons: 
+*** Too simplistic of a display
+*** Doesn’t help users to visually compare the employment rates and mean salary for the past 3 years
+*** Need to hardcode the table out
+
+* Alternative 3: Display two separate graphs for two separate commands
+** Pros: 
+*** Cleaner code as it clearly distinguishes between the commands for employment rates and salary
+*** Distinction between data sets also for fewer bugs
+** Cons: 
+*** Troublesome for the user
+*** Side-by-side analysis will not be available to have a better idea
+
+=== Cohort Size Statistics Feature
+==== Implementation
+
+A class CohortSize is used in order to display the cohort sizes for each degree in the form of a bar chart. This class is an implementation of the Statistics interface.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UMLInheritance1.png[width="300", align = "center"]
+
+The Statistics interface comprises of two methods that are overridden in the CohortSize class. These two methods are:
+
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats (Fig xyz) and stored.
+
+`Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In this case, an instance of the class Cohort_BarChart is created and a bar chart is displayed with information of the number of male, female and total students in the years 2016-2018 for the degree requested. 
+
+The CohortSize class also has the following function:
+
+`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CohortStats.png[width="300", align = "center"]
+
+The CohortStats class as mentioned above allows to store the a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
+
+Following is a sequence diagram to depict the process of a bar chart being displayed to the user for a particular (excluding the loading of the statistics): 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/sqdcsd.png[width="500", align = "left"]
+
+==== Design Considerations
+
+Different ways were considered to display the employment statistics:
+
+* Alternative 1 (Current Choice): Display through a colourful bar chart
+** Pros: 
+*** Concise and clear display of data
+*** Visually pleasing
+*** Easy for the user to understand the data
+** Cons: 
+*** Integration of a third party library and hence, the need to request for permission
+
+* Alternative 2: Display in the form of a table
+** Pros: 
+*** Easy implementation only requiring to manually draw a table
+*** Data read is directly displayed on the CLI
+** Cons: 
+*** Too simplistic of a display
+*** Doesn’t help users to visually compare the cohort sizes for the past 3 years
+
+* Alternative 3: Display using a bar graph with asterix
+** Pros: 
+*** Doesn't require the hassle of a third-party library integration
+** Cons: 
+*** Troublesome for the user
+*** May be confusing for the user
 
 == Testing
 

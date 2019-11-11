@@ -1,2 +1,79 @@
-Omae wa mou shinderu
-Nani?
+= Quah You Jing Kane - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DEGREES<NUS
+
+---
+
+== Overview
+
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project. We chose to morph it into an application which is able to display information about NUS Degrees (from the Faculty of Engineering). This enhanced application enables prospective students to view the modules they would be required to take for a particular degree; manage degree applications and inform them of upcoming events related to NUS Open Houses; and even details the differences in (Modular) content between any 2 degrees.
+
+This is what our project looks like:
+[#img-Ui]
+.The Graphical User Interface for Degrees.NUS
+image::{imagesDir}/Ui.png[width="900"]
+
+My role was to design and write the code for the Degrees and Storage features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+Enhancement added: I added an entire package devoted to containing the information of modules of various types. In addition, I added the Degrees class which leverages upon these modules. 
+
+• What it does: The module package contains 4 classes. 2 of these 4 classes are extended from a parent Module class, and the fourth class is a container with enhanced comparing functionalities.  Degrees utilizes these module classes, however it sets its own restrictions on what kind of modules are valid. 
+
+• Justification: In the event that the university has broader or more varied module selection, the parent class can be extended. In addition, the Degrees class decides which type of Modules should be used, allowing administrators to set rules for faculties submitting their modular programme requirements. 
+
+• Highlights: There is a parent class Module and that the other two types of Modules are extended from them. This allows future developers to make extensions to this class to suit their module needs. An in-depth analysis of design alternatives was necessary to determine a future-proof solution; thus it was decided to implement a basic Module class which is comparable. This makes it such that it is possible for future extensions of the module class to remain comparable to older or more basic versions. This implementation was also challenging because it is not the module class which determines what type of module codes and strings are valid (that being the job of the Degree class). Therefore, it was difficult to create an implementation of three different module types which maintained comparability yet had distinctions between them.
+
+• Credits: Most of this work was self-created. I have heavily referenced Oracle JavaDocs in order to find suitable data structures for the ModuleList class.
+
+Code contributed: Please click these links to see a sample of my code: https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=kanequah[Functional Code] 
+Other contributions: 
+• Project management: o There were a total of 5 releases, from version 1.1 to 1.3. I managed release version 1.1 (1 release) on GitHub. 
+
+• Enhancements to existing features: 
+o Made changes to the pre-existing Storage class in order for stricter file validation as well as ease of files finding. (#87)
+
+• Documentation: 
+o Taught other members about adoc features.
+o Guided members to online resources for adoc.
+
+• Storage: 
+o Advised other group members on how to use the Storage class to fetch and store data.
+o Made recommendations to create storage friendly output to other members utilizing the storage class.
+o Ensured that the main save file would initialize safely even if not found or the file name given was incorrect. (#87)
+
+• Data: 
+o Made recommendations for utilizing certain symbols or phrases in order to demarcate different sections of data when saving.
+o Initialized the file read and writing functions, following safe or good practices in doing so. (#4)
+o Scraped data from official public NUS degree pages listing the information. (#87)
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=compare]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: DEGREES>NUS
+
+---

@@ -22,15 +22,16 @@ public class DegreeListStorage {
     List<Pair<String, Integer>> store = new ArrayList<Pair<String, Integer>>();
 
     /**
-     * The method reads the text file upon launching Duke.
-     * The Degreelist of the user is then updated based on the rank each degree is given by the user/
+     * The method reads the text file upon launching Duke and initialises a list with the degrees that the user has
+     * already saved from before
      *
+     * @param st it is a list of strings containing the data that has been read from the text file
      */
     public void ReadFile(List<String> st) throws DukeException {
         //Check for existence of external save file first
         if (!file.exists()) { //If it does not exist, read from internally
-            this.filename = "/data/savedegree.txt"; //text file that stores all the information
-            this.file = new File(filename);
+            //this.filename = "/data/savedegree.txt"; //text file that stores all the information
+            //this.file = new File(filename);
         }
         try {
             for (int i = 0; i < st.size(); i++) {

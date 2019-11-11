@@ -69,6 +69,12 @@ public class DegreeList implements Serializable, Cloneable {
         list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
     }
 
+    /**
+     * Method to check for duplicates in the list to prevent same degree from being added multiple times
+     * @param input the degree inputted by the user
+     * @return 0 or 1. If the list already contains the degree, the flag is set to 1. Else, it remains 0.
+     * @throws DukeException
+     */
     private int check_for_duplicates(String input) throws DukeException {
         int flag = 0;
         if (list.contains(input)){
@@ -163,7 +169,7 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree as specified by the user.
      * @throws DukeException The degree does not exist?
      */
-    public void add_custom(String input, Storage storage) throws DukeException {
+    public void add_custom(String input) throws DukeException {
         String fullDegreeName = Parser.degreeFullNameMap.get(input.toLowerCase());
         int flag = check_for_duplicates(fullDegreeName);
         if(flag == 0) {
@@ -184,7 +190,7 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree to be deleted
      * @throws DukeException Throws an error if the degree does not exist.
      */
-    public void delete(String input, DegreeListStorage dd) throws DukeException{
+    public void delete(String input) throws DukeException{
         try {
             int request = Integer.parseInt(input);
             request -= 1;
@@ -225,10 +231,9 @@ public class DegreeList implements Serializable, Cloneable {
      * The user can input 2 indices to rank 2 degrees based on his order of preference.
      *
      * @param input
-     * @param dd DegreeList Storage makes changes in the text file
      * @throws DukeException
      */
-    public void swap(String input, DegreeListStorage dd) throws DukeException {
+    public void swap(String input) throws DukeException {
         String[] split = input.split(" ");
         if(split.length < 2) {
             throw new DukeException("Please mention both the indices to swap the degrees.");

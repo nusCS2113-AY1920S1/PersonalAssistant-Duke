@@ -29,6 +29,7 @@ public class Task implements Serializable {
     Integer taskUrgency;
     //protected String dueDate;
     private Date dueDate = null;
+    private Date endDate = null;
     private ArrayList<Date> tentativeDates = new ArrayList<>();
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
     protected static DateFormat dateFormatter_event = new SimpleDateFormat("dd-MM-yyyy HHmm-HHmm");
@@ -67,16 +68,29 @@ public class Task implements Serializable {
      * @throws DukeException DukeException thrown when dateFormatter parsing fails
      */
     void readDate(String date) throws DukeException {
-        try {
-            String[] split = date.split(Parser.dateSeparator);
-            if (split.length == 1) {
-                this.dueDate = dateFormatter.parse(date);
-            } else {
-                this.readDate(split);
+        System.out.println(date);
+        if (!date.contains("to")) {
+            try {
+                String[] split = date.split(Parser.dateSeparator);
+                if (split.length == 1) {
+                    this.dueDate = dateFormatter.parse(date);
+                } else {
+                    this.readDate(split);
+                }
+            } catch (ParseException e) {
+                throw new DukeException("Error! Please enter date in the format DD-MM-YYYY 2359.");
+                //throw new DukeException("Please use DDD format for date");
             }
-        } catch (ParseException e) {
-            throw new DukeException("Error! Please enter date in the format DD-MM-YYYY 2359.");
-            //throw new DukeException("Please use DDD format for date");
+        }
+        else{
+            try {
+                String[] splitTwoDates = date.split(" to ");
+                this.dueDate = dateFormatter.parse(splitTwoDates[0]);
+                this.endDate = dateFormatter.parse(splitTwoDates[1]);
+
+            } catch (ParseException e) {
+                throw new DukeException("Error! Please enter date in the format DD-MM-YYYY 2359.");
+            }
         }
     }
 
@@ -197,6 +211,21 @@ public class Task implements Serializable {
             return "";
         }
     }
+
+
+    /**
+     * Returns endDate converted Date type into String.
+     *
+     * @return String Date as per Date format
+     */
+    public String getEndDate() {
+        if (this.endDate != null) {
+            return " to " + dateFormatter.format(this.endDate);
+        } else {
+            return "";
+        }
+    }
+
 
 
     /**
