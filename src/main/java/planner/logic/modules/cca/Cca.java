@@ -65,7 +65,7 @@ public class Cca extends TaskWithMultipleWeeklyPeriod {
                     .append(period.getDayOfWeek())
                     .append(", ");
         }
-        PrintUtil.printToFile(prefix.toString().substring(0, prefix.length() - 2));
+        //PrintUtil.printToFile(prefix.toString().substring(0, prefix.length() - 2), "test.txt");
         return prefix.toString().substring(0, prefix.length() - 2);
     }
 
