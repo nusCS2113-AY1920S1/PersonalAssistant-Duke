@@ -4,10 +4,7 @@ import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.logic.EventList;
 import mistermusik.ui.UI;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,9 +22,32 @@ public class Storage {
      * @param file The storage file
      */
     public Storage(File file) {
+
+
         File folder = new File("data");
         if (!folder.exists()) {
+            BufferedReader fileReader;
+            InputStream inputStream = Storage.class.getResourceAsStream("/data.txt");
+            InputStreamReader reader = new InputStreamReader(inputStream);
+            fileReader = new BufferedReader(reader);
             folder.mkdir();
+
+            String strAllLines = "";
+            String strCurrLine;
+
+            try {
+                while ((strCurrLine = fileReader.readLine()) != null) {
+                    strAllLines += strCurrLine + "\n";
+                }
+
+                FileWriter writer = new FileWriter(file);
+                writer.write(strAllLines);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("An unexpected error has occured while loading data. Pls re-download"
+                        + "the jar file and try again.");
+                System.exit(-1);
+            }
         }
         this.file = file;
     }
