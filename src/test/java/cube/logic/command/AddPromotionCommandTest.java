@@ -22,7 +22,9 @@ public class AddPromotionCommandTest {
         AddPromotionCommand command = new AddPromotionCommand(promotion);
         CommandResult result = command.execute(model, storage);
 
-        CommandResult expectedResult = new CommandResult(String.format(AddPromotionCommand.MESSAGE_SUCCESS, promotion, model.getPromotionList().size()), false, false);
+        CommandResult expectedResult = new CommandResult(
+                String.format(AddPromotionCommand.MESSAGE_SUCCESS, promotion,
+                        model.getPromotionList().size()), false, false);
         PromotionList expectedList = new PromotionList();
         expectedList.add(promotion);
 
@@ -39,6 +41,9 @@ public class AddPromotionCommandTest {
         list.add(promotion);
         AddPromotionCommand command = new AddPromotionCommand(promotion);
 
-        assertThrowEquals(CommandException.class, CommandErrorMessage.PROMOTION_ALREADY_EXISTS, () -> {command.execute(model, storage); });
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.PROMOTION_ALREADY_EXISTS, () -> {
+            command.execute(model, storage);
+        });
     }
 }

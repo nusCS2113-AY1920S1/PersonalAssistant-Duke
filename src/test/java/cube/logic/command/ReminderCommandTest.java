@@ -23,7 +23,7 @@ public class ReminderCommandTest {
         ModelManager model = new ModelManager();
         StorageManager storage = new StorageManager();
         ReminderCommand command = new ReminderCommand(3, 7);
-        CommandResult result = command.execute(model, storage);
+        final CommandResult result = command.execute(model, storage);
 
         Food food = new Food("testName");
         food.setStock(0);

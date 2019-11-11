@@ -31,6 +31,14 @@ public class FindCommand extends Command {
             + "%2$s\n";
 
     /**
+     * Getter for find by type.
+     * @return find by type of this command.
+     */
+    public FindBy getParam() {
+        return param;
+    }
+
+    /**
      * Default constructor.
      */
     public FindCommand() {
@@ -74,7 +82,7 @@ public class FindCommand extends Command {
         switch (param) {
             case INDEX:
                 CommandUtil.requireValidIndex(list, findIndex);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, list.get(findIndex), list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS, list.get(findIndex)));
             case NAME:
                 FoodList result = new FoodList();
                 int count = 0;
@@ -90,7 +98,7 @@ public class FindCommand extends Command {
                 if (count == 0) {
                     throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_M, count,result,list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_M, count,result));
             case TYPE:
                 CommandUtil.requireValidType(list, findDescription);
                 result = new FoodList();
@@ -106,7 +114,7 @@ public class FindCommand extends Command {
                 if (sortType != null) {
                     result.sort(sortType);
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_M, count,result,list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_M, count,result));
             default:
                 return null;
         }

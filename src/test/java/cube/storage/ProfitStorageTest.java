@@ -1,5 +1,5 @@
 /**
- * Testing for ProfitStorage utilities
+ * Testing for ProfitStorage utilities.
  *
  * @author kuromono
  */
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ProfitStorageTest {
 
     /**
-     * Test Getters/Setters for ProfitStorage
+     * Test Getters/Setters for ProfitStorage.
      */
     @Test
     public void profit_storage_test() {

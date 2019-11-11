@@ -23,6 +23,9 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 		int dateIndex = -1;
 		String[] params = new String[]{"-q","-t"};
 
+		if (args.length == 1) {
+			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+		}
 		if (ParserUtil.hasInvalidParameters(args,params)) {
 			throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
 		}
@@ -43,19 +46,19 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 			throw new ParserException(ParserErrorMessage.INVALID_NAME);
 		}
 		if (quantityIndex == -1) {
-			if (!ParserUtil.hasField(args,quantityIndex + 1)) {
-				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
-			}
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+		}
+		if (!ParserUtil.hasField(args,quantityIndex + 1)) {
+			throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
 		}
 		if (!ParserUtil.isValidInteger(args[quantityIndex + 1])) {
 			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
 		}
 		if (dateIndex == -1) {
-			if (!ParserUtil.hasField(args,dateIndex + 1)) {
-				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
-			}
 			return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex + 1]), new Date());
+		}
+		if (!ParserUtil.hasField(args,dateIndex + 1)) {
+			throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
 		}
 		return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex + 1]),
 				ParserUtil.parseStringToDate(args[dateIndex + 1]));

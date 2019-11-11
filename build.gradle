@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'cube'
-version '0.1.3'
+version '1.4'
 
 repositories {
     mavenCentral()
@@ -74,7 +74,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "cube"
-    archiveVersion = "0.1.3"
+    archiveVersion = "1.4"
     archiveClassifier = null
     archiveAppendix = null
 }

@@ -26,6 +26,7 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
      * @throws ParserException if Parsing is unsuccessful.
      */
     public ProfitCommand parse(String[] args) throws ParserException {
+        String[] params = new String[]{"-i","-t","-n","-all"};
         if (args.length < 6) {
             //generating profits and revenue requires at least 6 arguments, which is the case of generating for all
             //food within the given time period
@@ -52,6 +53,5 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             default:
                 throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-
     }
 }

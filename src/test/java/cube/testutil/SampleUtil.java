@@ -10,13 +10,13 @@ public class SampleUtil {
     /**
      * Generates some sample Food Products for testing.
      *
-     * @param NUM_OF_PRODUCTS Number of sample Food Products to store in Foodlist.
+     * @param numOfProducts Number of sample Food Products to store in Foodlist.
      * @return Generated FoodList of size NUM_OF_PRODUCTS
      */
-    public static FoodList generateSampleData(int NUM_OF_PRODUCTS) throws ParserException {
+    public static FoodList generateSampleData(int numOfProducts) throws ParserException {
         FoodList foodList = new FoodList();
 
-        for (int i = 0; i < NUM_OF_PRODUCTS; i += 1) {
+        for (int i = 0; i < numOfProducts; i += 1) {
             int testFoodIndex = i + 1;
             Food testFood = new Food("Food_" + testFoodIndex);
             testFood.setType("food");

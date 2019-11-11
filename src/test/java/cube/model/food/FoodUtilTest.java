@@ -25,12 +25,15 @@ public class FoodUtilTest {
         public FoodStub(String name) {
             this.name = name;
         }
+
         public FoodStub(int stock) {
             this.stock = stock;
         }
+
         public FoodStub(double price) {
             this.price = price;
         }
+
         public FoodStub(Date date) {
             this.date = date;
         }
@@ -39,14 +42,17 @@ public class FoodUtilTest {
         public String getName() {
             return name;
         }
+
         @Override
         public int getStock() {
             return stock;
         }
+
         @Override
         public double getPrice() {
             return price;
         }
+
         @Override
         public Date getExpiryDate() {
             return date;
@@ -54,7 +60,7 @@ public class FoodUtilTest {
     }
 
     @Test
-    public void SortByNameTest() {
+    public void sortByNameTest() {
         FoodStub f1 = new FoodStub("a");
         FoodStub f2 = new FoodStub("b");
         SortByName sort = new SortByName();
@@ -68,7 +74,7 @@ public class FoodUtilTest {
     }
 
     @Test
-    public void SortByStockTest() {
+    public void sortByStockTest() {
         FoodStub f1 = new FoodStub(-1);
         FoodStub f2 = new FoodStub(1);
         SortByStock sort = new SortByStock();
@@ -82,7 +88,7 @@ public class FoodUtilTest {
     }
 
     @Test
-    public void SortByPriceTest() {
+    public void sortByPriceTest() {
         FoodStub f1 = new FoodStub(-1d);
         FoodStub f2 = new FoodStub(1d);
         SortByPrice sort = new SortByPrice();
@@ -96,7 +102,7 @@ public class FoodUtilTest {
     }
 
     @Test
-    public void SortByDateTest() {
+    public void sortByDateTest() {
         FoodStub f1 = new FoodStub(new Date(2019, 10, 30));
         FoodStub f2 = new FoodStub(new Date(2019, 11, 30));
         FoodStub f3 = new FoodStub();
@@ -104,9 +110,9 @@ public class FoodUtilTest {
         int smaller = sort.compare(f1, f2);
         int equal = sort.compare(f1, f1);
         int larger = sort.compare(f2, f1);
-        int nullSmaller = sort.compare(f1, f3);
-        int nullEqual = sort.compare(f3, f3);
-        int nullLarger = sort.compare(f3, f1);
+        final int nullSmaller = sort.compare(f1, f3);
+        final int nullEqual = sort.compare(f3, f3);
+        final int nullLarger = sort.compare(f3, f1);
         assertEquals(smaller, -1);
         assertEquals(larger, 1);
         assertEquals(equal, 0);
