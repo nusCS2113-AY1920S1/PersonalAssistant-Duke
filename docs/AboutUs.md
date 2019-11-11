@@ -35,7 +35,7 @@ Responsibilities: Set-Reminders,View-Reminders & FindFreeTimeSlot Commands
 
 <img src="images/ltpz.png" alt="Peize" width="150"/>
 
-\[[github](http://github.com/ltpz)\] \[[portfolio](#ltpz#)\]
+\[[github](http://github.com/ltpz)\] \[[portfolio](teams/LTPZ.pdf)\]
 
 Role: Developer  
 Responsibilities: Recurring Deadline & Help Command ,Model Component
