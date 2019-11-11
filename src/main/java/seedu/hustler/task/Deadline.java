@@ -56,19 +56,6 @@ public class Deadline extends Task {
         return "D|" + super.toSaveFormat() + "|" + convertDateTime(by) + super.toSaveInputDateTime();
     }
 
-    /**
-     * Checks equality with another Deadline instance.
-     *
-     * @param temp the instance to compare against.
-     * @return true or false to the comparison.
-     */
-    public boolean equals(Deadline temp) {
-        if (this.description.equals(temp.description) && this.by == temp.by) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public LocalDateTime getDateTime() {
         return this.by;
@@ -79,6 +66,9 @@ public class Deadline extends Task {
         this.by = localDateTime;
     }
 
+    /**
+     * Checks equality with another Deadline object.
+     */
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline
