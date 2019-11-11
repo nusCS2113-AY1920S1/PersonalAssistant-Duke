@@ -62,7 +62,6 @@ public class UndoBudgetCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
-
     }
 }
 //@@author

@@ -68,7 +68,6 @@ public class ResetBudgetCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
-
     }
 }
 //@@author
