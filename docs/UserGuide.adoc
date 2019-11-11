@@ -422,6 +422,68 @@ The output will be an ascii printed version of the song after overlaying.
 
 === Displaying song in ASCII format: `ascii song`
 
+This command lets you view the song you are creating as a song sheet in ASCII format. Here’s an example of how it looks like:
+
+image::ascii_song.png[]
+
+Different symbols are used to represent music notes, rest note and different durations as shown in the table below:
+
+[cols=3*]
+|===
+| *Note Type*
+| *Relative Duration*
+| *Symbol Used*
+
+| Music
+| 1
+| *
+
+
+| Music
+| 3/4
+| $.
+
+| Music
+| 1/2
+| $
+
+| Music
+| 3/8
+| @.
+
+| Music
+| 1/4
+| @
+
+| Music
+| 1/8
+| !
+
+| Rest
+| 1
+| #
+
+| Rest
+| 3/4
+| %.
+
+| Rest
+| 1/2
+| %
+
+| Rest
+| 3/8
+| ^.
+
+| Rest
+| 1/4
+| ^
+
+| Rest
+| 1/8
+| &
+|===
+
 === Undoing your previous action: `undo`
 
 UndoCommand can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
