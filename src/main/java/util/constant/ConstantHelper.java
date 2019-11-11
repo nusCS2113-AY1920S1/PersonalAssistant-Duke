@@ -11,7 +11,8 @@ public class ConstantHelper {
         " YMM   \"\"` MMMM   \"W\"   \"YUMMMMMP\"MMM    YM MMMMP\"`   \"YmmMMMM\"\" MMM \"MMP\" \"\"\"\"YUMMM",
         "=======================================================================================",
         "\t Welcome to ArchDuke Project Manager!",
-        "\t Enter 'help' for the list of commands."
+        "\t Enter 'help' for the list of commands.",
+        "======================================================================================="
     };
 
     public static final String HORILINE = "\t+----------------------------------------------------------------------+";

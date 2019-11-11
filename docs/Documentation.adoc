@@ -1,0 +1,12 @@
+= ArchDuke - Documentation
+
+We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
+for essential syntax unlike MarkDown.
+
+== 4.1 Written documentation
+The user and developer guide are written and formatted using AsciiDoc.
+
+== 4.2 Diagrams
+Diagrams are drawn and edited using the tool https://www.draw.io/[draw.io].
+The tool provides support for a wide range of UML diagrams, such as class, object and sequence diagrams.
+
