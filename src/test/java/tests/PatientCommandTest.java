@@ -5,6 +5,7 @@ import duke.command.ObjCommand;
 import duke.command.patient.PatientDeleteSpec;
 import duke.command.patient.PatientEditSpec;
 import duke.command.patient.PatientNewSpec;
+import duke.command.patient.PatientPrimarySpec;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.Plan;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -132,15 +134,32 @@ public class PatientCommandTest extends CommandTest {
 
     @Test
     public void patientPrimaryCommand_validTarget_impressionSetAsPrimary() {
-        String[] switchNames = {"name", "description"};
-        String[] switchVals = {"test", "test description"};
-        Impression imp = new Impression("test", "test description", patient);
+        String[] switchNames = {};
+        String[] switchVals = {};
+        Impression imp2 = new Impression("test2", "test description", patient);
+        Impression imp3 = new Impression("test3", "test description", patient);
+        ObjCommand priIdxCmd = null;
+        ObjCommand priNameCmd = null;
         try {
-            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
-            newImpCmd.execute(core);
-            assertTrue(imp.equals(patient.getImpression("test")));
+            patient.addNewImpression(imp2);
+            patient.addNewImpression(imp3);
+            priIdxCmd = new ObjCommand(PatientPrimarySpec.getSpec(), "2", switchNames, switchVals);
+            priNameCmd = new ObjCommand(PatientPrimarySpec.getSpec(), "test3", switchNames, switchVals);
         } catch (DukeException excp) {
-            fail("Exception thrown when validly creating patient from command!");
+            fail("Exception thrown when setting up patient and commands: " + excp.getMessage());
+        }
+
+        // get the impression at index 1, which in the UI is index 2
+        Impression impIdx1 = patient.getImpressionList().get(1);
+
+        try {
+            // execution is unambiguous
+            priIdxCmd.execute(core);
+            assertEquals(impIdx1, patient.getPrimaryDiagnosis());
+            priNameCmd.execute(core);
+            assertEquals(imp3, patient.getPrimaryDiagnosis());
+        } catch (DukeException excp) {
+            fail("Exception thrown when setting up patient and commands: " + excp.getMessage());
         }
     }
 }
