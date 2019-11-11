@@ -49,12 +49,19 @@ public class ScheduleList {
                 for (int i = 1; i <= blank; i++) {
                     blanks += " ";
                 }
+                if (n.length() > 19) {
+                    n = n.substring(0,16) + "...";
+                }
                 String blank2 = " ";
                 blank = 4 - amount[index].length();
                 for (int i = 1; i <= blank; i++) {
                     blank2 += " ";
                 }
-                output += "|" + n + blanks + "|" + amount[index] + blank2 + "|\n";
+                String money = amount[index];
+                if (amount[index].length() > 4) {
+                    money = "$...";
+                }
+                output += "|" + n + blanks + "|" + money + blank2 + "|\n";
             }
         }
         output += ".--------------------------.\n";
