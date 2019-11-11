@@ -1,4 +1,4 @@
-= ModPlan v1.3 - User Guide
+= ModPlan v1.4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -28,13 +28,15 @@ ModPlan also helps NUS Computer Engineering students to customise the modules th
 
 As such, NUS Computer Engineering students can graduate in time with the planning provided by the ModPlan!
 
+Developed and maintained by the link:{repoURL}//tree/master/docs/AboutUs.adoc[AY1920S1-CS2113T-F10-1 team].
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ModPlan.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ModPlan application.
 .  Open any terminal application, for example `Command Prompt` on Windows or `Terminal` on Mac in the folder directory containing ModPlan.
-.  Run the following `java -jar ModPlan.jar` in the terminal application.
+.  Run the following `java -jar ModPlan-v1.4.0.jar` in the terminal application.
 .  A welcome message should be prompted in the terminal.
 .  Type the commands in the terminal and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
@@ -69,9 +71,19 @@ is operational.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add module MOD_CODE`, `MOD_CODE` is a parameter which can be used as `add module CG1112` or `add module GES1012`.
 * Arguments for time `--begin` and `--end` are supposed to be given in 24 hour format. Due to the use of `Natty` library for relative date parsing, other formats would work but may result in
- anomalous behavior. The list of known expected behavior can be found in <<Expected Anomalous Behavior>>
+ anomalous behavior. The list of known expected behavior can be found under <<Expected Anomalous Behavior>>.
 
 ====
+
+=== Viewing help `--help`
+
+If you are unsure about any of the commands or what they do, use the `--help` command to view a list of the commands you can input in ModPlan, as well as a brief description of what the command does. +
+[TIP]
+If you are still unsure on how to use the commands, keep reading the User Guide for specifics on how to use ModPlan!
+
+Format: `--help`
+
+image::HelpSample.png
 
 === Adding a module or CCA: `add`
 
@@ -82,15 +94,20 @@ Adds the specified module or CCA to the module list or CCA list respectively.
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE`
 
+image::AddModuleSample.png[width="450"]
+
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
 * Example: `add module CG2028`
+
 ****
 
 ==== Searching and adding a module with time period of the week: `add module`
 
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+image::AddModuleScheduleSample.png[width="450"]
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
@@ -104,11 +121,57 @@ Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_O
 Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
 
+image::AddCcaSample.png[width="450"]
+
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
-* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
+* The `END_TIME` can exceed the limit of the current day, and will spill over into the next day.
+* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc.
 * Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
 ****
+
+=== Listing modules or cca : `show`
+
+Shows a list of specificed modules or ccas added in the module or cca list respectively.
+
+==== Listing all modules : `show module`
+
+Shows a list of all modules added in the module list. +
+Format: `show module`
+
+image::ShowModuleSample.png[width="450"]
+
+****
+* Shows the module code, the number of MCs of the module and if the module can be S/U'ed.
+****
+
+==== Giving a report on core modules: `show core`
+
+Prints out a report on all the core modules taken in the semester, together with the number of core modules left to take for graduation . +
+Format: `show core`
+
+image::ShowCoreSample.png[width="450"]
+
+==== Giving a report on General Education modules: `show ge`
+
+Prints out a report on all the General Education(GE) modules taken in the semester, together with the number of GE modules left to take for graduation. +
+Format: `show ge`
+
+image::ShowGeSample.png[width="450"]
+
+==== Giving a report on Unrestricted Electives modules: `show ue`
+
+Prints out a report on all the Unrestricted Electives(UE) modules taken in the semester, together with the number of UE modules left to take for graduation. +
+Format: `show ue`
+
+image::ShowUeSample.png[width="450"]
+
+==== Listing all CCAs: `show cca`
+
+Shows a list of all CCAs added in the CCA list. +
+Format: `show cca`
+
+image::ShowCcaSample.png[width="450"]
 
 === Removing a module or CCA : `remove`
 
@@ -118,6 +181,8 @@ Removes the specified module or CCA.
 
 Removes the specified module from the module list. +
 Format: `remove module INDEX`
+
+image::RemoveModuleSample.png[width="450"]
 
 ****
 * Removes the module at the specified `INDEX`.
@@ -136,6 +201,8 @@ Removes the 2nd module in the module list.
 Removes a CCA which is added. +
 Format: `remove cca INDEX`
 
+image::RemoveCcaSample.png[width="450"]
+
 ****
 * Removes the CCA at the specified `INDEX`.
 * The index refers to the index number shown in the displayed CCA list.
@@ -148,45 +215,33 @@ Examples:
 `remove cca 2` +
 Removes the 2nd CCA in the CCA list.
 
-=== Listing modules or cca : `show`
+=== Grading your modules: `grade`
 
-Shows a list of specificed modules or ccas added in the module or cca list respectively.
+Allows you to input your letter grade received for the modules you have taken. +
+Format: `grade MOD_CODE LETTER_GRADE`
 
-==== Listing all modules : `show module`
-
-Shows a list of all modules added in the module list. +
-Format: `show module`
+image::GradeSample.png[width="450"]
 
 ****
-* Shows the module code, the number of MCs of the module and if the module can be S/U'ed. 
+* Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
+* ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
+* ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
+** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
 ****
 
-==== Giving a report on core modules: `show core`
-
-Prints out a report on all the core modules taken in the semester, together with the number of core modules left to take for graduation . +
-Format: `show core`
-
-==== Giving a report on General Education modules: `show ge`
-
-Prints out a report on all the General Education(GE) modules taken in the semester, together with the number of GE modules left to take for graduation. +
-Format: `show ge`
-
-==== Giving a report on Unrestricted Electives modules: `show ue`
-
-Prints out a report on all the Unrestricted Electives(UE) modules taken in the semester, together with the number of UE modules left to take for graduation. +
-Format: `show ue`
-
-==== Listing all CCAs: `show cca`
-
-Shows a list of all CCAs added in the CCA list. + 
-Format: `show cca`
+Example: +
+`grade CS1010 A-` +
+`grade CS1231 S`
 
 === Calculating the CAP : `cap`
 
 Calculates your overall CAP or predicted CAP in different ways.
 
 ==== Calculating CAP from user input. +
+Calculates your CAP according to your custom input of modules and grades. +
 Format: `cap overall`
+
+image::CapOverallSample.png[width="450"]
 
 ****
 * Typing `cap overall` into the command line shows a CAP calculation message.
@@ -200,11 +255,14 @@ Keep typing all the module names in the module list and their respective grades 
 Example: +
 `cap overall` + 
 `CG2028 A` +
-`CS2027 B-` + 
+`CG2027 B-` +
 `done`
 
 ==== Calculating CAP from the module list. +
+Calculates your CAP from the `taken` modules in your list.
 Format: `cap list`
+
+image::CapListSample.png[width="450"]
 
 ****
 * Type `cap list` into the command line.
@@ -216,8 +274,11 @@ Format: `cap list`
 Example: +
 `cap list`
 
-==== Calculating predicted CAP of a module from it's prerequesites. +
+==== Calculating predicted CAP of a module from it's prerequisites. +
+Calculates the predicted CAP of a module based on the prerequisites of the inputted module.
 Format: `cap module`
+
+image::CapModuleSample.png[width="450"]
 
 ****
 * Type `cap module` into the command line.
@@ -226,27 +287,12 @@ Format: `cap module`
 * ModPlan will automatically sort the prerequisites of that module and check for your grades in them.
 ** Note that these prerequisites have to be added and graded in your module list.
 ** If any prerequisites are not completed, ModPlan will print a list of the prerequisites you have yet to complete/give a grade for.
+** If you encounter any issues with this command, please refer to <<Expected Anomalous Behavior>>.
 ****
 
 Example: +
 `cap module` +
 `CS2040C`
-
-=== Grading your modules: `grade`
-
-Allows you to input your letter grade received for the modules you have taken. +
-Format: `grade MOD_CODE LETTER_GRADE`
-
-****
-* Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
-* ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
-* ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
-** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
-****
-
-Example: +
-`grade CS1010 A-` +
-`grade CS1231 S`
 
 === Sorting and printing the modules and/or ccas : `sort`
 
@@ -260,10 +306,14 @@ Example: +
 Sorts the cca list according to alphabetical order and prints the cca list. + 
 Format: `sort cca` 
 
+image::SortCcaSample.png[width="450"]
+
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
 Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+
+image::SortTimeSample.png[width="450"]
 
 Example: +
 `sort time monday`
@@ -273,64 +323,84 @@ Example: +
 Sorts the module list according to alphabetical order and prints the module list. + 
 Format: `sort module code`
 
+image::SortModuleCodeSample.png[width="450"]
+
 ==== Sorting and printing the modules : `sort module grade`
 
 Sorts the module by the grade entered and prints the module list. + 
 Format: `sort module grade`
+
+image::SortModuleGradeSample.png[width="450"]
 
 ==== Sorting and printing the modules : `sort module level`
 
 Sorts the module list by the numerical order and prints the module list. + 
 Format: `sort module level`
 
+image::SortModuleLevel.png[width="450"]
+
 ==== Sorting and printing the modules : `sort module mc`
 
 Sorts the module list according to the number of mcs and prints the module list. + 
 Format: `sort module mc`
 
+image::SortModuleMCSample.png[width="450"]
+
 === Clearing the data : `clear`
 
-Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to reconfirm that you want to clear your data. +
+Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to *reconfirm* that you want to clear your data. +
 [TIP]
-You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data.
+You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data. ModPlan also allows other common forms of `yes` and `no`.
 
 ==== Clearing the modules data : `clear module`
 
 Clears and empties the list of modules being added. +
 Format: `clear module`
 
+image::ClearModuleSample.png[width="450"]
+
 ==== Clearing the CCA data : `clear cca`
 
 Clears and empties the list of CCAs being added. +
 Format: `clear cca`
 
+image::ClearCcaSample.png[width="450"]
+
 ==== Clearing the password : `clear password`
 
 Remove the current password. +
 ModPlan will ask for your current password if you have previously setup one. If the current password cannot be provided, clearing password will fail. +
-_Note that the password protection feature is currently disabled to facilitate feature testing and you will only be reactivated in ModPlan 2.0_ +
+_Note that the password protection feature is currently disabled to facilitate feature testing and will only be reactivated in ModPlan 2.0_ +
 Format: `clear password`
+
+image::ClearPasswordSample.png[width="450"]
 
 ==== Clearing all the data : `clear data`
 
 Remove all current user data. +
 Format: `clear data`
 
+image::ClearDataSample.png[width="450"]
+
 === Adding another schedule to a CCA : `scheduleCca`
 
 Adds another schedule to a CCA which is already added, as the CCA may have multiple slots. +
-Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+image::ScheduleCcaSample.png[width="450"]
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
-* Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* Example: `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 ****
 
 === Updating module data : `update`
 
 Allows the user to directly update the module data. +
 Format: `update module`
+
+image::UpdateModuleSample.png[width="450"]
 
 ****
 * This command requires internet connection to download data from NUSMOD API.
@@ -346,19 +416,34 @@ Format: `reminder`
 ==== Shows the list of the different specified time interval of reminder: `reminder list`
 
 Gives four options to determine how often you want to set the reminder. 
+Format: `reminder list`
+
+image::ReminderListSample.png[width="450"]
 
 ==== Choosing the desired time interval of reminder: `reminder NUMBER`
 
 Allows you to choose the desired period of time for the reminder to appear, which ranges from 10 seconds to 2 minutes.
+Format: `reminder NUMBER`
+
+image::ReminderNumberSample.png[width="450"]
+
+****
+* There are currently four supported time intervals for the reminder.
+* Example: `reminder one`
+****
 
 ==== Stopping the reminder: `reminder stop`
 
-Allows you to stop the reminder and the reminder message will disappear.
+Allows you to stop the reminder and the reminder message will stop appearing according to the selected time interval.
+
+image::ReminderStopSample.png[width="450"]
 
 === Exiting the program : `bye`
 
 Exits the program. +
 Format: `bye`
+
+image::ByeSample.png[width="450"]
 
 ****
 * Typing `bye` into the command line shows a goodbye message, saves the module list, and closes the program.
@@ -512,17 +597,15 @@ image::ModBadSuException.png[width="450"]
 > * Only modules with the "SU: true" indicates that the module is S/U'able and an S or U grade can be input.
 > ****
 
-
-
 == Expected Anomalous Behavior
 
-
-=== Inputs to CCA Timings
-
-As `Natty` was used to parse relative dates, in the event the user inputs values which are not in the 24 Hour Format, it may still work but would
-produce unexpected behavior. An example of this would be to input timing values like `27:00`, where `Natty` would interpret that value as `00:00`.
-
-
+****
+* Writing shortform commands for some of the commands may work, due to the program identifying the shortform as a unique input for the command.
+** Example `sh module` will return the same output as `show module` as `sh module` is unique enough for the program to identify its intended command.
+* Inputting an invalid time beyond `00:00` such as `25:00` will cause the time to automatically be set to `00:00`
+* Some of the prerequisites/preclusions in NUSMODS may not be updated for the `cap module`, or is not checked against each other in the prerequisite tree.
+**If you have completed all the necessary prerequisites but it is still showing you have not completed some of them, please add those modules into your list with the same grade you obtained as its preclusion and try the command again.
+****
 
 == FAQ
 
@@ -531,6 +614,8 @@ produce unexpected behavior. An example of this would be to input timing values 
 
 == Command Summary
 
+* *Help*:
+** `--help`
 * *Add* :
 ** `add module MOD_CODE` +
 e.g. `add CG2028`
@@ -559,7 +644,7 @@ eg. `cap module` +
 `CS2040C`
 * *Grade* :
 ** `grade MOD_CODE LETTER_GRADE` +
-e.g `grade CS101 A-` +
+e.g `grade CS1010 A-` +
 `grade CS1231 S`
 * *Sort* : 
 ** `sort cca`
@@ -574,8 +659,8 @@ eg. `sort time monday` +
 ** `clear modules`
 ** `clear ccas`
 * *Schedule CCA* :
-** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
-e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
+e.g `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 * *Update* :
 ** `update module`
 * *Reminder* :

@@ -180,13 +180,25 @@ public class TimePeriodWeekly implements TimePeriod {
      * @return true if clashes, false otherwise
      */
     public boolean isClashing(TimePeriodWeekly other) {
-        return other != null
-                && (this.begin.equals(other.begin) && this.end.equals(other.end)
-                    && this.dayOfWeek.equals(other.dayOfWeek)
-                    || this.isClashing(other.begin, other.dayOfWeek)
-                    || this.isClashing(other.end, other.dayOfWeek)
-                    || other.isClashing(this.begin, this.dayOfWeek)
-                    || other.isClashing(this.end, this.dayOfWeek));
+        if (other == null) {
+            return false;
+        }
+        DayOfWeek dayOfWeekTmp = this.dayOfWeek;
+        if (this.isUntilNextDay) {
+            dayOfWeekTmp = dayOfWeekTmp.plus(1);
+        }
+        if (other.isUntilNextDay) {
+            return isClashing(new TimePeriodWeekly(other.begin, LocalTime.MAX, other.dayOfWeek))
+                || isClashing(new TimePeriodWeekly(LocalTime.MIN, other.end, other.dayOfWeek.plus(1)));
+        } else {
+            return this.begin.equals(other.begin)
+                && this.end.equals(other.end)
+                && this.dayOfWeek.equals(other.dayOfWeek)
+                || this.isClashing(other.begin, other.dayOfWeek)
+                || this.isClashing(other.end, other.dayOfWeek)
+                || other.isClashing(this.begin, this.dayOfWeek)
+                || other.isClashing(this.end, dayOfWeekTmp);
+        }
     }
 
     // TODO: Combine the isClashing of TimePeriods
