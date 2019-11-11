@@ -72,16 +72,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-=== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level3` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level3`), you should do the following:
-
-. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -98,39 +88,198 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, ChefDuke's architecture>>.
 
 [[Design-Architecture]]
 == Design
-// tag::architecture[]
 
 === Architecture
+// tag::architecture[]
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[width="600"]
+
+The Architecture Diagram in Figure 1 given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+`Commons` represents a collection of classes used by multiple other components. These classes play important roles at the architecture level:
+
+`Messages`: Used by many classes to write user visible message.
+
+The rest of the App consists of *four key components*:
+
+`UI`: The UI of the App.
+
+`Logic`: The command executor.
+
+`Model`: Holds the data of the App in-memory.
+
+`Storage`: Reads data from, and writes data to, the hard disk.
+
+*How the architecture components interact with each other*
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `deleterecipe rice`.
+
+.Component interactions for `deleterecipe rice` command
+image::SequenceDiagram.png[width="800"]
 
 // end::architecture[]
+The sections below give more details for each of the *four key components*:
 
 === UI component
+.Structure of the UI Component
+image::UIcomponent.png[width="800"]
+
+The UI consists of Main which is initiated at the start of the program. It is dependent on MainWindow that made up of parts e.g.`DialogBox`, `ResultDisplay`, `scrollPane`, `listView` etc.
+
+The UI component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the `MainWindow` is specified in `MainWindow.fxml`
+
+The Ui component,
+
+* Executes user input using the `Parser` class by the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 === Logic component
+.Structure of the Logic Component
+image::logic.png[width="800"]
 
-=== Data component
+The logic works as such:
+
+. Logic uses the Parser class to parse user input.
+. This creates a corresponding Command object which is executed by the respective command class.
+. Command execution take place and would write to Storage, affecting the Model and its data (e.g. adding a new member).
+. The result of the command execution would return a ArrayList<String> which is passed to MainWindow to be displayed to user on GUI.
+
+=== Model component
+.Structure of the Model Component
+image::model.png[width="800"]
+
+The model works as such:
+
+. The Model stores the system data consisting the inventory list, recipe list and booking list. Inventory list can have any amount of ingredients. Recipe list can have any number of recipes, each containing its title, rating, preparation steps, preparation time, required ingredients and feedback. Booking list can have any number of bookings.
+. It does not depend on any of the other components.
+
 
 === Storage component
+.Structure of the Storage Component
+image::storage.png[width="800"]
+
+The storage works as such:
+
+BookingStorage, InventoryStorage, and RecipeSotrage saves data respectively for three lists.
+
+* For bookings, it saves customers’ names, customers’ contact numbers, number of pax, date, and dishes ordered.
+* For inventory, it saves the names of ingredients, quantity, and additional information.
+* For recipes, it saves the titles of recipes, preparation time, rating, preparation steps, required ingredients, and feedbacks.
+
+
+
 
 == Implementation
 
-=== Adding a new order
+.Structure of overall implementation of the system
+image::implementation.png[width="800"]
 
-=== Providing the option for members to accumulate and redeem points
+This section describes some notable details on how some of our features are implemented.
 
-=== Saving and Loading the order list
 
-=== [Proposed] Program State Control
+=== Booking feature
+ChefDuke comes with a booking management feature where it allows user to track bookings from customers effectively. Besides storing all the details of a booking in an organised manner (e.g name, contacts, pax of diners and orders), it helps private home chefs with the deconfliction of booking dates so that they do not have to manually check for available dining dates on the calendar.
 
-=== Statistics
+==== Adding a new booking
 
-== Documentation
+.Activity diagram of add booking workflow
+image::addbookingActivity.png[width="800"]
 
-=== Site Template
+The workflow of adding a new booking starts with user checking the availability of the dining date using command `viewbookingschedule`.
+
+* The input date by the user was parsed to create a Date object, called CurrDate. CurrDate was used to compare with existing date object extracted from all existing bookings in the list.
+* If matching date was found, the entire booking object will be added to an ArrayList to be shown on GUI, to indicate its non-availability to the user. If no matching date was found, it indicates an availability of the specified date and thus new booking can be added on this date.
+
+Adding a new booking mechanism is facilitated by the command `addbooking`. It takes in user input (details of booking) and validate its correctness.
+
+* When details of the customer booking are entered in an incorrect format, error message will be displayed on the GUI, together with the correct prompts to allow user to re-enter the booking details.
+
+
+* A new Booking object will be created, together with details such as customer name, customer contacts, number of pax, date of booking, and orders for dishes will be recorded. Booking date will be formatted to a more reader-friendly format upon displaying on GUI, thus a strict restriction of the input date is required.
+
+
+* Once a new booking is added, it will be saved to bookings.txt by the bookingStorage class. The format of the data was saved will facilitate the loading of the booking list by creating a list of new Booking object.
+
+=== Recipe feature
+
+ChefDuke comes with a recipe feature where it allows users to archive their recipes and update their recipes whenever it is deemed necessary by them. It allows the adding of recipe, deleting of recipe, viewing of the required ingredients for recipes, viewing of the content of the recipe and editing of the components of the recipe independently. This provides an ease for managing the recipes with automated services such as calculations, storage and updates of the recipes. The workflow of the recipe feature is illustrated in the diagram below:
+
+.Activity diagram of recipe feature workflow
+image::recipeActivity.png[width="800"]
+
+The overview workflow of the recipe feature starts with user adding a new recipe to the system using command addrecipe. The newly added recipe is checked for duplication by RecipeList#containsRecipe(). After which, users can choose among 3 other main operations on the newly added recipe, namely editing, deleting and viewing. Firstly, user is able to edit the individual parts using editreqingredient, editprepstep, editpreptime, editrating, editfeedback commands. Secondly, user is able to delete the recipe using deleterecipe command. Lastly, the user is able to view the full content of the recipe using viewrecipe command or view the ingredient for a number of recipes using viewreqingredient command.
+
+==== Adding a new recipe
+
+Adding a new recipe mechanism is facilitated by the command addrecipe. It takes in user input (details of recipe) and validate its correctness.
+
+
+* The recipe can only be added with a names containing only letters. If the recipe name contains other characters, an error message will be displayed on the GUI.
+
+
+* Then, the recipe name will be parsed to create a new Recipe object, along with other components being initialised to default empty strings of items. The Recipe object created will contain its title from user input. Its rating, ingredient, feedback, preparation steps, preparation time and required ingredient will be set as default to none.
+
+
+* Once a new recipe is confirmed and added, it will be saved to recipe.txt by the RecipeStorage class. The saved data of the recipe will be loaded into recipe list.
+
+==== Viewing required ingredients for several recipes
+
+Viewing the ingredient of a number of recipes is facilitated by the command viewreqingredient.
+
+
+The user executes viewreqingredient chicken rice, duck rice to view the ingredient for recipe chicken rice and duck rice. The viewreqingredient chicken rice, duck rice command will first check if the recipe list contains the chicken rice and duck rice recipe by calling RecipeList#containsRecipe(). Next, RecipeList#getRecipeList() method to get the recipe list which is of type tree map. Then, getting the corresponding keys to the recipe value to get the required ingredients.
+
+
+The following sequence diagram shows how the view required ingredient operation works:
+
+.Structure of the View required ingredient command
+image::viewreqingredient.png[width="800"]
+
+
+
+
+=== Inventory feature
+
+.Activity diagram of inventory feature workflow
+image::inventoryActivity.png[width="800"]
+
+The inventory features of ChefDuke supports these few commands:
+
+* addtoinventory
+* deletefrominventory
+* listinventory
+* clearinventory
+* userrecipe
+
+The userecipe command requires the interaction between recipe and inventory classes. Hence, the ingredient class used in ChefDuke is the same in both recipe and inventory features. Each ingredient will store the following variables:
+ingredient name (String)
+ingredient quantity (Double)
+ingredient unit (ENUM)
+additional information (String)
+ingredient mass (Double)
+
+Ingredient quantity and unit will be displayed to the user but mass is only used internally for calculations by certain features such as userecipe and addtoinventory commands.
+
+The unit of an ingredient is an ENUM and can be added on to support more units. Currently, ChefDuke supports the following units: G, KG, ML, L, CUP, TEASPOON, TABLESPOON.
+
+Refer to Figure 11 for the following section.
+When adding an ingredient to the inventory and the ingredient already exists in the inventory, the program will first check if the units of the ingredients are the same. If the unit is the same, the current quantity of the ingredient will be added on with the new quantity. If the unit is not the same, the program will add the mass of the current quantity and new quantity together. The unit of the ingredient will then be changed to G (grams) and the quantity of the ingredient will be updated to also be in G. The mass of the ingredient is always updated automatically when the quantity and unit of the ingredient changes to ensure that the calculations are correct.
+
+Similarly, when using a recipe, whether there is sufficient ingredient to be deducted from the inventory is also based on calculations by the mass of the ingredients. The program will attempt to deduct the mass of the required ingredient from the mass of that ingredient in the inventory. If there is no sufficient mass to be deducted, the application will return an error message to the user saying that the recipe is unable to be used.
+
+
+Design considerations
+The inventory class uses a Hash Map to store the ingredients as the inventory is used more often as a look up list to get certain ingredients. This is unlike the list of required ingredients in a recipe whereby an arraylist is used. We chose to use an arraylist for required ingredients because when we use a recipe, we iterate through each required ingredient in the recipe and look it up in the inventory. A Linked Hash Map is also not necessary as we do not require the ingredients to be ordered.
+
+
 
 == Testing
 
@@ -413,8 +562,3 @@ Consist of the amount and type of raw ingredients required for making dishes.
 [appendix]
 == Instructions for Manual Testing
 
-=== Launch and Shutdown
-
-=== Deleting a person
-
-=== Saving data
