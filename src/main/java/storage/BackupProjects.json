@@ -1,47 +1,8 @@
 {
-  "rag": {
-    "managermap": {
-      "Karan Sarat": {
-        "payee": "Karan Sarat",
-        "email": "karansarat@u.nus.edu",
-        "matricNum": "A0178947E",
-        "phoneNum": "81318131",
-        "payments": [
-          {
-            "payee": "Karan Sarat",
-            "item": "Venue Rental",
-            "cost": 2345.0,
-            "inv": "INV-01",
-            "deadline": "Dec 7, 2019, 7:21:15 PM",
-            "status": "APPROVED"
-          }
-        ]
-      },
-      "John": {
-        "payee": "John",
-        "email": "e013021@qweqcc",
-        "matricNum": "A123012",
-        "phoneNum": "1929929",
-        "payments": [
-          {
-            "payee": "John",
-            "item": "toy",
-            "cost": 10.0,
-            "inv": "a102312",
-            "deadline": "Dec 8, 2019, 2:57:58 AM",
-            "status": "PENDING",
-            "project": "rag"
-          }
-        ]
-      }
-    },
-    "budget": 0.0,
-    "spending": 0.0,
-    "projectname": "rag"
-  },
-  "flag": {
+  "Arts Night": {
     "managermap": {
       "Alice": {
+        "project": "Arts Night",
         "payee": "Alice",
         "email": "e002200@u.nus.edu",
         "matricNum": "A0199221A",
@@ -49,25 +10,70 @@
         "payments": [
           {
             "payee": "Alice",
-            "item": "Gameboy",
-            "cost": 10.0,
-            "inv": "A1000",
-            "deadline": "Dec 8, 2019, 10:32:56 AM",
+            "item": "props",
+            "cost": 150.0,
+            "inv": "a01222",
+            "deadline": "Dec 11, 2019, 9:22:07 PM",
             "status": "PENDING",
-            "project": "flag"
+            "project": "Arts Night"
+          },
+          {
+            "payee": "Alice",
+            "item": "costumes",
+            "cost": 100.0,
+            "inv": "A0123",
+            "deadline": "Dec 11, 2019, 9:22:38 PM",
+            "status": "PENDING",
+            "project": "Arts Night"
           }
         ]
-      },
-      "John": {
-        "payee": "John",
-        "email": "e013021@qweqcc",
-        "matricNum": "A123012",
-        "phoneNum": "1929929",
-        "payments": []
       }
     },
-    "budget": 0.0,
-    "spending": 0.0,
-    "projectname": "flag"
+    "budget": 500.0,
+    "spending": 400.0,
+    "remaining": 100.0,
+    "projectname": "Arts Night"
+  },
+  "Rag": {
+    "managermap": {
+      "Tom": {
+        "project": "Rag",
+        "payee": "Tom",
+        "email": "e002200@u.nus.edu",
+        "matricNum": "A0199221A",
+        "phoneNum": "99919999",
+        "payments": []
+      },
+      "Alice": {
+        "project": "Rag",
+        "payee": "Alice",
+        "email": "e01aa21@u.nus.edu",
+        "matricNum": "A123012Q",
+        "phoneNum": "81888203",
+        "payments": []
+      },
+      "John": {
+        "project": "Rag",
+        "payee": "John",
+        "email": "e013021@u.nus.edu",
+        "matricNum": "A123012A",
+        "phoneNum": "91991230",
+        "payments": [
+          {
+            "payee": "John",
+            "item": "toy",
+            "cost": 10.0,
+            "inv": "a102312",
+            "deadline": "Dec 11, 2019, 9:19:32 PM",
+            "status": "PENDING",
+            "project": "Rag"
+          }
+        ]
+      }
+    },
+    "budget": 100.0,
+    "spending": 10.0,
+    "remaining": 90.0,
+    "projectname": "Rag"
   }
 }

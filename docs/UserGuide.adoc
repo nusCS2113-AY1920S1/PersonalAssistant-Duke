@@ -72,6 +72,12 @@ Examples:
 
 ==== Load Backup: `load`
 
+Loads backup data from storage. Replacing existing data in the application.
+
+Examples:
+
+* `load`
+
 ==== Adding a project: `add project`
 Adds a project called `PROJECT_NAME` to the record with budget `AMOUNT`.
 If `AMOUNT` is empty, the budget will be set to 0. +
@@ -88,6 +94,10 @@ Examples:
 * `add project pr/Rag am/`
 * `add project pr/Arts Night am/100`
 
+UI:
+
+image::addproject.png[]
+
 ==== Deleting a project: `delete project`
 
 Deletes a project called `PROJECT_NAME` from the record +
@@ -98,6 +108,10 @@ Examples:
 * `delete project pr/Rag`
 * `delete project pr/Arts Night`
 
+UI:
+
+image::deleteproject.png[]
+
 ==== Going to a project to edit it: `goto project`
 
 Goes to a project with `PROJECT_INDEX` in the record +
@@ -107,6 +121,10 @@ Examples:
 
 * `goto 1`
 
+UI:
+
+image::goto.png[]
+
 ==== List all projects: `list projects`
 
 List all projects in the record +
@@ -115,6 +133,10 @@ Format: `list projects`
 Examples:
 
 * `list projects`
+
+UI:
+
+image::listprojects.png[]
 
 ==== Show budget of a project: `show budget`
 Show the budget assigned to a specific project and its details.
