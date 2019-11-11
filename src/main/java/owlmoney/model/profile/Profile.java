@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -76,6 +77,7 @@ public class Profile {
     private static final String TRANSFERFUNDFROM = "Fund Received from ";
     private static final Logger logger = getLogger(Profile.class);
     private static final String IS_MATURE = "true";
+    DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
 
     /**
      * Creates a new instance of the user profile.
@@ -1249,9 +1251,9 @@ public class Profile {
     private void checkBillAmountNotZero(double amount, String card, YearMonth cardDate) throws CardException {
         if (amount == 0) {
             logger.warning("You have no paid expenditures for " + card + " for the month of "
-                    + cardDate + "!");
+                    + cardDate.format(yearMonthFormatter) + "!");
             throw new CardException("You have no paid expenditures for " + card + " for the month of "
-                    + cardDate + "!");
+                    + cardDate.format(yearMonthFormatter) + "!");
         }
     }
 
@@ -1276,10 +1278,10 @@ public class Profile {
         bankList.bankListAddDeposit(bank, deposit, ui, type);
         try {
             cardList.transferExpUnpaidToPaid(card, cardDate, type);
-            ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
-                    + " have been successfully paid!");
-            logger.info("Credit Card bill for " + card + " for the month of " + cardDate
-                    + " have been successfully paid!");
+            ui.printMessage("Credit Card bill for " + card + " for the month of "
+                    + cardDate.format(yearMonthFormatter) + " have been successfully paid!");
+            logger.info("Credit Card bill for " + card + " for the month of "
+                    + cardDate.format(yearMonthFormatter) + " have been successfully paid!");
         } catch (TransactionException error) {
             ui.printMessage(error.getMessage());
             logger.warning("Paying of card bill failed! Your data may potentially be corrupted!");
@@ -1308,10 +1310,10 @@ public class Profile {
         int depositNumber = profileGetCardBillDepositId(bank,getCardId(card), cardDate) + ARRAY_INDEX;
         profileDeleteDeposit(depositNumber, bank, ui, true);
         cardList.transferExpPaidToUnpaid(card, cardDate, type);
-        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
-                + " have been successfully reverted!");
-        logger.info("Credit Card bill for " + card + " for the month of " + cardDate
-                + " have been successfully reverted!");
+        ui.printMessage("Credit Card bill for " + card + " for the month of "
+                + cardDate.format(yearMonthFormatter) + " have been successfully reverted!");
+        logger.info("Credit Card bill for " + card + " for the month of "
+                + cardDate.format(yearMonthFormatter) + " have been successfully reverted!");
     }
 
     /**

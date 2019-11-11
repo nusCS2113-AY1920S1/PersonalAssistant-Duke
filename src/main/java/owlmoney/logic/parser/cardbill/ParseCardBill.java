@@ -2,11 +2,16 @@ package owlmoney.logic.parser.cardbill;
 
 import static owlmoney.commons.log.LogsCenter.getLogger;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -93,8 +98,14 @@ public abstract class ParseCardBill {
         if (RegexUtil.regexCheckMonthYearFormat(yearMonthString)) {
             try {
                 String dateString = FIRST_DAY + yearMonthString;
-                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate localDate = LocalDate.parse(dateString, dateFormat);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date simpleDate = null;
+                try {
+                    simpleDate = dateFormat.parse(dateString);
+                } catch (ParseException e) {
+                    logger.warning("Date parsing failed.");
+                }
+                LocalDate localDate = simpleDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 if (localDate.compareTo(LocalDate.now()) > 0) {
                     logger.warning("/date cannot be after this month");
                     throw new ParserException("/date cannot be after this month");
