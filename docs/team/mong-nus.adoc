@@ -259,7 +259,7 @@ Command Syntax: `/find /savings /name ACCOUNT_NAME`
 
 Command Example: `/find /savings /name Jun`
 
-The command example allows the user to find and list all savings account that match the keyword `Jun`. This can
+The command example allows the user to find and list all savings accounts that match the keyword `Jun`. This can
 be seen from Figure 1 below.
 
 .Successful search of savings account after using `/find /savings`
