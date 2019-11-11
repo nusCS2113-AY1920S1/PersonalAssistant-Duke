@@ -79,20 +79,17 @@ Adds the specified module or CCA to the module list or CCA list respectively.
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE`
 
-image::AddModuleSample.png[width="450"]
-
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
 * Example: `add module CG2028`
-
 ****
+
+image::AddModuleSample.png[width="450"]
 
 ==== Searching and adding a module with time period of the week: `add module`
 
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
-
-image::AddModuleScheduleSample.png[width="450"]
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
@@ -101,12 +98,12 @@ image::AddModuleScheduleSample.png[width="450"]
 * Example: `add module CG2028 --begin 14:00 --end 17:00 --dayOfWeek Tuesday`
 ****
 
+image::AddModuleScheduleSample.png[width="450"]
+
 ==== Adding CCA : `add cca`
 
 Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
-
-image::AddCcaSample.png[width="450"]
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
@@ -114,6 +111,8 @@ image::AddCcaSample.png[width="450"]
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc.
 * Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
 ****
+
+image::AddCcaSample.png[width="450"]
 
 === Listing modules or cca : `show`
 
