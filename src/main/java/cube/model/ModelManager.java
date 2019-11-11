@@ -26,6 +26,16 @@ public class ModelManager {
 	}
 
 	/**
+	 * Constructor with food list only.
+	 * @param foodList The food list to be managed.
+	 */
+	public ModelManager(FoodList foodList) {
+		ModelManager.foodList = foodList;
+		salesHistory = new SalesHistory();
+		this.promotionList =  new PromotionList();
+	}
+
+	/**
 	 * Constructor with three arguments.
 	 * @param foodList The food list to be managed.
 	 * @param salesHistory The sales history to be managed.

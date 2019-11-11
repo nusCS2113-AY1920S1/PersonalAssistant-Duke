@@ -12,6 +12,8 @@ import java.util.Date;
  */
 public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCommand> {
 
+    private Promotion tempPromotion = new Promotion();
+
     /**
      * Parse user inputs.
      * @param args user inputs.
@@ -25,6 +27,9 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
         int endDateIndex = -1;
         String[] params = new String[]{"-s","-e","-%"};
 
+        if (args.length == 1) {
+            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        }
         if (ParserUtil.hasInvalidParameters(args,params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }
@@ -49,14 +54,13 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
 
         String foodName = ParserUtil.findFullString(args,foodNameIndex);
         if (foodName.equals("")) {
-            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+            throw new ParserException(ParserErrorMessage.INVALID_NAME);
         }
         if (discountIndex == -1 || endDateIndex == -1) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
-        Promotion tempPromotion = new Promotion(foodName);
 
-
+        tempPromotion.setFoodName(foodName);
         if (!ParserUtil.hasField(args,discountIndex + 1)) {
             throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
         }
@@ -83,5 +87,13 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
 
 
         return new AddPromotionCommand(tempPromotion);
+    }
+
+    /**
+     * Getter for temp promotion.
+     * @return temp promotion.
+     */
+    public Promotion getTempPromotion() {
+        return tempPromotion;
     }
 }

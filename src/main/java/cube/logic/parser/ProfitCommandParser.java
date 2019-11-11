@@ -26,6 +26,7 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
      * @throws ParserException if Parsing is unsuccessful.
      */
     public ProfitCommand parse(String[] args) throws ParserException {
+        String[] params = new String[]{"-i","-t","-n","-all"};
         if (args.length < 6) {
             //generating profits and revenue requires at least 6 arguments, which is the case of generating for all
             //food within the given time period
@@ -35,6 +36,12 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             //if generating profits and revenue is not for all food within the period, but only for a specific type
             //of food, then it requires at least 7 arguments in total.
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        }
+        if (ParserUtil.hasInvalidParameters(args,params)) {
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
+        if (ParserUtil.hasRepetitiveParameters(args)) {
+            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
         }
         Date dateI = ParserUtil.parseStringToDate(args[2]); //the start date of the period (initial)
         Date dateF = ParserUtil.parseStringToDate(args[4]); //the end date of the period (final)

@@ -23,6 +23,9 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 		int dateIndex = -1;
 		String[] params = new String[]{"-q","-t"};
 
+		if (args.length == 1) {
+			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+		}
 		if (ParserUtil.hasInvalidParameters(args,params)) {
 			throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
 		}
