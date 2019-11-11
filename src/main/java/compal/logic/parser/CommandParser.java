@@ -309,8 +309,8 @@ public interface CommandParser {
         }
         int splitPoint = restOfInput.indexOf(" /");
         String desc = restOfInput.substring(0, splitPoint).trim();
-        int max_desc = 55;
-        if (desc.length() > max_desc) {
+        int maxDesc = 55;
+        if (desc.length() > maxDesc) {
             throw new ParserException("Description length cannot be more than 55 character long!");
         } else if (desc.matches(EMPTY_INPUT_STRING)) {
             throw new ParserException(MESSAGE_MISSING_INPUT);

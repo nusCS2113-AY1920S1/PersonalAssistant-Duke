@@ -62,7 +62,7 @@ public class DoneCommand extends Command {
                 task.markAsNotDone();
                 logger.info("Successfully executed done command");
                 return new CommandResult(COMMAND_PREFIX2.concat(task.toString()), true);
-            }else{
+            } else {
                 return new CommandResult(COMMAND_PREFIX3.concat(task.toString()), false);
             }
 
