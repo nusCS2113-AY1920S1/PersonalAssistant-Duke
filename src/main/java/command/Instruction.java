@@ -150,10 +150,6 @@ public class Instruction {
         return input.startsWith("view history");
     }
 
-    public boolean isDeletehistory(String input) {
-        return input.startsWith("delete history");
-    }
-
     public boolean isUndo(String input) {
         return input.startsWith("undo");
     }

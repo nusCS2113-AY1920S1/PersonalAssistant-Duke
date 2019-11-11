@@ -4,6 +4,7 @@ import storage.Storage;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
+import project.ProjectManager;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -16,6 +17,7 @@ import java.util.Set;
 public class Parser {
     public static Instruction instr = new Instruction();
     public Process process = new Process();
+    public ProjectManager projectManager = new ProjectManager();
 
     public Parser() throws AlphaNUSException {
     }
@@ -23,11 +25,13 @@ public class Parser {
 
     /**
      * Method that parses input from the user and executes processes based on the input.
-     * @param input Input from the user.
+     *
+     * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
-     * @param ui Ui that interacts with the user.
-     * @param storage Storage for the Tasklist.
-     * @param list CommandList.
+
+     * @param ui       Ui that interacts with the user.
+     * @param storage  command.Storage for the Tasklist.
+     * @param list     CommandList.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
@@ -46,12 +50,12 @@ public class Parser {
                 return true;
             } else if (instr.isUndo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.undo(storage, ui);
+                process.undo(storage, ui, fund);
             } else if (instr.isLoad(input)) {
                 process.backupProjects(ui, fund, storage, list);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.redo(storage, ui);
+                process.redo(storage, ui, fund);
             } else if (instr.isViewhistory(input)) {
                 process.viewhistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
@@ -61,9 +65,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                process.addProject(input, ui, fund, storage);
+                process.addProject(input, ui, fund, storage, projectManager);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui, storage, fund);
+                process.deleteProject(input, ui, storage, fund, projectManager);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
@@ -131,16 +135,16 @@ public class Parser {
                 process.addPayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
-                process.deletePayee(input, ui, storage);
+                process.deletePayee(input, ui, storage, projectManager);
                 process.commandHistory(input, ui, storage);
             } else if (instr.istotalcost(input)) {
                 process.totalCost(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isSetFund(input)) {
-                process.setFund(input, ui, fund);
+                process.setFund(input, ui, fund, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddFund(input)) {
-                process.addFund(input, ui, fund);
+                process.addFund(input, ui, fund, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAssignFund(input)) {
                 process.assignFund(input, ui, fund);

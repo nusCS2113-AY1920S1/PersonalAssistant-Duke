@@ -26,6 +26,16 @@ import java.util.Set;
  * Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
+<<<<<<< HEAD:src/main/java/command/Storage.java
+    private static String projectsfilepath = "localdata/Projects.json";
+    private static String CommandListFilePath = "localdata/history.json";
+    private static String fundfilepath = "localdata/Fund.json";
+    private static String undoListFilePath = "localdata/undo.json";
+    private static String redoListFilePath = "localdata/redo.json";
+    private static String undofundfilepath = "localdata/undoFund.json";
+    private static String redofundfilepath = "localdata/redoFund.json";
+    private static String currentprojectfilepath = "localdata/CurrentProject.json";
+=======
     private static String basefilepath = System.getProperty("user.dir");
     private static String projectsfilepath = basefilepath + "/localdata/Projects.json";
     private static String commandlistfilepath = basefilepath +  "/localdata/history.json";
@@ -39,7 +49,7 @@ public class Storage {
     private static String backupprojectsfilepath = "BackupProjects.json";
 
 
-
+>>>>>>> d1d0b99d8623edd1458795e54e81c5d99257cc46:src/main/java/storage/Storage.java
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -130,7 +140,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
             for (String lineStr : toWriteStr.split("\n")) {
                 bufferedWriter.write(lineStr);
                 bufferedWriter.newLine();
@@ -142,6 +152,54 @@ public class Storage {
     }
 
     //@@author E0373902
+    /**
+     * writes the fund present, before the current command was executed, to local storage.
+     * @param fund
+     * @throws AlphaNUSException
+     */
+    public void writeToundoFundFile(Fund fund) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(fund);
+        try {
+            File file = new File(undofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + undofundfilepath);
+        }
+    }
+
+    /**
+     * Writes the fund present, after the current command is executed, to the local storage.
+     * @param fund
+     * @throws AlphaNUSException
+     */
+    public void writeToredoFundFile(Fund fund) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(fund);
+        try {
+            File file = new File(redofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + redofundfilepath);
+        }
+    }
+
     /**
      * Writes the projectmap, before the current command is executed, to local storage.
      * @param projectmap LinkedHashMap of projects.
@@ -294,6 +352,58 @@ public class Storage {
     }
 
     //@@author E0373902
+    /**
+     * Reads fund from undo file for fund from local storage and returns it.
+     * @return
+     * @throws AlphaNUSException
+     */
+    public Fund readFromundoFundFile() throws AlphaNUSException {
+        Type fundtype = new TypeToken<Fund>(){}.getType();
+        Fund fund;
+        try {
+            File file = new File(undofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            fund = gson.fromJson(bufferedReader, fundtype);
+            bufferedReader.close();
+            if (fund == null) {
+                fund = new Fund();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return fund;
+    }
+
+    /**
+     * Reads fund from redo file for fund from local storage and returns it.
+     * @return
+     * @throws AlphaNUSException
+     */
+    public Fund readFromredoFundFile() throws AlphaNUSException {
+        Type fundtype = new TypeToken<Fund>(){}.getType();
+        Fund fund;
+        try {
+            File file = new File(redofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            fund = gson.fromJson(bufferedReader, fundtype);
+            bufferedReader.close();
+            if (fund == null) {
+                fund = new Fund();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return fund;
+    }
+
     /**
      * Read HashMap of projects in the undo file from local storage and returns it.
      * @return HashMap of Project objects stored in the undo file in local storage.
