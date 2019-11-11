@@ -225,7 +225,7 @@ public class ProjectInputController implements IController {
         if (selectedMember.getClass() != NullMember.class) {
             selectedMember.setRole(commandOptions[1]);
             return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
-                + selectedMember.getRole() + "."};
+                    + selectedMember.getRole() + "."};
         }
         return new String[] {selectedMember.getDetails()};
     }
@@ -375,8 +375,8 @@ public class ProjectInputController implements IController {
                 projectToManage.addTask((Task) newTask);
                 return new String[] {"Added new task to the list."};
             }
-            return new String[] {"Failed to create new task. Please ensure all "
-                + "necessary parameters are given correctly.",
+            return new String[] {
+                "Failed to create new task. Please ensure all necessary parameters are given correctly.",
                 "Task priority must be an integer between 1 to 5",
                 "Task credit must be an integer between 0 to 100",
                 "Date must be a valid date!"};
@@ -407,7 +407,7 @@ public class ProjectInputController implements IController {
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
                 if (!projectCommand.contains("-")) {
                     return new String[] {"No flags are found! Available flags for use are '-t', '-p, '-d', '-c' and "
-                        + "'-s' to indicate the new task details! Refer to the user guide for more help!"};
+                            + "'-s' to indicate the new task details! Refer to the user guide for more help!"};
                 }
                 String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
                 return projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
@@ -469,7 +469,7 @@ public class ProjectInputController implements IController {
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
                 if (!projectCommand.contains("-")) {
                     return new String[] {"No flags are found! Please use flags such as '-r' or '-rm' to indicate "
-                        + "the new requirements to be added or removed! Refer to the user guide for more help!"};
+                            + "the new requirements to be added or removed! Refer to the user guide for more help!"};
                 } else {
                     String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
                     return projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
@@ -633,7 +633,7 @@ public class ProjectInputController implements IController {
                         + "' to the Reminder List in the project."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
-                + "necessary parameters are given"};
+                    + "necessary parameters are given"};
 
         } catch (NumberFormatException | ParseException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddReminder] "
@@ -689,7 +689,7 @@ public class ProjectInputController implements IController {
             return outputMessages.toArray(new String[0]);
         } else if (index > projectToManage.getReminderListSize()) {
             return new String[] {"No reminder index number found in the list! "
-                + "Please enter the correct reminder index number."};
+                    + "Please enter the correct reminder index number."};
         } else {
             Reminder removedReminder = projectToManage.getReminder(index);
             projectToManage.removeReminder(index);
@@ -714,7 +714,7 @@ public class ProjectInputController implements IController {
             return outputMessages.toArray(new String[0]);
         } else if (index > projectToManage.getReminderListSize()) {
             return new String[] {"No reminder index number found in the list! "
-                + "Please enter the correct reminder index number."};
+                    + "Please enter the correct reminder index number."};
         } else {
 
             try {
@@ -762,7 +762,7 @@ public class ProjectInputController implements IController {
             int index = Integer.parseInt(checkReminderDetails.get(1));
             projectToManage.markReminder(status,index);
             return new String[] {projectToManage.getReminder(index).getReminderName() + " have been marked "
-                + projectToManage.getReminder(index).getStatus()};
+                    + projectToManage.getReminder(index).getStatus()};
         }
     }
 
