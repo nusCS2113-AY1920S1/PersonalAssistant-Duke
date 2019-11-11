@@ -241,10 +241,14 @@ This command allows the user to overlay a bar from the same song to another bar 
 _Format_:
 `overlay <bar_num to be overlayed> <bar_num to be overlayed to>`
 
-_Example_: `overlay 1 3`
+_Example_: `overlay 1 2`
 
 
-The above command overlays bar 1 onto bar 3. 
+The above command overlays bar 1 onto bar 2 (see Figure 3.4 for example demo). 
+
+image::overlay_1_2.png[]
+Figure 3.4: overlaying of bar 1 onto bar 2.
+
 
 The repeat parameter can be added to the end to overlay the bar from the required start point till the end. 
 
@@ -258,7 +262,6 @@ The above command overlays bar 1 onto bar 3 and onwards.
 
 The output will be an ascii printed version of the song after overlaying. 
 
-image::overlay_demo.png[]
 
 ==== Combining group-group: `overlay_group_group`
 Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
@@ -280,21 +283,24 @@ The above command overlays group 1 from twinkle onto group 4 of jingle
 
 _Example_: `overlay_group_group twinkle 1 twinkle 2`
 
-If group 1 from twinkle is overlayed onto group 2 of twinkle, where 1 is from bar 1 to 2 and group 2 consists of bar 3 to 5. 
+If group 1 from twinkle is overlayed onto group 2 of twinkle, where group 1 contains bar 1 to 2 and group 2 consists of bar 3 to 5. See Figure 3.5 for example) 
 
 image::example_song_annotation.png[]
+Figure 3.5: Example song 
 
 
-The output of the above command must be: 
+The output of the above command ( `overlay_group_group twinkle 1 twinkle 2` ) must be (Figure 3.6): 
 
-image::smaller_group_onto_bigger_one.png[]
+image::overlay_group_group_1_2.png[]
+Figure 3.6: `overlay_group_group twinkle 1 twinkle 2` 
 
-If we try to run `overlay_group_group twinkle 2 twinkle 1` 
+
+If we try to run `overlay_group_group twinkle 2 twinkle 1` (Figure 3.7) 
 
 The output will be: 
 
-image::bigger_group_onto_smaller_group.png[]
-
+image::overlay_group_group_2_1.png[]
+Figure 3.7: `overlay_group_group twinkle 2 twinkle 1`
 
 The repeat parameter can be added to the end to overlay the group from the required start point till the end. 
 
@@ -324,13 +330,14 @@ _Example_: `overlay_bar_group 1 2`
 
 The above command overlays bar 1 from the opened song onto group 2. 
 
-If the group 2 was from bar 3 to 5 on the following song: 
+If the group 2 was from bar 3 to 5 on the following song (Figure 3.8): 
 image::example_song_annotation.png[]
+Figure 3.8: Example song 
 
-The expected output will be: 
+The expected output will be (Figure 3.9): 
 
 image::overlay_bar_group_1_2.png[]
-
+Figure 3.9: `overlay_bar_group 1 2`
 
 The repeat parameter can be added to the end to overlay the bar from the required start point till the last group. 
 
