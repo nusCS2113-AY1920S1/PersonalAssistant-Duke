@@ -129,8 +129,16 @@ class BudgetCommandTest {
 
         assertEquals(".___________________________________________________________________.\n"
                 + "|You have changed the budget for shoes from $123.45 to $300.00      |\n"
+                + "|Please set your budget for window to a value more than 0.          |\n"
                 + "|You have changed the budget for sweets from $217.00 to $675.00     |\n"
-                + ".-------------------------------------------------------------------.\n", Ui.getTestOutput());
+                + "|invalid value category does not exist. Please add it first.        |\n"
+                + ".-------------------------------------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + "\n", Ui.getOutput());
     }
 
     @Test
@@ -181,12 +189,19 @@ class BudgetCommandTest {
         ListBudgetCommand listBudget = new ListBudgetCommand(false, listCategories);
         listBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals(".__________________________________________________.\n"
-                + "|Budget for shoes is $183.00                       |\n"
-                + "|Budget for food is $128.00                        |\n"
-                + "|Budget for places to go is $527.00                |\n"
-                + "|Budget for sweets is $105.00                      |\n"
-                + ".--------------------------------------------------.\n", Ui.getTestOutput());
+        assertEquals("._____________________________________________________________.\n"
+                + "|Budget for shoes is $183.00                                  |\n"
+                + "|Budget for food is $128.00                                   |\n"
+                + "|Budget for places to go is $527.00                           |\n"
+                + "|test value category does not exist. Please add it first.     |\n"
+                + "|Budget for sweets is $105.00                                 |\n"
+                + ".-------------------------------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + "\n", Ui.getOutput());
     }
 
     @Test

@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main)  [![Build status](https://ci.appveyor.com/api/projects/status/smfjdes9c0yy98vi?svg=true)](https://ci.appveyor.com/project/Greatnest/main-7vh7t) [![Build Status](https://dev.azure.com/lindonng0501/MooMooMoney/_apis/build/status/AY1920S1-CS2113T-F14-1.main?branchName=master)](https://dev.azure.com/lindonng0501/MooMooMoney/_build/latest?definitionId=3&branchName=master)
 # MooMooMoney
+![Alt text](images/Ui.png?raw=true "Ui Mockup")
 
-![Alt text](docs/images/Ui.png?raw=true "Ui Mockup")
 MooMooMoney is a command line money management application written in Java 11.
 
 It allows a user to:
@@ -61,10 +61,10 @@ Java JAR files are regularly released under Releases which can be ran on Windows
 
 ## Site Map
 
-[About us](docs/AboutUs.adoc)
+[About us](AboutUs.adoc)
 
-[Developer Guide](docs/%5BCS2113T-F14-1%5D%5BMooMooMoney%5DDeveloperGuide.pdf)
+[Developer Guide](%5BCS2113T-F14-1%5D%5BMooMooMoney%5DDeveloperGuide.pdf)
 
-[User Guide](docs/%5BCS2113T-F14-1%5D%5BMooMooMoney%5DUserGuide.pdf)
+[User Guide](%5BCS2113T-F14-1%5D%5BMooMooMoney%5DUserGuide.pdf)
 
 

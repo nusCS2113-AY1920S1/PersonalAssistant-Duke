@@ -16,7 +16,8 @@ MooMooMoney is a money management command line application written in Java.
 * Enhancement Added: I have added the ability for the user to manage their budget.
 **	What it does: Allow users to set a monthly budget for the various categories that they have created to enable them to view the savings every month in that category.
 **	Justification: This would allow users to set a budget to determine if they are exceeding the budget that they have set based on the expenditures that they have done. They can easily view the savings for each category and how much they have overshot their budget for each category for each month.
-Code contributed: Please click this link to view my contributed code: Functional & Test Code[https://nuscs2113-ay1920s1.github.io/dashboard/#search=greatnest]
+
+Code contributed: Please click this link to view my contributed code: https://nuscs2113-ay1920s1.github.io/dashboard/#search=greatnest[Functional & Test Code]
 
 Other Contributions:
 
@@ -26,7 +27,8 @@ Other Contributions:
 **	Added other CI services like Azure Pipelines and Appveyor to the team repo
 
 == Contributions to the User Guide
-Added manage a budget in the User Guide
+Added manage a budget in the https://github.com/AY1920S1-CS2113T-F14-1/main/blob/master/docs/%5BCS2113T-F14-1%5D%5BMooMooMoney%5DUserGuide.pdf[User Guide]
+
 
 == Contributions to the Developer Guide
-Added budget feature implementation to the Developer Guide
+Added budget feature implementation, setting up, architecture and v2.0 features to the Added manage a budget in the https://github.com/AY1920S1-CS2113T-F14-1/main/blob/master/docs/%5BCS2113T-F14-1%5D%5BMooMooMoney%5DDeveloperGuide.pdf[Developer's Guide]
