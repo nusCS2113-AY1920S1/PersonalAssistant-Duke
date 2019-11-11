@@ -50,12 +50,12 @@ public class Parser {
                 return true;
             } else if (instr.isUndo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.undo(storage, ui, fund);
+                process.undo(storage, ui);
             } else if (instr.isLoad(input)) {
                 process.backupProjects(ui, fund, storage, list, tasklist);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.redo(storage, ui, fund);
+                process.redo(storage, ui);
             } else if (instr.isViewhistory(input)) {
                 process.viewhistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
@@ -65,7 +65,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                process.addProject(input, ui, fund, storage);
+                process.addProject(input, ui, storage, fund);
             } else if (instr.isDeleteProject(input)) {
                 process.deleteProject(input, ui, storage, fund);
                 process.commandHistory(input, ui, storage);
