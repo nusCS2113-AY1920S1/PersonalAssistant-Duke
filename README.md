@@ -11,3 +11,15 @@
 
 #### Licence : [MIT](LICENSE)
 
+
+Libraries used:
+- JavaFx
+- Jackson
+- JFoenix
+- JUnit
+- PrettyTime
+
+Refrence Project:
+- AddressBook 4
+- Duke
+
