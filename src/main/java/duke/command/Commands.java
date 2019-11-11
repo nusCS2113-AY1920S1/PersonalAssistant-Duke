@@ -1,7 +1,5 @@
 package duke.command;
 
-// TODO: Write different commands for different contexts?
-
 import duke.command.dukedata.InvestigationEditSpec;
 import duke.command.dukedata.MedicineEditSpec;
 import duke.command.dukedata.ObservationEditSpec;

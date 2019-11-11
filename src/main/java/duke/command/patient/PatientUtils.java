@@ -27,8 +27,6 @@ public class PatientUtils {
         }
     }
 
-    // TODO clarify if we are doing get by idx from the UI or from the data
-
     /**
      * Find a {@code DukeObject} with the supplied identifier. Only 1 of either name or displayed index should be used
      * to identify said DukeObject.

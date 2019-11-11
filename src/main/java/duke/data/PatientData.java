@@ -139,17 +139,6 @@ public class PatientData {
         return results;
     }
 
-    /**
-     * Reports the number of patients currently in the list.
-     *
-     * @return A String reporting the current number of patients.
-     */
-    public String getPatientCountStr() {
-        int patientCount = patientList.size();
-        String patientCountStr = patientCount + ((patientCount == 1) ? " patient" : " patients");
-        return "Now I have " + patientCountStr + " in the list.";
-    }
-
     public ArrayList<Patient> getPatientList() {
         return patientList;
     }
