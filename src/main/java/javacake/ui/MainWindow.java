@@ -163,7 +163,7 @@ public class MainWindow extends GridPane {
                 if (inputDivider.length == 0) {
                     throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
                 }
-                if ("exit".equals(input)) {
+                if ("exit".equals(input) && !isWritingNote) {
                     //must be "exit" exactly, else wont exe
                     handleExit();
                 } else if (isQuiz) {

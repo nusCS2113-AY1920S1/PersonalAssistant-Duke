@@ -2,7 +2,11 @@ import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class QuestionTest {
     Question dummyQuestion1 = new Question("abc", "3", 5);
@@ -20,10 +24,8 @@ public class QuestionTest {
 
     @Test
     public void inputValidationNotInRangeTest() {
-        Exception e1 = assertThrows(CakeException.class,
-                ()-> dummyQuestion1.isAnswerCorrect("0"));
-        assertEquals(e1.getMessage(),
-                "[!] Please enter option number between 1 and 5! [!]\n");
-        assertThrows(CakeException.class, ()-> dummyQuestion1.isAnswerCorrect("6"));
+        Exception e1 = assertThrows(CakeException.class, () -> dummyQuestion1.isAnswerCorrect("0"));
+        assertEquals(e1.getMessage(), "[!] Please enter option number between 1 and 5! [!]\n");
+        assertThrows(CakeException.class, () -> dummyQuestion1.isAnswerCorrect("6"));
     }
 }
