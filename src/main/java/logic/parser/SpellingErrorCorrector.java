@@ -24,6 +24,7 @@ public class SpellingErrorCorrector {
         return command;
     }
 
+    //@@author chenyuheng
     /**
      * Get the similarity between two Strings.<br />
      * The similarity has some properties below:

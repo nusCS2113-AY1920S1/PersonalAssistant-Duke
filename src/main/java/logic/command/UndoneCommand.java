@@ -39,8 +39,10 @@ public class UndoneCommand extends Command {
 
     //@@author chenyuheng
     /**
-     * Checks if task is in task list, and is a valid index
-     * */
+     * Checks if task is in task list, and if it is a valid index
+     * @param model model object
+     * @throws DukeException If index if not availability
+     */
     public void checkAvailability(Model model) throws DukeException {
         int taskListLength = model.getTaskList().size();
         for (int i = 0; i < indexes.length; i++) {
