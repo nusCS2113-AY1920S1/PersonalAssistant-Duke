@@ -111,7 +111,7 @@ The sections below give more details of each component.
 
 image::images/devguide/DG_GUI_ClassDiagram.png[width ="600", align="center"]
 
-API: `Link for GUI.files`
+*API*: link:{repoURL}/src/main/java/optix/ui/windows/MainWindow.java[`MainWindow.java`]
 
 The `GUI` consists of a `MainWindow` that is made up of parts e.g `DialogBox`, `HelpWindow`, `SeatDisplayController`, etc.
 `MainWindow` is split into two segment, on the left the display window and on the right the chat box, as show
@@ -139,7 +139,7 @@ The `GUI` component,
 
 === Optix Component
 
-API: `Link for Optix file`
+*API*: link:{repoURL}/src/main/java/optix/Optix.java[`Optix.java`]
 
 `Optix` is the backend software that acts as the intermediary between `GUI` and `Command` logic.
 `Optix`,
@@ -153,22 +153,26 @@ The sections below give more details of each component in `Optix`.
 
 ==== Model Component
 
-API: `Link for Model file`
-
-`Model` stores the data used for the App. It contains 3 `ShowMap`.
-
-1. *shows*: All the shows that are scheduled for the future.
-2. *showsHistory*: All the shows that are in the past.
-3. *showsGui*: All the shows that are to be displayed on the `GUI` component.
-
 image::images/devguide/DG_Model_Structure_Diagram.png[width ="600", align="center"]
 
-The ShowMap Class Diagram shown is the structure for all ShowMap with the exception of *showsHistory*.
-For *showsHistory* the multiplicity of Seat is 0 as it is irrelevant.
+*API*: link:{repoURL}/src/main/java/optix/commons/Model.java[`Model.java`]
+
+`Model`,
+
+* Stores the data used for the App. It contains 3 `ShowMap`.
+
+** *shows*: All the shows that are scheduled for the future.
+** *showsHistory*: All the shows that are in the past.
+** *showsGui*: All the shows that are to be displayed on the `GUI` component.
+
+* Depends on the storage component to store `shows` and `showsHistory`.
+
+[NOTE]
+For *showsHistory*, the multiplicity of `Seat` within `Theatre` is 0 as it is irrelevant.
 
 ==== Storage Component
 
-API: `Link for Storage file`
+*API*: link:{repoURL}/src/main/java/optix/commons/Storage.java[`Storage.java`]
 
 `Storage` reads and writes to its respective .txt files so that information can be loaded on the
 following app launch. The .txt files are saved in `{currDir}/src/main/data`. There is a total of 2
@@ -180,7 +184,7 @@ following app launch. The .txt files are saved in `{currDir}/src/main/data`. The
 
 ==== UI Component
 
-API: `Link for UI file`
+*API*: link:{repoURL}/src/main/java/optix/ui/Ui.java[`Ui.java`]
 
 The `UI` component handles all of `Optix` response. `Optix` response is determined by `Command` component
 and subsequently displayed using `GUI` component.
@@ -198,7 +202,7 @@ The `Parser`,
 
 === Command Component
 
-API: `Link for Command folder`
+*API*: link:{repoURL}/src/main/java/optix/commands[`Command` folder]
 
 All commands found in commands package extends `Command`. The `Command` for the different data structures
 are stored under different subpackages. Currently the commands package consists of 4 different subpackages.
@@ -212,7 +216,7 @@ are stored under different subpackages. Currently the commands package consists 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] View Monthly Revenue Feature
+=== View Monthly Revenue Feature
 Allows user to view their profit for a specific month.
 
 ==== Proposed Implementation
@@ -267,7 +271,7 @@ use the same parameters.
 ** Pros: Archive list and current list will have their own class and reduces dependency.
 ** Cons: Certain code needs to be repeated which may be confusing.
 
-=== [Proposed] Sell Seats Feature
+=== Sell Seats Feature
 Allows user to sell seats for a specific show.
 
 ==== Proposed Implementation
