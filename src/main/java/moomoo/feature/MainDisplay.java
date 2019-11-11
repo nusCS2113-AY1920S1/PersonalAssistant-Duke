@@ -162,7 +162,7 @@ public class MainDisplay {
      * @param budget budget stores all the individual budgets of each categories
      * @return returns a string to be printed out as the main display
      */
-    public String newToPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget, int T)
+    public String newToPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget, int t)
             throws MooMooException {
         String output = "";
 
@@ -185,11 +185,11 @@ public class MainDisplay {
                 for (int i = 0; i <= 9; i++) {
                     blankSpaceYr += " ";
                 }
-                if (T == 0) {
+                if (t == 0) {
                     output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
                             + "All" + blankSpaceYr + MISC_TITLESOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + "Categories" + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
                             + "All" + blankSpaceYr + MISC_TITLESWIN;
@@ -201,11 +201,11 @@ public class MainDisplay {
                 for (int i = 0; i <= 8; i++) {
                     blankSpaceYr += " ";
                 }
-                if (T == 0) {
+                if (t == 0) {
                     output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
                             + year + blankSpaceYr + MISC_TITLESOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + "Categories" + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
                             + year + blankSpaceYr + MISC_TITLESWIN;
@@ -221,10 +221,10 @@ public class MainDisplay {
                 for (int i = 0; i <= 9; i++) {
                     blankSpaceYr += " ";
                 }
-                if (T == 0) {
+                if (t == 0) {
                     output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += MONTH_LEFT + "All" + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + "Categories" + ">";
                 }
@@ -255,9 +255,9 @@ public class MainDisplay {
                             blankSpaceCat += " ";
                         }
                     }
-                    if (T == 0) {
+                    if (t == 0) {
                         output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
-                    } else if (T == 1) {
+                    } else if (t == 1) {
                         output += catName + blankSpaceCat + "|";
                     }
                 }
@@ -300,9 +300,9 @@ public class MainDisplay {
                     output += "\n";
                 }
                 output += TOP_BORDERLEFT + openCloseLines + "\n";
-                if (T == 0) {
+                if (t == 0) {
                     output += TOTAL_LEFTOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += TOTAL_LEFTWIN;
                 }
                 for (int i = 0; i < categoryList.size(); i++) {
@@ -319,9 +319,9 @@ public class MainDisplay {
                 }
 
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                if (T == 0) {
+                if (t == 0) {
                     output += BUDGET_LEFTOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += BUDGET_LEFTWIN;
                 }
                 for (int i = 0; i < categoryList.size(); i++) {
@@ -339,9 +339,9 @@ public class MainDisplay {
                 }
 
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                if (T == 0) {
+                if (t == 0) {
                     output += SAVINGS_LEFTOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += SAVINGS_LEFTWIN;
                 }
 
@@ -359,9 +359,9 @@ public class MainDisplay {
                         }
                     }
                     if (sav < 0) {
-                        if (T == 0) {
+                        if (t == 0) {
                             output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
-                        } else if (T == 1) {
+                        } else if (t == 1) {
                             output += "$" + savString + blankSpaceSav + "|";
                         }
                     } else {
@@ -397,10 +397,10 @@ public class MainDisplay {
                     newCategoryList.put(categoryList.get(i).name(), stringList);
                 }
 
-                if (T == 0) {
+                if (t == 0) {
                     output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
                             + "<" + "Categories" + ">";
                 }
@@ -430,9 +430,9 @@ public class MainDisplay {
                             blankSpaceCat += " ";
                         }
                     }
-                    if (T == 0) {
+                    if (t == 0) {
                         output += ANSI_PURPLE + catName + ANSI_RESET + blankSpaceCat + "|";
-                    } else if (T == 1) {
+                    } else if (t == 1) {
                         output += catName + blankSpaceCat + "|";
                     }
                 }
@@ -489,9 +489,9 @@ public class MainDisplay {
 
                 // Prints out the line that contains all the total cost for each category
                 output += TOP_BORDERLEFT + openCloseLines + "\n";
-                if (T == 0) {
+                if (t == 0) {
                     output += TOTAL_LEFTOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += TOTAL_LEFTWIN;
                 }
                 for (int i = 0; i < categoryList.size(); i++) {
@@ -510,9 +510,9 @@ public class MainDisplay {
 
                 // Prints out the line that contains all the budgets for each category
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                if (T == 0) {
+                if (t == 0) {
                     output += BUDGET_LEFTOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += BUDGET_LEFTWIN;
                 }
                 for (int i = 0; i < categoryList.size(); i++) {
@@ -531,9 +531,9 @@ public class MainDisplay {
 
                 // Prints out the line that contains all the savings for each category
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-                if (T == 0) {
+                if (t == 0) {
                     output += SAVINGS_LEFTOS;
-                } else if (T == 1) {
+                } else if (t == 1) {
                     output += SAVINGS_LEFTWIN;
                 }
                 for (int i = 0; i < categoryList.size(); i++) {
@@ -550,9 +550,9 @@ public class MainDisplay {
                         }
                     }
                     if (sav < 0) {
-                        if (T == 0) {
+                        if (t == 0) {
                             output += "$" + ANSI_RED + savString + ANSI_RESET + blankSpaceSav + "|";
-                        } else if (T == 1) {
+                        } else if (t == 1) {
                             output += "$" + savString + blankSpaceSav + "|";
                         }
                     } else {
