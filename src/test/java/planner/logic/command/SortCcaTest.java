@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SortCcaTest extends InputTest {
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+public class SortCcaTest extends CommandTestFramework {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
@@ -46,7 +49,7 @@ public class SortCcaTest extends InputTest {
             +
             "add module CG1111 --begin 3 --end 5 --dayOfWeek Wednesday\n"
             +
-            "scheduleCca 1 --begin 3 --end 5 --dayOfWeek Monday";
+            "scheduleCca 1 --begin 3 --end 5 --dayOfWeek Thursday";
 
     SortCcaTest() throws ModException {
         super();
@@ -126,32 +129,22 @@ public class SortCcaTest extends InputTest {
     private void assertEquals(String expectedSortedCcas, String expectedSortedCcas1) {
     }
 
-    /**@DisplayName("Sort Cca Functionality Test")
-    @Test
-    public void sortCcaShouldSortCcaList() {
-        resetAll();
-        execute(inputTasks);
-        assertNotEquals(user.getCcas(),emptyCcaList);
-        execute("sort cca\n");
-        assertIterableEquals(user.getCcas(), emptyCcaList);
-        assertNotEquals(user.getModules(), emptyModuleList);
-    }
-
     @DisplayName("Sort Cca Output Test")
     @Test
     public void sortCcaOutputShouldMatchExpectedOutput() {
         resetAll();
         execute(inputTasks);
-        expectedOutput = "God it, added the follow cca!\n"
+        expectedOutput = "Got it, added the follow cca!\n"
                 +"[C] soccer | 03:00 - 05:00 on MONDAY\n"
                 +"Got it, added the follow cca!\n"
                 +"[C] dance | 07:00 - 09:00 on MONDAY\n"
                 +"Got it, added the follow module!\n"
-                +"[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU:true, grade: "
+                +"[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
                 +"| 03:00 - 05:00 on WEDNESDAY\n"
                 +"Got it, added the follow cca!\n"
                 +"[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n";
         assertEquals(expectedOutput, getOut());
+
         execute("sort cca\n");
         expectedOutput = "Here are your sorted ccas:\n"
                 + "[C] dance | 07:00 - 09:00 on MONDAY\n"
@@ -162,5 +155,6 @@ public class SortCcaTest extends InputTest {
         expectedOutput = "Here are your sorted ccas:\n"
                 + "[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n"
                 + "[C] dance | 07:00 - 09:00 on MONDAY\n";
-    }*/
+        assertEquals(expectedOutput, getOut());
+    }
 }

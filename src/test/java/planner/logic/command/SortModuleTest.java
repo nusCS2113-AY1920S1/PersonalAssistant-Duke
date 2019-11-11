@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SortModuleTest extends InputTest {
+public class SortModuleTest extends CommandTestFramework {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
@@ -39,6 +39,18 @@ public class SortModuleTest extends InputTest {
     private static List<TaskWithMultiplePeriods> ccas;
     private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
+
+    private static final TaskList<Cca> emptyCcaList = new TaskList<>();
+    private static final TaskList<ModuleTask> emptyModuleList = new TaskList<>();
+    private String expectedOutput;
+    private String inputTasks = "add module CG1111 --begin 3 --end 5 --dayOfWeek Wednesday\n"
+            +
+            "add module CS2101 --begin 12 --end 14 --dayOfWeek Monday\n";
+
+    SortModuleTest() throws ModException {
+        super();
+    }
+
     private String expectedBye = "_______________________________\n"
             +
             "Thanks for using ModPlanner!\n"
@@ -101,5 +113,37 @@ public class SortModuleTest extends InputTest {
         String expected = removeUnicodeAndEscapeChars(contentString);
         //assertEquals(expectedSortedModules, expected);
         assertEquals(expected, expected);
+    }
+
+    @DisplayName("Sort Module Output Test")
+    @Test
+    public void sortModuleOutputShouldMatchExpectedOutput() {
+        resetAll();
+        execute(inputTasks);
+        expectedOutput = "Got it, added the follow module!\n"
+                +"[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                +"| 03:00 - 05:00 on WEDNESDAY\n"
+                +"Got it, added the follow module!\n"
+                +"[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                +"| 12:00 - 14:00 on MONDAY\n";
+        assertEquals(expectedOutput, getOut());
+
+        execute("sort module code\n");
+        expectedOutput = "Here are your sorted module:\n"
+                + "_______________________________\n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n";
+        assertEquals(expectedOutput, getOut());
+
+        execute("sort module level\n");
+        expectedOutput = "Here are your sorted module:\n"
+                + "_______________________________\n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n";
+        assertEquals(expectedOutput, getOut());
     }
 }
