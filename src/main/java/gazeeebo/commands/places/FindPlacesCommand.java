@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class FindPlacesCommand {
+
     private static final String LINE_BREAK = "------------------------------------------\n";
+
     /**
      * Search for a place prints places that you searched for.
      *

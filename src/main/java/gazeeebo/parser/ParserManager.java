@@ -14,7 +14,7 @@ import java.text.ParseException;
 
 public class ParserManager {
     /**
-     *
+     * Parser command to parse the input into different pages.
      * @param command full command that is input into the command line
      * @param ui the object that deals with printing things to the user.
      * @return Command type
