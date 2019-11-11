@@ -1,3 +1,4 @@
+//@@author pdotdeep
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.enums.CommandKeys;
@@ -7,7 +8,7 @@ import entertainment.pro.ui.Controller;
 
 
 /**
- * Blacklist command class to handle blacklist command functions.
+ * Yes command class to handle Yes command functions.
  */
 public class YesCommand extends CommandSuper {
     public YesCommand(Controller uicontroller) {
