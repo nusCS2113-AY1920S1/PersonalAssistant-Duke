@@ -62,10 +62,6 @@ public class CalendarCommand extends Command {
 
     public void printCal() throws ParseException, RimsException {
         getData();
-    
-
-
-
         printTopCells();
         for (int row = 2; row < calHeight; row++) {
             printMidCells(row);
@@ -120,7 +116,6 @@ public class CalendarCommand extends Command {
             }
         }
         System.out.print("\n");
-
         printCellRow(cellRow, daysInMonth);
 
         for (int i = 0; i <= (cellLength * calWidth); i++) {
@@ -246,7 +241,6 @@ public class CalendarCommand extends Command {
         data = array;
     }
 
-
     private int getDaysInMonth(LocalDateTime date) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String strDate = dtf.format(date);
@@ -260,7 +254,22 @@ public class CalendarCommand extends Command {
         return daysInMonth;
     }
 
+    public void increaseSize() throws ParseException, RimsException {
+        cellHeight ++;
+        cellLength += 3;
+        printCal();
+    }
 
+    public void decreaseSize() throws ParseException, RimsException {
+        if (!(cellHeight <= minHeight)) {
+            cellHeight--;
+            cellLength -= 3;
+        } else {
+            ui.formattedPrint("You have reached the minimum calendar size! \n" +
+                    "The calender will be printed at this minimum size.");
+        }
+        printCal();
+    }
 
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
@@ -276,25 +285,6 @@ public class CalendarCommand extends Command {
         } catch (ParseException e) {
             throw new RimsException("Invalid calendar size!");
         }
-
-           
-        
-        public static void increaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
-            cellHeight ++;
-            cellLength += 3;
-            printCal();
-        }
-
-        public static void decreaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
-        if (!(cellHeight <= minHeight)) {
-            cellHeight--;
-            cellLength -= 3;
-        }
-        else {
-            System.out.println("You have reached the minimum calendar size! \n" +
-                    "The calender will be printed at this minimum size.");
-        }
-        printCal();
     }
 
 }
