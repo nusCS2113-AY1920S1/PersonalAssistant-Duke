@@ -173,7 +173,7 @@ Finds a timeslot that spans the specified period.
 Format: `search PERIOD UNIT_OF_TIME`
 
 - `PERIOD` must be a positive integer.
-- `UNIT_OF_TIME` can be `minutes`, `hours` or `days`.
+- `UNIT_OF_TIME` can be `minutes`, `hours` or `days`. (coming in v2.0)
 
 Examples:
 
@@ -274,6 +274,7 @@ Examples:
 ## 3.6 Scheduling feature
 ### 3.6.1) Schedule a Todo with duration by a Deadline task: `schedule`
 Find all free periods within the timeline that can accomodate the Todo's duration by the Deadline.
+
 Format: `schedule <INDEX_OF_TODO> [/by <INDEX_OF_DEADLINE>]`
 
 - <INDEX_OF_TODO> and <INDEX_OF_DEADLINE> must be a positive integer and not be greater than the size of existing tasks in the list.
@@ -283,16 +284,19 @@ Format: `schedule <INDEX_OF_TODO> [/by <INDEX_OF_DEADLINE>]`
 
 If at least one free period has been found, Chronologer will display, in chronological order, all periods that the user can do the Todo in while still complying with the Deadline.
 
-If no free period could be found, Chronologer will inform the user that no period long enough to complete the Todo could be found and suggests the user to consider freeing up their schedule.
+If no free period could be found, Chronologer will inform the user that no period long enough to complete the Todo by the deadline could be found and suggests the user to consider freeing up their schedule. Additionally, all low-priority events within the searched timespan are displayed below for the user's consideration to delete or reschedule in order to free up more time.
 
 Example input:
 `schedule 6 /by 4`
 
-Example output:
+Example outputs:
 `You can schedule this task from now till 08/11/2019 1400`
+
+`There is no free slot to insert the task. Consider freeing up your schedule.`
 
 ### 3.6.2) Schedule a todo with duration by a date
 Alternatively, the scheduling featuring can also be done with a raw date-time input as a deadline.
+
 Format: `schedule <INDEX_OF_TODO> [/by <DATE_TIME>]`
 
 - <INDEX_OF_TODO> must be a positive integer and not be greater than the size of existing tasks in the list.
@@ -301,7 +305,17 @@ Format: `schedule <INDEX_OF_TODO> [/by <DATE_TIME>]`
 - The duration of the Todo selected must be smaller than the duration between now and the chosen date
 - [/by <DATE_TIME>] can be omitted, with the same hard-limit as mentioned in 3.6.1
 
-Likewise in 3.6.1, Chronologer will display the results to the user based on there are any free periods of time or not.
+Likewise in 3.6.1, Chronologer will display the results to the user based on whether there are any free periods of time or not.
 
 Example input:
 `schedule 6 /by 08/08/2019 0800`
+
+### 3.6.3) Schedule a todo with period (coming in v2.0)
+A Todo with period can be chosen for scheduling. Chronolger will search all the free periods of time within the Todo's period.
+
+Format: 'schedule <INDEX_OF_TODO_WITH_PERIOD> [-l]'
+
+- <INDEX_OF_TODO_WITH_PERIOD> must be a positive integer and not be greater than the size of existing tasks in the list.
+- [-l] can optionally be included in for Chronologer to only display the largest period of time within the Todo's timespan.
+
+Likewise in 3.6.1, Chronologer will display the results to the user based on whether there are any free periods of time or not.
