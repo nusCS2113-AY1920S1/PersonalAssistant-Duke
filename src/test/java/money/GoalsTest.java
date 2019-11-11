@@ -31,7 +31,7 @@ public class GoalsTest {
     private Account account;
     private MoneyStorage moneyStorage;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-    private LocalDate testDate = LocalDate.parse("9/10/2015", dateTimeFormatter);
+    private LocalDate testDate = LocalDate.parse("9/10/2021", dateTimeFormatter);
     private LocalDate testDate2 = LocalDate.parse("9/10/2050", dateTimeFormatter);
     private static final int TICK_NO = 0x2713;
 
@@ -69,7 +69,7 @@ public class GoalsTest {
         ui.clearOutputString();
         deleteGoalCommand.execute(account, ui, moneyStorage);
         assertEquals(" Noted. I've removed this Goal:\n"
-                        + "  [GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n",
+                        + "  [GS] watch(target: $1000.00)\n (to achieve by: 9/10/2021) HIGH\n",
                 ui.getOutputString().split(" Now")[0]);
         account.getShortTermGoals().clear();
         MoneyCommand exitCommand =  new ExitMoneyCommand();
@@ -94,7 +94,7 @@ public class GoalsTest {
         dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String todayDate = doneDate.format(dateTimeFormatter);
         assertEquals(" Nice! This Goal is Completed:\n"
-                        + "  [GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n",
+                        + "  [GS] watch(target: $1000.00)\n (to achieve by: 9/10/2021) HIGH\n",
                 ui.getOutputString().split(" Now")[0]);
 
         assertEquals("[E]$1000.00 watch(on: " + todayDate + ")", account.getExpListTotal().get(0).toString());
@@ -123,8 +123,8 @@ public class GoalsTest {
         ui.clearGraphContainerString();
         listGoalCommand.execute(account, ui, moneyStorage);
         assertEquals(" 1." + "[" + Character.toString((char)TICK_NO) + "]"
-                        + "[GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n"
-                        + " 2.[50%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2015) MEDIUM\n",
+                        + "[GS] watch(target: $1000.00)\n (to achieve by: 9/10/2021) HIGH\n"
+                        + " 2.[50%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2021) MEDIUM\n",
                 ui.getGraphContainerString().split(" Now")[0]);
 
         account.getShortTermGoals().clear();
@@ -134,49 +134,7 @@ public class GoalsTest {
         exitCommand.execute(account, ui, moneyStorage);
     }
 
-    @Test
-    public void testCommitGoalOverdue()throws ParseException, DukeException {
-        account.getShortTermGoals().clear();
-        account.getIncomeListTotal().clear();
-        account.getExpListTotal().clear();
-        Income i = new Income(2000, "TA Pay", testDate);
-        account.getIncomeListTotal().add(i);
-        Expenditure e = new Expenditure(500, "straw", "E", testDate);
-        account.getExpListTotal().add(e);
-        Goal g1 = new Goal(1000, "watch", "GS", testDate, "HIGH");
-        account.getShortTermGoals().add(g1);
-        Goal g2 = new Goal(2000, "car", "GS", testDate, "MEDIUM");
-        account.getShortTermGoals().add(g2);
-        Goal g3 = new Goal(100, "pen", "GS", testDate, "LOW");
-        account.getShortTermGoals().add(g3);
-        String testInput = "commit goal 1,3";
-        MoneyCommand commitGoalCommand =  new CommitGoalCommand(testInput);
-        ui.clearOutputString();
-        ui.clearGraphContainerString();
-        commitGoalCommand.execute(account, ui, moneyStorage);
-        assertEquals(" 1." + "[" + Character.toString((char)TICK_NO) + "]"
-                        + "[GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n"
-                        + " 2.[75%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2015) MEDIUM\n"
-                        + " 3." + "[" + Character.toString((char)TICK_NO) + "]"
-                        + "[GS] pen(target: $100.00)\n (to achieve by: 9/10/2015) LOW\n",
-                ui.getGraphContainerString().split(" Now")[0]);
-
-        assertEquals(" 1.[20%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2015) MEDIUM\n"
-                + "Goal Savings after commit: $400.00\n"
-                        + "Target Savings for the Month after commit: $1600.00\n"
-                        + "current Goal Savings: $1500.00\n"
-                        + "Target Savings for the Month: $500.00\n"
-                        + "Got it, list will be printed in the other pane!\n",
-                ui.getOutputString().split(" Now")[0]);
-
-        account.getShortTermGoals().clear();
-        account.getIncomeListTotal().clear();
-        account.getExpListTotal().clear();
-        MoneyCommand exitCommand =  new ExitMoneyCommand();
-        exitCommand.execute(account, ui, moneyStorage);
-    }
-
-    @Test
+       @Test
     public void testCommitGoalUpcoming()throws ParseException, DukeException {
         account.getShortTermGoals().clear();
         account.getIncomeListTotal().clear();
@@ -327,7 +285,7 @@ public class GoalsTest {
 
     @Test
     void testUndoAddGoal() throws ParseException, DukeException {
-        String testInput = "goal buy Motorbike /amt 10000 /by 9/10/2015 /priority HIGH";
+        String testInput = "goal buy Motorbike /amt 10000 /by 9/10/2021 /priority HIGH";
         Goal g = new Goal(10000, "buy Motorbike ", "GS", testDate, "HIGH");
         MoneyCommand addGoalCommand =  new AddGoalCommand(testInput);
         addGoalCommand.execute(account, ui, moneyStorage);
