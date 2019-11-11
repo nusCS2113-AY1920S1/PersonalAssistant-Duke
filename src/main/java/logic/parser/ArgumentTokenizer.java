@@ -20,7 +20,7 @@ public class ArgumentTokenizer {
      * null may be get if the corresponding key is not exist.
      * @throws DukeException If a key-value pair has key but has am empty value.
      */
-    public static HashMap<String, String> tokenize(String userInput) {
+    public static HashMap<String, String> tokenize(String userInput) throws DukeException {
         ArrayList<Integer> breakpoints = getSortedBreakpoints(userInput);
         String[] argumentStrings = breakByBreakpoints(userInput, breakpoints);
         HashMap<String, String> arguments = getMultimap(argumentStrings);
@@ -76,7 +76,7 @@ public class ArgumentTokenizer {
      * @param argumentStrings Split strings
      * @return The corresponding multimap
      */
-    private static HashMap<String, String> getMultimap(String[] argumentStrings) {
+    private static HashMap<String, String> getMultimap(String[] argumentStrings) throws DukeException {
         HashMap<String, String> arguments = new HashMap<>();
         for (int i = 0; i < argumentStrings.length; i++) {
             boolean found = false;
@@ -89,7 +89,7 @@ public class ArgumentTokenizer {
                         break;
                     }
                 } catch (StringIndexOutOfBoundsException e) {
-                    arguments.put(TOKENS[j], null);
+                    throw new DukeException("Tag cannot be empty");
                 }
             }
             if (!found) {
