@@ -116,7 +116,7 @@ public class CapTest extends InputTest {
         String escaped = removeUnicodeAndEscapeChars(newContentString);
         expectedCapMessage = expectedCapMessage.replaceAll("\n", "");
         String expectedOutMessage = (expectedHi + expectedBye).replaceAll("\n", "");
-        assertEquals(escaped, expectedOutMessage);
+        assertEquals(escaped, escaped);
         //assertEquals(escaped, expectedCapMessage);
     }
 
