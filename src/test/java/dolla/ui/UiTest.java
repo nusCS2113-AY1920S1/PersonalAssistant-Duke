@@ -1,10 +1,10 @@
-package dolla;
+package dolla.ui;
 
+import dolla.ModeStringList;
 import dolla.model.Entry;
 import dolla.model.Limit;
 import dolla.model.Record;
 import dolla.parser.ParserStringList;
-import dolla.ui.Ui;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UiTest implements UiTestExpected, ModeStringList, ParserStringList {
+public class UiTest implements UiTestExpectedOutput, ModeStringList, ParserStringList {
 
     private String actualOutput;
     private OutputStream outputStream = new ByteArrayOutputStream();
@@ -97,3 +97,4 @@ public class UiTest implements UiTestExpected, ModeStringList, ParserStringList 
         outputStream.flush();
     }
 }
+
