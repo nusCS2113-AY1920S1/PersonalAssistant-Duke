@@ -141,17 +141,17 @@ public class Theatre {
     public void resetSeat(int row, int col) {
         seats[row][col].setSold(false);
         switch (seats[row][col].getSeatTier()) {
-            case "1":
-                tierOneSeats++;
-                break;
-            case "2":
-                tierTwoSeats++;
-                break;
-            case "3":
-                tierThreeSeats++;
-                break;
-            default:
-                System.out.println("Should have a Seat Tier!");
+        case "1":
+            tierOneSeats++;
+            break;
+        case "2":
+            tierTwoSeats++;
+            break;
+        case "3":
+            tierThreeSeats++;
+            break;
+        default:
+            System.out.println("Should have a Seat Tier!");
         }
     }
 
@@ -345,7 +345,7 @@ public class Theatre {
     /**
      * Remove seats for customers. Used when customer wants to remove multiple seats.
      *
-     * @param seats String array of seats to be removed
+     * @param seatsToRemove String array of seats to be removed
      * @return Message detailing status of the removal
      */
     public String removeSeat(String... seatsToRemove) {
@@ -397,7 +397,7 @@ public class Theatre {
     /**
      * Refunds a seat booking from the theatre.
      *
-     * @param seatToRemove The seat to be refunded
+     * @param seatToRefund The seat to be refunded
      * @return The amount of money refunded for the seat
      */
     public double refundSeat(String seatToRefund) {
@@ -421,7 +421,7 @@ public class Theatre {
     /**
      * Refund seats for customers. Used when customer wants to refund multiple seats.
      *
-     * @param seats String array of seats to be refunded
+     * @param seatsToRefund String array of seats to be refunded
      * @return Message detailing status of the refund
      */
     public String refundSeat(String... seatsToRefund) {
