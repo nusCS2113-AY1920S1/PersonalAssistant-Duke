@@ -390,15 +390,13 @@ eg. `throw new DukeException("enter a valid amount/index")`
 
 #### 2.8 Dish Component
 
-API: `Dish.java`, `DishList.java`
-
-The Recipebook contains 2 classes, Dishes Class and DishList Class
+API: `Dish.java`
 
 ![dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes.PNG)
 
 **<u>Dish Class</u>**
 
-This class holds the name of the dish as well the ingredients that are associated to that specific dish. 
+This class holds the name of the dish as well the ingredients that are associated to that specific dish.  there are several methods the Dish class contains that allows the attributes to be modified.
 
 | Attributes                       | Description                                     |
 | -------------------------------- | ----------------------------------------------- |
@@ -463,10 +461,6 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
 - **<u>ChangeDishCommand</u>**
 
   user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
-
-**<u>future additions</u>**
-
-- **<u>ChangeIngredientCommand</u>**
 
 #### 2.10 Order Component
 API: `Order.java`, `OrderList.java`

@@ -957,7 +957,7 @@ Index | Keyword  | Usage | Description
 | 7     | list    | list -n DISH_NAME                              | ind the orders containing that dishes |
 | 8     | list    | list -d ORDER_DATE [-l LIST_TYPE]              | list orders on querying date          |
 
-** For more details, please go for 3.5 Order.
+** For more details, please go for 3.4 Order.
 
 <u>Dish Template</u>
 
