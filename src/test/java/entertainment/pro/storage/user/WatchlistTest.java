@@ -19,6 +19,7 @@ public class WatchlistTest {
 
     @Test
     public void addToWatchlist_deadline_success() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("joker", "D", "20/09/1997 14:00");
         WatchlistHandler.add(movie_d);
         assertEquals(true, WatchlistHandler.contains("joker"));
@@ -33,6 +34,7 @@ public class WatchlistTest {
 
     @Test
     public void addToWatchlist_period_success() {
+        WatchlistHandler.getWatchlist().clear();
         Period movie_d = new Period("joker", "P", "20/09/1997 14:00", "08/10/2019 15:00");
         WatchlistHandler.add(movie_d);
         assertEquals(true, WatchlistHandler.contains("joker"));
@@ -47,12 +49,14 @@ public class WatchlistTest {
 
     @Test
     public void addToWatchlist_failure() {
+        WatchlistHandler.getWatchlist().clear();
         assertEquals(false, WatchlistHandler.contains("joker"));
         assertEquals(0, WatchlistHandler.getSize());
     }
 
     @Test
     public void mark_as_Done_Success() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("joker", "D", "20/09/1997 14:00");
         Period movie_d2 = new Period("spiderman", "P", "20/09/1997 14:00", "10/10/2019 15:00");
         WatchlistHandler.add(movie_d);
@@ -65,6 +69,7 @@ public class WatchlistTest {
 
     @Test
     public void mark_as_Done_Failure() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("joker", "D", "20/09/1997 14:00");
         Period movie_d2 = new Period("spiderman", "P", "20/09/1997 14:00", "10/10/2019 15:00");
         WatchlistHandler.add(movie_d);
@@ -75,6 +80,7 @@ public class WatchlistTest {
 
     @Test
     public void watchlist_Remove_Success() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("joker", "D", "20/09/1997 14:00");
         Period movie_d2 = new Period("spiderman", "P", "20/09/1997 14:00", "10/10/2019 15:00");
         WatchlistHandler.add(movie_d);
@@ -85,6 +91,7 @@ public class WatchlistTest {
 
     @Test
     public void watchlist_Remove_Failure() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("batman", "D", "20/09/1997 14:00");
         Period movie_d2 = new Period("spiderman", "P", "20/09/1997 14:00", "10/10/2019 15:00");
         WatchlistHandler.add(movie_d);
@@ -95,6 +102,7 @@ public class WatchlistTest {
 
     @Test
     public void duplicate_detection_success() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("joker", "D", "20/09/1997 14:00");
         Deadline movie_d2 = new Deadline("joker", "D", "20/09/1997 14:00");
         WatchlistHandler.add(movie_d);
@@ -108,6 +116,7 @@ public class WatchlistTest {
 
     @Test
     public void duplicate_detection_failure() {
+        WatchlistHandler.getWatchlist().clear();
         Deadline movie_d = new Deadline("joker", "D", "20/09/1997 14:00");
         Deadline movie_d2 = new Deadline("batman", "D", "20/09/1997 14:00");
         WatchlistHandler.add(movie_d);

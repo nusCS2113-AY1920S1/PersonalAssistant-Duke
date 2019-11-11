@@ -1,10 +1,12 @@
 package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
+import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -248,6 +250,7 @@ public class RetrieveRequestTest {
             for (int j = 0; j < jsonArray1.size(); j += 1) {
                 long num = (long) jsonArray1.get(j);
                 int genreNo = Math.toIntExact(num);
+                System.out.println(genreNo);
                 genrePref.add(genreNo);
             }
             JSONArray jsonArray2 = (JSONArray) jsonObject.get("genreIdRestriction");
@@ -322,6 +325,7 @@ public class RetrieveRequestTest {
         ArrayList<String> expectedCastList1 = new ArrayList<>();
         assertEquals(expectedCastList1, castList1);
     }
+
 }
 
 

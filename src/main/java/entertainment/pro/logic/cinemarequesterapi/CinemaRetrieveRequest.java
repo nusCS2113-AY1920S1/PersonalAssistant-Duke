@@ -42,7 +42,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      * @param location area to search
      * @return an array_list of cinemas with their info contained inside the CinemaInfoObject Class
      */
-    public ArrayList<CinemaInfoObject> searchNearestCinemas(String location) throws Exceptions {
+    public ArrayList<CinemaInfoObject> searchNearestCinemas(String location)  {
         try {
             String[] token = location.split(" ");
             String result = "";
@@ -56,7 +56,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
             UrlRetriever retrieve = new UrlRetriever();
             String json = retrieve.readUrlAsString(new URL(url));
             fetchedCinemasJson(json);
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | Exceptions e) {
             e.printStackTrace();
         }
         return parsedCinemas;
@@ -65,7 +65,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     /**
      * parses the results from json into a CinemaInfoObject.
      *
-     * @param json result from the api request
+     * @param json: json result from the api request
      */
     @Override
     public void fetchedCinemasJson(String json) {
@@ -96,7 +96,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      * @param cinemaData JSONObject to be parsed
      * @return CinemaInfoObject of the desired cinema
      */
-    public CinemaInfoObject parseCinemaJson(JSONObject cinemaData) {
+    private CinemaInfoObject parseCinemaJson(JSONObject cinemaData) {
         String name = (String) (cinemaData.get("name"));
         double rating;
         try {
@@ -108,6 +108,14 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
         String address = (String) (cinemaData.get("formatted_address"));
         CinemaInfoObject cinema = new CinemaInfoObject(name, rating, address);
         return cinema;
+    }
+
+    /**
+     * returns a list of retrieved cinemas from the users location
+     * @return a list of cinemas nearest to the desired location
+     */
+    public ArrayList<CinemaInfoObject> getParsedCinemas() {
+        return parsedCinemas;
     }
 
     /**
