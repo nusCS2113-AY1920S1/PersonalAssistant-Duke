@@ -11,6 +11,9 @@ import models.task.TaskList;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This is a Null object for Project. This will be returned when Factory is unable to create a proper Project object.
+ */
 public class NullProject implements IProject {
     @Override
     public String getName() {

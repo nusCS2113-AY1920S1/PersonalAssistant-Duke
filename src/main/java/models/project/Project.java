@@ -36,21 +36,34 @@ public class Project implements IProject {
         this.memberAndIndividualListOfTasks = new HashMap<>();
     }
 
-    @Override
+    /**
+     * Getter for project name.
+     * @return : Returns a String representing the project's name.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Setter for project name.
+     * @param input : String representing the new name for the project.
+     */
     public void setName(String input) {
         this.name = input;
     }
 
-    @Override
+    /**
+     * Getter for Members List.
+     * @return : Returns a MemberList object.
+     */
     public MemberList getMemberList() {
         return this.memberList;
     }
 
-    @Override
+    /**
+     * Getter for Tasks list.
+     * @return : Returns a TaskList object.
+     */
     public TaskList getTaskList() {
         return this.taskList;
     }
