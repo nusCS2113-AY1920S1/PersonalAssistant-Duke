@@ -36,6 +36,7 @@ public class EditMemberPhoneCommandTest {
         model.addMember("test");
         Command command = EditMemberPhoneParser.parseEditMemberPhone("test /to 11112222");
         CommandOutput out = command.execute(model);
+        model.getMemberList().clear();
         assertEquals("You have set the phone of member: [test] to [[11112222]]", out.getOutputToUser());
     }
 
@@ -48,6 +49,7 @@ public class EditMemberPhoneCommandTest {
         command1.execute(model);
         Command command2 = EditMemberPhoneParser.parseEditMemberPhone("test /to 11112222");
         CommandOutput out = command2.execute(model);
+        model.getMemberList().clear();
         assertEquals("No update, they are the same.", out.getOutputToUser());
     }
 
@@ -60,6 +62,7 @@ public class EditMemberPhoneCommandTest {
         command1.execute(model);
         Command command2 = EditMemberPhoneParser.parseEditMemberPhone("test /to 22223333");
         CommandOutput out = command2.execute(model);
+        model.getMemberList().clear();
         assertEquals("You have update the phone of member: "
                 + "[test] from [[11112222]] to [[22223333]]", out.getOutputToUser());
     }
