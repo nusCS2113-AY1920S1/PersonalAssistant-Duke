@@ -15,7 +15,10 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-3/main/blob/master
 
 By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
-
+Team members: http://github.com/leowyh[Leow Yong Heng] |
+http://github.com/lijiayu980606[Li Jiayu] |
+http://github.com/E0373902[Shriya Saxena]
+| http://github.com/karansarat[Karan Sarat]
 
 == Introduction
 
@@ -105,8 +108,15 @@ image::ModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+[[fig-StorageClassDiagram]]
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
 
-{To be added}
+.  `Storage` is used by the `Command` component to read and write data from local storage.
+.  The data that is stored is saved as json files and serialized using Gson.
+.  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
+.  Each `Payee` object contains an ArrayList of `Payments` objects.
+.  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
 
 // end::Design[]
 // tag::Project[]
@@ -806,33 +816,66 @@ Expected: The payee is added to the record.
 +
 Expected: Payee is not added to the project. Error message stating that a payee with the same name is printed.
 
-
 ==== Delete Payee
 
 . Deletes a payee from a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payees exists.
+.. Test case: `delete payee p/John`
 
-
-
++
+Expected: Payee is deleted from project.
 
 ==== Add Payment
 
+. Adds a payment made by an existing payee to a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `add payment p/John i/food c/10 v/a01222
+
++
+Expected: Payment is added and payment details is printed.
+
+. Adds a payment made by a non-existing payee to a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee does not exist.
+.. Test case: `add payment p/Karan i/food c/10 v/a01222
+
++
+Expected: Payment is not added and error message is printed requesting payee to be added.
 
 ==== Delete Payment
 
+. Deletes a payment made by an existing payee to a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `add payment p/John i/food c/10 v/a01222
 
-==== Get Payee
-
++
+Expected: Payment is deleted and payment details is printed.
 
 ==== Find Payee
 
+. Finds a payee in current project being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `find payee p/John`
+
++
+Expected: Payee details are printed.
 
 ==== Edit Payment/Payee
 
+. Edits payee details in the project currently being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `edit p/John v/a01222 f/STATUS r/APPROVED
 
++
+Expected: Payee details are updated.
+
+. Edits payment details of a payee in the project currently being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee and payment exist.
+.. Test case: `edit p/John v/ f/PHONE r/99192232`
+
++
+Expected: Payment details are updated.
 
 === Task Tracking
-
-==== Reminder
 
 ==== Deadline
 
@@ -851,26 +894,3 @@ Expected: Payee is not added to the project. Error message stating that a payee 
 ==== Reschedule Deadline
 
 ==== View Schedule
-
-
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
