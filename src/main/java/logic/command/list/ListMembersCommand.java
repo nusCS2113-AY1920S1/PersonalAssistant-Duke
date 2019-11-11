@@ -31,10 +31,10 @@ public class ListMembersCommand extends Command {
     public String convertArrayListToText(ArrayList<Member> members) {
         String finalOutput = "";
         if (members.size() > 0) {
-            finalOutput += "These are members in member list:\n";
+            finalOutput += "These are members in member list:";
             for (int i = 0; i < members.size(); i += 1) {
-                finalOutput += (i + 1) + ". "
-                        + members.get(i).getName() + "\n";
+                finalOutput += "\n" + (i + 1) + ". "
+                        + members.get(i).getName();
             }
         } else {
             finalOutput = EMPTY_MEMBERS_LIST;

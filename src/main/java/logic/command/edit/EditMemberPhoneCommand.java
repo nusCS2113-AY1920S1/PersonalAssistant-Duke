@@ -25,12 +25,12 @@ public class EditMemberPhoneCommand extends Command {
      * This method is to edit member phone
      * @param model Model interface
      * @return set message or update message
-     * @throws DukeException throw exception when there is no update
+     * @throws DukeException throw exception when member name not in member list or wrong phone format
      */
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (!checkMemberName(memberName, model)) {
-            return new CommandOutput(memberName + Command.NAME_NOT_IN_MEMlIST_MESSAGE);
+            throw new DukeException(memberName + Command.NAME_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldphone = model.updateMemberPhone(memberName, phone);
 
@@ -39,7 +39,7 @@ public class EditMemberPhoneCommand extends Command {
                 return new CommandOutput(SET_MSSAGE + "[" + memberName + "]"
                         + " to " + "[[" + phone + "]]");
             } else if (oldphone.equals(phone)) {
-                throw new DukeException(NO_UPDATE_MSSAGE);
+                return new CommandOutput(NO_UPDATE_MSSAGE);
             } else {
                 model.save();
                 return new CommandOutput(UPDATE_MSSAGE + "[" + memberName + "]"

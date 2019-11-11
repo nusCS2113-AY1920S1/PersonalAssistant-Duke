@@ -18,10 +18,10 @@ public class ListCommandParser {
     //@@author yuyanglin28
 
     /**
-     * parse list command, according to the list type after list, task/member
+     * parse list logic.command, according to the list type after list, task/member
      *
-     * @param partialCommand command after list
-     * @return a list command
+     * @param partialCommand logic.command after list
+     * @return a list logic.command
      * @throws DukeException throw exception when the pattern or list type not correct
      */
     public static Command parseListCommand(String partialCommand) throws DukeException {

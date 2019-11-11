@@ -1,6 +1,7 @@
 package logic.command.list;
 
 import common.DukeException;
+import gui.Window;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import model.Model;
@@ -19,6 +20,7 @@ public class ListTasksTodoCommand extends Command {
      */
     @Override
     public CommandOutput execute(Model model) {
+        Window.instance.showTaskView(true);
         String tasks = model.getTodoTasks();
         if (tasks.equals("")) {
             return new CommandOutput(EMPTY_TASKS_LIST);

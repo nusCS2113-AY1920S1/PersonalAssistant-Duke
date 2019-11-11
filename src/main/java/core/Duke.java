@@ -62,7 +62,7 @@ public class Duke {
     /**
      * Main method of the entire project.
      *
-     * @param args command line arguments, not used here
+     * @param args logic.command line arguments, not used here
      */
     public static void main(String[] args) throws DukeException {
         new Duke().run();

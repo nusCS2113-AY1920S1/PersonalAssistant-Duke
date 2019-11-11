@@ -20,7 +20,6 @@ public class NewParser {
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
     private static final String UNDONE_COMMAND_WORD = "UNDONE";
-    private static final String RENAME_COMMAND_WORD = "RENAME";
     private static final String LINK_COMMAND_WORD = "LINK";
     private static final String UNLINK_COMMAND_WORD = "UNLINK";
     private static final String HELP_COMMAND_WORD = "HELP";
