@@ -50,7 +50,7 @@ public class Main {
     private static void setup() {
         parser = new Parser();
         ui = new UI();
-        storage = new Storage(new File("data/mistermusik.Main.txt"));
+        storage = new Storage(new File("data/mistermusik.txt"));
         tasks = new EventList(storage.readFromFile(ui));
         calendarStartDate = new EventDate(new Date());
         allowCalendarFrequentPrint = false;
