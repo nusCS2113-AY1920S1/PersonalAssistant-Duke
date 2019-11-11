@@ -2,7 +2,7 @@ package ui;
 
 import common.AlphaNUSException;
 import common.CommandFormat;
-import common.TaskList;
+import task.TaskList;
 import payment.Payee;
 import payment.Payments;
 import payment.Status;
@@ -10,9 +10,7 @@ import project.Fund;
 import project.Project;
 import project.ProjectManager;
 import task.Task;
-import ui.Suggest;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;

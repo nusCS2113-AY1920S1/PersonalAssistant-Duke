@@ -1,7 +1,7 @@
 package command;
 
 import common.AlphaNUSException;
-import common.TaskList;
+import task.TaskList;
 import org.junit.jupiter.api.Test;
 import project.Fund;
 import project.ProjectManager;
