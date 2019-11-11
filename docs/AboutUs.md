@@ -32,7 +32,7 @@ Responsibilities: develop the fridge feature
 
 <img src="./images/virginiayu.png" alt="drawing" width="200"/>
 
-[[github](https://github.com/VirginiaYu)] [profolio]
+[[github](https://github.com/VirginiaYu)] [[profolio](https://github.com/VirginiaYu/main/edit/master/docs/JiahanPPP.md)]
 
 Role: Developer
 

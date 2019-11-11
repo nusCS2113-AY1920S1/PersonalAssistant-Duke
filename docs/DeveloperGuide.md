@@ -30,7 +30,7 @@ The Application consist of 10 other components
 - ` Fridge` : contains 
 - `ingredient`: contains ingredient list 
 - `list`: a class which contains a generic list. this list is used by various other classes
-- `order`:  
+- `order`:  contains the order class
 - `parser`: determine the next course of action from the user command
 - `storage`: Reads, writes data from and to the hard disk
 - `ui`: The UI of the application, manages the IO 
@@ -466,58 +466,45 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
 
 #### 2.10 Order Component
-API: `Order.java`, `OrderList.java`
+API: `Order.java`
 
-The Order component contains 2 classes, Order Class and OrderList Class. The chef can add new orders and update his "todo list" today. When an order comes, the program calculates dishes amount for each type of dishes. It then access the recipebook which contains every dishes in the menu including the recipe (the amount of consisting ingredients) so as to get the total amount of the ingredients needed to finish this order. It checks with the storage of those ingredients in the `Fridge` and returns the information that if ingredients are enough.
+The order component manage orders in a well-organized way. It stores a list of dishes. Each dishes is stored as format of a map of (key, value) where key refers to the dishes name and the value refers to its total ordered amount in the placing order. The order content may vary according to operations such as addition, cancellation, alteration, marking as done. The order content supports view by specifying requirements.
 
-Besides, in current stage, we assume that the dishes in chef's todo list should be finished by the end of "today". At the beginning of every day, the todo list will be initialized. However, the order supports pre-order, allowing the order date is not today. That is, the initialization of chef's todo list might not be empty.
+Besides, we assume that the dishes in chef's todo list should be finished by the end of "today". At the beginning of each day, the todo list will be initialized. However, the order supports pre-order, allowing the order date is not today. That is, the initialization of chef's todo list might not be empty, which leads to its two constructor methods.
 
+Below are tables of the attributes and some methods implemented in `Order` class.
 
-**<u>Order Class</u>**
+| Attributes                    | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| content: Map<String, Integer> | the content of the order, specifying ordered dishes and amount |
+| isDone: boolean               | the status of the order: *true* if done, *false* otherwise   |
+| date: Date                    | the serving date of the order (not the date when the order was created) |
+| dateToString: String          | the serving date of the order as string                      |
 
-| Attributes                                          | Description                                                  |
-| --------------------------------------------------- | ------------------------------------------------------------ |
-| content: Map<Dishes, Integer>                       | the content of the order, specifying ordered dishes and amount |
-| isDone: boolean                                     | the status of the order: *true* if done, *false* otherwise   |
-| date: Date                                          | the serving date of the order (not the date when the order was created) |
-
-
-
-| Constructor   | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| Order()       | By default, the order is not done; the serving date is today. |
-| Order(String) | Assigns the serving date of the order with String. Call if it is a pre-order. |
-
-
-
-| Methods                                | Description                                                  |
-| -------------------------------------- | ------------------------------------------------------------ |
-| getDate(): Date                        | returns the serving  `date` of the order                     |
-| setDate(String): void                  | takes in a `String` and alter the serving `date`  of the order |
-| isToday(): boolean                     | returns a `boolean` indicating whether the serving date is today or not |
-| isDone(): boolean                      | returns a `boolean` indicating whether the order is finished or not |
-| markAsDone(): void                     | mark the order as finished                                   |
-| getStatusIcon(): String                | takes in an `int` and sets the new overall rating of the dish |
-| getOrderContent(): Map<Dishes, Integer> | returns the order content as `Map`                           |
-| toString(): String                     | returns description of the order as `String`                 |
-| printInFile(): String                  | returns description of the order that used to store in the txt file |
-| hasDishes(Dishes): boolean             | returns a `boolean` indicating whether the order has the dishes or not |
-| getDishesAmount(Dishes): int           | returns the amount of the query dishes in the order          |
-| addDish(Dishes): void                  | add one more the dishes to the undone order                  |
-| addDish(Dishes, int): void             | add the dishes to the undone order with adding amount        |
-
-
+| Methods                      | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| isToday(): boolean           | returns a `boolean` indicating whether the serving date is today or not |
+| isDone(): boolean            | returns a `boolean` indicating whether the order is finished or not |
+| markAsDone(): void           | mark the order as finished                                   |
+| toString(): String           | returns description of the order as `String`                 |
+| printInFile(): String        | returns description of the order that used to store in the txt file |
+| hasDishes(Dishes): boolean   | returns a `boolean` indicating whether the order has the dishes or not |
+| getDishesAmount(Dishes): int | returns the amount of the query dishes in the order          |
+| addDish(Dishes): void        | add one more the dishes to the undone order                  |
+| addDish(Dishes, int): void   | add the dishes to the undone order with adding amount        |
 
 #### 2.11 Order Command Component
+
 API: `AddOrderCommand.java`, `AlterDateCommand.java`, `DeleteOrderCommand.java`, `DoneOrderCommand.java`, `ListOrderCommand.java`
 
 The Order Command classes inherits from the `Command` class. They overwrite the abstract method `execute` of the `Command` class. The Order Command classes includes:
 
-- AddOrderCommand: This command will add order to the orderlist and update the chef's todo list. The order can be loaded manually by command. The order can also be read from the file when initializing -- which is the case of the pre-order.
-- AlterDateCommand: This command will change the serving date of the order. If it changed to the date of today, then chef's todo list should be updated. If it changed to the date before today, then the change is considered invalid.
-- DeleteOrderCommand: This command is used for cancelled orders. It also synchronizes with chef's todo list.
-- DoneOrderCommand: This command is used for changing the status of the order to be finished. The done dishes in the order can be removed from the chef's todo list. 
-- ListOrderCommand: The command is to list all orders or is to list orders after filtering. The filter feature can be date, dishes, order status.
+- `AddOrderCommand`: This command will add order to the orderlist and update the chef's todo list. The order can be loaded manually by command. The order can also be read from the file when initializing -- which is the case of the pre-order.
+- `AlterDateCommand`: This command will change the serving date of the order. If it changed to the date of today, then chef's todo list should be updated. If it changed to the date before today, then the change is considered invalid.
+- `CancelOrderCommand`: This command is used for cancelled orders. It also synchronizes with chef's todo list.
+- `DoneOrderCommand`: This command is used for changing the status of the order to be finished. The done dishes in the order can be removed from the chef's todo list. 
+- `ListOrderCommand`: The command is to list all orders or is to list orders after filtering. The filter feature can be date, dishes, order status.
+- `InitOrderCommand`: [*DANGEROUS*] This command will empty all the orders in the order list.
 
 #### 2.12 Fridge Component
 API: `Fridge.java` ,`Ingredient.java`
@@ -626,9 +613,10 @@ We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` c
 Target user profile: Restaurant Chef
 
 - needs to manage all the ingredients for his dishes  
-- needs to keep track of orders 
+- needs to keep track of orders and manage the status
 - needs to manage ingredients in the fridge
 - needs to manage dishes in recipe book 
+- needs to view all the todo dishes today
 - prefers a desktop application, CLI
 - prefers to keep everything neat in terms of viewing information
 ### Appendix B: User Stories
@@ -1060,9 +1048,9 @@ Changing the amount of an ingredient in the `Fridge`
 
       Expected: program prints message to user informing that description cannot be empty
 1. prerequisite: list all dishes  using `list`, eg the size 
-   
+  
 2. Test case 1: `remove 1`
-   
+  
    Expected: deletes the first dish in the list, 
 
 #### E15. Changing name of a dish
@@ -1078,3 +1066,114 @@ Changing the amount of an ingredient in the `Fridge`
    3. Test case 2: `change 1`
 
       Expected: no changes to the list. program prints message to user asking to enter a valid index/description
+
+#### E16. Adding Order Today or Pre-Order
+
+1. add a new order today or pre-order to the program
+
+   1. prerequisite:
+
+      1. user must follow order template.
+      2. The serving date of the order `ORDER_DATE` should be valid and **cannot be before today**. If the date is today, the user can simply enter command in simplified format. Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+      3. The ordered dishes **cannot be empty**. 
+
+   2. Test case1: `add -d 31/12/2019 -n beef noodle*3`
+
+      Expected: add a pre-order with 3 bowls of beef noodle on 31/12/2019.
+
+   3. Test case 2: `add -n pasta, mushroom soup`
+
+      Expected:  add a new order of today with one pasta and one mushroom soup.
+
+#### E17. Altering Order Serving Date
+
+1. update the serving date of a coming/future order in the order list
+
+   1. prerequisite:
+
+      1. user must follow order template.
+      2. Order is going to be altered should be **today's undone order** or **pre-order**.
+         - If the order has been done, then altering it does not make sense. It will do nothing and reminds you of its done status.
+      3. `ORDER_INDEX` ranges from 1 to the size of the current order list. 
+      4. The newly set date should be in valid format and **cannot be before today**. 
+         - If the date is today, the user can simply enter command in simplified format. 
+         - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+
+   2. Test case1: `alter 2`
+
+      Expected: changes the serving date of 2nd order in the order list to today.
+
+   3. Test case 2: `alter 1 03/01/2020`
+
+      Expected:  changes the serving date of 2nd order in the order list to `03/01/2020`.
+
+#### E18. Cancelling Order
+
+1. cancel an existing undone order from the order list
+
+   1. prerequisite:
+
+      1. user must follow order template.
+      2. `ORDER_INDEX` ranges from 1 to the size of the current order list. 
+      3. Only **today's undone order** or **pre-order** can be cancelled. 
+
+   2. Test case1: `cancel 3`
+
+      Expected: remove 3rd order in the order list, if exists.
+
+#### E19. Marking Order as Done
+
+1. mark an existing undone order of the date today as done
+
+   1. prerequisite:
+
+      1. `ORDER_INDEX` ranges from 1 to the size of the current order list. 
+      2. Only **today's undone order** can be done, while Pre-order cannot. Pre-order supports cancellation and date alteration.
+
+   2. Test case1: `done 2`
+
+      Expected: Mark 2nd order in the order list as done, if there exists among today's orders and it is still undone. 
+
+#### E20. Initializing Order List
+
+1. clear all the orders in the order list
+
+   1. Test case1: `init` and confrims with `y`
+
+      Expected: the order list and the todo list today both cleared.
+
+   2. Test case1: `init` and confrims with `n` or any other input
+
+      Expected: the order list not cleared, remaining the same.
+
+#### E21. Listing Order by Different Filtering Keywords
+
+1. list orders in the order list
+
+   1. Test case1: `list` (i.e., `list -l all`)
+
+      Expected: list all orders in the order list.
+
+   2. Test case2: `list -l undone`
+
+      Expected: list all the undone orders in the order list. 
+
+   3. Test case3: `list -l today`
+
+      Expected: list all orders of today in the order list.
+
+   4. Test case4: `list -l undoneToday`
+
+      Expected: list all undone orders of today in the order list.
+
+   5. Test case5: `list -n chicken rice`
+
+      Expected: list all undone orders of the date today that contains the dish `chicken rice`.
+
+   6. Test case6: ``list -d 31/12/2019 -l undone``
+
+      Expected: list all undone orders on `31/12/2019`. 
+
+   7. Test case7: `list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`) 
+
+      Expected: list all orders on `31/12/2019
