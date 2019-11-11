@@ -60,6 +60,7 @@ public class ShowTaskDetailsCommandTest {
         model.getTasksManager().addReqSkill("Complete event poster", "Java");   //add skills
         Date reminder = new SimpleDateFormat("dd/MM/yyyy HHmm").parse("10/10/2020 1010");
         model.getTasksManager().addReminder(0,reminder);    //set reminder
+        model.save();
 
         Command command = ShowCommandParser.parseShowCommand("task 1");
         CommandOutput out = command.execute(model);
@@ -70,6 +71,6 @@ public class ShowTaskDetailsCommandTest {
                 + "Deadline: Sat Oct 10 10:15:00 SGT 2020\n"
                 + "Member(s) assigned: [John]\n" + "Skill(s) required: [Java]\n"
                 + "Reminder: Sat Oct 10 10:10:00 SGT 2020\n");
-        //assertEquals(expected, out.getOutputToUser());    //clears in gradle tests but not travis CI, settings issue
+        assertEquals(expected, out.getOutputToUser());    //clears in gradle tests but not travis CI, settings issue
     }
 }
