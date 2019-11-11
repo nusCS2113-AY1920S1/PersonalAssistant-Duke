@@ -11,8 +11,8 @@ image::docs/images/Ui.png[]
 * User interactions happen using a Command Line Interface.
 
 == Site Map
-* https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/UserGuide.adoc[User Guide^]
-* https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide^]
+* https://docs.google.com/document/d/1keNqE3aX_N0TelUbEqQiGhYloTuc1_aeckukUJfRjvE/edit?usp=sharing[User Guide^]
+* https://docs.google.com/document/d/1rkpwea9XL3zEisegyhZUCXcyQJ0LAG2KixfxCpQPZa8/edit?usp=sharing[Developer Guide^]
 * https://ay1920s1-cs2113t-t09-2.github.io/duchess/[Code Documentation]
 * https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/AboutUs.adoc[About Us^]
 * https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/ContactUs.adoc[Contact Us^]
