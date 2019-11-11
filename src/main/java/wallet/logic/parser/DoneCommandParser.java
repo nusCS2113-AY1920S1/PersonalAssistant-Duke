@@ -25,7 +25,7 @@ public class DoneCommandParser implements Parser<DoneCommand> {
      */
     @Override
     public DoneCommand parse(String input) throws InsufficientParameters, ParseException {
-        String[] arguments = input.split(" ");
+        String[] arguments = input.split(" ", 2);
         int id;
         if ("loan".equals(arguments[0])) {
             try {
