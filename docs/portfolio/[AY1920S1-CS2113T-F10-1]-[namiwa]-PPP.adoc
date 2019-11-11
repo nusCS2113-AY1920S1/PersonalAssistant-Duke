@@ -1,4 +1,4 @@
-= Khairul Iman - Project Portfolio
+= Khairul Iman Nasri Bin Azharie - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -10,13 +10,13 @@
 
 ModPlanner is a command line interface application written in Java. It aims to help Computer Engineering students plan their modules throughout their entire university tenure.
 
-This was done in apart to learn the basic concepts of software engineering in a non-trivial project, consisting of about 5KSoC. We chose to morph the existing Duke personal assistant into our ModPlanner application.
+This was done in apart to learn the basic concepts of software engineering in a non-trivial project, consisting of about 7000 Significant Lines of Code(SoC). We chose to morph the existing Duke personal assistant into our ModPlanner application.
 
-This document details my overall contribution to the project. The code repository is maintained using {repoURL}/main[GitHub.]
+This document details my overall https://nuscs2113-ay1920s1.github.io/dashboard/#search=f10-1&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=namiwa&tabRepo=AY1920S1-CS2113T-F10-1%2Fmain%5Bmaster%5D[contribution] to the project. The code repository is maintained using {repoURL}/main[GitHub.]
 
 == Feature contribution
 
-* Implemented persistent module data during runtime
+* *Implemented persistent module data during runtime*
 ** The implementation of this feature involves using NUSMODS API requests and GSON's JSON parsing to reliably request module data and to store it locally.
 ** This is done so that the user would be able to immediately know if the module exists before adding, and efficiently keep track of the module data.
 ** The user would also be able to independently update their module data anytime to any available year based on NUSMODS API so that they have the flexibility of having the most up to date module information at all times.
@@ -26,11 +26,24 @@ This document details my overall contribution to the project. The code repositor
 * Initially, I had originally intended to parse the returned JSON data from NUSMODS directly into a Java Object, hence skipping the step of saving the data as a JSON file.
     ** This proved to be extremely difficult, since we had no way to inspect the data if it was malformed or incomplete.
     ** Thus, following the discussion made in https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74], I had decided to store the information within a JSON file, before using GSON to parse the data into a `List` object.
-    ** Based on the discussion, I implemented to store the module data in a `HashMap` for ease of access.
+    ** Based on the discussion, I implemented to storing module data in a `HashMap` for ease of access.
 
-* Implemented persistent data storage
+* *Implemented persistent data storage*
 ** Through the `Storage` and `Logger` classes, user's current data would be instantly stored in JSON file format. This process is done automatically without
 needing the user to be aware of the process.
+
+* *Implemented integration with external libraries*
+** Since our project requires date and time processing, I integrated the external `Natty` Library for relative time and
+date parsing.
+** This is inline with the integration with of the `GSON` library as well as adding support for `Junit 5` to give our team access to
+a streamlined testing framework.
+
+* *Provided starting template for morphing*
+** As the initial code base for the Duke personal assistant used my code base, I provided the initial classes to transition
+to morphing to ModPlanner.
+** Given that I had written the initial implementations, it would follow that I should be the one to port the functionality over
+to ModPlan.
+
 
 == Summary of contributions
 
@@ -48,23 +61,26 @@ needing the user to be aware of the process.
     ** Added support for Gradle build automation, to ensuring ease of project builds https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
     ** Added support for TravisCI, for continuous integration https://github.com/AY1920S1-CS2113T-F10-1/main/pull/49[#49]
     ** Added support for checkstyle in TravisCI for code quality monitoring https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53]
-    ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122]
+    ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
 
-* Project management:
+* *Project management*:
     ** Managed releases https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/A-Jar[`mid-v1.1`], https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.1[`v1.1`] and https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.2.1[`v1.2.1`]
     ** Handled team issue tracking regarding:
-        *** Improvements to implemented features
-        *** General bug reporting
-        *** Patch releases to fix to discovered bugs
-* Documentation:
+        *** Improvements to implemented features https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74]
+        *** General bug reporting https://github.com/AY1920S1-CS2113T-F10-1/main/issues/73[#73], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/213[#213]
+        *** Patch releases to fix to discovered bugs https://github.com/AY1920S1-CS2113T-F10-1/main/pull/112[#112], https://github.com/AY1920S1-CS2113T-F10-1/main/issues/124[#124], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
+* *Documentation*:
     *** Added UML Diagrams for overall product design in Developer Guide https://github.com/AY1920S1-CS2113T-F10-1/main/pull/126[#126]
     *** Wrote section on JsonParser, RequestData and Logger in Developer Guide
 
-* Community:
+* *Community*:
     ** Requested permission to utilize NUSMODS API in the course forum https://github.com/nusCS2113-AY1920S1/forum/issues/53[#53]
-* Tools:
-*** Integrated a third party library (Natty) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
-*** Integrated Github plugins (TravisCI and Coveralls) to the team repository
+
+* *Tools*:
+*** Integrated a third party library (https://github.com/joestelmach/natty[Natty]) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
+*** Integrated https://github.com/google/gson[GSON] for efficient `JSON` data parsing
+*** Added https://github.com/junit-team/junit5[JUnit 5] support to give team access to a testing framework https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
+*** Integrated Github plugins (TravisCI and Coveralls) to the team repository https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
 
 == Contributions to the User Guide
 
@@ -73,11 +89,7 @@ _The following has been extracted from the User's Guide_
 === Updating module data : `update`
 
 Allows the user to directly update the module data. +
-Format: `update YEAR_SEM_1-YEAR_SEM_2`
-
-****
-* YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
-****
+Format: `update module`
 
 == Contributions to the Developer Guide
 
