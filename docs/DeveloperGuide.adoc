@@ -938,7 +938,7 @@ Different ways were considered to display the employment statistics:
 
 |DEGREES.NUS (DEGREES.NUS)
 |Prospective Applicant to NUS Faculty of Engineering
-|View the whole list of possible commands for D2
+|View the whole list of possible commands for DEGREES.NUS
 |User requires help with command syntax +
  +
 User types in the command in the following manner: `help` +
