@@ -1,7 +1,7 @@
 import executor.command.CommandDateList;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.Receipt;
+import storage.wallet.Receipt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,6 +32,11 @@ public class CommandDateListTest {
         d2.execute(storageManager);
         String result2 = d2.getInfoCapsule().getOutputStr();
         assertEquals("Invalid date input. FORMAT : datelist yyyy-mm-dd", result2);
+
+        CommandDateList d3 = new CommandDateList("datelist 2019-04-04");
+        d3.execute(storageManager);
+        String result3 = d3.getInfoCapsule().getOutputStr();
+        assertEquals("You have no receipts for this date", result3);
     }
 
 }

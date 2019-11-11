@@ -1,13 +1,13 @@
 import executor.command.CommandGetSpendingByWeek;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.Receipt;
+import storage.wallet.Receipt;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandGetSpendingByWeekTest {
+class CommandGetSpendingByWeekTest {
     @Test
     void execute() {
         StorageManager storageManager = new StorageManager();

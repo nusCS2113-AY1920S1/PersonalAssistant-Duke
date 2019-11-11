@@ -1,9 +1,7 @@
 package executor.accessors;
 
-import duke.exception.DukeException;
 import storage.StorageManager;
 import ui.UiCode;
-import utils.AccessType;
 
 public class AccessWallet extends Accessor {
 

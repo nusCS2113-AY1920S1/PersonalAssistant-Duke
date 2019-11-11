@@ -2,12 +2,12 @@ package storage;
 
 import duke.exception.DukeException;
 import executor.command.CommandType;
-import executor.task.Task;
-import executor.task.TaskList;
-import executor.task.TaskType;
-import ui.Receipt;
-import ui.ReceiptTracker;
-import ui.Wallet;
+import storage.task.Task;
+import storage.task.TaskList;
+import storage.task.TaskType;
+import storage.wallet.Receipt;
+import storage.wallet.ReceiptTracker;
+import storage.wallet.Wallet;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -161,7 +161,7 @@ public class StorageManager {
     public ReceiptTracker getReceiptsByTag(String tag) throws DukeException {
         try {
             return this.wallet.getReceipts().getReceiptsByTag(tag);
-        }  catch (Exception e) {
+        } catch (Exception e) {
             throw new DukeException("Unable to get receipts with tag: " + tag + "\n");
         }
     }

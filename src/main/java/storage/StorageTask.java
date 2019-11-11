@@ -1,8 +1,8 @@
 package storage;
 
 import duke.exception.DukeException;
-import executor.task.Task;
-import executor.task.TaskList;
+import storage.task.Task;
+import storage.task.TaskList;
 import interpreter.Parser;
 import ui.gui.MainWindow;
 
@@ -96,17 +96,9 @@ public class StorageTask {
         String[] taskStrings = Parser.parseStoredTask(loadedInput);
         for (String taskString : taskStrings) {
             if (newTask == null) {
-                try {
-                    newTask = TaskList.createTaskFromString(taskString);
-                } catch (DukeException e) {
-                    // Task cannot be created. Continue
-                }
+                newTask = TaskList.createTaskFromString(taskString);
             } else {
-                try {
-                    queuedTask = TaskList.createTaskFromString(taskString);
-                } catch (DukeException e) {
-                // Task cannot be created. Continue
-                }
+                queuedTask = TaskList.createTaskFromString(taskString);
                 queuedTasks.add(queuedTask);
             }
         }

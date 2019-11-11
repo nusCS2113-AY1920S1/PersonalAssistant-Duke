@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.scene.chart.PieChart;
 import storage.StorageManager;
 import ui.UiCode;
-import utils.AccessType;
 
 public class AccessPieChartData extends Accessor {
 

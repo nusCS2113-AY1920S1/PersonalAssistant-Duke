@@ -1,4 +1,4 @@
-package ui;
+package storage.wallet;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

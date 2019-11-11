@@ -4,12 +4,14 @@ import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.Receipt;
+import storage.wallet.Receipt;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class CommandExport extends Command {
+
+    private String fileName = "data.csv";
 
     /**
      * CommandExport helps to export the wallet data as csv with useful headers.
@@ -32,10 +34,10 @@ public class CommandExport extends Command {
         }
 
         try {
-            File csv = new File("data.csv");
+            File csv = new File(getFileName());
             FileWriter outputFile = new FileWriter(csv);
             CSVWriter writer = new CSVWriter(outputFile);
-            String[] header = {"ID", "Tag", "Amount", "Date"};
+            String[] header = {"ID", "Tag", "Expenditure", "Date"};
             writer.writeNext(header);
             storageManager.saveAllData();
             int i = 0;
@@ -49,7 +51,7 @@ public class CommandExport extends Command {
             }
             writer.close();
             this.infoCapsule.setCodeCli();
-            this.infoCapsule.setOutputStr("data.csv has been created ! Please check the project folder \n"
+            this.infoCapsule.setOutputStr(getFileName() + " has been created ! Please check the project folder \n"
                     + userMessageForEnteringExtraFields);
         } catch (DukeException | IOException e) {
             this.infoCapsule.setCodeError();
@@ -80,5 +82,13 @@ public class CommandExport extends Command {
     private boolean isThereExtraInputByUser(String userInput) {
         String additionalEntriesOfUser = Parser.parseForPrimaryInput(this.commandType, userInput);
         return !additionalEntriesOfUser.isEmpty();
+    }
+
+    private String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

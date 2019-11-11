@@ -3,6 +3,7 @@ package ui;
 import executor.command.CommandBudget;
 import executor.command.CommandType;
 import org.junit.jupiter.api.Test;
+import storage.wallet.Receipt;
 import storage.StorageManager;
 
 import java.text.DecimalFormat;

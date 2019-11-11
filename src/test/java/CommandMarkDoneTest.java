@@ -1,8 +1,8 @@
 import duke.exception.DukeException;
 import executor.command.CommandMarkDone;
-import executor.task.Task;
-import executor.task.TaskList;
-import executor.task.TaskType;
+import storage.task.Task;
+import storage.task.TaskList;
+import storage.task.TaskType;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;

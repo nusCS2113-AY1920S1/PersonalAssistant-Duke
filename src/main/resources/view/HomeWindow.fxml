@@ -58,7 +58,7 @@
 
     <AnchorPane fx:id="breakdownChartPane"
                 prefHeight="190.0" prefWidth="254.0"
-                AnchorPane.rightAnchor="30" AnchorPane.topAnchor="50"
+                AnchorPane.rightAnchor="30" AnchorPane.topAnchor="30"
     >
         <Label fx:id="breakdownChartDesc"
                alignment="TOP_LEFT"

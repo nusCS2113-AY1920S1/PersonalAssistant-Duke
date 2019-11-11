@@ -1,6 +1,9 @@
 package ui;
 
 import org.junit.jupiter.api.Test;
+import storage.wallet.IncomeReceipt;
+import storage.wallet.Receipt;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IncomeReceiptTest {

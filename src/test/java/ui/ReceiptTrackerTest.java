@@ -2,6 +2,9 @@ package ui;
 
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
+import storage.wallet.IncomeReceipt;
+import storage.wallet.Receipt;
+import storage.wallet.ReceiptTracker;
 
 import java.util.ArrayList;
 

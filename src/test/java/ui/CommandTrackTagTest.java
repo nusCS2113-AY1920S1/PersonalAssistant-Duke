@@ -2,6 +2,7 @@ package ui;
 
 import executor.command.CommandTrackTag;
 import org.junit.jupiter.api.Test;
+import storage.wallet.Receipt;
 import storage.StorageManager;
 
 import java.time.LocalDate;

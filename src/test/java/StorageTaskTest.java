@@ -1,7 +1,7 @@
 import duke.exception.DukeException;
-import executor.task.Task;
-import executor.task.TaskList;
-import executor.task.TaskType;
+import storage.task.Task;
+import storage.task.TaskList;
+import storage.task.TaskType;
 import storage.StorageTask;
 import org.junit.jupiter.api.Test;
 

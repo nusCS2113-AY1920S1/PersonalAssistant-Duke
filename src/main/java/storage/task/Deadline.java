@@ -1,4 +1,4 @@
-package executor.task;
+package storage.task;
 
 import duke.exception.DukeException;
 
@@ -16,7 +16,6 @@ class Deadline extends Task {
         this.taskType = TaskType.DEADLINE;
         this.recordTaskDetails(name);
         this.parseDateTime();
-
     }
 
     private void parseDateTime() throws DukeException {

@@ -1,11 +1,11 @@
-package executor.task;
+package storage.task;
 
 import interpreter.Parser;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public abstract class Task {
+public class Task {
     protected String taskName;
     protected String taskDetails;
     protected String detailDesc;
@@ -17,7 +17,6 @@ public abstract class Task {
 
     /**
      * Constructor for the 'Task' Class.
-     *
      * @param name Name of the task as inputted by the user
      */
     public Task(String name) {

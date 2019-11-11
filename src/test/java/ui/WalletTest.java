@@ -1,11 +1,13 @@
 package ui;
 
 import org.junit.jupiter.api.Test;
+import storage.wallet.Receipt;
+import storage.wallet.Wallet;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class WalletTest {
 
