@@ -312,21 +312,73 @@ updated, which increases the computational load.
 ** Cons: Have to consider other commands (e.g. `update`) that will change the task list and requires the
 task list to be sorted.
 
-==== Updating of Tags
+==== Updating of Tasks
 
 Tasks have a variety of attributes that a user may want to add or change.
+This may be due to the user entering wrong information or differing needs as time passes.
+Thus this command affords the user some flexibility in the way he can edit tasks.
 The current attributes that can be modified are: `time`, `doafter`, `priority` and `tags`.
-The updating of task details is facilitated by `TaskUpdateCommand`.
-It extends `Command`, overriding the `execute` method.
+It is easy for you to add functionality for future attributes when the need arises.
+The updating of task details is facilitated by `TaskUpdateCommand`. It extends `Command`, overriding the `execute` method.
 
 The details of the update mechanism are as follows:
 
-Step 1: `TaskCommandParseHelper` takes in the command from the user input text field, and parses it.
-If the command starts with `update` than it will separate all the parameters into an ArrayList, passing it into the `TaskUpdateCommand`.
+Step 1: `CommandParseHelper` takes in the command from the user input text field, and parses it into the main command and the options.
+The options are stored in an ArrayList, which holds them as pairs.
+For example, if the input consists of `-tag school`, then `tag` will be the key and `school` will be the value for one pair in the options list.
+If the command starts with `task` then it call `TaskCommandParseHelper`, passing in parsed command.
 
-Step 2: `TaskUpdateCommand.execute()` will then go through the ArrayList, calling the appropriate method in `TaskList`.
+Step 2:
+`TaskCommandParseHelper` does another round of parsing with the input. If the input starts with `update`, the method
+`parseUpdateCommand` will be called. This method will call the `extractTime`, `extractDoAfter`, `extractPriority` and
+`extractTags` methods to transfer the time, doAfter, priority and tags respectively out of the options List and into
+another data structure. This so that the information will be formatted for the `TaskUpdateCommand`.
 
-Step 3: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
+|===
+|ℹ️| The `extract` methods called will only extract the parameters they are designed to look for. All other keys
+will be ignored (this currently includes options with a msg, email key). You can add to the functionality of this command
+by creating your own `extract` method to sieve out the corresponding key.
+
+|===
+
+Step 3: `TaskUpdateCommand.execute()` will then go through the ArrayList, calling the appropriate
+method in `TaskList`.
+
+Step 4: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
+This process repeats for all the parameters that were passed in to `TaskUpdateCommand`.
+
+==== Linking emails to task
+As Email Manager handles both emails and tasks, this command allows the connection of functionalities between the two modes.
+Users are able to add emails into a list within a task object.
+
+This command is able to take in two types of parameters: `email` and `delete`.
+`email` adds the specified email to the list, while `delete` removes the specified index from the list.
+If no `email` or `delete` parameters are included in the command, the list of linked emails for that task will be displayed.
+
+This command is enabled through TaskLinkCommand.
+
+The mechanism works as follows:
+
+Step 1: Like the other commands, the input will be parsed and the parameters stored in the options list.
+The parse link command will extract out the email and delete parameters by calling the extractEmails and extractDelete methods respectively.
+The returned arraylists are then passed to the TaskLinkCommand.
+
+Step 2: TaskLinkCommand sets up.
+
+Step 3: First, TaskLinkCommand will check if there are any email links to be deleted.
+This has to be done first (before the addition of email links) as the list may be altered.
+If there are email links to be deleted, the corresponding index will be removed from the list.
+
+Step 4: The emails will be added. This function calls email list to convert the index into the SHA hash of the email.
+This required as emails may be added and/or deleted, changing the indexes of all the emails.
+The returned SHA hash is then stored in the linkedEmails array list of the task.
+
+Step 5: The current list of emails are now displayed.
+First it calls the convert SHA to subject to convert the SHA hash into a user readable subject line.
+This is printed in a list format and the first email of the list is shown in the email pane.
+
+Step 6: The response message is displayed by the UI to feedback to the user what actions have been performed as well as the latest version of the list.
+
 
 === Email Management
 

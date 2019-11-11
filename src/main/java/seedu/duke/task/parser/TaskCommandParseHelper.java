@@ -534,7 +534,7 @@ public class TaskCommandParseHelper {
     }
 
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
-        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]*)\\s*?");
+        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]+)\\s*?");
         if (!linkCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a valid task index (positive integer equal or less then "
                     + "the number of tasks) and email indexes (optional)");
