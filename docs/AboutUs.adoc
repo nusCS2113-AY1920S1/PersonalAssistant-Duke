@@ -13,8 +13,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::alex-teo.png[width="150", align="left"]
 {empty}[http://github.com/alex-teo[github]] [<<alex-teo#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Bookings
 
 '''
 
@@ -23,7 +23,7 @@ image::amirazhar.png[width="150", align="left"]
 {empty}[http://github.com/amirazhar[github]] [<<amirazhar#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Login
 
 '''
 
@@ -32,7 +32,7 @@ image::amoschan97.png[width="150", align="left"]
 {empty} [https://github.com/AmosChan97[github]] [<<amoschan#, portfolio>>]
 
 Role: Developer +
-Responsibilites: Data
+Responsibilites: Ui
 
 '''
 
@@ -41,7 +41,7 @@ image::zkchang97.png[width="150", align="left"]
 {empty}[http://github.com/zkchang97[github]] [<<zkchang97#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Rooms
 
 '''
 
@@ -50,6 +50,6 @@ image::wyinnnn.png[width="150", align="left"]
 {empty}[http://github.com/wyinnnn[github]] [<<wyinnnn#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Inventory
 
 '''
