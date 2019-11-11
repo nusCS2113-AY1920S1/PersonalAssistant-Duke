@@ -125,18 +125,18 @@ public class CompletionistTest {
          */
         @Override
         public String getInformation() {
-            switch(this.achievementLevel) {
-                case "Bronze" : {
-                    return "(User completes 5 tasks)";
-                }
-                case "Silver" : {
-                    return "(User completes 10 tasks)";
-                }
-                case "Gold" : {
-                    return "(User completes 15 tasks)";
-                }
-                default:
-                    break;
+            switch (this.achievementLevel) {
+            case "Bronze" : {
+                return "(User completes 5 tasks)";
+            }
+            case "Silver" : {
+                return "(User completes 10 tasks)";
+            }
+            case "Gold" : {
+                return "(User completes 15 tasks)";
+            }
+            default:
+                break;
             }
             return "(User completes 0 tasks)";
         }
@@ -186,7 +186,8 @@ public class CompletionistTest {
          */
         @Override
         public String toTxt() {
-            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation();
+            return checkLock() + "|" + this.points + "|" + achievementLevel
+                    + "|" + getDescription() + "|" + getInformation();
         }
 
         /**
