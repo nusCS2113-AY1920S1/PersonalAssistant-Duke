@@ -1,21 +1,14 @@
 import booking.Booking;
-import command.AddBookingCommand;
 import command.ApproveCommand;
-import control.Duke;
 import exception.DukeException;
 import org.junit.jupiter.api.Test;
 import storage.BookingConstants;
-import storage.Storage;
-import ui.Ui;
-import user.UserList;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//@@Alex-Teo
+//@@author Alex-Teo
 public class ApproveBookingTest2 {
 
     @Test
@@ -39,8 +32,8 @@ public class ApproveBookingTest2 {
             new ApproveCommand(input, splitStr);
         });
         assertEquals(":-( OOPS!!! "
-                + "Please enter the index of the item you want to edit as well as the "
-                + "updated description of your booking!", BookingConstants.INDEXERROR1);
+                + "Please enter the index of the item you want to approve"
+                + " with the following format: approve INDEX", BookingConstants.APPROVEERROR);
     }
 
     @Test
@@ -50,6 +43,6 @@ public class ApproveBookingTest2 {
         assertThrows(DukeException.class, () -> {
             new ApproveCommand(input, splitStr);
         });
-        assertEquals(":-( OOPS!!! Please enter a index in integer form!", BookingConstants.INDEXERROR2);
+        assertEquals(":-( OOPS!!! Please enter an index in integer form!", BookingConstants.INDEXERROR2);
     }
 }
