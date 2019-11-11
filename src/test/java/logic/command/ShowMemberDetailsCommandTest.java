@@ -51,7 +51,6 @@ public class ShowMemberDetailsCommandTest {
         model.updateMemberPhone("John", "98761234");
         model.link(0,"John");
         model.addMemberSkill("John","Java");
-        model.save();
         Command command = ShowCommandParser.parseShowCommand("member John");
         CommandOutput out = command.execute(model);
         assertEquals("Here are the details for Member: John\n"

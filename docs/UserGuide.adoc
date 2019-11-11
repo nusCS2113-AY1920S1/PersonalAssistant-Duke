@@ -164,6 +164,8 @@ Shows the full details of the selected task. +
 `show task TASK_INDEX` +
 e.g `show task 1`
 
+image::showTaskDetails.png[width="939", align="left"]
+
 ==== Setting a Reminder :
 `reminder TASK_INDEX TIME_BEFORE` +
 e.g `reminder 1 5m` +
@@ -207,6 +209,8 @@ e.g `edit member phone Jason /to 98765432`
 Shows the full details of the selected member. +
 `show member MEMBER_NAME` +
 e.g `show member 1`
+
+image::showMemberDetails.png[width="939", align="left"]
 
 === Commands related to both tasks and members
 
