@@ -23,4 +23,4 @@ Dr. Duke is a command-line based personal assistant for house officers to manage
 
 ## Acknowledgements
 
-*   Libraries used: [JavaFX](https://openjfx.io/), [JUnit5](https://github.com/junit-team/junit5)
+*   Libraries used: [JavaFX](https://openjfx.io/), [JUnit5](https://github.com/junit-team/junit5), [Gson](https://github.com/google/gson), [JFoenix](https://github.com/jfoenixadmin/JFoenix)
