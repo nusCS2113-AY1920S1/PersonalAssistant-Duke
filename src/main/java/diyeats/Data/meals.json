@@ -1,7 +1,5 @@
 {
   "2019-11-11": [
-<<<<<<< HEAD
-=======
     {
       "description": "burger",
       "type": "B",
@@ -9,6 +7,18 @@
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "2.5"
+    },
+    {
+      "description": "burger",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 1000
         "sodium": 20,
         "calorie": 600
       },
@@ -27,7 +37,6 @@
     }
   ],
   "2019-11-10": [
->>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
     {
       "mealPreferenceParameter": "calorie",
       "description": "Turkey Bacon Burger",
