@@ -6,7 +6,6 @@ import wallet.logic.LogicManager;
 import wallet.model.record.LoanList;
 import wallet.thread.ReminderThread;
 
-
 public class Reminder {
 
     private LoanList loanList;
@@ -23,7 +22,6 @@ public class Reminder {
         autoRemind = true;
         timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
     }
-
 
     /**
      * autoReminds the user of undone tasks.

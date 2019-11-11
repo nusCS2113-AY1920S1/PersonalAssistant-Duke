@@ -71,7 +71,6 @@ public class LoanStorage extends Storage<Loan> {
     @Override
     public void writeListToFile(ArrayList<Loan> loanList) {
         try {
-
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_LOAN, "rws");
             raf.setLength(0);
 
