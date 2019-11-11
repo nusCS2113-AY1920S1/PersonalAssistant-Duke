@@ -580,13 +580,26 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 
 ### 3. Implementation
 
-UseCommand Implementation:
+##### 3.1 Proposed `UseCommand` Implementation, *preventing food waste*:
 
-This Command is implemented, such that it makes use of the IngredientList's method for removing a specific amount of an ingredient, `removeEntry(Ingredient )`. At every moment the ingredients kept in the Fridge are sorted by their expiry date. This method will loop (in a sorted order, most recently expiring ingredients first) trough all of the ingredients stored that have the same name as the ingredient to be used, only taking the non-expired ingredients. Each time that there is a match, the needed amount is checked against the amount of the match
+This Command is implemented, such that it makes use of the `IngredientList`'s method for removing a specific amount from an `Ingredient`, namely,  `removeEntry(Ingredient ingredient)`. At every moment the ingredients kept in the `Fridge` are sorted by their expiry date. This method will loop trough all of the ingredients stored (in a sorted order, checking most recently expiring ingredients first), that have the same name as the ingredient to be used, and only taking the non-expired ingredients. It works by keeping a local `integer` counter that indicates the needed amount of the ingredient at each moment of the execution. Each time that there is a match, the needed amount is checked against the amount contained in the match, **if the needed amount is greater than the amount contained in the matched ingredient**, the needed amount is decreased by the amount contained in the match, the match is removed from the `IngredientList`, and the loop continues executing by finding the next match in the `IngredientList`. **Otherwise**, the amount of the match is decreased by the needed amount, and if it has reached zero, this ingredient is removed from the `IngredientList`, the method will return **true**, and the `UseCommand` will finish execution successfully, by showing a success message for the user. If all of the ingredients were checked and the needed amount was not satisfied, the `removeEntry` method will  return **false**, and the `UseCommand` will transfer this information to the user, indicating there is not a sufficient amount of this ingredient in the `Fridge`.
 
-Assuming the Fridge contains the 5 Ingredients: pepper(amount 2, expired 10/11/2019), rice(amount 100, expiring 12/2/2020), pepper(amount 3, expiring 12/3/2020), chicken (amount 3, expiring 12/3/2020), pepper (amount 3, expiring 14/3/2020).
+Assuming the Fridge initially contains the 5 Ingredients: 
 
-Upon typing `use pepper 5`, the `UseCommand` is created with the `Ingredient` having the name `pepper` and amount `5`. Calling execute on this command will re
+1. pepper(amount 2, expired 10/11/2019)
+2. rice(amount 100, expiring 12/2/2020)
+3. pepper(amount 3, expiring 12/3/2020)
+4. chicken (amount 3, expiring 12/3/2020)
+5. pepper (amount 3, expiring 14/3/2020)
+
+Upon typing `use pepper 5`, the `UseCommand` is created with the parameter `Ingredient` having the name `pepper` and amount `5`. Calling execute on this command will remove the third entry - *pepper(amount 3, expiring 12/3/2020)*, and decrease the amount of the last entry by two, `5 - 3 => 2` , so the entry remains, now having a total amount of one. 
+
+This will result in the following `IngredientList` being stored in the Fridge:
+
+1. pepper(amount 2, expired 10/11/2019)
+2. rice(amount 100, expiring 12/2/2020)
+3. chicken (amount 3, expiring 12/3/2020)
+4. pepper (amount 1, expiring 14/3/2020)
 
 ### 4. Documentation
 
@@ -836,45 +849,63 @@ in the main page, there are several actions for the user:
 
 Removing an ingredient from the Fridge
 
-1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
+*prerequisite:* user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
 
-   Test case 1: `remove 1` 
+Test case 1: `remove 1` 
 
-   Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
+Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
 
-   Test case 2: `remove 6`
+Test case 2: `remove 6`
 
-   Expected: no ingredient is removed, outputs to the user that the index is not valid 
+Expected: no ingredient is removed, outputs to the user that the index is not valid 
 
-   Test case 3: `remove`
+Test case 3: `remove`
 
-   Expected:  no ingredient is removed, outputs to the user that he must specify an index
+Expected:  no ingredient is removed, outputs to the user that he must specify an index
 
 #### E4. Using an ingredient
 
 Using an ingredient from the Fridge
 
-1. prerequisite: user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
+*prerequisite:* user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
 
-   Test case 1: `use tomato 2 `
+Test case 1: `use tomato 2 `
 
-   Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
+Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
 
-   Test case 2: `use tomato 3`
+Test case 2: `use tomato 4`
 
-   Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
+Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
 
-   Test case 3: `use tomato`
+Test case 3: `use tomato`
 
-   Expected: output a message to user that he must specify an amount 
+Expected: output a message to user that he must specify an amount 
 
 #### E5. Listing all ingredient
 
 1. Adding an ingredient to the List
 
-#### E6. Removing all expired ingredient
+#### E6. Removing all expired ingredients
 
-1. Adding an ingredient to the List
+Removing all the expired ingredients from the Fridge
+
+Test case 1: Assuming there are no expired ingredients:
+
+- typing `a` in the main menu should result in the following message printed first, followed by the options menu
+
+  ```
+  	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!
+  ```
+
+Test case 2: Assuming there are some expired ingredients in the `Fridge`, eg : salt, amount is: 50, expired on 31st of October 2019 and milk, amount is: 150, expired on 11th of October 2019:
+
+- typing `a` in the main menu results in the following message
+
+```
+	Removed ingredients: 
+salt, amount is: 50, expired on 31st of October 2019
+milk, amount is: 150, expired on 11th of October 2019
+```
 
 #### E7. Finding an ingredient
 

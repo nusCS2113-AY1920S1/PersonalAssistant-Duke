@@ -20,6 +20,7 @@ public class Parser {
 
     //There is no constructor method for all others are static.
     //@@author CEGLincoln
+
     /**
      * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
      * We first split the fullCommand into 2, the keyword, followed by everything else.
@@ -43,8 +44,11 @@ public class Parser {
     }
 
     /**
+     * @param fullCommand input command from the user
+     * @return a command to be executed
+     * @throws DukeException
      * @author VirginiaYu
-     *
+     * <p>
      * commands for Order
      * add: add a new order to the order list
      * alter:alter order serving date
@@ -52,12 +56,8 @@ public class Parser {
      * done: mark an order as done
      * init: initialize the order list
      * list: list all orders, list all undone orders,
-     *      list all today's orders, list all today's undone orders
-     *      list orders on a fixed date, list orders containing some dish
-     *
-     * @param fullCommand input command from the user
-     * @return a command to be executed
-     * @throws DukeException
+     * list all today's orders, list all today's undone orders
+     * list orders on a fixed date, list orders containing some dish
      */
     private static Command order(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ", 2);
@@ -92,6 +92,7 @@ public class Parser {
     }
 
     //@@author 9hafidz6
+
     /**
      * commands for Dish
      * add: adds a dish to dishList
@@ -161,6 +162,7 @@ public class Parser {
     }
 
     //@@author x3chillax
+
     /**
      * commands for Ingredient
      * add: adds an ingredient to the fridge, by adding more to an existing ingredient or creating a new one
@@ -222,7 +224,7 @@ public class Parser {
 
     //@@author saradj
     private static String checkIngNameLength(String name) throws DukeException {
-        if(name.length()==0){
+        if (name.length() == 0) {
             throw new DukeException("Must enter a name for the ingredient, only space is not allowed :)");
         }
         if (name.length() > 30) {
@@ -232,6 +234,7 @@ public class Parser {
     }
 
     //@@author CEGLincoln
+
     /**
      * Checks the length of a String array is of size 2.
      *
@@ -244,6 +247,7 @@ public class Parser {
     }
 
     //@@author CEGLincoln
+
     /**
      * Split a string and check its length.
      */
@@ -254,6 +258,7 @@ public class Parser {
     }
 
     //@@author CEGLincoln
+
     /**
      * Converts a string into a number, and checks if it is out of bounds.
      *
@@ -281,14 +286,13 @@ public class Parser {
     }
 
     /**
-     * @author VirginiaYu
-     *
-     * to parse remaining information (order serving date, and dishes name and amount)
-     * in the user add command
-     *
      * @param splitter split user command, containing valuable info
      * @return a command to be executed
      * @throws DukeException
+     * @author VirginiaYu
+     * <p>
+     * to parse remaining information (order serving date, and dishes name and amount)
+     * in the user add command
      */
     public static Command addOrderParser(String[] splitter) throws DukeException {
         Order newOrder;
@@ -300,9 +304,11 @@ public class Parser {
             }
             newOrder = new Order();
             orderedDishes = splitter[1].substring(3).split(", ");
-        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>17) {
-            String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
-            if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
+        } else if (splitter[1].startsWith("-d ") && splitter[1].length() > 17) {
+            String[] dateAndDish = splitter[1].substring(3).split(" -n ", 2);
+            if (dateAndDish[0].length() != 10) {
+                throw new DukeException("Must enter a valid order date: dd/mm/yyyy");
+            }
             orderDate = Convert.stringToDate(dateAndDish[0]);
             newOrder = new Order();
             newOrder.setDate(orderDate);
@@ -330,14 +336,13 @@ public class Parser {
     }
 
     /**
-     * @author VirginiaYu
-     *
-     * to parse remaining information (newly set order serving date,
-     * and target order index) in the user add command
-     *
      * @param splitter split user command, containing valuable info
      * @return a command to be executed
      * @throws DukeException
+     * @author VirginiaYu
+     * <p>
+     * to parse remaining information (newly set order serving date,
+     * and target order index) in the user add command
      */
     public static Command alterOrderDateParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
@@ -364,14 +369,12 @@ public class Parser {
     }
 
     /**
-     * @author VirginiaYu
-     *
-     * to parse remaining information (cancelled order index) in the user add command
-     *
-     *
      * @param splitter split user command, containing valuable info
      * @return a command to be executed
      * @throws DukeException
+     * @author VirginiaYu
+     * <p>
+     * to parse remaining information (cancelled order index) in the user add command
      */
     public static Command cancelOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
