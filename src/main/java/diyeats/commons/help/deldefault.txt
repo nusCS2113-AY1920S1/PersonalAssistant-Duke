@@ -1,0 +1,3 @@
+Deleting default values to a meal.
+
+deldefault DESCRIPTION

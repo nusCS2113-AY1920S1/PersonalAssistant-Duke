@@ -1,0 +1,3 @@
+Deleting a transaction at a certain date
+
+    deletetransaction INDEX [/date]<DATE>

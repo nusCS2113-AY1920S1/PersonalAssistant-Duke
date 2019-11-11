@@ -1,0 +1,3 @@
+Deposit money to your account.
+
+    deposit AMOUNT [/date]<DATE>
