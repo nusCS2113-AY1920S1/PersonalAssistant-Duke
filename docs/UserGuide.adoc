@@ -378,16 +378,22 @@ The output will be an ascii printed version of the song after overlaying.
 
 === Undoing your previous action: `undo`
 
-Undo Command can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
-For `help`, `view`, `list`, `list_group`, and `ascii`, UndoCommand will not undo it since they didn't change the song list.
-Note that although `open` does not change the song list, since it opens a song to edit, `undo` still works on it.
+UndoCommand can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
+Currently UndoCommand only works for adding songs and deleting songs, which are `new` and `delete`.
+
+The next version of `undo` will be released in v2.0, when the undo can be applied for all the commands except
+for commands that do not change the song list.
 
 _Format_:
 `undo`
 
 === Redoing your previous action: `redo`
 
-Redo Command can redo the most recent commands that have been undone until there is no more commands that can be redone.
+RedoCommand can redo the most recent commands that have been undone until there is no more commands that can be redone.
+Currently RedoCommand only works for adding songs and deleting songs, which are `new` and `delete`.
+
+The next version of `redo` will be released in v2.0, when the redo can be applied for all the commands except
+for commands that do not change the song list.
 
 _Format_:
 `redo`

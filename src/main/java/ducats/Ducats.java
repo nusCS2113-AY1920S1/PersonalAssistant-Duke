@@ -99,11 +99,8 @@ public class Ducats {
                     output = c.execute(songs, ui, storage);
                     DucatsLogger.info(c.getClass().getName() + " has finished execution");
                     //@@author SalonetheGreat
-                    if (!(c instanceof HelpCommand
-                        || c instanceof ViewCommand
-                        || c instanceof ListCommand
-                        || c instanceof AsciiCommand
-                        || c instanceof ListGroupCommand)) {
+                    if (c instanceof NewCommand
+                        || c instanceof DeleteCommand) {
                         undoRedoStack.add(songs);
                     }
                 } else if (c instanceof UndoCommand || c instanceof RedoCommand) {
