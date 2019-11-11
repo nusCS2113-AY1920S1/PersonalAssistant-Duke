@@ -117,7 +117,7 @@ public class Parser {
                 } else {
                     part[1] = part[1].replaceAll("\\s+", " ");
                 }
-                return new AddDishCommand(new Dish(part[1]));
+                return new AddDishCommand(new Dish(checkIngNameLength(part[1])));
             case "remove":
                 try {
                     return new DeleteDishCommand(checkInt(part[1]));
@@ -141,10 +141,10 @@ public class Parser {
                 } catch (Exception e) {
                     throw new DukeException("enter a valid amount/index");
                 }
-                return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), amount, index);
+                return new AddIngredient(new Ingredient(checkIngNameLength(getIng[0]), amount, new Date()), amount, index);
             case "find":
                 try {
-                    return new FindDishCommand(part[1]);
+                    return new FindDishCommand(checkIngNameLength(part[1]));
                 } catch (Exception e) {
                     throw new DukeException("description cannot be emtpy");
                 }
@@ -152,7 +152,7 @@ public class Parser {
                 try {
                     String[] partition = part[1].split(" ", 2);
                     index = checkInt(partition[0]);
-                    return new ChangeDishCommand(partition[1], index);
+                    return new ChangeDishCommand(checkIngNameLength(partition[1]), index);
                 } catch (Exception e) {
                     throw new DukeException("enter a valid index/description");
                 }
