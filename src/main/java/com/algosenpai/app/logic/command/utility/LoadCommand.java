@@ -1,13 +1,16 @@
 package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.MainApp;
 import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
+import com.algosenpai.app.utility.LogCenter;
 
 import java.io.FileNotFoundException;
 import java.net.UnknownServiceException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class LoadCommand extends Command {
 

@@ -1,14 +1,14 @@
-= Matthew Nathanael Sugiri - Project Portfolio
+= Matthew Nathanael Sugiri (sevenmatt7) - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AlgoSenpai Adventures
+== PROJECT: AlgoSenpai Adventures (ASA)
 
 == About the Project
 My team of 4 software engineering students and I were tasked with enhancing a basic command line
-interface desktop personal assistant application for our Software Engineering project. We chose to morph
-it into a educational chatbot cum game named AlgoSenpai Adventures (ASA) for students to learn about Data Structures and Algorithms
+interface (CLI) desktop personal assistant application for our Software Engineering project. We chose to morph
+it into a desktop Personal Teaching Assistant application named AlgoSenpai Adventures (ASA) for students to learn about Data Structures and Algorithms
 in a more interactive and gamified fashion. This enhanced application enables students to take quizzes on topics that they choose, earn EXP points for completing quizzes
 to level up their character in the game, giving them motivation to practice more.
 

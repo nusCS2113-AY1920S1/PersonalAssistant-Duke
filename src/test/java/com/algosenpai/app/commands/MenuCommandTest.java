@@ -20,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import java.awt.*;
-
 public class MenuCommandTest extends ApplicationTest {
 
     @Override
@@ -92,7 +90,7 @@ public class MenuCommandTest extends ApplicationTest {
                 + "Utility :\n"
                 + "*\treview\n"
                 + "*\thistory\n"
-                + "*\tundo\n"
+                + "*\tdelete\n"
                 + "*\thelp\n"
                 + "*\tprint\n"
                 + "*\tarchive\n"
@@ -203,17 +201,18 @@ public class MenuCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testMenuUndoCommandOutput() {
-        clickOn("#userInput").write("menu undo").clickOn("#sendButton");
+    void testMenuDeleteCommandOutput() {
+        clickOn("#userInput").write("menu delete").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("This command allows you to reverse a particular number of actions.\n"
+        Assertions.assertEquals("This command allows you to delete a particular number of chat bubbles "
+                + "on the screen.\n"
                 + "Format :\n"
-                + "`undo 5` will reverse the past 5 commands made by you.\n"
+                + "`delete 5` will delete the past 5 chat bubbles on the screen.\n"
                 + "**Tips\n"
-                + "The undo command will not reverse any actions that you make, but merely removes it from "
-                + "the screen.\n", actualText);
+                + "The delete command can be used as an alternative to the clear command in the event that\n"
+                + "you do not want to clear all the past chat bubbles.\n", actualText);
     }
 
     @Test
@@ -222,14 +221,17 @@ public class MenuCommandTest extends ApplicationTest {
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("This command allows you to see additional questions that you can practice"
-                + " on Kattis.\n"
+        Assertions.assertEquals("This command will recommend you problems that you can find on Kattis that "
+                + "are suitable to\n"
+                + "your current proficiency level. Your proficiency is measured by the percentage of questions that\n"
+                + "you get correct for that particular chapter.\n"
                 + "Format :\n"
-                + "`help` will list the chapters which have practice questions.\n"
-                + "`help bitmask` will list questions from the bitmask question available on Kattis.\n"
+                + "`help bitmask` will list recommended questions from Kattis on the bitmask topic.\n"
+                + "that can help you to improve and enhance your understanding on the topic.\n"
                 + "**Tips\n"
-                + "You can practise the questions available after looking through the lecture and quizzes, to optimise"
-                + " your learning.\n", actualText);
+                + "You can practise the questions available after doing the quizzes and attempting the lectures\n"
+                + " so that you will be able to apply the concepts you've learnt to solve algorithmic problems.\n",
+                actualText);
     }
 
     @Test

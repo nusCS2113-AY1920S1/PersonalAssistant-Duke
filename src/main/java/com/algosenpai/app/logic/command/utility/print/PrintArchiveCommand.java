@@ -1,10 +1,13 @@
 package com.algosenpai.app.logic.command.utility.print;
 
+import com.algosenpai.app.logic.chapters.LectureGenerator;
 import com.algosenpai.app.logic.models.QuestionModel;
+import com.algosenpai.app.utility.LogCenter;
 import com.itextpdf.text.DocumentException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class PrintArchiveCommand extends PrintCommand {
 
@@ -17,6 +20,8 @@ public class PrintArchiveCommand extends PrintCommand {
      * Paragraphs to write to pdf.
      */
     private ArrayList<String> paragraphs;
+
+    private static final Logger logger = LogCenter.getLogger(PrintArchiveCommand.class);
 
     /**
      * Initializes command to print archive.
@@ -58,8 +63,11 @@ public class PrintArchiveCommand extends PrintCommand {
         }
         try {
             pdfWriter.saveToPdf(paragraphs, inputs.get(2));
-            return "Successfully write archive to pdf";
+            logger.info("Archived questions have successfully been written to the pdf file.");
+            return "The questions you have archived have been successfully export to the pdf file!"
+                    + " Happy reviewing! \\(ᵔᵕᵔ)/";
         } catch (DocumentException | FileNotFoundException e) {
+            logger.severe("Oh no! Your questions were not able to be exported to the pdf file (ᵟຶ︵ ᵟຶ)");
             return "Error writing archive to file";
         }
     }

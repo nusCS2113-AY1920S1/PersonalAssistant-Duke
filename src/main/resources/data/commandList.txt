@@ -10,7 +10,7 @@ Critical :
 Utility :
 *	review
 *	history
-*	undo
+*	delete
 *	help
 *	print
 *	archive
@@ -73,20 +73,24 @@ Format :
 **Tips
 The history command can only display as many commands as you have made.
 -
-undo
-This command allows you to reverse a particular number of actions.
+delete
+This command allows you to delete a particular number of chat bubbles on the screen.
 Format :
-`undo 5` will reverse the past 5 commands made by you.
+`delete 5` will delete the past 5 chat bubbles on the screen.
 **Tips
-The undo command will not reverse any actions that you make, but merely removes it from the screen.
+The delete command can be used as an alternative to the clear command in the event that
+you do not want to clear all the past chat bubbles.
 -
 help
-This command allows you to see additional questions that you can practice on Kattis.
+This command will recommend you problems that you can find on Kattis that are suitable to
+your current proficiency level. Your proficiency is measured by the percentage of questions that
+you get correct for that particular chapter.
 Format :
-`help` will list the chapters which have practice questions.
-`help bitmask` will list questions from the bitmask question available on Kattis.
+`help bitmask` will list recommended questions from Kattis on the bitmask topic
+that can help you to improve and enhance your understanding on the topic.
 **Tips
-You can practise the questions available after looking through the lecture and quizzes, to optimise your learning.
+You can practise the questions available after doing the quizzes and attempting the lectures
+so that you will be able to apply the concepts you've learnt to solve algorithmic problems.
 -
 print
 This command allows you to print different documents into a pdf format.

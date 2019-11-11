@@ -1,0 +1,58 @@
+= AlgoSenpai Adventures - Testing
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-T09-3/main
+
+== Running Tests
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner or Gradle in IntelliJ*
+
+* To run all the tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run ABCCommandTest`
+* Alternatively, you can `Edit Configurations` in the top right hand corner of IntelliJ and make it such that
+  Gradle will run execute `test` task as shown in the screenshot below.
+
+image::testingscreen.png[]
+
+*Method 2: Using Gradle (on the console/terminal)*
+
+* Open a console and run the command `gradlew test` (Mac/Linux: `./gradlew test`)
+
+== Types of tests
+
+We have three types of tests:
+
+.  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `com.algosenpai.app.commands.parser.ParserCheckIntegerTest`
+.  _Integration tests_ that are checking the integration of multiple code units (the lower level code units are assumed
+    to be working). +
+e.g. `com.algosenpai.app.StorageTest`
+.  Hybrids of unit and integration tests. These tests are checking multiple code units as they work together to execute
+    the desired action. +
+e.g. `com.algosenpai.app.commands.ClearCommandTest`
+
+
+== Troubleshooting Testing
+**Problem: Running the GUI tests using Gradle (using console commands or IntelliJ) result in an error on Windows.**
+
+* Reason: It is known that the using `TestFX 11` framework on Windows to execute the tasks in _headless_ mode will
+    result in an error.
+* Solution: The GUI tests need to be configured to run in _non-headless_ mode on Windows to execute and run the tests
+    successfully. Therefore, comment out the portion of code in the `build.gradle` file as shown in the screenshot below.
+    After this is done, run the tests again and the GUI should appear on the screen for testing. Do not move the mouse
+    cursor as the tests are being executed as it might interfere with the outcome of the tests.
+
+image::commentscreen.png[width="400"]

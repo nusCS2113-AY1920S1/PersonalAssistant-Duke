@@ -46,6 +46,14 @@ public class ChapterStat {
     }
 
     /**
+     * Gets the percentage of questions correct.
+     * @return the value of the percentage.
+     */
+    public double getPercentage() {
+        return this.percentage;
+    }
+
+    /**
      * Makes a new copy of the Chapter.
      * @param referenceChapter The chapter to be copied.
      */

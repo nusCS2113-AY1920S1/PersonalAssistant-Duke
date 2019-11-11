@@ -2,6 +2,8 @@
 
 package com.algosenpai.app.logic.command;
 
+import com.algosenpai.app.exceptions.FileParsingException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,6 +21,6 @@ public abstract class Command {
         this.inputs = inputs;
     }
     
-    public abstract String execute() throws IOException;
+    public abstract String execute() throws IOException, FileParsingException;
 }
 

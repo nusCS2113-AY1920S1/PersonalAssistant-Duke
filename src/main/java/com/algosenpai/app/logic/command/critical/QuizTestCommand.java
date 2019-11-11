@@ -1,11 +1,15 @@
 package com.algosenpai.app.logic.command.critical;
 
+import com.algosenpai.app.logic.chapters.LectureGenerator;
 import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.utility.LogCenter;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 public class QuizTestCommand extends QuizCommand {
 
@@ -22,6 +26,8 @@ public class QuizTestCommand extends QuizCommand {
     private UserStats userStats;
 
     private AtomicInteger prevResult;
+
+    private static final Logger logger = LogCenter.getLogger(QuizTestCommand.class);
 
     /**
      * Create new command.
@@ -98,6 +104,7 @@ public class QuizTestCommand extends QuizCommand {
     }
 
     private void reset() {
+        logger.info("Player is exiting quiz mode...");
         questionNumber.set(0);
         isQuizMode.set(false);
         isNewQuiz.set(true);
@@ -129,10 +136,12 @@ public class QuizTestCommand extends QuizCommand {
             newUserExp -= expToAdvance;
             newLevel++;
         }
+
         //Set the values in userStats.
         userStats.setUserExp(newUserExp);
         userStats.setUserLevel(newLevel);
         userStats.saveUserStats("UserData.txt");
+        logger.info("User stats have been updated in the text file");
         // End of updating
         return "You got " + userQuizScore + "/10 questions correct!\n"
                 + "You have gained " + userQuizScore + " EXP points!\n"

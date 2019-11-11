@@ -31,10 +31,14 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the application. Given below is a quick overview of each component.
 
 
-`Main` has two classes called link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/Launcher.java[`Launcher`] and link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/Launcher.java[`Launcher`]
+and link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/MainApp.java[`MainApp`]. It is responsible for,
 
-* At app launch: Initialising the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initialising the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking any cleanup methods where necessary.
+
+`LogCenter` is a class that is used by many classes to write log messages to the application's log files. The log files
+can be used during debugging to determine when and where the error occured during the running of the application.
 
 The rest of the App consists of four components.
 
@@ -43,23 +47,14 @@ The rest of the App consists of four components.
 * <<Design-Model,*`Stats`*>>: Holds the relevant user statistics and settings in memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-//Each of the four components
-//
-//* Defines its _API_ in an `interface` with the same name as the Component.
-//* Exposes its functionality using a `{Component Name}Manager` class.
-//
-//For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-//.Class Diagram of the Logic Component
-//image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `help`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user enters the command `lecture sorting`.
 
 .Component interactions for `help` command
-image::HelpSequenceDiagram.png[]
+image::SequenceDiagram.png[]
 
 The sections below give more details of each component.
 

@@ -1,8 +1,10 @@
 package com.algosenpai.app.stats;
 
+import com.algosenpai.app.MainApp;
 import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.storage.Storage;
 
+import com.algosenpai.app.utility.LogCenter;
 import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
+import java.util.logging.Logger;
 
 /**
  * Handles temporary storage of user stats while the program is running.
@@ -42,7 +45,15 @@ public class UserStats {
     private ChapterStat currentChapter;
 
     //Maps the chapter names to an index value
-    private HashMap<String, Integer> chapterNumber = new HashMap<>();
+    private HashMap<String, Integer> chapterNumber = new HashMap<>() {
+        {
+            put("sorting", 1);
+            put("linkedlist", 2);
+            put("bitmask", 3);
+        }
+    };
+
+    private static final Logger logger = LogCenter.getLogger(UserStats.class);
 
     /**
      * Constructs a new UserStats by reading in from the UserData text file.
@@ -51,13 +62,11 @@ public class UserStats {
      */
     public UserStats(String userDataFilePath) throws FileParsingException {
         chapterData = new ArrayList<>();
-        this.chapterNumber.put("sorting", 1);
-        this.chapterNumber.put("linkedlist", 2);
-        this.chapterNumber.put("bitmask", 3);
         this.userDataFilePath = userDataFilePath;
 
         File file = new File(userDataFilePath);
         if (!file.isFile()) {
+            logger.info("UserData.txt file not found, creating new UserData.txt with default stats");
             this.userName = "Default";
             this.gender = "????";
             this.level = 1;
@@ -70,19 +79,21 @@ public class UserStats {
         } else {
             String fileContents = null;
             try {
+                logger.info("Reading User Stats from UserData.txt.....");
                 fileContents = Storage.loadData(userDataFilePath);
             } catch (FileNotFoundException ignored) {
+                logger.severe("UserData.txt could not be read due to error.");
                 throw new FileParsingException("The file does not exist!");
             }
-            UserStats dummy = UserStats.parseString(fileContents);
+            UserStats statsLoadedfromFile = UserStats.parseString(fileContents);
 
             // Call the parsing method and copy over the values.
             // Idk any better way to do this.
-            this.userName = dummy.userName;
-            this.gender = dummy.gender;
-            this.level = dummy.level;
-            this.expLevel = dummy.expLevel;
-            this.chapterData = dummy.chapterData;
+            this.userName = statsLoadedfromFile.userName;
+            this.gender = statsLoadedfromFile.gender;
+            this.level = statsLoadedfromFile.level;
+            this.expLevel = statsLoadedfromFile.expLevel;
+            this.chapterData = statsLoadedfromFile.chapterData;
         }
     }
 
@@ -102,7 +113,7 @@ public class UserStats {
     }
 
     /**
-     * Takes reference from the previous userstats.
+     * Creates a new UserStats object from another UserStats object passed in.
      * @param previousStats The old userstats.
      */
     public UserStats(UserStats previousStats) {
@@ -238,20 +249,48 @@ public class UserStats {
         this.userName = username;
     }
 
+    /**
+     * Gets the level of the user.
+     * @return the int value which is the user's level.
+     */
     public int getUserLevel() {
         return this.level;
     }
 
+    /**
+     * Sets the level of the user.
+     * @param level the int value representing the level of the user.
+     */
     public void setUserLevel(int level) {
         this.level = level;
     }
 
+    /**
+     * Gets the user experience points of the user.
+     * @return the user experience points.
+     */
     public int getUserExp() {
         return this.expLevel;
     }
 
+    /**
+     * Sets the user experience points of the user.
+     * @param expLevel the user experience points.
+     */
     public void setUserExp(int expLevel) {
         this.expLevel = expLevel;
+    }
+
+    /**
+     * Gets the percentage of questions correct statistic for the chapter specified.
+     * @param chapterIndex the index number of the chapter according to the HashMap of chapters.
+     * @return the double value representing the percentage of questions correct.
+     */
+    public double getPercentageofQuestionsCorrect(int chapterIndex) {
+        int chapterNumber = chapterIndex - 1;
+        ChapterStat currentChapter = chapterData.get(chapterNumber);
+        logger.info("The percentage stat parsed is " + currentChapter.getPercentage());
+        return currentChapter.getPercentage();
     }
 
     /**
@@ -288,7 +327,7 @@ public class UserStats {
      */
     public static UserStats parseString(String string) throws FileParsingException {
         try {
-
+            logger.info("Parsing User Stats from text file..");
             // Get the first 6 lines. 6th line contains the chapterData.
             String [] tokens = string.split("\n",8);
             String userName = tokens[2];
@@ -306,11 +345,12 @@ public class UserStats {
             for (String chapterString: chapterDataTokens) {
                 chapterStats.add(ChapterStat.parseString(chapterString));
             }
+            logger.info("User Stats have been parsed successfully!");
             return new UserStats(userName, gender, level, expLevel, chapterStats);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            logger.severe("User Stats could not be parsed successfully from text file");
             throw new FileParsingException();
         }
-
     }
 
     /**

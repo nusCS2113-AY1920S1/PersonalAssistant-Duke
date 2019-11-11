@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class LoadCommandTest {
 
     @Test
-    void loadFromValidFile() throws IOException {
+    void loadFromValidFile() throws IOException, FileParsingException {
         UserStats userStats = UserStats.getDefaultUserStats();
         UserStats userStats1 = new UserStats("ABC","girl",1,2,new ArrayList<ChapterStat>());
         Storage.saveData("testTextFile.txt",userStats1.toString());

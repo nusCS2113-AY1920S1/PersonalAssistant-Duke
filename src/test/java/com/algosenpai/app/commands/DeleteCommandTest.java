@@ -22,11 +22,11 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.IOException;
 
-public class UndoCommandTest extends ApplicationTest {
+public class DeleteCommandTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(UndoCommandTest.class.getResource("/view/MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(DeleteCommandTest.class.getResource("/view/MainWindow.fxml"));
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
@@ -50,7 +50,7 @@ public class UndoCommandTest extends ApplicationTest {
 
     @Test
     void testUndoCommandNegativeUndos() {
-        clickOn("#userInput").write("undo -1");
+        clickOn("#userInput").write("delete -1");
         clickOn("#sendButton");
         VBox container = find();
         int numberOfMessages = container.getChildren().size();
@@ -59,7 +59,7 @@ public class UndoCommandTest extends ApplicationTest {
 
     @Test
     void testUndoCommandPositiveUndos() {
-        clickOn("#userInput").write("undo 1");
+        clickOn("#userInput").write("delete 1");
         clickOn("#sendButton");
         VBox container = find();
         int numberOfMessages = container.getChildren().size();
@@ -70,7 +70,7 @@ public class UndoCommandTest extends ApplicationTest {
     void testUndoCommandMoreUndosThanMessage() {
         clickOn("#userInput").write("testing");
         clickOn("#sendButton");
-        clickOn("#userInput").write("undo 5");
+        clickOn("#userInput").write("delete 5");
         clickOn("#sendButton");
         VBox container = find();
         int numberOfMessages = container.getChildren().size();
@@ -81,7 +81,7 @@ public class UndoCommandTest extends ApplicationTest {
     void testUndoCommandLessUndosThanMessage() {
         clickOn("#userInput").write("testing");
         clickOn("#sendButton");
-        clickOn("#userInput").write("undo 1");
+        clickOn("#userInput").write("delete 1");
         clickOn("#sendButton");
         VBox container = find();
         int numberOfMessages = container.getChildren().size();
@@ -92,7 +92,7 @@ public class UndoCommandTest extends ApplicationTest {
     void testUndoCommandDefaultUndos() {
         clickOn("#userInput").write("testing");
         clickOn("#sendButton");
-        clickOn("#userInput").write("undo");
+        clickOn("#userInput").write("delete");
         clickOn("#sendButton");
         VBox container = find();
         int numberOfMessages = container.getChildren().size();
@@ -103,19 +103,19 @@ public class UndoCommandTest extends ApplicationTest {
     void testSoundLevelUpperBoundary() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("undo testing");
+        Command command = logic.executeCommand("delete testing");
         String actualText = command.execute();
-        Assertions.assertEquals("Not a valid number", actualText);
+        Assertions.assertEquals("Sorry, you did not enter a valid number (ᵟ︵ ᵟ)", actualText);
     }
 
     @Test
     void testUndoCommandAfterClearCommand() {
         clickOn("#userInput").write("clear").clickOn("#sendButton");
-        clickOn("#userInput").write("undo").clickOn("#sendButton");
+        clickOn("#userInput").write("delete").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(0);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("There are no more chats to undo!", actualText);
+        Assertions.assertEquals("There are no more chats to delete!", actualText);
     }
 
 

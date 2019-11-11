@@ -1,6 +1,8 @@
 package com.algosenpai.app.storage;
 
+import com.algosenpai.app.MainApp;
 import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.utility.LogCenter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,8 +11,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 public class Storage {
+
+    private static final Logger logger = LogCenter.getLogger(Storage.class);
 
     /**
      * Load data from file.
@@ -25,8 +30,10 @@ public class Storage {
         }
 
         try {
+            logger.info("Loading data from file specified..");
             return Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
         } catch (IOException e) {
+            logger.info("Data not loaded successfully due to IO error.");
             e.printStackTrace();
         }
 
@@ -47,7 +54,9 @@ public class Storage {
             FileWriter fw = new FileWriter(filePath);
             fw.write(data);
             fw.close();
+            logger.info("Successfully saved data to file.");
         } catch (IOException e) {
+            logger.info("Data not saved to file due to IO error.");
             e.printStackTrace();
         }
     }

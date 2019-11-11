@@ -100,7 +100,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @param logic The logic component.
      * @throws IOException exception.
      */
-    private void testLectureSortingNextDoesNotWork(Logic logic) throws IOException {
+    private void testLectureSortingNextDoesNotWork(Logic logic) throws IOException, FileParsingException {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("next").execute();
@@ -113,7 +113,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @param logic The logic component.
      * @throws IOException exception.
      */
-    private void testLectureSortingBackDoesNotWorkAtEnd(Logic logic) throws IOException {
+    private void testLectureSortingBackDoesNotWorkAtEnd(Logic logic) throws IOException, FileParsingException {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("back").execute();
@@ -127,7 +127,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @param actualText The text that was actually outputted.
      * @throws IOException exception.
      */
-    private void testLectureSortingRestWorks(Logic logic, String actualText) throws IOException {
+    private void testLectureSortingRestWorks(Logic logic, String actualText) throws IOException, FileParsingException {
         String expectedText;
         for (int i = 0; i < 31; i++) {
             actualText = logic.executeCommand("next").execute();
@@ -145,7 +145,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @return The string containing the expected output.
      * @throws IOException exception.
      */
-    private String testLectureSortingBackWorks(Logic logic) throws IOException {
+    private String testLectureSortingBackWorks(Logic logic) throws IOException, FileParsingException {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("back").execute();
@@ -162,7 +162,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @param logic The logic component.
      * @throws IOException exception.
      */
-    private void testLectureSortingNextWorks(Logic logic) throws IOException {
+    private void testLectureSortingNextWorks(Logic logic) throws IOException, FileParsingException {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("next").execute();
@@ -184,7 +184,8 @@ public class LectureCommandTest extends ApplicationTest {
      * @param expectedText The expected text from the user.
      * @throws IOException exception.
      */
-    private void testLectureSortingBackFailsAtBeginning(Logic logic, String expectedText) throws IOException {
+    private void testLectureSortingBackFailsAtBeginning(Logic logic, String expectedText) throws IOException,
+            FileParsingException {
         String actualText;
         actualText = logic.executeCommand("back").execute();
         Assertions.assertEquals(expectedText, actualText);
@@ -196,7 +197,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @return The expected text of the user.
      * @throws IOException exception.
      */
-    private String testLectureSortingStart(Logic logic) throws IOException {
+    private String testLectureSortingStart(Logic logic) throws IOException, FileParsingException {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("start").execute();
@@ -213,7 +214,7 @@ public class LectureCommandTest extends ApplicationTest {
      * @param logic The logic component.
      * @throws IOException exception.
      */
-    private void testLectureSortingSelect(Logic logic) throws IOException {
+    private void testLectureSortingSelect(Logic logic) throws IOException, FileParsingException {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("lecture sorting").execute();

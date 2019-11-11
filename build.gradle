@@ -4,7 +4,9 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.asciidoctor.convert' version '1.5.6'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'jacoco'
+
 }
 
 checkstyle {
@@ -13,14 +15,38 @@ checkstyle {
 
 jacocoTestReport {
     reports {
-        xml.enabled false
-        csv.enabled false
+        xml.enabled = true
+        html.enabled = true
         html.destination file("${buildDir}/jacocoHtml")
     }
 }
 
+task coverage(type: JacocoReport) {
+    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from files(sourceSets.main.output)
+    executionData.from files(jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories.from files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
+    }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+}
+
+coveralls {
+    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
+    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
+}
+
+tasks.coveralls {
+    dependsOn coverage
+}
+
 shadowJar {
-    archiveBaseName = "AlgoSenpaiAdventures.jar"
+    archiveBaseName = "AlgoSenpaiAdventures"
     archiveVersion = "1.3.3"
     archiveClassifier = null
     archiveAppendix = null
@@ -77,15 +103,14 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
-    /*
-    systemProperty 'java.awt.headless', 'true'
-    systemProperty 'testfx.robot', 'glass'
-    systemProperty 'testfx.headless', 'true'
-    systemProperty 'prism.order', 'sw'
-    systemProperty 'prism.text', 't2k'
-    systemProperty 'testfx.setup.timeout', '2500'
 
-     */
+//    systemProperty 'java.awt.headless', 'true'
+//    systemProperty 'testfx.robot', 'glass'
+//    systemProperty 'testfx.headless', 'true'
+//    systemProperty 'prism.order', 'sw'
+//    systemProperty 'prism.text', 't2k'
+//    systemProperty 'testfx.setup.timeout', '2500'
+
 }
 
 asciidoctor {

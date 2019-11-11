@@ -14,7 +14,7 @@ import java.io.IOException;
 public class ByeCommandTest extends ApplicationTest {
 
     @Test
-    void testSoundLevelUpperBoundary() throws IOException {
+    void testSoundLevelUpperBoundary() throws IOException, FileParsingException {
         UserStats stats = null;
         try {
             stats = new UserStats("./UserData.txt");

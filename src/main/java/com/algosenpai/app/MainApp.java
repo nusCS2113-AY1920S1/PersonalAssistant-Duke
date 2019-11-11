@@ -5,6 +5,7 @@ import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
+import com.algosenpai.app.utility.LogCenter;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.logging.Logger;
 
 /**
  * A one scene chatbot GUI.
@@ -33,30 +35,34 @@ public class MainApp extends Application {
     private Logic logic;
     private static MusicController musicController;
     private UserStats stats;
+    private static final Logger logger = LogCenter.getLogger(MainApp.class);
 
     private boolean wasDatafileCorrupted = false;
 
     static {
         try {
+            logger.info("Starting music controller.....");
             musicController = MusicController.getMusicController();
             musicController.playMusic();
         } catch (URISyntaxException e) {
+            logger.info("Failed to start music controller.");
             e.printStackTrace();
         }
     }
 
     private void initialize() {
-
         // Ignore the parsing error here, as it is properly dealt with later in the Ui.initialize
         // SetupCommand.
+        logger.info("==========================[ Initializing AlgoSenpai Adventures ]========================");
         try {
             stats = new UserStats("./UserData.txt");
+            logger.info("User Stats have been successfully loaded.");
         } catch (FileParsingException ignored) {
             stats = UserStats.getDefaultUserStats();
             Storage.saveData("UserData.txt",stats.toString());
             wasDatafileCorrupted = true;
+            logger.info("User Stats data could not be loaded due to a parsing error.");
         }
-
         logic = new Logic(stats);
     }
 
@@ -96,5 +102,6 @@ public class MainApp extends Application {
         stage.setResizable(false);
         stage.setTitle(APPLICATION_TITLE);
         stage.show();
+        logger.info("Main GUI screen successfully rendered.");
     }
 }

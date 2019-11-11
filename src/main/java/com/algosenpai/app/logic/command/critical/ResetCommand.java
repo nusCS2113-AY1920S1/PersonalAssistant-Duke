@@ -1,12 +1,15 @@
 package com.algosenpai.app.logic.command.critical;
 
 import com.algosenpai.app.exceptions.ResetExceptions;
+import com.algosenpai.app.logic.chapters.LectureGenerator;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
+import com.algosenpai.app.utility.LogCenter;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 
 
 public class ResetCommand extends Command {
@@ -17,6 +20,7 @@ public class ResetCommand extends Command {
     // So we should display a confirm(yes/no) message.
     // If it is true, the user has already confirmed, and we should go ahead with resetting the data.
     private AtomicBoolean resetMode;
+    private static final Logger logger = LogCenter.getLogger(ResetCommand.class);
 
 
     /**
@@ -44,6 +48,7 @@ public class ResetCommand extends Command {
             resetMode.set(false);
             userStats.resetAll();
             Storage.saveData("UserData.txt",userStats.toString());
+            logger.info("User stats have been successfully reset to default.");
             return "You progress has been reset!";
         } else {
             resetMode.set(false);
