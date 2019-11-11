@@ -18,7 +18,7 @@ public class UI {
     private static String lineSeparation = "____________________________________________________________\n";
 
     /**
-     * prints welcome message and instructions for use.
+     * Prints welcome message and instructions for use.
      */
     public void welcome() {
         String logo = " ___    ___   __________    __________   __________   __________   _________" + "\n"
@@ -305,10 +305,11 @@ public class UI {
     //@@author
 
     /**
-     * Obtains the current date and prints the events to be completed within the next
-     * input number of days as a reminder.
+     * Obtains the current date and prints the events to be completed within a time period specified
+     * by the input int days.
      *
      * @param events the EventList used in the Duke function.
+     * @param days   number of days to check for events.
      */
     public void printReminderDays(EventList events, int days) {
         System.out.print(lineSeparation);
@@ -476,7 +477,7 @@ public class UI {
     }
 
     /**
-     * Prints when entered end date is before start date.
+     * Prints error message when user enters timing for an event that ends before it starts.
      */
     public void printEventEndsBeforeStart() {
         System.out.print(lineSeparation);
@@ -543,7 +544,7 @@ public class UI {
     }
 
     /**
-     * Prints when there is an error writing to txt file.
+     * Prints error message if Storage class fails to write to txt file.
      */
     public void printErrorWritingToFile() {
         System.out.print(lineSeparation);
@@ -614,9 +615,10 @@ public class UI {
     }
 
     /**
-     * Prints when there is no cost for the month but printCostForMonth is called.
+     * Prints error message signifying that there are no concerts in the month
+     * that the user requested to view costs for.
      */
-    public static void printNoCostsForThatMonth() {
+    public static void printNoConcertsForThatMonth() {
         System.out.print(lineSeparation);
         System.out.println("There are no concerts for that month!");
         System.out.println("Please ensure your date is in the format MM-yyyy");
@@ -752,6 +754,10 @@ public class UI {
      * @param viewEventGoal The event.
      */
     //@@author yenpeichih
+
+    /**
+     * Prints goals for a specific event.
+     */
     public void printEventGoals(Event viewEventGoal) {
         System.out.println(lineSeparation);
         System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());

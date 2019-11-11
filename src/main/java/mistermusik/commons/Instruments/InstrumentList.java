@@ -1,6 +1,7 @@
-package mistermusik.commons.Instruments;
+package mistermusik.commons.instruments;
 
 import mistermusik.commons.events.formatting.EventDate;
+import mistermusik.commons.instruments.Instrument;
 
 import java.util.ArrayList;
 
@@ -83,5 +84,5 @@ public class InstrumentList {
     public String getIndexAndService(int instrumentIndex, int serviceIndex) {
         return instrumentList.get(instrumentIndex - 1).getIndexAndService(serviceIndex);
     }
-
 }
+
