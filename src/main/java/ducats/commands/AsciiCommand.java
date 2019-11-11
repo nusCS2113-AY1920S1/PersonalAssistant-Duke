@@ -21,7 +21,6 @@ import java.util.HashMap;
  */
 public class AsciiCommand extends Command<SongList> {
 
-
     //@@author Samuel787
     private static final String MUSIC_8 = "*";
     private static final String MUSIC_6 = "$.";
@@ -52,6 +51,9 @@ public class AsciiCommand extends Command<SongList> {
     private static final String START_REST_SONGSHEET = "R";
     //symbol to indicate continuation of rest in the songsheet
     private static final String CONTINUE_REST_SONGSHEET = "X";
+
+    //number of string after which to wrap the display of ascii song to new line
+    private static final int WRAP_AFTER_NUM_STRINGS = 72;
 
     private String message;
 
@@ -140,7 +142,7 @@ public class AsciiCommand extends Command<SongList> {
     private Song getBarAsSong(SongList songList, int barNum, String message) throws DucatsException {
         //bar index for user is assumed to start from 1
         if (barNum > songList.getSongIndex(songList.getActiveIndex()).getNumBars() || barNum < 1) {
-            throw new DucatsException(message, "AsciiCommand");
+            throw new DucatsException(message, "no_index");
         }
         Song tempSong = new Song("Test song", "C-Major", 120);
         Bar displayBar = songList.getSongIndex(songList.getActiveIndex()).getBars().get(barNum - 1);
@@ -153,9 +155,8 @@ public class AsciiCommand extends Command<SongList> {
         Song activeSong = songList.getSongIndex(activeSongIndex);
         Group group = activeSong.findGroup(groupName);
         Song groupAsSong = new Song("temp", "aminor", 120);
-        ;
         if (group == null) {
-            throw new DucatsException(message, "AsciiCommand");
+            throw new DucatsException(message, "group_not_found");
         } else {
             //wrap the group as a song
             ArrayList<Bar> bars = group.getBars();
@@ -173,7 +174,7 @@ public class AsciiCommand extends Command<SongList> {
             song = songs.get(0);
         } else {
             //song does not exist
-            throw new DucatsException(message, "AsciiCommand");
+            throw new DucatsException(message, "no_song");
         }
         return song;
     }
@@ -222,9 +223,9 @@ public class AsciiCommand extends Command<SongList> {
         for (int i = 0; i < strings.length; i++) {
             strings[i] = strings[i].substring(4);
             for (int j = 0; j < strings[i].length(); j++) {
-                if (j % 72 == 0) {
-                    if (j + 72 < strings[i].length()) {
-                        rows.get(i).add(strings[i].substring(j, j + 72));
+                if (j % WRAP_AFTER_NUM_STRINGS == 0) {
+                    if (j + WRAP_AFTER_NUM_STRINGS < strings[i].length()) {
+                        rows.get(i).add(strings[i].substring(j, j + WRAP_AFTER_NUM_STRINGS));
                     } else {
                         rows.get(i).add(strings[i].substring(j));
                     }
@@ -288,6 +289,7 @@ public class AsciiCommand extends Command<SongList> {
 
                 result.append(rows.get(j).get(i) + "\n");
                 if (j == 14) {
+                    //wrapping takes place here when song is too long
                     result.append("\n");
                 }
             }
@@ -297,11 +299,10 @@ public class AsciiCommand extends Command<SongList> {
 
     /**
      * Prints out the selected song in ASCII format to represent the song sheet.
-     *
      * @param song the song that user wants to print in ASCII
      */
     public static String printSongAscii(Song song) {
-        ArrayList<ArrayList<String>> songAscii = parseSongAscii(getSongAscii(song));
+        ArrayList<ArrayList<String>> songAscii = secondLayerParseAscii(firstLayerParseAscii(song));
         StringBuilder stringResult = new StringBuilder();
         for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < songAscii.get(i).size(); j++) {
@@ -320,8 +321,13 @@ public class AsciiCommand extends Command<SongList> {
     }
 
 
-    private static ArrayList<ArrayList<String>> getSongAscii(Song song) {
+    private static ArrayList<ArrayList<String>> firstLayerParseAscii(Song song) {
         ArrayList<ArrayList<String>> songAscii = new ArrayList<>();
+        initialiseFirstLayerParse(songAscii, song);
+        return songAscii;
+    }
+
+    private static void initialiseFirstLayerParse(ArrayList<ArrayList<String>> songAscii, Song song) {
         for (int i = 0; i < 15; i++) {
             songAscii.add(i, new ArrayList<>());
         }
@@ -345,7 +351,6 @@ public class AsciiCommand extends Command<SongList> {
             ArrayList<ArrayList<String>> barAscii = getBarAscii(bar);
             generateBarAscii(songAscii, barAscii);
         }
-        return songAscii;
     }
 
     private static void generateBarAscii(ArrayList<ArrayList<String>> songAscii,
@@ -357,7 +362,7 @@ public class AsciiCommand extends Command<SongList> {
         }
     }
 
-    private static ArrayList<ArrayList<String>> parseSongAscii(ArrayList<ArrayList<String>> rawSongAscii) {
+    private static ArrayList<ArrayList<String>> secondLayerParseAscii(ArrayList<ArrayList<String>> rawSongAscii) {
         ArrayList<ArrayList<String>> resultAscii = new ArrayList<>();
         for (ArrayList<String> arr : rawSongAscii) {
             resultAscii.add(new ArrayList<>(arr));

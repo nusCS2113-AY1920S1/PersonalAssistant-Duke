@@ -141,8 +141,57 @@ _Design Considerations_:
 ** _Pros_: Faster input of command for the user
 ** _Cons_: User needs to look at the full list first, so overall, time is not saved. For the user, querying a name is more natural than an index.
 
-=== Storage
+=== Storage and StorageParser
 
-//todo
+In order to ensure that the songs the user has created, deleted or modified can be retrieved even after exiting Ducats, a form of persistent storage is needed. This is implemented as a folder containing `.txt` files, and a `Storage` class that will interact with the said folder to read and modify its contents. Since the `Storage` class can create and modify files, it is important to understand the exact procedures executed within the class for the reading and writing of files. The two swimlane diagrams below display the sequence of events, as well as how the `Storage` class interacts with the `StorageParser` class. Each activity is annotated with the function within which it occurs for easy reference.
 
+.Reading files (for each file)
+image::storage_read.png[]
 
+Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure X is then repeated for each file in the file list.
+
+.Writing to files (for each song)
+image::storage_write.png[]
+
+Regardless of whether the `.txt` file corresponding to the specific song exists, the `Storage` class will attempt the creation of the file to ensure its existence. Due to the modification of data being involved, changes to the files are logged by DucatsLogger.
+
+_Data Format:_
+
+In order to convert each Song object to a human-readable String, and to be able to parse it back, a format must be decided for the storing of the Song object in persistent storage. The following format has been adopted:
+
+    NAME KEY TEMPO
+    BAR_1
+    BAR_2
+    ...
+    BAR_N
+    groups:
+    GROUP_1_NAME BAR_1 ... BAR_N
+    ...
+    GROUP_N_NAME BAR_1 ... BAR_N
+
+Each `BAR_N`, where N is a positive integer, is formatted as follows, with the segments representing each individual bar, chord and note being labelled with B, C and N respectively:
+
+    [[UAs;UCs],[UA;UC],[UA;UC],[UA;UC],[MCs;LDs],[MC;LD],[MC;UDs],[MC,UD]]
+    |----------------------------------B---------------------------------|
+     |---C---|
+      |N|
+
+For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of a 1⁄8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of ½ and an Upper C Note with the same duration in the first four chords.
+
+By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the .txt file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion due to the composition structure of the Song component (as can be seen in Figure X). Inversely, in order for the StorageParser class to parse the data found in the .txt file into Song objects that are to be stored in the SongList, the following methods are defined under the `StorageParser` class:
+
+* `convertNoteFromString(String s)` (converts a String into a Note)
+* `convertChordFromString(String s)` (converts a String into a Chord) _(uses the above)_
+* `convertBarFromString(String s)` (converts a String into a Bar) _(uses the above)_
+* `convertSongFromString(String s)` (converts a String into a Song) _(uses the above)_
+
+_Design Considerations_:
+
+* Using a single .txt file to store all the data
+** _Pros_: easier implementation of `Storage`
+** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
+* Using .csv files instead of .txt files to store the data
+** _Pros_: arguably a more organized method of data management
+** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+
+We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
