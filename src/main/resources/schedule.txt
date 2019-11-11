@@ -1,0 +1,25 @@
+Schedule:
+d/15/11/19 n/netflix 100
+d/15/11/19 n/electricity 250
+d/11/10/19 n/apple+ 200
+d/11/10/19 n/vps 100
+d/11/10/19 n/vpn 250
+d/11/10/19 n/loan 200
+d/15/11/19 n/installment 100
+d/15/11/19 n/birthday 250.23
+d/11/10/19 n/television 200
+d/15/11/19 n/bbq 100
+d/15/11/19 n/laptop 250
+d/11/10/19 n/shoes 200
+d/15/11/19 n/house 100
+d/15/11/19 n/windows 250
+d/11/10/19 n/mouse 200
+d/15/11/19 n/cpf 100
+d/15/11/19 n/ffxiv 250
+d/15/11/19 n/wow 200
+d/11/10/19 n/bdo 100
+d/11/10/19 n/pso2 250
+d/11/10/19 n/fgo 200
+
+
+

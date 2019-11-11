@@ -11,6 +11,7 @@ import moomoo.feature.parser.Parser;
 import moomoo.feature.storage.CategoryStorage;
 import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
+import moomoo.feature.Cow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,19 +20,27 @@ import java.util.HashMap;
  * Runs MooMoo.
  */
 public class MooMoo {
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+
     private Storage storage;
     private CategoryList categoryList;
     private Budget budget;
     public ScheduleList calendar;
-    private boolean shouldClearScreen;
 
     /**
      * Initializes different Category, Expenditures, Budget, Storage and Ui.
      */
     private MooMoo() {
-        shouldClearScreen = true;
 
         storage = new Storage("data/budget.txt","data/schedule.txt");
+
+        try {
+            storage.preloadData();
+        } catch (MooMooException e) {
+            Ui.printException(e);
+            Ui.showResponse();
+        }
         try {
             categoryList = CategoryStorage.loadFromFile();
             ExpenditureStorage.loadFromFile(categoryList);
@@ -71,12 +80,20 @@ public class MooMoo {
         String todaySchedule = calendar.showSchedule(date);
         Ui.setOutput(todaySchedule);
         Ui.showResponse();
+
+        String helpMessage = "Start managing your money! Or type <help> to get started.\n";
+        Ui.setOutput(helpMessage);
+        Ui.showResponse();
+
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = Ui.readCommand();
-                Ui.clearScreen(shouldClearScreen);
-                this.shouldClearScreen = true;
+
+                Ui.clearScreen();
+                Ui.setOutput(ANSI_PURPLE + fullCommand + ANSI_RESET + "\n");
+                Ui.showResponse();
+
                 Command c = Parser.parse(fullCommand);
                 c.execute(calendar, budget, categoryList, storage);
 
@@ -88,7 +105,6 @@ public class MooMoo {
             } catch (MooMooException e) {
                 Ui.printException(e);
                 Ui.showResponse();
-                this.shouldClearScreen = false;
             }
         }
     }

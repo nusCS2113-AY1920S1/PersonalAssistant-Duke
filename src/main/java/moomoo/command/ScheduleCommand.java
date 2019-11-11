@@ -7,12 +7,21 @@ import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Represents the command to create a scheduled payment event in advance.
  */
 public class ScheduleCommand extends Command {
+    private static Pattern DATE_PATTERN = Pattern.compile(
+            "^29/02/(0[48]|[2468][048]|[13579][26])$"//leap year for feb 29
+            + "|^(0[1-9]|1[0-9]|2[0-8])/02/\\d{2}$"//28 days of feb
+            + "|^(0[1-9]|[12][0-9]|3[01])/(0[13578]|10|12)/\\d{2}$"//months with 31 days
+            + "|^(0[1-9]|[12][0-9]|30)/(0[469]|11)/\\d{2}$");//months with 30 days
+    private static Pattern AMOUNT_PATTERN = Pattern.compile("\\d+(\\.\\d+)?");
+
     /**
      * Takes in a flag to represent if it should exit and the input given by the User.
      * @param isExit True if the program should exit after running this command, false otherwise
@@ -47,9 +56,19 @@ public class ScheduleCommand extends Command {
         task = arr[3];
         date = arr[1];
         date = date.replace("d/", "");
+        if (!dateMatches(date)) {
+            throw new MooMooException("MOOO!!! Invalid date input!\n"
+                    + "Check if your month is within 01-12.\n"
+                    + "Check if your day input is valid for that month.\n"
+                    + "Check if your year is a leap year if your day is Feb 29.");
+        }
         String amount;
         amount = arr[2];
-        task = task.replace("n/", "") + " " + amount.replace("a/", "");
+        amount = amount.replace("a/", "");
+        if (!amountMatches(amount)) {
+            throw new MooMooException("MOOO!!! Only numbers accepted for amount.");
+        }
+        task = task.replace("n/", "") + " " + amount;
         if (calendar.calendar.containsKey(date)) {
             ArrayList<String> dayTasks = calendar.calendar.get(date);
             dayTasks.add(task);
@@ -84,5 +103,13 @@ public class ScheduleCommand extends Command {
                 + "                ||     ||\n";
         Ui.setOutput(cow);
         storage.saveScheduleToFile(calendar);
+    }
+
+    public boolean dateMatches(String date) {
+        return DATE_PATTERN.matcher(date).matches();
+    }
+
+    public boolean amountMatches(String amount) {
+        return AMOUNT_PATTERN.matcher(amount).matches();
     }
 }

@@ -10,17 +10,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class CategoryStorage extends Storage {
+public class  CategoryStorage extends Storage {
 
     private static String filePath = "data/category.txt";
 
     /**
      * Initializes storage and the filepath for each file.
      *
-     * @param filePath category file path
      */
-    public CategoryStorage(String filePath) {
-        super(filePath, filePath);
+    public CategoryStorage() {
+        super("", "");
     }
 
     /**
@@ -42,11 +41,13 @@ public class CategoryStorage extends Storage {
         }
     }
 
-    private static CategoryList populateDataCategories(CategoryList categoryList) throws IOException {
+    private static CategoryList populateDataCategories(CategoryList categoryList) throws IOException, MooMooException {
         List<String> input = Files.readAllLines(Paths.get(filePath));
         for (String line : input) {
             String categoryName = line.trim();
-            if (!categoryList.hasCategory(categoryName)) {
+            if (categoryList.hasCategory(categoryName)) {
+                deleteFromFile(categoryName);
+            } else {
                 categoryList.add(new Category(categoryName));
             }
         }

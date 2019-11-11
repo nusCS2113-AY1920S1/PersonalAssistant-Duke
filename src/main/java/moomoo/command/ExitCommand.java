@@ -6,6 +6,8 @@ import moomoo.feature.Budget;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
+import moomoo.command.DetectOsCommand;
+import moomoo.feature.Cow;
 
 import java.io.IOException;
 
@@ -25,13 +27,19 @@ public class ExitCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
             throws MooMooException {
-        try {
-            ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
-                    "chcp", "437", ">", "nul", "2>&1").inheritIO();
-            pb.start();
-        } catch (IOException e) {
-            throw new MooMooException("An error has occurred. Please close the terminal.");
+        DetectOsCommand getOS = new DetectOsCommand();
+        if (getOS.osName.contains("win")) {
+            try {
+                ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
+                        "chcp", "437", ">", "nul", "2>&1").inheritIO();
+                pb.start();
+            } catch (IOException e) {
+                throw new MooMooException("An error has occurred. Please close the terminal.");
+            }
         }
-        Ui.showGoodbye();
+        Cow cow = new Cow();
+        String output = cow.getHappyCow() + "\nHope you had a great time using MooMooMoney!\n"
+                + "See you next time :)";
+        Ui.setOutput(output);
     }
 }

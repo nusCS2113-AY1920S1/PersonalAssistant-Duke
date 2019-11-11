@@ -19,10 +19,9 @@ public class ExpenditureStorage extends Storage {
     /**
      * Initializes storage and the filepath for each file.
      *
-     * @param filePath category file path
      */
-    public ExpenditureStorage(String filePath) {
-        super(filePath, filePath);
+    public ExpenditureStorage() {
+        super("", "");
     }
 
     /**

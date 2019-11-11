@@ -150,4 +150,8 @@ public class Category {
     public ArrayList<Expenditure> getCategory() {
         return category;
     }
+
+    public String getIndex(String categoryName) {
+        return "";
+    }
 }
