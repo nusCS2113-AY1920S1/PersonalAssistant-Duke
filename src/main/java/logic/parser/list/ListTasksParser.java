@@ -16,11 +16,11 @@ public class ListTasksParser {
 
     //@@author yuyanglin28
     /**
-     * parse list task command, according to the list type, todo/all
+     * parse list task logic.command, according to the list type, todo/all
      *
-     * @param partialCommand command after task
-     * @return a list task command
-     * @throws DukeException throw exception when command pattern or list type is not correct
+     * @param partialCommand logic.command after task
+     * @return a list task logic.command
+     * @throws DukeException throw exception when logic.command pattern or list type is not correct
      */
     public static Command parseListTasks(String partialCommand) throws DukeException {
         final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());

@@ -12,8 +12,8 @@ public class DeleteTaskParser {
 
     //@@author yuyanglin28
     /**
-     * parse the delete task command, pass the index (in task list) to command
-     * @return delete task command
+     * parse the delete task logic.command, pass the index (in task list) to logic.command
+     * @return delete task logic.command
      * @throws DukeException throw exception when index is empty
      */
     public static Command parseDeleteTask(String arguments) throws DukeException {

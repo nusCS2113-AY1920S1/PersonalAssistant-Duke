@@ -16,9 +16,9 @@ public class EditMemberEmailParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit member email command
-     * @param partialCommand command after email, contains memberName and change content
-     * @return edit member email command
+     * parse edit member email logic.command
+     * @param partialCommand logic.command after email, contains memberName and change content
+     * @return edit member email logic.command
      * @throws DukeException throw exception when member name is empty or change content is empty
      */
     public static Command parseEditMemberEmail(String partialCommand) throws DukeException {

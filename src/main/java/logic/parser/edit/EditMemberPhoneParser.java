@@ -17,9 +17,9 @@ public class EditMemberPhoneParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit member phone command
-     * @param partialCommand command after phone, contains memberName and change content
-     * @return edit member phone command
+     * parse edit member phone logic.command
+     * @param partialCommand logic.command after phone, contains memberName and change content
+     * @return edit member phone logic.command
      * @throws DukeException throw exception when member name is empty or change content is empty
      */
     public static Command parseEditMemberPhone(String partialCommand) throws DukeException {

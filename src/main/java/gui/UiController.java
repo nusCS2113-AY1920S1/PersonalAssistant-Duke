@@ -36,7 +36,7 @@ public class UiController {
 
 
     /**
-     * This method is used to read a line from Scanner in, before sending command to relevant controller
+     * This method is used to read a line from Scanner in, before sending logic.command to relevant controller
      * This is the current method for a terminal only application, however as we progress to build a gui
      * it should be handled with a text change event listener or something similar
      * Can consider changing readCommand method name

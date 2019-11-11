@@ -14,10 +14,10 @@ public class ListMembersParser {
 
     //@@author yuyanglin28
     /**
-     * parse list member command, according to the list type, todonum/progress/'nothing'
+     * parse list member logic.command, according to the list type, todonum/progress/'nothing'
      *
-     * @param argument command after members
-     * @return a list member command
+     * @param argument logic.command after members
+     * @return a list member logic.command
      * @throws DukeException throw exception when list type is not correct
      */
     static Command parseListMembers(String argument) throws DukeException {

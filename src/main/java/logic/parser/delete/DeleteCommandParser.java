@@ -16,9 +16,9 @@ public class DeleteCommandParser {
 
     //@@author yuyanglin28
     /**
-     * parse delete command, pass to task or member
-     * @param partialCommand command after delete
-     * @return a delete command
+     * parse delete logic.command, pass to task or member
+     * @param partialCommand logic.command after delete
+     * @return a delete logic.command
      * @throws DukeException throw exception when delete type is not correct
      */
     public static Command parseDeleteCommand(String partialCommand) throws DukeException {

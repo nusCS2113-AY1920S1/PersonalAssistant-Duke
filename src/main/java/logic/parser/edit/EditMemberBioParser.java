@@ -14,9 +14,9 @@ public class EditMemberBioParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit member biography command
-     * @param partialCommand command after bio, contains memberName and change content
-     * @return edit member bio command
+     * parse edit member biography logic.command
+     * @param partialCommand logic.command after bio, contains memberName and change content
+     * @return edit member bio logic.command
      * @throws DukeException throw exception when member name is empty or change content is empty
      */
     public static Command parseEditMemberBio(String partialCommand) throws DukeException {

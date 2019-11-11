@@ -347,7 +347,7 @@ public class Window {
     }
 
     /**
-     * Updates the command text box to show results from commands
+     * Updates the logic.command text box to show results from commands
      */
     public void executeCommand(String fullCommandText) throws DukeException {
         CommandOutput commandOutput = logicController.execute(fullCommandText);

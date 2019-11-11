@@ -16,7 +16,7 @@ public class ScheduleMemberParser {
     /**
      * parse schedule member
      * @param partialCommand content after member, divide to all or todo type
-     * @return a schedule member related command
+     * @return a schedule member related logic.command
      * @throws DukeException exception
      */
     public static Command parseScheduleMember(String partialCommand) throws DukeException {
