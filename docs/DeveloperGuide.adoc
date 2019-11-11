@@ -179,10 +179,11 @@ Data Structure to support undo/redo:
 *** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
 
 
-=== Degree-Related Tasks
+
+=== NUS EventList
 ==== Implementation
 
-The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
+The actions involving the NUS EventList are performed mostly using the `NUSEventList` class.
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
 
@@ -192,16 +193,15 @@ This was done in preparation for some proposed additional changes to this featur
 
 
 
-Currently, the `DegreeTask` class implements three of the following operations:
+Currently, the `NUSEventList` class implements three of the following operations:
 
-* loadDegreeTasks
+* loadEventLists
 
 ** This method initializes an Arraylist of TaskLists. When it is called, each of these TaskLists will be populated with the specific tasks that are related to each degree programme. For example, all tasks related to `Computer Engineering` are stored in one of the TaskLists. The other two classes will be able to use this Arraylist to perform operations on the user's TaskList.
 
 * addDegreeTasks
 
-** This method adds all tasks related to a specified degree programme to the user's TaskList.
-
+** This method adds all tasks related to a specified degree programme to the user's TaskList, while checking for duplicates.
 
 * removeDegreeTasks
 
@@ -209,7 +209,7 @@ Currently, the `DegreeTask` class implements three of the following operations:
 
 An example usage scenario details how the mechanism behaves at each step:
 
-*Step 1*: The user launches the application, and Duke will initialize an instance of the DegreeTasks command. Duke will call the `loadDegreeTasks` method, and an ArrayList of TaskLists will be instantiated.
+*Step 1*: The user launches the application, and Duke will initialize an instance of the DegreeTasks command. Duke will call the `loadEventLists` method, and an ArrayList of TaskLists will be instantiated.
 
 *Step 2*: The user inputs the command `add ComE` to add Computer Engineering to his choice of degree programmes
 
@@ -221,37 +221,6 @@ At this point, the user can choose to remove the degree programme from his list 
 *Step 4*: The user inputs the command `remove 1` to remove the first-indexed degree programme in his list. In this case, it is `Computer Engineering`
 
 *Step 5*: The tasks related to this degree programme are removed from his TaskList
-
-
-==== [Proposed] Priority for Tasks
-
-In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
-
-This mechanism is facilitated by the `TaskRanking` class. It extends `TaskList` and has an internal list of integers that correspond with each task on the user's tasklist. This list is internally stored as `PriorityList`.
-
-The priority will be calculated by giving each task points that correspond with higher priority.
-|===
-| Days Away from Date | Points
-| Less Than or Equal to 3 | 7
-| Less Than or Equal to 5 | 5
-| Less Than or Equal to 7 | 3
-| Greater than 7 | 2
-| No Date | 0
-|===
-
-
-
-Degree-Related Tasks also get a boost in points based on how high up on the degree list they are
-|===
-| Ranking of Degree | Points
-| Rank 1 | 10
-| Rank 2 | 8
-| Rank 3 | 6
-| Rank 4 | 3
-| Rank 5 | 2
-| Rank 6 and Above | 1
-|===
-
 
 
 ==== Design Considerations
@@ -285,22 +254,6 @@ Aspect: Storing the Degree Tasks
 ** Con: Requires continuous parsing at every interaction with the user's tasklist
 
 
-
-Aspect: [Proposed] Priority for Tasks
-
-* Alternative 1: Automated Priority:
-
-** Pro: Easy to associate the value and sort the pairs
-
-** Cons: May not allow the user to view other ways of seeing his list
-
-
-* Alternative 2: Other ways of Sorting:
-
-** Pro: Gives further functionality to the user to see his list
-
-** Con: Requires saving different states of the list, or introducing more sorting commands
-
 === Degreelist Feature
 ==== Implementation
 
@@ -308,11 +261,11 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The degree list is a customizable list for the users to maintain a list to keep track of the degrees they are interested in and they can rank them in order of their preference as well. The degree list functionalities are facilitated by the class `DegreeList`. It makes use of a private static ArrayList of Strings to keep track of all the degrees entered. It implements the following methods that are needed for the user to add, remove or re-arrange degrees: 
 
-`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, after checking if duplicates of the degree or its common aliases already exist in the ArrayList.
+`DegreeList#add_custom(String input)`: This function takes in the parameter of an input string which is the degree inputted by the user and adds the degree to the ArrayList, after checking if duplicates of the degree or its common aliases already exist in the ArrayList.
 
-`DegreeList#delete(String input)`: This function takes in a string which contains index of the degree the user wishes to remove from the degree list. This function deletes the degree the user wishes to remove from the ArrayList, after checking if if it within bounds or not.
+`DegreeList#delete(String input)`: This function takes in a string which contains index of the degree the user wishes to remove from the degree list. This function deletes the degree the user wishes to remove from the ArrayList, after checking if  it is within bounds or not.
 
-`DegreeList#swap(String input)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function.  
+`DegreeList#swap(String input)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtained. They are then swapped using the Collections.swap() function.  
 
 An example usage scenario details how the mechanism behaves at each step:
 
@@ -628,18 +581,18 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Statistics interface comprises of two methods that are overridden in the GraduateEmployment class. These two methods are:
 
-`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats (Fig xyz) and stored.
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats and stored.
 
 `Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In the case of GraduateEmployment, an instance of the class Employment_BarChart is created and a dual axis bar chart is displayed with information for the employment percentage rates and basic mean salary. 
 
 
 The GraduateEmployment class also has the following function:
 
-`GraduateEmployment#getStats()`: This method returns an ArrayList of type Graduate Stats, namely Stats, when called and is used to store the information needed. 
+`GraduateEmployment#getStats()`: This method returns an ArrayList of type GraduateStats, named Stats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/gradstats.png[width="300", align = "center"]
 
-The Graduate Stats class as mentioned above allows to store the a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
+The GraduateStats class as mentioned above allows to store a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
 
 Following is a sequence diagram to depict the process of the statistics being loaded and stored in the ArrayList:
 
@@ -656,7 +609,7 @@ Different ways were considered to display the employment statistics:
 *** Easy for the user to understand the data
 ** Cons: 
 *** Needs two datasets to be rendered and then added to a single chart panel
-*** Complicated implementation as a work-around needs to be used and a series of null values need to be added to prevent overlap the axes 
+*** Complicated implementation as a work-around needs to be used and a series of null values had to be added to prevent overlap the axes 
 
 * Alternative 2: Display in the form of a table
 ** Pros: 
@@ -684,17 +637,17 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Statistics interface comprises of two methods that are overridden in the CohortSize class. These two methods are:
 
-`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats (Fig xyz) and stored.
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats and stored.
 
 `Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In this case, an instance of the class Cohort_BarChart is created and a bar chart is displayed with information of the number of male, female and total students in the years 2016-2018 for the degree requested. 
 
 The CohortSize class also has the following function:
 
-`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
+`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, named cohortStats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CohortStats.png[width="300", align = "center"]
 
-The CohortStats class as mentioned above allows to store the a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
+The CohortStats class as mentioned above allows to store a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
 
 Following is a sequence diagram to depict the process of a bar chart being displayed to the user for a particular (excluding the loading of the statistics): 
 
@@ -726,6 +679,66 @@ Different ways were considered to display the employment statistics:
 ** Cons: 
 *** Troublesome for the user
 *** May be confusing for the user
+
+
+
+=== TaskList Sorting
+==== Implementation
+
+The SortCommand extends the `Command` class. It allows the sorting of the user's tasks when given an input argument parsed by the `Parser` class.
+
+The following class diagram outlines the `SortCommand`:
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/SortCommand%20Class%20Diagram.PNG[width="1000", align = "left"]
+
+As seen from the figure above, the `SortCommand` class is highly dependent on the `TaskList` class. This high dependency is what allows for the sorting methods within the user's tasklist to be carried out. 
+
+In turn, the `TaskList` class is dependent on both the `Task` class. This allows the sorting method within the `TaskList` class to utilise the  the `DegreeList` class and Java's `Date` class. These dependencies allow the sorting methods in `TaskList` to utilise variables of the in the instances of tasks so that they can be appropriately sorted.
+
+Finally, the `Task` class is dependent on the `DegreeList` and Java's `Date` class for when the user wishes to sort tasks `by degree` or `by date`.
+
+
+In the case of a successful execution of a command, the sequence diagram of the Main Success Scenario is shown below:
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/sequenceDiagramsort.PNG[width="1000", align = "left"]
+
+*Step 1*: User inputs the sort command ("sort by priority")
+
+*Step 2*: The command is called on the `Parser`, which parses the word, it then creates an instance of `SortCommand`, c, and returns it all the way back to Duke
+
+*Step 3*: Duke then calls the execute() method on that instance of the `SortCommand` class, which is called c in the figure above
+
+*Step 4*: Based on the arguments provided to `c`, in this case `by priority`, `c` will call the method `sortByPriority` on the user's tasklist, which is of `TaskList` class
+
+*Step 5*: The tasklist, which has numerous tasks in it, will call `calculatePriorityScore()` for every one of the tasks
+
+*Step 6*: Using this sorting scores, `sortByPriority` method uses a comparator to re-order all of the tasks according to their priority levels, returning the new sorted sequence.
+
+*Step 7*: The new sorted sequence is returned to Duke, and displayed to the user using `UI`.
+
+At this point, the user receives the new sorted list according to the parameters that was specified, `by priority`.
+
+
+==== Design Considerations
+
+Different ways were considered to display the employment statistics:
+
+* Alternative 1 (Current Choice): Re-ordering the user's tasklist within itseld
+** Pros: 
+*** Self-contained mechanism within the `TaskList` class
+*** Less expensive in terms of memory
+** Cons: 
+*** Introduces new methods into the tasklist class
+*** Requires more time to implement a comparator function
+
+* Alternative 2: Creating a new instance of `TaskList` to hold the new order
+** Pros: 
+*** Straightforward implementation with a copying over of tasks into the new TaskList
+*** Allows the undo feature to easily call the previous tasklist to restore the old order
+** Cons: 
+*** Takes up more memory
+
+
 
 == Testing
 
@@ -931,71 +944,71 @@ Different ways were considered to display the employment statistics:
 |Use Case
 |Steps
 
-|Duke 2.0 (D2)
+|DEGREES.NUS (DEGREES.NUS)
 |Prospective Applicant to NUS Faculty of Engineering
 |View the whole list of possible commands for D2
 |User requires help with command syntax +
  +
 User types in the command in the following manner: `help` +
  +
-D2 returns all the possible commands that it will accept +
+DEGREES.NUS returns all the possible commands that it will accept +
  +
 User reads the information
 
-|Duke 2.0 (D2)
+|DEGREES.NUS (DEGREES.NUS)
 |Prospective Applicant to NUS Faculty of Engineering
 |Check core modules for Bachelor of Engineering (Electrical Engineering)
 |User identifies a degree that he/she wishes to research +
  +
 User types in the command in the following manner: `details EE` +
  +
-D2 displays the degree requirements, including the core modules +
+DEGREES.NUS displays the degree requirements, including the core modules +
  +
 User reads the information
 
-|Duke 2.0 (D2)
+|DEGREES.NUS (DEGREES.NUS)
 |Prospective Applicant to NUS Faculty of Engineering
 |Compare core modules for EE and CEG
 |User identifies two degrees she wishes to compare +
  +
 User types in the command in the following manner: `compare EE CEG` +
  +
-D2 displays similar and different modules from the two degrees +
+DEGREES.NUS displays similar and different modules from the two degrees +
  +
 User reads the information
 
-|Duke 2.0 (D2)
+|DEGREES.NUS
 |Prospective Applicant to NUS Faculty of Engineering
 |Add CEG into degree list and view degree list
 |User identifies the degree he/she wishes to add to his/her list of possible degrees +
  +
 User types in the command in the following manner: `add EE` +
  +
-D2 adds Electrical Engineering to the user’s degree list +
+DEGREES.NUS adds Electrical Engineering to the user’s degree list +
  +
 User types in the command in the following manner: `degreelist` +
  +
-D2 returns the user’s degree list with Electrical Engineering added
+DEGREES.NUS returns the user’s degree list with Electrical Engineering added
 
-|Duke 2.0 (D2)
+|DEGREES.NUS (DEGREES.NUS)
 |Prospective Applicant to NUS Faculty of Engineering
 |Swap CEG with EE in degree list
 |User identifies two degrees that he/she wishes to switch in the degree list +
  +
 User types in the command in the following manner: `swap CEG EE` +
  +
-D2 returns the user’s degree list with CEG and EE having switched indexes 
+DEGREES.NUS returns the user’s degree list with CEG and EE having switched indexes 
 |===
 
 <<<
 == Appendix C: Non-Functional Requirements
 
-. D2 is a fast application.
-. D2 can be used on any platform (any PC), and is hence light-weight.
+. DEGREES.NUS is a fast application.
+. DEGREES.NUS can be used on any platform (any PC), and is hence light-weight.
 . The information provided is accurate as of the latest semester.
-. The application has simple functions, with more options provided for advanced users.
+. The application has simple functions
 . The application is fairly easy and understandable to navigate through.
-. Multi-step commands are available for beginners, as compared to one step for advanced users.
-. The application provided tabular formatting of information for better analysis.
 . It is inviting to the eye with a well-designed graphical user interface. 
+. The response to any use action should be visible to the user within 5 seconds
+. The product is offered for free
 
