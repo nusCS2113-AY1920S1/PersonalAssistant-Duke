@@ -75,6 +75,17 @@ For each command, a format is specified for the user to key in. The following is
 
 === Viewing help: `help`
 
+HelpCommand can list either all the commands and their formats in a list, or a certain command and its format.
+This command is to remind users of the input format of a certain command, or to show users all the commands.
+
+* _Format_: `help`
+** List all commands and their respective formats in a list.
+
+* _Format_: `help s/COMMAND_NAME`
+** List the format for a certain command.
+** _Example_: `help list`
+*** List format of input for `list` command.
+
 === Viewing your list of songs: `list`
 
 In the case of there being multiple songs, the list command ensures that navigation is not hampered by displaying the full list of songs you have created in the past. This data is stored in a specific data file outside the application. This file can also be directly edited to change the data to be loaded into Ducats, making exporting and importing data a breeze.
