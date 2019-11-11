@@ -47,7 +47,7 @@ public class ListBudgetCommand extends Command {
                         + df.format(currentBudget);
                 outputArray.add(outputValue);
             }
-            if (outputValue.equals("")) {
+            if ("".equals(outputValue)) {
                 throw new MooMooException("You have yet to set a budget for any category.");
             }
             outputValue = Ui.showInCowBox(outputArray);

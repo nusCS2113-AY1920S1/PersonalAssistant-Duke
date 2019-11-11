@@ -47,5 +47,5 @@ Gradle is integrated into the project and can be used to run various functions.
 ## Running the program
 Java JAR files are regularly released under Releases which can be ran on Windows, Linux and MacOS.
 
-1. Install Java 11 JDK and ensure that `java --version` shows `java 11.0.X`
-2. Open command prompt and run `java -jar MooMooMoney-X.jar`
+1.  Install Java 11 JDK and ensure that `java --version` shows `java 11.0.X`
+2.  Open command prompt and run `java -jar MooMooMoney-X.jar`

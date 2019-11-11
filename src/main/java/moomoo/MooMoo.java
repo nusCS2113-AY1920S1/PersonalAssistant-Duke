@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 public class MooMoo {
     private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_BRIGHTGREEN = "\u001B[32;1m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
 
     private Storage storage;
     private CategoryList categoryList;
@@ -71,7 +71,6 @@ public class MooMoo {
      * Runs the command line interface, reads input from user and returns result accordingly.
      */
     private void run() {
-        Ui.clearScreen();
         Ui.showWelcome();
         Cow moo = new Cow();
         Ui.setOutput(moo.getHappyCow());
@@ -92,7 +91,7 @@ public class MooMoo {
                 String fullCommand = Ui.readCommand();
 
                 Ui.clearScreen();
-                Ui.setOutput(ANSI_BRIGHTGREEN + fullCommand + ANSI_RESET + "\n");
+                Ui.setOutput(ANSI_PURPLE + fullCommand + ANSI_RESET + "\n");
                 Ui.showResponse();
 
                 Command c = Parser.parse(fullCommand);
