@@ -14,7 +14,6 @@ import task.Deadline;
 import task.Task;
 import ui.Ui;
 
-import javax.sound.sampled.Line;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
@@ -70,7 +69,7 @@ class ProcessTest {
     @Test
     void testaddProject_WithNoBudget_success() {
         input = "add project pr/Test am/";
-        process.addProject(input, ui, fund, storage);
+        process.addProject(input, ui, storage, fund);
         Project expectedproject = new Project("Test");
         Project outputproject = process.projectManager.projectmap.get("Test");
         assertEquals(expectedproject.giveProject(), outputproject.giveProject());
@@ -83,7 +82,7 @@ class ProcessTest {
         assertEquals(fund.getFund(), 2000);
 
         input = "add project pr/Flag am/100";
-        process.addProject(input, ui, fund, storage);
+        process.addProject(input, ui, storage, fund);
         Project expectedproject = new Project("Flag", 100);
         Project outputproject = process.projectManager.projectmap.get("Flag");
         assertEquals(expectedproject.giveProject(), outputproject.giveProject());
@@ -92,7 +91,7 @@ class ProcessTest {
     @Test
     void testaddProject_InputNegative_NoBudget_fail() {
         input = "add project pr/Flag am/-100";
-        process.addProject(input, ui, fund, storage);
+        process.addProject(input, ui, storage, fund);
         assertFalse(process.projectManager.projectmap.containsKey("Flag"));
     }
 
@@ -103,14 +102,14 @@ class ProcessTest {
         assertEquals(fund.getFund(), 2000);
 
         input = "add project pr/Flag am/3000";
-        process.addProject(input, ui, fund, storage);
+        process.addProject(input, ui, storage, fund);
         assertFalse(process.projectManager.projectmap.containsKey("Flag"));
     }
 
     @Test
     void deleteProject_ProjectExists() throws AlphaNUSException {
         input = "add project pr/Test am/";
-        process.addProject(input, ui, fund, storage);
+        process.addProject(input, ui, storage, fund);
         assertTrue(process.projectManager.projectmap.containsKey("Test"));
         input = "delete project pr/Test";
         process.deleteProject(input, ui, storage, fund);
@@ -152,7 +151,7 @@ class ProcessTest {
     void goToProject_WithExistingProject_success() {
         process.projectManager.projectmap = new LinkedHashMap<>();
         input = "add project pr/Test am/";
-        process.addProject(input, ui, fund, storage);
+        process.addProject(input, ui, storage, fund);
         process.projectManager.currentprojectname = null;
         input = "goto 1";
         process.goToProject(input, ui);
