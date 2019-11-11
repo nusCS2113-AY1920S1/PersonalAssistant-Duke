@@ -126,7 +126,7 @@ public final class ParserManageStudents {
                     int index = Integer.parseInt(word[0]);
                     if (index > students.getStudentListSize()) {
                         System.out.println("Oops! You only have " + students.getStudentListSize() + " in the list.");
-                    } else if (word.length > 1){
+                    } else if (word.length > 1) {
                         String progressDescription = word[1];
                         students.getStudent(index).addStudentProgress(progressDescription);
                         System.out.println("Progress have been added.");
