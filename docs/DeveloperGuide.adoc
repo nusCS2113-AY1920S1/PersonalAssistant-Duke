@@ -622,6 +622,23 @@ image::CcaClassDiagram2.png[]
 
 // end::Cca[]
 
+== Coming in v2.0
+
+=== Password management
+
+==== Add or update an existing password: `passwd`
+Add or update an existing password. +
+If a password has been previously set (updating password mode), a prompt will show up asking for old password before a new one can setup. In that case, kindly enter your current password as prompted to setup a new one. +
+Format: +
+`passwd myPassword`
+
+==== Implementation
+Password management will be implemented in a new `SetPasswordCommand` class for password adding/updating in complementary with `ClearCommand` for password removing.
+
+=== GUI
+ModPlan v2.0 will support GUI (Graphical User Interface). We have not decided whether the CLI (Command Line Interface) will be fully replaced by GUI or will be an additional feature. However, the new GUI will hopefully improve ModPlan's user-friendliness and user's productivity.
+
+
 [[Documentation]]
 
 == Documentation
