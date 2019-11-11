@@ -486,6 +486,9 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: Is this compatible with linux? +
 *A*: No. We are prioritising support for other degrees, so linux support may come at a much later time.
 
+*Q*: Is this program free? +
+*A*: Yes. We intend to keep this app free and open-source, as we feel this tool should be available to all students and prospective students.
+
 <<<
 == Command Summary
 
