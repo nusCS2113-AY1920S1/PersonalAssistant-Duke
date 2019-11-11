@@ -4,7 +4,6 @@ package duke.data.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import duke.data.Evidence;
 import duke.data.Help;
@@ -14,21 +13,22 @@ import duke.data.Treatment;
 import duke.exception.DukeFatalException;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Handles storage of patients.
  */
 public class GsonStorage {
+    private static final String PATIENT_FILE = "/data/patients.json";
 
     /**
      * the file that the patients will be stored in.
@@ -103,10 +103,19 @@ public class GsonStorage {
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
             Patient[] patientArr = gson.fromJson(json, Patient[].class);
+
             if (patientArr == null) {
-                return patients;
+                InputStream is = getClass().getResourceAsStream(PATIENT_FILE);
+
+                if (is != null) {
+                    JsonReader reader = new JsonReader(new InputStreamReader(is));
+                    patientArr = gson.fromJson(reader, Patient[].class);
+                }
             }
-            patients.addAll(Arrays.asList(patientArr));
+
+            if (patientArr != null) {
+                patients.addAll(Arrays.asList(patientArr));
+            }
         } catch (IOException e) {
             throw new DukeFatalException("Unable to load data files, try checking your permissions?");
         }
@@ -150,52 +159,22 @@ public class GsonStorage {
         return new PatientData();
     }
 
-    /**
-     * Loads all the details in the JSON file to a hash map.
-     *
-     * @param helpFile the path of the helpFile
-     * @return the hash map containing the helpfile
-     * @throws DukeFatalException If data files cannot be setup.
-     */
-    public HashMap<String, HashMap<String, String>> loadHelpHashMap(String helpFile) throws DukeFatalException {
-        final File jsonFile = new File(helpFile);
-        if (!jsonFile.exists()) {
-            try {
-                if (!jsonFile.createNewFile()) {
-                    throw new IOException();
-                }
-            } catch (IOException e) {
-                throw new DukeFatalException("Unable to setup data files, try checking your permissions?");
-            }
-        }
-        HashMap<String, HashMap<String, String>> helpMap;
-        try {
-            JsonReader reader = new JsonReader(new FileReader(helpFile));
-            helpMap = gson.fromJson(reader, new TypeToken<HashMap<String, HashMap<String, String>>>() {
-            }.getType());
-        } catch (IOException e) {
-            throw new DukeFatalException("Unable to load data files, try checking your permissions?");
-        }
-        return helpMap;
-    }
-
     /* @@author gowgos5 */
     /**
      * Loads help details from a pre-defined JSON file.
      *
-     * @param file Relative file path.
+     * @param file Relative help file path.
      * @return A list of {@code Help} objects.
-     * @throws DukeFatalException If the data files cannot be loaded.
      */
-    public List<Help> loadHelpList(String file) throws DukeFatalException {
-        List<Help> helpList;
+    public List<Help> loadHelpList(String file) {
+        List<Help> helpList = new ArrayList<>();
 
-        try {
-            JsonReader reader = new JsonReader(new FileReader(file));
+        InputStream is = getClass().getResourceAsStream(file);
+
+        if (is != null) {
+            JsonReader reader = new JsonReader(new InputStreamReader(is));
             Help[] helps = gson.fromJson(reader, Help[].class);
             helpList = Arrays.asList(helps);
-        } catch (IOException e) {
-            throw new DukeFatalException("The help data files cannot be loaded!");
         }
 
         return helpList;

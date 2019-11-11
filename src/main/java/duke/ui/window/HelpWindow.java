@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class HelpWindow extends UiElement<Region> implements ChangeListener<String> {
     private static final String FXML = "HelpWindow.fxml";
-    private static final String HELP_FILE = "data" + File.separator + "helpDetails.json";
+    private static final String HELP_FILE = "/data/helpDetails.json";
 
     @FXML
     private JFXListView<HelpCard> helpListView;
@@ -57,7 +57,7 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
      * @param storage GSON storage object.
      * @throws DukeException If the data file cannot be loaded.
      */
-    private void initialise(GsonStorage storage) throws DukeException {
+    private void initialise(GsonStorage storage) {
         helpList = storage.loadHelpList(HELP_FILE);
         update(Context.HOME);
     }
