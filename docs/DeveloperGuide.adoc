@@ -317,10 +317,11 @@ image::SearchExample.PNG[]
 ==== Rationale
 
 Dr. Duke aims to assist House Officers in quick, accurate recording and retrieval of patient data required to provide
-efficient care. When more patients are added to the system or the user want to directly access a nested data we need a
-method to directly assess the data. Therefore, it makes sense to be able to search through the entire system or a subset
-of the system. Hence, a find feature is essential for users to quickly locate data or for disambiguation using existing
-data in the system when it is unclear what the user wants.
+efficient care. When more patients are added to the system and the system grows in size or the user want to directly
+access a piece of nested data we need a method to directly assess the data. Therefore, it makes sense to have a search
+function to search through the entire system or a subset of the system. Hence, a find feature is essential for users to
+quickly locate data or for disambiguation when it is unclear what the user wants to narrow down the possible options
+based on existing data in the system.
 
 * Reduce the time taken for the user to enter details of the Patient and navigate in the system.
 * Search a subset of the system or only for data of a certain type.
@@ -345,7 +346,7 @@ Step 1: The user launches the application and navigates to a particular patient 
 e.g. Fever (a sample valid command syntax is `find Fever`).
 
 Step 2: The find method will be called and all data related to the Patient will be searched for `Fever`, It will display the results in a new
-Context containing all impressions where `John` had `Fever` in a seperate window
+Context containing all impressions where `John` had `Fever` in a separate window
 
 Step 3: The user can then select a particular impression and review the information or change the information if desired.
 
