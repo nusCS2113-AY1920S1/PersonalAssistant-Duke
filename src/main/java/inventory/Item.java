@@ -51,6 +51,6 @@ public class Item {
     }
 
     public String toWriteFile() {
-        return this.roomcode + " | " + this.name + " | " + this.quantity;
+        return this.roomcode + " | " + this.name + " | " + this.quantity + "\n";
     }
 }
