@@ -1,3 +1,4 @@
+/* @@author JacobToresson */
 package duke.command.patient;
 
 import duke.DukeCore;
