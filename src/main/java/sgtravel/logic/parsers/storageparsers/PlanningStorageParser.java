@@ -1,7 +1,6 @@
 package sgtravel.logic.parsers.storageparsers;
 
 import sgtravel.commons.Messages;
-import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.model.locations.Venue;
 import sgtravel.model.planning.Agenda;

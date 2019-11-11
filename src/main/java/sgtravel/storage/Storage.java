@@ -263,7 +263,7 @@ public class Storage {
      *
      * @throws ParseException If the file cannot be parsed correctly.
      */
-    static HashMap<String, Itinerary> makeItineraryTable(Scanner scanner) throws ParseException {
+    private static HashMap<String, Itinerary> makeItineraryTable(Scanner scanner) throws ParseException {
         HashMap<String, Itinerary> itineraryTable = new HashMap<>();
         try {
             while (scanner.hasNextLine()) {

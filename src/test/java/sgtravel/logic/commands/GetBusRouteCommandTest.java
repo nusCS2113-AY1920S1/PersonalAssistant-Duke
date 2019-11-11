@@ -49,8 +49,6 @@ class GetBusRouteCommandTest {
         GetBusRouteCommand command = new GetBusRouteCommand("975");
         assertEquals(expected, command.execute(model).getMessage());
 
-        String expectedError = "I'm sorry, but nothing was found...\n";
-
         //non-existant bus stop
         GetBusRouteCommand command2 = new GetBusRouteCommand("0");
         assertThrows(NoSuchBusServiceException.class, () -> command2.execute(model));

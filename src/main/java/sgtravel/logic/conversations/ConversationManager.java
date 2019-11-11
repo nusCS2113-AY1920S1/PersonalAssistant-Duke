@@ -7,6 +7,7 @@ import sgtravel.logic.parsers.ConversationParser;
 import sgtravel.logic.parsers.Parser;
 import sgtravel.logic.parsers.commandparsers.PromptParser;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +32,7 @@ public class ConversationManager {
      * @throws ParseException If no conversation could be started.
      */
     public void converse(String input) throws ParseException {
+        logger.log(Level.FINE, "Conversing: " + input);
         if (tryStartConversation(input)) {
             return;
         }
