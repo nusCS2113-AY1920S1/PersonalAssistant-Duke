@@ -2,7 +2,7 @@ package seedu.hustler.ui.timer;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.hustler.ui.timer.TimerLogic.decrement;
 
 class TimerLogicTest {
