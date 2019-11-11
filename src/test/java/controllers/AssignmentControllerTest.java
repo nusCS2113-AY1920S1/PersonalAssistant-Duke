@@ -33,10 +33,12 @@ public class AssignmentControllerTest {
         this.member3 = new Member("Harry", "NIL", "NIL", 3, "member");
 
         Task task = new Task("Test task", 0,null, 0, TaskState.OPEN, new ArrayList<>());
+        Task task2 = new Task("Test task 2", 0, null, 0, TaskState.DONE, new ArrayList<>());
         this.project.addMember(member1);
         this.project.addMember(member2);
         this.project.addMember(member3);
         this.project.addTask(task);
+        this.project.addTask(task2);
     }
 
     @Test
@@ -49,10 +51,7 @@ public class AssignmentControllerTest {
         assertEquals("3. Harry (Phone: NIL | Email: NIL | Role: member)",
             member3.getDetails());
         assertEquals(3, project.getNumOfMembers());
-        assertEquals("Tom", project.getMember(1).getName());
-        assertEquals("Dick", project.getMember(2).getName());
-        assertEquals("Harry", project.getMember(3).getName());
-        assertEquals(1, project.getNumOfTasks());
+        assertEquals(2, project.getNumOfTasks());
     }
 
     @Test
@@ -71,6 +70,44 @@ public class AssignmentControllerTest {
         assertTrue(project.containsAssignment(project.getTask(1), member2));
         assertTrue(project.containsAssignment(project.getTask(1), member3));
     }
+
+    @Test
+    void testAssignAndUnassign_validAllInput_executionSuccess() {
+        AssignmentController assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i 1 -to all";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        assertTrue(project.containsAssignment(project.getTask(1), member1));
+        assertTrue(project.containsAssignment(project.getTask(1), member2));
+        assertTrue(project.containsAssignment(project.getTask(1), member3));
+
+        assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i 1 -rm all ";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        assertFalse(project.containsAssignment(project.getTask(1), member1));
+        assertFalse(project.containsAssignment(project.getTask(1), member2));
+        assertFalse(project.containsAssignment(project.getTask(1), member3));
+
+        assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i all -to 1 2";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        assertTrue(project.containsAssignment(project.getTask(1), member1));
+        assertTrue(project.containsAssignment(project.getTask(2), member1));
+        assertTrue(project.containsAssignment(project.getTask(1), member2));
+        assertTrue(project.containsAssignment(project.getTask(2), member2));
+        assertFalse(project.containsAssignment(project.getTask(1), member3));
+        assertFalse(project.containsAssignment(project.getTask(2), member3));
+
+        assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i all -rm 1 2";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        assertFalse(project.containsAssignment(project.getTask(1), member1));
+        assertFalse(project.containsAssignment(project.getTask(2), member1));
+        assertFalse(project.containsAssignment(project.getTask(1), member2));
+        assertFalse(project.containsAssignment(project.getTask(2), member2));
+
+    }
+
+
 
     @Test
     void testAssignAndUnassign_insufficientInputs_executionFail() {

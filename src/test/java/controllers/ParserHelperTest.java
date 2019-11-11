@@ -18,8 +18,6 @@ public class ParserHelperTest {
     private final Member member2;
     private final Member member3;
     private String simulatedUserInput;
-    private String expectedOutput;
-    private String actualOutput;
 
     ParserHelperTest() {
         this.project = new Project("Test Project");
