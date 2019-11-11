@@ -72,7 +72,7 @@ In that way, our implementation approach would also be incremental as oppose to 
 
 The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 
-image::architecture.png[]
+image::Architecture.png[]
 
 As seen here, the user interacts with the *Parser* through the command line interface (CLI), which sorts through the user input and calls various commands under the *Command* section. 
 
