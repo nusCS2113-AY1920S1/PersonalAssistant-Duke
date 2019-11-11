@@ -2,6 +2,7 @@ package moomoo;
 
 import moomoo.command.Command;
 import moomoo.feature.Budget;
+import moomoo.feature.Cow;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;

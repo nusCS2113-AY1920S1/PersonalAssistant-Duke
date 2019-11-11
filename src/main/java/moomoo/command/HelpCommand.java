@@ -23,6 +23,7 @@ public class HelpCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) {
+
         ArrayList<String> text = new ArrayList<>();
         text.add(ANSI_GREEN + "Try one of these commands:" + ANSI_RESET);
         text.add("");

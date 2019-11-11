@@ -16,9 +16,11 @@ public class Cow {
     final String lineThree = "    ";
     final String lineFour = "  ";
     private String happyCow = "";
-    private String sadCow = "";
+    private String blackCow = "";
     
     String generateHappyCow() {
+        
+        
         String model = lineOne + ANSI_BLUE; //line 1
         for (int i = 0; i < 27; i += 1) {
             model += fullBlock;
