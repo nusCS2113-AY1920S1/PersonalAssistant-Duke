@@ -73,7 +73,6 @@ For each command, a format is specified for the user to key in. The following is
 ** The pitches available are: UC, UB, UA, UG, UF, UE, UD, MC, LB, LA, LG, LF, LE, LD, LC
 ** The durations available are: 1, 2*, 2, 4*, 4, 8. _(Just as in sheet music, a single dot (*) lengthens the duration of a note by 50%. Modification with double dots coming in v2.0.)_
 ** More information regarding pitches and durations is given in Section 5 Introduction to Basic Music Theory
-=== Autocorrect 
 
 An autocorrect has been implemented to help in the use of the application. It will try to correct the typos in the commands and suggest the command that the user meant. For instance 'helo' will be interpreted as 'help'
 
@@ -229,7 +228,6 @@ _Example_: `group 2 4 sunlight`
 
 The above command groups the bars from index 2 to index 4 (inclusive) and gives it the name “sunlight”.
 
-=== Copying sections of music: `copy`
 === Copying sections of music: `copy`
 This command allows you to copy a bar, a series of bars or a group and paste it into any part of the song. This command is also designed to be flexible as it supports 4 different input formats
 
@@ -610,6 +608,8 @@ Since the default time signature of a Song you create is in 4 4, each Bar consis
 
 === Auto-suggesting commands
 
+An auto-complete has been implemented to help in the use of the application. It will try to correct the typos in the commands and suggest the command that the user meant. For instance 'helo' will be interpreted as 'help'
+
 === Playing music: `play` [coming in v2.0]
 
 Plays the music specified, or the whole song if not specified. When a song is not opened, will play the song specified.
@@ -701,7 +701,7 @@ The time signature of a song consists of two numbers that signify how many how m
 
 == Command Summary
 
-*1.* play
+*1.* play [coming in v2.0]
 
 _Format_: `play [n/STARTING_BAR_NO n/ENDING_BAR_NO]`
 
@@ -765,63 +765,55 @@ _Format_: `copy s/GROUP_NAME n/INSERT_INDEX`
 
 _Format_: `copy n/START_NUM n/END_NUM n/INSERT_INDEX`
 
-*13.* ascii
+*13.* ascii song
 
 _Format_: `ascii song s/SONG_NAME`
 
-*14.* close
-
-_Format_: To be implemented in version 2.0
-
-*15.* group
+*14.* group
 
 _Format_: `group n/START_NUM n/END_NUM s/GROUP_NAME`
 
-*16.* add
+*15.* add
 
 _Format_: `add s/NOTE`
 
-*17.* new
+*16.* new
 
 _Format_: `new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)`
 
-*18.* addbar
+*17.* addbar
 
 _Format_: `addbar s/NOTES [bar:n/BAR_NO_TO_ADD_AFTER](last bar)`
 
-*19.* overlay
+*18.* overlay
 
 _Format_: `overlay n/BAR_NUM1 n/BAR_NUM2`
 
 _Format_: `overlay n/BAR_NUM1 n/BAR_NUM2 repeat`
 
-*20.* swapbar
+*19.* swapbar
 
 _Format_: `swapbar bar:n/BAR_NUM bar:n/BAR_NUM`
 
-*21.* clear
-
-_Format_: To be implemented in version 2.0
-
-*22.* list
+*20.* list
 _Format_: `list`
 
-*23.* insertbar
+*21.* insertbar
 
 _Format_: `insertbar bar:n/BAR_NUM s/NOTES`
 
-*24.* help
+*22.* help
 
 _Format_: `help`
 
-*25.* exit
+*23.* exit
 
 _Format_: `bye`
 
-*26.* open
+*24.* open
 
 _Format_: `open s/SONG_NAME`
 
-*27.* editbar
+*25.* editbar
 
 _Format_: `editbar bar:n/BAR_NUM s/NOTES`
