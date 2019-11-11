@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package capCalculatorTest;
+package capcalculatortest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.parser.CapCommandParser;
@@ -11,14 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteCapCommandParserTest {
     private Ui ui = new Ui();
     private HashMap<String, ArrayList<CapCommandParser>> map = new HashMap<>();
-    private Map<String, ArrayList<CapCommandParser>> CAPList = new TreeMap<>(map);
+    private Map<String, ArrayList<CapCommandParser>> caplist = new TreeMap<>(map);
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
@@ -36,35 +39,35 @@ public class DeleteCapCommandParserTest {
     }
 
     @Test
-    void testDeleteCAPCommand() {
-        CapCommandParser newCAP = new CapCommandParser("CS1231", 4, "A");
+    void testDeleteCapCommand() {
+        CapCommandParser newCap = new CapCommandParser("CS1231", 4, "A");
         ArrayList<CapCommandParser> list = new ArrayList<>();
-        list.add(newCAP);
-        CAPList.put("1", list);
+        list.add(newCap);
+        caplist.put("1", list);
         ui.fullCommand = "delete CS1231";
-        DeleteCapCommand test = new DeleteCapCommand(ui, CAPList);
+        DeleteCapCommand test = new DeleteCapCommand(ui, caplist);
         assertEquals("Successfully deleted: CS1231\n", output.toString());
     }
 
     @Test
-    void testDeleteNotInCAPListCommand() {
-        CapCommandParser newCAP = new CapCommandParser("CS1231", 4, "A");
+    void testDeleteNotInCapListCommand() {
+        CapCommandParser newCap = new CapCommandParser("CS1231", 4, "A");
         ArrayList<CapCommandParser> list = new ArrayList<>();
-        list.add(newCAP);
-        CAPList.put("1", list);
+        list.add(newCap);
+        caplist.put("1", list);
         ui.fullCommand = "delete CG1111";
-        DeleteCapCommand test = new DeleteCapCommand(ui, CAPList);
+        DeleteCapCommand test = new DeleteCapCommand(ui, caplist);
         assertEquals("CG1111 is not found in the list.\n", output.toString());
     }
 
     @Test
-    void testDeleteIncorrectFormatInCAPListCommand() {
-        CapCommandParser newCAP = new CapCommandParser("CS1231", 4, "A");
+    void testDeleteIncorrectFormatInCapListCommand() {
+        CapCommandParser newCap = new CapCommandParser("CS1231", 4, "A");
         ArrayList<CapCommandParser> list = new ArrayList<>();
-        list.add(newCAP);
-        CAPList.put("1", list);
+        list.add(newCap);
+        caplist.put("1", list);
         ui.fullCommand = "delete CG1111 and CS1231";
-        DeleteCapCommand test = new DeleteCapCommand(ui, CAPList);
+        DeleteCapCommand test = new DeleteCapCommand(ui, caplist);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 

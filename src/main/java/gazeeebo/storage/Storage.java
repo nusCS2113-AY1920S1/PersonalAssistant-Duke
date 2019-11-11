@@ -1,27 +1,11 @@
-
 package gazeeebo.storage;
-
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.io.File;
-import java.io.BufferedWriter;
-
-
-import gazeeebo.commands.specialization.ModuleCategory;
-import gazeeebo.tasks.Deadline;
-import gazeeebo.tasks.DoAfter;
-import gazeeebo.tasks.Event;
-import gazeeebo.tasks.FixedDuration;
-import gazeeebo.tasks.Task;
-
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Storage {
 
@@ -37,7 +21,7 @@ public class Storage {
             = {"Places.txt", "/Places.txt"};
     private String[] relativePathTrivia
             = {"Trivia.txt", "/Trivia.txt"};
-    private String[] relativePathCAP
+    private String[] relativePathCap
             = {"CAP.txt", "/CAP.txt"};
     private String[] relativePathSpecialization
             = {"Specialization.txt", "/Specialization.txt"};
@@ -71,10 +55,11 @@ public class Storage {
 
     /**
      * Check if there are save txt file in the directory, if there is not, create a new txt file and copy
-     * preloaded data into the new txt file
+     * preloaded data into the new txt file.
      *
      * @throws IOException exception when there is an error read the txt file
      */
+
     public void startUp() throws IOException {
         ArrayList<String[]> resourcelist = new ArrayList<>();
         resourcelist.add(relativePath);
@@ -84,7 +69,7 @@ public class Storage {
         resourcelist.add(relativePathExpenses);
         resourcelist.add(relativePathPlaces);
         resourcelist.add(relativePathTrivia);
-        resourcelist.add(relativePathCAP);
+        resourcelist.add(relativePathCap);
         resourcelist.add(relativePathSpecialization);
         resourcelist.add(relativePathStudyPlanner);
         resourcelist.add(relativePathCompletedElectives);

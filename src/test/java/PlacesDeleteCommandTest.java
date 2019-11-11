@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -16,7 +17,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlacesDeleteCommandTest {
+class PlacesDeleteCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -59,8 +60,8 @@ public class PlacesDeleteCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
-        ui.fullCommand = "delete";
+        ui.fullCommand = "delete -";
         DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
-        assertEquals("null is not found in the list.\r\n", output.toString());
+        assertEquals("Please input delete command in the correct format\r\n", output.toString());
     }
 }

@@ -43,6 +43,7 @@ public class FindCommand extends Command {
      * @throws ParseException Catch error if parsing of command fails
      * @throws IOException    Catch error if the read file fails
      */
+
     @Override
     public void execute(final ArrayList<Task> list,
                         final Ui ui, final Storage storage,
@@ -52,9 +53,8 @@ public class FindCommand extends Command {
             throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.length() == FIND_AND_SPACE_CHAR_COUNT
-            || ui.fullCommand.length() == FIND_CHAR_COUNT) {
-                throw new DukeException("OOPS!!! The description of a "
-                        + "search cannot be empty.");
+                    || ui.fullCommand.length() == FIND_CHAR_COUNT) {
+                throw new DukeException("OOPS!!! The description of a search cannot be empty.");
             } else {
                 ArrayList<Task> searchedList = new ArrayList<Task>();
                 for (Task it : list) {

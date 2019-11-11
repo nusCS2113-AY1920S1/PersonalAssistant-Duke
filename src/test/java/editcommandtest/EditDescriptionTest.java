@@ -1,10 +1,16 @@
 //@@author JasonLeeWeiHern
 
-package EditCommandTest;
+package editcommandtest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.edit.EditDescriptionCommand;
-import gazeeebo.tasks.*;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Todo;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.DoAfter;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Timebound;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,15 @@
 //@@author JasonLeeWeiHern
 
-package EditCommandTest;
+package editcommandtest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.edit.EditBothCommand;
-import gazeeebo.tasks.*;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.DoAfter;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Timebound;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +18,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.sql.Time;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,7 +44,8 @@ public class EditBothTest {
     void testEventBoth() throws IOException {
         Event testE = new Event("banner rev", "2019-12-12 10:10:10-11:00:00");
         tasks.add(testE);
-        ByteArrayInputStream third = new ByteArrayInputStream("basketball trg /at 2019-12-12 09:00:00-11:00:00".getBytes());
+        ByteArrayInputStream third = new ByteArrayInputStream(("basketball trg "
+                + "/at 2019-12-12 09:00:00-11:00:00").getBytes());
         System.setIn(third);
         EditBothCommand test = new EditBothCommand(tasks, ui, 0);
         assertEquals("Type your description & date:\n"
@@ -77,11 +82,13 @@ public class EditBothTest {
                         + "\n\tTo:   [FD][ND] assignment(requires:2 hours)\n",
                 output.toString());
     }
+
     @Test
     void testTimeboundBoth() throws IOException {
         Timebound testE = new Timebound("banner rev", "2019-08-12 and 2019-08-13");
         tasks.add(testE);
-        ByteArrayInputStream third = new ByteArrayInputStream("assignment /between 2019-08-12 and 2019-09-13".getBytes());
+        ByteArrayInputStream third = new ByteArrayInputStream(("assignment /between "
+                + "2019-08-12 and 2019-09-13").getBytes());
         System.setIn(third);
         EditBothCommand test = new EditBothCommand(tasks, ui, 0);
         assertEquals("Type your description & date:\n"
@@ -90,11 +97,13 @@ public class EditBothTest {
                         + "\n\tTo:   [P][ND] assignment(between: 12 Aug 2019 and 13 Sep 2019)\n",
                 output.toString());
     }
+
     @Test
     void testNotAbleToEditBoth() throws IOException {
         DoAfter testE = new DoAfter("read book","read book","return book");
         tasks.add(testE);
-        ByteArrayInputStream third = new ByteArrayInputStream("assignment /between 2019-08-12 and 2019-09-13".getBytes());
+        ByteArrayInputStream third = new ByteArrayInputStream(("assignment "
+                + "/between 2019-08-12 and 2019-09-13").getBytes());
         System.setIn(third);
         EditBothCommand test = new EditBothCommand(tasks, ui, 0);
         assertEquals("Type your description & date:\n"

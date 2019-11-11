@@ -192,7 +192,7 @@ public class CompletedCommand {
         } catch (NumberFormatException e) {
             System.out.println("Please key in numbers only.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.print("Specialization index does not exist.\n");
+            System.out.print("Technical Elective index does not exist.\n");
         }
     }
 }

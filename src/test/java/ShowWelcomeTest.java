@@ -6,9 +6,9 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShowWelcomeTest {
+class ShowWelcomeTest {
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         Ui ui = new Ui();
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
                 + "|     |   |   / |    |    |    |   \\ |   |\n"

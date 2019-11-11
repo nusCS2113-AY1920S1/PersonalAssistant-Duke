@@ -6,7 +6,7 @@ public class Task {
     public int priority;
 
     /**
-     * Parent class of Task
+     * Parent class of Task.
      * @param description Name of task
      */
 

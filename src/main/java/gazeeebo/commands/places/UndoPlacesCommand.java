@@ -10,13 +10,14 @@ import java.util.Stack;
 
 public class UndoPlacesCommand {
     /**
-     *  Undo places previous command
+     *  Undo places previous command.
      *
      * @param places map of current places
      * @param oldplaces stack of map of previous places
      * @return previous map before the command.
      * @throws IOException input or output error when interacting with user.
      */
+
     public static Map<String,String> undoPlaces(Map<String, String> places, Stack<Map<String, String>> oldplaces
                                                 ) throws IOException {
         if (!oldplaces.empty()) {

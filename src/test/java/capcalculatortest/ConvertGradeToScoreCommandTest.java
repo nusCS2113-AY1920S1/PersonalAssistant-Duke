@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package capCalculatorTest;
+package capcalculatortest;
 
 import gazeeebo.commands.capcalculator.ConvertGradeToScoreCommand;
 
@@ -31,7 +31,7 @@ public class ConvertGradeToScoreCommandTest {
     }
 
     @Test
-    void testConvertAPLUStoScoreCommand() {
+    void testConvertAplustoScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(5.0, test.converter("A+"));
     }
@@ -43,13 +43,13 @@ public class ConvertGradeToScoreCommandTest {
     }
 
     @Test
-    void testConvertAMINUStoScoreCommand() {
+    void testConvertAminustoScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(4.5, test.converter("A-"));
     }
 
     @Test
-    void testConvertBPLUStoScoreCommand() {
+    void testConvertBplustoScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(4.0, test.converter("B+"));
     }
@@ -61,13 +61,13 @@ public class ConvertGradeToScoreCommandTest {
     }
 
     @Test
-    void testConvertBMINUStoScoreCommand() {
+    void testConvertBminustoScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(3.0, test.converter("B-"));
     }
 
     @Test
-    void testConvertCPLUStoScoreCommand() {
+    void testConvertCplustoScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(2.5, test.converter("C+"));
     }
@@ -79,7 +79,7 @@ public class ConvertGradeToScoreCommandTest {
     }
 
     @Test
-    void testConvertDPLUStoScoreCommand() {
+    void testConvertDplustoScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(1.5, test.converter("D+"));
     }
@@ -97,7 +97,7 @@ public class ConvertGradeToScoreCommandTest {
     }
 
     @Test
-    void testConvertOTHERtoScoreCommand() {
+    void testConvertToOtherScoreCommand() {
         ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(0.1, test.converter("CS"));
     }

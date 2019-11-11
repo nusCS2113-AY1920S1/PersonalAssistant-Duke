@@ -1,10 +1,15 @@
 //@@author JasonLeeWeiHern
 
-package EditCommandTest;
+package editcommandtest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.edit.EditTimeCommand;
-import gazeeebo.tasks.*;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.DoAfter;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Timebound;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +53,7 @@ public class EditTimeTest {
                         + "\n\tTo:   [D][ND] tutorial homework(by:12 Dec 2020 11:11:11)\n",
                 output.toString());
     }
+
     @Test
     void testEventEditTime() throws IOException {
         Event testE = new Event("trg", "2019-12-12 10:10:10-11:11:11");
@@ -61,6 +67,7 @@ public class EditTimeTest {
                         + "\n\tTo:   [E][ND]trg(at:12 Dec 2020 11:11:11-12:12:12)\n",
                 output.toString());
     }
+
     @Test
     void testFixDurationEditTime() throws IOException {
         FixedDuration testF = new FixedDuration("trg", "2 hours");
@@ -74,6 +81,7 @@ public class EditTimeTest {
                         + "\n\tTo:   [FD][ND] trg(requires:3 hours)\n",
                 output.toString());
     }
+
     @Test
     void testTimeBoundEditTime() throws IOException {
         Timebound testT = new Timebound("trg", "2019-08-12 and 2019-08-13");
@@ -87,6 +95,7 @@ public class EditTimeTest {
                         + "\n\tTo:   [P][ND] trg(between: 12 Aug 2019 and 13 Sep 2019)\n",
                 output.toString());
     }
+
     @Test
     void testUnableToEditEditTime() throws IOException {
         DoAfter testT = new DoAfter("read book","read book","return book");
