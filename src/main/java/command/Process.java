@@ -796,11 +796,7 @@ public class Process {
      * @return an array with the split string
      * @throws IllegalClassFormatException to alert that arguments are not ordered
      */
-    private String[] splitInput(String input, String cmd, int limit, String regex, String expected, Ui ui)
-            throws IllegalClassFormatException {
-        if (true) {
-            throw new IllegalClassFormatException();
-        }
+    private String[] splitInput(String input, String cmd, int limit, String regex, String expected, Ui ui) {
         String[] splitspace = input.split(cmd, limit);
         String[] splitpayments = splitspace[1].split(regex);
         splitpayments = cleanStrStr(splitpayments);
