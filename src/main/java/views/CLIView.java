@@ -1,22 +1,19 @@
 package views;
 
+import controllers.ConsoleInputController;
+import util.log.ArchDukeLogger;
+
+import java.util.Scanner;
+
 import static util.constant.ConstantHelper.HELLO_MESSAGE;
 import static util.constant.ConstantHelper.HORILINE;
 import static util.constant.ConstantHelper.INDENTATION;
 
-import controllers.ConsoleInputController;
-import controllers.ProjectInputController;
-import java.util.Scanner;
-import repositories.ProjectRepository;
-import util.log.ArchDukeLogger;
-
 public class CLIView {
     private ConsoleInputController consoleInputController;
-    private ProjectRepository projectRepository;
 
     public CLIView() {
-        this.projectRepository = new ProjectRepository();
-        this.consoleInputController = new ConsoleInputController(projectRepository);
+        this.consoleInputController = new ConsoleInputController();
     }
 
     /**
@@ -35,14 +32,9 @@ public class CLIView {
             if (outputMessage[0].matches("Now managing.*")) {
                 consolePrint(outputMessage);
 
-                ProjectInputController projectInputController = new ProjectInputController(projectRepository);
-                String projectNumber = consoleInputController.getManagingProjectIndex();
-                outputMessage = projectInputController.onCommandReceived(projectNumber);
-                consolePrint(outputMessage);
-
-                while (projectInputController.getIsManagingAProject()) {
+                while (consoleInputController.getIsManagingAProject()) {
                     commandInput = sc.nextLine();
-                    String[] projectOutputMessage = projectInputController.manageProject(commandInput);
+                    String[] projectOutputMessage = consoleInputController.manageProject(commandInput);
                     consolePrint(projectOutputMessage);
                     if (projectOutputMessage[0].matches("Bye.*")) {
                         isDukeRunning = false;

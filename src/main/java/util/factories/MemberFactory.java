@@ -1,13 +1,13 @@
 package util.factories;
 
-import static util.constant.ConstantHelper.BLANK;
-import static util.constant.ConstantHelper.BLANK_MEMBER_DETAILS;
-
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
 import util.ParserHelper;
 import util.validation.ValidityHelper;
+
+import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.BLANK_MEMBER_DETAILS;
 
 public class MemberFactory implements IArchDukeFactory<IMember> {
     private ParserHelper parserHelper;
@@ -25,6 +25,9 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
      */
     public IMember create(String input) {
         String[] memberDetails = this.parserHelper.parseMemberDetails(input);
+        if (input.matches(".*-[^niexr].*")) {
+            return new NullMember("Please ensure your parameters do not have - inside");
+        }
         boolean isNameCreated = false;
         String name = memberDetails[0];
         if (!(BLANK_MEMBER_DETAILS).equals(name) && !(BLANK).equals(name)) {

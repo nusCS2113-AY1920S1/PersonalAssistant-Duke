@@ -57,7 +57,7 @@ class ProjectInputControllerTest {
         projectInputController.projectAddMember(project, simulatedUserInput);
         assertEquals(1, project.getNumOfMembers());
         assertEquals("Cynthia", project.getMember(1).getName());
-        simulatedUserInput = "add member -n Cynthia -p 98765432";
+        simulatedUserInput = "add member -n Cynthia -i 98765432";
         String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
         assertEquals(1, project.getNumOfMembers());
         assertEquals("The member you have tried to add already exists!", projectOutput[0]);
@@ -168,7 +168,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Dillen -i 9999 -e dillen@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "add member -n Jerry - i 9999 -e jerryn@gmail.com";
+        simulatedUserInput = "add member -n Jerry -i 9999 -e jerryn@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
         simulatedUserInput = "add member -n Sean";

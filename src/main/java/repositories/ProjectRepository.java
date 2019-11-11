@@ -23,9 +23,7 @@ public class ProjectRepository implements IRepository<Project> {
      * Lastly, it adds any resources found in packaged jar into the data found in current working directory.
      */
     public ProjectRepository() {
-        ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
         allProjects = jsonConverter.loadAllProjectsData();
-        allProjects.addAll(projectsFromResource);
     }
 
     @Override
@@ -86,16 +84,26 @@ public class ProjectRepository implements IRepository<Project> {
      * @param indexNumber : Index of project that user wishes to delete
      * @return Returns a boolean that states whether the project is deleted successfully
      */
-    public boolean deleteItem(int indexNumber) {
+    public String[] deleteItem(int indexNumber) {
         try {
             jsonConverter.deleteProject(allProjects.get(indexNumber - 1));
             this.allProjects.remove(indexNumber - 1);
-            return true;
+            return new String[]{"Project " + indexNumber + " has been deleted"};
         } catch (IndexOutOfBoundsException err) {
-            return false;
+            return new String[]{
+                "Error occurred! There could be three possibilities:",
+                "You could have attempted to delete a Project after renaming it's JSON file",
+                "You could have entered a Project index is out of bounds.",
+                "You could have attempted to delete the default Project loaded immediately. "
+                    + "Do not panic if this was you. The default Project is deleted correctly"};
         } catch (DukeException err) {
             this.allProjects.remove(indexNumber - 1);
-            return false;
+            return new String[]{
+                "Error occurred! There could be three possibilities:",
+                "You could have attempted to delete a Project after renaming it's JSON file",
+                "You could have entered a Project index is out of bounds.",
+                "You could have attempted to delete the default Project loaded immediately. "
+                    + "Do not panic if this was you. The default Project is deleted correctly"};
         }
     }
 
