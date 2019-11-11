@@ -41,7 +41,7 @@ public class GraphTotalCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage)
             throws MooMooException {
-
+        
         if (categoryList.size() == 0) {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
@@ -56,9 +56,13 @@ public class GraphTotalCommand extends Command {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
         }
+    
+        DetectOsCommand getOS = new DetectOsCommand();
         
-        horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
-        horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
+        if (!getOS.osName.contains("win")) {
+            horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
+            horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
+        }
         
         String topSpace = "";
         for (int i = 0; i < categoryList.getLongestCategory(); i += 1) {
@@ -76,7 +80,7 @@ public class GraphTotalCommand extends Command {
                 categoryName = categoryName.substring(0, 11) + "...";
             }
             
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && !getOS.osName.contains("win")) {
                 output = output + ANSI_CYAN + categoryName;
             } else {
                 output = output + categoryName;
@@ -85,7 +89,7 @@ public class GraphTotalCommand extends Command {
             for (int j = 0; j < (categoryList.getLongestCategory() - categoryName.length() + 1); j += 1) {
                 output += " ";
             }
-    
+            
             int noOfFullBars = (int) percentage;
             for (int j = 0; j < noOfFullBars; j += 1) {
                 output = output + fullBlock;
@@ -95,8 +99,8 @@ public class GraphTotalCommand extends Command {
                 output = output + halfBlock;
             }
             output = output + "  " + percentage + "%\n";
-    
-            if (i % 2 == 0) {
+            
+            if (i % 2 == 0 && !getOS.osName.contains("win")) {
                 output = output + ANSI_RESET;
             }
         }

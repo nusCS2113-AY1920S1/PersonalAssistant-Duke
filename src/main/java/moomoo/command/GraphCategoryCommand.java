@@ -52,25 +52,34 @@ public class GraphCategoryCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage)
             throws MooMooException {
+        
         Category cat;
         try {
             cat = categoryList.get(categoryName);
+            if (cat.equals(null)) {
+                throw new MooMooException("OH NO! No such category exists!");
+            }
         } catch (Exception e) {
             throw new MooMooException("OH NO! No such category exists!");
         }
-        try {
-            if (cat.size() == 0 || cat.getTotal(month, year) == 0) {
-                throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
-            }
-        } catch (Exception e) {
-            throw new MooMooException("Please enter an existing category!! Moohoohoo");
+
+        if (cat.size() == 0 || cat.getTotal(month, year) == 0) {
+            throw new MooMooException("No expenditure data found :(");
         }
         
+        
         double grandTotal = cat.getTotal(month, year);
-        int maxAxisUnit = (int) ((cat.getLargestExpenditure() / grandTotal) * 100) + 1;
+        int maxAxisUnit = (int) ((cat.getLargestExpenditure(month, year) / grandTotal) * 100) + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
+        }
+    
+        DetectOsCommand getOS = new DetectOsCommand();
+        
+        if (!getOS.osName.contains("win")) {
+            horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
+            horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
         }
         
         String topSpace = "";
@@ -80,13 +89,17 @@ public class GraphCategoryCommand extends Command {
         output += topSpace + horizontalAxisTop + "\n";
         
         for (int i = 0; i < cat.size(); i += 1) {
+            Expenditure expenditure = cat.get(i);
+            if (expenditure.getDate().getMonthValue() != month || expenditure.getDate().getYear() != year) {
+                continue;
+            }
             String expenditureName = cat.get(i).getName();
             if (expenditureName.length() > 14) {
                 expenditureName = expenditureName.substring(0, 11) + "...";
                 
             }
             
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && !getOS.osName.contains("win")) {
                 output = output + ANSI_CYAN + expenditureName;
             } else {
                 output = output + expenditureName;
@@ -108,7 +121,7 @@ public class GraphCategoryCommand extends Command {
             }
             output = output + "  " + roundToTwoDp(percentage) + "%\n";
             
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && !getOS.osName.contains("win")) {
                 output = output + ANSI_RESET;
             }
         }
