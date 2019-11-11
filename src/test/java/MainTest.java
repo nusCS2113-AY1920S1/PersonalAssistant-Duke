@@ -12,15 +12,21 @@ import mistermusik.logic.EventList;
 import mistermusik.ui.CalendarView;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class MainTest {
-
-
-
-
     //@@author yenpeichih
     @Test
     public void goalsListAddTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
@@ -116,8 +122,8 @@ public class MainTest {
     }
 
     @Test
-    public void pastEventUnachievedGoalsListTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
-        EventDate currentDate1 = new EventDate("7-11-2019 1300");
+    public void pastEventUnachievedGoalsListTest()
+            throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
         ArrayList<String> testListString = new ArrayList<>();
         EventList testList = new EventList(testListString);
         Event practiceTest1 = new Practice("full band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
@@ -132,14 +138,15 @@ public class MainTest {
         testList.getEvent(1).addGoal(pastGoal2);
         Goal futureGoal1 = new Goal("finish chapter 9");
         testList.getEvent(2).addGoal(futureGoal1);
+        EventDate currentDate1 = new EventDate("7-11-2019 1300");
         testList.findNextEventAndSetBoolean(currentDate1.getEventJavaDate());
         assertTrue(testList.gotPastUnachieved);
-        assertNotEquals("You do not have any unachieved goals for past events! Yay!" + "\n", testList.getPastEventsWithUnachievedGoals());
+        assertNotEquals("You do not have any unachieved goals for past events! Yay!" + "\n",
+                testList.getPastEventsWithUnachievedGoals());
     }
 
     @Test
     public void noPastUnachievedGoalsTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
-        EventDate currentDate1 = new EventDate("1-11-2019 1300");
         ArrayList<String> testListString = new ArrayList<>();
         EventList testList = new EventList(testListString);
         Event practiceTest1 = new Practice("full band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
@@ -154,9 +161,13 @@ public class MainTest {
         testList.getEvent(1).addGoal(pastGoal2);
         Goal futureGoal1 = new Goal("finish chapter 9");
         testList.getEvent(2).addGoal(futureGoal1);
+        EventDate currentDate1 = new EventDate("1-11-2019 1300");
         testList.findNextEventAndSetBoolean(currentDate1.getEventJavaDate());
         assertFalse(testList.gotPastUnachieved);
-        assertEquals("\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n" + "You do not have any unachieved goals for past events! Yay!" + "\n", testList.getPastEventsWithUnachievedGoals());
+        assertEquals("\n" + "Below lists all the unachieved goal for past events. "
+                + "Please be reminded to add them to the future events."
+                + "\n" + "You do not have any unachieved goals for past events! Yay!"
+                + "\n", testList.getPastEventsWithUnachievedGoals());
     }
 
     @Test
@@ -226,7 +237,8 @@ public class MainTest {
         while (daysFree.size() <= 3) {
             boolean isFree = true;
             for (Event viewEvent : eventListTest.getEventArrayList()) {
-                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                if (viewEvent.getStartDate().getFormattedDateString()
+                        .substring(0, 16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
                     isFree = false;
                     break;
                 }
@@ -301,7 +313,7 @@ public class MainTest {
         testList.getEvent(0).addChecklist(itemString);
         testList.getEvent(0).deleteChecklist(0);
         boolean isDeleted = false;
-        if(testList.getEvent(0).getChecklist().isEmpty()) {
+        if (testList.getEvent(0).getChecklist().isEmpty()) {
             isDeleted = true;
         }
         assertTrue(isDeleted);
@@ -330,85 +342,28 @@ public class MainTest {
         Date testDate = new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime();
         CalendarView calendarTest = new CalendarView(testList, new EventDate(testDate));
         calendarTest.setCalendarInfo();
-        String calendarCompare = "________________________________________________________________________________________________________________________\n" +
-                "|                                                  Events of the week                                                  |\n" +
-                "________________________________________________________________________________________________________________________\n" +
-                "|   <Thursday>   |    <Friday>    |   <Saturday>   |    <Sunday>    |    <Monday>    |   <Tuesday>    |   <Wednesday>  |\n" +
-                "|   07-11-2019   |   08-11-2019   |   09-11-2019   |   10-11-2019   |   11-11-2019   |   12-11-2019   |   13-11-2019   |\n" +
-                "________________________________________________________________________________________________________________________\n" +
-                "|                |                |                |                |                |* 18:00 ~ 21:00 |                |\n" +
-                "|                |                |                |                |                |CG2271          |                |\n" +
-                "|                |                |                |                |                |----------------|                |\n" +
-                "|                |                |                |                |                |                |                |\n" +
-                "________________________________________________________________________________________________________________________";
+        String calendarCompare = "____________________________________________"
+                + "____________________________________________________________________________\n"
+                + "|                                                  Events of"
+                + " the week                                                  |\n"
+                + "____________________________________________________________"
+                + "____________________________________________________________\n"
+                + "|   <Thursday>   |    <Friday>    |   <Saturday>   |    <Sunday> "
+                + "   |    <Monday>    |   <Tuesday>    |   <Wednesday>  |\n"
+                + "|   07-11-2019   |   08-11-2019   |   09-11-2019   |   10-11-2019 "
+                + "  |   11-11-2019   |   12-11-2019   |   13-11-2019   |\n"
+                + "________________________________________________________________"
+                + "________________________________________________________\n"
+                + "|                |                |                |            "
+                + "    |                |* 18:00 ~ 21:00 |                |\n"
+                + "|                |                |                |             "
+                + "   |                |CG2271          |                |\n"
+                + "|                |                |                |            "
+                + "    |                |----------------|                |\n"
+                + "|                |                |                |             "
+                + "   |                |                |                |\n"
+                + "_________________________________________________________________"
+                + "_______________________________________________________";
         assertEquals(calendarCompare, calendarTest.getStringForOutput());
     }
-
-    //@@author
-//
-//
-//
-//    @Test
-//    public void reminderTest () {
-//
-//    	ArrayList<String> testcase = new ArrayList<String>();
-//    	ArrayList<String> all = new ArrayList<String>();
-//    	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-//
-//    	// case 1: task due long ago (printed)
-//    	Task dueLongAgo = new Deadline("longAgo", "09/08/1965 0000");
-//    	all.add(dueLongAgo.toString());
-//    	testcase.add(dueLongAgo.toString());
-//
-//    	// case 2: task due now (printed)
-//    	Date now = new Date();
-//    	Calendar c = Calendar.getInstance();
-//    	c.setTime(now);
-//    	String nowStr = formatter.format(now);
-//    	Task dueNow = new Deadline("now", nowStr);
-//    	all.add(dueNow.toString());
-//    	testcase.add(dueNow.toString());
-//
-//    	// case 3: task due 2 days later (printed)
-//    	c.add(Calendar.DATE, 2);
-//    	Date twoDays = c.getTime();
-//    	String twoDaysStr = formatter.format(twoDays);
-//    	Task dueTwoDays = new Deadline("twoDays", twoDaysStr);
-//    	all.add(dueTwoDays.toString());
-//    	testcase.add(dueTwoDays.toString());
-//
-//    	// case 4: task due 3 days later (printed)
-//    	c.add(Calendar.DATE, 1);
-//    	Date threeDays = c.getTime();
-//    	String threeDaysStr = formatter.format(threeDays);
-//    	Task dueThreeDays = new Deadline("threeDays", threeDaysStr);
-//    	all.add(dueThreeDays.toString());
-//    	testcase.add(dueThreeDays.toString());
-//
-//    	// case 5: task due 4 days later (not printed)
-//    	c.add(Calendar.DATE, 1);
-//    	Date fourDays = c.getTime();
-//    	String fourDaysStr = formatter.format(fourDays);
-//    	Task dueFourDays = new Deadline("fourDays", fourDaysStr);
-//    	all.add(dueFourDays.toString());
-//
-//    	// case 6: task due 10 days later (not printed)
-//    	c.add(Calendar.DATE, 6);
-//    	Date tenDays = c.getTime();
-//    	String tenDaysStr = formatter.format(tenDays);
-//    	Task dueTenDays = new Deadline("tenDays", tenDaysStr);
-//    	all.add(dueTenDays.toString());
-//
-//    	EventList expected = new EventList(testcase);
-//    	EventList allitms = new EventList(all);
-//
-//    	EventDate limit = new EventDate();
-//    	limit.addDays(4);
-//    	limit.setMidnight();
-//    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
-//    	String cmp = expected.listOfTasks_String();
-//    	String result = allitms.filteredlist(pred, DATE);
-//
-//    	assertEquals(cmp, result);
-//    }
 }

@@ -56,8 +56,8 @@ public class UI {
         System.out.println("-----Basic Commands-----");
         System.out.println("1.  \"help\"                     -- Print out all the commands you can input.");
         System.out.println("2.  \"list\"                     -- Print out all the events in the list.");
-        System.out.println("3.  \"reminder [number of days]\"-- Display the list of events over the next"
-                + " given number (default 3) days.");
+        System.out.println("3.  \"reminder [number of days]\""
+                + "-- Display the list of events over the next given number (default 3) days.");
         System.out.println("4.  \"check\"                    -- Print the next 3 free days.");
         System.out.println("5.  \"find <keyword>\"           -- Search for a specific event using keywords.");
         System.out.println("6.  \"view dd-MM-yyyy\"          -- Print the event list for a particular date.");
@@ -346,7 +346,7 @@ public class UI {
     }
 
     /**
-     * Retrieves line of underscores to separate different UI outputs.
+     * Returns line of underscores to separate different Model_Class.UI outputs.
      */
     public String getLineSeparation() {
         return lineSeparation;
@@ -400,7 +400,7 @@ public class UI {
 
     /**
      * Prints message containing events found when a search is performed.
-     * Prints error message if no events are found
+     * Prints error message if no events are found.
      *
      * @param allFoundEvents string containing all the events found, separated by newline character
      * @param found          boolean signifying whether or not any events were found
@@ -517,7 +517,9 @@ public class UI {
     }
 
     /**
-     * Prints error message when a user attempts to add a new event to the list, but a clash is detected.
+     * Prints when entered event is clashing with an existing event.
+     *
+     * @param event The existed event that is clashing with.
      */
     public void printScheduleClash(Event event) {
         System.out.print(lineSeparation);
@@ -571,7 +573,9 @@ public class UI {
     }
 
     /**
-     * Prints calendar.
+     * Prints the calendar table.
+     *
+     * @param calendarInfo The string containing all the info for the calendar.
      */
     public void printCalendar(String calendarInfo) {
         System.out.print(lineSeparation);
@@ -581,13 +585,15 @@ public class UI {
     }
 
     /**
-     * Prints error msg when the user tries to add a new event that causes concert costs to be exceeded
-     * for a particular month.
+     * Prints when entered cost exceeds budget.
+     *
+     * @param concert The entered concert.
+     * @param budget  The cost of this concert.
      */
     public void printCostExceedsBudgetMsg(Concert concert, int budget) {
         System.out.print(lineSeparation);
-        System.out.println("The following concert you wanted to add causes you "
-                + "to exceed the stipulated budget for that month!");
+        System.out.println("The following concert you wanted to add causes you to "
+                + "exceed the stipulated budget for that month!");
         System.out.println(concert.toString());
         String date = concert.getStartDate().getFormattedDateString().substring(8, 16);
         System.out.println("exceeds budget of $" + budget + " for the month of " + date);
@@ -596,7 +602,10 @@ public class UI {
     }
 
     /**
-     * Prints concert costs for a specific month.
+     * Prints the cost for the month.
+     *
+     * @param monthAndYear The month that is going to be shown.
+     * @param cost         The cost of this month.
      */
     public static void printCostForMonth(String monthAndYear, int cost) {
         System.out.print(lineSeparation);
@@ -617,7 +626,9 @@ public class UI {
     }
 
     /**
-     * Prints message indicating successful deletion operation regarding checklist.
+     * Prints when an item in the checklist is deleted.
+     *
+     * @param eventIndex The index of the event whose checklist has been edited.
      */
     public void checklistDeleted(int eventIndex) {
         System.out.print(lineSeparation);
@@ -626,7 +637,10 @@ public class UI {
     }
 
     /**
-     * Prints message indicating successful edition operation regarding checklist.
+     * Prints when the checklist of an event is edited.
+     *
+     * @param newChecklistItem The new item to be put into checklist.
+     * @param eventIndex       The index of the event whose checklist has been edited.
      */
     public void checklistEdited(String newChecklistItem, int eventIndex) {
         System.out.print(lineSeparation);
@@ -636,7 +650,10 @@ public class UI {
     }
 
     /**
-     * Prints message indicating successful addition operation regarding checklist.
+     * Prints when the checklist of an event is added an item.
+     *
+     * @param newChecklistItem The new item to be put into checklist.
+     * @param eventIndex       The index of the event whose checklist has been edited.
      */
     public void checklistAdded(String newChecklistItem, int eventIndex) {
         System.out.print(lineSeparation);
@@ -646,7 +663,11 @@ public class UI {
     }
 
     /**
-     * Prints the checklist from a specific event.
+     * Prints the checklist of an event.
+     *
+     * @param thisChecklist The checklist of that event.
+     * @param eventIndex    The index of this event.
+     * @param eventAdded    The event.
      */
     public void printEventChecklist(ArrayList<String> thisChecklist, int eventIndex, Event eventAdded) {
         System.out.print(lineSeparation);
@@ -663,7 +684,9 @@ public class UI {
     }
 
     /**
-     * Prints message indicating successful addition operation regarding instrument feature.
+     * Prints when an instrument is added.
+     *
+     * @param instrumentIndexAndName The instrument index and name.
      */
     public void instrumentAdded(String instrumentIndexAndName) {
         System.out.print(lineSeparation);
@@ -673,7 +696,10 @@ public class UI {
     }
 
     /**
-     * Prints message indicating successful addition of service operation regarding instrument feature.
+     * Prints when an instrument service is added.
+     *
+     * @param serviceIndexAndName    Service name and index.
+     * @param instrumentIndexAndName Instrument index and name.
      */
     public void serviceAdded(String serviceIndexAndName, String instrumentIndexAndName) {
         System.out.println(lineSeparation);
@@ -685,7 +711,9 @@ public class UI {
     }
 
     /**
-     * Prints list of instruments currently stored.
+     * Prints the instrument list.
+     *
+     * @param instruments The instruments.
      */
     public void printInstruments(String instruments) {
         System.out.println(lineSeparation);
@@ -695,7 +723,10 @@ public class UI {
     }
 
     /**
-     * Prints list of services concerning a particular instrument.
+     * Prints the instrument services.
+     *
+     * @param services               The services.
+     * @param instrumentIndexAndName The instrument index and name.
      */
     public void printServices(String services, String instrumentIndexAndName) {
         System.out.println(lineSeparation);
@@ -707,7 +738,9 @@ public class UI {
     }
 
     /**
-     * Prints success message for setting a new monthly budget.
+     * Prints when budget is set.
+     *
+     * @param newBudget The amount set as budget.
      */
     public static void printBudgetSet(int newBudget) {
         System.out.print(lineSeparation);
@@ -715,6 +748,11 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    /**
+     * Prints the goals of an event.
+     *
+     * @param viewEventGoal The event.
+     */
     //@@author yenpeichih
 
     /**
@@ -738,7 +776,9 @@ public class UI {
     }
 
     /**
-     * Prints success message regarding addition of new goal to an event.
+     * Prints when goal added.
+     *
+     * @param goal The goal.
      */
     public void printGoalAdded(String goal) {
         System.out.println(lineSeparation);
@@ -748,7 +788,9 @@ public class UI {
     }
 
     /**
-     * Prints success message regarding deletion of new goal from an event.
+     * Prints when goal deleted.
+     *
+     * @param deletedGoal The goal info.
      */
     public void printGoalDeleted(String deletedGoal) {
         System.out.println(lineSeparation);
@@ -758,7 +800,11 @@ public class UI {
     }
 
     /**
-     * Prints success message regarding updating of goal for a specific event.
+     * Prints when a goal updated.
+     *
+     * @param events  The events list.
+     * @param eventID The event ID.
+     * @param goalID  The goal ID.
      */
     public void printGoalUpdated(EventList events, int eventID, int goalID) {
         System.out.println(lineSeparation);
@@ -768,7 +814,9 @@ public class UI {
     }
 
     /**
-     * Prints success message regarding setting a goal as achieved for an event.
+     * Prints when a goal set as achieved.
+     *
+     * @param goal The goal.
      */
     public void printGoalSetAsAchieved(Goal goal) {
         System.out.println(lineSeparation);
@@ -778,7 +826,7 @@ public class UI {
     }
 
     /**
-     * Prints message when user attempts to achieve a goal that is already achieved.
+     * Prints when trying to set as achieved but achieved already.
      */
     public void printGoalAlreadyAchieved() {
         System.out.println(lineSeparation);
@@ -787,7 +835,7 @@ public class UI {
     }
 
     /**
-     * Prints error message when user attempts to access a non-existent goal.
+     * Prints when no such goal.
      */
     public void printNoSuchGoal() {
         System.out.println(lineSeparation);
@@ -796,16 +844,19 @@ public class UI {
     }
 
     /**
-     * Prints message when user enters an event into the list that has already passed.
+     * Prints when entered event is already over.
      */
     public void printEnteredEventOver() {
-        System.out.println("Reminder: the event you have added has a start date that is already over "
-                + "and hence won't be displayed in the list. You may still view it by"
+        System.out.println("Reminder: the event you have added has a start date"
+                + " that is already over and hence won't be displayed in the list. You may still view it by"
                 + " using the view schedules command.");
     }
 
     /**
-     * Print all events on a specific date, specified by user.
+     * Prints when viewing events of a specific date.
+     *
+     * @param foundEvents The events found.
+     * @param isFound     Whether the event is found.
      */
     public void printEventsOnASpecificDate(ArrayList<String> foundEvents, boolean isFound) {
         if (isFound) {

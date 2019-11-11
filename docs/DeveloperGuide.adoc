@@ -99,8 +99,13 @@ This section describes some noteworthy details on how certain features are imple
 The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
 starting from a specified day, including the events within this time period. +
 
+==== Sequence diagram
+Below is the sequence diagram of calendarView.
+
+image::calendar_sequenceDiagram.png[width = "800"]
+
 ==== How it is implemented
-Given below is how a calendar table is generated and printed.
+Given below is the sequential steps of how a calendar table is generated and printed.
 
 Step 1. User enters `calendar` to start the initialization process of a calendar table with today as the starting day.
 
@@ -148,9 +153,9 @@ checks all the events whether any is in this day.
 . If not, this day will be added into a list.
 . Above process will continue until the list has 3 days, which will then be printed.
 
-The following logic diagram shows how check free days is implemented.
+The following activity diagram shows how check free days is implemented.
 
-image::DGCheck.png[width = "800"]
+image::check_activityDiagram.png[width = "800"]
 
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
