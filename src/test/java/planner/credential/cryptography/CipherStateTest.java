@@ -1,3 +1,5 @@
+//@@author LongLeCE
+
 package planner.credential.cryptography;
 
 import org.junit.jupiter.api.DisplayName;
@@ -14,14 +16,14 @@ public class CipherStateTest {
 
     private CipherState cipherState;
 
-    private void testNext() {
-        assertSame(cipherState.next(false), cipherState.getMessage());
-        assertSame(cipherState.next(true), cipherState.getKey());
+    private void testNextMethod(byte[] testMessage, byte[] testKey) {
+        assertSame(cipherState.next(false), testMessage);
+        assertSame(cipherState.next(true), testKey);
     }
 
     @DisplayName("CipherState Initialization Test")
     @Test
-    public void cipherStateInitializationShouldCorrectlyInitializeFields() {
+    public void constructorsShouldCorrectlyInitializeFields() {
         cipherState = new CipherState();
         assertNull(cipherState.getMessage());
         assertNull(cipherState.getKey());
@@ -41,7 +43,7 @@ public class CipherStateTest {
 
     @DisplayName("CipherState String Representation Test")
     @Test
-    public void cipherStateToStringShouldBeCorrect() {
+    public void toStringShouldBeCorrect() {
         HashMap<String, String> stateMap = new HashMap<>();
 
         cipherState = new CipherState();
@@ -64,20 +66,55 @@ public class CipherStateTest {
         assertEquals(cipherState.toString(), stateMap.toString());
     }
 
-    @DisplayName("CipherState Functionality Test")
+    @DisplayName("CipherState next Test")
     @Test
-    public void cipherStateNextShouldReturnCorrectField() {
+    public void nextShouldReturnCorrectField() {
         cipherState = new CipherState();
-        testNext();
+        testNextMethod(null, null);
 
         String testMessageString = "testMessage";
         byte[] testMessage = testMessageString.getBytes();
         cipherState = new CipherState(testMessage);
-        testNext();
+        testNextMethod(testMessage, null);
 
         String testKeyString = "testKey";
         byte[] testKey = testKeyString.getBytes();
         cipherState = new CipherState(testMessage, testKey);
-        testNext();
+        testNextMethod(testMessage, testKey);
+    }
+
+    @DisplayName("CipherState getMessage Test")
+    @Test
+    public void getMessageShouldReturnCorrectMessage() {
+        cipherState = new CipherState();
+        assertNull(cipherState.getMessage());
+
+        String testMessageString = "testMessage";
+        byte[] testMessage = testMessageString.getBytes();
+        cipherState = new CipherState(testMessage);
+        assertSame(testMessage, cipherState.getMessage());
+
+        String testKeyString = "testKey";
+        byte[] testKey = testKeyString.getBytes();
+        cipherState = new CipherState(testMessage, testKey);
+        assertSame(testMessage, cipherState.getMessage());
+    }
+
+    @DisplayName("CipherState getKey Test")
+    @Test
+    public void getKeyShouldReturnCorrectKey() {
+        cipherState = new CipherState();
+        assertNull(cipherState.getKey());
+
+        String testMessageString = "testMessage";
+        byte[] testMessage = testMessageString.getBytes();
+        cipherState = new CipherState(testMessage);
+        assertNull(cipherState.getKey());
+
+        String testKeyString = "testKey";
+        byte[] testKey = testKeyString.getBytes();
+        cipherState = new CipherState(testMessage, testKey);
+        assertSame(testMessage, cipherState.getMessage());
+        assertSame(testKey, cipherState.getKey());
     }
 }
