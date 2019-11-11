@@ -11,7 +11,6 @@ import java.util.Map;
 public class Budget {
     private HashMap<String, Double> categoryBudgets;
     private DecimalFormat df;
-    private double totalBudget;
 
     /**
      * Initializes values to default values if no previous budget information is found.
@@ -19,7 +18,6 @@ public class Budget {
      */
     public Budget() {
         this.categoryBudgets = new HashMap<String, Double>();
-        this.totalBudget = 0;
         df = new DecimalFormat("#.00");
     }
 
@@ -29,7 +27,6 @@ public class Budget {
      */
     public Budget(HashMap<String, Double> newBudget) {
         this.categoryBudgets = newBudget;
-        this.totalBudget = 0;
         df = new DecimalFormat("#.00");
     }
 
@@ -64,11 +61,7 @@ public class Budget {
      * @param budget Budget to set for the corresponding category
      */
     public void addNewBudget(String category, double budget) {
-        if (this.categoryBudgets.containsKey(category)) {
-            totalBudget -= this.categoryBudgets.get(category);
-        }
         this.categoryBudgets.put(category, budget);
-        totalBudget += budget;
     }
 
     public HashMap<String, Double> getBudget() {
