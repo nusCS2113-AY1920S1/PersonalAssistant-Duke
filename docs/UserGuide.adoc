@@ -231,17 +231,17 @@ Examples:
 * You ate a hamburger today, but you are unsure of its nutritional value:
 ** `breakfast hamburger`
 +
-image::Breakfast_3.PNG[width=""]
+image::Breakfast_3.png[width=""]
 +
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt, with a cost of 7.50SGD
 ** `breakfast hamburger /calories 1000 /sodium 10 /cost 7.50`
 +
-image::Breakfast_1.PNG[width=""]
+image::Breakfast_1.png[width=""]
 +
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
 ** `breakfast hamburger /cost 7.50 /calories 1000 /sodium 10 /date 1/1/2019`
 +
-image::Breakfast_2.PNG[width=""]
+image::breakfast_2.png[width=""]
 +
 
 [NOTE]
@@ -295,15 +295,15 @@ Examples:
 * You ate a hamburger today, but you are unsure of its nutritional value:
 ** `dinner hamburger`
 +
-image::Dinner_1.PNG[]
+image::Dinner_1.png[]
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
 ** `dinner hamburger /calories 1000 /sodium 10 /cost 7.5`
 +
-image::Dinner_2.PNG[]
+image::Dinner_2.png[]
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
 ** `dinner hamburger /calories 1000 /sodium 10 /date 1/1/2019`
 +
-image::Dinner_3.PNG[]
+image::Dinner_3.png[]
 
 [NOTE]
 ====
@@ -436,15 +436,15 @@ Examples:
 * There is a default value associated with `Mega Zinger burger`, and you wish to remove it.
 ** `deldefault Mega Zinger burger`
 +
-image::deldefault_1.png[]
+image::Del_Default_1.png[]
 * You want to delete a default value associated with `burger`, but you are not exactly sure whats the exact name of the meal.
 ** `deldefault burger`
 +
-image::deldefault_2.png[]
+image::Del_Default_2.png[]
 
 ** Say you want to delete fish burger, enter `1`
 +
-image::deldefault_3.png[]
+image::Del_Default_3.png[]
 
 [NOTE]
 ====
@@ -636,7 +636,7 @@ Format: `graph /type <DATA_TYPE> /month <MONTH> /year <YEAR>`
 Want to monitor trends in your diet in a graphical form? By using the `graph` command, you will be able to see your nutritional
 intake across a time period charted as a graph.
 
-image::cgraph.PNG[width=""]
+image::Graph.png[width=""]
 
 ==== Suggest potential food items: `suggestmeal`
 
@@ -691,26 +691,26 @@ Examples:
 
 ** `suggestexercise`
 +
-image::suggestexercise_1.png[width=""]
+image::Suggest_Exercise_1.png[width=""]
 
 * You want a exercise suggestion for 1/1/2000.
 ** `suggestexercise /date 1/1/2000`
 +
-image::suggestexercise_4.png[width=""]
+image::Suggest_Exercise_4.png[width=""]
 
 .. You want a exercise suggestion related to Cycling.
 ** `suggestexercise /find cycling`
 +
-image::suggestexercise_5.png[width=""]
+image::Suggest_Exercise_5.png[width=""]
 
 . Enter the index of the exercise you want. The application will prompt you with a success message as shown below. The date shown will vary
 depending on what date you indicated. Otherwise, you can also enter `0` to terminate the command without selecting an exercise.
 +
-image::suggestexercise_2.png[width=""]
+image::Suggest_Exercise_2.png[width=""]
 
 . Now, whenever you use the list command today, it will show you your selected exercise
 +
-image::suggestexercise_3.png[width=""]
+image::Suggest_Exercise_3.png[width=""]
 
 [NOTE]
 ====
@@ -737,12 +737,12 @@ Examples:
 * You want a "sprinting" exercise routine worth 23 METs.
 ** `addexercise sprinting /value 23`
 +
-image::addexercise_1.png[width=""]
+image::Add_Exercise_1.png[width=""]
 
 * You want a "Rock climbing" exercise routine worth 10 METs.
 ** `addexercise Rock climbing /value 10`
 +
-image::addexercise_2.png[width=""]
+image::Add_Exercise_2.png[width=""]
 
 [NOTE]
 ====
@@ -761,16 +761,16 @@ Examples:
 * There is a exercise routine associated with `sprinting`, and you wish to remove it.
 ** `delexercise sprinting`
 +
-image::delexercise_1.png[]
+image::Del_Exercise_1.png[]
 * You want to delete a default value associated with `cycling`, but you are not exactly sure whats the exact name of the exercise routine.
 ** `delexercise cycling`
 +
-image::delexercise_2.png[]
+image::Del_Exercise_2.png[]
 +
 
 Say you want to delete heavy effort cycling, enter `3`
 +
-image::delexercise_3.png[]
+image::Del_Exercise_3.png[]
 +
 Otherwise, you can enter `0` to terminate the command without deleting anything
 
