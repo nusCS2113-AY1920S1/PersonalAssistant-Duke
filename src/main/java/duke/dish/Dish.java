@@ -1,7 +1,7 @@
 package duke.dish;
 
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
+import duke.list.IngredientsList;
 import duke.storage.Printable;
 
 //@@author 9hafidz6

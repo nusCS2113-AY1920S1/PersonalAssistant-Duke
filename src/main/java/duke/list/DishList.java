@@ -1,5 +1,6 @@
-package duke.dish;
+package duke.list;
 
+import duke.dish.Dish;
 import duke.list.GenericList;
 
 import java.util.ArrayList;
