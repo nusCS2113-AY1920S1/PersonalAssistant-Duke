@@ -9,6 +9,7 @@ import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 import spinbox.exceptions.SpinBoxException;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayDeque;
@@ -21,11 +22,15 @@ public class FindCommand extends Command {
     private static final String LOG_EMPTY_KEYWORD = "Keyword is empty.";
     private static final String LOG_NON_EXISTENT_MODULE = "Module does not exist.";
     private static final String LOG_UNKNOWN_ITEM_TYPE = "Unknown item type.";
+    private static final String LOG_FILE_LIST = "Get file list.";
+    private static final String LOG_TASK_LIST = "Get task list.";
+    private static final String LOG_GRADE_LIST = "Get grade list.";
 
     private static final String UNKNOWN_ITEM_TYPE = "Sorry, unknown item type to add.";
     private static final String FIND_ERROR_MESSAGE = "Please ensure that you enter "
             + "the full command for find commands:\n";
     private static final String FIND_FORMAT = "find <moduleCode> / <type> <keyword>\n";
+    private static final String NO_MODULE_CODE = "No module code indicated.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
 
     private String type;
@@ -83,49 +88,42 @@ public class FindCommand extends Command {
             return FIND_ERROR_MESSAGE + FIND_FORMAT;
         }
 
-        switch (type) {
-        case "file":
-            checkIfOnModulePage(moduleCode);
-            if (moduleContainer.checkModuleExists(moduleCode)) {
-                HashMap<String, Module> modules = moduleContainer.getModules();
-                Module module = modules.get(moduleCode);
-                FileList files = module.getFiles();
-                LOGGER.exiting(getClass().getName(), "execute");
-                return ui.showFormatted(files.containsKeyword(keyword));
-            } else {
-                LOGGER.severe(LOG_NON_EXISTENT_MODULE);
-                return NON_EXISTENT_MODULE;
-            }
+        checkIfOnModulePage(moduleCode);
+        assert checkIfOnModulePage(moduleCode) : NO_MODULE_CODE;
 
-        case "task":
-            checkIfOnModulePage(moduleCode);
-            if (moduleContainer.checkModuleExists(moduleCode)) {
-                HashMap<String, Module> modules = moduleContainer.getModules();
-                Module module = modules.get(moduleCode);
-                TaskList tasks = module.getTasks();
-                LOGGER.exiting(getClass().getName(), "execute");
-                return ui.showFormatted(tasks.containsKeyword(keyword));
-            } else {
-                LOGGER.severe(LOG_NON_EXISTENT_MODULE);
-                return NON_EXISTENT_MODULE;
-            }
+        List<String> contains;
+        Module module;
+        HashMap<String, Module> modules;
 
-        case "grade":
-            checkIfOnModulePage(moduleCode);
-            if (moduleContainer.checkModuleExists(moduleCode)) {
-                HashMap<String, Module> modules = moduleContainer.getModules();
-                Module module = modules.get(moduleCode);
-                GradeList grades = module.getGrades();
-                LOGGER.exiting(getClass().getName(), "execute");
-                return ui.showFormatted(grades.containsKeyword(keyword));
-            } else {
-                LOGGER.severe(LOG_NON_EXISTENT_MODULE);
-                return NON_EXISTENT_MODULE;
+        if (moduleContainer.checkModuleExists(moduleCode)) {
+            modules = moduleContainer.getModules();
+            module = modules.get(moduleCode);
+            switch (type) {
+            case "file":
+                FileList fileList = module.getFiles();
+                contains = fileList.containsKeyword(keyword);
+                LOGGER.fine(LOG_FILE_LIST);
+                break;
+            case "task":
+                TaskList taskList = module.getTasks();
+                contains = taskList.containsKeyword(keyword);
+                LOGGER.fine(LOG_TASK_LIST);
+                break;
+            case "grade":
+                GradeList gradeList = module.getGrades();
+                contains = gradeList.containsKeyword(keyword);
+                LOGGER.fine(LOG_GRADE_LIST);
+                break;
+            default:
+                LOGGER.severe(LOG_UNKNOWN_ITEM_TYPE);
+                throw new InputException(UNKNOWN_ITEM_TYPE);
             }
-
-        default:
-            LOGGER.severe(LOG_UNKNOWN_ITEM_TYPE);
-            throw new InputException(UNKNOWN_ITEM_TYPE);
+        } else {
+            LOGGER.severe(LOG_NON_EXISTENT_MODULE);
+            return NON_EXISTENT_MODULE;
         }
+
+        LOGGER.exiting(getClass().getName(), "execute");
+        return ui.showFormatted(contains);
     }
 }
