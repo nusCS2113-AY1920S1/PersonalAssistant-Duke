@@ -38,8 +38,8 @@ Responsibilities: School tasks management
 image::fauzt.png[width="150", align="left"]
 {empty}[https://github.com/fauzt[github]] [<<Fauzan#, portfolio>>]
 
-Role: Developer +
-Responsibilities: 
+Role: Developer/Maintainer+ 
+Responsibilities: Task Scheduling Feature & Reminder Feature
 
 '''
 
