@@ -27,7 +27,7 @@ Responsibilities:
 
 === Hans Kurnia
 image::hanskw4267.png[width="150", align="left"]
-{empty}[https://github.com/hanskw4267[github]] [https://drive.google.com/file/d/1_3xZ8Phm8RcR-XzOAmhy7K8FrM2HRhqS/view?usp=sharing[<<Hans Kurnia#, portfolio>>]]
+{empty}[https://github.com/hanskw4267[github]] [https://drive.google.com/file/d/1_3xZ8Phm8RcR-XzOAmhy7K8FrM2HRhqS/view?usp=sharing[ portfolio]]
 
 Role: Developer +
 Responsibilities: School tasks management
