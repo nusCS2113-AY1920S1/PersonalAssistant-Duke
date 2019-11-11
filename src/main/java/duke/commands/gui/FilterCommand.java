@@ -33,7 +33,7 @@ public class FilterCommand implements Command {
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientManager,
                         DukeUi dukeUi, StorageManager storageManager) throws DukeException {
-        dukeUi.printDukeResponse("Got it! Filtering: " + filterInfo + " in the table.");
+        dukeUi.printDukeResponse("Got it! Filtering: " + filterInfo);
     }
 
     /**

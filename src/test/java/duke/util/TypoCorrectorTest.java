@@ -20,24 +20,23 @@ public class TypoCorrectorTest {
     //ArrayList of pairs <command, commandToBeCorrected>
     private static final ArrayList<String[]> COMMANDS_TO_BE_CORRECTED = new ArrayList<String[]>(
         Arrays.asList(
-            new String[]{"b y e", "bye"},
-            new String[]{"lsit patant", "list patients"},
-            new String[]{"DEe lte Pti ents:#12", "delete patient:#12"},
+            new String[]{"by e", "bye"},
+            new String[]{"list patant", "list patients"},
+            new String[]{"DE lte Ptients:#12", "delete patient:#12"},
             new String[]{"deleot tasksa :task description", "delete task:task description"},
             new String[]{"delette   tasks:#1", "delete task:#1"},
             new String[]{"addd patents:name :nric :room :remark", "add patient:name :nric :room :remark"},
-            new String[]{"dad tsak:a very long task name", "add task:a very long task name"},
             new String[]{"addd task :abc", "add task:abc"},
             new String[]{"asgn deadli task: #1 :12 :12/12/2019 1645",
                 "assign deadline task: #1 :12 :12/12/2019 1645"},
             new String[]{"asSGn perio tk :#1 :12 :12/12/2019 1645 :12/12/2020 1645",
                 "assign period task:#1 :12 :12/12/2019 1645 :12/12/2020 1645"},
             new String[]{"fi n d p atin t: #1", "find patient: #1"},
-            new String[]{"u p da te pa i t en s :#12:Room:2A", "update patient:#12:Room:2A"}
+            new String[]{"up date pait ent :#12:Room:2A", "update patient:#12:Room:2A"}
         ));
 
     private static final String[] NOT_CORRECTED_COMMANDS = {
-        "", " ", "list patients", "an invalid command"
+        "", " ", "list patients", "an invalid command", "b yyy e"
     };
 
     /**
@@ -48,7 +47,7 @@ public class TypoCorrectorTest {
         for (String[] testPair : COMMANDS_TO_BE_CORRECTED) {
             TypoCorrector typoCorrector = new TypoCorrector(testPair[0]);
             assertTrue(typoCorrector.isCommandCorrected(),
-                "The command < " + testPair[0] + " > should not be corrected to < " + testPair[1] + " >");
+                "The command < " + testPair[0] + " > should be corrected to < " + testPair[1] + " >");
             String correctedOutput = typoCorrector.getCorrectedCommand();
             System.out.println("Input Command:     " + testPair[0]);
             System.out.println("Expected Command:  " + testPair[1]);
