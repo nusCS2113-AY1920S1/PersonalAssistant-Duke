@@ -17,6 +17,8 @@ import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
 import cube.storage.StorageManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -38,7 +40,8 @@ public class ProfitCommandTest extends ProfitCommand {
         ModelManager model = new ModelManager();
         StorageManager storage = new StorageManager();
         SalesHistory salesHistory = new SalesHistory();
-        final FoodList list = new FoodList();
+        FoodList list = new FoodList();
+
 
         //create a new dummy sales record
         String foodName = "food1Name";
@@ -49,24 +52,36 @@ public class ProfitCommandTest extends ProfitCommand {
         Sale saleRecord = new Sale(foodName, quantitySold, revenue, profit, soldDate);
         salesHistory.add(saleRecord);
 
+        model.setSalesHistory(salesHistory);
+        Food food = new Food(foodName);
+        list.add(food);
+        model.setFoodList(list);
+
         //specify the period to search for in the saleshistory, inclusive of the sold date of
         //the dummy sales record created above
         Date dateI = ParserUtil.parseStringToDate("23/03/1998");
         Date dateF = ParserUtil.parseStringToDate("23/03/2028");
 
+        String pattern = "MM/dd/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String dateIStr = df.format(dateI);
+        String dateFStr = df.format(dateF);
+
         //search all
         //should only have the one sales record created above
         ProfitCommand commandAll = new ProfitCommand(dateI, dateF, "ALL");
         CommandResult resultAll = commandAll.execute(model, storage);
+
         CommandResult expectedResultAll = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_ALL,
-                profit, revenue, 0));
+                profit, revenue, dateIStr, dateFStr));
+        
         assertEquals(resultAll, expectedResultAll);
 
         //search by name
         ProfitCommand commandName = new ProfitCommand(dateI, dateF, "food1Name", "NAME");
         CommandResult resultName = commandName.execute(model, storage);
         CommandResult expectedResultName = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_SINGLE,
-                profit, revenue, 0));
+                profit, revenue, dateIStr, dateFStr));
         assertEquals(resultName, expectedResultName);
 
 
@@ -78,17 +93,17 @@ public class ProfitCommandTest extends ProfitCommand {
 
         //search by index
         //since it is the only one in the list, it is indexed 0
-        ProfitCommand commandIndex = new ProfitCommand(dateI, dateF, 0, "INDEX");
+        ProfitCommand commandIndex = new ProfitCommand(dateI, dateF, 1, "INDEX");
         CommandResult resultIndex = commandIndex.execute(model, storage);
         CommandResult expectedResultIndex = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_SINGLE,
-                profit, revenue, 1)); //now list has one entry
+                profit, revenue, dateIStr, dateFStr)); //now list has one entry
         assertEquals(resultIndex, expectedResultIndex);
 
         //search by type
         ProfitCommand commandType = new ProfitCommand(dateI, dateF, "dummyType", "TYPE");
         CommandResult resultType = commandType.execute(model, storage);
         CommandResult expectedResultType = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_MULTIPLE,
-                profit, revenue, 1)); //now list has one entry
+                profit, revenue, 1, dateIStr, dateFStr)); //now list has one entry
         assertEquals(resultType, expectedResultType);
     }
 }

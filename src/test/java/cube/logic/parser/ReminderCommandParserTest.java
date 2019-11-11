@@ -39,7 +39,7 @@ class ReminderCommandParserTest {
             new ReminderCommandParser().parse(inputs);
             fail("Fail to detect invalid integer");
         } catch (ParserException e) {
-            assertEquals(ParserErrorMessage.INVALID_NUMBER, e.getMessage());
+            assertEquals(ParserErrorMessage.INVALID_INTEGER, e.getMessage());
         }
     }
 
