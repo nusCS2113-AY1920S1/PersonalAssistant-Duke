@@ -170,7 +170,19 @@ The above command groups the bars from index 2 to index 4 (inclusive) and gives 
 
 === Undoing your previous action: `undo`
 
+Undo Command can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
+For `help`, `view`, `list`, `list_group`, and `ascii`, UndoCommand will not undo it since they didn't change the song list.
+Note that although `open` does not change the song list, since it opens a song to edit, `undo` still works on it.
+
+_Format_:
+`undo`
+
 === Redoing your previous action: `redo`
+
+Redo Command can redo the most recent commands that have been undone until there is no more commands that can be redone.
+
+_Format_:
+`redo`
 
 === Starting a metronome: `metronome`
 
