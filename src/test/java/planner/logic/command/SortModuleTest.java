@@ -70,7 +70,7 @@ public class SortModuleTest extends InputTest {
         final String commandTest3 = "sort module level\n" + "bye";
         final String commandTest4 = "sort module mc\n" + "bye";
 
-        provideInput("password\n" + commandTest1);
+        provideInput(commandTest1);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedSortedModules = "_______________________________\n"
