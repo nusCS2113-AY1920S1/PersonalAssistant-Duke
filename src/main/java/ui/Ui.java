@@ -71,7 +71,7 @@ public class Ui {
         System.out.print(line);
         System.out.println("\t" + "There are no projects in the record.");
         System.out.println("\t" + "Please add a new project.");
-        System.out.println("\t" + "Format: add project pr/PROJECTNAME");
+        System.out.println("\t" + "Format: " + commandFormat.addProjectFormat());
         System.out.print(line);
     }
 

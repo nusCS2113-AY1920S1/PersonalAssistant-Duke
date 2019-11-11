@@ -1,55 +1,170 @@
 package command;
 
 import common.AlphaNUSException;
+import common.CommandFormat;
 import common.TaskList;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import project.Fund;
+import project.Project;
 import project.ProjectManager;
 import storage.Storage;
 import task.Deadline;
 import task.Task;
 import ui.Ui;
 
+import javax.sound.sampled.Line;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProcessTest {
-    Fund fund = new Fund();
-    TaskList tasklist = new TaskList();
-    Ui ui = new Ui();
-    Storage storage = new Storage();
-    ArrayList<String> list = new ArrayList<>();
+    Fund fund;
+    TaskList tasklist;
+    Ui ui;
+    Storage storage;
+    ArrayList<String> list;
     String input;
     Set<String> dict;
-    public Process process = new Process();
+    public Process process;
+    CommandFormat commandFormat = new CommandFormat();
+    static final String line = "    ____________________________________________________________\n";
 
-    ProcessTest() throws AlphaNUSException {
+    //@@author leowyh
+    @BeforeEach
+    void initProcessTest() throws AlphaNUSException {
+        fund = new Fund();
+        tasklist = new TaskList();
+        ui = new Ui();
+        storage = new Storage();
+        list = new ArrayList<>();
+        input = null;
+        dict = null;
+        process = new Process();
+
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
+
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 
     @Test
-    void homePageMessage() {
+    void testaddProject_WithNoBudget_success() {
+        input = "add project pr/Test am/";
+        process.addProject(input, ui, fund, storage);
+        Project expectedproject = new Project("Test");
+        Project outputproject = process.projectManager.projectmap.get("Test");
+        assertEquals(expectedproject.giveProject(), outputproject.giveProject());
     }
 
     @Test
-    void listProjects() {
+    void testaddProject_WithBudget_success() {
+        input = "set fund am/2000";
+        process.setFund(input, ui, fund, storage);
+        assertEquals(fund.getFund(), 2000);
+
+        input = "add project pr/Flag am/100";
+        process.addProject(input, ui, fund, storage);
+        Project expectedproject = new Project("Flag", 100);
+        Project outputproject = process.projectManager.projectmap.get("Flag");
+        assertEquals(expectedproject.giveProject(), outputproject.giveProject());
     }
 
     @Test
-    void addProject() {
+    void testaddProject_InputNegative_NoBudget_fail() {
+        input = "add project pr/Flag am/-100";
+        process.addProject(input, ui, fund, storage);
+        assertFalse(process.projectManager.projectmap.containsKey("Flag"));
     }
 
     @Test
-    void deleteProject() {
+    void testaddProject_BudgetExceeds_fail() {
+        input = "set fund am/2000";
+        process.setFund(input, ui, fund, storage);
+        assertEquals(fund.getFund(), 2000);
+
+        input = "add project pr/Flag am/3000";
+        process.addProject(input, ui, fund, storage);
+        assertFalse(process.projectManager.projectmap.containsKey("Flag"));
     }
 
     @Test
-    void goToProject() {
+    void deleteProject_ProjectExists() throws AlphaNUSException {
+        input = "add project pr/Test am/";
+        process.addProject(input, ui, fund, storage);
+        assertTrue(process.projectManager.projectmap.containsKey("Test"));
+        input = "delete project pr/Test";
+        process.deleteProject(input, ui, storage, fund);
+        assertFalse(process.projectManager.projectmap.containsKey("Test"));
+    }
+
+    @Test
+    void deleteProject_withouttag_fail() throws AlphaNUSException {
+        input = "delete project";
+        process.deleteProject(input, ui, storage, fund);
+        assertEquals(line + "\t" + "Incorrect input" + "\n"
+                + "\t" + "Correct Format: " + commandFormat.deleteProjectFormat() + "\r\n"
+                + line, outContent.toString());
+    }
+
+    @Test
+    void deleteProject_NoProjectExist() throws AlphaNUSException {
+        assertFalse(process.projectManager.projectmap.containsKey("Test"));
+        input = "delete project pr/Test";
+        process.deleteProject(input, ui, storage, fund);
+        assertEquals(line + "\t" + "Project does not exist!" + "\r\n"
+                + line, outContent.toString());
+    }
+
+    @Test
+    void deleteProject_EmptyProjectName_fail() throws AlphaNUSException {
+        input = "delete project pr/";
+        process.deleteProject(input, ui, storage, fund);
+        String expected = line + "\t" + "Project name cannot be empty!" + "\n"
+                + "\t" + "Correct Format: " + commandFormat.deleteProjectFormat() + "\r\n"
+                + line;
+        String output = outContent.toString();
+        System.out.println(output);
+        System.out.println(expected);
+        assertTrue(expected.equals(output));
+    }
+
+    @Test
+    void goToProject_WithExistingProject_success() {
+        process.projectManager.projectmap = new LinkedHashMap<>();
+        input = "add project pr/Test am/";
+        process.addProject(input, ui, fund, storage);
+        process.projectManager.currentprojectname = null;
+        input = "goto 1";
+        process.goToProject(input, ui);
+        assertEquals("Test", process.projectManager.currentprojectname);
+    }
+
+    @Test
+    void goToProject_WithNoExistingProject_fail() {
+        process.projectManager.projectmap = new LinkedHashMap<>();
+        input = "goto 1";
+        process.goToProject(input, ui);
+        assertEquals(line + "\t" + "There are no projects in the record." + "\r\n" + "\t"
+                + "Please add a new project." + "\r\n" + "\t"
+                + "Format: " + commandFormat.addProjectFormat() + "\r\n"
+                + line, outContent.toString());
     }
 
     //@@author lijiayu980606
