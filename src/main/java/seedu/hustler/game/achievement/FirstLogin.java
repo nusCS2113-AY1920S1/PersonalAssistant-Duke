@@ -1,5 +1,7 @@
 package seedu.hustler.game.achievement;
 
+//@@author jingkang97
+
 /**
  * Achievement which can be attained after user first logs in.
  */

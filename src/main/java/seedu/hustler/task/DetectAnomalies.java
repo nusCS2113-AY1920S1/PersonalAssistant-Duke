@@ -8,6 +8,8 @@ import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 import static seedu.hustler.task.TaskList.getDescription;
 import static seedu.hustler.task.TaskList.getTimeString;
 
+//@@author jingkang97
+
 /**
  * Detect any clash of date and time between tasks.
  * It also detects if tasks with same description has been added multiple times.

@@ -3,6 +3,8 @@ package seedu.hustler.game.achievement;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+//@@author jingkang97
+
 /**
  * Achievement which can be attained after user logs in consecutively.
  * There are 3 achievement levels which depend on the number of consecutive login.
