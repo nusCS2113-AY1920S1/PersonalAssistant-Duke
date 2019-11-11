@@ -3,6 +3,7 @@ package rims.core;
 import rims.command.Command;
 
 import rims.exception.RimsException;
+import rims.resource.TagList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class Rims {
     private Storage storage;
     private ResourceList resources;
+    public static TagList tags;
     private Ui ui;
     private Parser parser;
 
@@ -37,10 +39,11 @@ public class Rims {
      * @throws IOException  if there is an error related to user input or printing
      *                      output.
      */
-    public Rims(String resourceFilePath, String reserveFilePath) throws ParseException, RimsException, IOException {
+    public Rims(String resourceFilePath, String reserveFilePath, String tagFilePath) throws ParseException, RimsException, IOException {
         ui = new Ui();
-        storage = new Storage(resourceFilePath, reserveFilePath);
+        storage = new Storage(resourceFilePath, reserveFilePath, tagFilePath);
         resources = new ResourceList(ui, storage.getResources());
+        tags = new TagList(ui, storage.getTags());
         parser = new Parser(ui, resources);
     }
 
@@ -74,6 +77,6 @@ public class Rims {
      * @throws RimsException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, RimsException {
-        new Rims("data/resources.txt", "data/reserves.txt").run();
+        new Rims("data/resources.txt", "data/reserves.txt", "data/tags.txt").run();
     }
 }
