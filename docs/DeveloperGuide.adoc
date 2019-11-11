@@ -2265,7 +2265,7 @@ Use case ends.
 
 [appendix]
 == Non Functional Requirements
-. The application should work on any computer running a <<mainstream-os, mainstream OS>> OS that has Java 11 installed.
+. The application should work on any computer running a <<mainstream-os, mainstream OS>> that has Java 11 installed.
 . The application should work on both 32-bit and 64-bit environments.
 . The application should work without requiring any internet access.
 . The application should work without requiring an installer.
