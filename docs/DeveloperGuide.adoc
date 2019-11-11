@@ -367,7 +367,7 @@ image::SuggestMealCommand_Sequence_Diagram.png[]
 
 Problem 1: *How to determine most suitable meal for user*
 
-* Solution 1: Use the calories as the determining factor and sort the calories from highest to lowest and suggest meals that meet the calorie limit left for the day.
+* Solution 1 (Current Implementation): Use the calories as the determining factor and sort the calories from highest to lowest and suggest meals that meet the calorie limit left for the day.
 
 ** Pros: Easy to implement and deterministic behaviour.
 
