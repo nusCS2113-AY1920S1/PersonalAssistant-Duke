@@ -135,10 +135,10 @@ The following sequence diagram below illustrates how this feature works:
 .Natural Dates Support Sequence diagram
 [#img-natural-dates-support]
 [caption="Figure 5: "]
-image::TaskParseNaturalDate (1).png[Natural Dates Support, 800]
+image::../images/TaskParseNaturalDate (1) (2).png[Natural Dates Support, 800]
 
-As seen from the diagram above, the Natural Dates support is facilitated by four classes, namely
-`TaskCommandParseHelper`, `CommandParseHelper`, `TaskParseNaturalDateHelper` and `Task`.
+As seen from the diagram above, the Natural Dates support is facilitated by three classes, namely
+`TaskCommandParseHelper`, `CommandParseHelper` and `TaskParseNaturalDateHelper`.
 
 `TaskParseNaturalDateHelper` is under the Command component.
 It implements the following operations:
@@ -146,6 +146,8 @@ It implements the following operations:
 * `TaskParseNaturalDateHelper#isCorrectNaturalDate(day)` - Checks if `day` is a day of the week
 * `TaskParseNaturalDateHelper#convertNaturalDate(day, time)` - Converts string day and time to local date and time in LocalTimeDate format
 * `TaskParseNaturalDateHelper#getDate(timeString)` - Returns a dateTime in LocalDateTime format
+* `TaskParseNaturalDateHelper#parseDate(timeString)` - Converts timeString to LocalDateTime format if
+timeString is of `dd/MM/yyyy HHmm` format
 
 `TaskCommandParseHelper` and `CommandParseHelper` are under the Parser component.
 It implements the following operations:
@@ -153,12 +155,6 @@ It implements the following operations:
 * `TaskCommandParseHelper#parseTaskTime(optionList)` - Parses time string extracted from optionList and returns a dateTime in LocalDateTime format
 * `TaskCommandParseHelper#checkTimeString(timeString)` - Checks if time string contains time component and returns a pair with day as key and timing as value
 * `CommandParseHelper#extractTime(optionList)` - Extracts and returns the time string from the input
-
-`Task` is under the Entity component.
-It implements the following operations:
-
-* `Task#parseDate(timeString)` - Converts timeString to LocalDateTime format if timeString is of `dd/MM/uuuu HHmm`
-format
 
 Given below is an example usage scenario and how Natural Dates Support behaves at each step.
 
@@ -174,7 +170,8 @@ The user wishes to add a task and keys in `flip` to switch input type to `task` 
 *Step 4*: The extracted time string will go through `TaskParseNaturalDateHelper#getDate(timeString)`, which calls `TaskCommandParseHelper#checkTimeString(timeString)` and retrieves dateTimeString = new Pair<>(day, time).
 
 *Step 5*: If `TaskParseNaturalDateHelper#isCorrectNaturalDate(day)` is true,
-`TaskParseNaturalDateHelper#convertNaturalDate(day, time)` is called, else `Task#parseDate(timeString)` is called.
+`TaskParseNaturalDateHelper#convertNaturalDate(day, time)` is called, else
+`TaskParseNaturalDateHelper#parseDate(timeString)` is called.
 
 *Step 6*: `TaskCommandParseHelper#parseTaskTime(optionList)` retrieve dateTime from
 `TaskParseNaturalDateHelper` and returns it.
@@ -217,7 +214,7 @@ The following sequence diagram below illustrates how the sort command is parsed:
 .parseSortCommand Sequence diagram
 [#img-parse-sort-command]
 [caption="Figure 6: "]
-image::parseSortCommand (1).png[Parse Sort Command, 800]
+image::../images/parseSortCommand (1) (1).png[Parse Sort Command, 800]
 
 As seen from the diagram above, the parsing of sort command is facilitated by two class, namely
 `TaskCommandParseHelper` and `TaskSortCommand`.
@@ -894,41 +891,96 @@ exploratory testing.
 
 |===
 |ℹ️|All dates in natural dates format are case-insensitive
-
 |===
 
 |===
 |Mode|Input|Expected Result|Purpose of Testing
 
-|Task|deadline submission -time mon|deadline task will be added into the task list with time `0000`|Normal
+|`Task`|`deadline submission -time mon`|deadline task will be added into the task list with time `0000`|Normal
 use case without time inputted
-|Task|deadline submission -time mon 2359|deadline task will be added into the task list with time
+|`Task`|`deadline submission -time mon 2359`|deadline task will be added into the task list with time
 `2359`|Normal use case with time inputted
-|Task|deadline submission -time|Invalid command format reported|Empty time in time option triggers
+|`Task`|`deadline submission -time`|Invalid command format reported|Empty time in time option triggers
 invalid command format as deadline task requires a time option
-|Task|deadline submission -time random|Invalid command reported asking for correct date time format|Invalid
+|`Task`|`deadline submission -time abc`|Invalid command reported asking for correct date time format|Invalid
 input with wrong date time format
-|Task|todo tutorials -time|Invalid command format reported|Invalid input with time present in todo task
-|Task|todo tutorial -time mon 1200|Invalid command reported saying date time not allowed for todo
+|`Task`|`todo tutorials -time`|Invalid command format reported|Invalid input with time present in todo task
+|`Task`|`todo tutorial -time mon 1200`|Invalid command reported saying date time not allowed for todo
 task|Invalid input with time present in todo task
 |===
 
-==== Sorting of task list
+==== Sort task list Command
 
 |===
 |ℹ️|Inputs after `sort` are case-insensitive.
-
 |===
 
 |===
 |Mode|Input|Expected Result|Purpose of Testing
 
-|Task|sort priority|Task List is sorted according to the priority level of the task, with `high` being at
+|`Task`|`sort priority`|Task List is sorted according to the priority level of the task, with `high` being at
 the top of the list|Normal use case
-|Task|sort|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
-|Task|sort prio|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
+|`Task`|`sort `|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
+|`Task`|`sort prio`|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
 |===
 
+==== Snooze task Command
+
+|===
+|ℹ️|Snooze can only work for `deadline` and `event` tasks.
+|===
+
+To aid with testing, let task with index 1 be a `deadline` task, and task with index 2 be a `todo` task.
+
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|`Task`|`snooze 1`|Task with index 1 is snoozed by 3 days|Normal use case without a specific duration to snooze
+|`Task`|`snooze 1 -by 2`|Task with index 1 is snoozed by 2 days|Normal use case with a specific duration to snooze
+|`Task`|`snooze `|Invalid command reported asking for valid task index and duration|Invalid input without task
+index
+|`Task`|`snooze 0`|Invalid command reported saying index out of bound|Invalid input with invalid index
+|`Task`|`snooze abc`|Invalid command reported asking for valid task index and duration|Invalid input with
+invalid index
+|`Task`|`snooze 123456`|Invalid command reported saying invalid index|Invalid input with index that is out of
+range of 1 ~ 99999
+|`Task`|`snooze 1 -by 123456`|Message displayed asking for snooze duration to be within range of 1 ~
+99999|Invalid input with snooze duration that is too large
+|`Task`|`snooze 2`|Message displayed saying task cannot be snoozed|Invalid input of invalid task type
+|`Task`|`snooze 2 -by abc`|Invalid command reported asking for valid snooze duration|Invalid input with
+invalid task index and invalid snooze duration
+|===
+
+==== Set Priority Command
+
+|===
+|ℹ️|Priority levels keyed in after `-priority` are case-insensitive
+|===
+
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|`Task`|`set 1 -priority high`|Priority of task 1 set to `HIGH`|Normal use case
+|`Task`|`set 1`|Invalid command reported asking for valid priority level to be set|Invalid input with
+missing priority level
+|`Task`|`set 1 -priority`|Invalid command format reported|Invalid input without priority level
+|`Task`|`set 1 -priority abc`|Invalid priority reported|Invalid input with invalid priority level
+|`Task`|`set 0 -priority high`|Invalid command reported saying index out of bound|Invalid input with
+invalid index
+|`Task`|`set abc -priority high`|Invalid command reported asking for positive index that is in range and
+priority level|Invalid input with invalid index
+|`Task`|`set`|Invalid command reported asking for positive index that is in range and
+priority level|Invalid input without index
+|===
+
+==== Clear task list Command
+
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|`Task`|`clear`|Task list is cleared|Normal use case
+|`Task`|`clear`|Message saying task list has already been cleared|Using the command consecutively
+|===
 
 ==== Email Auto Parsing and AddKeyword Command
 Since the email content parsing is automatic, it is easier to be tested together with the addKeyword command.
@@ -965,7 +1017,6 @@ without expression specified
 option should trigger the invalid command format check as option must not be empty
 | `email` | `addKeyword project -exp !@#` | Invalid command format reported | Invalid character in input
 will trigger the invalid command format check
-
 |===
 
 ==== Email Fuzzy Search
