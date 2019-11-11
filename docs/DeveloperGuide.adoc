@@ -67,7 +67,7 @@ Each of the four components
 .Structure of the UI Component
 image::ui_class_diagram.png[]
 
-*API* : link:{https://github.com/AY1920S1-CS2113T-T12-3/main}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{https://github.com/AY1920S1-CS2113T-T12-3/main}/src/main/java/duke/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that contains 5 separate pages, namely the `SalePage`,
 `ProductPage`, `ShoppingPage`, `InventoryPage` and `OrderPage`.
