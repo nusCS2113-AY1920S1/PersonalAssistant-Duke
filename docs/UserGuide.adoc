@@ -250,6 +250,10 @@ Enter a list of 'enter key' separated words: `happy[Enter] elated[Enter]` +
 Enter a date and time for the reminder: `12-02-2020 1400` +
 
 Reminder is then set. Summary of reminder details is shown. Reminder pop up will be shown on 12 Feb 2020 2pm.
+
+[NOTE]
+Due to the current implementation, you will not be able to exit the app while doing the multi-line setup of the reminder.
+
 // end::schedule[]
 
 image:schedule.PNG[]
