@@ -39,6 +39,13 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 
+/**
+ * Test class for export command.
+ *
+ * @author Tan Yi Xiang
+ * @version 1.3
+ */
+
 class ExportTest {
 
     private static final String PROD_ID = "-//Chronologer//iCal4j Test 1.2//EN";
@@ -52,6 +59,11 @@ class ExportTest {
         return calendar;
     }
 
+    /**
+     * Convert local date time to calendar format.
+     * @param startDate The date to be converted
+     * @return The calendar with the converted date.
+     */
     private java.util.Calendar convertToCalendar(LocalDateTime startDate) {
         java.util.Calendar utilCalendar = new GregorianCalendar();
         utilCalendar.set(java.util.Calendar.YEAR, startDate.getYear());
@@ -97,6 +109,7 @@ class ExportTest {
     @Test
     @Order(2)
     void testExportCommand() throws ChronologerException, IOException, ParserException, ParseException {
+
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         ArrayList<Task> list = new ArrayList<>();
         TaskList tasks = new TaskList(list);
