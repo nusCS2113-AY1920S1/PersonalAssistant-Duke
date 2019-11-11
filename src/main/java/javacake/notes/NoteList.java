@@ -20,7 +20,7 @@ public class NoteList {
 
     private ArrayList<Note> al = new ArrayList<>();
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-            '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
 
     /**
