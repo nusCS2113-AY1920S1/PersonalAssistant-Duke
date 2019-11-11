@@ -53,7 +53,7 @@ public class RoomList extends ArrayList<Room> {
      */
     public static boolean checkRoom(RoomList roomList, String roomcode) {
         for (Room i : roomList) {
-            if(i.roomcode.equals(roomcode)) {
+            if (i.roomcode.equals(roomcode)) {
                 return true;
             }
         }

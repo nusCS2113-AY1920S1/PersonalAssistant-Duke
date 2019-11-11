@@ -42,7 +42,7 @@ public class AddRoomCommand extends Command {
         } catch (NumberFormatException e) {
             throw new DukeException("Capacity should be an integer");
         }
-        if(capacity < 0) {
+        if (capacity < 0) {
             throw new DukeException(Constants.INVALIDCAPACITY);
         }
     }
