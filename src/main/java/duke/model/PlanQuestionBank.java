@@ -57,14 +57,14 @@ public class PlanQuestionBank {
         question3.addNeighbouring(4);
         questionList.put(3, question3);
 
-        PlanQuestion question4 = new PlanQuestion("How do you go to school? <bus, mrt, both>",
+        PlanQuestion question4 = new PlanQuestion("How do you go to school? <bus/mrt/both>",
                 new String[]{"BUS", "MRT", "BOTH"},
                 new String[]{"BUS", "MRT", "BOTH"},
                 "TRANSPORT_METHOD");
         question4.addNeighbouring(5);
         questionList.put(4, question4);
 
-        PlanQuestion question5 = new PlanQuestion("How much does your trip cost each way?",
+        PlanQuestion question5 = new PlanQuestion("How much does your trip cost each way?  <money amount>\"",
                 DOUBLE,
                 DOUBLE,
                 "TRIP_COST");
@@ -72,7 +72,7 @@ public class PlanQuestionBank {
         questionList.put(5, question5);
 
 
-        PlanQuestion question6 = new PlanQuestion("Do you eat at your Hall/RC often?",
+        PlanQuestion question6 = new PlanQuestion("Do you eat at your Hall/RC often? <yes/no>",
                 BOOL_ANSWERS,
                 BOOL_ATTRIBUTE_VALUES,
                 "DINE_IN_HALL");
