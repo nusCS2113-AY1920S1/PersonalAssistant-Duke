@@ -101,7 +101,7 @@ public class ConsoleInputController implements IController {
             return new String[] {"Creation of Project failed. Please ensure that Project name doesn't have any "
                     + "special character or isn't empty."};
         } else {
-            assert(projectRepository.getAll().size() - initialSize == 1);
+            assert (projectRepository.getAll().size() - initialSize == 1);
             return new String[] {"Project created!"};
         }
     }

@@ -288,10 +288,10 @@ Create, Read, Update, Delete, also known as *CRUD* functions
 ==== Implementation
 
 CRUD functions are facilitated by `ConsoleInputController`, `ProjectRepository` and `ProjectFactory`. It allows
-ArchDuke to be able to do some basic CRUD functions for a Project, namely only Creation, Reading and Deletion.
-`ConsoleInputController` will
-read the relevant
-commands from the `View` layer and call the relevant methods in `ProjectRepository`.
+ArchDuke to be able to do some basic CRUD functions for a Project, namely Creation, Reading, Update and Deletion.
+
+`ConsoleInputController` will read the relevant commands from the `View` layer and call the relevant methods in
+`ProjectRepository`.
 
 It implements the following commands:
 

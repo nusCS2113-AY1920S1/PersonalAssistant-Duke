@@ -184,7 +184,7 @@ public class ConsoleInputControllerTest {
             projectRepository.deleteItem(1);
         }
         String[] expectedOutput = new String[] {"Creation of Project failed. Please ensure that Project name "
-                + "doesn't have any special characters"};
+                + "doesn't have any special character or isn't empty."};
         String[] actualOutput = consoleInputController.onCommandReceived("create");
         assertArrayEquals(expectedOutput, actualOutput);
         String[] actualOutput2 = consoleInputController.onCommandReceived("create ");
