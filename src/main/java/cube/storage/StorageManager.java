@@ -23,8 +23,8 @@ public class StorageManager {
     private PromotionStorage promotionStorage;
 
     /**
-     * Default constructor.
-     * Creates a new instance of all Storage Classes.
+     * The default constructor.
+     * Create a new instance of all of the Storage Classes.
      */
     public StorageManager() {
         this.foodStorage = new FoodStorage();
@@ -34,8 +34,8 @@ public class StorageManager {
     }
 
     /**
-     * Constructor with multiple arguments.
-     * Creates a new instance of all Storage Classes.
+     * The constructor with multiple arguments.
+     * Create a new instance of all Storage Classes.
      */
     public StorageManager(FoodStorage foodStorage, SaleStorage saleStorage,
                           PromotionStorage promotionStorage, ConfigStorage configStorage) {
@@ -46,9 +46,10 @@ public class StorageManager {
     }
 
     /**
-     * Retrieves the FoodList stored in the FoodStorage.
+     * Getter for the FoodList.
+     * Retrieve the FoodList stored in the FoodStorage.
      *
-     * @return FoodList object stored in the FoodStorage.
+     * @return FoodList The Food Object stored in the FoodStorage.
      */
     @JsonIgnore
     public FoodList getFoodList() {
@@ -66,7 +67,8 @@ public class StorageManager {
 
 
     /**
-     * Retrieves the past sales histories stored in SaleStorage.
+     * Getter for the SalesHistory.
+     * Retrieve the past Sales Histories stored in the SaleStorage.
      *
      * @return SalesHistory object containing past sale histories stored in SaleStroage.
      */
@@ -85,7 +87,8 @@ public class StorageManager {
     }
 
     /**
-     * Retrieves the past sales histories stored in SaleStorage.
+     * Getter for the PromotionList.
+     * Retrieve the past sales histories stored in SaleStorage.
      *
      * @return SalesHistory object containing past sale histories stored in SaleStroage.
      */
@@ -104,7 +107,8 @@ public class StorageManager {
     }
 
     /**
-     * Retrieves the configuration storage containing user-defined configurations.
+     * Getter for Config
+     * Retrieve the configuration storage containing user-defined configurations.
      *
      * @return ConfigStorage object containing the user-defined configurations.
      */
@@ -114,7 +118,8 @@ public class StorageManager {
     }
 
     /**
-     * Sets the configuration storage containing user-defined configurations.
+     * Setter for Config.
+     * Set the configuration storage containing user-defined configurations.
      */
     @JsonIgnore
     public void setConfig(ConfigStorage configStorage) {
