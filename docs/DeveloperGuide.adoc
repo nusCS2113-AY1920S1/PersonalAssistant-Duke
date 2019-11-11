@@ -99,6 +99,9 @@ This layer consists of the `WordGetter` Class, which works on the basis of the J
 
 === SongList
 
+This layer consists of the `SongList` Class. The `SongList` class is accessed by the `Command` class whenever the user invokes a command. This layer contains the list of Song objects. Each Song object consists of groups, bars, chords and notes. The detailed implementation of a song is depicted by Figure 2 below.
+image::diagrams/SongList.png[]
+
 === Storage and StorageParser
 
 *Storage API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/Storage.java[`Storage.java`]
@@ -115,7 +118,7 @@ This section describes in detail the implementation of the various features, as 
 
 === Command Parsing and Execution
 
-Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure X.
+Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure 2.
 
 .Command Parsing and Execution Sequence Diagram
 image::Command_Sequence_Diagram.png[]
@@ -137,6 +140,7 @@ The creation of a new song is straightforward. In the `new` command, the followi
 * name
 * key _[implementation coming in v2.0]_
 * time signature _[implementation coming in v2.0]_
+* beats per minute _[implementation coming in v2.0]_
 
 While the above data is stored with every song, data adjustments based on, and specific methods that utilize the key and time signature are yet to be implemented.
 
@@ -178,6 +182,43 @@ _Design Considerations_:
 Hence, we have decided to go for a linear search for `findSongIndex()`, and let the user input the song name to open the song instead of the index.
 
 ==== Modifying a Song
+
+The other basic Create, Read, Update and Delete (CRUD) functionalities of Ducats were implemented in the form of unique commands. These commands can be invoked by the user.
+
+The Create functionality is handled through the `addbar` and `insertbar` commands.
+
+* `addbar` command creates a new bar which is added to the end of the song.
+
+* `insertbar` command creates and insert a new bar at the user's specified index.
+
+The Read functionality is handled through the `list` and `view` commands.
+
+* `list` command displays the full list of songs as loaded from the `Storage`.
+
+* `view` command returns a visual representation of the last bar of the specified song.
+
+The Update functionality is handled through the `swapbar` and `editbar` commands.
+
+* `swapbar` command swaps two existing songs of the opened song.
+
+* `editbar` command edits the specifed bar of the opened song when called by the user
+
+The Delete functionality is handled through the `delete` and `deletebar` commands.
+
+* `delete` command deletes the song named by the user from the song list.
+
+* `deletebar` command deletes the bar specified by the user from the opened song.
+
+_Design Considerations_:
+
+* Use of multiple commands for the CRUD functionality instead of all encompassing general commands.
+** _Pros_: Increases user friendliness and convenience for the user. Greater flexibility and speed when creating song components.
+** _Cons_: Easier implementation for the developers. Less commands for the users to pick up.
+
+For example, Ducat’s create functionality could be encompassed by a single `add` command. The `add` command would require the user to enter every note of their desired song together so that it can create and store the new song in the song list.
+
+After some deliberation, that method was decided against. Even though it means less commands for the users to pick up, it contradicts with our value proposition of Ducats being a quick and seamless music composition app with its glaring impediment towards user’s convenience and speed.
+
 
 === Advanced CRUD
 
@@ -535,7 +576,7 @@ In order to ensure that the songs the user has created, deleted or modified can 
 .Reading files (for each file)
 image::storage_read.png[]
 
-Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure X is then repeated for each file in the file list.
+Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure 3 is then repeated for each file in the file list.
 
 .Writing to files (for each song)
 image::storage_write.png[]
@@ -834,9 +875,69 @@ Since music contains a lot of repeating parts, we have implemented a grouping fe
 
 `group START_NUM END_NUM GROUP_NAME`
 
-//todo
+Hence, *after you add a few more bars* to twinkle, you can group the first two bars together and name it "verse" using the following command:
 
+    group 1 2 verse
 
+Now that you have a group defined inside a song, there are different operations you can do with it. One of them would be to insert the group into the song at a specific bar. This is done using the `copy` command. To add the group to the 4th index of the song, key in this command:
+
+    copy verse 4
+
+Do note that this will only work if you have more than 4 bars. Running `ascii song twinkle` will show that the group has been added to the specified location. The command `list_group` will display the list of groups in the opened song, and the format is as follows:
+
+    list_group
+
+=== Viewing the song
+
+Previously, we have seen how you can view the whole song with `ascii song`, with the following format:
+
+`ascii song s/SONG_NAME`
+
+Other than songs, individual groups can also be viewed with `ascii group`, and the format is as follows:
+
+`ascii group s/GROUP_NAME`
+
+Hence, when twinkle is opened, to view the group "verse", you can key in the command
+
+    ascii group verse
+
+Individual bars can be viewed with `ascii bar`, and the format is as follows:
+
+`ascii bar n/BAR_INDEX`
+
+=== Undo, redo and delete
+
+Execute the following commands
+
+    new deleteme c 4/4 120
+
+Ducats has an undo/redo functionality that makes it easy to reverse your mistakes. By keying in the command
+
+    undo
+
+, the creation of the new song will be reversed. This action will be reversed upon the command
+
+    redo
+
+The `delete` command can be used to delete the whole song.
+
+    delete deleteme
+
+will delete the song named "deleteme" from the list of songs.
+
+=== Starting a metronome
+
+A metronome can be started with the following command:
+
+    metronome 10 120 4/4
+
+The format for the `metronome` command is as follows:
+
+`metronome n/DURATION_IN_BARS n/TEMPO s/TIME_SIGNATURE`
+
+=== Continued testing
+
+This appendix should have provided a better understanding of how Ducats works. Do note that, in many cases, the features are not described in maximum detail. Additionally, this list of features is far from exhaustive. Please refer to the link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/docs/UserGuide.adoc[User Guide] for a more detailed description of all the features, and their corresponding formatting.
 
 
 
