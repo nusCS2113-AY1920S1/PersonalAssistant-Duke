@@ -190,7 +190,7 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree to be deleted
      * @throws DukeException Throws an error if the degree does not exist.
      */
-    public void delete(String input, DegreeListStorage dd) throws DukeException{
+    public void delete(String input) throws DukeException{
         try {
             int request = Integer.parseInt(input);
             request -= 1;
