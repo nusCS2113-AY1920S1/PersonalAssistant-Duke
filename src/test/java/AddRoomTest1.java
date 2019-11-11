@@ -12,7 +12,7 @@ public class AddRoomTest1 {
         String roomcode = "SR4";
         int capacity = 111;
         Room newRoom = new Room(roomcode, capacity);
-        assertEquals("SR4 111", newRoom.toString());
+        assertEquals("SR4 capacity: 111", newRoom.toString());
         assertEquals("SR4", newRoom.getRoomcode());
         assertEquals(111, newRoom.getCapacity());
     }

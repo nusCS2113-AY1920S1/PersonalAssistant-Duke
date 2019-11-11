@@ -33,11 +33,12 @@ public class AddRoomCommand extends Command {
         if (splitStr.length == 1) {
             throw new DukeException(Constants.ADDROOMFORMAT);
         }
-        String tempAR = input.substring(8);
+        String tempAR = input.substring(8).trim();
         splitC = tempAR.split(" ");
         this.roomcode = splitC[Constants.ROOMCODE]; // ROOMCODE
+        String capString = tempAR.substring(roomcode.length()).trim();
         try {
-            this.capacity = Integer.parseInt(splitC[Constants.CAPACITY]);
+            this.capacity = Integer.parseInt(capString);
         } catch (NumberFormatException e) {
             throw new DukeException("Capacity should be an integer");
         }
