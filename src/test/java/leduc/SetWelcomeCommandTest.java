@@ -4,6 +4,7 @@ import leduc.command.SetWelcomeCommand;
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
+import leduc.exception.NonExistentDateException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 import leduc.ui.Ui;
@@ -42,6 +43,8 @@ public class SetWelcomeCommandTest {
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
+            e.printStackTrace();
+        } catch (NonExistentDateException e) {
             e.printStackTrace();
         }
         tasks = new TaskList(tasklist);

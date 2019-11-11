@@ -4,6 +4,7 @@ import leduc.Date;
 import leduc.command.*;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
+import leduc.exception.NonExistentDateException;
 import leduc.task.*;
 
 import java.io.*;
@@ -24,8 +25,11 @@ public class Storage {
      * Constructor of leduc.storage.Storage
      * @param file String representing the path of the file
      * @param configFile String representing the path of the file storing the shortcut
+     * @throws FileException  Exception caught when the file can't be open or read or modify.
+     * @throws MeaninglessException Exception caught when the input string could not be interpreted.
+     * @throws NonExistentDateException Exception caught when the date given does not exist.
      */
-    public Storage(String file, String configFile, String welcomeFile) throws FileException, MeaninglessException {
+    public Storage(String file, String configFile, String welcomeFile) throws FileException, MeaninglessException, NonExistentDateException {
         this.file = new File(file);
         try {
             this.file.createNewFile();
@@ -38,7 +42,93 @@ public class Storage {
             catch( IOException e1){
                 e1.printStackTrace();
             }
+            // Create initialized tasks in the new file
+            TaskList taskList = new TaskList(new ArrayList<>());
+            LocalDateTime d1 = null;
+            LocalDateTime d2 = null;
+            Date date1 = null;
+            Date date2 = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
 
+            try{
+                d1 = LocalDateTime.parse("15/11/2019 22:33".trim(), formatter);
+            }catch(Exception exception){
+                    throw new NonExistentDateException();
+            }
+            date1 = new Date(d1);
+            taskList.add(new HomeworkTask("math assignment 1",date1,1));
+
+            try{
+                d1 = LocalDateTime.parse("15/11/2019 23:59".trim(), formatter);
+            }catch(Exception exception){
+                throw new NonExistentDateException();
+            }
+            date1 = new Date(d1);
+            taskList.add(new HomeworkTask("science",date1,1));
+            taskList.add(new HomeworkTask("science 2","[V]",date1));
+
+            try{
+                d1 = LocalDateTime.parse("21/11/2019 00:00".trim(), formatter);
+                d2 = LocalDateTime.parse("28/11/2019 22:22".trim(), formatter);
+            }catch(Exception exception){
+                throw new NonExistentDateException();
+            }
+            date1 = new Date(d1);
+            date2 = new Date(d2);
+            taskList.add(new EventsTask("Sport","[X]",date1,date2));
+            taskList.add(new HomeworkTask("CS4239: lab3","[V]",date1));
+            taskList.add(new HomeworkTask("CS4239: lab4","[X]",date1));
+
+            try{
+                d1 = LocalDateTime.parse("18/09/2019 12:12".trim(), formatter);
+            }catch(Exception exception){
+                throw new NonExistentDateException();
+            }
+            date1 = new Date(d1);
+            taskList.add(new HomeworkTask("CS2113: revision exercice",date1,2));
+
+            try{
+                d1 = LocalDateTime.parse("21/12/2019 00:00".trim(), formatter);
+                d2 = LocalDateTime.parse("28/12/2019 13:22".trim(), formatter);
+            }catch(Exception exception){
+                throw new NonExistentDateException();
+            }
+            date1 = new Date(d1);
+            date2 = new Date(d2);
+            taskList.add(new EventsTask("Badminton","[X]",date1,date2));
+            taskList.add(new HomeworkTask("CS4239: lab5","[V]",date1));
+            taskList.add(new HomeworkTask("CS4239: lab6","[X]",date1));
+
+            try{
+                d1 = LocalDateTime.parse("18/11/2019 12:00".trim(), formatter);
+                d2 = LocalDateTime.parse("18/11/2019 13:22".trim(), formatter);
+            }catch(Exception exception){
+                throw new NonExistentDateException();
+            }
+            date1 = new Date(d1);
+            date2 = new Date(d2);
+            taskList.add(new EventsTask("Football","[X]",date1,date2));
+            taskList.add(new HomeworkTask("CS2111: lab5","[V]",date1));
+            taskList.add(new HomeworkTask("CS1212: lab6","[X]",date1));
+
+            taskList.add(new TodoTask("td3",3));
+            taskList.add(new TodoTask("td4",4));
+            taskList.add(new TodoTask("cs2113",4));
+            taskList.add(new TodoTask("cs4239","[V]"));
+            taskList.add(new TodoTask("UG",5));
+            taskList.add(new TodoTask("DG",6));
+            taskList.add(new TodoTask("homework CS2131",7));
+            taskList.add(new TodoTask("read a book",8));
+            taskList.add(new TodoTask("sell book",9));
+            taskList.add(new TodoTask("Exercice 1",8));
+            taskList.add(new TodoTask("Preparation final exam",7));
+            taskList.add(new TodoTask("Exercice 2",6));
+            taskList.add(new TodoTask("test before final exam",5));
+            taskList.add(new TodoTask("Software security: lab 4: exercice 2",8));
+            taskList.add(new TodoTask("Software security: lab 5: exercice 1",7));
+            taskList.add(new TodoTask("Software security: lab 6: exercice 1",6));
+            taskList.add(new TodoTask("Software security: lab 6: exercice 2",5));
+            this.save(taskList.getList());
         }
         this.configFile = new File(configFile);
         try {
@@ -77,7 +167,7 @@ public class Storage {
             catch( IOException e1){
                 e1.printStackTrace();
             }
-            // Create initialized file
+            // Create initialized welcome message in the new file
             FileWriter fileWriter = null;
             String welcomeMessage ="\tHello I'm Duke\n\tWhat can I do for you ?";
             try {
