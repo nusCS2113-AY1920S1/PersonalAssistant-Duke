@@ -14,7 +14,7 @@ import planner.logic.command.RemoveCommand;
 import planner.logic.command.SearchThenAddCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
-import planner.logic.command.UpdateModuleInfo;
+import planner.logic.command.UpdateModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -147,6 +147,6 @@ public class ParserTest {
     @DisplayName("Update Command Parser Test")
     @Test
     public void validUpdateCommandInputShouldReturnUpdateCommand() throws ModException {
-        assertSame(parser.parseCommand("update test").getClass(), UpdateModuleInfo.class);
+        assertSame(parser.parseCommand("update module").getClass(), UpdateModuleCommand.class);
     }
 }
