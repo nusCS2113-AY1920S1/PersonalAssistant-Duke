@@ -47,7 +47,7 @@ class ExportTest {
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
         placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
-        //storage = new Storage(file);
+        storage = new Storage(file);
         history = new ChronologerStateList(placeholder, placeholder, placeholder);
 
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
@@ -71,7 +71,7 @@ class ExportTest {
 
     @Test
     public void testExport() throws ChronologerException, IOException, ParserException, ParseException {
-
+        storage.saveFile(tasks.getTasks());
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
         export.execute(tasks, storage, history);
 
@@ -96,7 +96,7 @@ class ExportTest {
 
         inputStream.close();
         assert calendarFile.delete();
-        //assert file.delete();
+        assert file.delete();
     }
 
 }
