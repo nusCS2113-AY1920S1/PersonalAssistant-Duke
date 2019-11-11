@@ -34,6 +34,7 @@ import gazeeebo.commands.schedule.ScheduleDailyCommand;
 import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
 import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
@@ -293,7 +294,12 @@ public class TaskCommandParser extends Command {
             } else {
                 ui.showDontKnowErrorMessage();
             }
-
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                sb.append(list.get(i).toString() + "\n");
+            }
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
         }
     }
 
