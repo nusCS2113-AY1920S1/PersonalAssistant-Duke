@@ -17,9 +17,20 @@ public class BookingConstants {
             + "please use this format: DATE" + ", DATE format is dd/mm/yyyy";
     public static final String MONTHERROR = ":-( OOPS!!! Please create your booking with the "
             + "following format: month value";
-    public static final String INDEXERROR1 = ":-( OOPS!!! "
+    public static final String APPROVEERROR = ":-( OOPS!!! "
+            + "Please enter the index of the item you want to approve"
+            + " with the following format: approve INDEX";
+    public static final String DELETEERROR = ":-( OOPS!!! "
+            + "Please enter the index of the item you want to delete"
+            + " with the following format: delete INDEX";
+    public static final String EDITERROR = ":-( OOPS!!! "
             + "Please enter the index of the item you want to edit as well as the "
             + "updated description of your booking!";
-    public static final String INDEXERROR2 = ":-( OOPS!!! Please enter a index in integer form!";
+    public static final String REJECTERROR = ":-( OOPS!!! "
+            + "Please create the booking you want to reject"
+            + " with the following format: reject INDEX";
+    public static final String INDEXERROR2 = ":-( OOPS!!! Please enter an index in integer form!";
+    public static final String MONTHERROR1 = ":-( OOPS!!! Please enter the month in integer form!";
+    public static final String MONTHERROR2 = ":-( OOPS!!! Please enter a valid month!";
     public static final String EDITSUCCESS = "The description of this request has been changed!";
 }

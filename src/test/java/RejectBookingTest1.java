@@ -14,7 +14,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//@@Alex-Teo
+//@@author Alex-Teo
 public class RejectBookingTest1 {
 
     @Test
@@ -38,8 +38,8 @@ public class RejectBookingTest1 {
             new RejectCommand(input, splitStr);
         });
         assertEquals(":-( OOPS!!! "
-                + "Please enter the index of the item you want to edit as well as the "
-                + "updated description of your booking!", BookingConstants.INDEXERROR1);
+                + "Please create the booking you want to reject"
+                + " with the following format: reject INDEX", BookingConstants.REJECTERROR);
     }
 
     @Test
@@ -49,6 +49,6 @@ public class RejectBookingTest1 {
         assertThrows(DukeException.class, () -> {
             new RejectCommand(input, splitStr);
         });
-        assertEquals(":-( OOPS!!! Please enter a index in integer form!", BookingConstants.INDEXERROR2);
+        assertEquals(":-( OOPS!!! Please enter an index in integer form!", BookingConstants.INDEXERROR2);
     }
 }
