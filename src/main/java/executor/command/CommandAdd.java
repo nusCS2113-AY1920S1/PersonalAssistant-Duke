@@ -53,7 +53,4 @@ public class CommandAdd extends Command {
                 + sum
                 + "\n");
     }
-
-
-
 }

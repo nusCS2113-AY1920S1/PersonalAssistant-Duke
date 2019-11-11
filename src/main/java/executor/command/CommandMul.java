@@ -10,7 +10,6 @@ public class CommandMul extends Command {
 
     /**
      * Constructor for CommandMul subCommand Class.
-     *
      * @param userInput String is the user input from the CLI
      */
     public CommandMul(String userInput) {
