@@ -18,8 +18,8 @@ public class CommandNewTask extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
         this.taskType = extractTaskType();
-        this.description = "Adds user entry to the list \n"
-                + "FORMAT :  ";
+        this.description = "Adds a new " + this.taskType.toString().toLowerCase() + " to your task list.\n"
+                + "FORMAT: " + this.taskType.toString() + " <name> /<tag> <desc>";
     }
 
     @Override
