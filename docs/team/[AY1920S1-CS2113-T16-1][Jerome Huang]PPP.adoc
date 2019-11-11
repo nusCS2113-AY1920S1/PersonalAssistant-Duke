@@ -32,13 +32,14 @@ Le Duc is a task management application geared to help high school students mana
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1``v1.3`
+*** Managed releases `v1.1` `v1.3`
 ** Review the code:
 *** Review the code and modify a big part of it (Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/commit/c7a66a8343e6830f7bd7c4437f73b4570bfe70fe[#10])
 *** PR review(Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/pull/73[#73])
 ** Write test:
 *** Junit EventCommandTest (https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/EventCommandTest.java[test])
 *** Junit ShowCommandTest (https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/ShowCommandTest.java[test])
+***
 ** Documentation:
 *** Wrote contents of the User Guide (most part of the feature)
 *** Wrote the Developer Guide (after a meet up)

@@ -1,6 +1,5 @@
 = About Us
 :site-section: AboutUs
-:relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
 
@@ -13,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Laurent Huang
 image::laurenthg.png[width="150", align="left"]
-{empty}[https://github.com/laurenthg[github]] [<<laurenthg#, portfolio>>]
+{empty}[https://github.com/laurenthg[github]] [<<team/[AY1920S1-CS2113-T16-1][Laurent Huang]PPP.adoc#, portfolio>>]
 
 Role: Team Lead +
 Responsabilities: Testing, Deliverables and deadlines
@@ -22,7 +21,7 @@ Responsabilities: Testing, Deliverables and deadlines
 
 === Jérôme Huang
 image::huangje.png[width="150", align="left"]
-{empty}[https://github.com/huangje/[github]] [<<huangje#, portfolio>>]
+{empty}[https://github.com/huangje/[github]] [<<team/[AY1920S1-CS2113-T16-1][Jerome Huang]PPP.adoc#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code quality
@@ -31,7 +30,7 @@ Responsibilities: Code quality
 
 === Rahul Shah
 image::rshah918.png[width="150", align="left"]
-{empty}[https://github.com/rshah918[github]] [<<rshah918#, portfolio>>]
+{empty}[https://github.com/rshah918[github]] [<<team/[AY1920S1-CS2113-T16-1]-[Rahul Shah]-PPP.adoc#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Scheduling and tracking

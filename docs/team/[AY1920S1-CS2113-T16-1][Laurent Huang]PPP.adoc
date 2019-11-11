@@ -37,7 +37,16 @@ Leduc is a task management application geared to help high school students manag
 * Implemented the second feature "sort the task list':
 ** This feature is very useful for the user as he could now see the task list either in the description, date, priority, type of task or either the task is done or not order.
 
-*Code contribution:* [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=laurenthg[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PostponeCommand.java[PostponeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SnoozeCommand.java[SnoozeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RescheduleCommand.java[RescheduleCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/EditCommand.java[EditCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PrioritizeCommand.java[PrioritizeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SortCommand.java[SortCommand]]
+==== Minor enhancement: Set the initial task priority when adding a task
+
+* When adding a todo, homework or event task, the priority is set by default to 5.
+* This feature allows the user to set the priority of the task when adding the task. This is very useful for the user as it allows to directly set the priority when adding the task instead of modify the default priority after have added the task.
+
+*Code contribution:*
+
+* [Dashboard: https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=laurenthg]
+* [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PostponeCommand.java[PostponeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SnoozeCommand.java[SnoozeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RescheduleCommand.java[RescheduleCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/EditCommand.java[EditCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PrioritizeCommand.java[PrioritizeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SortCommand.java[SortCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/TodoCommand.java[TodoCommand priority feature]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HomeworkCommand.java[HomeworkCommand priority feature]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/EventCommand.java[EventCommand priority feature]]
+
 
 
 === Other contributions:
@@ -56,7 +65,7 @@ Leduc is a task management application geared to help high school students manag
 *** Set up the pull request for requiring reviews ...
 
 * *Write tests*
-*** JUnit : [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PostponeCommandTest.java[PostponeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SnoozeCommandTest.java[SnoozeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/RescheduleCommandTest.java[RescheduleCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/EditCommandTest.java[EditCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PrioritizeCommandTest.java[PrioritizeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SortCommandTest.java[SortCommandTest]]
+*** JUnit : [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PostponeCommandTest.java[PostponeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SnoozeCommandTest.java[SnoozeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/RescheduleCommandTest.java[RescheduleCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/EditCommandTest.java[EditCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PrioritizeCommandTest.java[PrioritizeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SortCommandTest.java[SortCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/TodoCommandTest.java[TodoCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/HomeworkCommandTest.java[HomeworkCommandTest priority part]]
 *** Text-ui-test : [https://github.com/AY1920S1-CS2113-T16-1/main/tree/master/src/test/text-ui-test/test6[Edit text-ui-test for multi-steps part]]
 
 * *Community*
@@ -64,8 +73,8 @@ Leduc is a task management application geared to help high school students manag
 
 * *Documentation contribution*
 ** Write the Readme file https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/README.adoc[README.adoc]
-** Contribute to writing the User Guide file  `[AY1920S1-CS2113-T16-1]-[Le Duc]-UG.adoc`
-** Contribute for writing the Developer Guide `[AY1920S1-CS2113-T16-1]-[Le Duc]-DG.adoc`
+** Contribute to write the User Guide file  `[AY1920S1-CS2113-T16-1]-[Le Duc]-UG.adoc`
+** Contribute to write the Developer Guide `[AY1920S1-CS2113-T16-1]-[Le Duc]-DG.adoc`
 
 
 == Contributions to the User Guide
@@ -136,12 +145,19 @@ The second INDEX is the priority (goes from 1 to 9)
 
 Be careful:
 
-* The second INDEX can’t be less than 0 nor greater than 9.
-* 0 is the less urgent, 9 is the most urgent
+* The second INDEX can’t be less than 1 nor greater than 9.
+* 1 is the less urgent, 9 is the most urgent
 * When creating a task, specifying the priority is optional. When the priority is not specified, the task will automatically have a priority of 5.
 
 
 == Contributions to the Developer Guide
+
+=== Contribution to 2.1. Class Diagram
+
+The following class diagram represents in details the abstract class `Command` with all its inherited concrete class.
+
+image::ClassDiagramCommand.png[width="2000"]
+
 
 === Modify a Task
 
@@ -154,7 +170,9 @@ As these commands relate to the modification of tasks, each command need to writ
 When rescheduling an event, two dates can not clash. This verification is done with the verifyConflictDate method which is
 in the TaskList class. Indeed, all task dates are needed to verify if there is a conflict. So, this allows to improve the cohesion.
 
-image::SequenceDiagramReschedule.png[1000, 500, align="center"]
+*Please refer to the Developer Guide to find the Sequence Diagram for the reschedule command.*
+
+//image::SequenceDiagramReschedule.png[1000, 500, align="center"]
 
 ==== *Snooze an homework task*
 
@@ -167,7 +185,7 @@ image::SequenceDiagramSnooze.png[1000, 500, align="center"]
 Postpone is also only applicable to a homework task. The new date should be after the old one.
 This is verified inside the execution of the postponeCommand.
 
-image::SequenceDiagramPostpone.png[width="1000", align="left"]
+image::SequenceDiagramPostpone.png[1000, 500,align="center"]
 
 ==== *Edit a task*
 
@@ -181,8 +199,9 @@ image::SequenceDiagramPostpone.png[width="1000", align="left"]
 - Then, enter the new DESCRIPTION or the new DATE of the task
 
 The sequence diagram shows the interactions between different classes when the user wants to edit the description of an homework or event task with a multi-steps edit command.
+
 *Please refer to the Developer Guide to find the Sequence Diagram for the edit command in multi-steps.*
-//image::SequenceDiagramEditMultiSteps.png[width="1000", align="left"]
+//image::SequenceDiagramEditMultiSteps.png[width="1000", align="center"]
 
 
 * For one shot command:
@@ -191,9 +210,10 @@ The sequence diagram shows the interactions between different classes when the u
 - edit the period of an event task: `edit INDEX /at DATE - DATE`
 
 The sequence diagram shows the interactions between different classes when the user input `edit 2 description DESCRIPTION`.
+
 *Please refer to the Developer Guide to find the Sequence Diagram for the one shot edit command.*
 
-//image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
+//image::SequenceDiagramEditOneShot.png[width="1000", align="center"]
 
 ==== *Prioritize a task*
 
@@ -202,7 +222,7 @@ This command allows the user to change the priority of a task.
 
 The sequence diagram show the interactions between different classes when the user wants to change to priority of the first task to 2.
 
-image::SequenceDiagramPrioritize.png[width="1000", align="left"]
+image::SequenceDiagramPrioritize.png[1000, 500, align="center"]
 
 ==== Consideration
 
@@ -222,4 +242,4 @@ SORTTYPE is either date, description, priority, type, done
 * Sorting by done will sort tasks depending on it the task is done or not.
 
 To implement the sort command, the comparing static method of Comparator interface introduced in Java 8 is used.
-So, here the sort key are the desciption or the priority of the task.
+So, here the sort key are the description or the priority of the task.
