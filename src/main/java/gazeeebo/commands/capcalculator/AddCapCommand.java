@@ -18,6 +18,14 @@ public class AddCapCommand {
      * Index of the grade.
      */
     private static final int GRADE_INDEX = 3;
+    /**
+     * Upper bound of the number of semesters.
+     */
+    private static final int UPPER_BOUNDARY = 8;
+    /**
+     * Lower bound of the number of semesters.
+     */
+    private static final int LOWER_BOUNDARY = 1;
 
     /**
      * Add a new module into caplist.
@@ -45,20 +53,25 @@ public class AddCapCommand {
             }
             String[] splitAddInput = toAdd.split(",");
             String semNumber = splitAddInput[0];
-            String moduleCode = splitAddInput[1];
-            int moduleCredit = Integer.parseInt(splitAddInput[2]);
-            String grade = splitAddInput[GRADE_INDEX];
-            CapCommandParser newCap =
-                    new CapCommandParser(moduleCode, moduleCredit, grade);
-            if (caplist.containsKey(semNumber)) {
-                caplist.get(semNumber).add(newCap);
+            if(Integer.parseInt(semNumber) >= LOWER_BOUNDARY &&
+                    Integer.parseInt(semNumber) <= UPPER_BOUNDARY) {
+                String moduleCode = splitAddInput[1];
+                int moduleCredit = Integer.parseInt(splitAddInput[2]);
+                String grade = splitAddInput[GRADE_INDEX];
+                CapCommandParser newCap =
+                        new CapCommandParser(moduleCode, moduleCredit, grade);
+                if (caplist.containsKey(semNumber)) {
+                    caplist.get(semNumber).add(newCap);
+                } else {
+                    ArrayList<CapCommandParser> semInfo = new ArrayList<>();
+                    semInfo.add(newCap);
+                    caplist.put(semNumber, semInfo);
+                }
+                System.out.print("Successfully added: " + moduleCode + "\n");
             } else {
-                ArrayList<CapCommandParser> semInfo = new ArrayList<>();
-                semInfo.add(newCap);
-                caplist.put(semNumber, semInfo);
+                throw new NumberFormatException();
             }
-            System.out.print("Successfully added: " + moduleCode + "\n");
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.print("Please Input in the correct format\n");
         }
     }

@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package TaskCommandTest;
+package taskcmdtest;
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;

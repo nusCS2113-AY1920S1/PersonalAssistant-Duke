@@ -1,4 +1,5 @@
-package TaskCommandTest;
+
+package taskcmdtest;//@@author JasonLeeWeiHern
 
 import gazeeebo.commands.tasks.RecurringCommand;
 import gazeeebo.storage.Storage;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RecurringCommandTest  {
     private Ui ui = new Ui();
@@ -33,53 +34,71 @@ public class RecurringCommandTest  {
     }
 
     @AfterEach
-    void restoreStream(){
+    void restoreStream() {
         System.out.flush();
         System.setOut(original);
     }
+
     @Test
     void testWeeklyDeadlineRecurring() throws IOException {
         Deadline newd = new Deadline("weekly assignment", "2019-01-01 01:01:01");
         list.add(newd);
         ui.fullCommand = "done 1";
         testR.addRecurring(list, 0,list.get(0).toString(),storage);
-        assertEquals("\nI've automatically added this weekly task again:\n[D][ND] weekly assignment(by:08 Jan 2019 01:01:01)"
-                + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
+        assertEquals("\nI've automatically added this weekly task again:"
+                + "\n[D][ND] weekly assignment"
+                + "(by:08 Jan 2019 01:01:01)"
+                + "\nNow you have "
+                + list.size() + " tasks in the list.\n",output.toString());
     }
+
     @Test
     void testWeeklyEventRecurring() throws IOException {
-        Event newE = new Event("weekly Career Talk", "2019-10-10 10:10:10-11:11:11");
+        Event newE = new Event("weekly Career Talk",
+                "2019-10-10 10:10:10-11:11:11");
         list.add(newE);
         ui.fullCommand = "done 1";
         testR.addRecurring(list, 0, list.get(0).toString(), storage);
-        assertEquals("\nI've automatically added this weekly task again:\n[E][ND]weekly Career Talk(at:17 Oct 2019 10:10:10-11:11:11)"
+        assertEquals("\nI've automatically added this weekly task again:"
+                + "\n[E][ND]weekly Career Talk"
+                + "(at:17 Oct 2019 10:10:10-11:11:11)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }
+
     @Test
     void testMonthlyDeadlineRecurring() throws IOException {
         Deadline newd = new Deadline("monthly assignment", "2019-01-01 01:01:01");
         list.add(newd);
         ui.fullCommand = "done 1";
         testR.addRecurring(list, 0,list.get(0).toString(),storage);
-        assertEquals("\nI've automatically added this monthly task again:\n[D][ND] monthly assignment(by:01 Feb 2019 01:01:01)"
+        assertEquals("\nI've automatically added this monthly task again:"
+                + "\n[D][ND] monthly assignment"
+                + "(by:01 Feb 2019 01:01:01)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }
+
     @Test
     void testMonthlyEventRecurring() throws IOException {
         Event newE = new Event("monthly Career Talk", "2019-10-10 10:10:10-11:11:11");
         list.add(newE);
         ui.fullCommand = "done 1";
         testR.addRecurring(list, 0, list.get(0).toString(), storage);
-        assertEquals("\nI've automatically added this monthly task again:\n[E][ND]monthly Career Talk(at:10 Nov 2019 10:10:10-11:11:11)"
+        assertEquals("\nI've automatically added this monthly "
+                + "task again:\n[E][ND]monthly Career Talk"
+                + "(at:10 Nov 2019 10:10:10-11:11:11)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }
+
     @Test
     void testYearlyEventRecurring() throws IOException {
-        Event newE = new Event("yearly Career Talk", "2019-10-10 10:10:10-11:11:11");
+        Event newE = new Event("yearly Career Talk",
+                "2019-10-10 10:10:10-11:11:11");
         list.add(newE);
         ui.fullCommand = "done 1";
         testR.addRecurring(list, 0, list.get(0).toString(), storage);
-        assertEquals("\nI've automatically added this yearly task again:\n[E][ND]yearly Career Talk(at:10 Oct 2020 10:10:10-11:11:11)"
+        assertEquals("\nI've automatically added this yearly task again:"
+                + "\n[E][ND]yearly Career Talk"
+                + "(at:10 Oct 2020 10:10:10-11:11:11)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }
 
@@ -89,7 +108,9 @@ public class RecurringCommandTest  {
         list.add(newd);
         ui.fullCommand = "done 1";
         testR.addRecurring(list, 0,list.get(0).toString(),storage);
-        assertEquals("\nI've automatically added this yearly task again:\n[D][ND] yearly assignment(by:01 Jan 2020 01:01:01)"
+        assertEquals("\nI've automatically added this yearly task again:"
+                + "\n[D][ND] yearly assignment"
+                + "(by:01 Jan 2020 01:01:01)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }
 }

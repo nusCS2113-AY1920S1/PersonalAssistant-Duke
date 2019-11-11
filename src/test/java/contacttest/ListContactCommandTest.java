@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package contactCommandTest;
+package contacttest;
 
 
 
@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,16 +39,16 @@ public class ListContactCommandTest {
     void testListContactsCommand() {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<>(map);
-        String LINE_BREAK = "------------------------------------------\n";
+        String linebreak = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ListContactCommand test = new ListContactCommand(contact);
         assertEquals("Name:                         | Number:\n"
-                + LINE_BREAK
+                + linebreak
                 + "janel                         | 9625 1722\n"
-                + LINE_BREAK
+                + linebreak
                 + "jason                         | 9825 1822\n"
-                + LINE_BREAK
+                + linebreak
                 + "\nCEG CONTACTS:\n"
                 + "\nNUS CONTACTS:\n", output.toString());
     }

@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package contactCommandTest;
+package contacttest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.contact.DeleteContactCommand;
@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

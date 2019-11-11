@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package contactCommandTest;
+package contacttest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.contact.FindContactCommand;
@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -38,33 +40,32 @@ public class FindContactsCommandTest {
     void testFindContactsCommand() {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<>(map);
-        String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find jason";
+        String linebreak = "------------------------------------------\n";
         FindContactCommand test = new FindContactCommand(ui, contact);
         assertEquals("Name:                         | Number:\n"
-                + LINE_BREAK
+                + linebreak
                 + "jason                         | 9825 1822\n"
-                + LINE_BREAK, output.toString());
+                + linebreak, output.toString());
     }
 
     @Test
     void testUnableFindContactCommand() {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<>(map);
-        String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find jay";
         FindContactCommand test = new FindContactCommand(ui, contact);
         assertEquals("jay is not found in the list.\n", output.toString());
     }
+
     @Test
     void testIncorrectFormatFindContactCommand() {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<>(map);
-        String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find janel and jason";
