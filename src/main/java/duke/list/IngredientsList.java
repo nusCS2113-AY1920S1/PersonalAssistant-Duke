@@ -1,8 +1,7 @@
-package duke.list;
+package duke.ingredient;
 
 import duke.exception.DukeException;
-import duke.ingredient.Ingredient;
-
+import duke.list.GenericList;
 
 import java.util.Comparator;
 import java.util.List;
@@ -75,6 +74,7 @@ public class IngredientsList extends GenericList<Ingredient> {
     @Override
     public String toString() {
         String ingredients = genList.size() > 1 ? " ingredients: \n" : " ingredient:\n";
+
         for (Ingredient ingredient : genList) {
             ingredients += (ingredient.toStringNoWarning() + "\n");
         }
@@ -117,12 +117,8 @@ public class IngredientsList extends GenericList<Ingredient> {
      * @return the sorted {@link IngredientsList}
      */
     public IngredientsList sortByExpiryDate() {
-        genList.sort(new Comparator<Ingredient>() { // sorting the ingredients descending by amount
-            @Override
-            public int compare(Ingredient o1, Ingredient o2) {
-                return o1.getExpiryDate().before(o2.getExpiryDate()) ? -1 : 1;
-            }
-        });
+        // sorting the ingredients descending by amount
+        genList.sort((o1, o2) -> o1.getExpiryDate().before(o2.getExpiryDate()) ? -1 : 1);
         return this;
     }
 
