@@ -46,11 +46,11 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
             }
             if (details.equals("sort")) {
                 sortArgStr = argumentInfoMap.get(details).trim();
-                if (!(sortArgStr.equals("costAscending") || sortArgStr.equals("calorieAscending")
-                    || sortArgStr.equals("costDescending") || sortArgStr.equals("calorieDescending"))) {
+                if (!(sortArgStr.equals("costascending") || sortArgStr.equals("calorieascending")
+                    || sortArgStr.equals("costdescending") || sortArgStr.equals("caloriedescending"))) {
                     logger.log(Level.WARNING, "the sorting arguments are not valid");
-                    return new ListCommand(false, "The only valid sorting arguments are costAscending, "
-                            + "calorieAscending, costDescending, and calorieDescending");
+                    return new ListCommand(false, "The only valid sorting arguments are costascending, "
+                            + "calorieascending, costdescending, and caloriedescending");
                 }
             }
         }

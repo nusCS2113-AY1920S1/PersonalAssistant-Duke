@@ -209,11 +209,11 @@ image::list_1.png[]
 +
 image::list_2.png[]
 * You want to view your data from 11th of November, 2019 based on calorie (from largest calorie):
-** `list /date 11/11/2018 /sort calorieDescending`
+** `list /date 11/11/2018 /sort caloriedescending`
 +
 image::list_3.png[]
 * You want to view your data from 11th of November, 2019 based on their cost (from cheapest):
-** `list /sort costAscending /date 11/11/2019`
+** `list /sort costascending /date 11/11/2019`
 +
 image::list_4.png[]
 
@@ -221,11 +221,11 @@ image::list_4.png[]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: dd/mm/yyyy and must be valid date.
-* There are three sorting criteria, `costAscending`, `costDescending`, `calorieAscending`, and `calorieDescending`:
-** `costAscending` will sort the list based on their costs in ascending order.
-** `costDescending` will sort the list based on their costs in descending order.
-** `calorieAscending` will sort the list based on their calories in ascending order.
-** `calorieDescending` will sort the list based on their calories in ascending order.
+* There are three sorting criteria, `costascending`, `costdescending`, `calorieascending`, and `caloriedescending`:
+** `costascending` will sort the list based on their costs in ascending order.
+** `costdescending` will sort the list based on their costs in descending order.
+** `calorieascending` will sort the list based on their calories in ascending order.
+** `caloriedescending` will sort the list based on their calories in ascending order.
 ** Not specifying sort criteria will sort the list based on their meal (breakfast, followed by lunch, and followed by dinner)
 ====
 

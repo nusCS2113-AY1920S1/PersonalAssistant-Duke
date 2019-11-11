@@ -56,9 +56,9 @@ wallet
 weight
 year
 sort
-calorieAscending
-calorieDescending
-costAscending
-costDescending
+calorieascending
+caloriedescending
+costascending
+costdescending
 listtransaction
 deletetransaction
