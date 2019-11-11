@@ -1,4 +1,4 @@
-package seedu.hustler.logic.command.achievementcommand;
+package seedu.hustler.logic.command.achievementCommand;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;

@@ -137,7 +137,7 @@ public class TaskStorage {
                         list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     }
                 } else {
-                    LocalDateTime at = getDateTime(taskString[4]);
+                    LocalDateTime at = getDateTime(taskString[5]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
 
                     if (taskString.length == 10) {
@@ -308,6 +308,7 @@ public class TaskStorage {
             .with(LocalTime.of(12, 0)),"H", "", now.plusNanos(90)));
         taskList.add(new Deadline("Submit sports proposal", now.plusDays(4)
             .with(LocalTime.of(23, 59)),"L", "", now.plusNanos(100)));
+
         taskList.add(new Event("Attend Linkin Park concert", now.plusMonths(5)
             .with(LocalTime.of(17, 0)),"M", "buyTix", now.plusNanos(110)));
         taskList.add(new Event("Go to build-yourself-workshop", now.plusDays(12)
