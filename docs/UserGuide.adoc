@@ -297,7 +297,7 @@ Format: `search_syn w/WORD` +
 
 Synonyms are chained together, so even new words will be recognize.
 
-image:Synonymexample.png[]
+image:Synonymexample.PNG[]
 
 //end::search_synonyms[]
 
