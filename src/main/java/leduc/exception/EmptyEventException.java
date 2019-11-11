@@ -11,11 +11,4 @@ public class EmptyEventException extends DukeException {
         super();
     }
 
-    /**
-     * Ask for a description for the event task to the user.
-     * @return the error message
-     */
-    public String print(){
-        return "\t emptyEventException:\n\t\t ☹ OOPS!!! The description of a event task cannot be empty";
-    }
 }

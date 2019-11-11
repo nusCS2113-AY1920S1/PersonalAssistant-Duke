@@ -19,20 +19,6 @@ public class ConflictDateException extends DukeException {
         this.tasks = tasks;
     }
 
-    /**
-     * the error message
-     * @return the list of all task that are in conflict with the new event
-     */
-    @Override
-    public String print() {
-        String conflictTasks = "";
-        for (Task t : tasks){
-            conflictTasks += "\n\t\t\t" + t.toString();
-        }
-        return "\t ConflictDateException:\n\t\t ☹ OOPS!!! There is a date conflict with this event :" +
-                conflictTasks;
-    }
-
     public ArrayList<Task> getTasks() {
         return tasks;
     }

@@ -33,7 +33,6 @@ public class Storage {
         try {
             this.file.createNewFile();
         } catch (IOException e) {
-            //e.printStackTrace();
             //  Case of a jar execution : create or use the duke.txt file in the current path
             this.file = new File ("duke.txt");
             try{
@@ -53,7 +52,6 @@ public class Storage {
                 loadConfig();
             }
         } catch (IOException e) {
-            //e.printStackTrace();
             //  Case of a jar execution : create or use the config.txt file in the current path
             this.configFile = new File ("config.txt");
             try{
@@ -73,7 +71,6 @@ public class Storage {
         try {
             this.welcomeFile.createNewFile();
         } catch (IOException e) {
-            //e.printStackTrace();
             // Case of a jar execution : create or use the welcome.txt file in the current path
             this.welcomeFile = new File ("welcome.txt");
             try{

@@ -13,9 +13,5 @@ public abstract class DukeException extends Exception{
     public DukeException(){
         super();
     }
-    /**
-     * Display a message which explain the Exception which is catch.
-     * @return the error message
-     */
-    public abstract String print();
+
 }

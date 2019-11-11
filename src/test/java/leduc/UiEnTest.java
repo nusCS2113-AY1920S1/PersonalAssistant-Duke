@@ -64,7 +64,7 @@ public class UiEnTest {
         ui.showList(tasks);
         assertTrue(outContent.toString().contains("Here are the tasks in your list"));
         ui.showNoTask();
-        assertTrue(outContent.toString().contains("There is any task yet"));
+        assertTrue(outContent.toString().contains("There aren't any tasks!!"));
         ui.showPostpone(homeTask);
         assertTrue(outContent.toString().contains("Noted. I've postponed this task"));
         ui.showPrioritize(task);
