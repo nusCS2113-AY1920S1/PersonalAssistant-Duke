@@ -17,7 +17,7 @@ endif::[]
 * Allow users to track their loans, both incoming and outgoing.
 * Provides the user with statistics derived from the financial information keyed into the application.
 
-== Contents
+== Table of Contents
 
 * <<#QuickStart, Quick Start>>
 * <<#Usage, Usage>>
