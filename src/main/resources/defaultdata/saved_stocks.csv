@@ -1,0 +1,21 @@
+Motors,M3508,100, M3508 P19 Brushless DC Gear Motor  ,50
+Motors,C620,100, C620 Brushless DC Motor Speed Controller ,50
+Uncategorised,ESC,200, ESC Center Board,100
+Wheels,MECL,250, Mecanum Wheel (left) ,250
+Wheels,MECR,250, Mecanum Wheel (right) ,250
+Motors,GM6020,500, GM6020 Brushless DC Motor,200
+Motors,M2006,300, M2006 P36 Brushless DC Gear Motor   ,200
+Motors,C610,50, C610 Brushless DC Motor Speed Controller,50
+Accessories,RDL,30, Red Dot Laser,20
+LED,LEDR,500,LED (Red),400
+LED,LEDG,600,LED (Green),400
+LED,LEDY,400,LED (Yellow),400
+Wire,WIRER,1000,Wire (Red),500
+Wire,WIREY,1000,Wire (Yellow),500
+Uncategorised,BRDBD,90,Breadboard,50
+Microcontrollers,RSPPI,100,Raspberry Pi,50
+Microcontrollers,ARDU,150,ArduinoUno,100
+Resistor,R50,1000,50ohm Resistor,500
+Resistor,R330,1500,330ohm Resistor,500
+Resistor,R220,1000,220ohm Resistor,500
+Resistor,R1000,1800,1000ohm Resistor,500

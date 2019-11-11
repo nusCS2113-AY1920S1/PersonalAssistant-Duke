@@ -1,7 +1,6 @@
 package eggventory.storage;
 
 import eggventory.commons.enums.CommandType;
-import eggventory.logic.commands.Command;
 import eggventory.logic.commands.add.AddStockTypeCommand;
 import eggventory.logic.commands.add.AddPersonCommand;
 import eggventory.logic.commands.add.AddTemplateCommand;
@@ -14,13 +13,19 @@ import eggventory.model.StockList;
 import eggventory.model.TemplateList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Scanner;
 
 //@@author patwaririshab
@@ -28,11 +33,16 @@ import java.util.Scanner;
  * Handles reading and writing the stockList to file.
  */
 public class Storage {
+    Charset utf8 = StandardCharsets.UTF_8;
+
     private String stockFilePath;
     private String stockTypesFilePath;
     private String loanListFilePath;
     private String personListFilePath;
     private String templateListFilePath;
+
+    private String testFolderPath = "/defaultdata/";
+    private String userFolderPath = System.getProperty("user.dir") + "/data/";
 
     /**
      * Initialises storage object.
@@ -44,6 +54,38 @@ public class Storage {
      */
     public Storage(String stockFilePath, String stockTypesFilePath, String loanListFilePath,
                    String personListFilePath, String templateListFilePath) {
+
+        if (Files.notExists(Paths.get(userFolderPath + stockFilePath))
+                || Files.notExists(Paths.get(userFolderPath + stockTypesFilePath))
+                || Files.notExists(Paths.get(userFolderPath + loanListFilePath))) {
+
+            try {
+                Files.createDirectory(Paths.get("data/"));
+
+                Files.write(Paths.get(userFolderPath + stockFilePath),
+                        Collections.singleton(getStringFromFile(testFolderPath + stockFilePath)),
+                        utf8);
+
+                Files.write(Paths.get(userFolderPath + stockTypesFilePath),
+                        Collections.singleton(getStringFromFile(testFolderPath + stockTypesFilePath)),
+                        utf8);
+
+                Files.write(Paths.get(userFolderPath + loanListFilePath),
+                        Collections.singleton(getStringFromFile(testFolderPath + loanListFilePath)),
+                        utf8);
+
+                Files.write(Paths.get(userFolderPath + personListFilePath),
+                        Collections.singleton(getStringFromFile(testFolderPath + personListFilePath)),
+                        utf8);
+
+                Files.write(Paths.get(userFolderPath + templateListFilePath),
+                        Collections.singleton(getStringFromFile(testFolderPath + templateListFilePath)),
+                        utf8);
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
+
         this.stockFilePath = stockFilePath;
         this.stockTypesFilePath = stockTypesFilePath;
         this.loanListFilePath = loanListFilePath;
@@ -57,21 +99,12 @@ public class Storage {
     public StockList load() {
         StockList savedList = new StockList();
 
-        if (Files.notExists(Paths.get(stockFilePath)) || Files.notExists(Paths.get(stockTypesFilePath))
-                || Files.notExists(Paths.get(loanListFilePath))) {
-            try {
-                Files.createDirectory(Paths.get("data/"));
-            } catch (IOException e) {
-                System.out.println("Unknown IO error when creating 'data/' folder.");
-            }
-        }
-        File f = new File(stockTypesFilePath);
-        File f2 = new File(stockFilePath);
+        File f = new File(userFolderPath + stockTypesFilePath);
+        File f2 = new File(userFolderPath + stockFilePath);
 
         try {
             Scanner s = new Scanner(f); //Create a Scanner to read saved_stocktypes file.
             Scanner s2 = new Scanner(f2); //Create a Scanner to read the saved_stocks file.
-
 
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
@@ -103,7 +136,7 @@ public class Storage {
      */
     public PersonList loadPersonList() {
         PersonList savedPersonList = new PersonList();
-        File f4 = new File(personListFilePath);
+        File f4 = new File(userFolderPath + personListFilePath);
         try {
             Scanner s4 = new Scanner(f4); //Create a Scanner using LoanListFilePath as source
             while (s4.hasNext()) {
@@ -125,7 +158,7 @@ public class Storage {
      */
     public LoanList loadLoanList() {
         LoanList savedLoanList = new LoanList();
-        File f5 = new File(loanListFilePath);
+        File f5 = new File(userFolderPath + loanListFilePath);
         try {
             Scanner s5 = new Scanner(f5); //Create a Scanner using LoanListFilePath as source
             while (s5.hasNext()) {
@@ -148,7 +181,7 @@ public class Storage {
      */
     public TemplateList loadTemplateList() {
         TemplateList savedTemplateList = new TemplateList();
-        File f3 = new File(templateListFilePath);
+        File f3 = new File(userFolderPath + templateListFilePath);
         try {
             Scanner s3 = new Scanner(f3); //Create a Scanner using LoanListFilePath as source
             while (s3.hasNext()) {
@@ -183,8 +216,8 @@ public class Storage {
         String stockTypesToSave = stockList.saveStockTypesString();
 
         try {
-            writeToFile(stocksToSave, stockFilePath);
-            writeToFile(stockTypesToSave, stockTypesFilePath);
+            writeToFile(stocksToSave, userFolderPath + stockFilePath);
+            writeToFile(stockTypesToSave, userFolderPath + stockTypesFilePath);
         } catch (IOException e) {
             System.out.println("Something went wrong saving the file :(");
         }
@@ -201,14 +234,43 @@ public class Storage {
         String templateListToSave = templateList.saveTemplateListString();
 
         try {
-            writeToFile(stocksToSave, stockFilePath);
-            writeToFile(stockTypesToSave, stockTypesFilePath);
-            writeToFile(loanListToSave, loanListFilePath);
-            writeToFile(personListToSave, personListFilePath);
-            writeToFile(templateListToSave, templateListFilePath);
+            writeToFile(stocksToSave, userFolderPath + stockFilePath);
+            writeToFile(stockTypesToSave, userFolderPath + stockTypesFilePath);
+            writeToFile(loanListToSave, userFolderPath + loanListFilePath);
+            writeToFile(personListToSave, userFolderPath + personListFilePath);
+            writeToFile(templateListToSave, userFolderPath + templateListFilePath);
         } catch (IOException e) {
             System.out.println("Something went wrong saving the file :(");
         }
+    }
+
+    /**
+     * Reads help files from the resource folder of the JAR and returns the files as
+     * a String.
+     * @param resourcePath Path to file in resources folder.
+     * @return String format of entire file.
+     * @throws IOException when file cannot be read for some unknown error.
+     */
+    private String getStringFromFile(String resourcePath) throws IOException {
+        InputStream is = getClass().getResourceAsStream(resourcePath);
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+
+        StringBuffer sb = new StringBuffer();
+        while (true) {
+            String line = br.readLine();
+            if (line == null) {
+                break;
+            }
+
+            sb.append(line).append("\n");
+        }
+
+        br.close();
+        isr.close();
+        is.close();
+
+        return sb.toString();
     }
     //@@author
 }

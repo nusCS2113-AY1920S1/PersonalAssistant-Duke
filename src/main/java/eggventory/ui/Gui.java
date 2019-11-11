@@ -54,7 +54,6 @@ public class Gui extends Ui  {
                 e.printStackTrace();
             }
 
-
             inputField = new InputTextBox(textFlow);
             outputTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             printIntro();

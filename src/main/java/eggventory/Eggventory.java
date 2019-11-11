@@ -29,12 +29,11 @@ public class Eggventory {
      * @param args Can input `--args=cli` after `gradlew run` to startup in Cli mode.
      */
     public static void main(String[] args) {
-        String currentDir = System.getProperty("user.dir");
-        String stockFilePath = currentDir + "/data/saved_stocks.csv";
-        String stockTypesFilePath = currentDir + "/data/saved_stocktypes.csv";
-        String loanListFilePath = currentDir + "/data/saved_loanlist.csv";
-        String personListFilePath = currentDir + "/data/saved_personlist.csv";
-        String templateListFilePath = currentDir + "/data/saved_templatelist.csv";
+        String stockFilePath = "saved_stocks.csv";
+        String stockTypesFilePath = "saved_stocktypes.csv";
+        String loanListFilePath = "saved_loanlist.csv";
+        String personListFilePath = "saved_personlist.csv";
+        String templateListFilePath = "saved_templatelist.csv";
 
         storage = new Storage(stockFilePath, stockTypesFilePath, loanListFilePath, personListFilePath,
                 templateListFilePath);
