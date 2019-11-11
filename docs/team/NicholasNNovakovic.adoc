@@ -32,6 +32,7 @@ El Duque is a task manager application targeting computer science students. The 
 *** Managed all JAR releases on GitHub
 ** Enhancements to existing features:
 *** Optimised the user interface to improve user interaction, including the format of user input, and the format of the output task list to be shown to the user.
+*** Extended tasks to be able to record the duration needed to complete them
 ** Code contribution:
 *** All of my code contributions to the project can be found https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=nicholasnovakovic[here].
 ** Documentation:
