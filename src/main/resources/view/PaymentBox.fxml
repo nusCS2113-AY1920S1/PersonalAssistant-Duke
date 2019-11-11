@@ -4,18 +4,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="indexLabel" alignment="CENTER" prefHeight="30.0" prefWidth="60.0" text="index" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="amountLabel" layoutX="60.0" layoutY="30.0" prefHeight="30.0" prefWidth="294.0" text="amount" />
-      <Label fx:id="receiverLabel" layoutX="122.0" layoutY="60.0" prefHeight="30.0" prefWidth="232.0" text="receiver" />
-      <Label alignment="CENTER" layoutX="572.0" layoutY="78.0" prefHeight="30.0" prefWidth="34.0" text="Due:" AnchorPane.bottomAnchor="0.0" />
-      <Label fx:id="dueLabel" layoutX="606.0" layoutY="70.0" prefHeight="30.0" prefWidth="75.0" text="dueDate" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="219.0" />
-      <Label fx:id="descriptionLabel" layoutX="60.0" prefHeight="30.0" prefWidth="571.0" text="description" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="priorityLabel" alignment="CENTER" layoutX="755.0" layoutY="15.0" prefHeight="30.0" prefWidth="118.0" text="Priority" textFill="#fffefe" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="15.0" />
-      <Label fx:id="tagLabel" layoutX="572.0" layoutY="30.0" prefHeight="30.0" prefWidth="100.0" text="tag" />
-      <Label fx:id="receiverLabel1" layoutX="60.0" layoutY="60.0" prefHeight="30.0" prefWidth="60.0" text="Receiver:" />
-      <Label fx:id="overdueLabel" alignment="CENTER" layoutX="690.0" layoutY="70.0" prefHeight="30.0" prefWidth="60.0" style="-fx-background-color: #000000;" text="Overdue" textAlignment="CENTER" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="160.0">
+      <Label fx:id="indexLabel" alignment="CENTER" prefHeight="30.0" prefWidth="60.0" text="10." AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="amountLabel" layoutX="60.0" layoutY="66.0" prefHeight="30.0" prefWidth="294.0" text="amount" textFill="#070707">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="receiverLabel" layoutX="131.0" layoutY="91.0" prefHeight="30.0" prefWidth="232.0" text="receiver" textFill="#838080">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="559.0" layoutY="91.0" prefHeight="30.0" prefWidth="68.0" text="Due on" textFill="#838080" AnchorPane.bottomAnchor="-1.0">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="dueLabel" layoutX="615.0" layoutY="91.0" prefHeight="30.0" prefWidth="108.0" text="dueDate" textFill="#838080" AnchorPane.bottomAnchor="-1.0" AnchorPane.rightAnchor="227.0">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="descriptionLabel" layoutX="60.0" prefHeight="30.0" prefWidth="571.0" text="description" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="priorityLabel" alignment="CENTER" layoutX="556.0" layoutY="19.0" prefHeight="24.0" prefWidth="118.0" text="Priority" textFill="#fffefe" AnchorPane.rightAnchor="276.0" AnchorPane.topAnchor="19.0" />
+      <Label fx:id="tagLabel" alignment="CENTER" layoutX="60.0" layoutY="31.0" prefHeight="24.0" style="-fx-border-radius: 3; -fx-background-color: #3e7b91#3e7b91; -fx-background-radius: 3;" text="TAG" textFill="WHITE" AnchorPane.leftAnchor="60.0" />
+      <Label fx:id="receiverLabel1" layoutX="60.0" layoutY="91.0" prefHeight="30.0" prefWidth="92.0" text="Receiver:" textFill="#838080">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="overdueLabel" alignment="CENTER" layoutX="678.0" layoutY="73.0" prefHeight="24.0" prefWidth="60.0" style="-fx-background-color: #000000; -fx-background-radius: 6;" text="Overdue" textAlignment="CENTER" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="700.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

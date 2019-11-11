@@ -11,7 +11,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,13 +23,11 @@ import java.util.logging.Logger;
  * Wraps all memory data of Duke++
  * Implements the interface of model module.
  */
-
 public class DukePP implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
-    @SuppressWarnings("checkstyle:MemberName")
-    private final Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = PaymentList.PREDICATE_SHOW_ALL_PAYMENTS;
+    private static final Predicate<Payment> ALL_PAYMENTS_PREDICATE = PaymentList.PREDICATE_SHOW_ALL_PAYMENTS;
 
     private final ExpenseList expenseList;
     private final PlanBot planBot;
@@ -38,7 +35,6 @@ public class DukePP implements Model {
     private final Budget budget;
     private final BudgetView budgetView;
     private final PaymentList payments;
-    // todo: add other data inside the DukePP.
 
     public ObservableList<Expense> externalExpenseList;
     public ObservableList<Income> externalIncomeList;
@@ -48,8 +44,6 @@ public class DukePP implements Model {
      * Creates a DukePP.
      * This constructor is used for loading DukePP from storage.
      */
-    // todo: pass more arguments to constructor as more data are implemented.
-
     public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList,
                   Budget budget, BudgetView budgetView, Optional<PaymentList> optionalPayments) throws DukeException {
 
@@ -61,7 +55,7 @@ public class DukePP implements Model {
 
         if (optionalPayments.isEmpty()) {
             logger.warning("PaymentList is not loaded. It will be starting with a empty PaymentList");
-            this.payments = new PaymentList(new ArrayList<Payment>());
+            this.payments = new PaymentList(new ArrayList<>());
         } else {
             this.payments = optionalPayments.get();
         }
@@ -259,7 +253,7 @@ public class DukePP implements Model {
 
     /**
      * Getter method for IncomeExternalList.
-     * @return ObservableList&lt;Income> ExternalList of Income
+     * @return ExternalList of Income
      */
     public ObservableList<Income> getIncomeExternalList() {
         logger.info("Model sends external income list length "
@@ -293,7 +287,7 @@ public class DukePP implements Model {
     }
 
     public void setAllPredicate() {
-        payments.setTimePredicate(PREDICATE_SHOW_ALL_PAYMENTS);
+        payments.setTimePredicate(ALL_PAYMENTS_PREDICATE);
     }
 
     public void setMonthPredicate() {

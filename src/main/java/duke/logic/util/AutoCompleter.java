@@ -32,6 +32,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static java.util.Objects.requireNonNull;
 
+// Solution below adapted from Liu Jiajun (AY1920S1 T12-3)
+// https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/logic/parser/commons/AutoCompleter.java
+
 /**
  * Provides a auto-complete to what the user has typed in userInput when TAB key is pressed.
  * It can complete a commandName or iterate through all suitable commandNames.

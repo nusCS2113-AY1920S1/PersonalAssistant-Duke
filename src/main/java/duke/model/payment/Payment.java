@@ -167,7 +167,7 @@ public class Payment {
             requireNonNull(tag);
             assert !tag.isEmpty();
 
-            this.tag = tag;
+            this.tag = tag.toUpperCase();
             return this;
         }
 
