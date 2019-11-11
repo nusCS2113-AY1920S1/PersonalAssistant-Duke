@@ -19,7 +19,7 @@ public class SearchProductCommandParser implements Parser<SearchProductCommand> 
     @Override
     public SearchProductCommand parse(String args) throws ParseException {
         map = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_SEARCH
+            PREFIX_PRODUCT_SEARCH
         );
         String keyword;
         if (!map.getValue(PREFIX_PRODUCT_SEARCH).isPresent()) {

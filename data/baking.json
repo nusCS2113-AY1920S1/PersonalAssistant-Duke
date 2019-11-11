@@ -454,6 +454,18 @@
     "ingredientCost" : 3.0,
     "retailPrice" : 5.9,
     "status" : "ACTIVE"
+  }, {
+    "productName" : "Name",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 1.0E18,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "_name",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 1.0E76,
+    "status" : "ACTIVE"
   } ],
   "inventory" : [ {
     "ingredient" : {

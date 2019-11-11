@@ -17,7 +17,7 @@ public class SearchProductCommand extends ProductCommand {
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_PRODUCT_SEARCH
+        CliSyntax.PREFIX_PRODUCT_SEARCH
     };
 
     /**
@@ -33,6 +33,6 @@ public class SearchProductCommand extends ProductCommand {
     public CommandResult execute(Model model) throws CommandException {
         model.getProductWithKeyword(keyword);
         return new CommandResult(String.format(ProductMessageUtils.MESSAGE_SEARCH_PRODUCT_SHOWN, keyword),
-                CommandResult.DisplayedPage.PRODUCT);
+            CommandResult.DisplayedPage.PRODUCT);
     }
 }

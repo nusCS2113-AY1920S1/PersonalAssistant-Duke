@@ -18,8 +18,8 @@ public class JsonAdaptedProductItem {
      */
     @JsonCreator
     public JsonAdaptedProductItem(
-            @JsonProperty("product") JsonAdaptedProduct product,
-            @JsonProperty("amount") double amount) {
+        @JsonProperty("product") JsonAdaptedProduct product,
+        @JsonProperty("amount") double amount) {
         this.product = product;
         this.amount = amount;
     }
@@ -37,8 +37,8 @@ public class JsonAdaptedProductItem {
      */
     public Item<Product> toModelType() {
         return new Item<Product>(
-                product.toModelType(),
-                new Quantity(amount)
+            product.toModelType(),
+            new Quantity(amount)
         );
     }
 }

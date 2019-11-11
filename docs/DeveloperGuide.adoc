@@ -15,8 +15,32 @@ endif::[]
 
 By: `Team T12-3`      Since: `Oct 2019`      Licence: `MIT`
 
+<<<
+
+== Introduction
+
+=== Purpose
+
+This document specified architecture and software design decisions for BakingHome, a one-stop application for managers of home bakeries to manage their business efficiently.
+
+=== Scope
+
+This guide describes the software architecture and software design decisions for the implementation of BakingHome.
+The intended audience of this document is the developers, designers, and software testers of BakingHome.
+
+=== Using the Guide
+
+This guide follows the following format:
+
+`marke-up` text represents a component or a command.
+
+[NOTE]
+This box provides additional information.
+
+<<<
 == Design
 
+This section describes the architecture and components of BakingHome.
 [[Design-Architecture]]
 === Architecture
 
@@ -116,6 +140,8 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `duke.commons` package.
+
+<<<
 
 == Implementation
 
@@ -224,34 +250,32 @@ May require additional components other than JavaFx's built-in components.
 
 ==== Implementation
 
-BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`. This feature allows user to view product
-with a given certain status, i.e. shows only products with an ARCHIVE status.
+BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`.
+This feature allows user to view product with a given certain status, i.e. shows only products with an ARCHIVE status.
 
 The filter mechanism in product is facilitated by
 https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
 which wraps a ObservableList and
 filters using the provided Predicate.
-A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`. In `BakingHome`, there is an
+A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`.
+In `BakingHome`, there is an
 `ObservableList<Product> products` which contains all products, regardless of the status. `filteredProducts`
 in the ModelManager is initialized with this ObservableList.
 
-Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible,
-the filter mechanism implements the following operation to support filtering:
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
 
-* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property
-Predicate in the `filteredProducts`.
+* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property Predicate in the `filteredProducts`.
 
 ** Predicates are declared statically in the `Model` interface, namely
-`PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`. In
-particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
+`PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
 ```java
     Predicate<Product> PREDICATE_SHOW_ARCHIVE_PRODUCTS = product -> {
         return product.getStatus() == Product.Status.ARCHIVE;
     };
 ```
 
-** The `ListProductCommand` will call this method to change the visibility of products with different status
-by passing in the corresponding predicate.
+** The `ListProductCommand` will call this method to change the visibility of products with different status by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
 
@@ -259,39 +283,33 @@ An example usage scenario and how the filter mechanism behaves at each step is s
 UniqueProductList will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
 
-**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the
-input to `Logic`. Logic then uses a few `Parser` class to extract layers of information out.
+**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the input to `Logic`.
+Logic then uses a few `Parser` class to extract layers of information out.
 
-**Step 3.**  Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
-through
-the word
-"product".
-It
-then creates a
+**Step 3.** Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
+through the word "product".
+It then creates a
 `ProductCommandParser` to parse the remaining information, i.e. "filter -scope archive".
 
-**Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word
-"filter". It then creates a `FilterProductCommandParser` to parse the scope.
+**Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word "filter".
+It then creates a `FilterProductCommandParser` to parse the scope.
 
-**Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope. It then returns a
+**Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope.
+It then returns a
 `FilterProductCommand` with the scope information.
 
-**Step 6.** `Logic` finally gets the `FilterProductCommand` and execute it. The execution firstly calls
+**Step 6.** `Logic` finally gets the `FilterProductCommand` and execute it.
+The execution firstly calls
 `Model#updateFilteredProductList(Predicate<Product> predicate)` to update the Predicate in
-`filteredProducts` in `Model`. This execution then returns a `CommandResult` to `UI`, containing the response
-to the user.
+`filteredProducts` in `Model`.
+This execution then returns a `CommandResult` to `UI`, containing the response to the user.
 
-**Step 7.** `UI` displays the response in the `CommandResult`. In addition, UI will change to display
-archived products after model updates `filteredProducts`, since `UI` is constantly
-listening
-for
-the
-change in `Model`.
+**Step 7.** `UI` displays the response in the `CommandResult`.
+In addition, UI will change to display archived products after model updates `filteredProducts`, since `UI` is constantly listening for the change in `Model`.
 
-The Sequence Diagram below shows how the components interact with each other for the above mentioned
-scenario.
+The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
+
 .Sequence Diagram for Filter Product Mechanism
-
 image::FilterProductSD.png[]
 
 Note that almost all other commands follow the same sequences, with different `Command` and `Parser`
@@ -396,6 +414,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+<<<
+
 [appendix]
 == Product Scope
 
@@ -415,12 +435,14 @@ BakingHome is a one-stop desktop application that has all the important features
 
 A one-stop bakery management system for home bakeries.
 
+<<<
+
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%,10%,40%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
@@ -479,6 +501,8 @@ something to refer to when deciding the retail price
 
 |`* *` |user |Calculate revenue, cost and hence profit instantly |Check the bakery's finances with a quick glance
 |=======================================================================
+
+<<<
 
 [appendix]
 == Use Cases
@@ -614,7 +638,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Show a Product
+=== Use case 7: Show a Product
 
 * **Precondition:** User has at least 1 product in the product list.
 
@@ -629,11 +653,11 @@ Use case resumes at step 2.
 
 [none]
 ** 3a.
-BHS detects a invalid command.
-** 3a1. BHS shows an error message
+BakingHome detects a invalid command.
+** 3a1. BakingHome shows an error message
 ** 3a2. Use case ends.
 
-_{More to be added}_
+<<<
 
 [appendix]
 == Non Functional Requirements
@@ -648,11 +672,8 @@ _{More to be added}_
 . A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 . A user would be able to execute every operation with typing only, and without the assist of a mouse
 
-[appendix]
-== Glossary
+<<<
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
 
 [appendix]
 == Instructions for Manual Testing
@@ -692,7 +713,7 @@ BakingHome provides basic Add, Edit, Delete operations for all sections.
 
 === Adding entries
 
-[cols="1,1,1", options="header"]
+[cols="1,1,1",options="header"]
 .Add Operation
 |===
 |Section
@@ -757,7 +778,8 @@ Product List.
 |===
 
 === Edit entries
-[cols="1,1,1", options="header"]
+
+[cols="1,1,1",options="header"]
 .Edit Operation
 |===
 |Section
@@ -780,13 +802,14 @@ All other data that is not inputted as parameters will be unchanged.
 This is provided the order status is not completed. If the order status is completed, you cannot edit the order.
 |===
 
+=== Deleting entries
 
-=== Delete operation
-
-Delete operation is have the same syntax for all five sections. The table below use order as an example.
+Delete operation is have the same syntax for all five sections.
+The table below use order as an example.
 `order`
 can be replaced with `inv`, `shop`, `product` and `sale`
-[cols="1,1,2", options="header"]
+
+[cols="1,1,2",options="header"]
 [width="100%",cols="10%,45%,45%",options="header",]
 .Delete Operation
 |===
@@ -827,10 +850,11 @@ Prerequisites: At least 2 orders in Order List
 |Error details shown in the pop-up bar.
 |===
 
+=== Sales operations
 
-=== Filtering Sales
 Sales can be filtered by time.
-[cols="1,1,1", options="header"]
+
+[cols="1,1,1",options="header"]
 .Filter Operation
 |===
 |Section
@@ -850,7 +874,7 @@ Sales can be filtered by time.
 
 |===
 
-=== Buying ingredients
+=== Ingredeint operations
 
 . Buying a single ingredient
 .. Prerequisites: At least 1 ingredient in Shopping List
@@ -868,10 +892,10 @@ Error details shown in the pop-up bar.
    Expected: No ingredients are bought.
 Error details shown in the pop-up bar.
 
-=== Product related operations
-There are many product related operations.
+=== Product operations
 
-[cols="1,1,1", options="header"]
+
+[cols="1,1,1",options="header"]
 .Filter Operation
 |===
 |Feature
@@ -898,8 +922,19 @@ are archived.
 |`product sort -by price`
 |Active products are sorted by price in descending order.
 
-|====
+|===
+
+<<<
+
+[appendix]
+== Glossary
+
+[[mainstream-os]]
+Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+<<<
 
 
-_{ more test cases ... }_
+
 

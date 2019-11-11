@@ -65,7 +65,7 @@ public class ExecuteShortcutCommand extends Command {
 
     private void executeCommand(Model model) throws CommandException {
         BakingHomeParser parser = new BakingHomeParser();
-        for (String line : toExecute.getUserInputs()) {
+        for (String line : toExecute.getCommandStrings()) {
             try {
                 Command command = parser.parseCommand(line);
                 command.execute(model);

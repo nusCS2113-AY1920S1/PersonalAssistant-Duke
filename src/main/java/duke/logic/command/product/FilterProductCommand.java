@@ -12,11 +12,13 @@ import duke.model.Model;
  */
 public class FilterProductCommand extends ProductCommand {
 
-    /** The Scope of the products that needs to be shown. */
-    public enum Scope {
-        ALL,
-        ACTIVE,
-        ARCHIVE
+    /**
+     * Constructs a FilterProductCommand with the given {@code Scope}
+     *
+     * @param scope scope of the products that needs to be shown
+     */
+    public FilterProductCommand(Scope scope) {
+        this.scope = scope;
     }
 
     public static final String COMMAND_WORD = "filter";
@@ -28,11 +30,12 @@ public class FilterProductCommand extends ProductCommand {
     };
 
     /**
-     * Constructs a FilterProductCommand with the given {@code Scope}
-     * @param scope scope of the products that needs to be shown
+     * The Scope of the products that needs to be shown.
      */
-    public FilterProductCommand(Scope scope) {
-        this.scope = scope;
+    public enum Scope {
+        ALL,
+        ACTIVE,
+        ARCHIVE
     }
 
     /**

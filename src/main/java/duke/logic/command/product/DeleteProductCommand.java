@@ -47,6 +47,6 @@ public class DeleteProductCommand extends ProductCommand {
         }
         model.commit(ProductMessageUtils.MESSAGE_COMMIT_DELETE_PRODUCT);
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
-                CommandResult.DisplayedPage.PRODUCT);
+            CommandResult.DisplayedPage.PRODUCT);
     }
 }
