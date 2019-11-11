@@ -127,7 +127,7 @@ findSongIndex(songName) conducts a linear search on the SongList to return the i
 
     songList.setActiveIndex(songList.findSongIndex(songName));
 
-For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
+For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below. This means that you can utilize the SongList API function `setActiveIndex()` in other created components to achieve the same functionality.
 
 image::songlist_activeIndex3.png[]
 
