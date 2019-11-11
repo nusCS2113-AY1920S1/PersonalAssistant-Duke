@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * This class adds the expense from the expense list and expenses.
@@ -27,7 +28,8 @@ public class AddExpenseCommand {
      *                                        date format is wrong
      */
     public AddExpenseCommand(final Ui ui,
-                             final Map<LocalDate, ArrayList<String>> expenses)
+                             final Map<LocalDate, ArrayList<String>> expenses,
+                             final Stack<Map<LocalDate, ArrayList<String>>> oldExpenses)
             throws ArrayIndexOutOfBoundsException, DateTimeParseException {
         final int addCharacterCount = 3;
 
@@ -71,10 +73,13 @@ public class AddExpenseCommand {
 
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print("Please input in the correct format\n");
+            oldExpenses.pop();
         } catch (DateTimeParseException e) {
             System.out.println("Wrong date format");
+            oldExpenses.pop();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            oldExpenses.pop();
         }
     }
 }
