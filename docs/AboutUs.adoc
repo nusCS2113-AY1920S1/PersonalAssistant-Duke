@@ -19,6 +19,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === EVELYN YI-WEN CHEN
 image::e0313687.png[width="150", align="left"]
 {empty} [https://github.com/e0313687[github]]
+{empty} [https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/portfolio/%5BAY1920S1-CS2113T-F10-1%5D-%5Be0313687%5DPPP.pdf[portfolio]]
 
 Role: Developement Lead +
 Responsibilities: UI
@@ -28,6 +29,7 @@ Responsibilities: UI
 === KHAIRUL IMAN NASRI B AZHARIE
 image::namiwa.png[width="150", align="left"]
 {empty}[http://github.com/namiwa[github]] 
+{empty}[https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/portfolio/%5BAY1920S1-CS2113T-F10-1%5D-%5Bnamiwa%5D-PPP.adoc[portfolio]]
 
 Role: Team Lead +
 Responsibilities: Data and Testing
@@ -37,6 +39,7 @@ Responsibilities: Data and Testing
 === KYAWT KYAWT SAN
 image::kyawtsan99.png[width="150", align="left"]
 {empty}[http://github.com/kyawtsan99[github]] 
+{empty}[https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/portfolio/%5BAY1920S1-CS2113T-F10-1%5D-%5Bkyawtsan99%5DPPP.pdf[portfolio]]
 
 Role: Documentation Lead +
 Responsibilities: UI
@@ -46,6 +49,7 @@ Responsibilities: UI
 === LE HONG LONG
 image::longlece.png[width="150", align="left"]
 {empty}[http://github.com/LongLeCE[github]]
+{empty}[https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/portfolio/%5BAY1920S1-CS2113T-F10-1%5D%5BLe%20Hong%20Long%5DPPP.pdf[portfolio]]
 
 Role: Integration Lead +
 Responsibilities: Threading and Optimisation
@@ -55,6 +59,7 @@ Responsibilities: Threading and Optimisation
 === LEOW YONG KANG ANDREW
 image::andrewleow97.png[width="150", align="left"]
 {empty}[http://github.com/andrewleow97[github]] 
+{empty}[https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/portfolio/%5BAY1920S1-CS2113T-F10-1%5D-%5Bandrewleow97%5D-PPP.adoc[portfolio]]
 
 Role: Project Management Lead +
 Responsibilities: Dev Ops
