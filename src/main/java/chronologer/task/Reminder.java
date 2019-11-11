@@ -3,6 +3,12 @@ package chronologer.task;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Holds the reminder date for the task after processing.
+ *
+ * @author Fauzan Adipratama
+ * @version 1.4
+ */
 class Reminder implements Serializable {
     LocalDateTime reminderDate;
 

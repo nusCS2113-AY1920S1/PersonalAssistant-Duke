@@ -7,10 +7,11 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiMessageHandler;
 
+//@@author fauzt
 /**
- * Adds a reminder.
+ * Adds a reminder to a task.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.3
  */
 public class RemindCommand extends Command {

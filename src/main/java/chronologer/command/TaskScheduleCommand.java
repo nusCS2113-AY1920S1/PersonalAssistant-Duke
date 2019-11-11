@@ -10,11 +10,12 @@ import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
 
+//@@author fauzt
 /**
  * Finds a free period of time within the user's schedule for a selected duration value.
  *
  * @author Fauzan Adipratama
- * @version 1.3
+ * @version 1.4
  */
 public class TaskScheduleCommand extends Command {
     private static final String NOT_TODO = "Task selected is not a Todo with a duration";

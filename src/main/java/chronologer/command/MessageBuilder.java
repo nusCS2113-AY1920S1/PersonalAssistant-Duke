@@ -1,13 +1,24 @@
 package chronologer.command;
 
+//@@author fauzt
+/**
+ * Handles building a message based on several different strings from the command.
+ *
+ * @author Fauzan Adipratama
+ * @version 1.4
+ */
 public class MessageBuilder {
 
-    private static StringBuilder message;
+    MessageBuilder() {
+        message = new StringBuilder();
+    }
+
+    private StringBuilder message;
 
     /**
      * Initialises the string builder to an empty string and await for incoming string.
      */
-    public static void initialiseMessage() {
+    void initialiseMessage() {
         message = new StringBuilder();
     }
 
@@ -15,7 +26,7 @@ public class MessageBuilder {
      * Appends the incoming string to the existing string.
      * @param output is the incoming string
      */
-    public static void loadMessage(String output) {
+    void loadMessage(String output) {
         message.append(output);
     }
 
@@ -23,7 +34,7 @@ public class MessageBuilder {
      * Retrieves the message at its current state.
      * @return the message to be outputted
      */
-    public static String getMessage() {
+    public String getMessage() {
         return message.toString();
     }
 }

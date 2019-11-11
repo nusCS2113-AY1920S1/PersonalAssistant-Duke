@@ -20,6 +20,9 @@ public class ScheduleParser extends IndexParser {
     private static final int DATE_INPUT = 1;
     private static final int NO_DEADLINE_INPUT = 2;
 
+    private int indexOfDeadline;
+    private LocalDateTime dateOfDeadline;
+
     ScheduleParser(String userInput, String command) {
         super(userInput, command);
     }
@@ -100,10 +103,10 @@ public class ScheduleParser extends IndexParser {
     private Command getTaskScheduleCommandForDuration(int deadlineType, Long duration) throws ChronologerException {
         switch (deadlineType) {
         case INDEX_INPUT:
-            int indexOfDeadline = extractDeadlineIndex(taskFeatures);
+            indexOfDeadline = extractDeadlineIndex(taskFeatures);
             return new TaskScheduleCommand(duration, indexOfDeadline);
         case DATE_INPUT:
-            LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
+            dateOfDeadline = extractDeadlineDate(taskFeatures);
             return new TaskScheduleCommand(duration, dateOfDeadline);
         case NO_DEADLINE_INPUT:
             return new TaskScheduleCommand(duration, null);
@@ -115,10 +118,10 @@ public class ScheduleParser extends IndexParser {
     private Command getTaskScheduleCommandForIndex(int deadlineType) throws ChronologerException {
         switch (deadlineType) {
         case INDEX_INPUT:
-            int indexOfDeadline = extractDeadlineIndex(taskFeatures);
+            indexOfDeadline = extractDeadlineIndex(taskFeatures);
             return new TaskScheduleCommand(indexOfTask, indexOfDeadline);
         case DATE_INPUT:
-            LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
+            dateOfDeadline = extractDeadlineDate(taskFeatures);
             return new TaskScheduleCommand(indexOfTask, dateOfDeadline);
         case NO_DEADLINE_INPUT:
             return new TaskScheduleCommand(indexOfTask, null);

@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Extract the components to add a deadline .
  *
- * @author Tan Yi Xiang
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public class DeadlineParser extends DescriptionParser {
@@ -28,6 +28,11 @@ public class DeadlineParser extends DescriptionParser {
         this.hasModCode = userInput.contains(Flag.MOD.getFlag());
     }
 
+    /**
+     * Parses the deadline description and deadline date within the input.
+     * @return the AddCommand to be executed
+     * @throws ChronologerException if input is invalid
+     */
     @Override
     public Command parse() throws ChronologerException {
         super.extract();

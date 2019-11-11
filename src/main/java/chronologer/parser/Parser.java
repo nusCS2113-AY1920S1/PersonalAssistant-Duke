@@ -9,7 +9,7 @@ import chronologer.ui.UiMessageHandler;
  * Ensures that all the classes of parser type have implementations of the
  * method parse.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public abstract class Parser {

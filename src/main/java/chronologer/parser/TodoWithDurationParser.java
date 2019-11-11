@@ -5,10 +5,11 @@ import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiMessageHandler;
 
+//@@author fauzt
 /**
  * Extract the components required to add a TodoWithDuration task.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public class TodoWithDurationParser extends TodoParser {
@@ -20,6 +21,11 @@ public class TodoWithDurationParser extends TodoParser {
         this.checkType = Flag.FOR.getFlag();
     }
 
+    /**
+     * Parses the duration from the input to pass to the AddCommand for Todo.
+     * @return the AddCommand to be executed
+     * @throws ChronologerException if input is invalid
+     */
     @Override
     public Command parse() throws ChronologerException {
         super.extract();

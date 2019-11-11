@@ -8,10 +8,11 @@ import chronologer.ui.UiMessageHandler;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+//@@author fauzt
 /**
  * Extract the components required to add a TodoWithinPeriod task.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public class TodoWithinPeriodParser extends TodoParser {
@@ -21,6 +22,11 @@ public class TodoWithinPeriodParser extends TodoParser {
         this.checkType = Flag.BETWEEN.getFlag();
     }
 
+    /**
+     * Parses the duration from the input to pass to the AddCommand for Todo.
+     * @return the AddCommand to be executed
+     * @throws ChronologerException if input is invalid
+     */
     @Override
     public Command parse() throws ChronologerException {
         super.extract();
