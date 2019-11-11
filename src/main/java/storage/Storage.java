@@ -43,8 +43,6 @@ public class Storage {
     private static String backupprojectsfilepath = "BackupProjects.json";
     private static String backupTaskListfilepath = "BackupTaskList.json";
 
-
-
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
