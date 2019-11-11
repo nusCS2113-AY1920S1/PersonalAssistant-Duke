@@ -29,7 +29,7 @@ Eggventory is an inventory management system targeted towards engineering labora
 ## 2. Quick start  
   
 1. #### [Download and install Java 11 on your machine. ](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)  
-2. #### [Download the latest eggventory.jar the github repository. ](https://github.com/AY1920S1-CS2113T-F09-3/main/releases)  
+2. #### [Download the latest eggventory.jar at the GitHub repository. ](https://github.com/AY1920S1-CS2113T-F09-3/main/releases)  
 3. #### Copy the file to the folder you want to use as the home folder for your inventory management system.  
 4. #### Double-click the file to start the app. The GUI should appear in a few seconds.  
  
@@ -58,7 +58,7 @@ Eggventory is an inventory management system targeted towards engineering labora
     
 ## 3. Features and command usage  
   
-The following section describes the command line interface commands that Eggventory recognises. Each command you input has to follow a specific format of words and parameters.  
+The following section describes the command-line interface commands that Eggventory recognises. Each command you input has to follow a specific format of words and parameters.  
 
 **Predictive Search / Autocomplete**
 
@@ -80,11 +80,11 @@ Did you enter a command incorrectly and came across a Parser error? Not to worry
 
 **Command Format**    
 
-- Text in \<AngledBrackets\> are mandatory parameter to be supplied by the user. E.g. `add stocktype <StockType>` , \<StockType\> is a parameter which is the name of the stocktype the user wishes to add.  
+- Text in \<AngledBrackets\> are mandatory parameters to be supplied by the user. E.g. `add stocktype <StockType>` , \<StockType\> is a parameter which is the name of the stocktype the user wishes to add.  
   
 - Parameters in {Braces} can be repeated multiple times in the same command, separated by a space. E.g. `add template <TemplateName>  {<StockCode> <Quantity>}` , more \<StockCode\> \<Quantity\> pairs can be added after the first pair as such: `loan add A0191234A R500 20 R250 10 R100 5`  
   
--   **[coming in v2.0]** Some commands have optional parameters available. Optional parameters are added to the end of the corresponding command, after all mandatory parameters. E.g. `add stock R500 50 “500-ohm Resistors” -st Resistors` , will create a new stock, and placed under the “Resistors” Stock Type with the “-st” tag.  
+-   **[coming in v2.0]** Some commands have optional parameters available. Optional parameters are added to the end of the corresponding command, after all the mandatory parameters. E.g. `add stock R500 50 “500-ohm Resistors” -st Resistors` , will create a new stock, and placed under the “Resistors” Stock Type with the “-st” tag.  
   
 ### 3.1 Viewing help: ``help``  
   
@@ -114,7 +114,7 @@ eg. `add stocktype Resistor`
   
 #### 3.2.2 Deleting Stock Types: `delete stocktype`  
     
-This removes a Stock Type from the inventory, and all Stock under it.  
+This removes a Stock Type from the inventory and all Stock under it.  
   
 Format: `delete stocktype <StockType>`  
 
@@ -134,7 +134,7 @@ Format: `list stocktype all`
 ### 3.3 Working with Stocks  
 Stocks are the main types of items that Eggventory helps you to manage. Every Stock belongs to a Stock Type. For example, you may have the Stocks “500 ohm resistor” and “1k ohm resistor” in the Resistor Stock Type.  
   
-Stocks may be Collective or Unique. Collective stocks consist of items that are not tracked individually. They generally are Stocks that do not have each have their own serial number (Stock Code), and are considered interchangeable. Unique Stocks are items that are often expensive or limited in quantity. Such Stocks usually are each assigned a serial number (Stock Code), and are loaned out and tracked by this number. Stocks are set as Collective by default.  
+Stocks may be Collective or Unique. Collective stocks consist of items that are not tracked individually. They generally are Stocks that do not have each have their own serial number (Stock Code) and are considered interchangeable. Unique Stocks are items that are often expensive or limited in quantity. Such Stocks usually are each assigned a serial number (Stock Code), and are loaned out and tracked by this number. Stocks are set as Collective by default.  
   
 Stocks have the following properties:  
 
@@ -374,7 +374,7 @@ Realistically, you may not have sufficient quantity of a stock at the moment you
   
 #### 3.7.3 Listing Stocks that are low in quantity: `list minimum`
 
-This shows you a complete list of stocks below their minimum required quantities. This list allows you quickly determine which stocks are running out, and understand how much of this is due to excessive loaning or loss [coming in v2.0] of items. 
+This shows you a complete list of stocks below their minimum required quantities. This list allows you to quickly determine which stocks are running out, and understand how much of this is due to excessive loaning or loss [coming in v2.0] of items. 
 
 Format: `list minimum`
 
