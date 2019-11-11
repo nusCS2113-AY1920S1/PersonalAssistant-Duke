@@ -666,14 +666,15 @@ is operational.
 
 We aim to fulfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning.
 
-*Target Users*: NUS CEG Students
-* have a need for additional module planning aside from utilising NUSMODS.
-* comfortable with using CLI
-* can type fast
-* prefers desktop applications
-* has a computer with Internet access available
+*Target Users*: NUS CEG Students +
+* have a need for additional module planning aside from utilising NUSMODS. +
+* comfortable with using CLI +
+* can type fast +
+* prefers desktop applications +
+* has a computer with Internet access available +
 
-*Value proposition: * Provides many more features that NUSMODS currently does not have, which we have deemed to still be important to target users.
+*Value proposition*: +
+* Provides many more features that NUSMODS currently does not have, which we have deemed to still be important to target users. +
 
 [appendix]
 == User Stories
