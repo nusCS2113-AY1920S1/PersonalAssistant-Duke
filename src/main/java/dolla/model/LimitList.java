@@ -46,7 +46,7 @@ public class LimitList extends RecordList {
      * @return index of the currently existing limit (is - 1 if not found)
      */
     public int findExistingLimitIndex(DollaData dollaData, Limit inputLimit, String mode) {
-        int index = - 1;
+        int nonExistingLimitIndex = - 1;
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
         Limit currLimit;
         String currType;
@@ -56,11 +56,10 @@ public class LimitList extends RecordList {
             currType = currLimit.type;
             currDuration = currLimit.duration;
             if (currType.equals(inputLimit.type) && currDuration.equals(inputLimit.duration)) {
-                index = i;
-                break;
+                return i;
             }
         }
-        return index;
+        return nonExistingLimitIndex;
     }
 }
 

@@ -24,10 +24,11 @@ public class LimitParser extends Parser {
 
     @Override
     public Command parseInput() {
-        if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
+
+        if (isListCmd()) {
             return new ShowListCommand(mode);
 
-        } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_REMAINING)) {
+        } else if (isShowRemainingCmd()) {
             if (verifyShowRemainingLimitCommand()) {
                 return new ShowRemainingLimitCommand(duration, type);
             } else {
@@ -35,7 +36,7 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
+        } else if (isSetLimitCmd()) {
             if (verifySetCommand()) {
                 return new AddLimitCommand(type, amount, duration);
             } else {
@@ -43,14 +44,14 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
+        } else if (isRemoveCmd()) {
             if (verifyRemove()) {
                 return new RemoveCommand(mode, inputArray[1]);
             } else {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+        } else if (isModifyCmd()) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyCommand()) {
@@ -59,27 +60,34 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(ParserStringList.COMMAND_SEARCH)) {
+        } else if (isSearchCmd()) {
             if (verifyLimitSearchCommand()) {
                 return new SearchCommand(mode, inputArray[1], inputArray[2]);
             } else {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
+        } else if (isSortCmd()) {
             if (verifySort()) {
                 return new SortCommand(mode, inputArray[1]);
             } else {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(COMMAND_REDO)
-                || commandToRun.equals(COMMAND_UNDO)) {
+        } else if (isActionCmd()) {
             return new ActionCommand(mode, commandToRun);
 
         } else {
             return invalidCommand();
         }
+    }
+
+    private boolean isListCmd() {
+        return commandToRun.equals(LIMIT_COMMAND_LIST);
+    }
+
+    private boolean isShowRemainingCmd() {
+        return commandToRun.equals(LIMIT_COMMAND_REMAINING);
     }
 
     private Boolean verifyShowRemainingLimitCommand() {

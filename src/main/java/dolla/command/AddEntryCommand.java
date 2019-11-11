@@ -6,7 +6,6 @@ import dolla.command.action.state.EntryState;
 import dolla.command.action.Redo;
 import dolla.command.action.state.UndoStateList;
 import dolla.model.EntryList;
-import dolla.model.Record;
 import dolla.ui.Ui;
 import dolla.model.Entry;
 
