@@ -30,7 +30,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/duke.DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -62,7 +62,7 @@ public class DialogBox extends HBox {
      * @param img Duke's image
      * @return DialogBox for Duke's response
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getModPlanDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

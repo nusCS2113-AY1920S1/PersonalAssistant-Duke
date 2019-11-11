@@ -17,6 +17,7 @@ import planner.logic.command.SortCommand;
 import planner.logic.command.UpdateModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ParserTest {
@@ -30,16 +31,16 @@ public class ParserTest {
     @DisplayName("Invalid Commands Parser Test")
     @Test
     public void invalidCommandInputsShouldReturnNull() throws ModException {
-        assertSame(parser.parseCommand("random string"), null);
-        assertSame(parser.parseCommand("-h"), null);
-        assertSame(parser.parseCommand("clear"), null);
-        assertSame(parser.parseCommand(""), null);
-        assertSame(parser.parseCommand(" "), null);
-        assertSame(parser.parseCommand(null), null);
-        assertSame(parser.parseCommand("add cca --begin 3 --end 5"), null);
-        assertSame(parser.parseCommand("add module "), null);
-        assertSame(parser.parseCommand("reminder invalid"), null);
-        assertSame(parser.parseCommand("remove module NotANumber"), null);
+        assertNull(parser.parseCommand("random string"));
+        assertNull(parser.parseCommand("-h"));
+        assertNull(parser.parseCommand("clear"));
+        assertNull(parser.parseCommand(""));
+        assertNull(parser.parseCommand(" "));
+        assertNull(parser.parseCommand(null));
+        assertNull(parser.parseCommand("add cca --begin 3 --end 5"));
+        assertNull(parser.parseCommand("add module "));
+        assertNull(parser.parseCommand("reminder invalid"));
+        assertNull(parser.parseCommand("remove module NotANumber"));
     }
 
     @DisplayName("Add Command Parser Test")

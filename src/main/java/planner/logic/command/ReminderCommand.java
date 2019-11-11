@@ -25,9 +25,9 @@ public class ReminderCommand extends ModuleCommand {
     /**
      * Prints the reminder message every ten seconds.
      */
-    private void printEveryTenSec() throws InterruptedException {
+    private void printEveryTenSec(PlannerUi plannerUi) throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask scheduledTask = new ScheduledTask();
+        ScheduledTask scheduledTask = new ScheduledTask(plannerUi);
         time.schedule(scheduledTask, 0, 10000);
     }
 
@@ -35,27 +35,27 @@ public class ReminderCommand extends ModuleCommand {
     /**
      * Prints the reminder message every thirty seconds.
      */
-    private void printEveryThirtySec() throws InterruptedException {
+    private void printEveryThirtySec(PlannerUi plannerUi) throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask scheduledTask = new ScheduledTask();
+        ScheduledTask scheduledTask = new ScheduledTask(plannerUi);
         time.schedule(scheduledTask, 0, 30000);
     }
 
     /**
      * Prints the reminder message every one minute.
      */
-    private void printEveryOneMin() throws InterruptedException {
+    private void printEveryOneMin(PlannerUi plannerUi) throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask scheduledTask = new ScheduledTask();
+        ScheduledTask scheduledTask = new ScheduledTask(plannerUi);
         time.schedule(scheduledTask, 0, 60000);
     }
 
     /**
      * Prints the reminder message every two minutes.
      */
-    private void printEveryTwoMin() throws InterruptedException {
+    private void printEveryTwoMin(PlannerUi plannerUi) throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask scheduledTask = new ScheduledTask();
+        ScheduledTask scheduledTask = new ScheduledTask(plannerUi);
         time.schedule(scheduledTask, 0, 120000);
     }
 
@@ -88,36 +88,36 @@ public class ReminderCommand extends ModuleCommand {
 
             case ("one"): {
                 try {
-                    printEveryTenSec();
+                    printEveryTenSec(plannerUi);
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }
 
             case ("two"): {
                 try {
-                    printEveryThirtySec();
+                    printEveryThirtySec(plannerUi);
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }
 
             case ("three"): {
                 try {
-                    printEveryOneMin();
+                    printEveryOneMin(plannerUi);
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }
 
             case ("four"): {
                 try {
-                    printEveryTwoMin();
+                    printEveryTwoMin(plannerUi);
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    plannerUi.println(e.getMessage());
                 }
                 break;
             }

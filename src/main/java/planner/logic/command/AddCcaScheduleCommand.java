@@ -42,13 +42,14 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         NattyWrapper natty = new NattyWrapper();
         LocalTime begin = natty.dateToLocalDateTime(arg("begin")).toLocalTime();
         LocalTime end = natty.dateToLocalDateTime(arg("end")).toLocalTime();
-        DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());     
         TimePeriodWeekly timePeriodWeekly = new TimePeriodWeekly(begin, end, dayOfWeek);
         if (profile.getAllTasks().clashes(timePeriodWeekly)) {
             throw new ModScheduleException("Time period");
         }
         Cca cca = profile.getCcas().get(index);
         cca.addPeriod(timePeriodWeekly);
+        jsonWrapper.storeCcaListAsJson(profile.getCcas(), store);
         plannerUi.addedMsg(cca);
     }
 }
