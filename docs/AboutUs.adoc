@@ -11,7 +11,7 @@ image::images/nicholasliu97.png[width="150", align="left"]
 
 Role: Team Lead
 
-Responsibilities: Deliverables, Deadlines & Bug Fixes
+Responsibilities: Documentation, Deliverables & Deadlines
 
 ### Kennedy Oung
 
