@@ -25,6 +25,6 @@ public class DeleteCommandParserTest {
     @Test
     public void deleteCommand_task_noIndex() {
         assertThrows(DukeException.class, () ->
-                DeleteTaskParser.parseDeleteTask(" "));
+                DeleteTaskParser.parseDeleteTask(""));
     }
 }

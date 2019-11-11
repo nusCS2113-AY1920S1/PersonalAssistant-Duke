@@ -249,13 +249,22 @@ public class TasksManager implements Serializable {
     //@@author yuyanglin28
 
     /**
-     * This method is to update teh task description
+     * This method is to update the task description
      * @param index index of the task (from 0)
      * @param des new description
      */
     public void updateTaskDes(int index, String des) {
         Task task = getTaskById(index);
         task.setDescription(des);
+    }
+
+    /**
+     * This method is to update the task time
+     * @param index index of the task (from 0)
+     * @param time new time
+     */
+    public void updateTaskTime(int index, Date time) {
+        getTaskById(index).setTime(time);
     }
 
     //========================== common ============================

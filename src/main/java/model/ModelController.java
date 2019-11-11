@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import storage.Storage;
 import common.DukeException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -139,6 +141,24 @@ public class ModelController implements Model {
         String oldDes = tasksManager.getTaskDes(index);
         tasksManager.updateTaskDes(index, des);
         return oldDes;
+    }
+
+    //@@author yayanglin28
+
+    /**
+     * This method is to update the time of a task
+     * @param index task index
+     * @param time time in string
+     * @throws DukeException throw exception when time format is not correct
+     */
+    public void updateTaskTime(int index, String time) throws DukeException {
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy hhmm");
+        try {
+            Date newTime = ft.parse(time);
+            tasksManager.updateTaskTime(index, newTime);
+        } catch (ParseException e) {
+            throw new DukeException("Time format error.");
+        }
     }
 
 

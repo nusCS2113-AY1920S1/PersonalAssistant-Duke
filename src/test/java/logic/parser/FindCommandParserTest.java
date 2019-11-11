@@ -11,6 +11,6 @@ public class FindCommandParserTest {
     @Test
     public void findCommand_keyword_empty() {
         assertThrows(DukeException.class, () ->
-                FindCommandParser.parseFindCommand("  "));
+                FindCommandParser.parseFindCommand(""));
     }
 }

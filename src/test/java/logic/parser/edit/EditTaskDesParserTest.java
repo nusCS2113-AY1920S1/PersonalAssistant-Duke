@@ -16,6 +16,6 @@ public class EditTaskDesParserTest {
     @Test
     public void editTask_content_empty() {
         assertThrows(DukeException.class, () ->
-                EditTaskDesParser.parseEditTaskDes("1 /to  "));
+                EditTaskDesParser.parseEditTaskDes("1 /to"));
     }
 }

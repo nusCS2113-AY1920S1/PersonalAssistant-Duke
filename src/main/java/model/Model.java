@@ -61,6 +61,8 @@ public interface Model {
 
     String updateTaskDes(int index, String des);
 
+    void updateTaskTime(int index, String time) throws DukeException;
+
     boolean isInTaskList(int taskIndex);
 
     //TODO look into using exceptions instead?

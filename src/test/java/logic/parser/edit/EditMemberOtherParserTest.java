@@ -29,7 +29,7 @@ public class EditMemberOtherParserTest {
     @Test
     public void editMemberPhone_name_empty() {
         assertThrows(DukeException.class, () ->
-                EditMemberPhoneParser.parseEditMemberPhone(" /to 11111"));
+                EditMemberPhoneParser.parseEditMemberPhone("/to 11111"));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class EditMemberOtherParserTest {
     @Test
     public void editMemberBio_name_empty() {
         assertThrows(DukeException.class, () ->
-                EditMemberBioParser.parseEditMemberBio(" /to bio"));
+                EditMemberBioParser.parseEditMemberBio("/to bio"));
     }
 
     @Test

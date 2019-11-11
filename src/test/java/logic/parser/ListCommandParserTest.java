@@ -1,7 +1,11 @@
 package logic.parser;
 
 import common.DukeException;
-import logic.parser.list.*;
+import logic.parser.list.ListCommandParser;
+import logic.parser.list.ListMembersParser;
+import logic.parser.list.ListTasksAllParser;
+import logic.parser.list.ListTasksParser;
+import logic.parser.list.ListTasksTodoParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +15,7 @@ public class ListCommandParserTest {
     @Test
     public void listCommand_wrong_listType() {
         assertThrows(DukeException.class, () ->
-                ListCommandParser.parseListCommand("something"));
+                ListCommandParser.parseListCommand("others"));
     }
 
     @Test

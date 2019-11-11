@@ -38,7 +38,7 @@ public class CheckCommandTest {
         AddTaskParser.parseAddTask("task6 /at 04/12/2019 1311").execute(model);
         AddTaskParser.parseAddTask("task7 /at 03/12/2019 0911").execute(model);
         AddTaskParser.parseAddTask("task8 /at 05/12/2019 0911").execute(model);
-        DoneCommandParser.parseDoneCommand("7").execute(model);
+        DoneCommandParser.parseDoneCommand("7 8").execute(model);
         LinkCommandParser.parseLinkCommand("1 3 2 4 6 5 8 /to test1").execute(model);
         LinkCommandParser.parseLinkCommand("1 2 3 5 /to test2").execute(model);
         LinkCommandParser.parseLinkCommand("3 5 7 /to test3").execute(model);
