@@ -26,7 +26,7 @@ public abstract class ParseSaving {
     private static final String[] SAVINGS_KEYWORD = new String[] {AMOUNT_PARAMETER, INCOME_PARAMETER,
         NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> SAVINGS_KEYWORD_LISTS = Arrays.asList(SAVINGS_KEYWORD);
-    private static final Logger logger = getLogger(ParseSaving.class);
+    static final Logger logger = getLogger(ParseSaving.class);
 
     /**
      * Creates an instance of any ParseSaving type object.

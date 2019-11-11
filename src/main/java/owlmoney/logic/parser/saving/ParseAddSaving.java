@@ -1,9 +1,6 @@
 package owlmoney.logic.parser.saving;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 
@@ -16,7 +13,6 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseAddSaving extends ParseSaving {
 
     private static final String ADD_COMMAND = "/add";
-    private static final Logger logger = getLogger(ParseAddSaving.class);
 
     /**
      * Creates an instance of ParseAddSaving.
@@ -67,6 +63,7 @@ public class ParseAddSaving extends ParseSaving {
                 savingsParameters.get(NAME_PARAMETER),
                 Double.parseDouble(savingsParameters.get(INCOME_PARAMETER)),
                 Double.parseDouble(savingsParameters.get(AMOUNT_PARAMETER)));
+        logger.info("Successful creation of AddSavingsCommand object");
         return newAddSavingsCommand;
     }
 

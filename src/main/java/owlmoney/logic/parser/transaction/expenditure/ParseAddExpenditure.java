@@ -1,12 +1,9 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddExpenditureCommand;
@@ -26,7 +23,6 @@ public class ParseAddExpenditure extends ParseExpenditure {
         DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
     private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
     private Date date;
-    private static final Logger logger = getLogger(ParseAddExpenditure.class);
 
     /**
      * Creates an instance of ParseAddExpenditure.
@@ -94,6 +90,7 @@ public class ParseAddExpenditure extends ParseExpenditure {
                 Double.parseDouble(expendituresParameters.get(AMOUNT_PARAMETER)), date,
                 (expendituresParameters.get(DESCRIPTION_PARAMETER)),
                 (expendituresParameters.get(CATEGORY_PARAMETER)), this.type);
+        logger.info("Successful creation of AddExpenditureCommand object");
         return newAddExpenditureCommand;
     }
 }
