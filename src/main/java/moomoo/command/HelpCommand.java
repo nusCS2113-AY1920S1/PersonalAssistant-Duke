@@ -41,9 +41,10 @@ public class HelpCommand extends Command {
         text.add("12. budget list c/[CATEGORY NAME] ");
         text.add("13. budget savings c/[CATEGORY NAME] s/[STARTMONTHYEAR (MM/YYYY)] e/[ENDMONTHYEAR (MM/YYYY)]");
         text.add("14. schedule d/[DD/MM/YYYY] a/[AMOUNT] n/[DESCRIPTION]");
-        text.add("15. graph");
-        text.add("16. moo");
-        text.add("17. bye");
+        text.add("15. schedule list");
+        text.add("16. graph");
+        text.add("17. moo");
+        text.add("18. bye");
         Ui.showInCowBox(text);
     }
 }
