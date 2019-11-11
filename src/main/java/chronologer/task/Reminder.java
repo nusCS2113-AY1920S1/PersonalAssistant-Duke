@@ -21,6 +21,6 @@ class Reminder implements Serializable {
     }
 
     boolean isReminderTrigger() {
-        return (LocalDateTime.now().isAfter(reminderDate) || LocalDateTime.now().isAfter(reminderDate.minusDays(1)));
+        return LocalDateTime.now().isAfter(reminderDate);
     }
 }

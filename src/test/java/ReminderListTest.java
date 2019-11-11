@@ -38,7 +38,7 @@ public class ReminderListTest {
 
     @Test
     public void testReminder() {
-        byDate = LocalDateTime.now().plusDays(1);
+        byDate = LocalDateTime.now().plusHours(23);
         testDeadline = new Deadline("Test", byDate);
         testCore.add(testDeadline);
         ArrayList<String> reminderList = testCore.fetchReminders();
