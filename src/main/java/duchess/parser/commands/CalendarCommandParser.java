@@ -42,7 +42,7 @@ public class CalendarCommandParser {
             } else {
                 return ExportCommandParser.parse(input, isWeek);
             }
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException | IllegalArgumentException | NullPointerException e) {
             throw new DuchessException(Parser.CALENDAR_USAGE);
         }
     }
