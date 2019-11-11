@@ -18,12 +18,12 @@ endif::[]
 By: `Team F11-1` +
 Updated As: `11/11/2019`
 
-== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/README.adoc[Introduction]
+== Introduction
 
 Our desktop application SpongeBob, is a Command Line Interface (CLI)  based assistant which helps in managing the locker system of NUS SoC (School of Computing) Club. As of now, the club members use various generic platforms like Google Docs, Microsoft Excel, Outlook to manage the club’s locker and thus lack integration. SpongeBob tries to solve this problem by providing a “all-in-one” solution to manage the allocation of lockers, details of renters, changes to lockers at a location and zone, status of lockers and reminders on deadline of locker rental . Having an easy-to-use yet useful locker management system, we hope to make SpongeBob unique and optimized for SoC club.
 
 
-== https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[Quick Start]
+== Quick Start
 
 . Ensure that you have Java 11 or later installed in your computer.
 . You can download the latest SpongeBob.jar https://github.com/AY1920S1-CS2113T-F11-1/main/releases[here].
