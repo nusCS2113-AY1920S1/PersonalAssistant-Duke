@@ -337,7 +337,7 @@ The suffix `-m` indicates member index numbers, while `-t` indicates tasks index
 |=======================================================================
 |MODIFIER | Display
 |`-m INDEX_NUMBERS` | Shows the list of tasks assigned to the specified members.
-| `t INDEX_NUMBERS` | Shows the members who are assigned to the specified tasks.
+| `-t INDEX_NUMBERS` | Shows the members who are assigned to the specified tasks.
 |=======================================================================
 
 [NOTE]
