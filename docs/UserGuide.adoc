@@ -303,11 +303,10 @@ image::SortCcaSample.png[width="450"]
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
 Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Example: +
+`sort time tuesday`
 
 image::SortTimeSample.png[width="450"]
-
-Example: +
-`sort time monday`
 
 ==== Sorting and printing the modules : `sort module code`
 
