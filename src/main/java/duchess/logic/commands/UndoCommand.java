@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
@@ -28,7 +29,7 @@ public class UndoCommand extends Command {
      * @throws DuchessException throws exceptions if invalid command
      */
     public UndoCommand(List<String> words) throws DuchessException {
-        this.logger = Logger.getLogger("Duchess");
+        this.logger = Log.getLogger();
         if (words.size() != 1 && words.size() != 0) {
             throw new DuchessException(UNDO_USAGE_ERROR_MESSAGE);
         } else if (words.size() == 1) {
