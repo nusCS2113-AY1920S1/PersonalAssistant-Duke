@@ -2,13 +2,7 @@ package owlmoney.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import org.junit.jupiter.api.Test;
-
-import owlmoney.logic.command.Command;
-import owlmoney.logic.parser.exception.ParserException;
 
 class ParseCommandTest {
     @Test
