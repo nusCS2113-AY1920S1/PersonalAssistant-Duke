@@ -1,3 +1,4 @@
+//@@author pdotdeep
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.strings.PromptMessages;
@@ -88,7 +89,7 @@ public class BlacklistCommand extends CommandSuper {
                 for (String movie : movies) {
                     if (isInteger(movie.trim(), 10)) {
                         Blacklist.addToBlacklistKeyWord(SearchResultContext
-                                .getIndex(Integer.parseInt(movie.trim())).getTitle());
+                                .getItemAtIndex(Integer.parseInt(movie.trim())).getTitle());
                     } else {
                         Blacklist.addToBlacklistKeyWord(movie.toLowerCase().trim());
                     }
@@ -97,7 +98,8 @@ public class BlacklistCommand extends CommandSuper {
                 String[] movies = payload.split(",");
                 for (String movie : movies) {
                     if (isInteger(movie.trim(), 10)) {
-                        Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie.trim())));
+                        Blacklist.addToBlacklistMoviesID(SearchResultContext
+                                .getItemAtIndex(Integer.parseInt(movie.trim())));
                     } else {
                         Blacklist.addToBlacklistMovie(movie.toLowerCase().trim());
                     }
@@ -130,7 +132,7 @@ public class BlacklistCommand extends CommandSuper {
             for (String movie : movies) {
                 if (isInteger(movie.trim(), 10)) {
                     stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext
-                            .getIndex(Integer.parseInt(movie.trim()))
+                            .getItemAtIndex(Integer.parseInt(movie.trim()))
                             .getTitle());
                 } else {
                     stat = Blacklist.removeFromBlacklistKeyWord(movie.toLowerCase().trim());
@@ -142,7 +144,7 @@ public class BlacklistCommand extends CommandSuper {
             for (String movie : movies) {
                 if (isInteger(movie.trim(), 10)) {
                     stat = Blacklist.removeFromBlacklistMovies(SearchResultContext
-                            .getIndex(Integer.parseInt(movie.trim())));
+                            .getItemAtIndex(Integer.parseInt(movie.trim())));
                 } else {
                     stat = Blacklist.removeFromBlacklistMovieTitle(movie.toLowerCase().trim());
                 }

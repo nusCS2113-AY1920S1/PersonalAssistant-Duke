@@ -707,7 +707,7 @@ public class MovieHandler extends Controller implements RequestListener {
         boolean isMovie = false;
         for (PlaylistMovieInfoObject log : toConvert) {
             converted.add(new MovieInfoObject(log.getId(), log.getTitle(),
-                    isMovie,log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(),
+                    isMovie, log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(),
                     log.getFullBackdropPathInfo(), log.getRatingInfo(), log.getGenreIdInfo(),
                     log.isAdultContent()));
 

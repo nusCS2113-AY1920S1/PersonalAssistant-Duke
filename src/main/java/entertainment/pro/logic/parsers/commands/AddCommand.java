@@ -10,7 +10,7 @@ import entertainment.pro.model.Deadline;
 import entertainment.pro.model.Period;
 import entertainment.pro.storage.user.WatchlistHandler;
 
-
+//TODO remove this class
 public class AddCommand extends CommandSuper {
 
     public AddCommand(Controller uicontroller) {
