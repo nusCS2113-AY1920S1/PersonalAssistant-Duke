@@ -24,7 +24,7 @@ public class ShowMemberDetailsCommand extends Command {
     public CommandOutput execute(Model model) throws DukeException {
 
         if (!model.hasMember(memberName)) {
-            return new CommandOutput("Member: " + memberName
+            throw new DukeException("Member: " + memberName
                     + INPUT_MEMBER_NOT_WITHIN_MEMBER_lIST_MESSAGE);
         } else {
             String output =  "Member Name: " + memberName + "\n";
@@ -45,7 +45,7 @@ public class ShowMemberDetailsCommand extends Command {
                 output += NO_PHONE_NUMBER_MESSAGE;
             }
             if (model.getTaskListOfMemberByName(memberName).size() != 0) {
-                output +=  "Task(s) assigned: " + model.getTaskListOfMemberByName(memberName) + "\n";
+                output +=  "Task(s) Assigned: " + model.getTaskListOfMemberByName(memberName) + "\n";
             } else {
                 output += NO_TASK_ASSIGNED_MESSAGE;
             }
