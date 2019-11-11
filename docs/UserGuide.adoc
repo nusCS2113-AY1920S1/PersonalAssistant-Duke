@@ -379,7 +379,6 @@ Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE
 ====
 * You cannot re-enter a list with the same name.
 * You cannot have an itinerary name with spaces.
-* You cannot enter a venue name with spaces.
 * Adding 2 of the same day numbers results in an error. (Putting two day 1's for example)
 * Adding identical venues twice in the same day will show only one instance but is still a valid input.
 ====
@@ -395,6 +394,14 @@ An itinerary with multiple days.
 An itinerary with multiple venues in 1 day.
 
 * `newItinerary 23/04/20 23/04/20 SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
+
+[TIP]
+====
+Single step command does not allow for locations with spaces in between them. +
+This *is* intended and is not a bug. +
+It is to encourage user to use the faster and more powerful newItinerary command. +
+It will be treated as invalid format if user attempts to introduce spaces.
+====
 
 === List Saved Itineraries: `listItinerary`
 
@@ -730,7 +737,9 @@ Examples:
 
 [TIP]
 ====
-Entering `routeEdit` will initiate the multi-step version of this command
+Entering `routeEdit` will initiate the multi-step version of this command. +
+Expert users can use "/" in the description to have a newline in the description. +
+This *is* intended and is not a bug.
 ====
 
 === Deleting a Route: `routeDelete`
