@@ -18,3 +18,23 @@ deadline asd/san 2019-12-12 12:12:12
 
 deadline sadasdas/by 2019-12-12 12:12:12
 
+
+deadline sleep/by 2019-12-12 12:03:03
+deadline sleep/sdc 2019-12-12 12:03:03
+deadline sleep/by 2019-12-2 12:03:03
+todo chemistry homework
+todoa chemistry homework
+todo asdasd
+event party /at 2019-11-09 12:00:00-14:00:00
+event project meeting /at 2019-01-13 08:00:00-13:00:00
+event meeting friend /at 2019-01-13 15:00:00-16:00:00
+event welfare pack collection /at 2019-01-13 16:30:00-17:30:00
+event internship fair /at 2019-01-13 18:00:00-20:30:00
+deadline project submission /by 2019-01-13 23:59:59
+deadline PPP /by 2019-01-13 23:59:59
+deadline UG /by 2019-01-13 23:59:59
+deadline DG /by 2019-01-13 23:59:59
+deadline jar file submission /by 2019-01-13 23:59:59
+deadline update github page /by 2019-01-13 23:59:59
+event lunch with parents /at 2019-01-12 12:00:00-13:00:00
+event consultation /at 2019-01-11 14:00:00-14:30:00

@@ -1,4 +1,4 @@
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;

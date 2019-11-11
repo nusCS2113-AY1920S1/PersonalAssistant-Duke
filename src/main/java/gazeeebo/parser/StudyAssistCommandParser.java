@@ -1,10 +1,15 @@
 package gazeeebo.parser;
 
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
-import gazeeebo.commands.studyassist.*;
+import gazeeebo.commands.studyassist.StudyPlannerCommand;
+import gazeeebo.commands.studyassist.AddModuleCommand;
+import gazeeebo.commands.studyassist.DeleteModuleCommand;
+import gazeeebo.commands.studyassist.ShiftModuleCommand;
+import gazeeebo.commands.studyassist.CheckPrerequisiteCommand;
+import gazeeebo.commands.studyassist.UndoStudyPlannerCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.StudyAssistPageStorage;
@@ -53,11 +58,11 @@ public class StudyAssistCommandParser extends Command {
             } else if (splitCommand[0].equals("plan")) {
                 studyPlan.showPlan();
             } else if (splitCommand[0].equals("add")) {
-                copyStudyPlan(oldStudyPlan, studyPlan.StudyPlan);
-                new AddModuleCommand().execute(studyPlan, studyStorage, ui);
+                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
+                new AddModuleCommand().execute(studyPlan,studyStorage,ui,oldStudyPlan);
             } else if (splitCommand[0].equals("delete")) {
-                copyStudyPlan(oldStudyPlan, studyPlan.StudyPlan);
-                new DeleteModuleCommand().execute(studyPlan, studyStorage, ui);
+                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
+                new DeleteModuleCommand().execute(studyPlan,studyStorage,ui,oldStudyPlan);
             } else if (splitCommand[0].equals("shift")) {
                 copyStudyPlan(oldStudyPlan, studyPlan.StudyPlan);
                 new ShiftModuleCommand().execute(studyPlan, studyStorage, ui);

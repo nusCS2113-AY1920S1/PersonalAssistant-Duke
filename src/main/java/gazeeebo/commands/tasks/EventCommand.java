@@ -1,12 +1,11 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
 
@@ -99,12 +98,6 @@ public class EventCommand extends Command {
             System.out.println(ev.listFormat());
             System.out.println("Now you have " + list.size()
                     + " tasks in the list.");
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            TasksPageStorage tasksPageStorage = new TasksPageStorage();
-            tasksPageStorage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("event");

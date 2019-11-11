@@ -1,11 +1,12 @@
 package gazeeebo.commands.studyassist;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.Storage;
 import gazeeebo.storage.StudyAssistPageStorage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class AddModuleCommand {
@@ -20,7 +21,8 @@ public class AddModuleCommand {
      */
     public void execute(StudyPlannerCommand studyPlan,
                         StudyAssistPageStorage storage,
-                        Ui ui) throws IOException,DukeException {
+                        Ui ui,
+                        Stack<ArrayList<ArrayList<String>>> oldStudyPlan) throws IOException,DukeException {
         try {
             if (ui.fullCommand.split(" ").length != 4) {
                 throw new DukeException("Please follow the correct input format~");
@@ -61,8 +63,10 @@ public class AddModuleCommand {
                     + (semester + 1) + ".");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            oldStudyPlan.pop();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please input correct Semester number");
+            oldStudyPlan.pop();
         }
     }
 }

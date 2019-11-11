@@ -3,11 +3,10 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.tasks.Todo;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
@@ -44,21 +43,18 @@ public class TodoCommand extends Command {
             TriviaStorage triviaStorage = new TriviaStorage();
             if (ui.fullCommand.length() <= 4) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-            } else {
+            } else if (ui.fullCommand.split(" ")[0].equals("todo")) {
                 description = ui.fullCommand.substring(5);
                 triviaManager.learnInput(ui.fullCommand, triviaStorage);
+            } else {
+                throw new DukeException("OOPS!!! The todo command is wrong. Format: todo description");
             }
             Todo to = new Todo(description);
             list.add(to);
             System.out.println("Got it. I've added this task:");
             System.out.println(to.listFormat());
             System.out.println("Now you have " + list.size() + " tasks in the list.");
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            TasksPageStorage tasksPageStorage = new TasksPageStorage();
-            tasksPageStorage.writeToSaveFile(sb.toString());
+
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("todo");

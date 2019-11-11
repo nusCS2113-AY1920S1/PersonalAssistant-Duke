@@ -11,8 +11,8 @@ import gazeeebo.exception.DukeException;
 import gazeeebo.storage.ExpensePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.Command;
 
 import java.io.IOException;
@@ -28,6 +28,34 @@ import java.util.TreeMap;
  * Allows user to call commands to record and manage their expenses.
  */
 public class ExpenseCommandParser extends Command {
+    /**
+     * Shows welcome message.
+     */
+    private static void showWelcomeMessage() {
+        System.out.println("Welcome to your expenses page! "
+                + "What would you like to do?");
+    }
+
+    /**
+     * Shows main menu page.
+     */
+    private static void showMainMenu() {
+        System.out.println("Going back to Main Menu...\n"
+                + "Content Page:\n"
+                + "------------------ \n"
+                + "1. help\n"
+                + "2. contacts\n"
+                + "3. expenses\n"
+                + "4. places\n"
+                + "5. tasks\n"
+                + "6. cap\n"
+                + "7. spec\n"
+                + "8. moduleplanner\n"
+                + "9. notes\n"
+                + "10. change password\n"
+                + "To exit: bye\n");
+    }
+
     /**
      * Shows list of commands in expense page.
      */
@@ -79,20 +107,18 @@ public class ExpenseCommandParser extends Command {
             Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
             boolean isExitExpenses = false;
 
-            System.out.println("Welcome to your expenses record!"
-                    + " What would you like to do?\n\n");
-
+            showWelcomeMessage();
             showListOfCommands();
             while (!isExitExpenses) {
                 ui.readCommand();
                 if (ui.fullCommand.split(" ")[0].equals("add")) {
                     copyMap(expenses, oldExpenses);
-                    new AddExpenseCommand(ui, expenses);
+                    new AddExpenseCommand(ui, expenses, oldExpenses);
                 } else if (ui.fullCommand.split(" ")[0].equals("find")) {
                     new FindExpenseCommand(ui, expenses);
                 } else if (ui.fullCommand.split(" ")[0].equals("delete")) {
                     copyMap(expenses, oldExpenses);
-                    new DeleteExpenseCommand(ui, expenses);
+                    new DeleteExpenseCommand(ui, expenses, oldExpenses);
                 } else if (ui.fullCommand.equals("list")) {
                     new ExpenseListCommand(expenses);
                 } else if (ui.fullCommand.equals("undo")) {
@@ -105,21 +131,7 @@ public class ExpenseCommandParser extends Command {
                             null, null, null);
                 } else if (ui.fullCommand.equals("esc")) {
                     isExitExpenses = true;
-                    System.out.println("Going back to Main Menu...\n"
-                            + "Content Page:\n"
-                            + "------------------ \n"
-                            + "1. help\n"
-                            + "2. contacts\n"
-                            + "3. expenses\n"
-                            + "4. places\n"
-                            + "5. tasks\n"
-                            + "6. cap\n"
-                            + "7. spec\n"
-                            + "8. moduleplanner\n"
-                            + "9. notes\n"
-                            + "10. change password\n"
-                            + "To exit: bye\n"
-                    );
+                    showMainMenu();
                 } else {
                     ui.showDontKnowErrorMessage();
                 }

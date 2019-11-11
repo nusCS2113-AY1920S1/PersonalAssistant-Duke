@@ -2,10 +2,8 @@
 
 package gazeeebo.commands.specialization;
 
-import gazeeebo.UI.Ui;
-import gazeeebo.exception.DukeException;
+import gazeeebo.ui.Ui;
 import gazeeebo.storage.SpecializationPageStorage;
-import gazeeebo.storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -305,24 +303,24 @@ public class ListSpecializationCommand {
                 }
             } else if (specChosen == SYS_ON_A_CHIP_DESIGN_INDEX) {
                 System.out.println("Breadth:");
-                for (int i = 0; i < specMap.get("System-On-A"
-                        + " Chip Design").size(); i++) {
-                    if (specMap.get("Large-Scale"
-                            + " Computing").get(i).isBreadth) {
+                for (int i = 0; i < specMap.get("System-On-A-"
+                        + "Chip Design").size(); i++) {
+                    if (specMap.get("System-On-A-"
+                            + "Chip Design").get(i).isBreadth) {
                         System.out.println((i + 1) + ". "
-                                + specMap.get("Large-Scale"
-                                + " Computing").get(i).code);
+                                + specMap.get("System-On-A-"
+                                + "Chip Design").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
-                for (int j = 0; j < specMap.get("System-On-A"
-                        + " Chip Design").size(); j++) {
-                    if (specMap.get("Large-Scale"
-                            + " Computing").get(j).isDepth) {
+                for (int j = 0; j < specMap.get("System-On-A-"
+                        + "Chip Design").size(); j++) {
+                    if (specMap.get("System-On-A-"
+                            + "Chip Design").get(j).isDepth) {
                         System.out.println((j + 1) + ". "
-                                + specMap.get("Large-Scale"
-                                + " Computing").get(j).code);
+                                + specMap.get("System-On-A-"
+                                + "Chip Design").get(j).code);
                     }
                 }
 

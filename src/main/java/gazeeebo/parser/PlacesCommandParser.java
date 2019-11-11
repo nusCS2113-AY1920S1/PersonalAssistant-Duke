@@ -13,8 +13,8 @@ import gazeeebo.logger.LogCenter;
 import gazeeebo.storage.PlacesPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.Command;
 import java.io.IOException;
 import java.text.ParseException;
@@ -87,14 +87,14 @@ public class PlacesCommandParser extends Command {
                 ui.readCommand();
                 if (ui.fullCommand.contains("add") || ui.fullCommand.equals("1")) {
                     copyMap(places, oldplaces);
-                    new AddPlacesCommand(ui, places);
+                    new AddPlacesCommand(ui, places, oldplaces);
                 } else if (ui.fullCommand.contains("find") || ui.fullCommand.equals("2")) {
                     new FindPlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("list") || ui.fullCommand.equals("4")) {
                     new ListPlacesCommand(places);
                 } else if (ui.fullCommand.contains("delete") || ui.fullCommand.equals("3")) {
                     copyMap(places, oldplaces);
-                    new DeletePlacesCommand(ui, places);
+                    new DeletePlacesCommand(ui, places, oldplaces);
                 } else if (ui.fullCommand.equals("commands") || ui.fullCommand.equals("6")) {
                     System.out.println(PLACES_COMMANDS);
                 } else if (ui.fullCommand.equals("help") || ui.fullCommand.equals("7")) {

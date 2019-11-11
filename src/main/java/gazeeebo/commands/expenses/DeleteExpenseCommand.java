@@ -2,13 +2,14 @@
 
 package gazeeebo.commands.expenses;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * This class deletes the expense from the expense list and expenses map.
@@ -24,7 +25,7 @@ public class DeleteExpenseCommand {
      */
     public DeleteExpenseCommand(final Ui ui,
                                 final Map<LocalDate, ArrayList<String>>
-                                        expenses)
+                                        expenses, final Stack<Map<LocalDate, ArrayList<String>>> oldExpenses)
             throws IOException {
         ArrayList<String> expenseList = new ArrayList<>();
 
@@ -117,17 +118,20 @@ public class DeleteExpenseCommand {
                     }
                 } else {
                     System.out.println("Item not found!");
+                    oldExpenses.pop();
                 }
 
             }
 
         } catch (NumberFormatException e) {
-            System.out.print("Wrong input for delete command\n");
+            System.out.print("Please key in only numbers.\n");
+            oldExpenses.pop();
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.print("Please Input in the correct format\n");
+            oldExpenses.pop();
         } catch (IndexOutOfBoundsException e) {
             System.out.print("Index does not exist\n");
+            oldExpenses.pop();
         }
-
     }
 }

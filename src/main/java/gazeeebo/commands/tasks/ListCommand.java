@@ -4,8 +4,8 @@ package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
@@ -16,6 +16,7 @@ import java.util.Stack;
 /**
  * Shows the list of tasks recorded.
  */
+
 public class ListCommand extends Command {
     /**
      * Displays the list of tasks when called.
@@ -31,6 +32,7 @@ public class ListCommand extends Command {
      * @throws ParseException Catch error if parsing of command fails
      * @throws IOException    Catch error if the read file fails
      */
+
     @Override
     public void execute(final ArrayList<Task> list,
                         final Ui ui, final Storage storage,
@@ -51,6 +53,7 @@ public class ListCommand extends Command {
      *
      * @return false
      */
+
     @Override
     public boolean isExit() {
         return false;

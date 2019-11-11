@@ -3,11 +3,11 @@
 package gazeeebo.commands.places;
 
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.Storage;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Stack;
 
 public class DeletePlacesCommand {
     /**
@@ -15,10 +15,11 @@ public class DeletePlacesCommand {
      *
      * @param ui      the object that deals with printing things to the user.
      * @param places  Map each place to a location
+     * @param oldplaces Stack of previous places
      * @throws IOException catch any error if read file fails
      */
 
-    public DeletePlacesCommand(Ui ui, Map<String, String> places) {
+    public DeletePlacesCommand(Ui ui, Map<String, String> places, Stack<Map<String, String>> oldplaces) {
         try {
             String placeToDelete = null;
             if (ui.fullCommand.equals("3")
@@ -38,9 +39,11 @@ public class DeletePlacesCommand {
                 System.out.println("Successfully deleted: " + placeToDelete);
             } else {
                 System.out.println(placeToDelete + " is not found in the list.");
+                oldplaces.pop();
             }
         } catch (IOException | ArrayIndexOutOfBoundsException | DukeException e) {
             System.out.println("Please input delete command in the correct format");
+            oldplaces.pop();
         }
     }
 }

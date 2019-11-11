@@ -2,7 +2,7 @@
 
 package gazeeebo.commands.capcalculator;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class FindCapCommand {
             for (String key : caplist.keySet()) {
                 for (int i = 0; i < caplist
                         .get(key).size(); i++) {
-                    if (caplist.get(key).get(i).moduleCode.equals(findInput)) {
+                    if (caplist.get(key).get(i).moduleCode.contains(findInput)) {
                         int noBlankSpacing = BLANK_SPACING
                                 - caplist.get(key).get(i).moduleCode.length();
                         toPrint += key + "   | "
