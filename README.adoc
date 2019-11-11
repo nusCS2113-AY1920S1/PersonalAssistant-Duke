@@ -11,14 +11,15 @@ endif::[]
 
 * Financial Ghost (FG) is a desktop application written in Java OOP fashion. 
 * Developed specifically for fresh graduates of NUS, the application provides a financial planner that is available locally on the user’s desktop.
-* Allows users to track their monetary inflow and outflow in order to monitor their income and expenditure
-* Allows users to set financial goals, and monitor their income and expenditure.
-* Tracks the influx and outgoing of income, guiding users financially for them to be better able to afford any financial goals set.
-* Tracks other financial entities such as bank accounts, instalments and loans, both outgoing and incoming.
+* Allows users to track their monetary inflow and outflow for a holistic evaluation of their income and expenditure
+* Allows users to set and monitor financial goals
+* Tracks other financial entities such as bank accounts and instalments.
+* Allow users to track their loans, both incoming and outgoing.
 * Provides the user with statistics derived from the financial information keyed into the application.
 
 == Contents
 
+* link:Usage[Usage]
 * <<UserGuide#, Quick Start>>
 * <<#Usage, Usage>>
 * <<LearningOutcomes#, Acknowledgements>>
