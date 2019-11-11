@@ -19,7 +19,7 @@ Chef Duke is targeted towards restaurant chefs who wants to be able to consolida
 
 4. Use the command prompt and navigate to the path where the application is downloaded `cd ../FILEPATH`
 
-5. run the command `java -jar v1.3` , application will then be executed 
+5. run the command `java -jar v1.4` , application will then be executed 
 
    ![](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Ui.png)
 
