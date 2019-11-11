@@ -682,7 +682,7 @@ instance calls the getServiceInfo() method on the relevant service to obtain the
 Step 6: The serviceAdded() method of the Ui class, which prints a message notifying the user that the servicing information has
 been added, is then called.
 
-==== Viewing a list of instruments
+==== Viewing the list of servicing done for a particular instrument
 
 Step 1: The user will type in the command `instrument view services <instrument index>`. The getInstrumentServiceInfo() method from 
 the InstrumentList class is called, which in turn calls the getServiceInfos() method of the relevant Instrument instance stored in 
@@ -697,7 +697,8 @@ Step 3: The printServices() method from the Ui class is then called, which print
 Instrument instance.
 
 ==== Sequence diagram
-The following sequence diagram shows how the instruments functionality works.
+The following sequence diagram shows how the view services functionality works.
+image::getServicesInstrumentSequenceDiagram.png[width = 100%]
 ====
 
 ====
