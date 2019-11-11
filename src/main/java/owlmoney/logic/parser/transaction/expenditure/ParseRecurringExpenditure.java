@@ -132,7 +132,7 @@ public abstract class ParseRecurringExpenditure {
     /**
      * Checks if the category entered by the user does not have special characters and numbers
      * and is not too long.
-     * 
+     *
      * @param category Category of transaction.
      * @throws ParserException If the string has special characters or is too long.
      */
