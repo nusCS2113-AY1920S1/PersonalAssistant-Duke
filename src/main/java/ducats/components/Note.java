@@ -19,7 +19,7 @@ public class Note implements Serializable {
         String[] characteristics = description.split("_", 2);
         this.duration = characteristics[0];
         this.isStart = true;
-        switch (characteristics[1]) {
+        switch (characteristics[1].toUpperCase()) {
         case "LC":
             this.pitch = Pitch.LOWER_C;
             break;
