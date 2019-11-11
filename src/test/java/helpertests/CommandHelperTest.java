@@ -63,14 +63,14 @@ class CommandHelperTest {
             " - delete member INDEX",
             "Deletes specified member from project.",
             "",
-            " - view tasks [-MODIFIER]",
+            " - view tasks -[MODIFIER]",
             "Displays existing tasks in sorted order specified by modifier. Default sorting is by priority.",
             "",
-            " - add task -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
+            " - add task -n TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
                     + "[-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]",
             "Adds a new task to the project.",
             "",
-            " - edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] "
+            " - edit task TASK_INDEX [-n TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] "
                     + "[-s STATE]",
             "Edits the stated details in specified task.",
             "",
