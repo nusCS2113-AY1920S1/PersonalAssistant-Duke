@@ -20,16 +20,16 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 === Purpose
 
-This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application DEGREES.NUS. DEGREES.NUS (DN) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
 
 === Scope
 
-This document describes the software architecture and various other software decisions undertaken for the implementation of D2. The intended audience of this document are developers, designers, software testers of D2 and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
+This document describes the software architecture and various other software decisions undertaken for the implementation of DN. The intended audience of this document are developers, designers, software testers of DN and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
 
 <<<
 == Setting Up
 === Prerequisites
-While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
+While DEGREES.NUS may work using different versions of Java and with other IDEs, the following are recommended because they have been used for testing:
 
 * Java Development Kit '11'
 * Intellij IDE
@@ -65,7 +65,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 === Verifying Setup
 . Ensure that Gradle has been imported by running `src/java/javafx/Launcher.java`
-. Test out basic Duke 2.0 commands by referring to the User Guide 
+. Test out basic commands by referring to the User Guide 
 
 <<<
 == Design
