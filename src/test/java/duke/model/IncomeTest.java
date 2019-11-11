@@ -78,7 +78,7 @@ class IncomeTest {
             new Income.Builder(INVALID_STORAGE_STRING);
             fail();
         } catch (DukeException e) {
-            assertEquals(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, "100.223"), e.getMessage());
+            assertEquals(String.format(DukeException.MESSAGE_INCOME_AMOUNT_INVALID, "100.223"), e.getMessage());
         }
     }
 }

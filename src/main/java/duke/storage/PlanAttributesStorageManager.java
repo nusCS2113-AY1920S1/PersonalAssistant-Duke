@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 
 import java.io.File;
@@ -8,8 +9,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class PlanAttributesStorageManager implements PlanAttributesStorage {
+
+    private static final Logger logger = LogsCenter.getLogger(PlanAttributesStorageManager.class);
 
     private static final File DEFAULT_USER_DIRECTORY = new File("data" + File.separator + "duke");
     private static final File PLAN_ATTRIBUTES_FILE = new File(DEFAULT_USER_DIRECTORY, "planAttributes.txt");
@@ -52,10 +56,9 @@ public class PlanAttributesStorageManager implements PlanAttributesStorage {
                     }
                 }
             }
-
-
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Error loading planAttributes Storage, starting with a empty file");
+            return new HashMap<>();
         }
         return attributes;
     }

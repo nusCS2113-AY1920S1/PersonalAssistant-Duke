@@ -1,11 +1,9 @@
 package duke.model;
 
 import duke.exception.DukeException;
-import duke.logic.parser.Parser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -34,8 +32,6 @@ public class Income extends DukeItem {
 
         /**
          * Constructs a builder from an existing income.
-         *
-         * @param income the income whose values to use as the builder's default values.
          */
         public Builder(Income income) {
             super(income);
@@ -55,12 +51,18 @@ public class Income extends DukeItem {
          */
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
-            if (!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
-                setAmount((String) null);
-                setDescription(null);
+            if (mappedStorageString.containsKey("amount")) {
+                setAmount(mappedStorageString.get("amount"));
             }
-            setAmount(mappedStorageString.get("amount"));
-            setDescription(mappedStorageString.get("description"));
+
+            if (mappedStorageString.containsKey("description")) {
+                setDescription(mappedStorageString.get("description"));
+            }
+
+            if (!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
+
+                throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, "income.txt"));
+            }
         }
 
         /**

@@ -57,14 +57,14 @@ public class PlanQuestionBank {
         question3.addNeighbouring(4);
         questionList.put(3, question3);
 
-        PlanQuestion question4 = new PlanQuestion("How do you go to school? <bus, mrt, both>",
+        PlanQuestion question4 = new PlanQuestion("How do you go to school? <bus/mrt/both>",
                 new String[]{"BUS", "MRT", "BOTH"},
                 new String[]{"BUS", "MRT", "BOTH"},
                 "TRANSPORT_METHOD");
         question4.addNeighbouring(5);
         questionList.put(4, question4);
 
-        PlanQuestion question5 = new PlanQuestion("How much does your trip cost each way?",
+        PlanQuestion question5 = new PlanQuestion("How much does your trip cost each way?  <money amount>\"",
                 DOUBLE,
                 DOUBLE,
                 "TRIP_COST");
@@ -72,7 +72,7 @@ public class PlanQuestionBank {
         questionList.put(5, question5);
 
 
-        PlanQuestion question6 = new PlanQuestion("Do you eat at your Hall/RC often?",
+        PlanQuestion question6 = new PlanQuestion("Do you eat at your Hall/RC often? <yes/no>",
                 BOOL_ANSWERS,
                 BOOL_ATTRIBUTE_VALUES,
                 "DINE_IN_HALL");
@@ -126,6 +126,11 @@ public class PlanQuestionBank {
         logger.info("QuestionBank generated successfully!");
     }
 
+    /**
+     * Constructor/getter method for this Singleton Object.
+     * @return this PlanQuestionBank object
+     * @throws DukeException on errors loading questions
+     */
     public static PlanQuestionBank getInstance() throws DukeException {
         if (planQuestionBank == null) {
             planQuestionBank = new PlanQuestionBank();
@@ -202,7 +207,7 @@ public class PlanQuestionBank {
                                     + "it is cheaper to buy concession!\n")
                                     .append("MRT concession costs: $48.00 monthly.\n")
                                     .append("You should set your transport budget at $48.00 monthly\n\n");
-                            budgetRecommendation.put("transport", Parser.parseMoney("48.00"));
+                            budgetRecommendation.put("TRANSPORT", Parser.parseMoney("48.00"));
                         } else if (monthlyCost.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("You should set transport budget at $")
                                     .append(monthlyCost)
@@ -215,12 +220,12 @@ public class PlanQuestionBank {
                                     + "it is cheaper to buy concession!\n")
                                     .append("MRT concession costs: $52.00 monthly.\n")
                                     .append("You should set your transport budget at $52.00 monthly\n");
-                            budgetRecommendation.put("transport", Parser.parseMoney("52.00"));
+                            budgetRecommendation.put("TRANSPORT", Parser.parseMoney("52.00"));
                         } else {
                             recommendation.append("You should set transport budget at $")
                                     .append(monthlyCost)
                                     .append(" monthly. \n");
-                            budgetRecommendation.put("transport", monthlyCost);
+                            budgetRecommendation.put("TRANSPORT", monthlyCost);
                         }
                         break;
                     default:
@@ -229,12 +234,12 @@ public class PlanQuestionBank {
                                     + "it is cheaper to buy concession!\n"
                                     + "Combined concession costs: $85.00 monthly.\n"
                                     + "You should set your transport budget at $85.00 monthly\n\n");
-                            budgetRecommendation.put("transport", Parser.parseMoney("85.00"));
+                            budgetRecommendation.put("TRANSPORT", Parser.parseMoney("85.00"));
                         } else {
                             recommendation.append("You should set transport budget at $")
                                     .append(monthlyCost)
                                     .append(" monthly. \n\n");
-                            budgetRecommendation.put("transport", monthlyCost);
+                            budgetRecommendation.put("TRANSPORT", monthlyCost);
                         }
                         break;
                     }
@@ -248,7 +253,7 @@ public class PlanQuestionBank {
                             recommendation.append("I'd suggest you set your food budget at $")
                                     .append(monthlyFoodBudget)
                                     .append(" monthly. \n\n");
-                            budgetRecommendation.put("food ", monthlyFoodBudget);
+                            budgetRecommendation.put("FOOD ", monthlyFoodBudget);
                         }
                     }
                 } else {
@@ -265,7 +270,7 @@ public class PlanQuestionBank {
                         if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("I'd suggest you set your food budget at $")
                                     .append(monthlyFoodBudget).append(" monthly. \n\n");
-                            budgetRecommendation.put("food", monthlyFoodBudget);
+                            budgetRecommendation.put("FOOD", monthlyFoodBudget);
                         }
                     } else {
                         //Eats all meals outside of hall
@@ -277,7 +282,7 @@ public class PlanQuestionBank {
                         if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("I'd suggest you set your food budget at $")
                                     .append(monthlyFoodBudget).append(" monthly. \n\n");
-                            budgetRecommendation.put("food", monthlyFoodBudget);
+                            budgetRecommendation.put("FOOD", monthlyFoodBudget);
                         }
                     }
                 }
@@ -298,8 +303,8 @@ public class PlanQuestionBank {
                     recommendation.append("Netflix has a family plan that is $17.00 per month,"
                             + " so its cheaper if you can find friends to share!\n"
                             + "You should allocate $4.25 to netflix\n\n");
-                    budgetRecommendation.put("netflix", Parser.parseMoney("4.25"));
-                    budgetRecommendation.put("phone bill", phoneBill);
+                    budgetRecommendation.put("NETFLIX", Parser.parseMoney("4.25"));
+                    budgetRecommendation.put("NETFLIX bill", phoneBill);
                     Expense.Builder netflixExpenseBuilder = new Expense.Builder();
                     netflixExpenseBuilder.setAmount("4.25");
                     netflixExpenseBuilder.setDescription("Netflix");
@@ -310,7 +315,7 @@ public class PlanQuestionBank {
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
                     recommendation.append("Spotify has a student plan that is only $5 a month! \n"
                             + "You should allocate $5 to Spotify\n\n");
-                    budgetRecommendation.put("spotify", Parser.parseMoney("5"));
+                    budgetRecommendation.put("SPOTIFY", Parser.parseMoney("5"));
                     Expense.Builder spotifyExpenseBuilder = new Expense.Builder();
                     spotifyExpenseBuilder.setAmount("5.00");
                     spotifyExpenseBuilder.setDescription("Spotify");
@@ -355,9 +360,9 @@ public class PlanQuestionBank {
      * Simple container for recommendation.
      */
     public class PlanRecommendation {
-        String recommendation;
-        Map<String, BigDecimal> budget;
-        List<Expense> recommendationExpenseList;
+        private String recommendation;
+        private Map<String, BigDecimal> budget;
+        private List<Expense> recommendationExpenseList;
 
         /**
          * Constructor for PlanRecommendation.

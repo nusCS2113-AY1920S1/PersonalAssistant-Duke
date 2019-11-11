@@ -48,9 +48,9 @@ public class PaymentBox extends UiPart<AnchorPane> {
 
     /**
      *
-     *
-     * @param payment
-     * @param displayedIndex
+     * PaymentBox.
+     * @param payment Payment
+     * @param displayedIndex Index
      */
     public PaymentBox(Payment payment, int displayedIndex) {
         super(FXML_FILE_NAME, null);

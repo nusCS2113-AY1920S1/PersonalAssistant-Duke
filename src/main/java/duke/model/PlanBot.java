@@ -69,7 +69,7 @@ public class PlanBot {
     /**
      * Constructor for PlanBot.
      *
-     * @param planAttributes the loaded attributes from Storage
+     * @param planAttributes the loaded Map&lt;String, String> planAttributes from Storage
      * @throws DukeException when there is an error loading questions based on the loaded planAttributes
      */
     private PlanBot(Map<String, String> planAttributes) {
@@ -78,8 +78,8 @@ public class PlanBot {
         this.planAttributes = planAttributes;
         this.questionQueue = new LinkedList<>();
         if (planAttributes.isEmpty()) {
-            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. "
-                    + "Let me plan your budget for you!"
+            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. \n"
+                    + "Let me plan your budget for you! \n"
                     + " Alternatively, type \"goto expense\" to start using Duke++!",
                     Agent.BOT));
         }
@@ -107,6 +107,11 @@ public class PlanBot {
         }
     }
 
+    /**
+     * Constructor/ Getter method for this Singleton Object.
+     * @param planAttributes the loaded Map&lt;String, String> planAttributes from Storage
+     * @return this PlanBot object
+     */
     public static PlanBot getInstance(Map<String, String> planAttributes) {
         if (planBot == null) {
             planBot = new PlanBot(planAttributes);
