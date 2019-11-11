@@ -1,0 +1,5 @@
+1,I,testitem
+2,I,testitem
+3,R,testroom
+0,I,ball
+4,R,seminar room 1
