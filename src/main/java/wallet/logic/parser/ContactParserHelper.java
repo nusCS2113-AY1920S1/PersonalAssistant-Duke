@@ -2,7 +2,6 @@
 
 package wallet.logic.parser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import wallet.model.contact.Contact;
