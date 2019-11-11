@@ -579,7 +579,7 @@ public class PlannerUi {
     }
 
     /**
-     * Message to print the reminder list.
+     * Message to print the reminder message.
      */
     public void reminderMsg() {
         showLine();
@@ -601,7 +601,7 @@ public class PlannerUi {
                             +
                             "2) for 30 seconds\n"
                             +
-                            "3) for 1 minutes\n"
+                            "3) for 1 minute\n"
                             +
                             "4) for 2 minutes\n"
                             +

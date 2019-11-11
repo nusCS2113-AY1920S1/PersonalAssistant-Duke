@@ -39,7 +39,7 @@ public class PlannerUiTest extends InputTest {
                 + "Would you like to set your reminder to every:\n"
                 + "1) for 10 seconds\n"
                 + "2) for 30 seconds\n"
-                + "3) for 1 minutes\n"
+                + "3) for 1 minute\n"
                 + "4) for 2 minutes\n"
                 + "*helpline* : for 1), enter 'reminder one'\n";
         plannerUi.reminderList();

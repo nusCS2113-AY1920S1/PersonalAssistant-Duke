@@ -23,6 +23,10 @@ public class ShowCommand extends ModuleCommand {
         super(args);
     }
 
+    /**
+     * Function to return a string set containing all the core module codes.
+     * @return coreModList
+     */
     private Set<String> getCoreModList() {
         if (coreModList.size() == 0) {
             setCoreMods(coreModList);
@@ -31,7 +35,7 @@ public class ShowCommand extends ModuleCommand {
     }
 
     /**
-     * Function to return a string set containing all core module codes.
+     * Function to add all core module codes into a string set.
      * @param coreModList takes in a set of string and populates it with CEG core module codes.
      */
     public static void setCoreMods(Set<String> coreModList) {
@@ -58,6 +62,8 @@ public class ShowCommand extends ModuleCommand {
         coreModList.add("CG4002");
         coreModList.add("EE4204");
     }
+
+    //public static void checkGeClash
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
@@ -94,15 +100,66 @@ public class ShowCommand extends ModuleCommand {
             case ("ge"): {
                 plannerUi.geModReport();
                 int count = 1;
+                int gehCount = 0;
+                int geqCount = 0;
+                int gesCount = 0;
+                int gerCount = 0;
+                int getCount = 0;
+                int geTypeCount = 0;
                 for (ModuleTask task : profile.getModules()) {
                     String moduleCode = task.getModuleInfoDetailed().getModuleCode();
                     if (moduleCode.startsWith("GE")) {
                         plannerUi.println(count++ + ". " + task);
                     }
+                    if (moduleCode.charAt(2) == 'H') {
+                        gehCount++;
+                        if (gehCount  > 1) {
+                            geTypeCount += 0;
+                        } else {
+                            geTypeCount++;
+                        }
+                    } else if (moduleCode.charAt(2) == 'Q') {
+                        geqCount++;
+                        if (geqCount  > 1) {
+                            geTypeCount += 0;
+                        } else {
+                            geTypeCount++;
+                        }
+                    } else if (moduleCode.charAt(2) == 'S') {
+                        gesCount++;
+                        if (gesCount  > 1) {
+                            geTypeCount += 0;
+                        } else {
+                            geTypeCount++;
+                        }
+                    } else if (moduleCode.charAt(2) == 'R') {
+                        gerCount++;
+                        if (gerCount  > 1) {
+                            geTypeCount += 0;
+                        } else {
+                            geTypeCount++;
+                        }
+                    } else if (moduleCode.charAt(2) == 'T') {
+                        getCount++;
+                        if (getCount  > 1) {
+                            geTypeCount += 0;
+                        } else {
+                            geTypeCount++;
+                        }
+                    }
                 }
+
+                if (gehCount > 1 || geqCount > 1 || gesCount > 1 || gerCount > 1 || getCount > 1) {
+                    System.out.println("\n"
+                                        +
+                                        "There are more than one type of GE modules added.\n"
+                                        +
+                                        "Please add only one type of GE module each.");
+                }
+
                 plannerUi.geModLeft();
                 int numOfGeMods = 5;
-                plannerUi.println(numOfGeMods - count + 1);
+                plannerUi.println(numOfGeMods - geTypeCount);
                 break;
             }
 
