@@ -40,6 +40,7 @@ public class EventCommandParser implements CommandParser {
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
         isValidInterval(interval);
+        isValidAmountTaskToAdd(startDateList.get(0),finalDate,interval);
         isValidKey(key, restOfInput,MESSAGE_INVALID_PARAM);
         logger.info("Successfully parse event command");
         return new EventCommand(description, startDateList, priority, startTime, endTime, finalDate, interval);
