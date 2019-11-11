@@ -91,7 +91,7 @@ e.g `add task final defence /at 23/11/2019 1300`
 * task with member(s): assign task to member(s) when creating the task +
 `add task [TASK_NAME] /to [MEMBER_NAME] ...` +
 e.g `add task restructure parsers /to Alice` +
-e.g `add task restructure parsers /to Alice Bob Carol`
+e.g `add task restructure parsers /to Alice, Bob, Carol`
 
 * task with time and member(s): +
 `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...` +
