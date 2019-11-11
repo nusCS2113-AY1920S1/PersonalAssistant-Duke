@@ -32,6 +32,17 @@
         "calorie": 300
       },
       "costStr": "0"
+    },
+    {
+      "description": "fried rice",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 50000000
+      },
+      "costStr": "0"
     }
   ]
 }

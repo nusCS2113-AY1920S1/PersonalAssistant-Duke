@@ -39,7 +39,7 @@ public class UpdateCommand extends Command {
     }
 
     public UpdateCommand(boolean flag, String messageStr) {
-        this.isFail = flag;
+        this.isFail = true;
         this.errorStr = messageStr;
     }
 
