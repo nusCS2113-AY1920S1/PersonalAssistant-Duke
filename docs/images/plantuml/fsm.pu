@@ -1,0 +1,8 @@
+@startuml
+[*] --> CMDARG
+CMDARG --> SWITCH : `-`
+CMDARG --> CMDARG : append character to argument
+SWITCH --> SWITCH : append character to switch argument, or start a new switch
+SWITCH --> EMPTY : <Space>, <Newline>
+
+@enduml
