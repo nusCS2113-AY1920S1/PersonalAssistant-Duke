@@ -333,7 +333,6 @@ The execution of commands will be elaborated in subsequent diagrams below.
 
 // tag::add_savings[]
 
-=== Adding Savings
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="800"]
 
@@ -543,42 +542,97 @@ When the user executes the `ListCardCommand`, the following steps are taken by t
 [start=4]
 . After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
 
-=== Transferring Funds
-.Model Component Diagram
-image::TransferCommand.png[width="970"]
+=== Finding Savings Account
+
+The `/find /savings` feature aims to provide the user with the ability to search for a savings account that matches the
+keyword specified by the user. This enables the user to have great flexibility to view their savings account details
+without the need of memorising each of their savings account names within *OwlMoney*. By allowing the user to search for
+ a specific savings account, it also aids in the operation of editing or deleting of savings account.
+
+==== Current Implementation
+The current implementation of finding `savings` account only allows the user to search through the account name. The
+reason to only allow the user to search through the account name was that searching through parameters such as income
+may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
+
+
+.Sequence Diagram of finding savings account
+image::FindSequenceDiagram.png[Caption="Figure : "]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
 
-The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
-`TransferCommand`.
+The sequence diagram presented above depicts the interaction between the `Logic`, `Model` and `Ui` component for running
+`FindBankOrCardCommand`.
 
-The `TransferCommand` requires *4* inputs:
+The `FindBankOrCardCommand` requires *2* inputs:
 
-* Sender Bank Account's name
-* Receiver Bank Account's name
-* Date of transfer
-* Amount to transfer
+* The name of the savings account that acts as a keyword for the search.
+* Type of item to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `TransferCommand`, the following steps are taken by the application:
+When the user executes the `FindBankOrCardCommand`, the following steps are taken by the application:
 
-. When the `TransferCommand` is executed, it will invoke `transferFund`.
-. Once invoked, `transferFund` will perform the following checks:
+. When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
+. Once invoked, `findBankOrCard` will perform the following checks:
 
-* Check the transferring account exists in the Arraylist of banks through the method `bankListIsAccountExistToReceive`.
-* Check the transferring account has sufficient money for the transfer through the method
-`bankListIsSufficientForTransfer`.
-* Check the receiving account exists in the arraylist of bank through the method `bankListIsAccountExistToReceive`.
-
-[NOTE]
-`transferFund` will throw an error if any of the above checks fail.
+* Check the type of items to be searched is either card, savings or investment account.
 
 [start=3]
-. After passing the above checks, `transferFund` will add an expenditure to the transferring account.
-. After adding an *expenditure* to the transferring account, a *deposit* will be added to the receiving account for the
-fund transfer.
-. Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
-*successful* fund transfer.
+. After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
+. Within the invocation of `findBankAccount`, it will perform the following checks:
+
+* Check for matching account name with the keyword among all accounts stored in the ArrayList.
+* Check whether the account that matches the keyword is indeed a savings account.
+
+[NOTE]
+`findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
+
+[start=5]
+. Once the search has been completed, the details of the all matching savings account will be displayed to inform the
+user of the *successful* matches.
+
+==== Design Considerations
+
+This section describes the various design considerations taken when implementing the `/find` feature.
+
+*Aspect: Choice of whether the keyword (E.g. `ACCOUNT_NAME`, `DESCRIPTION` or `CATEGORY`) to be searched should be
+case-sensitive or case-insensitive*
+
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Searching of items based on the keyword is case-sensitive.
+
+a| * By restricting the search to be case-sensitive, it provides the user with a more accurate searched result.
+
+a| * By having a case-sensitive search, it will cause the `/find` command to be inflexible. As the user will need to
+provide the exact capitalisation within the keyword to be able to find the item he/she is searching for.
+
+* For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
+will not be able to find the expenditure if he/she provides the keyword as "lunch". This is because of the
+capitalisation of the first letter within the keyword is "l" and it is different from the expenditure description.
+
+
+| *2.* Searching of items based on the keyword is case-insensitive.
+
+a| * By allowing the search to be case-insensitive, it provides the user with greater flexibility when searching for
+matching items.
+
+
+a| * For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
+ will be able to find the transaction record if he/she provides the keyword as "lunch". This is because the
+ capitalisation of the keyword does not matter.
+|======
+
+After weighing the pros and cons, *approach 2* was taken.
+
+The reason for choosing *approach 2* over approach 1 is mainly due to the flexibility that it can provide to a user.
+Although, searching for the item with case insensitivity might cause more unwanted results being displayed. We felt that
+ the ability to easily match keyword with the item that the user would like to find is more important, as it enhanced
+ the user-friendliness of OwlMoney.
+
+
+
 
 // tag::goals_sequence[]
 
