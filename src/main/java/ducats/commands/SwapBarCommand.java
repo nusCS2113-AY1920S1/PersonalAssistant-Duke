@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to swap two bars of notes in the current song.
  */
-public class SwapBarCommand extends Command<SongList> {
+public class SwapBarCommand extends Command {
 
     private int songIndex;
 

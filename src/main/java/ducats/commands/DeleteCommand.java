@@ -1,5 +1,6 @@
 package ducats.commands;
 
+import ducats.Ducats;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
@@ -10,7 +11,7 @@ import ducats.components.SongList;
 /**
  * A class that represents the command to delete a song from the song list.
  */
-public class DeleteCommand extends Command<SongList> {
+public class DeleteCommand extends Command {
 
     /**
      * Constructor for the ducats.Commands.Command created to delete a song from the ducats.SongList
@@ -33,32 +34,37 @@ public class DeleteCommand extends Command<SongList> {
      * @throws DucatsException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
-        if (songList.getSize() == 0) {
-            throw new DucatsException("", "empty");
-        }
-        if (message.length() < 8 || !message.substring(0, 7).equals("delete ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
-        int songIndex = 0;
+        int songIndex = -1;
         try {
-            songIndex = Integer.parseInt(message.substring(7));
-        } catch (NumberFormatException e) {
-            songIndex = songList.findSongIndex(message.substring(7)) + 1;
-        } catch (Exception e) {
-            throw new DucatsException("","other");
-        }
+            if (songList.getSize() == 0) {
+                throw new DucatsException("", "empty");
+            }
+            if (message.substring(7).isBlank()) {
+                throw new DucatsException(message, "delete");
+            }
+            try {
+                songIndex = Integer.parseInt(message.substring(7));
+            } catch (NumberFormatException e) {
+                songIndex = songList.findSongIndex(message.substring(7)) + 1;
+            } catch (Exception e) {
+                throw new DucatsException(message, "delete");
+            }
 
-        if (songIndex > songList.getSize() || songIndex < 1) {
-            throw new DucatsException("", "index");
-        } else {
             Song deletedSong = songList.getSongIndex(songIndex - 1);
             songList.remove(songIndex - 1);
-            try {
-                storage.updateFile(songList);
-            } catch (Exception e) {
-                throw new DucatsException("","io");
-            }
+            storage.updateFile(songList);
             return ui.formatDelete(songList, deletedSong);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new DucatsException("", "index");
+        } catch (NumberFormatException e) {
+            throw new DucatsException("", "number_index");
+        } catch (Exception e) {
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            } else {
+                throw new DucatsException(message, "delete");
+            }
         }
     }
 

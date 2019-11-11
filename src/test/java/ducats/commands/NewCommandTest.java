@@ -38,7 +38,7 @@ public class NewCommandTest {
 
     @Test
     public void execute_normalInput_success() throws DucatsException {
-        NewCommand newTest1 = new NewCommand("new test aminor 4/4 120");
+        NewCommand newTest1 = new NewCommand("new test c 4/4 120");
         String testOutput1 = newTest1.execute(dummySongList, dummyUi, dummyStorage);
         String expectedOutput1 = "\n" + "_____________________________________________\n"
                 + "Got it. I've added this song:\n"
@@ -46,9 +46,6 @@ public class NewCommandTest {
                 + "Now you have 1 song in the list.\n"
                 + "_____________________________________________"
                 + "\n";
-
-        //Song dummySong = new Song("test", "aminor", 120);
-        //String expectedOutput1 = dummyUi.formatNewSong(dummySongList.getSongList(), dummySong);
         assertEquals(expectedOutput1, testOutput1);
     }
 
@@ -64,24 +61,58 @@ public class NewCommandTest {
 
     @Test
     public void execute_repeatedSongName_exceptionThrown() throws DucatsException {
-        NewCommand newTest3 = new NewCommand("new test aminor 4/4 120");
+        NewCommand newTest3 = new NewCommand("new test c 4/4 120");
         newTest3.execute(dummySongList, dummyUi, dummyStorage);
-        NewCommand newTest4 = new NewCommand("new test cmajor 3/4 60");
+        NewCommand newTest4 = new NewCommand("new test c 3/4 60");
         DucatsException testDucatsException4 = assertThrows(DucatsException.class, () -> {
             newTest4.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException4 = new DucatsException("new test cmajor 3/4 60", "song name");
+        DucatsException expectedDucatsException4 = new DucatsException("new test c 3/4 60", "repeat_song_name");
         assertEquals(expectedDucatsException4.getMessage(), testDucatsException4.getMessage());
     }
 
     @Test
     public void execute_invalidKey_exceptionThrown() throws DucatsException {
-        //to be completed
+        NewCommand newTest5 = new NewCommand("new test a 4/4 60");
+        DucatsException testDucatsException5 = assertThrows(DucatsException.class, () -> {
+            newTest5.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException5 = new DucatsException("new test a 4/4 60", "key");
+        assertEquals(expectedDucatsException5.getMessage(), testDucatsException5.getMessage());
     }
 
     @Test
     public void execute_invalidTime_exceptionThrown() throws DucatsException {
-        //to be completed
+        NewCommand newTest6 = new NewCommand("new test c 3/4 60");
+        DucatsException testDucatsException6 = assertThrows(DucatsException.class, () -> {
+            newTest6.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException6 = new DucatsException("new test c 3/4 60", "time_sig");
+        assertEquals(expectedDucatsException6.getMessage(), testDucatsException6.getMessage());
+    }
+
+    @Test
+    public void execute_invalidBpm_exceptionThrown() throws DucatsException {
+        NewCommand newTest7 = new NewCommand("new test c 4/4 random");
+        DucatsException testDucatsException7 = assertThrows(DucatsException.class, () -> {
+            newTest7.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException7 = new DucatsException("new test c 4/4 random", "number_index");
+        assertEquals(expectedDucatsException7.getMessage(), testDucatsException7.getMessage());
+
+        NewCommand newTest8 = new NewCommand("new test c 4/4 0");
+        DucatsException testDucatsException8 = assertThrows(DucatsException.class, () -> {
+            newTest8.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException8 = new DucatsException("new test c 4/4 0", "tempo");
+        assertEquals(expectedDucatsException8.getMessage(), testDucatsException8.getMessage());
+
+        NewCommand newTest9 = new NewCommand("new test c 4/4 -1");
+        DucatsException testDucatsException9 = assertThrows(DucatsException.class, () -> {
+            newTest9.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException9 = new DucatsException("new test c 4/4 -1", "tempo");
+        assertEquals(expectedDucatsException9.getMessage(), testDucatsException9.getMessage());
     }
 
     @Test

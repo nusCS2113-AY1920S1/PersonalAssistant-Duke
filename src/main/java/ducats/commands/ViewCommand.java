@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to view a song from the song list.
+ * A class representing the command to view the last bar of a song from the song list.
  */
-public class ViewCommand extends Command<SongList> {
+public class ViewCommand extends Command {
 
     /**
      * Constructor for the command to view a song from the song list.
@@ -34,16 +34,21 @@ public class ViewCommand extends Command<SongList> {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         String songName;
-        if (message.length() < 5 || !message.substring(0, 5).equals("view ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         songName = message.substring(5).trim();
         ArrayList<Song> findList = songList.findSong(songName);
 
         if (findList.size() != 1) {
             throw new DucatsException(message, "view");
         } else {
-            return ui.formatView(findList.get(0));
+            Song selectedSong = findList.get(0);
+            int barSize = selectedSong.getBars().size();
+
+            OpenCommand openCommand = new OpenCommand("open " + selectedSong.getName());
+            openCommand.execute(songList, ui, storage);
+
+            AsciiCommand asciiCommand = new AsciiCommand("ascii bar " + Integer.toString(barSize));
+            String result = asciiCommand.execute(songList, ui, storage);
+            return ui.formatView(result);
         }
     }
 
