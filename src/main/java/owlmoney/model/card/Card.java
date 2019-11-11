@@ -4,10 +4,13 @@ import static owlmoney.commons.log.LogsCenter.getLogger;
 
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -242,8 +245,15 @@ public class Card {
             int expYear = unpaid.getTransactionYearByIndex(expNum);
             remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
         } else {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate expDate = LocalDate.parse(date, dateFormat);
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date simpleDate = null;
+            try {
+                simpleDate = dateFormat.parse(date);
+            } catch (ParseException e) {
+                logger.warning("Date parsing failed.");
+                return;
+            }
+            LocalDate expDate = simpleDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             int expMonth = expDate.getMonthValue();
             int expYear = expDate.getYear();
             remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
