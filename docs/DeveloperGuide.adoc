@@ -15,7 +15,10 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-3/main/blob/master
 
 By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
-
+Team members: http://github.com/leowyh[Leow Yong Heng] |
+http://github.com/lijiayu980606[Li Jiayu] |
+http://github.com/E0373902[Shriya Saxena]
+| http://github.com/karansarat[Karan Sarat]
 
 == Introduction
 
@@ -105,8 +108,13 @@ image::ModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+[[fig-StorageClassDiagram]]
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
 
-{To be added}
+.  `Storage` is used by the `Command` component to read and write data from local storage.
+.  The data that is stored is saved as json files and serialized using Gson.
+
 
 // end::Design[]
 // tag::Project[]
@@ -115,15 +123,39 @@ This section describes some noteworthy details on how certain features are imple
 
 
 === Project Feature
+==== Project Class
+The `Project` Class object stores the project's budget details along with a HashMap of `Payee` objects consisting of payees have made payments for a project. A `Project` object can be constructed with or without a budget assigned to it depending on user input.
+The following are the class members storing the project's details.
+
+** Total budget for the Project : `budget`
+** Spending made by Payees : `spending`
+** Remaining budget : `remaining`
+** Name of the project : `projectname`
+
+==== Project Feature Commands
 The `project` feature is managed by the `ProjectManager` class, which is called by the
 `Process` class in the `Command` component.
 
 This feature supports the following commands:
 
-* `add project pr/PROJECT_NAME` -- Adds a new project to the record.
+* `add project pr/PROJECT_NAME am/AMOUNT` -- Adds a new project to the record.
 * `delete project pr/PROJECT_NAME` -- Deletes a project from the record.
-* `goto project pr/PROJECT_NAME` -- Go to a project in the record.
-* `list project` -- Lists all projects in the record.
+* `goto project PROJECT_INDEX_IN_LIST` -- Go to a project in the record.
+* `list projects` -- Lists all projects in the record.
+
+
+==== ProjectManager
+The `ProjectManager` class is subclassed in the project package, which contains the `Project` and `Fund` classes. It serves to process the input from the `Command` package and implement the project feature commands (Section 4.1.2) along with fund feature commands(Section TBC). The `ProjectManager` class implements the following methods:
+
+* ProjectManager#addProject
+* ProjectManager#deleteProject
+* ProjectManager#gotoProject
+* ProjectManager#assignBudget
+* ProjectManager#getCurrentProjectManagerMap
+* ProjectManager#loadBackup
+* ProjectManager#updateDict
+* ProjectManager#findPayee
+* ProjectManager#findPayee
 
 A detailed explanation of the use case for the `add project` command is given below to demonstrate how each component interacts with each other.
 
@@ -142,6 +174,10 @@ image::AddProjectSeqDiagram.png[]
 The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
 
 // end::Project[]
+
+=== Fund Feature
+==== Fund Class
+==== Fund Feature Commands
 
 //tag::payee
 === Payee Feature
@@ -203,7 +239,7 @@ The payee feature supports the following commands:
 * `list payments p/name` -- Lists all payments for specified payee in the record.
 
 ==== PaymentManager
-The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the payee feature commands (Section 4.2.4). The `PaymentManager` class implements the following methods:
+The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the payee feature commands (Section 4.3.4). The `PaymentManager` class implements the following methods:
 
 * PaymentManager#addPayee
 * PaymentManager#addPayments
@@ -251,31 +287,35 @@ image::sequenceDiagramforHistory.PNG[]
 
 == Documentation
 
-{To be added}
+=== Introduction
 
-== Testing
+We use asciidoc for writing documentation.
 
-{To be added}
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-== Dev Ops
+=== Editing Documentation
 
-=== Build Automation
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+=== Publishing Documentation
 
-=== Continuous Integration
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
+=== Converting Documentation to PDF format
 
-=== Making a Release
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
-Here are the steps to create a new release.
+Here are the steps to convert the project documentation files to PDF format.
 
-.  Update the version number in link:{repoURL}/build.gradle[`build.gradle`].
-.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number. e.g. `v0.1`
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
 
 [appendix]
 == Product Scope
@@ -814,33 +854,66 @@ Expected: The payee is added to the record.
 +
 Expected: Payee is not added to the project. Error message stating that a payee with the same name is printed.
 
-
 ==== Delete Payee
 
 . Deletes a payee from a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payees exists.
+.. Test case: `delete payee p/John`
 
-
-
++
+Expected: Payee is deleted from project.
 
 ==== Add Payment
 
+. Adds a payment made by an existing payee to a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `add payment p/John i/food c/10 v/a01222
+
++
+Expected: Payment is added and payment details is printed.
+
+. Adds a payment made by a non-existing payee to a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee does not exist.
+.. Test case: `add payment p/Karan i/food c/10 v/a01222
+
++
+Expected: Payment is not added and error message is printed requesting payee to be added.
 
 ==== Delete Payment
 
+. Deletes a payment made by an existing payee to a project.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `add payment p/John i/food c/10 v/a01222
 
-==== Get Payee
-
++
+Expected: Payment is deleted and payment details is printed.
 
 ==== Find Payee
 
+. Finds a payee in current project being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `find payee p/John`
+
++
+Expected: Payee details are printed.
 
 ==== Edit Payment/Payee
 
+. Edits payee details in the project currently being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee exists.
+.. Test case: `edit p/John v/a01222 f/STATUS r/APPROVED
 
++
+Expected: Payee details are updated.
+
+. Edits payment details of a payee in the project currently being managed.
+.. Prerequisites: Project exists and is gone to using the `goto` command. Payee and payment exist.
+.. Test case: `edit p/John v/ f/PHONE r/99192232`
+
++
+Expected: Payment details are updated.
 
 === Task Tracking
-
-==== Reminder
 
 ==== Deadline
 
@@ -859,26 +932,3 @@ Expected: Payee is not added to the project. Error message stating that a payee 
 ==== Reschedule Deadline
 
 ==== View Schedule
-
-
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
