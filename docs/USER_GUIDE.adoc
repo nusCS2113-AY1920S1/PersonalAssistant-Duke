@@ -102,11 +102,37 @@ All the data is automatically saved as a JSON file. Please note that although yo
 * Locker subscriptions that have a rental ending period before the current date will be automatically deleted i.e the usage of the locker and its status will be changed to not-in-use.
 ****
 
+=== Display Stats
+It displays the various logisitics associated with lockers (like number of lockers that are unavailable, available etc.) +
+Format : `stats`
 
 === Export as CSV file
-Exports a list of lockers as CSV file. +
+
+- This feature Exports a list of lockers as CSV file.
+- User can choose to export all details automatically, or selected details to be exported.
+- The output csv file is  `export.csv`
+
+==== Export all details into a CSV file
 Format: `export`
 
+==== Export selected details into a CSV file
+Format: `exports` + detail name. (separated by whitespaces). Commas and other separation symbols will not be accepted.
+
+[NOTE]
+only the valid tokens will be considered, if the user enters `exports Locker 'some_gibberish'`, it will export only locker details.
+
+[NOTE]
+It is mandatory to input `locker` as it shows locker serial number. +
+- Locker info: `locker` `zone` `address` `status`
+
+[NOTE]
+It is mandatory to input `status` if user want to input any student info or date info. +
+- Student info: `student` `studentid` `course` `id` +
+- Date info: `startdate` `enddate`
+
+example: `exports locker status name` +
+
+example: `exports locker name zone status` +
 
 //tag::addLocker[]
 === Adding Lockers
