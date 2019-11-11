@@ -635,17 +635,17 @@ image::ListTracker.png[ListTracker]
 Provided below is an example scenario of use and how `TrackerCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
-The user enters `tracker`.
-The `execute` method of `TrackerCommand` class will read and save all `Tracker` objects stored in persistent storage, `tracker.csv` through the `readTrackerList` method in the `StorageManager` class.
+The user enters `tracker` command.
+The `execute` method of `TrackerCommand` class reads and saves all `Tracker` objects stored in persistent storage, `tracker.csv` through the `readTrackerList` method in the `StorageManager` class.
 
 * *Step 1a:* +
-The `readTrackerList` method in `StorageManager` class will retrieve and read `tracker.csv` from persistent storage through the `loadFile` method in `Storage` class.
+The `readTrackerList` method in `StorageManager` class retrieves and processes `tracker.csv` from persistent storage through the `loadFile` method in `Storage` class.
 
 * *Step 1b:* +
 The `loadFile` method calls the `dataToTrackerList` method in `StorageParser` class, which in turns calls the `processLine` method.
 
 * *Step 1c:* +
-The `processLine` method of `StorageParser` class will split each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
+The `processLine` method of `StorageParser` class splits each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
 A new `Tracker` object will be created with the processed data and returned to the `dataToTrackerList` method.
 
 * *Step 1d:* +
