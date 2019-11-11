@@ -40,8 +40,6 @@ public class FoodTest extends Food {
         final String food2Name = "Food2 Name With Spaces";
         final Food food1 = new Food(food1Name);
         final Food food2 = new Food(food2Name);
-        final int food1Revenue = 0;
-        final int food2Revenue = 0;
         final String food1Type = "";
         final String food2Type = "";
         final double food1Price = 0.0;
@@ -52,14 +50,12 @@ public class FoodTest extends Food {
         final int food2Stock = 0;
 
         assertEquals(food1Name, food1.getName(), "Food 1 name is wrong.");
-        assertEquals(food1Revenue, food1.getFoodRevenue(), "Food1 revenue is not initialized properly.");
         assertEquals(food1Type, food1.getType(), "Food1 Type is not initialized properly.");
         assertEquals(food1Price, food1.getPrice(), "Food1 Price is not initialized properly.");
         assertEquals(food1Cost, food1.getCost(), "Food1 Cost is not initialized properly.");
         assertEquals(food1Stock, food1.getStock(), "Food1 Stock is not initialized properly.");
 
         assertEquals(food2Name, food2.getName(), "Food 2 name is wrong.");
-        assertEquals(food2Revenue, food2.getFoodRevenue(), "Food2 revenue is not initialized properly.");
         assertEquals(food2Type, food2.getType(), "Food2 Type is not initialized properly.");
         assertEquals(food2Price, food2.getPrice(), "Food2 Price is not initialized properly.");
         assertEquals(food2Cost, food2.getCost(), "Food2 Cost is not initialized properly.");
@@ -160,32 +156,6 @@ public class FoodTest extends Food {
         Date illegalExpiryDate = ParserUtil.parseStringToDate("23/03/1998"); //in the past
         food1.setExpiryDate(illegalExpiryDate);
         fail("Setters for Expiry Date allows Date in the past.");
-
-
-        //testing setters and getters for Revenue of the Food.
-        double food12Revenue = 100.00;
-        double food34Revenue = 200.00;
-        food1.setFoodRevenue(food12Revenue);
-        food2.setFoodRevenue(food12Revenue);
-        food3.setFoodRevenue(food34Revenue);
-        food4.setFoodRevenue(food34Revenue);
-        assertEquals(food12Revenue, food1.getFoodRevenue(), "Fail to set Food Revenue for food1.");
-        assertEquals(food12Revenue, food2.getFoodRevenue(), "Fail to set Food Revenue for food2.");
-        assertEquals(food34Revenue, food3.getFoodRevenue(), "Fail to set Food Revenue for food3.");
-        assertEquals(food34Revenue, food4.getFoodRevenue(), "Fail to set Food Revenue for food4.");
-        final double food1Revenue = food1.getFoodRevenue();
-        final double food2Revenue = food2.getFoodRevenue();
-        final double food3Revenue = food3.getFoodRevenue();
-        final double food4Revenue = food4.getFoodRevenue();
-        assertEquals(food12Revenue, food1Revenue, "Fail to get Food Revenue for food1.");
-        assertEquals(food12Revenue, food2Revenue, "Fail to get Food Revenue for food2.");
-        assertEquals(food34Revenue, food3Revenue, "Fail to get Food Revenue for food3.");
-        assertEquals(food34Revenue, food4Revenue, "Fail to get Food Revenue for food4.");
-
-        //try some illegal inputs
-        double illegalRevenue = -1.00;
-        food1.setFoodRevenue(illegalRevenue);
-        fail("Setters for Food Revenue allows negative revenue.");
 
 
         //testing setters and getters for Stock of the Food.

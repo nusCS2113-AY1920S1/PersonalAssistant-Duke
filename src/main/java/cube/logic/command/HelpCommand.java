@@ -37,7 +37,7 @@ public class HelpCommand extends Command {
 			+ "Show inventory:\n"
 			+ String.format("%1$-50s", "  'list -sort <sort type>'")
 					+ "shows the list of food products, "
-					+ "sort type can be expiry/name/stock\n"
+					+ "sort type can be expiry/name/stock/price\n"
 			+ String.format("%1$-50s", "  'find -i <number> "
 					+ "OR -n <food name> OR -t <food type> -sort <sort type>'")
 					+ "find specific food using index/name/type, "
