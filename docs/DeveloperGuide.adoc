@@ -330,7 +330,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
-===3.2 CRUD functionality for Members
+=== 3.2 CRUD functionality for Members
 ==== Implementation
 
 CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
