@@ -1,0 +1,3 @@
+Formulate exercise plan
+
+    suggestexercise [/date] <DATE> [/find] <KEYWORD>

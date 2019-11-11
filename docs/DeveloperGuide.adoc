@@ -1,4 +1,4 @@
-= DIYeats - Developer Guide
+﻿= DIYeats - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -503,7 +503,35 @@ Problem 1: *How should meals be updated?*
 ** Cons: Requires user to type `list` before editing the meal as they need to know the index at which the meal must be updated.
 
 
+=== Undo Command
 
+The `undo` command provides the user the ability to remove their erroneous caommdn input
+
+The following section describes the implementation and design considerations involved in the undo feature.
+
+==== Current implementation
+The `undo` is an object created at start up.
+. When a command that changes data is issued, `undo` is passed into it
+. `undo` will convert the inverse of the command into a `String`
+. This `String` is then pushed into a stack of history.
+. When `UndoCommand` is called, `undo` will pop the stack and get the most recent command the user has input
+. Through this `String`, the `undo` will execute functions that will revert the data to the previous state
+
+==== Design considerations
+
+Problem 1: How should Undo be implemented
+
+* Solution 1: Whenever a command is called, the entire program information is stored on a stack
+
+** Pros: Easy to code
+
+** Cons: Because we are storing everything, it is easier to run out of memory.
+
+* Solution 2 (Current Implementation): Record the changes as a string, similar to revision control
+
+** Pros: Takes less memory
+
+** Cons: Harder to code as each command needs its own individual inverse converter
 
 
 == Documentation

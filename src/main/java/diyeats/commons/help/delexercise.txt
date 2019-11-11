@@ -1,0 +1,3 @@
+Deleting a suggestable exercise
+
+    delexercise DESCRIPTION

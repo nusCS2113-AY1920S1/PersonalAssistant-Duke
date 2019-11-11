@@ -1,0 +1,3 @@
+Pay money from your account
+
+    pay AMOUNT [/date]<DATE>

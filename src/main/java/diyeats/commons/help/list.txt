@@ -1,6 +1,6 @@
 show the current recorded nutritional intake for a particular date.
 
-    list [/date] <DATE>
+    list [/date] <DATE> [/sort] <SORTING_CRITERION>
 
 For example:
 

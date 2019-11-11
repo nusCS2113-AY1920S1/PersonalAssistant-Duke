@@ -10,9 +10,9 @@ For example:
 
     dinner hamburger
 
-2. You ate a hamburger that had 1000 calories and 10 grams of sodium
+2. You ate a hamburger that had 1000 calories and 10 grams of sodium and has a cost of 1.50 SGD.
 
-    dinner hamburger /calories 1000 /sodium 10
+    dinner hamburger /calories 1000 /sodium 10 /cost 1.50
 
 3. You ate a hamburger that had 1000 calories and 10 grams of sodium on 1st of January, 2019,
    but you are only adding the item today

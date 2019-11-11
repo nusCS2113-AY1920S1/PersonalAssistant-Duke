@@ -1,0 +1,3 @@
+Setting a nutritional goal to be met
+
+    setgoal /start START_DATE /end END_DATE /activity ACTIVITY /weight WEIGHT

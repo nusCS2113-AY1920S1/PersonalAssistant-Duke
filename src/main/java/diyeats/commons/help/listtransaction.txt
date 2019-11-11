@@ -1,0 +1,3 @@
+Listing the transactions at a certain date
+
+    listtransaction [/date]<DATE>
