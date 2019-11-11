@@ -19,11 +19,11 @@ By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-*OwlMoney* is a command line based desktop application written in *Java 11*. It is written in an *Object Oriented
+*OwlMoney* is a command-line based desktop application written in *Java 11*. It is written in an *Object-Oriented
 Programming* (OOP) fashion which provides multiple layers of abstraction for ease of customisability and modularity
 for future improvements and revisions.
 Interested in contributing to the *OwlMoney* project? This guide provides information that will not only help you
-get started as a *OwlMoney* contributor, but you'll find useful to refer to even if you are already an experienced
+get started as an *OwlMoney* contributor, but you'll find useful to refer to even if you are already an experienced
 contributor.
 
 == Setting up
@@ -42,7 +42,7 @@ Only JDK 11 is officially supported
 IntelliJ by default has Gradle plugins installed. +
 Do not disable it. If you have disabled Gradle, go to `File` > `Settings` > `Plugins` to re-enable it.
 
-=== Setting up the project in your computer
+=== Setting up the project on your computer
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen,
 click `File` > `Close Project` to close the existing project dialog first)
@@ -55,7 +55,7 @@ click `File` > `Close Project` to close the existing project dialog first)
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
 It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 
 === Verifying the setup
 
@@ -76,7 +76,8 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 . Click on the `Imports` tab to set the order
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javafx.*`, `import
+org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
@@ -134,8 +135,8 @@ picture`.
 `Main` has only one class called link:{repoURL}/src/main/java/owlmoney/Main.java[`Main`]. It is
 responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
+* At shut down: Shuts down the components and invokes the cleanup methods where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
@@ -157,7 +158,7 @@ The `Ui` is responsible for printing output in a *user-friendly* manner and prin
 `Logic`.
 
 === Logic Component
-.High Level Logic Diagram
+.High-Level Logic Diagram
 image::HighLevelLogic.png[width="800"]
 
 * The `logic` package consists of the `parser`, `command` and `regex` packages.
@@ -191,7 +192,7 @@ will proceed to create an instance of the appropriate command class and return i
 .Bank Command Class Diagram
 image::LogicCommandBankPackage.png[width="800"]
 
-The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
+The `logic.command.bank` package consists of `Savings` and `Investment` classes which inherits from the `Command` class.
 
 Both the `Savings` and `Investments` classes have the following common features:
 
@@ -210,7 +211,7 @@ parameters* before calling the `Profile` class in `Model` to *execute*.
 .Bond Command Class Diagram
 image::LogicCommandBondPackage.png[width="800"]
 
-The `logic.command.bond` package consist of `Bond` classes with the following features:
+The `logic.command.bond` package consists of `Bond` classes with the following features:
 
 * Add
 * Edit
@@ -225,7 +226,7 @@ The `logic.command.bond` package consist of `Bond` classes with the following fe
 .Card Command Class Diagram
 image::LogicCommandCardPackage.png[width="800"]
 
-The `logic.command.card` package consist of `Card` classes with the following features:
+The `logic.command.card` package consists of `Card` classes with the following features:
 
 * Add
 * Edit
@@ -269,7 +270,8 @@ The `logic.command.find` package consist of `Find` classes with the ability to f
 .Transfer Command Class Diagram
 image::LogicCommandTransferPackage.png[width="800"]
 
-The Transfer Package under `logic.command.transfer` consist of the `TransferCommand` class which inherits from `Command`.
+The Transfer Package under `logic.command.transfer` consists of the `TransferCommand` class which inherits from
+`Command`.
 
 `Main` will call the `TransferCommand` class that will construct the *required parameters* before calling the `Profile`
 class in `Model` to *execute*.
@@ -279,7 +281,7 @@ class in `Model` to *execute*.
 .Model Component Diagram
 image::ModelComponent.png[width="800"]
 
-The `Model` contains multiple packages that is responsible for specifying the structures and constraints of the *core
+The `Model` contains multiple packages that are responsible for specifying the structures and constraints of the *core
 functionalities* of *OwlMoney* as well as the storing of data of the application in memory.
 
 In general, the `Model` contains the following packages:
@@ -293,14 +295,14 @@ In general, the `Model` contains the following packages:
 
 To execute any command, `Main` will invoke `profile.Profile` to execute commands.
 `Profile` has access to each individual ArrayList such as `CardList`, `BankList`, `GoalList` that stores objects of
-cards, bank accounts and financial goals respectively. Both `Card` and `Bank` objects each contains a `TransactionList`
+cards, bank accounts and financial goals respectively. Both `Card` and `Bank` objects each contain a `TransactionList`
 which holds records of transactions.
 If the `Card` or the `Bank` objects are *deleted*, its corresponding `TransactionList` that contains the records of
 transactions *will be deleted* along with it given that it has a *composite relationship* with `TransactionList`.
 
-Notice a layer of abstraction on the individual `arrayList` that stores objects such as `bank`, `bond`, `card` etc.
-The purpose of this extra layer of abstraction is to hide unwanted default `arrayList` methods from developers and to
-provide more extensive checks such as wrapping around when the `arrayList` is full which the default
+Notice a layer of abstraction on the individual `ArrayList` that stores objects such as `bank`, `bond`, `card`, etc.
+The purpose of this extra layer of abstraction is to hide unwanted default `ArrayList` methods from developers and to
+provide more extensive checks such as wrapping around when the `ArrayList` is full which the default
 methods are unable to do.
 
 === Storage Component
@@ -312,11 +314,11 @@ The `Storage` component:
 *OwlMoney* uses http://opencsv.sourceforge.net/[OpenCSV] during both importing and exporting data when acting on
 `.csv` files.
 
-This allows user to see and modify saved data easily, with the use of clearly defined columns.
+This allows users to see and modify saved data easily, with the use of clearly defined columns.
 
 === Common Classes
 
-Classes used by multiple components are in stored in the `commons` package. For example, the `logging` feature of
+Classes used by multiple components are stored in the `commons` package. For example, the `logging` feature of
 *OwlMoney* has its logging features centralised in `owlmoney.commons`.
 
 == Implementation
@@ -332,7 +334,7 @@ image::GeneralParsingSequenceDiagram.png[width="970]
 The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
 
 The above sequence diagram depicts the general sequence of parsing user input for all commands in general, before going
-into the the specific Parser classes in `ParseTypeMenu`.
+into the specific Parser classes in `ParseTypeMenu`.
 
 Depending on the `type` of command the user enters, the specific parser class invoked will be different (e.g.
 `ParseAddBond`, `ParseDeleteInvestment`) which will return a `Command` object back to main to prepare for execution.
@@ -515,8 +517,8 @@ transaction records not appearing in order.
 
 a| * Allows the user to change the name of the bond if the user entered it wrongly the first time.
 
-a| * If interest has already been credited, it is not feasible to change the names of past records as it might cause
-confusion to the end user. This becomes more apparent when the names clash with the name of another investment bond
+a| * If interest has already been credited, it is not feasible to change the names of past records as it might
+confuse the end-user. This becomes more apparent when the names clash with the name of another investment bond
 which had expired prior to making this edit. This might confuse users as they might think that they earned much more
 interest from the same bond.
 a|
@@ -532,12 +534,12 @@ a|
 
 |======
 
-After weighting the pros and cons, *approach 3* was taken.
+After weighing the pros and cons, *approach 3* was taken.
 
 Firstly, doing so would reduce the coupling and dependencies between transactions and investment banks. Although it may
 seem restrictive to limit the type and number of parameters that can be changed, it is beneficial both to you, the
-developer and the user, when developing and using the program. Developing the alternative ideas would result in a
-high risk of logic and coding errors, leaving room for bugs to be exploited.
+developer and the user, when developing and using the program. Developing the alternative ideas mentioned would result
+in a high risk of logic and coding errors, leaving room for bugs to be exploited.
 
 // end::editing_bonds[]
 
@@ -591,10 +593,10 @@ When the user executes the `ListCardCommand`, the following steps are taken by t
 . Within the invocation of `profileListCard`, a method name `cardListListCard` will be invoked.
 . Once invoked, `cardListListCard` will perform the following checks:
 
-* Check the arraylist containing the card objects is not empty through the method cardListCheckListEmpty.
+* Check the `ArrayList` containing the card objects is not empty through the method cardListCheckListEmpty.
 
 [NOTE]
-`cardListListCard` will throw an error if the above check fail.
+`cardListListCard` will throw an error if the above check fails.
 
 [start=4]
 . After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
@@ -697,14 +699,15 @@ that
 
 === Adding Goals
 
-The `/add /goals` feature allows user to add in any financial goals they have in mind to achieve for their future plans.
-This also aims to encourage users whom have yet to have savings to start saving  and track their goals.
+The `/add /goals` feature allows users to add in any financial goals they have in mind to achieve for their future
+plans.
+This also aims to encourage users who have yet to have savings to start saving and track their goals.
 
 ==== Current Implementation
 
-The current implementation of adding goals allow users to either manually track their goals or track via an existing
-saving account. Also, the `/amount` parameter that user specify should be the total amount they wish to
-have in their saving account.
+The current implementation of adding goals allows users to either manually track their goals or track via an existing
+saving account. Also, the `/amount` parameter that users specify should be the total amount they wish to
+have in their savings account.
 The reason for providing these two options to users is that we consider that some users may prefer to do manual tracking
 while others would prefer tracking them using an existing savings account.
 
@@ -730,11 +733,11 @@ When the user executes the `AddGoalsCommand`, the following steps are taken by t
 . When `AddGoalsCommand` is executed, a new goal object is created  with the provided inputs.
 . After creation of the goal object is created, the `AddGoalsCommand` will invoke the method `profileAddGoals`.
 . Within the invocation of `profileAddGoals`, a method named `addToGoals` will be invoked to add the new goal object
-to an ArrayList containing all goals objects. .
+to an ArrayList containing all goals objects.
 . Once invoked, `addToGoals` will perform the following checks:
 
 * Checks if goal name specified is unique among all goals in the existing list through the method of `goalsExist`
-* If a saving accounts was specified, it will check for if the amount of money in the account is lesser than the
+* If a savings account was specified, it will check for if the amount of money in the account is lesser than the
 goals amount specified
 * Checks for the size of goals list through the method of `CheckNumGoals`
 
@@ -744,7 +747,7 @@ goals amount specified
 [start=4]
 . After passing the above checks,`addToGoals` will add the new goals object into the existing list containing all goals
 objects.
-. Once the goal object have been added, the details of the new goal object will be displayed to inform the user
+. Once the goal object has been added, the details of the new goal object will be displayed to inform the user
 of the *successful* addition of the goal object.
 
 ==== Design Considerations
@@ -761,8 +764,8 @@ This section describes the various design considerations taken when implementing
 a| * Provides flexibility to users
 * Able to track goals status and progress, know how much more to save
 a| * Difficult to implement, have to consider several possibilities: what happens to the goals when
-e.g. if savings account was deleted, if user are allowed to tie and untie savings account, un-tracked goals status would
-be always false
+e.g. if savings account was deleted, if users are allowed to tie and untie savings account, un-tracked goals status
+would be always false
 * Increases coupling and dependency of savings account
 
 | *2.* Disallow tying of savings account
@@ -779,7 +782,7 @@ a| * Less flexibility for the users
 Firstly, the original intention of `goals` feature is to model real-life implementation of having goals,
 encourages users to save and enable an easy yet convenient way of tracking on status of goals.
 Although it may increase coupling and dependencies, the implementation of `goals` evidently shows that the pros
-outweighs the cons despite these trade-offs.
+outweigh the cons despite these trade-offs.
 
 // end::goals_sequence[]
 
@@ -788,7 +791,7 @@ outweighs the cons despite these trade-offs.
 We use asciidoc for writing documentation. We recommend you to document features that you have done to keep other
 developers aware of your implementation.
 
-Feel free to modify documentations of our original features as well!
+Feel free to modify the documentation of our original features as well!
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc,
@@ -805,12 +808,14 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the documentation to PDF format, as
+Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Go to your generated HTML files in the `build/docs` folder, right-click on them and select `Open with` -> `Google
+Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
