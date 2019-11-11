@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SortTaskTest {
 
     private static TaskList sampleTaskList;
-    private static Task task1; // [D][-][H][#chem] lab report (by: 23rd of December 2019, 11:59PM)
-    private static Task task2; // [E][-][L][#food] family dinner (by: 21rd of December 2019, 11:59PM)
-    private static Task task3; // [D][-][M][#geog] homework (by: 22rd of December 2019, 11:59PM)
+    private static Task task1; // [D][-][HIGH][#chem] lab report (by: 23rd of December 2019, 11:59PM)
+    private static Task task2; // [E][-][LOW][#food] family dinner (by: 21rd of December 2019, 11:59PM)
+    private static Task task3; // [D][-][MED][#geog] homework (by: 22rd of December 2019, 11:59PM)
 
     @BeforeAll
     public static void initialize() {

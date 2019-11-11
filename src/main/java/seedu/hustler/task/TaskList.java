@@ -303,10 +303,10 @@ public class TaskList {
             Collections.sort(list, (t1, t2) -> {
                 if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
                     return 0;
-                } else if (t1.getDifficulty().toString().equals("[H]")) {
+                } else if (t1.getDifficulty().toString().equals("[HIGH]")) {
                     return -1;
-                } else if (t1.getDifficulty().toString().equals("[M]")
-                        && t2.getDifficulty().toString().equals("[L]")) {
+                } else if (t1.getDifficulty().toString().equals("[MED]")
+                        && t2.getDifficulty().toString().equals("[LOW]")) {
                     return -1;
                 } else {
                     return 1;
