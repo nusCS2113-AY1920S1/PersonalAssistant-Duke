@@ -1,10 +1,9 @@
 package dolla.command;
 
+import dolla.command.action.Undo;
 import dolla.model.DollaData;
 import dolla.Time;
-import dolla.command.action.state.EntryState;
 import dolla.command.action.Redo;
-import dolla.command.action.state.UndoStateList;
 import dolla.model.EntryList;
 import dolla.ui.Ui;
 import dolla.model.Entry;
@@ -40,7 +39,7 @@ public class AddEntryCommand extends Command {
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new EntryState(entryList.get()), mode);
+        Undo.addToStateList(mode,entryList.get());
         Redo.clearRedoState(mode);
         dollaData.addToRecordList(mode, newEntry);
         Ui.echoAddRecord(newEntry);
