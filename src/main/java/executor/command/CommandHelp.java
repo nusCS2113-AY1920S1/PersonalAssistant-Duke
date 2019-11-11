@@ -28,7 +28,7 @@ public class CommandHelp extends Command {
            exists in the list of available commands.*/
         if (!specificCommand.isEmpty()) {
             for (String b : CommandType.getNames()) {
-                if (b.equals(specificCommand)) {
+                if (b.equals(specificCommand) & this.checkValidCommand(b)) {
                     StringBuilder outputsSpecificCommandDesc = getDescriptionOfSpecificCommand(b);
                     this.infoCapsule.setCodeCli();
                     this.infoCapsule.setOutputStr(outputsSpecificCommandDesc.toString());
@@ -42,7 +42,7 @@ public class CommandHelp extends Command {
 
         ArrayList<String> listToStoreAllCommands = new ArrayList<String>();
         for (String s : CommandType.getNames()) {
-            if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
+            if (this.checkValidCommand(s)) {
                 getDescriptionOfAllCommands(s, listToStoreAllCommands);
                 Collections.sort(listToStoreAllCommands, String.CASE_INSENSITIVE_ORDER);
             }
@@ -60,7 +60,7 @@ public class CommandHelp extends Command {
     private StringBuilder getDescriptionOfSpecificCommand(String b) {
         StringBuilder out = new StringBuilder();
         CommandType specificCommandType = CommandType.valueOf(b);
-        Command specific = Executor.createCommand(specificCommandType, "null");
+        Command specific = Executor.createCommand(specificCommandType, specificCommandType.toString());
         String specificDesc = specific.getDescription();
         String specificOut = b.toUpperCase() + " - " + specificDesc + "\n";
         out.append(specificOut).append("\n");
@@ -69,10 +69,13 @@ public class CommandHelp extends Command {
 
     private void getDescriptionOfAllCommands(String s, ArrayList<String> newOut) {
         CommandType commandType = CommandType.valueOf(s);
-        Command c = Executor.createCommand(commandType, "null");
+        Command c = Executor.createCommand(commandType, commandType.toString());
         String commandDesc = c.getDescription();
         String temp = s.toUpperCase() + " - " + commandDesc + "\n";
         newOut.add(temp);
-        return;
+    }
+
+    private boolean checkValidCommand(String s) {
+        return !s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK");
     }
 }
