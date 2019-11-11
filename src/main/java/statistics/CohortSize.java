@@ -6,12 +6,40 @@ import org.jfree.ui.RefineryUtilities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CohortSize Class contains the cohort sizes of each degree (Year 1) for the past 3 years
+ * It implements the interface Statistics and uses the methods declared in it
+ * It initialises an ArrayList of type CohortStats in which the information is stored.
+ * The cohortStats ArrayList allows to store 4 types of data - degree name, male students, female students, total students
+ * The class also initialises the Cohort_BarChart which then displays the information in the form of a Bar Chart
+ *
+ */
+
 public class CohortSize implements Statistics  {
+
     private static ArrayList<CohortStats> cohortStats = new ArrayList<>();
     String title;
+
+    /**
+     * Returns the ArrayList cohortStats when the method is called
+     *
+     * @param
+     * @return cohortStats the ArrayList that contains the student statistics
+     *
+     */
+
     public static ArrayList<CohortStats> getCohortStats(){
         return cohortStats;
     }
+
+    /**
+     * The method is derived from the Statistics Interface
+     * The ArrayList cohortStats is loaded with the student numbers for each particular degree and year
+     *
+     * @param st A list consisting of strings that have been read from the text file
+     * @return
+     *
+     */
 
     @Override
     public void loadStatistics(List<String> st) throws DukeException {
@@ -72,6 +100,16 @@ public class CohortSize implements Statistics  {
 
 
     }
+
+    /**
+     * The method is derived from the Statistics Interface
+     * The method sets the title of the bar chart based on the user input and creates an instance of Cohort_BarChart
+     * A Bar Chart is displayed to the users on a separate window
+     *
+     * @param input An input string which is the degree inputted by the user
+     * @return
+     *
+     */
 
     @Override
     public void print(String input) {
