@@ -2308,7 +2308,7 @@ Use case ends.
 
 [appendix]
 == Non Functional Requirements
-. The application should work on any computer running a <<mainstream-os, mainstream OS>> OS that has Java 11 installed.
+. The application should work on any computer running a <<mainstream-os, mainstream OS>> that has Java 11 installed.
 . The application should work on both 32-bit and 64-bit environments.
 . The application should work without requiring any internet access.
 . The application should work without requiring an installer.
@@ -2388,7 +2388,7 @@ Expected: Details of the deleted `savings` account being displayed after being d
 
 [NOTE]
 ====
-If you have previously changed the investment account name from `JunBank Savings Account` to `BunBank Savings Account`,
+If you have previously changed the savings account name from `JunBank Savings Account` to `BunBank Savings Account`,
 you might want to change it back to `JunBank Savings Account` or you can choose to
 delete `BunBank Savings Account` directly.
 ====
@@ -2506,6 +2506,11 @@ There is enough money in the `savings` account to add the expenditure.
 `/add /bankexpenditure /from JunBank Savings Account /desc Bubble Tea /amount 4.30 /date 02/11/2019 /category Food
 and Drinks` +
 Expected: New details of the Bubble Tea `expenditure` being displayed after being added.
+
+[NOTE]
+====
+If you have previously deleted `JunBank Savings Account`, you might want to add it back before proceeding.
+====
 
 . Adding a new bank `expenditure` to a `savings` account with insufficient money
 

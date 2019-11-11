@@ -1376,9 +1376,13 @@ public class BankList {
      * @throws BankException If used on savings account or investment account does not exist.
      */
     public boolean bankListIsBondListFull(String bankName) throws BankException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                return bankLists.get(i).investmentIsBondListFull();
+            Bank account = bankLists.get(i);
+            String accountName = account.getAccountName();
+            String capitalAccountName = accountName.toUpperCase();
+            if (capitalAccountName.equals(capitalBankName)) {
+                return account.investmentIsBondListFull();
             }
         }
         logger.warning("Cannot find bank with name: " + bankName);
