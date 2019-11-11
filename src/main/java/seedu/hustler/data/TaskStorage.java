@@ -308,7 +308,6 @@ public class TaskStorage {
             .with(LocalTime.of(12, 0)),"H", "", now.plusNanos(90)));
         taskList.add(new Deadline("Submit sports proposal", now.plusDays(4)
             .with(LocalTime.of(23, 59)),"L", "", now.plusNanos(100)));
-
         taskList.add(new Event("Attend Linkin Park concert", now.plusMonths(5)
             .with(LocalTime.of(17, 0)),"M", "buyTix", now.plusNanos(110)));
         taskList.add(new Event("Go to build-yourself-workshop", now.plusDays(12)

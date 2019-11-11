@@ -14,8 +14,7 @@ public class UiMessages {
      * the timer starts, resumes, etc.
      */
     public static class ThreadStart {
-
-
+        
         /**
          * This method informs the user each time a new timer is started.
          *
