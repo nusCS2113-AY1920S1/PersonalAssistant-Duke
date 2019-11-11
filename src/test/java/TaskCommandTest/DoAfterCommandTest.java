@@ -1,4 +1,4 @@
-package TaskCommandTest;//@@author JasonLeeWeiHern
+package TaskCommandTest;
 
 import gazeeebo.tasks.DoAfter;
 import org.junit.jupiter.api.Test;

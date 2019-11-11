@@ -1,4 +1,4 @@
-//@@author jessteoxizhi
+package PlacesCommandTest;//@@author jessteoxizhi
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.AddPlacesCommand;

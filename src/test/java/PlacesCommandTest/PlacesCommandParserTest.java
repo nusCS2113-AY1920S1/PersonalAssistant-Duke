@@ -1,4 +1,4 @@
-//@@author jessteoxizhi
+package PlacesCommandTest;//@@author jessteoxizhi
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
