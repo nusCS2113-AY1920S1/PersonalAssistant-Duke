@@ -227,13 +227,13 @@ Step 1. Search from WordBank
 
 Step 1-1: User have already added a few words as below. Our word bank use a data structure to store all words as a binary tree.
 
-[INSERT IMAGE]
+image::BinaryTreeForWordSearch.png[align='center']
 
 Step 1-2: 
 
 User wants to search for a word, e.g. “one”. It first goes to the word “seven”. We see that “one” appears before “seven”, so it searches on the left subtree of “seven”. Then it reaches “four”, and see that “one” appears after “four”, so it searches to the right. Then it reaches “one” and return it. The words appeared in searching are marked as yellow.
 
-[INSERT IMAGE]
+image::BinaryTreeForWordSearch_afterTraverse.png[align='center']
 
 Step 1-3:
 
@@ -266,7 +266,7 @@ Step 1: Similar to Search Word, word bank loads all of the words in a binary sea
 []
 Step 2: SearchBeginCommand will look to the first word in the dictionary that starts with a specific substring.
 []
-[INSERT DIAGRAM]
+image::BinaryTreeForWordSearch.png[align='center']
 In the diagram above, if the user inputs “f”, it will searches in the sequence “seven” -> “four” -> “five”, and get “five” as the first word starts with “f”. If user inputs “s”, it will searches “seven”. It will see that the predecessor of “seven” is “one”, which doesn’t start with “s”, so it stops searching and get the word “seven”.
 []
 Step 3: From that word, continuously look for its successor to find the word that starts with the specific substring. When it reaches a word that doesn’t start with that substring, it terminates and returns all the found words.
