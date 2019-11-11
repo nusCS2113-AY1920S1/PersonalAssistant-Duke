@@ -11,14 +11,11 @@ import duchess.ui.Ui;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Command to mark specified task as done.
- */
-public class DoneTaskCommand extends Command {
+public class UnmarkTaskCommand extends Command {
     private static final String SUPPLY_VALID_NUMBER_MSG = "Please supply a valid number.";
     private int taskNo;
 
-    public DoneTaskCommand(int taskNo) {
+    public UnmarkTaskCommand(int taskNo) {
         this.taskNo = taskNo - 1;
     }
 
@@ -26,7 +23,7 @@ public class DoneTaskCommand extends Command {
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         try {
             Task task = store.getTaskList().get(taskNo);
-            task.setDone(true);
+            task.setDone(false);
             if (task.isCalendarEntry()) {
                 List<CalendarEntry> update = store.getDuchessCalendar();
                 LocalDate date = task.getTimeFrame().getStart().toLocalDate();
@@ -34,7 +31,7 @@ public class DoneTaskCommand extends Command {
                 CalendarManager.addEntry(update, task, date);
                 store.setDuchessCalendar(update);
             }
-            ui.showDoneTask(task);
+            ui.showUnmarkedTask(task);
             storage.save(store);
         } catch (IndexOutOfBoundsException e) {
             throw new DuchessException(SUPPLY_VALID_NUMBER_MSG);

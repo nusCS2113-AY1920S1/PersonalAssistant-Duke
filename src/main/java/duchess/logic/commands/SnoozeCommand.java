@@ -9,6 +9,8 @@ import duchess.ui.Ui;
 import java.util.List;
 
 public class SnoozeCommand extends Command {
+    private static final String SUPPLY_NUMBER_PROMPT = "Please supply a number. Eg: done 2";
+    private static final String SUPPLY_VALID_NUMBER_PROMPT = "Please supply a valid number.";
     private List<String> words;
 
     public SnoozeCommand(List<String> words) {
@@ -25,9 +27,9 @@ public class SnoozeCommand extends Command {
             ui.showSnoozedTask(task);
             storage.save(store);
         } catch (NumberFormatException e) {
-            throw new DuchessException("Please supply a number. Eg: done 2");
+            throw new DuchessException(SUPPLY_NUMBER_PROMPT);
         } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Please supply a valid number.");
+            throw new DuchessException(SUPPLY_VALID_NUMBER_PROMPT);
         }
     }
 }

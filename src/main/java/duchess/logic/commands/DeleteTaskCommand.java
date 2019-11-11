@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * Command to remove given task from the tasklist.
  */
 public class DeleteTaskCommand extends Command {
+    private static final String SUPPLY_VALID_NUMBER_MSG = "Please supply a valid number.";
     private final int taskNo;
     private final Logger logger = Log.getLogger();
 
@@ -49,7 +50,7 @@ public class DeleteTaskCommand extends Command {
             logger.log(Level.INFO, "Deleted event: " + toRemove.toString());
             storage.save(store);
         } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Please supply a valid number.");
+            throw new DuchessException(SUPPLY_VALID_NUMBER_MSG);
         }
     }
 }

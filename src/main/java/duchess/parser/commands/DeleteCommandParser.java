@@ -10,6 +10,9 @@ import duchess.parser.Parser;
 
 import java.util.Map;
 
+/**
+ * Parses commands related to deletion.
+ */
 public class DeleteCommandParser {
     /**
      * Returns a command to delete a module based on user input.
@@ -29,7 +32,6 @@ public class DeleteCommandParser {
                 int number = Integer.parseInt(parameters.get("no"));
                 return new DeleteModuleCommand(number);
             } else if (type.equals(Parser.LESSON_KEYWORD)) {
-
                 String lessonType = parameters.get("type");
                 String moduleCode = parameters.get("code");
                 return new DeleteLessonCommand(lessonType, moduleCode);

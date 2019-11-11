@@ -18,6 +18,7 @@ import duchess.parser.commands.DeleteCommandParser;
 import duchess.parser.commands.DoneCommandParser;
 import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
+import duchess.parser.commands.UnmarkCommandParser;
 import duchess.parser.states.add.AddState;
 
 import java.util.Arrays;
@@ -46,6 +47,7 @@ public class DefaultState extends ParserState {
     private static final String ABORTED_MSG = "Operation aborted.";
     private static final String INVALID_COMMAND_MSG = "Please enter a valid command.";
     private static final String PARSING_ERROR_MSG = "An unexpected error occurred while processing your command.";
+    private static final String UNMARK_KEYWORD = "unmark";
 
     private Parser parser;
 
@@ -78,6 +80,8 @@ public class DefaultState extends ParserState {
             return DeleteCommandParser.parse(parameters);
         } else if (DONE_KEYWORD.equals(keyword)) {
             return DoneCommandParser.parse(parameters);
+        } else if (UNMARK_KEYWORD.equals(keyword)) {
+            return UnmarkCommandParser.parse(parameters);
         } else if (REMINDER_KEYWORD.equals(keyword)) {
             return new ReminderCommand();
         } else if (SNOOZE_KEYWORD.equals(keyword)) {

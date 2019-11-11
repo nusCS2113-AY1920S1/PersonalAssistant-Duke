@@ -442,6 +442,16 @@ public class Ui {
     }
 
     /**
+     * Prints message to show unmarked task.
+     *
+     * @param task unmarked task
+     */
+    public void showUnmarkedTask(Task task) {
+        printIndented("I've unmarked this task as done:");
+        printIndented("  " + task);
+    }
+
+    /**
      * Prints message for grade completion.
      *
      * @param grade Completed grade
@@ -639,5 +649,4 @@ public class Ui {
     private void printHR() {
         printIndented("_______________________________________________________________");
     }
-
 }

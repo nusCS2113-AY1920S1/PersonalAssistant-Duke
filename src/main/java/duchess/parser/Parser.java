@@ -49,6 +49,7 @@ public class Parser {
     public static final String CALENDAR_VIEW_USAGE = "Please input either the day or week view.";
     public static final String DONE_USAGE = "Usage: done (task | grade /module <module_code> "
             + "\n    /marks <marks>) /no <number>";
+    public static final String UNMARK_USAGE = "Usage: unmark task /no <number>";
 
     /**
      * Prompts.

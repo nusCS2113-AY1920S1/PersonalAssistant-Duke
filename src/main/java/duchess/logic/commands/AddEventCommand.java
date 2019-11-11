@@ -21,6 +21,8 @@ import java.util.logging.Logger;
  * Command to add a given event task to the tasklist.
  */
 public class AddEventCommand extends Command {
+    private static final String INVALID_MODULE_MSG = "Unable to find given module.";
+    private static final String CLASH_FOUND_MSG = "Unable to add event - clash found.";
     private String description;
     private LocalDateTime end;
     private LocalDateTime start;
@@ -60,14 +62,14 @@ public class AddEventCommand extends Command {
         if (moduleCode != null) {
             Optional<Module> module = store.findModuleByCode(moduleCode);
             task.setModule(module.orElseThrow(() ->
-                    new DuchessException("Unable to find given module.")
+                    new DuchessException(INVALID_MODULE_MSG)
             ));
             grade = new Grade(description, weightage);
             task.setGrade(grade);
             module.get().addGrade(grade);
         }
         if (store.isClashing(task)) {
-            throw new DuchessException("Unable to add event - clash found.");
+            throw new DuchessException(CLASH_FOUND_MSG);
         }
         store.getTaskList().add(task);
         if (task.isCalendarEntry()) {

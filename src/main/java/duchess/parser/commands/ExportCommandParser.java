@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
+/**
+ * Parses command for exporting calendar.
+ */
 public class ExportCommandParser {
 
     /**

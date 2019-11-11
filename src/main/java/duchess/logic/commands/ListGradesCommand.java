@@ -12,6 +12,7 @@ import java.util.Optional;
  * Command to list grades for the given module.
  */
 public class ListGradesCommand extends Command {
+    private static final String INVALID_MODULE_MSG = "Unable to find given module.";
     private String moduleCode;
 
     public ListGradesCommand(String moduleCode) {
@@ -24,7 +25,7 @@ public class ListGradesCommand extends Command {
         if (module.isPresent()) {
             ui.showGradeList(module.get().getGrades(), module.get());
         } else {
-            throw new DuchessException("Unable to find given module.");
+            throw new DuchessException(INVALID_MODULE_MSG);
         }
     }
 }

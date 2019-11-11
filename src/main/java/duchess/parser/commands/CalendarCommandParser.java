@@ -10,6 +10,9 @@ import duchess.parser.Util;
 import java.time.LocalDate;
 import java.util.Map;
 
+/**
+ * Parses commands related to Calendar.
+ */
 public class CalendarCommandParser {
 
     /**

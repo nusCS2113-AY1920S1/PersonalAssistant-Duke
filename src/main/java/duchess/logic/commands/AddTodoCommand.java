@@ -15,6 +15,7 @@ import java.util.Optional;
  * Command to add a given todo task to the tasklist.
  */
 public class AddTodoCommand extends Command {
+    private static final String INVALID_MODULE_MSG = "Unable to find given module.";
     private String description;
     private String moduleCode;
     private int weightage;
@@ -50,7 +51,7 @@ public class AddTodoCommand extends Command {
         if (moduleCode != null) {
             Optional<Module> module = store.findModuleByCode(moduleCode);
             task.setModule(module.orElseThrow(() ->
-                    new DuchessException("Unable to find given module.")
+                    new DuchessException(INVALID_MODULE_MSG)
             ));
             grade = new Grade(description, weightage);
             task.setGrade(grade);

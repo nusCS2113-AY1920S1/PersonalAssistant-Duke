@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  * Command to search for given task.
  */
 public class FindCommand extends Command {
+    private static final String ENTER_KEYWORD_PROMPT = "Please enter at least a keyword to search.";
+    private static final String NO_MATCHING_TASKS_MSG = "There are no matching tasks.";
     private List<String> words;
 
     /**
@@ -44,7 +46,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         if (words.isEmpty()) {
-            throw new DuchessException("Please enter at least a keyword to search.");
+            throw new DuchessException(ENTER_KEYWORD_PROMPT);
         } else {
             String searchTerm = String.join(" ", words.subList(0, words.size())).toLowerCase();
             List<Task> filteredTasks;
@@ -88,7 +90,7 @@ public class FindCommand extends Command {
             }
 
             if (filteredTasks.isEmpty()) {
-                throw new DuchessException("There are no matching tasks.");
+                throw new DuchessException(NO_MATCHING_TASKS_MSG);
             } else {
                 ui.showSearchResult(filteredTasks);
             }

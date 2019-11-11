@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Parses commands related to marking as done.
+ */
 public class DoneCommandParser {
 
     /**

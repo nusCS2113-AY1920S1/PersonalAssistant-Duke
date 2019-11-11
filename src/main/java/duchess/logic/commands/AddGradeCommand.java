@@ -16,6 +16,8 @@ import java.util.logging.Logger;
  * Command to add a given grade to list of grades.
  */
 public class AddGradeCommand extends Command {
+    private static final String ADDING_GRADE_LOG_MSG = "Going to add grade : ";
+    private static final String ADDED_GRADE_LOG_MSG = "Added grade : ";
     private String description;
     private double marks;
     private double maxMarks;
@@ -57,17 +59,18 @@ public class AddGradeCommand extends Command {
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
 
         Grade grade = new Grade(description, marks, maxMarks, weightage);
-        logger.log(Level.INFO, "Going to add grade : " + grade);
+        logger.log(Level.INFO, ADDING_GRADE_LOG_MSG + grade);
         Optional<Module> module = store.findModuleByCode(moduleCode);
         if (module.isPresent()) {
             if (grade.getWeightage() + module.get().getWeightageTotal() > 100.0) {
                 throw new DuchessException(TOTAL_WEIGHTAGE_ERROR);
             }
             module.get().addGrade(grade);
+            assert module.get().getWeightageTotal() >= 0 : "weightage should be at least 0";
             assert module.get().getWeightageTotal() <= 100 : "weightage should not exceed 100";
             ui.showGradeAdded(module.get(), grade, module.get().getGrades());
             storage.save(store);
-            logger.log(Level.INFO, "Added grade : " + grade);
+            logger.log(Level.INFO, ADDED_GRADE_LOG_MSG + grade);
         } else {
             throw new DuchessException(MODULE_NOT_FOUND_MSG);
         }

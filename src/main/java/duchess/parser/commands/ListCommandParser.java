@@ -10,6 +10,9 @@ import duchess.parser.Parser;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Parses command to list user's resources.
+ */
 public class ListCommandParser {
     /**
      * Returns a command to list user's resources.

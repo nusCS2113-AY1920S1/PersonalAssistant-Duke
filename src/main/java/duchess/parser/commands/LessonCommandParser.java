@@ -9,6 +9,9 @@ import duchess.parser.Util;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * Parses command for adding lessons.
+ */
 public class LessonCommandParser {
     /**
      * Returns a command to add lessons based on user input.
