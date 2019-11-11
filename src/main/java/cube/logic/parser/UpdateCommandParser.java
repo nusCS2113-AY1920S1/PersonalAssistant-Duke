@@ -13,25 +13,28 @@ import cube.model.food.Food;
 public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
 
     private Food tempFood = new Food();
+
     /**
      * Parse user update command.
+     *
      * @param args user inputs.
      * @return update command with relative parameters.
      * @throws ParserException when user input is illegal.
      */
     public UpdateCommand parse(String[] args) throws ParserException {
-        int[] changeBit = new int[]{0,0,0,0};
+        int[] changeBit = new int[] {0, 0, 0, 0, 0};
         final int foodNameIndex = 1;
         int foodTypeIndex = -1;
         int priceIndex = -1;
+        int costIndex = -1;
         int stockIndex = -1;
         int expiryDateIndex = -1;
-        String[] params = new String[]{"-t","-p","-s","-e"};
+        String[] params = new String[] {"-t", "-p", "-s", "-e", "-c"};
 
         if (args.length == 1) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
-        if (ParserUtil.hasInvalidParameters(args,params)) {
+        if (ParserUtil.hasInvalidParameters(args, params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }
         if (ParserUtil.hasRepetitiveParameters(args)) {
@@ -46,32 +49,36 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
                 priceIndex = i;
                 changeBit[1] = 1;
             }
+            if (args[i].equals("-c")) {
+                costIndex = i;
+                changeBit[2] = 1;
+            }
             if (args[i].equals("-s")) {
                 stockIndex = i;
-                changeBit[2] = 1;
+                changeBit[3] = 1;
             }
             if (args[i].equals("-e")) {
                 expiryDateIndex = i;
-                changeBit[3] = 1;
+                changeBit[4] = 1;
             }
         }
-        String foodName = ParserUtil.findFullString(args,foodNameIndex);
+        String foodName = ParserUtil.findFullString(args, foodNameIndex);
         if (foodName.equals("")) {
             throw new ParserException(ParserErrorMessage.INVALID_NAME);
         }
-        if (foodTypeIndex == -1 && priceIndex == -1
-                && stockIndex == -1 && expiryDateIndex == -1) {
+        if (foodTypeIndex == -1 && priceIndex == -1 && costIndex == -1
+            && stockIndex == -1 && expiryDateIndex == -1) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
         tempFood.setName(foodName);
         if (foodTypeIndex != -1) {
-            if (!ParserUtil.hasField(args,foodTypeIndex + 1)) {
+            if (!ParserUtil.hasField(args, foodTypeIndex + 1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
-            tempFood.setType(ParserUtil.findFullString(args,foodTypeIndex + 1));
+            tempFood.setType(ParserUtil.findFullString(args, foodTypeIndex + 1));
         }
         if (priceIndex != -1) {
-            if (!ParserUtil.hasField(args,priceIndex + 1)) {
+            if (!ParserUtil.hasField(args, priceIndex + 1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
             if (!ParserUtil.isValidNumber(args[priceIndex + 1])) {
@@ -79,8 +86,17 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
             }
             tempFood.setPrice(Double.parseDouble(args[priceIndex + 1]));
         }
+        if (costIndex != -1) {
+            if (!ParserUtil.hasField(args, costIndex + 1)) {
+                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+            }
+            if (!ParserUtil.isValidNumber(args[costIndex + 1])) {
+                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+            }
+            tempFood.setCost(Double.parseDouble(args[costIndex + 1]));
+        }
         if (stockIndex != -1) {
-            if (!ParserUtil.hasField(args,stockIndex + 1)) {
+            if (!ParserUtil.hasField(args, stockIndex + 1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
             if (!ParserUtil.isValidInteger(args[stockIndex + 1])) {
@@ -89,16 +105,17 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
             tempFood.setStock(Integer.parseInt(args[stockIndex + 1]));
         }
         if (expiryDateIndex != -1) {
-            if (!ParserUtil.hasField(args,expiryDateIndex + 1)) {
+            if (!ParserUtil.hasField(args, expiryDateIndex + 1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
             tempFood.setExpiryDate(ParserUtil.parseStringToDate(args[expiryDateIndex + 1]));
         }
-        return new UpdateCommand(tempFood,changeBit);
+        return new UpdateCommand(tempFood, changeBit);
     }
 
     /**
      * Getter for temp food.
+     *
      * @return temp food.
      */
     public Food getTempFood() {
