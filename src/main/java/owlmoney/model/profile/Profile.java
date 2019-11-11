@@ -1275,7 +1275,7 @@ public class Profile {
     public void addCardBill(String card, String bank, Expenditure expenditure, Deposit deposit,
             YearMonth cardDate, Ui ui, String type) throws CardException, BankException {
         bankList.bankListAddExpenditure(bank, expenditure, ui, type);
-        ui.printMessage("\n");
+        ui.printMessage("");
         bankList.bankListAddDeposit(bank, deposit, ui, type);
         try {
             cardList.transferExpUnpaidToPaid(card, cardDate, type);
@@ -1308,6 +1308,7 @@ public class Profile {
         checkBillAmountNotZero(getCardPaidBillAmount(card, cardDate), card, cardDate);
         int expenditureNumber = profileGetCardBillExpenditureId(bank,getCardId(card), cardDate) + ARRAY_INDEX;
         profileDeleteExpenditure(expenditureNumber, bank, ui, type, true);
+        ui.printMessage("");
         int depositNumber = profileGetCardBillDepositId(bank,getCardId(card), cardDate) + ARRAY_INDEX;
         profileDeleteDeposit(depositNumber, bank, ui, true);
         cardList.transferExpPaidToUnpaid(card, cardDate, type);
