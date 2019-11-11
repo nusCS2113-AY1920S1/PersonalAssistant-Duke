@@ -93,7 +93,7 @@ Here are some other examples of commands you can try to get used to DEGREES.NUS:
 * Items in curly brackets are optional e.g `event MISTA /at DD-MM-YYYY HHmm {/priority High}` can be used as `event MISTA /at 04-04-2004 0444` or as `event MISTA /at 04-04-2004 0444 /priority High`.
 ====
 
-=== Viewing Helpful Commands : `help | help <COMMAND>`
+=== Viewing Helpful Commands : `help | help <COMMAND>` [[help]]
 To view a full list of possible commands that DEGREES.NUS understands, you can call the help command. +
 It will also switch to the `[Help]` tab if you prefer to view the commands in tabular format.
 
@@ -145,9 +145,8 @@ Switches to the `[Degree Information]` tab.
 How it will be displayed: +
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/detailExample.png[width="600"]
-
 <<<
-=== Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`
+=== Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`[[compare]]
 
 Lists the module similarities and differences between two degree programs given their keywords. +
 Will also switch tabs to the `[Degree Differences]` tab. 
@@ -191,7 +190,7 @@ Adds Material Science Engineering to your degree list and faculty events to your
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
-=== Listing all degrees in your degree list: `choices`
+=== Listing all degrees in your degree list: `choices` [[choices]]
 
 Displays a list of all the degrees you are interested in currently. +
 Will switch to the `[Degree Choices]` tab.
