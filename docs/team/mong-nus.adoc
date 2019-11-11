@@ -42,12 +42,12 @@ This symbol denotes a warning message which you need to be careful of when using
 advised to read the content within this block.
 ====
 
-== Summary of contributions
+== Summary of Contributions
 Below are my contributions in terms of feature enhancements, project management, and documentation:
 
-=== Features enhancement
+=== Features Enhancement
 
-==== Enhancement added: `card` feature
+==== Enhancement Added: `card` Feature
 * *What it does*: Allows the users to maintain a list of credit cards that they own.
 
 * *Justification*: The `card` feature work together with the `cardExpenditure` feature and provides the user the
@@ -61,7 +61,7 @@ understanding of the underlying architecture and the components `logic`, `model`
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence], as
 there is a dependency between the `card` and `cardExpenditure` features.
 
-==== Enhancement added: `find` feature
+==== Enhancement Added: `find` Feature
 * *What it does*: Allows the user to search for specific information such as transaction records, bank account and more.
 
 * *Justification*: It can be messy and tedious for the user to track and manage their finances after using *OwlMoney*
@@ -72,7 +72,7 @@ for some time. This is because the user might have thousand of transactions reco
  as `card`, `bank`, and `transaction`. Therefore, the implementation of `find` feature was challenging as it requires an
  in-depth analysis and understanding of other features.
 
-=== Enhancement added: `transfer` feature
+==== Enhancement Added: `transfer` Feature
 * *What it does*: Allows the users to transfer funds from one bank account to another account.
 
 * *Justification*:  It provides the user with great flexibility to transfer funds from one bank account to another bank
@@ -83,7 +83,7 @@ saving account to investment account to invest.
  as `bank` and `transaction`. Therefore, the implementation of `transfer` feature was challenging as it requires an
  in-depth analysis and understanding of other features.
 
-=== Enhancement added: `Ui` feature
+==== Enhancement Added: `Ui` Feature
 * *What it does*: Allows the users to list their financial information in a neat and tidy table format.
 
 * *Justification*: By listing the financial information such as transaction records or bank account details in a table
@@ -94,12 +94,12 @@ saving account to investment account to invest.
  as `bank`, `transaction`, and `goals`. Therefore, the implementation of `Ui` feature was challenging as it requires
  an in-depth analysis and understanding of other features.
 
-== Code contributions
+== Code Contributions
 The lines of codes (LOC) contributed by me for *OwlMoney* can be viewed
 link:++https://nuscs2113-ay1920s1.github.io/dashboard/#search=mong&sort=groupTitle&sortWithin=title&since=2019-09-21
 &timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false++[here].
 
-== Team contributions
+== Team Contributions
 
 * Designed and implemented the abstract class `bank`, `parser`, `command`, and `transaction` which serve as the code
 base of the project with everyone (
@@ -116,7 +116,7 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamus
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
 ).
 
-== Other contributions
+== Other Contributions
 
 === Project Management:
 * Organised and Coordinated Team Meeting
@@ -228,7 +228,7 @@ Take note that there is a maximum of *50* character limit.
 
 |======
 
-==== Finding savings account details: `/find /savings`
+==== Finding Savings Account Details: `/find /savings`
 
 Scenario: Let's say that you can only recall part of your savings account's name and would like to find out the
 details of the savings account. Don't worry *OwlMoney* allows you to find it with ease.
@@ -248,7 +248,7 @@ be seen from Figure 2 below.
 .Successful search of savings account after using `/find /savings`
 image::FindSavings.png[Caption="Figure : "]
 
-==== Finding bank transaction: `/find /banktransaction`
+==== Finding Bank Transaction: `/find /banktransaction`
 
 Scenario: Let's say that you have thousands of bank transaction records and you want to find the
 details of a specific bank transaction's records. Don't worry *OwlMoney* allows you to find it with ease.
@@ -267,8 +267,6 @@ Transactions includes both expenditures and deposits.
 
 [WARNING]
 ====
-At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
-
 The parameter within the square bracket (E.g. `[/desc DESCRIPTION]``) is optional in the command. However, at least one
 of `/desc`, `/category`, or `/from` with `/to` must be used to make it a valid command.
 ====
@@ -283,7 +281,9 @@ image::FindBankTransaction1.png[Caption="Figure : "]
 
 [TIP]
 ====
-For the complete list of functionality for `/find` command, you can find them here.
+For the complete list of functionality for `/find` command, you can find them
+link:++https://github.com/mong-nus/main/blob/documentationPPP/docs/UserGuide
+.adoc#finding-information-stored-in-owlmoney-find++[here].
 ====
 
 == Contributions to the Developer Guide
@@ -294,7 +294,7 @@ showcase the `find` feature due to the page limit restriction. You can find more
 implemented by me
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc[here].
 
-=== Design for Find Feature
+=== Design for `find` Feature
 
 .Find Command Class Diagram
 image::LogicCommandFindPackage.png[width="800"]
@@ -311,19 +311,19 @@ The `logic.command.find` package consist of `Find` classes with the ability to f
 `Main` will call the specific `Find` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
 
-=== Implementation for Find feature
+=== Implementation for `find` feature
 The following section describes the specific implementation for *finding of the savings account* and how data flows
 across various objects and methods to obtain a successful execution. In this section, we will be showcasing the data
 flow of finding a savings account.
 
-==== Finding of savings account
+==== Finding of Savings Account
 
 The `/find /savings` feature aims to provide the user with the ability to search for a savings account that matches the
 keyword specified by the user. This enables the user to have great flexibility to view their savings account details
 without the need of memorising each of their savings account names within *OwlMoney*. By allowing the user to search for
  a specific savings account, it also aids in the operation of editing or deleting of savings account.
 
-===== Current implementation
+===== Current Implementation
 The current implementation of finding `savings` account only allows the user to search through the account name. The
 reason to only allow the user to search through the account name was that searching through parameters such as income
 may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
@@ -340,15 +340,16 @@ The sequence diagram presented above depicts the interaction between the `Logic`
 
 The `FindBankOrCardCommand` requires *2* inputs:
 
-* The name of the savings account that acts as a keyword for the search.
+* The name of the account that acts as a keyword for the search.
 * Type of item to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `FindBankOrCardCommand`, the following steps are taken by the application:
+When the user executes the `FindBankOrCardCommand` to search for savings account, the following steps are taken by the
+application:
 
 . When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
 . Once invoked, `findBankOrCard` will perform the following checks:
 
-* Check the type of items to be searched is either card, savings or investment account.
+* Check the type of items to be searched is either `card`, `savings` or `investment`.
 
 [start=3]
 . After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
@@ -361,7 +362,7 @@ When the user executes the `FindBankOrCardCommand`, the following steps are take
 `findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
 
 [start=5]
-. Once the search has been completed, the details of the all matching savings account will be displayed to inform the
+. Once the search has been completed, the details of all matching savings account will be displayed to inform the
 user of the *successful* matches.
 
 === Design Considerations
