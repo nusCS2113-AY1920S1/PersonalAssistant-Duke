@@ -342,7 +342,7 @@ Step 3: In doing so, the union find algorithm will group the words together and 
 
 
 ==== Searching of synonyms
-image::synonymExample.png[align='center']
+image::Synonymexample.PNG[align='center']
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
