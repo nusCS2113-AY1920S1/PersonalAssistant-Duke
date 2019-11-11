@@ -35,6 +35,9 @@ class UndoRedoTest {
     private static TaskList testCore;
     private static Todo testUndoableTask;
 
+    /**
+     * Sets up the required components before the test is done.
+     */
     @BeforeAll
     static void setup() {
         testCoreList = new ArrayList<Task>();

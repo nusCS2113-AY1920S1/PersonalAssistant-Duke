@@ -27,7 +27,7 @@ public class WeekParser extends DescriptionParser {
      * @param taskFeatures contains the integer the user provides.
      */
     private int extractWeek(String taskFeatures) throws ChronologerException {
-        try{
+        try {
             if (taskFeatures.contains("current")) {
                 return CURRENT_WEEK_INDICATOR;
             }

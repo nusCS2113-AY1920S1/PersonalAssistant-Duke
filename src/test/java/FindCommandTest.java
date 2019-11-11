@@ -27,11 +27,14 @@ public class FindCommandTest {
 
     private static Todo testFindableTask;
 
+    /**
+     * Sets up the required components before the test is done.
+     */
     @BeforeAll
     public static void setup() {
         testCoreList = new ArrayList<Task>();
         testCore = new TaskList(testCoreList);
-        testFindableTask = new Todo("testVersion");
+        testFindableTask = new Todo("test keyword");
     }
 
     @Test

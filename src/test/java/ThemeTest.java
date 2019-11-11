@@ -23,7 +23,9 @@ class ThemeTest {
     private static TaskList testThemeChange;
     private static ObservableList<Integer> test;
 
-
+    /**
+     * Sets up the required components before the test is done.
+     */
     @BeforeAll
     public static void setup() {
         testTheme = new ArrayList<>();

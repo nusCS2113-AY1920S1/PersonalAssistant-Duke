@@ -36,7 +36,9 @@ class VersionTest {
     private static ArrayList<Task> testVersion;
     private static Todo testVersionTask;
 
-
+    /**
+     * Sets up the required components before the test is done.
+     */
     @BeforeAll
     static void setup() {
         testStore = new ArrayList<Task>();

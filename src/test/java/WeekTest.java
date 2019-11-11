@@ -24,6 +24,9 @@ class WeekTest {
     private static String outputMessage;
     private static final int CURRENT_WEEK_INDICATOR = -1;
 
+    /**
+     * Sets up the required components before the test is done.
+     */
     @BeforeAll
     static void setup() {
         testCoreList = new ArrayList<Task>();
