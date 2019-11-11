@@ -100,10 +100,6 @@ public class GraphTotalCommandTest {
         Category food = new Category("food");
         food.add(new Expenditure("Value 6", 50.00,  date, "food"));
     
-        ScheduleListStub newCalendar = new ScheduleListStub();
-        Budget newBudget = new Budget();
-        StorageStub newStorage = new StorageStub();
-    
         newCatList.add(shoes);
         newCatList.add(food);
     
@@ -118,6 +114,9 @@ public class GraphTotalCommandTest {
             completeBottom += bottomBorder;
         }
     
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        Budget newBudget = new Budget();
+        StorageStub newStorage = new StorageStub();
         Command testGraph = new GraphTotalCommand();
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
         assertEquals("     " + ANSI_YELLOW + completeTop
