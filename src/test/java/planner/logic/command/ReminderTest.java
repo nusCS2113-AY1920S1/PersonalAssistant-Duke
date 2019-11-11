@@ -14,8 +14,6 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
-import planner.main.CliLauncher;
-import planner.main.InputTest;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.legacy.reminder.Reminder;
