@@ -15,7 +15,7 @@ public class SwitchModeCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         dollaData.updateMode(newMode);
-        Ui.printModeUpdated(dollaData.getMode());
+        Ui.updatedModePrinter(dollaData.getMode());
         if (newMode.equals(ModeStringList.MODE_DEBT)) {
             DebtUi.printBillFeature();
         }

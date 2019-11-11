@@ -52,7 +52,7 @@ public abstract class Ui implements UiStrings {
      *
      * @param newMode The updated mode.
      */
-    public static void printModeUpdated(String newMode) {
+    public static void updatedModePrinter(String newMode) {
         System.out.println(line);
         System.out.println(CHANGE_MODE_MSG);
         String modeStr = getModeLogo(newMode);
