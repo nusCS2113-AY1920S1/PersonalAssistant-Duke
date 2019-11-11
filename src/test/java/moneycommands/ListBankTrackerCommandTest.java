@@ -19,6 +19,7 @@ public class ListBankTrackerCommandTest {
     private static String SAMPLE_INPUT1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.05";
     private static String SAMPLE_INPUT2 = "bank-account DBS /amt 100 /at 20/7/2018 /rate 0.0";
 
+    //@@author cctt1014
     ListBankTrackerCommandTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");

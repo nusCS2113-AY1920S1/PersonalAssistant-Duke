@@ -21,7 +21,6 @@ public class UserIcon {
     private String initialPath;
 
     //@@author cctt1014
-
     /**
      * This constructor initialize the user icon related files and directory. Then it will
      * load the initial icon depending on whether the file exists or not. If the initial file

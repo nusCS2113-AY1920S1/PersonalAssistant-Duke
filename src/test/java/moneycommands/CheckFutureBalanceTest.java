@@ -20,7 +20,7 @@ public class CheckFutureBalanceTest {
     private static String SAMPLE_CREATE_TRACKER1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005";
     private static String WRONG_CHECK_DATE = "check-balance OCBC /at /2/2020";
 
-
+    //@@author cctt1014
     CheckFutureBalanceTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
