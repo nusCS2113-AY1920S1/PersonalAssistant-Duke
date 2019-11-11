@@ -31,11 +31,12 @@ after taking a quiz and save a record of the attempted questions for
 his/her revision.
 ** Highlights: This feature is the final integration and depends on the
 implementation on other features.The implementation was challenging due to:
+*** Research and implementation of print feature using
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]
+to improve software design.
 *** Integration with the quizzes. For instance,
 `print quiz <filename>.pdf` depends on whether a quiz has been
 attempted as no quiz is recorded when the program first launches.
-*** Changes in the storage. For instance, `print user <filename>.pdf`
-depends on how the user information is stored in text file.
 
 
 * *Minor enhancement*: Created `history` command to view list of
@@ -71,7 +72,8 @@ to select the chapter for the quiz.
 https://github.com/AY1920S1-CS2113T-T09-3/main/pull/238[#238],
 https://github.com/AY1920S1-CS2113T-T09-3/main/pull/239[#239])
 *** Setup code and test cases that was adopted and followed by other teammates
-(https://github.com/AY1920S1-CS2113T-T09-3/main/pull/129[#129])
+(https://github.com/AY1920S1-CS2113T-T09-3/main/pull/129[#129],
+https://github.com/AY1920S1-CS2113T-T09-3/main/pull/229[#229])
 
 == Contributions to the User Guide
 
@@ -202,7 +204,7 @@ placed into practicing the chapters which are deemed “weak” by the reports a
 understanding.
 
 *Q*: There are too many messages in the application. How do you clear the messages in the application?  +
-*A*: You can run `undo <x>` where x is the number of messages you want to delete. Alternatively, you can run
+*A*: You can run `delete <x>` where x is the number of messages you want to delete. Alternatively, you can run
 `clear` to delete all the messages.
 
 *Q*: Can I challenge friends in a multi-player mode?   +
@@ -217,37 +219,35 @@ the software at our https://github.com/AY1920S1-CS2113T-T09-3/main/releases[rele
 *A*: You can contact us at contact@algosenpaiadventures.com.
 
 
-
 == Contributions to the Developer Guide
-
 
 
 // tag::print[]
 === Print Feature
-The Print Feature allows users to print his/her quiz, archived questions, or user information into a PDF to review.
+The print feature allows users to print his/her quiz, archived questions, or user information into a PDF.
 
-`PrintCommand` class extends the `Command` abstract class, which contains an abstract method `execute` to
-process the user inputs. `PrintArchiveCommand`, `PrintQuizCommand`, and `PrintUserCommand` extends the
-`PrintCommand` class to process the archived questions, quiz, and user information respectively before writing the
-contents to PDF. The `PrintCommand` contains the shared methods `isPdfFileExtension` and `isEmpty` to check
-that the user enters a filename with the correct extension type and that the contents printed is not empty.
+`PrintCommand` and `PrintCommandFactory` class extends the `Command` abstract class. The abstract class contains
+an abstract method `execute` to process user inputs.
 
-As shown in the diagram below, `PrintCommand`
+`PrintArchiveCommand`, `PrintQuizCommand`, and `PrintUserCommand` extends the `PrintCommand` class. The
+subclasses write the contents to PDF and return a status message. `PrintCommand` contains the methods
+`isPdfFileExtension` and `isEmpty` to check the given filename has the `.pdf` file extension and the contents
+to be printed is not empty.
 
-As shown in the diagram below, group and person classes are associated. Each group contains a
-UniqueList<Person>, a list of its members. Likewise, each person contains a UniqueList<Group>,
-a list of all groups he is in. Due to these mutual association, commands editing/deleting
-instances of group or person may have to edit the corresponding member/group lists respectively.
-(Refer to DeleteGroupCommand example below.)
+As shown in the Class Diagram of Print Feature below, the print feature utilizes
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]. The `Logic` class
+ask for a `Command` from the `PrintCommandFactory`. The `PrintCommandFactory` returns one of the following
+`PrintArchiveCommand`, `PrintQuizCommand`, `PrintUserCommand`, and `PrintCommand`. Due to the navigability of
+the association from `Logic` to `PrintCommandFactory`, instantiation of the `PrintCommand` and its
+subclasses are not exposed to `Logic`. The output is finally passed from `PrintCommandFactory` to `Logic`.
 
-.Class Diagram of Group and Person
-image::GroupPersonClassDiagram.png[width="400", align="center"]
+New features to print content can be conveniently implemented by creating a subclass of `PrintCommand`
+and registered in the factory class `PrintCommandFactory`.
 
-`Group` features make use of `Storage` to load information on groups added by the user before the
-UI is closed. `XmlAdaptedGroup` class helps the convert groups detail from xml files to the
-`AddressBook` when `MainApp` starts and similarly convert `Group` objects into xml files.
+[.center.text-center]
+.Class Diagram of Print Feature
+image::class_diagram_print_feature.png[width="500"]
 
-`Group` features also updates the Group Panel inside the `UI` using a predicate.
 
 ==== Current Implementation
 The current print commands added are:
@@ -256,95 +256,71 @@ The current print commands added are:
 * `print archive <filename>.pdf` -- writes the archived questions into PDF.
 * `print quiz <filename>.pdf` -- writes the quiz questions into PDF.
 
-These functions and their parsers are handled in `Logic`, before updating `Model` and `Storage`
-and displaying the updated result on the `UI`.
+The methods to parse the user input are handled in `Parser` before passing to `PrintCommandFactory`.
+Depending on the second argument `user`, `archive`, or `quiz` in the user input, the data from
+user information, archived questions, or the quiz is printed to PDF.
 
-==== An Example: DeleteGroupCommand
-The DeleteGroupCommand is a good example of how Group and Person classes are interacting
-(dependent and associated with each other). An example usage scenario of how `delete_group`
-behaves at each stop is explained below.
-:
-Step 1: The user launches the application. (We assume that the user has already added a group
-and person.) `VersionedAddressBook` will be loaded with the final addressbook state before the
-application was closed. Lists of groups and persons added previously will be loaded from
-`addressbook.xml` file into `Model` using `XmlAdaptedPerson` and `XmlAdaptedGroup` classes.
-Updated lists will be displayed in the `UI`.
+==== Example: PrintArchiveCommand
+The PrintArchiveCommand demonstrates how
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]
+works well in this implementation. An example of the command `print archive archive.pdf` is
+described below. A Sequence Diagram PrintArchiveCommand is provided for visual representation.
 
-.Sequence Diagram of DeleteGroupCommand (Logic component)
-image::DeleteGroupCommandLogicSD.png[width="400", align="center"]
+Step 1: The user launches the application. First, the user runs `quiz <chapter name>` to select a
+quiz chapter, then runs `start` the quiz. The user answers the 10 questions in the quiz.
 
-Step 2: The user enters the command `dg n/Family` to delete the existing group with group name
-Family.
+Step 2: When the user finishes the quiz, if he runs `print archive archive.pdf`, no PDF is created.
+Instead, a message `Nothing in archive` is displayed on the `Ui` . This is because the user has not
+archived any questions yet.
 
-* The `LogicManager` class parses the command to `AddressBookParser`. `AddressBookParser`
-creates a `DeleteGroupCommandParser` instance which parses the String "Family" into a `Name`
-name. The parser creates a `Group` gr with the name (Family). This group is needed for the
-function below.
+Step 3: After the user runs `archive 5`, the user successfully archived the 5th question in the quiz
+(the first question starts from index 1). Currently, the users has one question archived. To archived
+more questions, he can run `archive <x>` where x is the xth question in the quiz.
 
-* The parser creates a `DeleteGroupCommand` object with parameters gr. Subsequently,
-`retrieveGroupFromName(m, gr.getName())` is called to the Model component in order to retrieve
-the actual group with the name "Family".
+* Inside `Logic`, the `Parser` class has a static method `parseInput` that trims spacing on the two
+ends of the user inputs. It also replaces multiple spacing between words to single spacing. Finally,
+the user input is split by spacing and returned as an `ArrayList<String`.
 
-.Sequence Diagram of DeleteGroupCommand (Model component)
-image::DeleteGroupCommandModelSD.png[width="400", align="center"]
-* After retrieving the actual group `g` with name "Family" from Model `m`, the model performs
-deletion of the group using an internal function `delete(g)`.
+* Inside `Logic`, the `Parser` class has a static method `isInteger` that checks whether the user
+entered a number that can be converted to a number. Otherwise, an error message is displayed on the
+`Ui`.
 
-* However, the group still has to be deleted from the groupList from all of its members.
-_(Refer to GroupPersonClassDiagram above.)_ `deleteGroupFromMembers(m, g)` is called from
-DeleteGroupCommand object to do so. This method calls the `UnModifiableObservableList()` method
-in its UniqueList<Person> to return a list of `members` in `g`. For every `member` in the list
-of `members` (for loop), `updatePersonDeleteGroupFromGroupList(m, g, member)` deletes the
-reference to `g` in `member`.
+.Sequence Diagram of PrintArchiveCommand
+image::print_command_activity.png[width="500"]
 
-* Finally, the address book is committed with all the changes.
 
-Step 4: `FilteredPersonList` and `FilteredGroupList` is also updated correspondingly to display
-the new groups and persons in the `UI`. A successful message is also displayed to the user below
-the UI's command box.
+Step 4: The user can print the archived question to PDF. Running `print archive archive.pdf` will
+create with the archived contents. A wrong input will instead display an error message on the `Ui`.
 
-Step 5: Before the application is closed, all groups and persons are stored in `addressbook.xml`
-using `XmlAdaptedGroup` and `XmlAdaptedPerson` classes. _(Refer to High level sequence diagrams
-Figure 3 and 4 for a similar illustration of the concept.)_
+* Inside `PrintArchiveCommand`, the super class `PrintCommand` has two methods `isPdfFileExtension`
+and `isEmpty` to check the filename has the extension `.pdf` and the contents to be printed is not
+empty.
 
 ==== Design Considerations
 
-===== Aspect: How to implement `Group` class
+===== Aspect: Software design of Print Feature (How to handle different types of printing?)
 
-*Alternative 1 (current choice):* `Group` as an immutable class.
+*Alternative 1 (current choice):* Implement
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]
+in `PrintCommandFactory` to register and implement different printing instructions.
 
-Pros: Immutable objects are good Map keys and Set elements, since these typically do not change
-once created. Immutability makes it easier to write, use and reason about the code.
+Pros: Exposing `PrintCommandFactory` only appears to be good software practice in terms of
+abstraction, software is also scalable to support new printing features by registering
+the new subclasses of `PrintCommand` in `PrintCommandFactory`.
 
-Cons: Doing so might restrict the way one can call the class and its methods. It may be slower
-as you have to create new objects with every command.
+Cons: Restricted to calling the method in `PrintCommandFactory`.
 
-*Alternative 2:* Setter methods for Groups
+*Alternative 2:* Create a new method in `Logic` to handle different printing instructions.
 
-Pros: Easier and less code for methods involving groups. Faster as do not have to create new
-objects each time you change a Group (e.g. edit its description or group members).
+Pros: Easy to implement and avoid the arrowhead style code. Faster to implement because there
+is no need to create a new class
 
-Cons: Miss out on the advantages of immutable object (above). Good practice to use immutable
-objects.
+Cons: Un-scalable, and the code becomes more cluttered when new printing features are introduced.
 
-===== Aspect: Interactions between person and groups
+*Alternative 3:* Return in the subclasses `PrintCommand` to handle different printing instructions.
 
-Deleting a person from a group will affect the person's reference to that group and vice versa
-(similar for adding and editing).
+Pros: Easy to implement and and less code inside `Logic`.
 
-*Alternative 1 (current choice):* Having a `UniqueList<Groups>` in `Person` and
-`UniqueList<Person>` in `Group`.
-
-Pros: Easy to retrieve groups from Person and persons from Group. Existing `UniqueList`
-class available (since already used in `Model`).
-
-Cons: Have to update both lists in most group commands (e.g. registering a new member in a group).
-Issue of enforcing referential integrity - defensive programming.
-
-*Alternative 2* Just update the list of groups in `Model` and have person refer to that list of
-group as to whether it is a member of the group.
-
-Pros: Less issues with enforcing referential integrity (see alternative 1).
-
-Cons: Can be more expensive to look for groups for a particular person.
+Cons: Un-scalable, and is a bad design practice to return the subclass in the super class.
 // end::print[]
+

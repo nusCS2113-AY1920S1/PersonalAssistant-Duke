@@ -253,49 +253,106 @@ element in the `chapterData` ArrayList.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::print[]
-=== [Proposed] Printing Archived/Quiz/UserStats features
-==== Proposed Implementation
-This feature allows the user print the attempted quiz, the archived questions and his/her profile to PDF. The user has
-to input `print archive` into the text field to print the archived questions, `print quiz` to print the quiz questions,
-and `print report` to print the user profile. `PrintArchiveCommand` is used to print to archive questions to PDF, and
-`PrintReportCommand` for the user stats, and `PrintQuizCommand` for the quiz. The `PrintArchiveCommand`,
-`PrintQuizCommand`, and `PrintReportCommand` is a children class of `PrintCommand`.
+=== Print Feature
+The print feature allows users to print his/her quiz, archived questions, or user information into a PDF.
 
-image::PrintCommandImplementation.png[]
+`PrintCommand` and `PrintCommandFactory` class extends the `Command` abstract class. The abstract class contains
+an abstract method `execute` to process user inputs.
+
+`PrintArchiveCommand`, `PrintQuizCommand`, and `PrintUserCommand` extends the `PrintCommand` class. The
+subclasses write the contents to PDF and return a status message. `PrintCommand` contains the methods
+`isPdfFileExtension` and `isEmpty` to check the given filename has the `.pdf` file extension and the contents
+to be printed is not empty.
+
+As shown in the Class Diagram of Print Feature below, the print feature utilizes
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]. The `Logic` class
+ask for a `Command` from the `PrintCommandFactory`. The `PrintCommandFactory` returns one of the following
+`PrintArchiveCommand`, `PrintQuizCommand`, `PrintUserCommand`, and `PrintCommand`. Due to the navigability of
+the association from `Logic` to `PrintCommandFactory`, instantiation of the `PrintCommand` and its
+subclasses are not exposed to `Logic`. The output is finally passed from `PrintCommandFactory` to `Logic`.
+
+New features to print content can be conveniently implemented by creating a subclass of `PrintCommand`
+and registered in the factory class `PrintCommandFactory`.
+
+[.center.text-center]
+.Class Diagram of Print Feature
+image::class_diagram_print_feature.png[width="500"]
+
+
+==== Current Implementation
+The current print commands added are:
+
+* `print user <filename>.pdf` -- writes the user learning progress into PDF.
+* `print archive <filename>.pdf` -- writes the archived questions into PDF.
+* `print quiz <filename>.pdf` -- writes the quiz questions into PDF.
+
+The methods to parse the user input are handled in `Parser` before passing to `PrintCommandFactory`.
+Depending on the second argument `user`, `archive`, or `quiz` in the user input, the data from
+user information, archived questions, or the quiz is printed to PDF.
+
+==== Example: PrintArchiveCommand
+The PrintArchiveCommand demonstrates how
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]
+works well in this implementation. An example of the command `print archive archive.pdf` is
+described below. A Sequence Diagram PrintArchiveCommand is provided for visual representation.
+
+Step 1: The user launches the application. First, the user runs `quiz <chapter name>` to select a
+quiz chapter, then runs `start` the quiz. The user answers the 10 questions in the quiz.
+
+Step 2: When the user finishes the quiz, if he runs `print archive archive.pdf`, no PDF is created.
+Instead, a message `Nothing in archive` is displayed on the `Ui` . This is because the user has not
+archived any questions yet.
+
+Step 3: After the user runs `archive 5`, the user successfully archived the 5th question in the quiz
+(the first question starts from index 1). Currently, the users has one question archived. To archived
+more questions, he can run `archive <x>` where x is the xth question in the quiz.
+
+* Inside `Logic`, the `Parser` class has a static method `parseInput` that trims spacing on the two
+ends of the user inputs. It also replaces multiple spacing between words to single spacing. Finally,
+the user input is split by spacing and returned as an `ArrayList<String`.
+
+* Inside `Logic`, the `Parser` class has a static method `isInteger` that checks whether the user
+entered a number that can be converted to a number. Otherwise, an error message is displayed on the
+`Ui`.
+
+.Sequence Diagram of PrintArchiveCommand
+image::print_command_activity.png[width="500"]
+
+
+Step 4: The user can print the archived question to PDF. Running `print archive archive.pdf` will
+create with the archived contents. A wrong input will instead display an error message on the `Ui`.
+
+* Inside `PrintArchiveCommand`, the super class `PrintCommand` has two methods `isPdfFileExtension`
+and `isEmpty` to check the filename has the extension `.pdf` and the contents to be printed is not
+empty.
 
 ==== Design Considerations
-===== Aspect: Modularizing program to write to PDF
-* **Alternative 1 (current choice):** Use inheritance.
-** Pros: Allow future expansion for specific commands, share the inherited method `saveToPdf` from the `PrintCommand` to write the data into PDF.
-** Cons: Increase storage size and memory usage from multiple files and instances.
-* **Alternative 2:** Use overloading.
-** Pros: Convenient to parse the data to write to PDF.
-** Cons: Difficult to develop other features to print to PDF in future.
 
-// tag::audio[]
-=== [Proposed] Playing Audio features
-==== Proposed Implementation
-This feature allows the user to play in-built music while he/she uses the application. The music will be randomly chosen
-and played. Once the music ends, another music start playing. The user can input `sound <sound level>` to adjust the
-sound level. For example, `sound 0` means the music is off, while `sound 10` means the music is played at maximum
-intensity. This feature is separated into `MusicController` and instantiated in the `MainApp`.
+===== Aspect: Software design of Print Feature (How to handle different types of printing?)
 
-==== Design Considerations
-===== Aspect: Tracking when to play the next music
-* **Current choice :** Use multi-threading to playing the music.
-** Pros: Reduce timing overhead due to asynchronous execution.
-** Cons: Code is not able to reuse.
-* **Alternative :** Use the `AnimationTimer` in `JavaFx` to poll and check the music status.
-** Pros: Easy to implement and reuse `AnimationTimer`.
-** Cons: Additional overhead for the `AnimationTimer` due to synchronous execution.
+*Alternative 1 (current choice):* Implement
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm[Factory Design Pattern]
+in `PrintCommandFactory` to register and implement different printing instructions.
 
-===== Aspect: Data structure to contain the music
-* **Current choice :** Use a `HashMap` to store the list of music.
-** Pros: Easy to store and track the music name in a `HashMap` using `SoundEnum`
-** Cons: Need to convert to a list of string to display music name on the user interface.
-* **Alternative :** Use `List` to store the music
-** Pros: Easy to random a music, display music on the user interface, and search for the music name in a list.
-** Cons: More prone to mistakes when handling the music names in `String`.
+Pros: Exposing `PrintCommandFactory` only appears to be good software practice in terms of
+abstraction, software is also scalable to support new printing features by registering
+the new subclasses of `PrintCommand` in `PrintCommandFactory`.
+
+Cons: Restricted to calling the method in `PrintCommandFactory`.
+
+*Alternative 2:* Create a new method in `Logic` to handle different printing instructions.
+
+Pros: Easy to implement and avoid the arrowhead style code. Faster to implement because there
+is no need to create a new class
+
+Cons: Un-scalable, and the code becomes more cluttered when new printing features are introduced.
+
+*Alternative 3:* Return in the subclasses `PrintCommand` to handle different printing instructions.
+
+Pros: Easy to implement and and less code inside `Logic`.
+
+Cons: Un-scalable, and is a bad design practice to return the subclass in the super class.
+// end::print[]
 
 // tag::improvisedparser[]
 === [Proposed] Improvising on current parser
