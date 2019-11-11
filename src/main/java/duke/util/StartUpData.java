@@ -24,18 +24,17 @@ public class StartUpData {
      * @return The pre-generated array list of patients.
      */
     public ArrayList<Patient> getPatients() {
-        int[] patientIDs = {1, 2, 3, 4, 5, 6};
         String[] patientNames = {"John Doe", "Barbara Jones", "Synthia Smith",
-                "Sam Flores", "Emily Roth", "Nick Wong"};
+                                 "Sam Flores", "Emily Roth", "Nick Wong"};
         String[] nricNumbers = {"G0001234L", "G7894560W", "G1432598R", "S0897236J",
-                "F7891239P", "S1324567P"};
+                                "F7891239P", "S1324567P"};
         String[] rooms = {"9B", "8A", "5R", "12C", "19R", "24B"};
         String[] remarks = {"Hasn't had an appetite for past 2 days",
-                "Complaining about foot injury", "Allergy to shellfish", "Nothing",
-                "Prefers privacy", "Symptoms are improving"};
+                            "Complaining about foot injury", "Allergy to shellfish", "Nothing",
+                            "Prefers privacy", "Symptoms are improving"};
 
-        for (int i = 0; i < patientIDs.length; i++) {
-            newPatientList.add(new Patient(patientIDs[i], patientNames[i],
+        for (int i = 0; i < patientNames.length; i++) {
+            newPatientList.add(new Patient(patientNames[i],
                     nricNumbers[i], rooms[i], remarks[i]));
         }
 
@@ -48,12 +47,12 @@ public class StartUpData {
      * @return The pre-generated array list of tasks.
      */
     public ArrayList<Task> getTasks() {
-        int[] taskIDs = {1, 2, 3, 4, 5, 6, 7, 8};
         String[] taskDescriptions = {"Take medicine", "Check temperature", "Prep for surgery",
-                "Bring lunch", "Change sheets", "Let family visit", "Give shot", "Change IV"};
+                                     "Bring lunch", "Change sheets", "Let family visit",
+                                     "Give shot", "Change IV"};
 
-        for (int i = 0; i < taskIDs.length; i++) {
-            newTaskList.add(new Task(taskIDs[i], taskDescriptions[i]));
+        for (int i = 0; i < taskDescriptions.length; i++) {
+            newTaskList.add(new Task(taskDescriptions[i]));
         }
 
         return newTaskList;

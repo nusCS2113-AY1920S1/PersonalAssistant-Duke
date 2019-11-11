@@ -71,6 +71,9 @@ public class Duke {
                 for (AssignedTask assignedTask : dataAdder.getAssignedTasks()) {
                     assignedTaskManager.addPatientTask(assignedTask);
                 }
+                storageManager.savePatients(patientManager.getPatientList());
+                storageManager.saveTasks(taskManager.getTaskList());
+                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             } catch (Exception e) {
                 throw new DukeException("Failed to generate pre-made data.");
             }
