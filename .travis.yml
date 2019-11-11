@@ -11,4 +11,8 @@ install: gradle wrapper --gradle-version 5.2
 
 script:
   - "./gradlew build"
-  - "java -Djava.awt.headless=true"
+
+maven_build:
+  stage: build
+  script:
+    - "mvn clean package -Djava.awt.headless=true"
