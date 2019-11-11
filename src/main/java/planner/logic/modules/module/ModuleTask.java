@@ -2,6 +2,7 @@
 
 package planner.logic.modules.module;
 
+import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.logic.exceptions.legacy.ModInvalidTimeException;
 import planner.logic.exceptions.planner.ModBadGradeException;
@@ -40,7 +41,7 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         LocalTime end = natty.dateToLocalDateTime(endString).toLocalTime();
         try {
             this.setPeriod(0, begin, end);
-        } catch (ModInvalidIndexException ex) {
+        } catch (ModException ex) {
             ex.printStackTrace();
         }
     }
