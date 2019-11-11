@@ -1,3 +1,9 @@
+/**
+ * Handles content to be shown right at the bottom of GUI.
+ *
+ * @author kuromono
+ */
+
 package cube.ui;
 
 import javafx.fxml.FXML;

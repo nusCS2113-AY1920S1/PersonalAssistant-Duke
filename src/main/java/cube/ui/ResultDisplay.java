@@ -1,3 +1,9 @@
+/**
+ * Handles content at the TextArea below the command box.
+ *
+ * @author kuromono
+ */
+
 package cube.ui;
 
 import javafx.fxml.FXML;
