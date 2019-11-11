@@ -307,7 +307,7 @@ The command also supports the editing of data in other dates: simply specify the
 
 Examples:
 
-* Suppose your current meal list looks like this:
+* Suppose your current meal list via the `list` command looks like this:
 
 +
 image::Edit_Command_List.png[]
