@@ -242,7 +242,7 @@ A subclass of  `Storage.java`, that can store `orders` in the order list in a ce
   0|11/11/2019|D|cereal shrimp|1|D|soup|4
   ```
 
-##### 2.5.4 OrderStorage
+##### 2.5.4 DishStorage
 
 API: `RecipeStorage.java`
 
@@ -254,7 +254,7 @@ A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a ce
 
 ##### 2.5.5 Printable
 
-![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Printable.png" style="zoom:25%" />
 
 Figure. Structure of Printable
 
@@ -266,7 +266,7 @@ Offers one abstract method `printInFile()` whose implementation should indicate 
 
 #### 2.6 List Component
 
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/ListComponent.png)
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png" style="zoom:25%" />
 
 Figure. Structure of the List Component
 
