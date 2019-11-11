@@ -278,11 +278,7 @@ therefore, we have to create a text file to store the insertion order,
 and whenever users use `history` command, it will take reads through that file.
 
 // tag::implmentation[]
-=== Usage Statistics feature
-
-The usage statistics feature includes a collection of commands that can allow the user to obtain information regarding his usage habits of WordUp that can help the user use the word bank more efficiently.
-
-==== Recently Added
+=== Recently Added
 The Recently Added feature allows the user to quickly check back on the words he had recently added to the application. It is facilitated by the RecentlyAddedCommand, which extends the Command class.
 
 It contains the following attributes:
@@ -325,7 +321,7 @@ image::RecentlyAddedSequenceDiagram.png[]
 ** Pros: Easy to implement since it is one of the most widely used `collections` data structure.
 ** Cons: Requires a loop to iterate through the items, and extra code to first sort the word in reverse order.
 
-==== Search Frequency
+=== Search Frequency
 The Search Frequency feature allows the user to see the words with the highest/lowest search counts as a reflection of which words he was most unfamiliar with and therefore had to repeatedly search its meaning for. It is facilitated by the SearchFrequencyCommand, which extends the Command class, and the SearchCommand.
 
 SearchFrequencyCommand contains the following attributes:
@@ -355,14 +351,8 @@ Step 1: The user enters search w/happy to check the meaning of the word ‘happy
 
 Step 2: After a few searches of different words, which is carried out following the process described in Step 1, the user enters the command freq o/desc. SearchFrequencyCommand then tells Ui the displayOrder to display the word and their word counts in.
 
-The following sequence shows how the Search Frequency feature works:
-
-[INSERT SEQUENCE DIAGRAM]
-
 === Schedule Reminders feature
 The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
-
-[INSERT OBJECT DIAGRAMS]
 
 The following is a sample usage case:
 
@@ -415,11 +405,11 @@ image::Synonymexample.PNG[align='center']
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
-* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. 
+* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. The quizzes are in the form of 4-option MCQs,4 in a row. (See QuizScene.java and QuizCommand.java for details.)
 
-See QuizScene.java and QuizCommand.java for details.
+* The generateQuiz() function in QuizCommand.java generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ. 
 
-* The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ.
+* The scene (GUI) will change form MainScene to QuizScene when user inputs “quiz” the QuizScene will then interacts between user and QuizCommand, generating MCQs for 4 in a row.
 
 * The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct.
 
