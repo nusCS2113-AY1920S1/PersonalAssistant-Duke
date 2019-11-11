@@ -24,6 +24,21 @@ public class Contact {
     }
 
     /**
+     * Constructs a new Contact object.
+     *
+     * @param id       id of the contact.
+     * @param name     Name of the contact.
+     * @param detail   Details of the contact.
+     * @param phoneNum Phone number of the contact.
+     */
+    public Contact(int id, String name, String detail, String phoneNum) {
+        this.id = id;
+        this.name = name;
+        this.detail = detail;
+        this.phoneNum = phoneNum;
+    }
+
+    /**
      * Returns the name of the contact.
      *
      * @return The name of the contact.

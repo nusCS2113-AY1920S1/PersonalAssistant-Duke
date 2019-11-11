@@ -106,12 +106,14 @@ public class ContactParserHelper {
         int nameIndex;
 
         String name;
+        int id;
         String details = null;
         String phone = null;
 
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<String> detailsList = new ArrayList<>();
         ArrayList<String> phoneList = new ArrayList<>();
+        ArrayList<String> idList = new ArrayList<>();
 
         detailsIndex = findIndexOf(info, "/d");
         phoneIndex = findIndexOf(info, "/p");
@@ -130,8 +132,12 @@ public class ContactParserHelper {
                 phoneList.add(info[i]);
             } else if (section == 0) {
                 nameList.add(info[i]);
+            } else {
+                idList.add(info[i]);
             }
         }
+
+        id = Integer.parseInt(concatList(idList).trim());
 
         name = concatList(nameList);
         if (name.isEmpty()) {
@@ -156,7 +162,7 @@ public class ContactParserHelper {
             return null;
         }
 
-        return new Contact(name, details, phone);
+        return new Contact(id, name, details, phone);
     }
 
 }

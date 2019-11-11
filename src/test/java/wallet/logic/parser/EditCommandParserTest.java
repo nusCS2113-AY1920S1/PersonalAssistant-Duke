@@ -65,7 +65,7 @@ public class EditCommandParserTest {
      * This method test a series of wrong contact command inputs.
      */
     @ParameterizedTest
-    @ValueSource(strings = {"", "  ", "1", "garbage"})
+    @ValueSource(strings = {"", "  ", "1", "garbage", "5 6 /n John /p 7183 /d brother 123@abc.com"})
     public void parseContact_invalidInput_true(String input) {
         EditCommandParser parser = new EditCommandParser();
         Contact contact = parser.parseContact(input);
