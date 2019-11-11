@@ -257,13 +257,13 @@ to their API.
 |ConstantHelper| Contains most of the constants used throughout ArchDuke. | link:{repoURL}/src/main/java/util/constant/ConstantHelper.java[`ConstantHelper.java`]
 |DateTimeHelper| Handles the Date Format specific to ArchDuke | link:{repoURL}/src/main/java/util/date/DateTimeHelper.java[`DateTimeHelper.java`]
 |JsonConverter| Responsible for saving and loading data to and from persistent data. | link:{repoURL}/src/main/java/util/json/JsonConverter.java[`JsonConverter.java`]
-|ParserHelper| Contains methods used by other classes to parse the user input to retrieve the desired information. | link:{repoURL}/src/main/java/util/ParserHelper.java[`ParserHelper.java`]
+|ParserHelper| Contains methods used by other classes to parse the user input to retrieve and validate the desired information. | link:{repoURL}/src/main/java/util/ParserHelper.java[`ParserHelper.java`]
 |ProjectFactory| The `ProjectFactory` manages the object creation for `ConsoleInputController`. | link:{repoURL}/src/main/java/util/factories/ProjectFactory.java[`ProjectFactory.java`]
 |ReminderFactory| The `ReminderFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/ReminderFactory.java[`ReminderFactory.java`]
 |MemberFactory| The `MemberFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/MemberFactory.java[`MemberFactory.java`]
 |TaskFactory| The `TaskFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/TaskFactory.java[`TaskFactory.java`]
 |SortHelper| Contains various function for sorting the item in different format. | link:{repoURL}/src/main/java/util/SortHelper.java[`SortHelper.java`]
-|ViewHelper| Contains function to help format the view representation of ArchDuke. | link:{repoURL}/src/main/java/util/uiformatter/ViewHelper.java[`ViewHelper.java`]
+|ViewHelper| Formats and organises information in a presentable and user-friendly manner to display to the user.| link:{repoURL}/src/main/java/util/uiformatter/ViewHelper.java[`ViewHelper.java`]
 |=======================================================================
 
 == 3. Implementation
