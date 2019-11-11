@@ -406,10 +406,10 @@ These entries can then be accessed under the Sales tab in the application.
 ==== Implementation
 
 The `sale add` feature involves adding a `Sale` object to a `UniqueEntityList` named `sales` which is initialized inside BakingHome.
-A filtered copy of this list is also found inside ModelManager named `filteredSales`.
+A filtered copy of this list is also found inside `ModelManager` named `filteredSales`.
 Having two separate lists allow us to store all `Sale` objects that have been added while at the same time displaying only the desired entries using predicates.
 
-Similar to the other 3 features, the operations to edit the two lists are exposed in ModelManager as the following public methods:
+Similar to the other 3 features, the operations to edit the two lists are exposed in `ModelManager` as the following public methods:
 
 * `ModelManager#AddSale(sale)` – Adds a `Sale` object to the `UniqueEntityList` `sales`. The `filteredList` is also updated to show the new entry and filter predicate is reset to show all entries.
 
@@ -431,12 +431,12 @@ Given below is an example usage scenario and how the add sale command works.
 
 ==== Design Considerations
 
-* Alternative 1 (current implementation): Store all sale entries in an observable list in BakingHome and keep a FilteredList in ModelManager.
+* Alternative 1 (current implementation): Store all sale entries in an `ObservableList` in BakingHome and keep a `FilteredList` in `ModelManager`.
 ** Pros: Implementation is clearer and code is more readable.
 **	Cons: Memory is wasted in keeping two sets of the list.
 
 * Alternative 2: Store only one sale list. Loop through the list to get the desired entries for display.
-** Pros: Structure is simpler
+** Pros: Structure is simpler.
 ** Cons: Time complexity is higher, which may result in slower queries especially as the number of entries increase.
 
 * Alternative 3: Store a new list for each month / year.
