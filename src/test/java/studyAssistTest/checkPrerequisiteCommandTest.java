@@ -2,7 +2,7 @@
 package studyAssistTest;
 import gazeeebo.commands.studyassist.CheckPrerequisiteCommand;
 import gazeeebo.exception.DukeException;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.StudyAssistPageStorage;
 import org.junit.jupiter.api.AfterEach;

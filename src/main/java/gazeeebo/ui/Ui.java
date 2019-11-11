@@ -1,7 +1,6 @@
-package gazeeebo.UI;
+package gazeeebo.ui;
 
 import gazeeebo.storage.PasswordStorage;
-import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
@@ -173,7 +172,7 @@ public class Ui {
                 + "YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }
 
-    public void showIOErrorMessage(final Exception e) {
+    public void showIoErrorMessage(final Exception e) {
         System.err.println("An IOException was caught :" + e.getMessage());
     }
 

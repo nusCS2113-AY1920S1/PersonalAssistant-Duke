@@ -1,6 +1,6 @@
 package gazeeebo.commands.studyassist;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.StudyAssistPageStorage;
 

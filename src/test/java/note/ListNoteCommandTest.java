@@ -2,7 +2,7 @@
 
 package note;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.note.ListNoteCommand;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;

@@ -2,7 +2,11 @@
 
 package expensetest;
 
+<<<<<<< HEAD
 import gazeeebo.UI.Ui;
+=======
+import gazeeebo.ui.Ui;
+>>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
 import gazeeebo.commands.expenses.FindExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

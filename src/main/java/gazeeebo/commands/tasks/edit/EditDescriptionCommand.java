@@ -10,7 +10,7 @@ import gazeeebo.tasks.Todo;
 import gazeeebo.tasks.FixedDuration;
 import gazeeebo.tasks.Timebound;
 import gazeeebo.tasks.DoAfter;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;

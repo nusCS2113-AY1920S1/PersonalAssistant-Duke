@@ -2,7 +2,7 @@
 
 package PlacesCommandTest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.places.FindPlacesCommand;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;

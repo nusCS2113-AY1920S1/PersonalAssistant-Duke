@@ -2,7 +2,7 @@
 
 package gazeeebo.commands.expenses;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;

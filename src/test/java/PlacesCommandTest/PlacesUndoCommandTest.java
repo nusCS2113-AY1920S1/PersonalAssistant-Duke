@@ -2,7 +2,7 @@
 
 package PlacesCommandTest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.places.UndoPlacesCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
