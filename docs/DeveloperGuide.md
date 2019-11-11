@@ -30,7 +30,7 @@ The Application consist of 10 other components
 - ` Fridge` : contains 
 - `ingredient`: contains ingredient list 
 - `list`: a class which contains a generic list. this list is used by various other classes
-- `order`:  
+- `order`:  contains the order class
 - `parser`: determine the next course of action from the user command
 - `storage`: Reads, writes data from and to the hard disk
 - `ui`: The UI of the application, manages the IO 
@@ -173,7 +173,7 @@ makes sense of the data that is read by the user from the Duke Class.
 
 this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
-![Parser](C:\Users\s1014\Desktop\local_clone\docs\images\Parser.png)
+![Parser](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Parser.png)
 
 | methods                           | description                                       |
 | --------------------------------- | ------------------------------------------------- |
@@ -210,7 +210,7 @@ The dynamic change in the text file contents during execution, is handled primar
 
 The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
 
-The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
+The interactions between the `GenericList` and the `Storage` and their subclasses is shown in the figure below.
 
 <img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
 
@@ -220,7 +220,7 @@ API: `FridgeStorage.java`
 
 A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
 
-The format print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
+The format that print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below as printed in the `fridge.txt` file during the program execution:
 
 ```
 milk|3|09/09/2019
@@ -236,11 +236,11 @@ API: `OrderStorage.java`
 
 A subclass of  `Storage.java`, that can store `orders` in the order list in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See example below:
 
-- ```
-  1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
-  0|12/11/2019|D|beef noodle|1|D|pork dumplings|2
-  0|11/11/2019|D|cereal shrimp|1|D|soup|4
-  ```
+```
+1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
+0|12/11/2019|D|beef noodle|1|D|pork dumplings|2
+0|11/11/2019|D|cereal shrimp|1|D|soup|4
+```
 
 ##### 2.5.4 DishStorage
 
@@ -249,7 +249,10 @@ API: `RecipeStorage.java`
 A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
 
   ```
-  ???? I don't know the output
+cake|milk|3|sugar|2|egg|1|wheat|3
+pumpkin pie|pumpkin|1|sugar|1|egg|1
+cookie|wheat|2|cocoa beans|1
+golden apple|gold ingot|8|apple|1
   ```
 
 ##### 2.5.5 Printable
@@ -390,15 +393,13 @@ eg. `throw new DukeException("enter a valid amount/index")`
 
 #### 2.8 Dish Component
 
-API: `Dish.java`, `DishList.java`
-
-The Recipebook contains 2 classes, Dishes Class and DishList Class
+API: `Dish.java`
 
 ![dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes.PNG)
 
 **<u>Dish Class</u>**
 
-This class holds the name of the dish as well the ingredients that are associated to that specific dish. 
+This class holds the name of the dish as well the ingredients that are associated to that specific dish.  there are several methods the Dish class contains that allows the attributes to be modified.
 
 | Attributes                       | Description                                     |
 | -------------------------------- | ----------------------------------------------- |
@@ -464,63 +465,46 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
 
   user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
 
-**<u>future additions</u>**
-
-- **<u>ChangeIngredientCommand</u>**
-
 #### 2.10 Order Component
-API: `Order.java`, `OrderList.java`
+API: `Order.java`
 
-The Order component contains 2 classes, Order Class and OrderList Class. The chef can add new orders and update his "todo list" today. When an order comes, the program calculates dishes amount for each type of dishes. It then access the recipebook which contains every dishes in the menu including the recipe (the amount of consisting ingredients) so as to get the total amount of the ingredients needed to finish this order. It checks with the storage of those ingredients in the `Fridge` and returns the information that if ingredients are enough.
+The order component manage orders in a well-organized way. It stores a list of dishes. Each dishes is stored as format of a map of (key, value) where key refers to the dishes name and the value refers to its total ordered amount in the placing order. The order content may vary according to operations such as addition, cancellation, alteration, marking as done. The order content supports view by specifying requirements.
 
-Besides, in current stage, we assume that the dishes in chef's todo list should be finished by the end of "today". At the beginning of every day, the todo list will be initialized. However, the order supports pre-order, allowing the order date is not today. That is, the initialization of chef's todo list might not be empty.
+Besides, we assume that the dishes in chef's todo list should be finished by the end of "today". At the beginning of each day, the todo list will be initialized. However, the order supports pre-order, allowing the order date is not today. That is, the initialization of chef's todo list might not be empty, which leads to its two constructor methods.
 
+Below are tables of the attributes and some methods implemented in `Order` class.
 
-**<u>Order Class</u>**
+| Attributes                    | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| content: Map<String, Integer> | the content of the order, specifying ordered dishes and amount |
+| isDone: boolean               | the status of the order: *true* if done, *false* otherwise   |
+| date: Date                    | the serving date of the order (not the date when the order was created) |
+| dateToString: String          | the serving date of the order as string                      |
 
-| Attributes                                          | Description                                                  |
-| --------------------------------------------------- | ------------------------------------------------------------ |
-| content: Map<Dishes, Integer>                       | the content of the order, specifying ordered dishes and amount |
-| isDone: boolean                                     | the status of the order: *true* if done, *false* otherwise   |
-| date: Date                                          | the serving date of the order (not the date when the order was created) |
-
-
-
-| Constructor   | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| Order()       | By default, the order is not done; the serving date is today. |
-| Order(String) | Assigns the serving date of the order with String. Call if it is a pre-order. |
-
-
-
-| Methods                                | Description                                                  |
-| -------------------------------------- | ------------------------------------------------------------ |
-| getDate(): Date                        | returns the serving  `date` of the order                     |
-| setDate(String): void                  | takes in a `String` and alter the serving `date`  of the order |
-| isToday(): boolean                     | returns a `boolean` indicating whether the serving date is today or not |
-| isDone(): boolean                      | returns a `boolean` indicating whether the order is finished or not |
-| markAsDone(): void                     | mark the order as finished                                   |
-| getStatusIcon(): String                | takes in an `int` and sets the new overall rating of the dish |
-| getOrderContent(): Map<Dishes, Integer> | returns the order content as `Map`                           |
-| toString(): String                     | returns description of the order as `String`                 |
-| printInFile(): String                  | returns description of the order that used to store in the txt file |
-| hasDishes(Dishes): boolean             | returns a `boolean` indicating whether the order has the dishes or not |
-| getDishesAmount(Dishes): int           | returns the amount of the query dishes in the order          |
-| addDish(Dishes): void                  | add one more the dishes to the undone order                  |
-| addDish(Dishes, int): void             | add the dishes to the undone order with adding amount        |
-
-
+| Methods                      | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| isToday(): boolean           | returns a `boolean` indicating whether the serving date is today or not |
+| isDone(): boolean            | returns a `boolean` indicating whether the order is finished or not |
+| markAsDone(): void           | mark the order as finished                                   |
+| toString(): String           | returns description of the order as `String`                 |
+| printInFile(): String        | returns description of the order that used to store in the txt file |
+| hasDishes(Dishes): boolean   | returns a `boolean` indicating whether the order has the dishes or not |
+| getDishesAmount(Dishes): int | returns the amount of the query dishes in the order          |
+| addDish(Dishes): void        | add one more the dishes to the undone order                  |
+| addDish(Dishes, int): void   | add the dishes to the undone order with adding amount        |
 
 #### 2.11 Order Command Component
+
 API: `AddOrderCommand.java`, `AlterDateCommand.java`, `DeleteOrderCommand.java`, `DoneOrderCommand.java`, `ListOrderCommand.java`
 
 The Order Command classes inherits from the `Command` class. They overwrite the abstract method `execute` of the `Command` class. The Order Command classes includes:
 
-- AddOrderCommand: This command will add order to the orderlist and update the chef's todo list. The order can be loaded manually by command. The order can also be read from the file when initializing -- which is the case of the pre-order.
-- AlterDateCommand: This command will change the serving date of the order. If it changed to the date of today, then chef's todo list should be updated. If it changed to the date before today, then the change is considered invalid.
-- DeleteOrderCommand: This command is used for cancelled orders. It also synchronizes with chef's todo list.
-- DoneOrderCommand: This command is used for changing the status of the order to be finished. The done dishes in the order can be removed from the chef's todo list. 
-- ListOrderCommand: The command is to list all orders or is to list orders after filtering. The filter feature can be date, dishes, order status.
+- `AddOrderCommand`: This command will add order to the orderlist and update the chef's todo list. The order can be loaded manually by command. The order can also be read from the file when initializing -- which is the case of the pre-order.
+- `AlterDateCommand`: This command will change the serving date of the order. If it changed to the date of today, then chef's todo list should be updated. If it changed to the date before today, then the change is considered invalid.
+- `CancelOrderCommand`: This command is used for cancelled orders. It also synchronizes with chef's todo list.
+- `DoneOrderCommand`: This command is used for changing the status of the order to be finished. The done dishes in the order can be removed from the chef's todo list. 
+- `ListOrderCommand`: The command is to list all orders or is to list orders after filtering. The filter feature can be date, dishes, order status.
+- `InitOrderCommand`: [*DANGEROUS*] This command will empty all the orders in the order list.
 
 #### 2.12 Fridge Component
 API: `Fridge.java` ,`Ingredient.java`
@@ -583,8 +567,33 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
 - **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
-### 3. Testing
 
+### 3. Implementation
+
+##### 3.1 Proposed `UseCommand` Implementation, *preventing food waste*:
+
+This Command is implemented, such that it makes use of the `IngredientList`'s method for removing a specific amount from an `Ingredient`, namely,  `removeEntry(Ingredient ingredient)`. At every moment the ingredients kept in the `Fridge` are sorted by their expiry date. This method will loop trough all of the ingredients stored (in a sorted order, checking most recently expiring ingredients first), that have the same name as the ingredient to be used, and only taking the non-expired ingredients. It works by keeping a local `integer` counter that indicates the needed amount of the ingredient at each moment of the execution. Each time that there is a match, the needed amount is checked against the amount contained in the match, **if the needed amount is greater than the amount contained in the matched ingredient**, the needed amount is decreased by the amount contained in the match, the match is removed from the `IngredientList`, and the loop continues executing by finding the next match in the `IngredientList`. **Otherwise**, the amount of the match is decreased by the needed amount, and if it has reached zero, this ingredient is removed from the `IngredientList`, the method will return **true**, and the `UseCommand` will finish execution successfully, by showing a success message for the user. If all of the ingredients were checked and the needed amount was not satisfied, the `removeEntry` method will  return **false**, and the `UseCommand` will transfer this information to the user, indicating there is not a sufficient amount of this ingredient in the `Fridge`.
+
+Assuming the Fridge initially contains the 5 Ingredients: 
+
+1. pepper(amount 2, expired 10/11/2019)
+2. rice(amount 100, expiring 12/2/2020)
+3. pepper(amount 3, expiring 12/3/2020)
+4. chicken (amount 3, expiring 12/3/2020)
+5. pepper (amount 3, expiring 14/3/2020)
+
+Upon typing `use pepper 5`, the `UseCommand` is created with the parameter `Ingredient` having the name `pepper` and amount `5`. Calling execute on this command will remove the third entry - *pepper(amount 3, expiring 12/3/2020)*, and decrease the amount of the last entry by two, `5 - 3 => 2` , so the entry remains, now having a total amount of one. 
+
+This will result in the following `IngredientList` being stored in the Fridge:
+
+1. pepper(amount 2, expired 10/11/2019)
+2. rice(amount 100, expiring 12/2/2020)
+3. chicken (amount 3, expiring 12/3/2020)
+4. pepper (amount 1, expiring 14/3/2020)
+
+### 4. Documentation
+
+### 5. Testing
 
 - There are two ways to run our tests.
 
@@ -604,9 +613,10 @@ We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` c
 Target user profile: Restaurant Chef
 
 - needs to manage all the ingredients for his dishes  
-- needs to keep track of orders 
+- needs to keep track of orders and manage the status
 - needs to manage ingredients in the fridge
 - needs to manage dishes in recipe book 
+- needs to view all the todo dishes today
 - prefers a desktop application, CLI
 - prefers to keep everything neat in terms of viewing information
 ### Appendix B: User Stories
@@ -830,45 +840,73 @@ in the main page, there are several actions for the user:
 
 Removing an ingredient from the Fridge
 
-1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
+*prerequisite:* user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
 
-   Test case 1: `remove 1` 
+Test case 1: `remove 1` 
 
-   Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
+Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
 
-   Test case 2: `remove 6`
+Test case 2: `remove 6`
 
-   Expected: no ingredient is removed, outputs to the user that the index is not valid 
+Expected: no ingredient is removed, outputs to the user that the index is not valid 
 
-   Test case 3: `remove`
+Test case 3: `remove`
 
-   Expected:  no ingredient is removed, outputs to the user that he must specify an index
+Expected:  no ingredient is removed, outputs to the user that he must specify an index
 
 #### E4. Using an ingredient
 
 Using an ingredient from the Fridge
 
-1. prerequisite: user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
+*prerequisite:* user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
 
-   Test case 1: `use tomato 2 `
+Test case 1: `use tomato 2 `
 
-   Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
+Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
 
-   Test case 2: `use tomato 3`
+Test case 2: `use tomato 4`
 
-   Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
+Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
 
-   Test case 3: `use tomato`
+Test case 3: `use tomato`
 
-   Expected: output a message to user that he must specify an amount 
+Expected: output a message to user that he must specify an amount 
 
 #### E5. Listing all ingredient
 
-1. Adding an ingredient to the List
+Using an ingredient from the Fridge
 
-#### E6. Removing all expired ingredient
+*prerequisite:* user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming the list is not empty,
 
-1. Adding an ingredient to the List
+Test case 1: `show`
+
+Expected: List every ingredients in the `Fridge`, as well as their attributes, name, amount and expiry date.
+
+If the list is empty,
+
+Expected: The program will prompt to the user telling him that the `Fridge` is empty. 
+
+#### E6. Removing all expired ingredients
+
+Removing all the expired ingredients from the Fridge
+
+Test case 1: Assuming there are no expired ingredients:
+
+- typing `a` in the main menu should result in the following message printed first, followed by the options menu
+
+  ```
+  	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!
+  ```
+
+Test case 2: Assuming there are some expired ingredients in the `Fridge`, eg : salt, amount is: 50, expired on 31st of October 2019 and milk, amount is: 150, expired on 11th of October 2019:
+
+- typing `a` in the main menu results in the following message
+
+```
+	Removed ingredients: 
+salt, amount is: 50, expired on 31st of October 2019
+milk, amount is: 150, expired on 11th of October 2019
+```
 
 #### E7. Finding an ingredient
 
@@ -876,15 +914,15 @@ Finding an ingredient in the Fridge
 
 1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`.
 
-   Test case 1: `find beef` 
+   Test case 1: `find` `beef` 
 
    Expected: Find and list all ingredients that have the keyword `beef` to the user, regardless of their amount or expiry date
 
-​	   Test case 2: `find cockroach`
+​	   Test case 2: `find` `cockroach`
 
 ​	   Expected: Ingredient is not found and program outputs `No such ingredient found!`
 
-​	   Test case 3: `find be ef`
+​	   Test case 3: `find` `be ef`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
@@ -898,7 +936,7 @@ Listing all ingredients in the `Fridge` that expires today
 
    Expected: Find and list all ingredients in the `Fridge` that expires today, which is the **chicken**.
 
-   Test case 2: `list today`
+   Test case 2: `list` `today`
 
    Expected: Program outputs to user the proper syntax to use the command
 
@@ -908,15 +946,15 @@ Changing the name of an ingredient in the `Fridge`
 
 1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`, with index of 1 and 2 respectively.
 
-   Test case 1: `changename 1 pork` 
+   Test case 1: `changename` `1` `pork` 
 
    Expected: Changes the **beef** to **pork** and output its new name, amount and expiry date to the user.
 
-​	   Test case 2: `changename 3 pork`
+​	   Test case 2: `changename` `3` `pork`
 
-​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+​	   Expected:  User is prompted by the program to enter a valid range of ingredient index number, depending on the `IngredienstLists` size.
 
-​	   Test case 3: `changename chicken pork`
+​	   Test case 3: `changename` `chicken` `pork`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
@@ -926,15 +964,15 @@ Changing the amount of an ingredient in the `Fridge`
 
 1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **30 beef** and **20 chicken** in the `Fridge`, with index of 1 and 2 respectively.
 
-   Test case 1: `changeamount 1 20` 
+   Test case 1: `changeamount` `1` `20` 
 
    Expected: Changes the amount of **beef** from 30 to 20 and output its name, new amount and expiry date to the user.
 
-​	   Test case 2: `changeamount 3 20`
+​	   Test case 2: `changeamount` `3` `20`
 
 ​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
 
-​	   Test case 3: `changeamount chicken 7`
+​	   Test case 3: `changeamount` `chicken` `7`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
@@ -1010,9 +1048,9 @@ Changing the amount of an ingredient in the `Fridge`
 
       Expected: program prints message to user informing that description cannot be empty
 1. prerequisite: list all dishes  using `list`, eg the size 
-   
+  
 2. Test case 1: `remove 1`
-   
+  
    Expected: deletes the first dish in the list, 
 
 #### E15. Changing name of a dish
@@ -1028,3 +1066,114 @@ Changing the amount of an ingredient in the `Fridge`
    3. Test case 2: `change 1`
 
       Expected: no changes to the list. program prints message to user asking to enter a valid index/description
+
+#### E16. Adding Order Today or Pre-Order
+
+1. add a new order today or pre-order to the program
+
+   1. prerequisite:
+
+      1. user must follow order template.
+      2. The serving date of the order `ORDER_DATE` should be valid and **cannot be before today**. If the date is today, the user can simply enter command in simplified format. Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+      3. The ordered dishes **cannot be empty**. 
+
+   2. Test case1: `add -d 31/12/2019 -n beef noodle*3`
+
+      Expected: add a pre-order with 3 bowls of beef noodle on 31/12/2019.
+
+   3. Test case 2: `add -n pasta, mushroom soup`
+
+      Expected:  add a new order of today with one pasta and one mushroom soup.
+
+#### E17. Altering Order Serving Date
+
+1. update the serving date of a coming/future order in the order list
+
+   1. prerequisite:
+
+      1. user must follow order template.
+      2. Order is going to be altered should be **today's undone order** or **pre-order**.
+         - If the order has been done, then altering it does not make sense. It will do nothing and reminds you of its done status.
+      3. `ORDER_INDEX` ranges from 1 to the size of the current order list. 
+      4. The newly set date should be in valid format and **cannot be before today**. 
+         - If the date is today, the user can simply enter command in simplified format. 
+         - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+
+   2. Test case1: `alter 2`
+
+      Expected: changes the serving date of 2nd order in the order list to today.
+
+   3. Test case 2: `alter 1 03/01/2020`
+
+      Expected:  changes the serving date of 2nd order in the order list to `03/01/2020`.
+
+#### E18. Cancelling Order
+
+1. cancel an existing undone order from the order list
+
+   1. prerequisite:
+
+      1. user must follow order template.
+      2. `ORDER_INDEX` ranges from 1 to the size of the current order list. 
+      3. Only **today's undone order** or **pre-order** can be cancelled. 
+
+   2. Test case1: `cancel 3`
+
+      Expected: remove 3rd order in the order list, if exists.
+
+#### E19. Marking Order as Done
+
+1. mark an existing undone order of the date today as done
+
+   1. prerequisite:
+
+      1. `ORDER_INDEX` ranges from 1 to the size of the current order list. 
+      2. Only **today's undone order** can be done, while Pre-order cannot. Pre-order supports cancellation and date alteration.
+
+   2. Test case1: `done 2`
+
+      Expected: Mark 2nd order in the order list as done, if there exists among today's orders and it is still undone. 
+
+#### E20. Initializing Order List
+
+1. clear all the orders in the order list
+
+   1. Test case1: `init` and confrims with `y`
+
+      Expected: the order list and the todo list today both cleared.
+
+   2. Test case1: `init` and confrims with `n` or any other input
+
+      Expected: the order list not cleared, remaining the same.
+
+#### E21. Listing Order by Different Filtering Keywords
+
+1. list orders in the order list
+
+   1. Test case1: `list` (i.e., `list -l all`)
+
+      Expected: list all orders in the order list.
+
+   2. Test case2: `list -l undone`
+
+      Expected: list all the undone orders in the order list. 
+
+   3. Test case3: `list -l today`
+
+      Expected: list all orders of today in the order list.
+
+   4. Test case4: `list -l undoneToday`
+
+      Expected: list all undone orders of today in the order list.
+
+   5. Test case5: `list -n chicken rice`
+
+      Expected: list all undone orders of the date today that contains the dish `chicken rice`.
+
+   6. Test case6: ``list -d 31/12/2019 -l undone``
+
+      Expected: list all undone orders on `31/12/2019`. 
+
+   7. Test case7: `list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`) 
+
+      Expected: list all orders on `31/12/2019
