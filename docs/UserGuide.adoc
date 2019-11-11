@@ -324,7 +324,7 @@ Creates a todo task with the description "Donate to the Hakurei Shrine" with hig
 === Adding custom event tasks: `event <DESCRIPTION> /at <DEADLINE> {/priority <LEVEL>}`
 
 [NOTE]
-You cannot add custom events with their duration, only their deadlines. Only faculty events that come with adding degrees have durations in them.
+You cannot add custom events with their start and end times, only their deadlines. Only faculty events that come with adding degrees have start and end times in them.
 
 You can add your own custom event tasks, with optional priority levels. +
 Event tasks require deadlines in the following format: `DD-MM-YYYY HHmm`. +
