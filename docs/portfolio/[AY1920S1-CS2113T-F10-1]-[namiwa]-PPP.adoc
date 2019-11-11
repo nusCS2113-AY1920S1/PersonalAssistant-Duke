@@ -81,6 +81,7 @@ to ModPlan.
 *** Integrated https://github.com/google/gson[GSON] for efficient `JSON` data parsing
 *** Added https://github.com/junit-team/junit5[JUnit 5] support to give team access to a testing framework https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
 *** Integrated Github plugins (TravisCI and Coveralls) to the team repository https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
+*** Research on diagram tools like PlantUml and Intellij Diagrams for ease of UML Diagram generation
 
 == Contributions to the User Guide
 
