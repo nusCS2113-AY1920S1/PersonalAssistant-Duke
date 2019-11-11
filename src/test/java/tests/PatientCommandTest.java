@@ -10,6 +10,7 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -22,7 +23,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class PatientCommandTest extends CommandTest {
 
     private Patient patient;
+    String[] impSwitchNames = {"impression"};
+    String[] followSwitchNames = {"followup"};
+    String[] critSwitchNames = {"critical"};
+    String[] switchVals = {null};
 
+    Impression imp;
+    ObjCommand impCmd = null;
+    ObjCommand followCmd = null;
+    ObjCommand critCmd = null;
     /**
      * Sets up the core of this object to have a patient and impression, opens the impression, and stores those
      * references for comparison.
@@ -31,12 +40,20 @@ public class PatientCommandTest extends CommandTest {
     public void setupPatient() {
         patient = new Patient("name", "bedNo", "allergies", 0, 0,
                 0, 0, "", "");
+        imp = new Impression("test", "test description", patient);
         try {
             core.patientData.addPatient(patient);
         } catch (DukeException excp) {
             fail("Exception thrown while setting up patient! " + excp.getMessage());
         }
         core.uiContext.open(patient);
+    }
+
+    @AfterEach
+    public void cleanup() {
+        impCmd = null;
+        followCmd = null;
+        critCmd = null;
     }
 
     @Test
@@ -57,7 +74,6 @@ public class PatientCommandTest extends CommandTest {
     public void patientEditCommand_allSwitches_correctEditsMade() {
         String[] switchNames = {"name", "description"};
         String[] switchVals = {"test", "test description"};
-        Impression imp = new Impression("test", "test description", patient);
         try {
             ArgCommand newImpCmd = new ArgCommand(PatientEditSpec.getSpec(), null, switchNames, switchVals);
             newImpCmd.execute(core);
@@ -69,16 +85,6 @@ public class PatientCommandTest extends CommandTest {
 
     @Test
     public void patientDeleteCommand_validTarget_correctObjectsDeleted() {
-        String[] impSwitchNames = {"impression"};
-        String[] followSwitchNames = {"followup"};
-        String[] critSwitchNames = {"critical"};
-        String[] switchVals = {null};
-
-        Impression imp = new Impression("test", "test description", patient);
-        ObjCommand impCmd = null;
-        ObjCommand followCmd = null;
-        ObjCommand critCmd = null;
-
         try {
             Result testResult = new Result("test", imp, 1, "test result");
             Plan testPlan = new Plan("test", imp, 0, "0", "test plan");

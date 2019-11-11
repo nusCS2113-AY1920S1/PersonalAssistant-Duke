@@ -17,9 +17,8 @@ public class PatientEditSpec extends ArgSpec {
     private PatientEditSpec() {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
-                // TODO: Changes need to be made to Patient class. Update section in User Guide
-                // new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
-                // new Switch("bed", String.class, true, ArgLevel.OPTIONAL, "b"),
+                new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
+                new Switch("bed", String.class, true, ArgLevel.OPTIONAL, "b"),
                 new Switch("allergies", String.class, true, ArgLevel.REQUIRED, "a",
                         "allergy"),
                 new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
