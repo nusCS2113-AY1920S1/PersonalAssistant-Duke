@@ -52,10 +52,10 @@ Java JAR files are regularly released under Releases which can be ran on Windows
 
 ## Site Map
 
-[About us](docs/AboutUs.adoc)
+[About us](AboutUs.adoc)
 
-[Developer Guide](docs/%5BCS2113T-F14-1%5D%5BMooMooMoney%5DDeveloperGuide.pdf)
+[Developer Guide](%5BCS2113T-F14-1%5D%5BMooMooMoney%5DDeveloperGuide.pdf)
 
-[User Guide](docs/%5BCS2113T-F14-1%5D%5BMooMooMoney%5DUserGuide.pdf)
+[User Guide](%5BCS2113T-F14-1%5D%5BMooMooMoney%5DUserGuide.pdf)
 
 
