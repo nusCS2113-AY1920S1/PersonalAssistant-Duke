@@ -652,30 +652,7 @@ Here are the steps to create a new release.
 
 //(TBD)
 
-== Manual User Testing
 
-We have included a base data file populated with ~20 modules and ~5 CCAs for manual testing. The program will load from these data files upon the first startup if a save file is not found. 
-
-=== Loading Manual Test Data
-==== Test Data
-
-To demonstrate the functionality of the product, the `JAR` release contains sample data so that the user can easily test
-and observe that the application runs as intended.
-
-Type `show module` and observe that the following output is obtained:
-
-image::ShowModuleTest.png[]
-
-The following should be obtained after running `show cca`:
-
-image::ShowCcaTest.png[]
-
-Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
-is operational.
-
-=== Manual Testing
-
-To test our product manually, kindly open the `[CS2113T-F10-1][ModPlan].jar` file from the `v1.4` release using the command prompt of your preferred OS, and test using commands featured in our https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/UserGuide.adoc[User Guide].
 
 [appendix]
 == Product Scope
@@ -851,6 +828,32 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 3. ModPlan should require as few steps as possible for the user to do what they want to do.
 4. ModPlan should store data between sessions so the user does not have to input all their information again.
 5. ModPlan should scrape data from NUSMODS API at least once a semester to keep up to date with any changes in modules.
+
+[appendix]
+== Manual User Testing
+
+We have included a base data file populated with ~20 modules and ~5 CCAs for manual testing. The program will load from these data files upon the first startup if a save file is not found. 
+
+=== Loading Manual Test Data
+==== Test Data
+
+To demonstrate the functionality of the product, the `JAR` release contains sample data so that the user can easily test
+and observe that the application runs as intended.
+
+Type `show module` and observe that the following output is obtained:
+
+image::ShowModuleTest.png[]
+
+The following should be obtained after running `show cca`:
+
+image::ShowCcaTest.png[]
+
+Testing the `update module` command would work only if there is stable internet connection and that the NUSMODS Server API
+is operational.
+
+=== Manual Testing
+
+To test our product manually, kindly open the `[CS2113T-F10-1][ModPlan].jar` file from the `v1.4` release using the command prompt of your preferred OS, and test using commands featured in our https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/UserGuide.adoc[User Guide].
 
 [appendix]
 == Glossary
