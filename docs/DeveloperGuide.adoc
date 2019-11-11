@@ -594,6 +594,8 @@ image::CcaClassDiagram2.png[]
 == Documentation
 We utilise AsciiDoc as the default to write our documentation, as the layout is more flexible and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
 
+We also use link:http://plantuml.com/[PlantUML] and link:https://www.draw.io/[draw.io] to help use make our diagrams used in this Developer's Guide. These software enable us to create different types of diagrams easily, and for free.
+
 [[Testing]]
 
 == Testing
@@ -611,8 +613,11 @@ There are two ways to run tests.
 
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
-=== Running Tests
+=== Creating Tests
+Create new test classes under the `/main/src/test/java/planner` package to increase the coverage of the tests for the project. 
 
+* We have testing frameworks put in place such as `CommandTestFramework` to aid in testing implementation.
+* Remember to utilise the JUnit assertions in your testing, as well as ensure testing works before pushing the repo.
 
 [[DevOps]] 
 == Dev Ops
@@ -825,6 +830,9 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 4. ModPlan should store data between sessions so the user does not have to input all their information again.
 5. ModPlan should scrape data from NUSMODS API at least once a day to keep up to date with any changes in modules.
 
+[appendix]
+== Manual Testing Instructions
+(TBD)
 
 [appendix]
 == Glossary
