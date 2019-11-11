@@ -31,7 +31,7 @@ import java.util.Set;
 import java.util.Calendar;
 
 public class Process {
-    private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectManager = new ProjectManager();
 
@@ -41,6 +41,7 @@ public class Process {
     Process() throws AlphaNUSException {
     }
 
+    //@@author karansarat
     /**
      * Trims leading and trailing whitespace of an array of strings.
      * @param arr The array of Strings to clean.
@@ -56,12 +57,13 @@ public class Process {
 
     //===========================* Project *================================
 
+    //@@author leowyh
     /**
      * Processes the list project command to list all existing projects in the projectmap.
      * @param ui Ui that interacts with the user.
      * @return
      */
-    public void listProjects(Ui ui) throws AlphaNUSException {
+    public void listProjects(Ui ui) {
         ArrayList<Project> projectslist = projectManager.listProjects();
         if (projectslist.isEmpty()) {
             ui.printNoProjectMessage();
@@ -70,6 +72,7 @@ public class Process {
         ui.printProjectsList(projectslist, projectManager.currentprojectname);
     }
 
+    //@@author leowyh
     /**
      * Processes the add project command to add a new project to the projectmap.
      * @param input Input from the user.
@@ -139,6 +142,7 @@ public class Process {
         }
     }
 
+    //@@author leowyh
     /**
      * Processes the delete project command to delete a project from the projectmap.
      * @param input Input from the user.
@@ -176,6 +180,7 @@ public class Process {
         }
     }
 
+    //@@author leowyh
     /**
      * Processes the goto project command to set a project in the projectmap
      * as the current project that the user is working on.
@@ -189,8 +194,8 @@ public class Process {
             String[] split = input.split(" ", 2);
             split = cleanStrStr(split);
             if (split.length != 2) {
-                ui.exceptionMessage("\t" + "Incorrect input format\n" + "\t" 
-                    + "Correct Format: " + commandformat.gotoProjectFormat());
+                ui.gotoExceptionMessage("\t" + "Incorrect input format\n" + "\t"
+                    + "Correct Format: " + commandformat.gotoProjectFormat(), projectManager.listProjects());
                 return;
             } //TODO refactor
 
@@ -202,11 +207,11 @@ public class Process {
             String currentprojectname = projectManager.gotoProject(projectindex);
             ui.printGoToProject(currentprojectname);
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("\t" + "Please make sure that the index is an Integer\n"
-                    + "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
+            ui.gotoExceptionMessage("\t" + "Please make sure that the index is an Integer\n"
+                    + "\t" + "Correct Format: " + commandformat.gotoProjectFormat(), projectManager.listProjects());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("\t" + "No existing project with that index\n"
-                    + "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
+            ui.gotoExceptionMessage("\t" + "No existing project with that index\n"
+                    + "\t" + "Correct Format: " + commandformat.gotoProjectFormat(), projectManager.listProjects());
         }
     }
 
@@ -362,6 +367,7 @@ public class Process {
         }
     }
 
+    //@@author leowyh
     /**
      * Processes the backup command to load sample data from storage for PE testing.
      * @param ui Ui that interacts with the user.
@@ -613,8 +619,8 @@ public class Process {
             String[] splittime = splitslash[1].split(" ", 2);
             String taskTime = splittime[1];
             if (taskTime.contains("/")) {
-                Date formattedtime = dataformat.parse(taskTime);
-                DoAfterTasks after = new DoAfterTasks(taskDescription, dataformat.format(formattedtime));
+                Date formattedtime = dateformat.parse(taskTime);
+                DoAfterTasks after = new DoAfterTasks(taskDescription, dateformat.format(formattedtime));
                 tasklist.addTask(after);
                 ui.printAddedMessage(after, tasklist);
             } else {
@@ -644,10 +650,10 @@ public class Process {
             String[] splitand = splittime[1].split("and ", 2);
             String taskstart = splitand[0];
             String taskend = splitand[1];
-            Date formattedtimestart = dataformat.parse(taskstart);
-            Date formattedtimeend = dataformat.parse(taskend);
+            Date formattedtimestart = dateformat.parse(taskstart);
+            Date formattedtimeend = dateformat.parse(taskend);
             WithinPeriodTask withinPeriodTask = new WithinPeriodTask(taskDescription,
-                    dataformat.format(formattedtimestart), dataformat.format(formattedtimeend));
+                    dateformat.format(formattedtimestart), dateformat.format(formattedtimeend));
             tasklist.addTask(withinPeriodTask);
             ui.printAddedMessage(withinPeriodTask, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
