@@ -1,5 +1,6 @@
 package compal.logic.command;
 
+import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -21,10 +22,17 @@ class ListCommandTest {
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         Event event1 = new Event("Event 1", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
-        Deadline deadline1 = new Deadline("Deadline 1", Task.Priority.high, "01/10/2019", "1500");
-
+        Event event2 = new Event("Event 2", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
+        event2.markAsDone();
         taskArrListMain.add(event1);
+        taskArrListMain.add(event2);
+
+        Deadline deadline1 = new Deadline("Deadline 1", Task.Priority.high, "01/10/2019", "1500");
+        Deadline deadline2 = new Deadline("Deadline 2", Task.Priority.high, "01/10/2019", "1500");
+        deadline2.markAsDone();
+
         taskArrListMain.add(deadline1);
+        taskArrListMain.add(deadline2);
 
         this.taskListMain.setArrList(taskArrListMain);
         this.taskListEmpty.setArrList(taskArrListEmpty);
@@ -51,6 +59,7 @@ class ListCommandTest {
         Assertions.assertEquals(expected, tested);
     }
 
+
     private String listStub(TaskList taskList, String type) {
         String listPrefix = "Here are the tasks in your list sorted by chronological order: \n";
         String prefixType = "";
@@ -59,8 +68,9 @@ class ListCommandTest {
         } else if (type.equals("E")) {
             prefixType = "event";
         }
+
         String listPrefixTwo = "Here are the stored " + prefixType + " in your list:\n\n";
-        String listEmpty = "Looks like your list is empty!\nStart adding in your task by looking at the help command!";
+        String listEmpty = "Looks like there is nothing to list for this command!\n";
 
         ArrayList<Task> toList = taskList.getArrList();
 
@@ -84,11 +94,12 @@ class ListCommandTest {
             }
         }
 
-        if (finalList.toString().isEmpty()) {
+        if (finalList.toString().equals(listPrefixTwo)) {
             finalList = new StringBuilder(listEmpty);
         }
 
         return finalList.toString();
     }
+
 
 }

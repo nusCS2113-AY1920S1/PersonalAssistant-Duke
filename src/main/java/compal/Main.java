@@ -68,18 +68,22 @@ public class Main extends Application {
             + "/start 1300 /end 1400 /priority high /final-date 11/11/2019");
         logicManager.logicExecute("event CS2105 Lecture /date 30/09/2019 /start 1400 /end 1600 "
             + "/final-date 14/11/2019 /priority high");
-        logicManager.logicExecute("event CS2106 Lab /date 30/09/2019 /start 1600 "
-            + "/end 1700 /final-date 14/11/2019 /priority medium");
         logicManager.logicExecute("event Lunch Appointment /date 18/11/2019 /start 1200 /end 1400 "
             + "/priority medium");
+
+        logicManager.logicExecute("event quick breakfast /date 11/11/2019 /start 0800 /end 0805 "
+            + "/priority high");
+        logicManager.logicExecute("event team meeting /date 11/11/2019 /start 0800 /end 0900 "
+            + "/priority low");
+        logicManager.logicExecute("event job interview at google /date 11/11/2019 /start 0900 /end 1000 "
+            + "/priority medium");
+
 
         logicManager.logicExecute("event ST2334 Lecture /date 01/10/2019 03/10/2019"
             + " /start 1000 /end 1200 /final-date 14/11/2019");
         logicManager.logicExecute("event CCA Training /date 01/10/2019 03/10/2019"
             + " /start 1900 /end 2200 /final-date 14/11/2019 /priority medium");
 
-        logicManager.logicExecute("event CS2106 TUT /date 02/10/2019 /start 1000 "
-            + "/end 1100 /final-date 13/11/2019 /priority medium");
         logicManager.logicExecute("event CS2106 Lecture /date 02/10/2019 /start 1400 /end 1600 "
             + "/final-date 13/11/2019 /priority low");
         logicManager.logicExecute("event CS2113T TUT /date 02/10/2019 /start 1700 "
@@ -89,13 +93,12 @@ public class Main extends Application {
 
         logicManager.logicExecute("event CS2113T Lecture /date 04/10/2019 /start 1600 /end 1800"
             + " /final-date 15/11/2019 /priority high");
-
         logicManager.logicExecute("event Part-time Job /date 10/08/2019 /start 0800 /end 1600"
                 + " /final-date 23/11/2019 /priority medium");
 
         logicManager.logicExecute("deadline CS2106 Assignment 3 /date 16/10/2019 /end 1400 /priority low");
         logicManager.logicExecute("deadline CS2106 Assignment 4 /date 02/10/2019 /end 1400 /priority low");
-        logicManager.logicExecute("deadline CS2106 Assignment 5 /date 16/10/2019 "
+        logicManager.logicExecute("deadline CS2106 Assignment 5 /date 16/11/2019 "
             + "/end 1400 /priority medium");
         logicManager.logicExecute("deadline CS2113T Weekly Update /date 01/10/2019 "
             + "/end 2359 /final-date 04/11/2019 /priority high");
@@ -122,10 +125,23 @@ public class Main extends Application {
         logicManager.logicExecute(" event CS2113T Exam /date 23/11/2019"
             + " /start 1300 /end 1500 /priority high");
         logicManager.logicExecute(" event CS2105 Exam /date 02/12/2019"
-            + "/start 1700 /end 1900 /priority high");
+            + " /start 1700 /end 1900 /priority high");
         logicManager.logicExecute("event CS2106 Exam "
             + "/date 03/12/2019 /start 0900 /end 1100 /priority high");
         logicManager.logicExecute("event ST2334 Exam "
             + "/date 03/12/2019 /start 1700 /end 1900 /priority high");
+        logicManager.logicExecute("event ST2334 Exam "
+            + "/date 03/12/2019 /start 1700 /end 1900 /priority high");
+
+        logicManager.logicExecute("done /id 112 /status y");
+        logicManager.logicExecute("done /id 113 /status y");
+        logicManager.logicExecute("done /id 104 /status y");
+        logicManager.logicExecute("done /id 102 /status y");
+        logicManager.logicExecute("done /id 105 /status y");
+        logicManager.logicExecute("done /id 109 /status y");
+        logicManager.logicExecute("done /id 114 /status y");
+        logicManager.logicExecute("done /id 106 /status y");
+        logicManager.logicExecute("done /id 101 /status y");
+
     }
 }

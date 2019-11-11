@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class ViewReminderCommandParser implements CommandParser {
 
     private static final Logger logger = LogUtils.getLogger(ViewReminderCommandParser.class);
-    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like there's an invalid parameter inserted!\n"
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like that's an invalid command!\n"
             + "This is how you use the view-reminder command:\n\n" + ViewReminderCommand.MESSAGE_USAGE;
 
     @Override

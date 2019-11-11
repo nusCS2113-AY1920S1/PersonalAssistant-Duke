@@ -279,13 +279,14 @@ public interface CommandParser {
         if (!restOfInput.contains(TOKEN_SLASH)) {
             throw new ParserException(MESSAGE_MISSING_TOKEN);
         }
-        int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
+        int splitPoint = restOfInput.indexOf(" /");
         String desc = restOfInput.substring(0, splitPoint).trim();
         if (desc.matches(EMPTY_INPUT_STRING)) {
             throw new ParserException(MESSAGE_MISSING_INPUT);
         }
         return desc;
     }
+
 
     //@@author yueyeah
 
@@ -536,29 +537,6 @@ public interface CommandParser {
      * MISCELLANEOUS METHODS BELOW
      */
 
-    //@@author SholihinK
-    /**
-     * Checks if input date and time is after current date time.
-     *
-     * @param inputDate The date of input
-     * @param inputTime the time of input
-     * @return True or false depending if the date and time is after or before.
-     */
-    default boolean isValidDateAndTime(String inputDate, String inputTime) {
-
-        Calendar c = Calendar.getInstance();
-        Date inputDateFormat = CompalUtils.stringToDate(inputDate);
-        c.setTime(inputDateFormat);
-        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
-        c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2, 4)));
-        Date inputDateAndTime = c.getTime();
-
-        Date currentDate = Calendar.getInstance().getTime();
-        c.setTime(currentDate);
-        Date currDateAndTime = c.getTime();
-
-        return inputDateAndTime.after(currDateAndTime);
-    }
 
     //@@author SholihinK
     /**
