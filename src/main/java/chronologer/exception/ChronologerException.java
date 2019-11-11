@@ -27,7 +27,7 @@ public class ChronologerException extends Exception {
         + "A new file has been created for you";
     private static final String MISSING_PRIORITY_MSG = "OOPS!!! The new priority level is missing. "
         + "Please try typing the command again.";
-    private static final String INAVLID_PRIORITY_MSG = "OOPS!!! The new priority level is invalid. "
+    private static final String INVALID_PRIORITY_MSG = "OOPS!!! The new priority level is invalid. "
         + "It must be either high,medium or low.Please try again";
     private static final String INVALID_INDEX_MSG = "OOPS!!! The index given is invalid. "
         + "It must be a existing index in the list. Please try again";
@@ -36,7 +36,8 @@ public class ChronologerException extends Exception {
     private static final String CALENDAR_WRITE_ERROR = " OOPS!!! Unable to write calendar file.";
     private static final String MISSING_MODULE_MSG = " OOPS!!! The needed module code is missing or invalid.";
     private static final String EMPTY_EXPORT_MSG = "OOPS!! There are no tasks to export with!";
-    private static final String EMPTY_CALENDAR = "OOPS!! Your list only have dateless tasks and they can't be exported";
+    private static final String EMPTY_CALENDAR = "OOPS!! Your list only have dateless tasks and they can't be exported"
+        + "\n Or your list have none of the flagged tasks! ";
     private static final String EARLY_DATE_MSG = "OOPS!! The date you are postponing to is earlier than the old date";
     private static final String END_DATE_EARLIER_MSG = "OOPS!! Your end date is earlier than your start date";
     private static final String INVALID_WEEK = "OOPS!! Your week is invalid!";
@@ -144,7 +145,7 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String invalidPriorityLevel() {
-        return INAVLID_PRIORITY_MSG;
+        return INVALID_PRIORITY_MSG;
     }
 
     /**

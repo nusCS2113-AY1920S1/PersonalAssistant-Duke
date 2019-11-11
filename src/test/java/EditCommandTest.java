@@ -54,27 +54,6 @@ class EditCommandTest {
     }
 
     /**
-     * Test invalid inputs for edit commands.
-     */
-    @Test
-    void testError() {
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse("edit");
-        });
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse(("edit -1 New description"));
-        });
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse(("edit 1"));
-        });
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            EditCommand test = new EditCommand(2, "Foxtrot");
-            test.execute(tasks, storage, history);
-        });
-
-    }
-
-    /**
      * Test the task list edit function.
      */
     @Test

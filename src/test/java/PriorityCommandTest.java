@@ -26,7 +26,6 @@ class PriorityCommandTest {
 
     private static TaskList tasks;
     private static File file;
-    private static File placeholder;
     private static Storage storage;
     private static ChronologerStateList history;
 
@@ -35,7 +34,7 @@ class PriorityCommandTest {
         ArrayList<Task> testList = new ArrayList<Task>();
         tasks = new TaskList(testList);
         file = new File(System.getProperty("user.dir") + "/src/test/PriorityList");
-        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
+        File placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
         history = new ChronologerStateList(placeholder, placeholder, placeholder);
     }
@@ -69,14 +68,7 @@ class PriorityCommandTest {
      *
      */
     @Test
-    void testError() {
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse("priority");
-        });
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse(("priority -1 low"));
-        });
-
+    void testInvalidPriority() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             PriorityCommand test = new PriorityCommand(0, "Gibberish");
             test.execute(tasks, storage, history);
