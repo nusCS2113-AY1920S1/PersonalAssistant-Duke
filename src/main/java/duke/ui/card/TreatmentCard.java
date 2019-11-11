@@ -1,6 +1,5 @@
 package duke.ui.card;
 
-import duke.data.DukeData;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
@@ -10,8 +9,6 @@ import javafx.scene.control.Label;
  * A UI card that displays the basic information of a {@code Treatment}.
  */
 public abstract class TreatmentCard extends UiCard {
-    private final String[] priorities = {"No priority", "Critical", "Urgent", "Compulsory", "Optional"};
-
     @FXML
     protected Label nameLabel;
     @FXML
@@ -38,11 +35,8 @@ public abstract class TreatmentCard extends UiCard {
      * Fills up the UI card with the {@code Treatment}'s details.
      */
     private void fillTreatmentCard() {
-        String priorityText = String.valueOf(treatment.getPriority());
-        if (treatment.getPriority() >= DukeData.PRIORITY_NONE && treatment.getPriority() < priorities.length) {
-            priorityText += " - " + priorities[treatment.getPriority()];
-        }
-        criticalLabel.setText(priorityText);
+        nameLabel.setText(treatment.getName());
+        criticalLabel.setText(treatment.getPriorityStr());
     }
 
     /**
