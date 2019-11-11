@@ -75,7 +75,7 @@ public class StatsCommand extends Command {
             totalCount += count;
             String bar = "";
             for (int j = 0; j < count; j++) {
-                bar += "=";
+                bar += "= ";
             }
             ui.print(dateToStringWithoutTime(currentDate) + "|" + bar);
             currentDate = incrementDay(currentDate);
