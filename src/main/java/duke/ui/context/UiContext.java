@@ -59,10 +59,7 @@ public class UiContext {
             newContext = obj.toContext();
         }
 
-        Context oldContext = this.context;
-        this.context = newContext;
-        this.object = obj;
-        pcs.firePropertyChange("context", oldContext, this.context);
+        updateContext(newContext, obj);
     }
 
     /**
@@ -96,6 +93,7 @@ public class UiContext {
         Context newContext = pair.getKey();
         DukeObject newObj = pair.getValue();
         openWithoutHistory(newObj);
+
         return getViewingStr(newContext, newObj);
     }
 

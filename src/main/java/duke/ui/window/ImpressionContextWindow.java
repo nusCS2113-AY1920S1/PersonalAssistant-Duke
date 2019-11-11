@@ -12,7 +12,7 @@ import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-//@@author gowgos5
+//@@author JeremyKwok
 /**
  * UI window for the Impression context.
  */
