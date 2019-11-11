@@ -1,6 +1,6 @@
 = About Us
 :site-section: AboutUs
-:relfileprefix: /teams
+:relfileprefix: 
 :imagesDir: images
 :stylesDir: stylesheets
 
