@@ -19,10 +19,10 @@ endif::[]
 
 == Table of Contents
 
-* <<#Quick{sp}Start, Quick Start>>
+* <<#Usage, Quick Start>>
 * <<#Usage, Usage>>
 * <<#Acknowledgements, Acknowledgements>>
-* <<#Licence{sp}:{sp}NUS, Licence>>
+* <<#Usage, Licence>>
 
 == Quick Start
 * Ensure you have Java version 11 or later installed in your computer.
@@ -35,6 +35,7 @@ endif::[]
 == Usage
 * For users, please refer to our link:/docs/UserGuide.pdf[User Guide].
 * For developers, please refer to our link:/docs/DeveloperGuide.pdf[Developer Guide] for more in-depth information.
+* Learn more about us at  link:/docs/AboutUs.adoc[AboutUs].
 
 == Acknowledgements
 
