@@ -37,8 +37,7 @@ print it in command line.
 This document describes the coding style and the architecture of the Ducats project built by Team CS2113T F09-4.
 This document is intended for our major release v1.4.
 
-The documentat will allow any developer to start to work on the project by first learning about the system
-architecture, then the implementation and lastly on how to document the code that is written.
+This document will allow any developer to start to work on the project by first learning about the system  architecture, then the implementation and lastly the testing and logging features of the Ducats.
 
 
 == Setting up
@@ -436,9 +435,6 @@ Here's the sequence diagram for copy command
 
 image::image_3_sam.jpeg[]
 
-
-=== Display
-
 === Display
 
 The ascii command allows the user to view the music he is creating in the form of an ascii song sheet. In addition, the user can also view a group in the song or a bar of the song in ascii format. The three formats of inputs are shown below:
@@ -509,6 +505,7 @@ Here's the activity flow diagram for the AsciiCommand class:
 
 image::image_4_sam.jpeg[]
 
+
 === Metronome
 
 A metronome is a device that outputs sound at regular, adjustable intervals, commonly used by musicians to more easily play at a particular tempo. In Ducats, the main purpose of the Metronome functionality (accessed through `MetronomeCommand`) is to provide a visual presentation of a particular tempo and time signature, so that the user can more easily understand what an appropriate tempo for their song would be.
@@ -519,9 +516,7 @@ Due to a reliance on multi-threading through the Timer library, the execution of
 * tempo (in BPM)
 * time signature
 
-Following this, the `TimerTask` of generating the appropriate output to the console will be executed by a new `Timer` object initialized in the `start()` method of the `Metronome` object. The overall sequence diagram can be seen in Figure X.
-
-<insert seq diagram specific to Metronome>
+Following this, the `TimerTask` of generating the appropriate output to the console will be executed by a new `Timer` object initialized in the `start()` method of the `Metronome` object.
 
 === Autosuggest
 
@@ -568,25 +563,17 @@ Each `BAR_N`, where N is a positive integer, is formatted as follows, with the s
      |---C---|
       |N|
 
-For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of a 1⁄8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of ½ and an Upper C Note with the same duration in the first four chords.
+For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of an eighth note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of half and an Upper C Note with the same duration in the first four chords.
 
-By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the .txt file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion due to the composition structure of the Song component (as can be seen in Figure X). Inversely, in order for the StorageParser class to parse the data found in the .txt file into Song objects that are to be stored in the SongList, the following methods are defined under the `StorageParser` class:
-
-* `convertNoteFromString(String s)` (converts a String into a Note)
-* `convertChordFromString(String s)` (converts a String into a Chord) _(uses the above)_
-* `convertBarFromString(String s)` (converts a String into a Bar) _(uses the above)_
-* `convertSongFromString(String s)` (converts a String into a Song) _(uses the above)_
+By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the `.txt` file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion. Inversely, in order for the StorageParser class to parse the data found in the `.txt` file into Song objects that are to be stored in the SongList, the `convertSongFromString(String s)` method is defined.
 
 _Design Considerations_:
 
-* Using a single .txt file to store all the data
+* Using a single `.txt` file to store all the data
 ** _Pros_: easier implementation of `Storage`
-** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
-* Using .csv files instead of .txt files to store the data
-** _Pros_: arguably a more organized method of data management
-** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+** _Cons_: harder for the user to import and export files without corrupting the data, hard for the user to view the data if the song is too long due to line length limits
 
-We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
+We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this neater implementation, it is easy for the user to export and import songs by just copying out or inserting `.txt` files of the same format respectively.
 
 === Logging
 
@@ -790,3 +777,66 @@ Extensions:
 * The product should be intuitive and easily utilized with reference to an accompanying User Guide and/or Developer Guide.
 * The product should have clear updates that indicate what features have been added, removed or modified.
 * The product should not be excessively battery and resource intensive.
+
+[appendix]
+== Instructions for Manual Testing
+
+Since Ducats has many features, it can be difficult to figure out how to test it. The main purpose of this Appendix is to provide you, the tester, with a brief overview of the initial few tests that you can do so that you can better understand and more effectively test Ducats.
+
+For each command, a format is specified for the user to key in. The following is a guide to the syntax used in expressing these formats:
+
+* Words in UPPER_CASE are parameters to be supplied by the user. For example, in the following command: `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`, SONG_NAME, KEY and TIME_SIGNATURE are parameters to be provided by the user.
+* The type of the parameters is indicated by a tag as follows:
+** `s/` - String (i.e. a word consisting of different characters)
+** `n/` - Number (Integer)
+* When representing Notes, the DURATION_PITCH format is observed:
+** The pitches available are: UC, UB, UA, UG, UF, UE, UD, MC, LB, LA, LG, LF, LE, LD, LC
+** The durations available are: 1, 2*, 2, 4*, 4, 8.
+
+=== Creating a new song
+
+Using the `new` command, you can create a new song according to the following format:
+
+`new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`
+
+Hence, the following commands can be run to create two new songs:
+
+    new twinkle c 4/4 120
+    new hello c 4/4 131
+
+=== Adding bars to a song
+
+The `addbar` command is used to add bars of music to a song. By default, the first song is open for editing (in this case, twinkle). To demonstrate this,
+
+    addbar 1_MC
+
+should add a whole note with the pitch of Pitch.MIDDLE_C to the song named twinkle. This can be seen by the `ascii song` command, which displays the specified song in a form reminiscent of sheet music. The command to view the song is as follows:
+
+    ascii song twinkle
+
+=== Opening other songs
+
+The `open` command is used for navigating to a particular song you want to edit. The syntax for the open message is as follows:
+
+`open s/SONG_NAME`
+
+Hence, you should be able to open hello with
+
+    open hello
+
+, after which you can edit it using `addbar` and view it using `ascii song`. To display both songs together, the `list` command can be used, of which the command to input is simply
+
+    list
+
+=== Grouping bars together
+
+Since music contains a lot of repeating parts, we have implemented a grouping feature so that you can group Bars together and insert them at places. To group bars together for an opened song, use the `group` command, of which the syntax is as follows:
+
+`group START_NUM END_NUM GROUP_NAME`
+
+//todo
+
+
+
+
+
