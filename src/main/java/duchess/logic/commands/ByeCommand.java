@@ -5,6 +5,9 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+/**
+ * Command to show farewell message to user and exit program.
+ */
 public class ByeCommand extends Command {
     /**
      * Bids users farewell.

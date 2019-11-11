@@ -13,7 +13,7 @@ public class GradeTest {
 
     @Test
     public void complete_constructor() {
-        assertEquals("midterm 15.0/30.0 20.0%", completeGrade.toString());
+        assertEquals("midterm 15.0/30.0 (20.0%)", completeGrade.toString());
         assertEquals(15.0, completeGrade.getMarks());
         assertEquals(30.0, completeGrade.getMaxMarks());
         assertEquals(20.0, completeGrade.getWeightage());
@@ -22,7 +22,7 @@ public class GradeTest {
 
     @Test
     public void incomplete_constructor() {
-        assertEquals("finals 30.0%", incompleteGrade.toString());
+        assertEquals("finals (30.0%)", incompleteGrade.toString());
         assertEquals(30.0, incompleteGrade.getWeightage());
     }
 

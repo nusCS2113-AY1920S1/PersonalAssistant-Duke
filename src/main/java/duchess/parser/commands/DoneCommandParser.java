@@ -32,11 +32,11 @@ public class DoneCommandParser {
                     throw new IllegalArgumentException();
                 }
                 String marks = parameters.get(Parser.MARKS_KEYWORD);
-                int marksObtained;
-                int maxMarks;
+                double marksObtained;
+                double maxMarks;
                 List<String> marksList = Arrays.asList(marks.split("/"));
-                marksObtained = Integer.parseInt(marksList.get(0));
-                maxMarks = Integer.parseInt(marksList.get(1));
+                marksObtained = Double.parseDouble(marksList.get(0));
+                maxMarks = Double.parseDouble(marksList.get(1));
                 if (marksObtained < 0 || maxMarks < 1 || marksObtained > maxMarks) {
                     throw new IllegalArgumentException();
                 }

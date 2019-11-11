@@ -11,6 +11,9 @@ import duchess.ui.Ui;
 
 import java.util.Optional;
 
+/**
+ * Command to add a given todo task to the tasklist.
+ */
 public class AddTodoCommand extends Command {
     private String description;
     private String moduleCode;

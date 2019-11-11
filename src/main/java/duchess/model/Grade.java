@@ -145,9 +145,9 @@ public class Grade {
     @Override
     public String toString() {
         if (isComplete) {
-            return String.format("%s %.1f/%.1f %.1f%%", description, marks, maxMarks, weightage);
+            return String.format("%s %.1f/%.1f (%.1f%%)", description, marks, maxMarks, weightage);
         } else {
-            return String.format("%s %.1f%%", description, weightage);
+            return String.format("%s (%.1f%%)", description, weightage);
         }
     }
 }

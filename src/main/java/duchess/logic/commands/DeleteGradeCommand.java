@@ -15,6 +15,8 @@ import java.util.Optional;
 public class DeleteGradeCommand extends Command {
     private final String moduleCode;
     private final int gradeNo;
+    private static final String VALID_NUMBER_MSG = "Please supply a valid number.";
+    private static final String MODULE_NOT_FOUND_MSG = "Unable to find given module.";
 
     public DeleteGradeCommand(String moduleCode, int gradeNo) {
         this.gradeNo = gradeNo - 1;
@@ -34,9 +36,9 @@ public class DeleteGradeCommand extends Command {
                 throw new IllegalArgumentException();
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Please supply a valid number.");
+            throw new DuchessException(VALID_NUMBER_MSG);
         } catch (IllegalArgumentException e) {
-            throw new DuchessException("Unable to find given module.");
+            throw new DuchessException(MODULE_NOT_FOUND_MSG);
         }
     }
 }

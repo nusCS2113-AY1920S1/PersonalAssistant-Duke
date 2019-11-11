@@ -41,7 +41,7 @@ public class Module {
         if (weightageCompleted == 0) {
             return String.format("%s %s", code, name);
         }
-        return String.format("%s %s %.1f/%.1f%%", code, name, weightageObtained, weightageCompleted);
+        return String.format("%s %s (%.1f/%.1f%%)", code, name, weightageObtained, weightageCompleted);
     }
 
     /**

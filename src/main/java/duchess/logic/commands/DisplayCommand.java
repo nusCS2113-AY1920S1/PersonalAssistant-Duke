@@ -5,6 +5,9 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+/**
+ * Command to display message to user.
+ */
 public class DisplayCommand extends Command {
     private String message;
 

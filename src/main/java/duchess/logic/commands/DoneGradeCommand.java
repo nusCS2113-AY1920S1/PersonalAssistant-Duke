@@ -14,10 +14,13 @@ import java.util.Optional;
  * Marks are given to be added to the grade.
  */
 public class DoneGradeCommand extends Command {
-    private int marksObtained;
-    private int maxMarks;
+    private double marksObtained;
+    private double maxMarks;
     private String moduleCode;
     private int gradeNo;
+    private static final String VALID_NUMBER_MSG = "Please supply a valid number.";
+    private static final String MODULE_NOT_FOUND_MSG = "Unable to find given module.";
+
 
     /**
      * Creates a command to mark given task as complete.
@@ -27,7 +30,7 @@ public class DoneGradeCommand extends Command {
      * @param marksObtained marks obtained
      * @param maxMarks      maximum marks obtainable
      */
-    public DoneGradeCommand(String moduleCode, int gradeNo, int marksObtained, int maxMarks) {
+    public DoneGradeCommand(String moduleCode, int gradeNo, double marksObtained, double maxMarks) {
         this.gradeNo = gradeNo - 1;
         this.moduleCode = moduleCode;
         this.marksObtained = marksObtained;
@@ -48,9 +51,9 @@ public class DoneGradeCommand extends Command {
                 throw new IllegalArgumentException();
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Please supply a valid number.");
+            throw new DuchessException(VALID_NUMBER_MSG);
         } catch (IllegalArgumentException e) {
-            throw new DuchessException("Unable to find given module.");
+            throw new DuchessException(MODULE_NOT_FOUND_MSG);
         }
     }
 }

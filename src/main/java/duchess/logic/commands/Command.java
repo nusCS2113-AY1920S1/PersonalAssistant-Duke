@@ -5,6 +5,9 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+/**
+ * Represents a command given by the user, for Duchess to execute.
+ */
 public abstract class Command {
     protected boolean isExit;
 
