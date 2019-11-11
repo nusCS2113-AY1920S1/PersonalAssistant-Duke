@@ -29,6 +29,10 @@ public class CipherTest extends CommandTestFramework {
     private Cipher cipher;
     private CipherState cipherState;
 
+    /**
+     * CipherTest constructor.
+     * @throws ModException when initialization of CommandTestFramework throws an exception
+     */
     public CipherTest() throws ModException {
         encryptionLayersWithHash = new ArrayList<>();
         encryptionLayersWithoutHash = new ArrayList<>();
