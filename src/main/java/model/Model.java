@@ -82,7 +82,7 @@ public interface Model {
 
     String updateMemberEmail(String name, String email) throws DukeException;
 
-    String updateMemberPhone(String name, String phone);
+    String updateMemberPhone(String name, String phone) throws DukeException;
 
     boolean hasMember(String name) throws DukeException;
 

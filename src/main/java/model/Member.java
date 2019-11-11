@@ -8,7 +8,8 @@ import java.util.ArrayList;
 //@@author chenyuheng
 public class Member {
     public static final String EMAIL_VALIDATION_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-    public static final String MESSAGE_WRONG_EMAIL_FORMAT = "Wromg email format.";
+    public static final String MESSAGE_WRONG_EMAIL_FORMAT = "Wrong email format.";
+    public static final String MESSAGE_WRONG_PHONE_FORMAT = "Wrong phone format.";
 
     private String name;
     private ArrayList<String> taskList;
@@ -87,7 +88,20 @@ public class Member {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    //@@author yuyanglin28
+    /**
+     * This method is to set phone number for a member
+     * @param phone phone number in string format
+     * @throws DukeException throw exception when input contains non_number characters
+     */
+    public void setPhone(String phone) throws DukeException {
+        for (int i = 0; i < phone.length(); i++) {
+            try {
+                int temp = Integer.parseInt(phone.charAt(i) + "");
+            } catch (Exception e) {
+                throw new DukeException(MESSAGE_WRONG_PHONE_FORMAT);
+            }
+        }
         this.phone = phone;
     }
 

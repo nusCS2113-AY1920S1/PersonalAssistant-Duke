@@ -25,12 +25,12 @@ public class EditMemberEmailCommand extends Command {
      * This method is to edit member email
      * @param model Model interface
      * @return set message or update message
-     * @throws DukeException throw exception when there is no update or the email format is not correct
+     * @throws DukeException throw exception when member name not in member list or the email format is not correct
      */
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (!checkMemberName(memberName, model)) {
-            return new CommandOutput(memberName + Command.NAME_NOT_IN_MEMlIST_MESSAGE);
+            throw new DukeException(memberName + Command.NAME_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldemail = model.updateMemberEmail(memberName, email);
 
@@ -39,7 +39,7 @@ public class EditMemberEmailCommand extends Command {
                 return new CommandOutput(SET_MSSAGE + "[" + memberName + "]"
                         + " to " + "[[" + email + "]]");
             } else if (oldemail.equals(email)) {
-                throw new DukeException(NO_UPDATE_MSSAGE);
+                return new CommandOutput(NO_UPDATE_MSSAGE);
             } else {
                 model.save();
                 return new CommandOutput(UPDATE_MSSAGE + "[" + memberName + "]"

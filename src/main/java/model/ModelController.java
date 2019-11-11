@@ -255,7 +255,7 @@ public class ModelController implements Model {
      * @return old phone
      */
     @Override
-    public String updateMemberPhone(String name, String phone) {
+    public String updateMemberPhone(String name, String phone) throws DukeException {
         String oldPhone = memberManager.getMemberPhone(name);
         memberManager.updateMemberPhone(name, phone);
         return oldPhone;
