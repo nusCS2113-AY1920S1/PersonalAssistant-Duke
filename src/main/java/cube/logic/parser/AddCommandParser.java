@@ -85,7 +85,7 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 			if (!ParserUtil.isValidNumber(args[costIndex + 1])) {
 				throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
 			}
-			tempFood.setCost(Double.parseDouble(args[priceIndex + 1]));
+			tempFood.setCost(Double.parseDouble(args[costIndex + 1]));
 		}
         if (stockIndex != -1) {
             if (!ParserUtil.hasField(args, stockIndex + 1)) {
