@@ -17,10 +17,13 @@ endif::[]
 * Allow users to track their loans, both incoming and outgoing.
 * Provides the user with statistics derived from the financial information keyed into the application.
 
+:toc:
+:toc-title: Contents
+:toc-placement: preamble
+
 == Contents
 
-* link:Usage[Usage]
-* <<UserGuide#, Quick Start>>
+* <<QuickStart#, Quick Start>>
 * <<#Usage, Usage>>
 * <<LearningOutcomes#, Acknowledgements>>
 * <<Liccence#, Licence>>
