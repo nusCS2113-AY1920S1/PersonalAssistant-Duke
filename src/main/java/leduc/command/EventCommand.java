@@ -44,7 +44,7 @@ public class EventCommand extends Command {
      * @throws EventDateException  Exception caught when the start date is after the end date of an event task.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException, EventDateException, RecurrenceException, RecurrenceDateException {
+            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException, EventDateException, RecurrenceException, RecurrenceDateException, NegativeNumberException {
         String userSubstring;
         int nbRecurrence = 0;
         String typeOfRecurrence = "";
@@ -81,9 +81,12 @@ public class EventCommand extends Command {
                             throw new RecurrenceException();
                         }
                         try{
-                            nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                            nbRecurrence = exceedNbRecurrence(typeOfRecurrence, Integer.parseInt(recurrenceSplit2[1].trim()), ui);
                         }catch (Exception e){
                             throw new RecurrenceException();
+                        }
+                        if(nbRecurrence < 0){
+                            throw new NegativeNumberException();
                         }
                     }
                 }
@@ -120,9 +123,12 @@ public class EventCommand extends Command {
                             throw new RecurrenceException();
                         }
                         try{
-                            nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                            nbRecurrence = exceedNbRecurrence(typeOfRecurrence, Integer.parseInt(recurrenceSplit2[1].trim()), ui);
                         }catch (Exception e){
                             throw new RecurrenceException();
+                        }
+                        if(nbRecurrence < 0){
+                            throw new NegativeNumberException();
                         }
                     }
                 }
@@ -212,6 +218,36 @@ public class EventCommand extends Command {
                 break;
         }
         storage.save(tasks.getList());
+    }
+
+    private int exceedNbRecurrence(String typeOfDate, int nbRecurrence, Ui ui) throws RecurrenceException {
+        switch (typeOfDate){
+            case "day":
+                if(nbRecurrence > 30){
+                    ui.showErrorRecurrence(typeOfDate);
+                    return 30;
+                }
+                else {
+                    return nbRecurrence;
+                }
+            case "week":
+                if(nbRecurrence > 26){
+                    ui.showErrorRecurrence(typeOfDate);
+                    return 26;
+                }
+                else {
+                    return nbRecurrence;
+                }
+            case "month":
+                if(nbRecurrence>12){
+                    ui.showErrorRecurrence(typeOfDate);
+                    return 12;
+                }
+                else {
+                    return nbRecurrence;
+                }
+            default: throw new RecurrenceException();
+        }
     }
     /**
      * getter because the shortcut is private

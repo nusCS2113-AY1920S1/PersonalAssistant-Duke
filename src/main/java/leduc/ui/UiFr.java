@@ -376,6 +376,9 @@ public class UiFr extends Ui {
             System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Vous êtes en train de créer un event récurrent, mais il y aura un conflit de date avec ces dates là" +
                     "\n\t\t\t L'event n'a pas été créé, veuillez vérifier la date");
         }
+        else if(e instanceof NegativeNumberException){
+            System.out.println("\t NegativeNumberException:\n\t\t ☹ OOPS!!! Il ne peut pas avoir un nombre négative ici.");
+        }
     }
 
     @Override
@@ -385,5 +388,22 @@ public class UiFr extends Ui {
     @Override
     public void showErrorLanguage() {
         System.out.println("La langue que vous aviez sélectionné est actuellement indisponible");
+    }
+
+    public void showErrorRecurrence(String typeOfDate) {
+        switch (typeOfDate){
+            case "day":
+                System.out.println("Le nombre maximum de recurrence pour jour est de 30" +
+                        "\n\t\t\t Le nombre maximum de recurrence a été changé en 30");
+                break;
+            case "week":
+                System.out.println("Le nombre maximum de recurrence pour week est de 26" +
+                        "\n\t\t\t Le nombre maximum de recurrence a été changé en 26");
+                break;
+            case "month":
+                System.out.println("Le nombre maximum de recurrence pour mois est de 12" +
+                        "\n\t\t\t Le nombre maximum de recurrence a été changé en 12");
+                break;
+        }
     }
 }

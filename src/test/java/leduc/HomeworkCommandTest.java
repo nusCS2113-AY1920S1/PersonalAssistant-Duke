@@ -241,6 +241,54 @@ public class HomeworkCommandTest {
         catch( DukeException e){
             assertTrue(e instanceof RecurrenceException);
         }
+
+        HomeworkCommand deadlineCommand24 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu day -3");
+        try{
+            deadlineCommand24.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        HomeworkCommand deadlineCommand25 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu week -3");
+        try{
+            deadlineCommand25.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        HomeworkCommand deadlineCommand26 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu month -3");
+        try{
+            deadlineCommand26.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        HomeworkCommand deadlineCommand27 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 3 recu day -3");
+        try{
+            deadlineCommand27.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        HomeworkCommand deadlineCommand28 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 3 recu week -3");
+        try{
+            deadlineCommand28.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        HomeworkCommand deadlineCommand29 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 3 recu month -3");
+        try{
+            deadlineCommand29.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof NegativeNumberException);
+        }
     }
 
     /**

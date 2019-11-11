@@ -323,4 +323,10 @@ public abstract class Ui {
      * display when the user want to show to another language rathan than those available
      */
     public abstract void showErrorLanguage();
+
+    /**
+     * display when the user want to have more day than the one specify by the typeOfDate
+     * @param typeOfDate the type of date, can be day, week, month
+     */
+    public abstract void showErrorRecurrence(String typeOfDate);
 }

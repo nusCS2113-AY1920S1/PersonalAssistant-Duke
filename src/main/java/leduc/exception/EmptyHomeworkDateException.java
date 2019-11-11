@@ -11,11 +11,4 @@ public class EmptyHomeworkDateException extends DukeException {
         super();
     }
 
-    /**
-     * Ask for a deadline date for the homework task to the user.
-     * @return the error message
-     */
-    public String print(){
-        return "\t emptyHomeworkDateException:\n\t\t ☹ OOPS!!! Please enter a deadline for the task";
-    }
 }

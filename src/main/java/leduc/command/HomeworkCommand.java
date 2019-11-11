@@ -45,7 +45,7 @@ public class HomeworkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyHomeworkDateException, EmptyHomeworkException, NonExistentDateException,
-            FileException, PrioritizeLimitException, RecurrenceException {
+            FileException, PrioritizeLimitException, RecurrenceException, NegativeNumberException {
         String userSubstring;
         int nbRecurrence = 0;
         String typeOfRecurrence = "";
@@ -82,9 +82,12 @@ public class HomeworkCommand extends Command {
                             throw new RecurrenceException();
                         }
                         try{
-                            nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                            nbRecurrence = exceedNbRecurrence(typeOfRecurrence, Integer.parseInt(recurrenceSplit2[1].trim()), ui);
                         }catch (Exception e){
                             throw new RecurrenceException();
+                        }
+                        if(nbRecurrence < 0){
+                            throw new NegativeNumberException();
                         }
                     }
                 }
@@ -117,9 +120,12 @@ public class HomeworkCommand extends Command {
                                 throw new RecurrenceException();
                             }
                             try{
-                                nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                                nbRecurrence = exceedNbRecurrence(typeOfRecurrence, Integer.parseInt(recurrenceSplit2[1].trim()), ui);
                             }catch (Exception e){
                                 throw new RecurrenceException();
+                            }
+                            if(nbRecurrence < 0){
+                                throw new NegativeNumberException();
                             }
                         }
                     }
@@ -194,6 +200,44 @@ public class HomeworkCommand extends Command {
                 break;
         }
         storage.save(tasks.getList());
+    }
+
+    /**
+     * The nbRecurrence can't exceed a certain threshold depending on the typeOfDate
+     * @param typeOfDate the type of date can be day, week, month
+     * @param nbRecurrence the number of recurrence
+     * @param ui the ui in order to display the error message
+     * @return the number of recurrence
+     * @throws RecurrenceException
+     */
+    private int exceedNbRecurrence(String typeOfDate, int nbRecurrence, Ui ui) throws RecurrenceException {
+        switch (typeOfDate){
+            case "day":
+                if(nbRecurrence > 30){
+                    ui.showErrorRecurrence(typeOfDate);
+                    return 30;
+                }
+                else {
+                    return nbRecurrence;
+                }
+            case "week":
+                if(nbRecurrence > 26){
+                    ui.showErrorRecurrence(typeOfDate);
+                    return 26;
+                }
+                else {
+                    return nbRecurrence;
+                }
+            case "month":
+                if(nbRecurrence>12){
+                    ui.showErrorRecurrence(typeOfDate);
+                    return 12;
+                }
+                else {
+                    return nbRecurrence;
+                }
+            default: throw new RecurrenceException();
+        }
     }
 
     /**

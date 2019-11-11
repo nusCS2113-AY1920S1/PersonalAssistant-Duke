@@ -12,20 +12,22 @@ Le Duc is a task management application geared to help high school students mana
 == Summary of contributions
 * *Major enhancement*: added *the ability to customize the application*
 ** What it does: allows the user to customize the application by adding/changing the shortcut and by changing the language. The user can also change the application welcome message.
-** Justification: This feature give the possibility to the user to make the application more personal. Moreover, changing the language allow international student to use it.
+** Justification: this feature give the possibility to the user to make the application more personal. Moreover, changing the language allow international student to use it.
 ** Highlights: For now, only the language, the welcome message and the shortcut can be customized. But more will come in the future.
 ** Credit: The customization of the welcome message was made by SHAH RAHUL.
-** *Minor enhancement*: added the possibility to add recurrence for homework and for event.
-** *Minor enhancement*: added *the ability to show task by day/dayofweek/week/month/year*
+* *Minor enhancement*: added the possibility to add recurrence for homework and for event.
+** what it does: allow the user to add several times the same task, with only the date apart
+** Justification: sometimes, the user have the same task, but only the day differ, so this feature facilitate the user's life.
+* *Minor enhancement*: added *the ability to show task by day/dayofweek/week/month/year*
 ** What it does: allows the user to see tasks for a specific day, week, month, years.
-** Justification : This feature make the user's life easier because he can see which day has which task or which week has which task ...
+** Justification : this feature make the user's life easier because he can see which day has which task or which week has which task ...
 * *Minor enhancement*: added *the ability to see all the command (help command)*
 ** What it does: allows the user to see all the existing commands.
 ** Justification: This feature help new user to get familiar with the application by showing all the commands with the description.
 ** Highlights: This enhancement allow the application to become more user-friendly. As new commands will be added, the help command will be completed.
 * *Minor enhancement*: solved the date conflict for the event task.
 
-* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=huangje&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HelpCommand.java[Help feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/ShortcutCommand.java[Customize Shortcut feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/ShowCommand.java[Show feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/LanguageCommand.java[Customize Language Feature 1]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/Ui.java[Customize Language Feature 2]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiEn.java[Customize Language Feature 3]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiFr.java[Customize Language Feature 4]]
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=huangje&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HelpCommand.java[Help feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/ShortcutCommand.java[Customize Shortcut feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/ShowCommand.java[Show feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/LanguageCommand.java[Customize Language Feature 1]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/Ui.java[Customize Language Feature 2]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiEn.java[Customize Language Feature 3]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiFr.java[Customize Language Feature 4]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HomeworkCommand.java[Recurrence Feature 1]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/EventCommand.java[Recurrence Feature 2]]
 
 * *Other contributions*:
 

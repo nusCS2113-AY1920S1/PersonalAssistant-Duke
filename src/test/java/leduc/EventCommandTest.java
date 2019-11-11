@@ -66,7 +66,7 @@ public class EventCommandTest {
             eventCommand1.execute(tasks, ui, storage);
             fail("should throw exception when there is no description");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("description"));
+            assertTrue(e instanceof EmptyEventException);
         }
 
         EventCommand eventCommand2 = new EventCommand("event testNoDate");
@@ -74,7 +74,7 @@ public class EventCommandTest {
             eventCommand2.execute(tasks, ui, storage);
             fail("should throw exception when there is no date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("period"));
+            assertTrue(e instanceof EmptyEventDateException);
         }
 
         EventCommand eventCommand3 = new EventCommand("event testNoDate /at");
@@ -82,7 +82,7 @@ public class EventCommandTest {
             eventCommand3.execute(tasks, ui, storage);
             fail("should throw exception when there is no date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("period"));
+            assertTrue(e instanceof EmptyEventDateException);
         }
 
         EventCommand eventCommand4 = new EventCommand("event testNoDate /at 12/12/2019 20:30");
@@ -90,7 +90,7 @@ public class EventCommandTest {
             eventCommand4.execute(tasks, ui, storage);
             fail("should throw exception when there is no period");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("period"));
+            assertTrue(e instanceof EmptyEventDateException);
         }
 
         EventCommand eventCommand5 = new EventCommand("event testNoDate /at 12/12/2019 20:30 12/12/2019 20:40");
@@ -98,7 +98,7 @@ public class EventCommandTest {
             eventCommand5.execute(tasks, ui, storage);
             fail("should throw exception when there is a problem with the date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("period"));
+            assertTrue(e instanceof EmptyEventDateException);
         }
 
         EventCommand eventCommand6 = new EventCommand("event testNoDate /at - 12/12/2019 20:30");
@@ -106,7 +106,7 @@ public class EventCommandTest {
             eventCommand6.execute(tasks, ui, storage);
             fail("should throw exception when there is no date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("period"));
+            assertTrue(e instanceof EmptyEventDateException);
         }
 
         EventCommand eventCommand7 = new EventCommand("event testNoDate /at 12/12/2019 20:30 - ");
@@ -114,7 +114,7 @@ public class EventCommandTest {
             eventCommand7.execute(tasks, ui, storage);
             fail("should throw exception when there is no date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("period"));
+            assertTrue(e instanceof EmptyEventDateException);
         }
 
         EventCommand eventCommand8 = new EventCommand("event testNoDate /at a - b");
@@ -122,7 +122,7 @@ public class EventCommandTest {
             eventCommand8.execute(tasks, ui, storage);
             fail("should throw exception when there is a wrong format");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("date doesn't exist"));
+            assertTrue(e instanceof NonExistentDateException);
         }
 
         EventCommand eventCommand9 = new EventCommand("event testNoDate /at 12-12-2019 20:30 - 12-12-2019 20:40");
@@ -130,7 +130,7 @@ public class EventCommandTest {
             eventCommand9.execute(tasks, ui, storage);
             fail("should throw exception when there is a wrong format");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("date doesn't exist"));
+            assertTrue(e instanceof NonExistentDateException);
         }
 
         EventCommand eventCommand10 = new EventCommand("event testNoDate /at 12/12/2019 2030 - 12/12/2019 20:40");
@@ -138,7 +138,7 @@ public class EventCommandTest {
             eventCommand10.execute(tasks, ui, storage);
             fail("should throw exception when there is a wrong format");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("date doesn't exist"));
+            assertTrue(e instanceof NonExistentDateException);
         }
 
         EventCommand eventCommand11 = new EventCommand("event testConflictDate /at 11/12/2019 20:20 - 11/12/2019 21:00");
@@ -146,7 +146,7 @@ public class EventCommandTest {
             eventCommand11.execute(tasks, ui, storage);
             fail("should throw exception when there is a conflict between the date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("conflict"));
+            assertTrue(e instanceof ConflictDateException);
         }
 
         EventCommand eventCommand12 = new EventCommand("event testConflictDate /at 11/12/2019 20:20 - 12/12/2019 21:00");
@@ -154,7 +154,7 @@ public class EventCommandTest {
             eventCommand12.execute(tasks, ui, storage);
             fail("should throw exception when there is a conflict between the date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("conflict"));
+            assertTrue(e instanceof ConflictDateException);
         }
 
         EventCommand eventCommand13 = new EventCommand("event testConflictDate /at 12/12/2019 20:20 - 12/12/2019 21:00");
@@ -162,7 +162,7 @@ public class EventCommandTest {
             eventCommand13.execute(tasks, ui, storage);
             fail("should throw exception when there is a conflict between the date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("conflict"));
+            assertTrue(e instanceof ConflictDateException);
         }
 
         EventCommand eventCommand14 = new EventCommand("event testConflictDate /at 12/12/2019 20:20 - 12/12/2019 20:30");
@@ -170,7 +170,7 @@ public class EventCommandTest {
             eventCommand14.execute(tasks, ui, storage);
             fail("should throw exception when there is a conflict between the date");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("conflict"));
+            assertTrue(e instanceof ConflictDateException);
         }
 
 
@@ -359,6 +359,48 @@ public class EventCommandTest {
             eventCommand40.execute(tasks, ui, storage);
         } catch (DukeException e) {
             assertTrue(e instanceof RecurrenceDateException);
+        }
+
+        EventCommand eventCommand41 = new EventCommand("event e3 /at 13/12/2002 22:22 - 14/12/2002 22:23 recu day -3");
+        try {
+            eventCommand41.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand42 = new EventCommand("event e3 /at 13/12/2002 22:22 - 21/12/2002 22:23 recu week -3");
+        try {
+            eventCommand42.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand43 = new EventCommand("event e3 /at 13/01/2002 22:22 - 21/02/2002 22:23 recu month -3");
+        try {
+            eventCommand43.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand44 = new EventCommand("event e3 /at 13/12/2002 22:22 - 14/12/2002 22:23 prio 6 recu day -3");
+        try {
+            eventCommand44.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand45 = new EventCommand("event e3 /at 13/12/2002 22:22 - 21/12/2002 22:23 prio 6 recu week -3");
+        try {
+            eventCommand45.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand46 = new EventCommand("event e3 /at 13/01/2002 22:22 - 21/02/2002 22:23 prio 6 recu month -3");
+        try {
+            eventCommand46.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
         }
     }
 

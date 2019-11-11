@@ -11,11 +11,4 @@ public class EmptyHomeworkException extends DukeException {
         super();
     }
 
-    /**
-     * Ask for a description for the homework task to the user.
-     * @return the error message
-     */
-    public String print(){
-        return "\t emptyHomeworkException:\n\t\t ☹ OOPS!!! The description of a homework task cannot be empty";
-    }
 }
