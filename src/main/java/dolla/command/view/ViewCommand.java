@@ -55,8 +55,6 @@ public class ViewCommand extends Command {
             ViewUi.printNoRelevantExpense(dateStr);
         }
 
-        System.out.println(sum);
-
     }
 
     @Override

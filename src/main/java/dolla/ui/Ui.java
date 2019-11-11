@@ -3,27 +3,16 @@ package dolla.ui;
 import dolla.model.Record;
 
 import static dolla.ModeStringList.MODE_DEBT;
+import static dolla.ModeStringList.MODE_ENTRY;
+import static dolla.ModeStringList.MODE_LIMIT;
 import static dolla.ModeStringList.MODE_SHORTCUT;
 
 /**
- * duke.Ui is a class that handles all interactions to the user.
+ * Ui is an class that handles all interactions to the user.
  */
-public abstract class Ui {
+public abstract class Ui implements UiStrings {
 
-    protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
-    private static final String EXISTING_RECORD_MSG = "\tOOPS! You already have the following ";
-    private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.";
-    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive value with an appropriate "
-                                                  + "decimal point that is less than 1,000,000.";
-    private static final String EXECUTE_SHORTCUT_MSG = "\tYou can execute 'shortcuts' to view your list of shortcuts!";
-    private static final String INVALID_DATE_MSG = "\tPlease use the format 'DD/MM/YYYY'!";
-    private static final String INVALID_NUMBER_MSG = " is not a number. Please use a number instead!";
-    private static final String INVALID_COMMAND_MSG = "\tOOPS! The command is invalid. Please enter a valid command!";
-
-    private static final String NO_REMINDERS_MSG = "\tThere are no reminders :)";
-    private static final String EXIT_MSG = "\tBye. Hope to see you again soon!";
-
-
+    //todo: remove
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -34,58 +23,41 @@ public abstract class Ui {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    protected static final String SORT_DESCRIPTION = "description";
-    protected static final String SORT_DATE = "date";
-    protected static final String SORT_NAME = "name";
-
-    private static String newLogo =
-            "\t /$$$$$$$            /$$ /$$  \n"
-          + "\t| $$__  $$          | $$| $$   \n"
-          + "\t| $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
-          + "\t| $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
-          + "\t| $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
-          + "\t| $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
-          + "\t| $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
-          + "\t|_______/  \\______/ |__/|__/ \\_______/\n";
-
-    protected static final String line = "\t____________________________________________________________";
-
-    private static final String version = "\tVersion 1.4\n";
-
-    private static String welcomeMsg =
-        "\tHello from\n"
-        + newLogo
-        + version
-        + line
-        + "\n\tI help keep track of your finance!\n"
-        + "\tWhat can I do for you?";
-
-    private static String dollaMode = ANSI_CYAN + "\n\t( o_o)O ~~ MODE: DOLLA "
-            + " ~~ \n" + ANSI_RESET;
-
     /**
      * Prints DOLLA logo and welcome message.
      */
     public static void showWelcome() {
         System.out.println(welcomeMsg);
         System.out.println(line);
-        System.out.println(dollaMode);
+        System.out.println(dollaModeLogo);
+    }
+
+    private static String getModeLogo(String mode) {
+        switch (mode) {
+        case MODE_ENTRY:
+            return entryModeLogo;
+        case MODE_LIMIT:
+            return limitModeLogo;
+        case MODE_DEBT:
+            return debtModeLogo;
+        case MODE_SHORTCUT:
+            return shortcutModeLogo;
+        default:
+            return dollaModeLogo;
+        }
     }
 
     /**
      * Prints Dolla's new mode after being updated.
      *
-     * @param newMode The new mode to be switched.
+     * @param newMode The updated mode.
      */
     public static void printModeUpdated(String newMode) {
         System.out.println(line);
-        System.out.println("\tGot it! Mode changed to " + newMode + "!");
+        System.out.println(CHANGE_MODE_MSG);
+        String modeStr = getModeLogo(newMode);
+        System.out.println(modeStr);
         System.out.println(line);
-        System.out.println();
-        //System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
-        //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "\t( *_*)O ~~ MODE:  " + newMode.toUpperCase()
-                + "  \n" + ANSI_RESET);
     }
 
     /**
@@ -120,7 +92,7 @@ public abstract class Ui {
      */
     public static void printInvalidNumberError(String str) {
         System.out.println(line);
-        System.out.println("\t" + str + INVALID_NUMBER_MSG);
+        System.out.println(TAB + str + INVALID_NUMBER_MSG);
         System.out.println(line);
     }
 
@@ -197,7 +169,7 @@ public abstract class Ui {
     }
 
     public static void printDateRequest() {
-        System.out.println("\tPlease enter your new entry date in the format 'DD/MM/YYYY'");
+        System.out.println(DATE_REQ_MSG);
     }
 
     /**
@@ -222,6 +194,4 @@ public abstract class Ui {
         System.out.println(VALID_AMOUNT_MSG);
         System.out.println(line);
     }
-
-
 }

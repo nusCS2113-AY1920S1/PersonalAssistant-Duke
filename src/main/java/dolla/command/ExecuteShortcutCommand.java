@@ -1,7 +1,7 @@
 package dolla.command;
 
-import dolla.model.DollaData;
 import dolla.Time;
+import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.exception.DollaException;
 import dolla.ui.Ui;

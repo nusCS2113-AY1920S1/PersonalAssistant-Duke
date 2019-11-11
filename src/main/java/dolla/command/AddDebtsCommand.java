@@ -2,12 +2,11 @@ package dolla.command;
 
 import dolla.command.action.Undo;
 import dolla.model.DollaData;
-
 import dolla.command.action.Redo;
+import dolla.model.Debt;
 import dolla.model.DebtList;
 import dolla.model.Record;
 import dolla.ui.Ui;
-import dolla.model.Debt;
 
 import java.time.LocalDate;
 

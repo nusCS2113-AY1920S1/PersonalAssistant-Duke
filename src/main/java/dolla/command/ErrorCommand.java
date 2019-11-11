@@ -14,7 +14,6 @@ public class ErrorCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        String errorCommand = "ErrorCommand";
-        return errorCommand;
+        return "ErrorCommand";
     }
 }

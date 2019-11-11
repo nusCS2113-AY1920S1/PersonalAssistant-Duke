@@ -5,7 +5,6 @@ import dolla.model.DollaData;
 import dolla.Time;
 import dolla.command.action.Redo;
 import dolla.model.EntryList;
-import dolla.model.Record;
 import dolla.ui.Ui;
 import dolla.model.Entry;
 

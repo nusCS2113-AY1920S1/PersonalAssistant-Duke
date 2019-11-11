@@ -36,20 +36,21 @@ public class DebtsParser extends Parser {
 
     @Override
     public Command parseInput() {
-        if (commandToRun.equals(DEBT_COMMAND_LIST)) { //show debt list
+
+        if (isListCmd()) {
             return new ShowListCommand(mode);
 
-        } else if (commandToRun.equals(BILL_COMMAND_LIST)) { //show bill list
+        } else if (isListBillCmd()) {
             return new ShowBillListCommand(mode);
 
-        } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
+        } else if (isAddDebtCmd()) {
             if (verifyDebtCommand()) {
                 return new AddDebtsCommand(commandToRun, inputArray[1], amount, description, date);
             } else {
                 return new ErrorCommand();
             }
             
-        } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
+        } else if (isBillCmd()) {
             ArrayList<String> nameList = new ArrayList<>();
             if (verifyAddBillCommand(nameList)) {
                 return new AddBillCommand(BILL_COMMAND_BILL,Integer.parseInt(inputArray[1]), amount, nameList);
@@ -57,7 +58,7 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(BILL_COMMAND_PAID)) {
+        } else if (isPaidCmd()) {
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();
@@ -72,7 +73,7 @@ public class DebtsParser extends Parser {
                 }
             }
 
-        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+        } else if (isModifyCmd()) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyCommand()) {
@@ -81,21 +82,21 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(COMMAND_SEARCH)) {
+        } else if (isSearchCmd()) {
             if (verifyDebtSearchCommand()) {
                 return new SearchCommand(mode, inputArray[1], inputArray[2]);
             } else {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(COMMAND_SORT)) {
+        } else if (isSortCmd()) {
             if (verifySort()) {
                 return new SortCommand(mode, inputArray[1]);
             } else {
                 return new ErrorCommand();
             }
 
-        } else if (commandToRun.equals(COMMAND_REMOVE)) {
+        } else if (isRemoveCmd()) {
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();
@@ -120,13 +121,28 @@ public class DebtsParser extends Parser {
                 DebtUi.printRemoveBillFormatError();
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(COMMAND_REDO)
-                || commandToRun.equals(COMMAND_UNDO)) {
+        } else if (isActionCmd()) {
             return new ActionCommand(mode, commandToRun);
 
         } else {
             return invalidCommand();
         }
         return invalidCommand();
+    }
+
+    private boolean isListCmd() {
+        return commandToRun.equals(DEBT_COMMAND_LIST);
+    }
+
+    private boolean isListBillCmd() {
+        return commandToRun.equals(BILL_COMMAND_LIST);
+    }
+
+    private boolean isBillCmd() {
+        return commandToRun.equals(BILL_COMMAND_BILL);
+    }
+
+    private boolean isPaidCmd() {
+        return commandToRun.equals(BILL_COMMAND_PAID);
     }
 }
