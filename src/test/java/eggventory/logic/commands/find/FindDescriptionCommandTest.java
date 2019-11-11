@@ -8,6 +8,7 @@ import eggventory.ui.Ui;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,6 +17,15 @@ class FindDescriptionCommandTest {
     StockList testStockList = new StockList();
     Ui testCli = new UiStub();
     Storage testStorage = new StorageStub();
+
+    @BeforeEach
+    void resetTestStockList() {
+        if (testStockList.isEmpty()) {
+            return;
+        } else {
+            testStockList.clearList();
+        }
+    }
 
     //Test for search returning no result.
     @Test

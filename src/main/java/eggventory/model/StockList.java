@@ -77,7 +77,7 @@ public class StockList {
 
     //@@author
     /**
-     * Returns a stockType from stockList if it exits else retuns a null StockType.
+     * Returns a stockType from stockList if it exists else retuns a null StockType.
      * @param stockType The unique string that identifies a stockType
      * @return stockType of stockList
      */
@@ -286,19 +286,44 @@ public class StockList {
 
     //@@author yanprosobo
     /**
+     * Returns whether there are any stocktypes stored in the list.
+     */
+    public boolean isEmpty() {
+        return stockList.isEmpty();
+    }
+
+    /**
+     * Clears the list of all elements.
+     */
+    public void clearList() {
+        stockList.clear();
+    }
+
+    /**
+     * Checks if a given stocktype has no stocks with its stocktype.
+     * @param stockTypeName The name of the stocktype to be queried
+     * @return True if the stocktype has no stocks, false otherwise.
+     */
+    public boolean isStocktypeZeroQuantity(String stockTypeName) {
+        for (StockType stocktype: stockList) {
+            if (stocktype.getName().equals(stockTypeName) && isStockTypeEmpty(stocktype)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
-     * @return The string of the stocklist whose stocktype matches query.
+     * @pre Stocktype has been checked to exist and contains at least one stock.
+     * @return The string of the stocktype whose stocktype matches query.
      */
     public String queryStocks(String query) {
         StringBuilder ret = new StringBuilder();
-        boolean found = false;
+        ret.append(query).append(" INVENTORY\n");
+        ret.append("------------------------\n");
         for (StockType stocktype : stockList) {
             if (stocktype.getName().equals(query)) {
-                if (!found) {
-                    ret.append(query).append(" INVENTORY\n");
-                    ret.append("------------------------\n");
-                    found = true;
-                }
                 ret.append(stocktype.toString()).append("\n");
             }
         }
