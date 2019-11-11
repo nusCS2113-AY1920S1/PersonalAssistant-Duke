@@ -178,6 +178,10 @@ link:https://github.com/mong-nus/ped/issues/7[#7],
 link:https://github.com/mong-nus/ped/issues/8[#8],
 link:https://github.com/mong-nus/ped/issues/9[#9].
 
+* Reviewed and provided constructive feedback for other team's project (
+link:https://github.com/AY1920S1-CS2113T-W17-4/main[OOF]
+) UG and DG.
+
 == Contributions to the User Guide
 
 The following sections below showcase extracts of my contributions to the User Guide and my ability to write
