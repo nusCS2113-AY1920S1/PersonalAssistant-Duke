@@ -38,12 +38,16 @@ public class AddContactCommand {
                 throw new ArrayIndexOutOfBoundsException();
             }
             String[] splitCommand = toAdd.split(",");
-            String name = splitCommand[0];
-            String number = splitCommand[1];
-            contactList.put(name, number);
-            System.out.print("Successfully added: "
-                    + toAdd + "\n");
-        } catch (ArrayIndexOutOfBoundsException e) {
+            if (splitCommand.length == 2) {
+                String name = splitCommand[0];
+                String number = splitCommand[1];
+                contactList.put(name, number);
+                System.out.print("Successfully added: "
+                        + toAdd + "\n");
+            } else {
+                throw new NumberFormatException();
+            }
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.print("Please Input in the correct format\n");
         }
     }
