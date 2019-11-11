@@ -13,6 +13,7 @@ import duke.command.impression.ImpressionStatusSpec;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
+import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Result;
 import duke.exception.DukeException;
@@ -69,13 +70,14 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionNewCommand_fullCommand_correctDataCreated() {
-        String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
-        String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
+        String[] medSwitchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
+        String[] medSwitchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
 
         try {
             Medicine testMed = new Medicine("test", impression, 2, "1", "test dose",
                     "today", "next two weeks");
-            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
+            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, medSwitchNames, medSwitchVals);
+
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
@@ -88,17 +90,26 @@ public class ImpressionCommandTest extends CommandTest {
         Medicine testMed = null;
         String[] switchNames = {"medicine", "name", "dose", "duration"};
         String[] switchVals = {null, "test", "test dose", "next two weeks"};
-
+        String[] obsvSwitchNames = {"observation", "name"};
+        String[] obsvSwitchVals = {null, "test"};
+        Observation testObsv = null;
+        ArgCommand newObsvCmd = null;
+        ArgCommand newMedCmd = null;
         try {
+            testObsv = new Observation("test", impression, 0, "", true);
+            newObsvCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, obsvSwitchNames,
+                    obsvSwitchVals);
             testMed = new Medicine("test", impression, 0, "0", "test dose",
                     LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
+            newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
         } catch (DukeException excp) {
-            fail("Exception thrown when constructing valid Medicine!");
+            fail("Exception thrown when constructing valid Medicine and Observation!");
         }
 
         try {
-            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
+            newObsvCmd.execute(core);
+            assertTrue(testObsv.equals(impression.getEvidence("test")));
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
             fail("Exception thrown while executing valid command: " + excp.getMessage());
@@ -135,23 +146,27 @@ public class ImpressionCommandTest extends CommandTest {
     @Test
     public void impressionEditCommand_editData_dataEdited() {
         ObjCommand editCmd = null;
-        Result newData = null;
-        String[] switchNames = {"evidence", "name", "priority", "summary"};
-        String[] switchVals = {"1", "Edited", "1", "New result summary"};
+        Observation newData = null;
+        Observation origData = null;
+        String[] switchNames = {"evidence", "name", "priority", "summary", "subjective"};
+        String[] switchVals = {"1", "Edited", "1", "New observation summary", null};
 
         try {
             editCmd = new ObjCommand(ImpressionEditSpec.getSpec(), null, switchNames, switchVals);
-            newData = new Result("Edited", impression, 1, "New result summary");
+            origData = new Observation("Edited", impression, 1, "New observation summary",
+                    false);
+            newData = new Observation("Edited", impression, 1, "New observation summary",
+                    false);
         } catch (DukeException excp) {
             fail("Error thrown while setting up Command and Result for editing!");
         }
 
         try {
-            editCmd.execute(core, result); // assume origData was correctly identified by user
+            editCmd.execute(core, origData); // assume origData was correctly identified by user
         } catch (DukeException excp) {
             fail("Error thrown while executing valid edit in Impression context!");
         }
-        assertTrue(newData.equals(result));
+        assertTrue(newData.equals(origData));
     }
 
     @Test
