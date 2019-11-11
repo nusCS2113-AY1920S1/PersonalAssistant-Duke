@@ -34,7 +34,7 @@ public class SortCategoryCommand extends Command {
         MainDisplay newMainDisplay = new MainDisplay();
         int cols = newMainDisplay.getCatListSize(categoryList);
         int rows = newMainDisplay.getMaxCatSize(categoryList);
-        String output = newMainDisplay.newToPrint(0,0,rows,cols,categoryList,budget);
+        String output = newMainDisplay.newToPrint(0,0,rows,cols,categoryList,budget,1);
         Ui.printMainDisplay(output);
         setTestOutput(categoryList);
     }

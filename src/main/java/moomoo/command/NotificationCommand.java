@@ -73,10 +73,9 @@ public class NotificationCommand extends Command {
                 + " `~~` d\\ /b `~~`     | |_|  |_|\\___/ \\___/                             |\n"
                 + "     |     |         | " + alert + blankSpace + "|\n"
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
-                + "      `---`          .-------------------------------------------------." + reset;
+                + "      `---`          .-------------------------------------------------.\n" + reset;
         Ui.setOutput(cow);
         message = cow;
-        //Ui.showResponse();
     }
 
     public String getMesage() {
