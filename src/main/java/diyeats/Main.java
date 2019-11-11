@@ -57,6 +57,12 @@ public class Main {
             ui.showMessage(e.getMessage());
             ui.showUserLoadingError();
         }
+        try {
+            storage.loadGoal(user); //load user info
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+            ui.showUserLoadingError();
+        }
         setup = new UserSetup(user);
         try {
             storage.loadWord(autocorrect);

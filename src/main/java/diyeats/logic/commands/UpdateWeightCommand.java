@@ -54,7 +54,7 @@ public class UpdateWeightCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
-     * @param undo the undo object which holds the history of inverse changes to be undone
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
@@ -79,7 +79,6 @@ public class UpdateWeightCommand extends Command {
      *                to json
      */
     public void stage0(User user, Storage storage) {
-        ui.showLine();
         try {
             if (Integer.parseInt(weight) < 2) {
                 ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
@@ -102,7 +101,7 @@ public class UpdateWeightCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showLine();
+
     }
 
     /**
@@ -112,7 +111,7 @@ public class UpdateWeightCommand extends Command {
      *                to json
      */
     public void stage1(User user, Storage storage) {
-        ui.showLine();
+
         if (this.responseStr.equals("y")) {
             try {
                 if (Integer.parseInt(weight) >= 2) {
@@ -137,7 +136,7 @@ public class UpdateWeightCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showLine();
+
     }
 
     /**
@@ -160,7 +159,7 @@ public class UpdateWeightCommand extends Command {
      */
 
     public void updateUser(User user) {
-        ui.showLine();
+
         try {
             if (Integer.parseInt(weight) >= 2) {
                 user.setWeight(Integer.parseInt(weight), currentDate);
@@ -171,7 +170,7 @@ public class UpdateWeightCommand extends Command {
         } catch (NumberFormatException e) {
             ui.showMessage("Please input a proper number for weight");
         }
-        ui.showLine();
+
     }
 
     /**

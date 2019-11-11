@@ -78,7 +78,6 @@ public class SuggestMealCommand extends Command {
             isDone = false;
         } else {
             ui.showMessage("No meals could be suggested by DIYeats");
-            ui.showLine();
             isDone = true;
         }
 
@@ -96,7 +95,6 @@ public class SuggestMealCommand extends Command {
 
         if (mealSelectedIndex == 0) {
             ui.showMessage("Declining suggestions.");
-            ui.showLine();
             isDone = true;
             return;
         } else if (mealSelectedIndex < 1 || mealSelectedIndex > suggestedMealList.size()) {

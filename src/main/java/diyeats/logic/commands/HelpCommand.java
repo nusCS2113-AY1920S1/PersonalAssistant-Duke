@@ -39,11 +39,11 @@ public class HelpCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         logger.setLevel(Level.OFF);
-        ui.showLine();
         ArrayList<String> helpLines = new ArrayList<>();
         try {
             storage.loadHelp(helpLines, specifiedHelp);
@@ -53,6 +53,5 @@ public class HelpCommand extends Command {
         }
         logger.log(Level.FINE, "help is loaded successfully");
         ui.showHelp(helpLines);
-        ui.showLine();
     }
 }

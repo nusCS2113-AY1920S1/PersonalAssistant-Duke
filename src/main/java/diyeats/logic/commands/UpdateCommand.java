@@ -49,9 +49,11 @@ public class UpdateCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals,  Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         switch (stage) {
             case 0:
                 if (date == null) {
@@ -63,18 +65,22 @@ public class UpdateCommand extends Command {
                 if (this.age != null) {
                     UpdateAgeCommand c1 = new UpdateAgeCommand(age);
                     c1.execute(meals, storage, user, wallet, undo);
+                    ui.showLine();
                 }
                 if (this.height != null) {
                     UpdateHeightCommand c1 = new UpdateHeightCommand(height);
                     c1.execute(meals, storage, user, wallet, undo);
+                    ui.showLine();
                 }
                 if (this.name != null) {
                     UpdateNameCommand c1 = new UpdateNameCommand(name);
                     c1.execute(meals, storage, user, wallet, undo);
+                    ui.showLine();
                 }
                 if (this.activity != null) {
                     UpdateActivityCommand c1 = new UpdateActivityCommand(activity);
                     c1.execute(meals, storage, user, wallet, undo);
+                    ui.showLine();
                 }
                 if (this.weight != null) {
                     if (this.date == null) {
@@ -83,6 +89,7 @@ public class UpdateCommand extends Command {
                         c2 = new UpdateWeightCommand(weight, date);
                     }
                     c2.execute(meals, storage, user, wallet, undo);
+                    ui.showLine();
                     if (c2.isDone() == false) {
                         this.stage += 1;
                         this.isDone = false;
@@ -93,6 +100,7 @@ public class UpdateCommand extends Command {
                 try {
                     c2.setResponseStr(this.responseStr);
                     c2.execute(meals, storage, user, wallet, undo);
+                    ui.showLine();
                     this.isDone = c2.isDone();
                     if (c2.isDone()) {
                         this.stage += 1;

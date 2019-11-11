@@ -67,11 +67,11 @@ public class DeleteTransactionCommand extends Command {
      * @param storage the storage object that handles all reading and writing to files.
      * @param user the object that handles all user data.
      * @param wallet the wallet object that stores transaction information.
+     * @param undo the object that facilitates the removal of effect of previous command
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         logger.setLevel(Level.OFF);
-        ui.showLine();
         if (index <= 0 || index > wallet.getTransactions().getTransactionList(currentDate).size()) {
             logger.log(Level.WARNING, "the index " + index + " is out of bound");
             ui.showMessage("Index provided out of bounds for list of transactions on " + currentDate);
@@ -90,6 +90,5 @@ public class DeleteTransactionCommand extends Command {
                 ui.showMessage(e.getMessage());
             }
         }
-        ui.showLine();
     }
 }
