@@ -1,11 +1,9 @@
 package inventory;
-import java.util.*;
+
 import java.util.ArrayList;
 
 import exception.DukeException;
 import storage.Constants;
-
-
 
 public class Inventory extends ArrayList<Item> {
 
@@ -30,13 +28,16 @@ public class Inventory extends ArrayList<Item> {
     /**
      * To check if an item already exists in the current inventory.
      * @param inventory the list of requests
-     * @param inputItem the item in question
+     * @param roomcode room code
+     * @param name item name
      * @return if the item already exists
      */
     public static boolean checkInventory(Inventory inventory, String roomcode, String name) {
         boolean found = false;
         for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).getName().equals(name) && inventory.get(i).getRoomcode().equals(roomcode)) { //compare NAME of newitem with name of currentitem
+            if (inventory.get(i).getName().equals(name)
+                    && inventory.get(i).getRoomcode().equals(roomcode)) {
+                //compare NAME of newitem with name of current item
                 found = true;
             }
         }

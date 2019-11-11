@@ -30,7 +30,6 @@ public class AddInventoryCommand extends Command {
     /**
      * Creates new inventory item.
      * format is: addinventory NAME /qty QUANTITY /in ROOM
-     *
      * @param input    from user
      * @param splitStr tokenized input
      * @throws DukeException if format not followed
@@ -38,7 +37,8 @@ public class AddInventoryCommand extends Command {
      */
     public AddInventoryCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 5) { //length of splitStr array
-            throw new DukeException("OOPS!!! Please create your inventory with the following format: name, quantity, room");
+            throw new DukeException("OOPS!!! Please create your inventory with the following format: "
+                    + "addinventory <item> /qty <number> /in <room code>");
         }
         if (!input.contains(" /qty ")) {
             throw new DukeException("Please add the quantity of your item after /qty");
@@ -54,16 +54,14 @@ public class AddInventoryCommand extends Command {
         }
         this.name = splitA[0];
         splitB = splitA[1].split(" /in ", 2);
-
         try {
             this.quantity = Integer.parseInt(splitB[0]);
         } catch (Exception e) {
             throw new DukeException("Please only input the Quantity in whole numbers");
         }
-
         this.roomcode = splitB[1];
         newItem = new Item(roomcode, name, quantity);
-        }
+    }
 
 
     /**
@@ -76,23 +74,19 @@ public class AddInventoryCommand extends Command {
      * @throws IOException if input entry is incorrect
      */
     @Override
-    public void execute (UserList userList, Inventory inventory, RoomList roomList,
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
             BookingList bookingList, ApprovedList approvedList, Ui ui,
             StorageManager allStorage)
         throws DukeException, IOException, ParseException {
-
-
-
-    // INVENTORY CLASH SHOULD CHECK FOR BOTH NAME AND ROOM
-    boolean clash = Inventory.checkInventory(inventory, roomcode, name); //make this function in Inventory class
-    if (clash) {
-        throw new DukeException("OOPS!!! ITEM ALREADY EXISTS ");
-    }
-
-    inventory.add(newItem);
-    allStorage.getInventoryStorage().saveToFile(inventory);
-    ui.addToOutput("Got it, I've added this to inventory.\n"
-            + newItem.toString() + "\n" + "Now you have " + inventory.size() + " item(s) in the inventory.");
+        // INVENTORY CLASH SHOULD CHECK FOR BOTH NAME AND ROOM
+        boolean clash = Inventory.checkInventory(inventory, roomcode, name); //make this function in Inventory class
+        if (clash) {
+            throw new DukeException("OOPS!!! ITEM ALREADY EXISTS ");
+        }
+        inventory.add(newItem);
+        allStorage.getInventoryStorage().saveToFile(inventory);
+        ui.addToOutput("Got it, I've added this to inventory.\n"
+                + newItem.toString() + "\n" + "Now you have " + inventory.size() + " item(s) in the inventory.");
     }
 }
 

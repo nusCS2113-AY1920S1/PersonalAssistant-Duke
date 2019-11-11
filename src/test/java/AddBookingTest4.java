@@ -22,6 +22,6 @@ public class AddBookingTest4 {
         });
         assertEquals(":-( Not able to parse the date for all patterns given, "
                 + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM", BookingConstants.DATETIMEERROR);
+                + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM", BookingConstants.DATETIMEERROR );
     }
 }

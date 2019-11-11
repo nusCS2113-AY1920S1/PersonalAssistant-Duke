@@ -38,8 +38,6 @@ public class RoomList extends ArrayList<Room> {
      * @return if the room already exists in the file
      * @throws IOException if the input is in the wrong format
      */
-
-
     public boolean checkRoom(String roomcode) {
         for (Room i : this) {
             if (i.roomcode.equals(roomcode)) {
@@ -49,6 +47,14 @@ public class RoomList extends ArrayList<Room> {
         return false;
     }
 
+    /**
+     * Check for room clashes.
+     * @param roomlist list of rooms
+     * @param roomcode room code of room
+     * @param timeStart time slot start
+     * @param timeEnd time slot end
+     * @return
+     */
     public static boolean checkRoom(RoomList roomlist, String roomcode, String timeStart, String timeEnd) {
         boolean found = false;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");

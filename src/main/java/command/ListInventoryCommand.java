@@ -13,7 +13,9 @@ import user.UserList;
 
 import java.util.ArrayList;
 
-public class ListInventoryCommand extends Command{
+public class ListInventoryCommand extends Command {
+
+    @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)

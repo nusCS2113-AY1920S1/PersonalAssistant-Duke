@@ -81,6 +81,7 @@ public class Ui extends AnchorPane {
         userInput.clear();
         switch (splitStr[0]) {
         case "add":
+        case "edit":
         case "delete":
         case "approve":
         case "reject":
@@ -110,6 +111,16 @@ public class Ui extends AnchorPane {
             listContainer.getChildren().clear();
             BookingList bookingList3 = duke.getBookingList();
             showListMonth(bookingList3, splitStr[1]);
+            break;
+        case "find":
+            listContainer.getChildren().clear();
+            BookingList bookingList4 = duke.getBookingList();
+            showFound(bookingList4, splitStr[1]);
+            break;
+        case "findindex":
+            listContainer.getChildren().clear();
+            BookingList bookingList5 = duke.getBookingList();
+            showFoundIndex(bookingList5, splitStr[1]);
             break;
         case "login":
         case "logout":
@@ -193,6 +204,32 @@ public class Ui extends AnchorPane {
         }
     }
 
+    private void showFound(BookingList bookingList, String keywords) throws DukeException {
+        addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
+                "To", "Status", "Purpose", "Approved/ Rejected By"));
+        boolean found = false;
+        Integer index = 1;
+        for (Booking i : bookingList) {
+            if (i.getDescription().toUpperCase().contains(keywords.toUpperCase()))  {
+                found = true;
+                addToList(customListBox(bookingList, i, index));
+            }
+        }
+    }
+
+    private void showFoundIndex(BookingList bookingList, String index) throws DukeException {
+        addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
+                "To", "Status", "Purpose", "Approved/ Rejected By"));
+        int indexindex = 1;
+        int intIndex = Integer.parseInt(index);
+        if (intIndex >= bookingList.size()) {
+            throw new DukeException("OOPS!!!  No such entry exist!");
+        } else {
+            Booking result = bookingList.get(intIndex);
+            addToList(customListBox(bookingList, result, indexindex));;
+        }
+    }
+
     private void addToList(ListBox listBox) {
         listContainer.getChildren().addAll(listBox);
     }
@@ -232,8 +269,8 @@ public class Ui extends AnchorPane {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        return "Hello! I'm Duke\n"
-                + "What can I do for you?";
+        return "Welcome to HallBooker!\n"
+                + "Type \"help\" to see the commands available.";
     }
 
     public void showLine() {
