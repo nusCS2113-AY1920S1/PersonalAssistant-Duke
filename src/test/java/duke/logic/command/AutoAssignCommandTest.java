@@ -108,17 +108,6 @@ class AutoAssignCommandTest {
     }
 
     @Test
-    public void execute_autoAssignFilterNameReject_success() throws DukeException, IOException {
-        TaskList tasks = createTaskList();
-        AutoAssignCommand autoAssignCommand = new AutoAssignCommand("4");
-        final String input = "N";
-        provideInput(input);
-        autoAssignCommand.execute(tasks, ui, storage);
-        Optional<String> actualTaskFilter = tasks.get(3).getFilter();
-        assertFalse(actualTaskFilter.isPresent());
-    }
-
-    @Test
     public void execute_autoAssignCosineSimilarity_success() throws DukeException, IOException {
         TaskList tasks = createTaskList();
         AutoAssignCommand autoAssignCommand = new AutoAssignCommand("1");

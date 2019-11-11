@@ -115,6 +115,5 @@ class UndoCommandTest {
         actualTask = list.get(noFilter, 4);
         assertEquals(expectedTask, actualTask);
         assertNotEquals(prevTask, actualTask);
-
     }
 }

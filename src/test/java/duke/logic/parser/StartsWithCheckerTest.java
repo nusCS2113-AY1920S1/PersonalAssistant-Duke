@@ -52,14 +52,14 @@ class StartsWithCheckerTest {
     @Test
     void someCommandStartsWithInputKeyword() {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
-                "done", "edit", "task", "autoassign"));
+                "done", "event", "task", "autoassign"));
         ArrayList<String> commandsToTest = new ArrayList<>(Arrays.asList("by", "h", "l", "del", "fi",
                 "do", "e", "t", "auto"));
         for (int i = 0; i < commandList.size(); i++) {
             final String input = "Y";
             provideInput(input);
             String filteredString = StartsWithChecker.checkStartsWithAnyCommand(commandsToTest.get(i));
-            assertEquals(filteredString, commandList.get(i));
+            assertEquals(commandList.get(i), filteredString);
         }
     }
 
