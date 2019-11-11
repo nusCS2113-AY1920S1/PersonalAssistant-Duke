@@ -69,7 +69,6 @@ public class MainWindow extends UiPart<Stage> {
         }
         fillInnerPart();
 
-
         inputHistory = new InputHistory();
         autoCompleter = new AutoCompleter();
 
@@ -103,23 +102,18 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getPaymentPredicate());
         logger.info("Budget plane is constructed.");
 
-
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(false);
         paymentPane.getRoot().setVisible(false);
         budgetPane.getRoot().setVisible(false);
 
-
-        paneStack.getChildren().clear();
         paneStack.getChildren().add(expensePane.getRoot());
         paneStack.getChildren().add(planPane.getRoot());
         paneStack.getChildren().add(trendingPane.getRoot());
         paneStack.getChildren().add(paymentPane.getRoot());
         paneStack.getChildren().add(budgetPane.getRoot());
 
-
-        // this part should be unnecessary
         switch (displayedPane) {
         case TRENDING:
             trendingPane.getRoot().setVisible(true);
@@ -139,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
 
         default: //Expense pane
             expensePane.getRoot().setVisible(true);
-
+            break;
         }
     }
 
@@ -156,7 +150,6 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = logic.execute(inputString);
             }
             console.setText(commandResult.getConsoleInfo());
-            fillInnerPart();
             showPane(commandResult);
 
             if (commandResult.isExit()) {
