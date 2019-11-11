@@ -114,27 +114,15 @@ The rest of the App consists of four components.
 * <<Design-Model,*`Model`*>>: Holds the data of the application in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads from and writes data to the hard disk, via text files and excel files.
 
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete w/kiwi`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
-image::UiClassDiagram.png[]
+*API* : link:{repoURL}/src/main/java/ui/Ui.java[`Ui.java`]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The UI consists of a `Ui` that consists of different ui messages to be shown to the user. The `GUI` is is created with the use of `MainScene` This is inherited from `NewScene` and sets up the window dimensions.
 
 The `UI` component,
 
@@ -144,10 +132,6 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
-
 *API* :
 link:{repoURL}/src/main/java/Command.java[`Command.java`]
 link:{repoURL}/src/main/java/Parser.java[`Parser.java`]
@@ -155,56 +139,43 @@ link:{repoURL}/src/main/java/Parser.java[`Parser.java`]
 .Structure of the Command Class
 image::CommandClassDiagram.png[align='center']
 
-.  `Logic` uses the `kParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The `Parser` class is used to parse the user command.
+.  This results in a `Command` object which is executed by the `MainScene`.
+.  The command execution can affect the `Model` (e.g. adding a word).
+.  The result of the command execution is encapsulated as a `String` which is passed back to the `MainScene` and displayed to the user in the GUI.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/dictionary/Bank.java[`Bank.java`]
+link:{repoURL}/src/main/java/dictionary/Word.java[`Word.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* contains a Bank and Word component.
+* models the structure for a word bank (using TreeMap) and word, which contains the word itself tied to its meaning.
+* Bank stores the data of the words in the word bank.
+* Word stores the word and its meaning.
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `Word` objects into the text files and excel files and read it back.
+* can save reminder information into the text files and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components will be in the `commons` package. The current version does not implement this class, but will do so in future versions.
 
 == Implementation
 
@@ -223,15 +194,42 @@ It contains an attribute searchTerm: string representing the word that user is l
 
 Given below is an example of usage scenario for Search Word feature:
 
-Step 1: User have already added a few words as below. Our word bank use a data structure to store all words as a binary tree.
+Step 1. Search from WordBank
 
-[INSERT IMAGE]
+Step 1-1: User have already added a few words as below. Our word bank use a data structure to store all words as a binary tree.
 
-Step 2: User wants to search for a word, e.g. “one”. It first goes to the word “seven”. We see that “one” appears before “seven”, so it searches on the left subtree of “seven”. Then it reaches “four”, and see that “one” appears after “four”, so it searches to the right. Then it reaches “one” and return it. The words appeared in searching are marked as yellow.
+image::BinaryTreeForWordSearch.png[align='center']
 
-[INSERT IMAGE]
+Step 1-2: 
 
-Step 3: (If the word doesn’t appear in the bank): When search pointer reaches the lowest level but still cannot find the word, it will look for the “near” words. A “near” word is defined as the ratio between the edit distance between 2 words and the length of shorter word is less than 60%.
+User wants to search for a word, e.g. “one”. It first goes to the word “seven”. We see that “one” appears before “seven”, so it searches on the left subtree of “seven”. Then it reaches “four”, and see that “one” appears after “four”, so it searches to the right. Then it reaches “one” and return it. The words appeared in searching are marked as yellow.
+
+image::BinaryTreeForWordSearch_afterTraverse.png[align='center']
+
+Step 1-3:
+
+(If the word doesn’t appear in the bank): When search pointer reaches the lowest level but still cannot find the word, it will look for the “near” words. A “near” word is defined as the ratio between the edit distance between 2 words and the length of the compared word is less than 50%.
+
+Step 2. Search from Oxford Dictionary
+
+If the word doesn’t exist in wordbank, the search command calls OxfordCall.onlineSearch(). It’s an api which searches online Oxford dictionary and returns the meaning of the word. If the network is disconnected or the word does not exist in Oxford dictionary, an exception will be raised.   
+ 
+Step3. Search similar words in WordBank
+
+Whether we find the meaning of the word from Oxford dictionary or not, we match the word to every word in WordBank to see if there are any similar words. Levenshtein Distance is the method we use to calculate differences between words and is implemented by using dynamic programming.
+Given the searched word, for each word in the WordBank, we get the set of all combinations of the word with maximum 1 swap between any 2 characters.
+From the given set, we allow 3 changes: insert, remove or replace 1 character.
+For every character changed, we count it as 1 change.
+Similarity between 2 words is defined as number of changes made.
+The threshold of similarity will be half of the length of the word in WordBank.
+
+Example of calculating Levenshtein Distance
+
+image::LevenshteinDistanceExample.png[]
+
+Activity diagram of search command
+
+image::SearchActivityDiagram.png[]
 
 ==== Search with Beginning Substring
 This allows the user to look for the word that has a specific start. It is implemented as its own individual class SearchBeginCommand, which extends class Command.
@@ -240,16 +238,24 @@ Step 1: Similar to Search Word, word bank loads all of the words in a binary sea
 []
 Step 2: SearchBeginCommand will look to the first word in the dictionary that starts with a specific substring.
 []
-[INSERT DIAGRAM]
+image::BinaryTreeForWordSearch.png[align='center']
 In the diagram above, if the user inputs “f”, it will searches in the sequence “seven” -> “four” -> “five”, and get “five” as the first word starts with “f”. If user inputs “s”, it will searches “seven”. It will see that the predecessor of “seven” is “one”, which doesn’t start with “s”, so it stops searching and get the word “seven”.
 []
-Step 3: From that word, continuously look for its successor to find the word that starts with the specific substring. When it reaches a word that doesn’t start with that substring, it terminates and returns all the found words.
+Step 3: From that word, continuously look for its successor to find the word that starts with the specific substring. When it reaches a word that doesn't start with that substring, it terminates and returns all the found words.
+
+*Design Consideration*
+
+* *Pros*:
+** This design makes searching faster since it doesn't require looping through the whole word bank.
+** This design makes the word sorted in ascending order; therefore, it is easier to find words using `list` command.
+** Storing in a binary search tree also helps find the lower bound / upper bound of a word,
+which allows users to look for a word by searching with prefix.
+* *Cons*:
+** This design doesn't allow user to look for the adding history;
+therefore, we have to create a text file to store the insertion order,
+and whenever users use `history` command, it will take reads through that file.
 
 // tag::implmentation[]
-=== Usage Statistics feature
-
-The usage statistics feature includes a collection of commands that can allow the user to obtain information regarding his usage habits of WordUp that can help the user use the word bank more efficiently.
-
 ==== Recently Added
 The Recently Added feature allows the user to quickly check back on the words he had recently added to the application. It is facilitated by the `RecentlyAddedCommand`, which extends the `Command` class.
 
@@ -280,7 +286,7 @@ If the wordBank currently contains less than 5 entries, an exception will not be
 
 The following sequence diagram shows how the RecentlyAdded feature works:
 
-[INSERT DIAGRAM]
+image::RecentlyAddedSequenceDiagram.png[]
 
 ===== Design Considerations
 
@@ -293,7 +299,7 @@ The following sequence diagram shows how the RecentlyAdded feature works:
 ** Pros: Easy to implement since it is one of the most widely used `collections` data structure.
 ** Cons: Requires a loop to iterate through the items, and extra code to first sort the word in reverse order.
 
-==== Search Frequency
+=== Search Frequency
 The Search Frequency feature allows the user to see the words with the highest/lowest search counts as a reflection of which words he was most unfamiliar with and therefore had to repeatedly search its meaning for. It is facilitated by the SearchFrequencyCommand, which extends the Command class, and the SearchCommand.
 
 SearchFrequencyCommand contains the following attributes:
@@ -323,14 +329,8 @@ Step 1: The user enters search w/happy to check the meaning of the word ‘happy
 
 Step 2: After a few searches of different words, which is carried out following the process described in Step 1, the user enters the command freq o/desc. SearchFrequencyCommand then tells Ui the displayOrder to display the word and their word counts in.
 
-The following sequence shows how the Search Frequency feature works:
-
-[INSERT SEQUENCE DIAGRAM]
-
 === Schedule Reminders feature
 The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
-
-[INSERT OBJECT DIAGRAMS]
 
 The following is a sample usage case:
 
@@ -383,11 +383,11 @@ image::Synonymexample.PNG[align='center']
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
-* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. 
+* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. The quizzes are in the form of 4-option MCQs,4 in a row. (See QuizScene.java and QuizCommand.java for details.)
 
-See QuizScene.java and QuizCommand.java for details.
+* The generateQuiz() function in QuizCommand.java generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ. 
 
-* The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ.
+* The scene (GUI) will change form MainScene to QuizScene when user inputs “quiz” the QuizScene will then interacts between user and QuizCommand, generating MCQs for 4 in a row.
 
 * The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct.
 
@@ -427,18 +427,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
@@ -616,8 +604,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a word
 
 . Deleting a word while all words are listed
@@ -630,12 +616,11 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete w/NON-EXISTENCE-WORD` {give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a word
 
-=== Saving data
+. Adding a new word to the word bank.
+.. Test case: `add w/WORD m/MEANING` +
+   Expected: The word will be added to the word bank. To verify, enter `list` to see the new list of words.
+.. Test case: `add w/WORD` +
+   Expected: The word will not be added. Instead, an error message that the user needs to input the meaning as well will be shown.
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

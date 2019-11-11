@@ -11,6 +11,7 @@ import storage.Storage;
 import ui.Ui;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -162,6 +163,74 @@ public class CommandTest {
         }
     }
 
+    /**
+     * Test execute() in AddTagCommand.java.
+     */
+    @Test
+    public void addTagCommandTest() {
+        try {
+            ArrayList<String> tags = new ArrayList<String>();
+            tags.add("fruit");
+            AddTagCommand addTagCommand = new AddTagCommand("banana", tags);
+            String addTag = addTagCommand.execute(ui, bank, storage);
+            assertEquals(addTag, "I have added this tag \"fruit\" to word \"banana\"\n"
+                    + "Here is the tag of word \"banana\"\nfruit\n");
+        } catch (Exception e) {
+            fail("execute() in SearchCommand failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Test execute() in SearchTagCommand.java.
+     */
+    @Test
+    public void searchTagCommandTest() {
+        try {
+            ArrayList<String> tags = new ArrayList<String>();
+            tags.add("fruit");
+            SearchTagCommand searchTagCommand = new SearchTagCommand("fruit","tag");
+            AddTagCommand addTagCommand = new AddTagCommand("banana",tags);
+
+            addTagCommand.execute(ui, bank, storage);
+            String searchTag = searchTagCommand.execute(ui, bank, storage);
+            assertEquals(searchTag, "Your tag \"fruit\" has 1 word:\nbanana\n");
+        } catch (Exception e) {
+            fail("execute() in SearchCommand failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Test execute() in searchBeginCommand.java.
+     */
+    @Test
+    public void searchBeginCommandTest() {
+        try {
+
+            SearchBeginCommand searchBeginCommand = new SearchBeginCommand("ban");
+            String addTag = searchBeginCommand.execute(ui, bank, storage);
+            assertEquals(addTag, "This is a word that has the beginning ban\nbanana\n");
+        } catch (Exception e) {
+            fail("execute() in SearchCommand failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Test execute() in DeleteTagCommand.java.
+     */
+    @Test
+    public void deleteTagCommandTest() {
+        try {
+            ArrayList<String> tags = new ArrayList<String>();
+            tags.add("fruit");
+            AddTagCommand addTagCommand = new AddTagCommand("banana", tags);
+            DeleteCommand deleteTagCommand = new DeleteCommand("banana", tags);
+            addTagCommand.execute(ui, bank, storage);
+            String deleteTag = deleteTagCommand.execute(ui,bank,storage);
+            assertEquals(deleteTag, "I have removed this tag from the word \"banana\"\nfruit\n");
+        } catch (Exception e) {
+            fail("execute() in SearchCommand failed: " + e.getMessage());
+        }
+    }
 
     /**
      * Delete wordup test file.
