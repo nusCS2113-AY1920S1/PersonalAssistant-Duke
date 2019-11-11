@@ -70,6 +70,7 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         return moduleInfoDetailed.getGrade();
     }
 
+    //@@author andrewleow97
     public void setGrade(String letterGrade) throws ModBadSuException, ModBadGradeException {
         moduleInfoDetailed.setGrade(letterGrade);
     }
