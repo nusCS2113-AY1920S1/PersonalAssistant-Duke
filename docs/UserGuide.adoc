@@ -532,7 +532,7 @@ Then type `java -jar <Name of the jar file>` to run the jar file.
 This can happen if someone edits the file. Please do not directly edit the data in the file. Use the `hello` command or
 `reset` command instead.
 
-*Problem*: Help! I encountered an undocumented bug in your program!
+*Problem*: Help! I encountered an undocumented bug in your program! + 
 *Solution*: We apologize for any bugs. We would appreciate if you reported your bug
 on our https://github.com/AY1920S1-CS2113T-T09-3/main/issues[bug tracker page].
 
