@@ -2,13 +2,12 @@ package duke.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import duke.model.order.Order;
 import duke.model.sale.Sale;
 
 import java.util.Date;
 
 /**
- * Jackson-friendly version of {@link Order}.
+ * Jackson-friendly version of {@link Sale}.
  */
 public class JsonAdaptedSale {
 

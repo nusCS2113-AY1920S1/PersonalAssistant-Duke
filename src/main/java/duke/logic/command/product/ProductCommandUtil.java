@@ -12,6 +12,9 @@ import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A utility class to get a Product from {@code a ProductDescriptor}.
+ */
 public class ProductCommandUtil {
     public static Double NOT_SPECIFIED_COST = -1.0;
 
@@ -33,9 +36,9 @@ public class ProductCommandUtil {
 
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
-                productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
+            productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
         IngredientItemList ingredientItemList =
-                productDescriptor.getIngredientItemList().orElse(toEdit.getIngredients());
+            productDescriptor.getIngredientItemList().orElse(toEdit.getIngredients());
         Product.Status newStatus = productDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Product(newProductName, newRetailPrice, newIngredientCost, ingredientItemList, newStatus);
     }
@@ -75,7 +78,7 @@ public class ProductCommandUtil {
         for (Item<Ingredient> ingredient : ingredients) {
             if (!model.hasShoppingList(ingredient)) {
                 Item<Ingredient> newIngredient =  new Item<Ingredient>(ingredient.getItem(),
-                        Quantity.getDefaultQuantity());
+                    Quantity.getDefaultQuantity());
                 model.addShoppingList(newIngredient);
             }
         }

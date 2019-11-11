@@ -15,7 +15,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
 import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
-
+/**
+ * A parser that parses {@code EditProductCommand}.
+ */
 public class EditProductCommandParser implements Parser<EditProductCommand> {
     @Override
     public EditProductCommand parse(String args) throws ParseException {

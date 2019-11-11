@@ -11,6 +11,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_EMPTY_INDICES;
 
+/**
+ * A parser that parses {@code ShowProductCommand}.
+ */
 public class ShowProductCommandParser implements Parser<ShowProductCommand> {
 
 

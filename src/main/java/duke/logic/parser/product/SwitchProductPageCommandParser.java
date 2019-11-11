@@ -5,6 +5,9 @@ import duke.logic.command.product.SwitchProductPageCommand;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code SwitchProductCommand}.
+ */
 public class SwitchProductPageCommandParser implements Parser<SwitchProductPageCommand> {
 
     @Override

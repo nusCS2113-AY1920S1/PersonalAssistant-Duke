@@ -14,6 +14,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SCOPE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SORT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SORT_REVERSE;
 
+/**
+ * A parser that parses {@code SortProductCommand}.
+ */
 public class SortProductCommandParser implements Parser<SortProductCommand> {
 
     @Override

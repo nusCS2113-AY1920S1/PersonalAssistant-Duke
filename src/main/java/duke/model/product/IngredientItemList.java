@@ -7,8 +7,10 @@ import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collecti
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * A Class that contains a list of {@code Ingredient} {@code Item}
+ */
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
-
 
     @Override
     public String toString() {

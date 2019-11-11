@@ -65,7 +65,7 @@ public class IngredientCard extends AnchorPane {
         ingredientTable.setItems(ingredientObservableList);
         TableUtil.setUpIndexColumn(ingredientTable);
 
-        TableColumn<Item<Ingredient>, String> ingredientColumn = new TableColumn<>("Ingredient");
+        TableColumn<Item<Ingredient>, String> ingredientColumn = new TableColumn<>("Ingredients");
         ingredientColumn.setResizable(true);
         ingredientColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getName()));

@@ -6,16 +6,20 @@ import duke.model.product.Product;
 import java.util.Objects;
 import java.util.Optional;
 
-/** Stores the details to edit the product with. Each non-empty field value will replace the previous
- * field value of the product.
+/**
+ * Stores the details of a {@code Product}.
  */
 public class ProductDescriptor {
+
     private String productName;
     private IngredientItemList ingredientItemList;
     private Double ingredientCost;
     private Double retailPrice;
     private Product.Status status;
 
+    /**
+     * Constructs a ProductDescriptor
+     */
     public ProductDescriptor() {
     }
 

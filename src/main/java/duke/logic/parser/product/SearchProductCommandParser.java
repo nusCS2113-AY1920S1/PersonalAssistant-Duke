@@ -9,6 +9,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SEARCH;
 
+/**
+ * A parser that parses {@code SearchProductCommand}.
+ */
 public class SearchProductCommandParser implements Parser<SearchProductCommand> {
 
     private ArgumentMultimap map;
@@ -16,7 +19,7 @@ public class SearchProductCommandParser implements Parser<SearchProductCommand> 
     @Override
     public SearchProductCommand parse(String args) throws ParseException {
         map = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_SEARCH
+            PREFIX_PRODUCT_SEARCH
         );
         String keyword;
         if (!map.getValue(PREFIX_PRODUCT_SEARCH).isPresent()) {

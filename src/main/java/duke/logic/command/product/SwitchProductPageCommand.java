@@ -9,6 +9,9 @@ import java.util.logging.Logger;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_SUCCESS_SHOW_PRODUCT;
 
+/**
+ * A command to switch to Product Page.
+ */
 public class SwitchProductPageCommand extends ProductCommand {
 
     private static final Logger logger = LogsCenter.getLogger(SwitchProductPageCommand.class);
