@@ -38,7 +38,9 @@ Currently, this project only has support for 9 degrees in the NUS Faculty of Eng
 
 ![UI](docs/images/Ui.png)
 
-![UI help](docs/images/UIhelp.png)
+![UI compare](docs/images/compareExample.jpeg)
+
+![UI detail](docs/images/detailExample.jpeg)
 
 ## Contributers
 
