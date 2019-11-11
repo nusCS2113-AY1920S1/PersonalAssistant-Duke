@@ -39,6 +39,7 @@ public class CompletedCommand {
      * Index of System On A Chip Design on the list.
      */
     private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
+
     /**
      * Allows user to record the technical electives they have completed.
      *

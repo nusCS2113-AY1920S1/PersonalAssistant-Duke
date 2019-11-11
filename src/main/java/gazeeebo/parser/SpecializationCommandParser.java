@@ -29,6 +29,7 @@ public class SpecializationCommandParser extends Command {
         System.out.println("Welcome to your specialization page!"
                 + "What would you like to do?\n\n");
     }
+
     /**
      * Shows main menu page.
      */
@@ -48,6 +49,7 @@ public class SpecializationCommandParser extends Command {
                 + "10. change password\n"
                 + "To exit: bye\n");
     }
+
     /**
      * Shows list of commands in specialization page.
      */
@@ -63,6 +65,7 @@ public class SpecializationCommandParser extends Command {
                 + "____________________________"
                 + "______________________________");
     }
+
     /**
      * This method is allows user to call commands to add expenses,
      * find expenses on a certain date, delete a chosen expense,
