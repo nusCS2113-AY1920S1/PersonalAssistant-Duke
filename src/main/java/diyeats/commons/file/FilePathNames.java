@@ -18,10 +18,6 @@ public enum FilePathNames {
 
     @Override
     public String toString() {
-        if (System.getProperty("file.separator").equals("\\")) {
-            return "src/" + filePath;
-        } else {
-            return filePath;
-        }
+        return filePath;
     }
 }
