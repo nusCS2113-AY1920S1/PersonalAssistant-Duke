@@ -85,7 +85,7 @@ public class ViewCommand extends CommandSuper {
         String feedback = "Your recommended movies are: \n";
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         ArrayList<Integer> preferenceIndices = movieHandler.getUserProfile().getGenreIdPreference();
-        ArrayList<MovieInfoObject> movies = movieHandler.getAPIRequester()
+        ArrayList<MovieInfoObject> movies = movieHandler.getApiRequester()
                 .beginSearchGenre(Integer.toString(preferenceIndices.get(0)), movieHandler.getUserProfile().isAdult());
         for (int i = 0; i < constant; i++) {
             feedback += i + 1 + ". " + movies.get(i).getTitle() + "\n";

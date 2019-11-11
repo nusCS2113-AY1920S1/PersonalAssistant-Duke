@@ -47,7 +47,7 @@ public class FindCommand extends CommandSuper {
     public void findCinemas() throws Exceptions {
         String display = "Here is the list of cinemas near " + getPayload() + ": \n\n";
         ArrayList<CinemaInfoObject> cinemas =
-                ((MovieHandler) this.getUiController()).getCinemaAPIRequester().searchNearestCinemas(getPayload());
+                ((MovieHandler) this.getUiController()).getCinemaApiRequester().searchNearestCinemas(getPayload());
         int length = CONST;
         if (cinemas.size() < CONST) {
             length = cinemas.size();

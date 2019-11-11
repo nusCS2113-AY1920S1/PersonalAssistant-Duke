@@ -1,4 +1,5 @@
 //@@author pdotdeep
+
 package entertainment.pro.model;
 
 import entertainment.pro.commons.enums.CommandKeys;

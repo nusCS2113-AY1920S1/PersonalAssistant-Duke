@@ -40,7 +40,7 @@ public class AddCommand extends CommandSuper {
      */
     public void addToWatchList() throws Exceptions {
         try {
-            String movie = ((MovieHandler) this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
+            String movie = ((MovieHandler) this.getUiController()).getApiRequester().beginAddRequest(getPayload());
             movie = movie.toLowerCase();
             String type = this.getFlagMap().get("-d").get(0);
             switch (type) {

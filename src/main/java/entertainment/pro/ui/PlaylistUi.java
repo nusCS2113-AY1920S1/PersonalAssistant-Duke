@@ -79,7 +79,7 @@ public class PlaylistUi {
             System.out.println("no lei here");
             return playlistPane;
         } catch (IOException ex) {
-//            Ui.printLine();
+            //Ui.printLine();
         }
         System.out.println("fk lah here");
         return null;
@@ -90,6 +90,12 @@ public class PlaylistUi {
         return buildPlaylistInfo(playlist);
     }
 
+    /**
+     * builds playlist info.
+     *
+     * @param playlist playlist to be built
+     * @return Vbox
+     */
     public VBox buildPlaylistInfo(Playlist playlist) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -117,11 +123,11 @@ public class PlaylistUi {
     }
 
     private FlowPane buildPlaylistMoviesFlowPane(ArrayList<PlaylistMovieInfoObject> movies) {
-//        // Setup progress bar and status label
-//        mProgressBar.setProgress(0.0);
-//        mProgressBar.setVisible(true);
-//        mStatusLabel.setText("Loading..");
-//        mMovies = convert(movies);
+        //Setup progress bar and status label
+        //mProgressBar.setProgress(0.0);
+        //mProgressBar.setVisible(true);
+        //mStatusLabel.setText("Loading..");
+        //mMovies = convert(movies);
 
         FlowPane flowPane = new FlowPane(Orientation.HORIZONTAL);
         flowPane.setHgap(4);
@@ -154,12 +160,13 @@ public class PlaylistUi {
             MoviePosterController controller = loader.getController();
             try {
                 Image posterImage = new Image("/images/FakeMoviePoster.png");
-//                posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
-//                    updateProgressBar(index, size);
-//                    updateProgressLabel(index, size);
-//                });
+                //posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                //updateProgressBar(index, size);
+                //updateProgressLabel(index, size);
+                //});
                 controller.getPosterImageView().setImage(posterImage);
             } catch (NullPointerException ex) {
+                System.out.print(ex.toString());
 
             }
             controller.getMovieTitleLabel().setText(movie.getTitle());
@@ -208,9 +215,9 @@ public class PlaylistUi {
                 }
             }
             controller.getMovieGenresLabel().setText(genres);
-//            mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
-//            mMoviesScrollPane.setVvalue(0);
-//            pageTracker.setToPlaylistMovieInfo();
+            //            mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
+            //            mMoviesScrollPane.setVvalue(0);
+            //            pageTracker.setToPlaylistMovieInfo();
             return controller.getPlaylistMovieInfoAnchorPane();
         } catch (IOException e) {
             e.printStackTrace();
@@ -218,64 +225,19 @@ public class PlaylistUi {
         return null;
     }
 
-//    public void showPlaylistList() throws IOException {
-//        buildPlaylistVBox(playlists);
-//    }
 
     private ArrayList<MovieInfoObject> convert(ArrayList<PlaylistMovieInfoObject> toConvert) {
         ArrayList<MovieInfoObject> converted = new ArrayList<>();
         boolean isMovie = false;
         for (PlaylistMovieInfoObject log : toConvert) {
-            converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
+            converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,log.getReleaseDateInfo(),
+                    log.getSummaryInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
                     log.getRatingInfo(), log.getGenreIdInfo(), log.isAdultContent()));
 
         }
         return converted;
     }
-//
-//    /**
-//     * Tis function is called when the user wants to see more information about a movie.
-//     */
-//    public void playlistMoviePosterClicked(MovieInfoObject movie) throws Exceptions {
-//        try {
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getClassLoader().getResource("PlaylistMoreInfo.fxml"));
-//            AnchorPane posterView = loader.load();
-//            PlaylistMovieController controller = loader.getController();
-//
-//            controller.getMovieTitleLabel().setText(movie.getTitle());
-//            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRatingInfo()));
-//            if (movie.getReleaseDateInfo() != null) {
-//                Date date = movie.getReleaseDateInfo();
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTime(date);
-//                String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
-//                controller.getMovieDateLabel().setText(printDate);
-//            } else {
-//                controller.getMovieDateLabel().setText("N/A");
-//            }
-//            controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
-//            ArrayList<Long> genreList = movie.getGenreIdInfo();
-//            String genres = "";
-//            for (int i = 0; i < genreList.size(); i++) {
-//                if (genreList.size() == 0) {
-//                    genres = "no genres";
-//                }
-//                if (i != genreList.size() - 1) {
-//                    genres += ProfileCommands.findGenreName(genreList.get(i).intValue());
-//                    genres += " , ";
-//                } else {
-//                    genres += ProfileCommands.findGenreName(genreList.get(i).intValue());
-//                }
-//            }
-//            controller.getMovieGenresLabel().setText(genres);
-//            mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
-//            mMoviesScrollPane.setVvalue(0);
-//            pageTracker.setToPlaylistMovieInfo();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 
     /**
      * This funcion updates the progress bar as the movie poster is being displayed.
