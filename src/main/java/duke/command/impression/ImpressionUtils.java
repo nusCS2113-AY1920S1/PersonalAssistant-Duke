@@ -110,7 +110,6 @@ public class ImpressionUtils {
             isAppending = true;
         }
 
-        // TODO mention in documentation that -append will append to ALL fields
         // TODO: check for illegal switches, remove checked switches from map
 
         // process universal fields

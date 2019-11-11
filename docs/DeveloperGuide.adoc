@@ -164,9 +164,58 @@ When every character in the input has been consumed, cleanup will be performed b
 .Class Diagram
 image::DataModel.png[]
 
-The *_Class Diagram_* shown above describes the relationship among the different data classes used in *Dr. Duke*.
+The Class Diagram shown above describes the relationship among the different data classes invloved in storing
+information used in `Dr. Duke`. The class is named after the object it represents. All objects extend the `DukeObject`
+abstract class, which stores basic information to identify the object and its parent.
 
-The `statusArr` stores the textual description of each numerical value for the `status`.
+The `DukeObject` class specifies several abstract functions crucial for the UI to access. All `DukeObjects` also have a
+`parent` DukeObject which is transient and may be null. This is to facilitate storing in Gson and allow objects to
+reference their parent if needed. A `String` representation of `DukeObjects` can be obtained using the `toString` and
+`toReportString` methods.
+
+==== Patient
+
+Patients entered into our system are stored as `Patient` objects in our `PatientData` object. This can be converted to
+Gson easily after accounting for abstract objects. All patients may have `Impressions` associated with them which are
+created by the Doctor's impression of a Patient. This is supported with `DukeData` objects as evidences or treatments.
+
+The `Patient` object should provide the following functionality:
+* Input validation to ensure it stores valid input
+* Sorting of Impressions
+** Currently, Primary Impressions are also stored at the head of the `impressions` list. If a future metric for assessing
+ importance of impressions are suggested by users, it can be added here as well.
+* Filtered list of important critical `DukeData`
+* Filtered list of uncompleted `Treatments` which require follow ups
+* Quick notes on the Patient
+
+==== Impression
+
+Impressions are what a doctor diagnoses a Patient of. Each impression may be supported by Evidences and associated with
+Treatments.
+
+The `Impression` object should provide the following functionality:
+* Input validation
+* Sorting of Treatments
+** High priorities are the first metric
+** Incomplete status requiring follow up is the second metric
+* Sorting of Evidences
+** High priorities are the first metric
+
+==== DukeData
+
+The `DukeData` objects represent evidence and treatment recorded by the doctor.
+
+==== Extension
+
+To define new forms of `DukeData` representing information on the Patient, extend `DukeData` or its abstract subclasses
+To define other types of data, extend `DukeObject`.
+
+If the class is abstract and needs to be stored, an adaptor implementing `JsonSerializer` and `JsonDeserializer` for it
+needs to be created for Gson storage. Any circular referencing must be stored as transient but must be reinitialised at
+launch.
+
+NOTE: By convention, we store invalid values instead of null values to prevent nullptr exceptions. If there are
+attributes that may be null, consider returning an empty object instead. E.g. for `String`, return `""`.
 
 [[Design-Storage]]
 === Storage System [JACOB TORESSON]
