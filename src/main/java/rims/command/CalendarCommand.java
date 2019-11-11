@@ -1,211 +1,182 @@
 package rims.command;
+
 import rims.core.ResourceList;
 import rims.core.Ui;
+import rims.core.Storage;
+
 import rims.exception.RimsException;
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
+
 import static rims.command.ListCommand.getListForSpecificDay;
 import static rims.command.ListCommand.stringToDate;
 
+import java.text.ParseException;
+
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 //@@author danielcyc
-public abstract class CalendarCommand extends Command {
+public class CalendarCommand extends Command {
     private static int cellLength = 15;
     private static int cellHeight = 6;
-    private static int CalHeight = 5;
-    private static int CalWidth = 7;
+
+    private static int calHeight = 5;
+    private static int calWidth = 7;
+
     private static int minHeight = 5;
 
-    private static int DaysInMonth = getDaysInMonth(LocalDateTime.now());
+    private int daysInMonth = getDaysInMonth(LocalDateTime.now());
 
+    private String vert = "|";
+    private String horz = "-";
+    private String topLeft = "+";
+    private String topRight = "+";
+    private String botRight = "+";
+    private String botLeft = "+";
+    private String centre = "+";
+    private String topCentre = "+";
+    private String botCentre = "+";
+    private String midRight = "+";
+    private String midLeft = "+";
 
-    public CalendarCommand(ResourceList resources, Ui ui) throws ParseException, RimsException {
-        //Date day = stringToDate("31/10/2019 1200");
-       // getListForSpecificDay(day, resources, ui);
-        //getData();
-        // printCal();
+    private String[][] data;
+
+    protected ResourceList resources;
+    protected Ui ui;
+    protected String operator;
+
+    public CalendarCommand(ResourceList resources, Ui ui) {
+        this.resources = resources;
+        this.ui = ui;
+        operator = null;
     }
-    // @Override
-    // public void execute(Ui ui, Storage storage, ResourceList resources) {
+
+    public CalendarCommand(ResourceList resources, Ui ui, String operator) {
+        this.resources = resources;
+        this.ui = ui;
+        this.operator = operator;
+    }
+
+    public void printCal() throws ParseException, RimsException {
+        getData();
+    
 
 
-     private static String Vert = "|";
-     private static String Horz = "-";
-     private static String TopLeft = "+";
-     private static String TopRight = "+";
-     private static String BotRight = "+";
-     private static String BotLeft = "+";
-     private static String Centre = "+";
-     private static String TopCentre = "+";
-     private static String BotCentre = "+";
-     private static String MidRight = "+";
-     private static String MidLeft = "+";
 
-    private static String[][] data = {};
-           /* { { "frisbee (2)", "rugby ball", "SR2","frisbee (2)", "SR2","frisbee (2)", "rugby ball", "SR2", "rugby ball", "SR2"  }, { "Table tennis table" },
-            { "frisbee (1)", "SR2", "SR3","SR4" }, { "ball", "SR2","SR3" }, {}, {}, { "MPSH" }, { "markers (5)" }, { "pen (1)" },
-            { "Basketball court" }, { "frisbee (2)", "ball", "SR2","frisbee (2)", "rugby ball", "SR2", "SR4" }, { "SR1", "SR3" }, {}, {},
-            { "MPSH", "Volleyball (1)" }, {}, { "MPSH", "Dodgeball(6)" }, { "MPSH" }, {},
-            { "Badminton Racket (4)", "Shuttlecock (10)", "SR2","frisbee (2)", "rugby ball", "SR2", "Badminton Court 1" }, {}, { "MPSH" }, { "Games Room" }, {},
-            { "soccer ball (1)", "SR2","frisbee (2)", "rugby ball", "SR2", "basketball (3)", "SR1" }, {}, {}, { "MPSH", "Dodgeball(6)" }, { "MPSH" }, {},
-            { "MPSH" }, {} };*/
-
-    // todo: check and align days of the week / offset from first box (mon)
-    // todo: highlight box of today's date
-    // todo: make calendar size dynamic - dependant on size of window
-    // todo: make dates overflow from previous months
-    // todo: make entry span across multiple cells
-    // todo: change month function
-    //
-    // todo: implement calendar in correct format
-    // todo: java docs
-
-    // todo: add a resize function
-    // todo: make headings - month and year as well as days of the week as the axis
-    // todo: add "X more..." for when cell cannot display all rows
-
-
-    public static void printCal(ResourceList resources, Ui ui) throws ParseException, RimsException {
-
-
-        getData(resources,ui);
         printTopCells();
-        for (int row = 2; row < CalHeight; row++) {
+        for (int row = 2; row < calHeight; row++) {
             printMidCells(row);
         }
         printBotCells();
-
-       /*System.out.print("\n \n 1x Seminar Room 1 is unavailable for booking at this slot, would you like Seminar Room 2 or Seminar Room 3 instead? \n \n" +
-                "4x Badminton Rackets are successfully booked! \n" +
-                "Would you also like to book:\n" +
-                "- 2x Shuttlecocks(12-pack 12) \n" +
-                "- MPSH 1\n" +
-                "- 1x Badminton net\n" +
-                "\n" +
-                "The demand for: \n" +
-                "- Frisbees\n" +
-                "- Footballs \n" +
-                "- Volleyballs \n" +
-                " are projected to increase in the following month, RIMS recommends to increase supply to meet increasing demand \n" +
-                " \n" );*/
-
     }
 
-    private static void printTopCells() {
+    private void printTopCells() {
         int cellRow = 1;
-        for (int i = 0; i <= (cellLength * CalWidth); i++) {
+        for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
-                System.out.print(TopLeft);
-            } else if (i == (cellLength * CalWidth)) {
-                System.out.print(TopRight);
+                System.out.print(topLeft);
+            } else if (i == (cellLength * calWidth)) {
+                System.out.print(topRight);
             } else if ((i % cellLength) == 0) {
-                System.out.print(TopCentre);
+                System.out.print(topCentre);
             } else {
-                System.out.print(Horz);
+                System.out.print(horz);
             }
         }
         System.out.print("\n");
-        printCellRow(cellRow, DaysInMonth);
+        printCellRow(cellRow, daysInMonth);
     }
 
-    private static void printMidCells(int CellRow) {
-
-        for (int i = 0; i <= (cellLength * CalWidth); i++) {
+    private void printMidCells(int cellRow) {
+        for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
-                System.out.print(MidLeft);
-            } else if (i == (cellLength * CalWidth)) {
-                System.out.print(MidRight);
+                System.out.print(midLeft);
+            } else if (i == (cellLength * calWidth)) {
+                System.out.print(midRight);
             } else if ((i % cellLength) == 0) {
-                System.out.print(Centre);
+                System.out.print(centre);
             } else {
-                System.out.print(Horz);
+                System.out.print(horz);
             }
         }
         System.out.print("\n");
-        printCellRow(CellRow, DaysInMonth);
+        printCellRow(cellRow, daysInMonth);
     }
 
-    private static void printBotCells() {
-        int CellRow = CalHeight;
-        for (int i = 0; i <= (cellLength * CalWidth); i++) {
+    private void printBotCells() {
+        int cellRow = calHeight;
+        for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
-                System.out.print(MidLeft);
-            } else if (i == (cellLength * CalWidth)) {
-                System.out.print(MidRight);
+                System.out.print(midLeft);
+            } else if (i == (cellLength * calWidth)) {
+                System.out.print(midRight);
             } else if ((i % cellLength) == 0) {
-                System.out.print(Centre);
+                System.out.print(centre);
             } else {
-                System.out.print(Horz);
+                System.out.print(horz);
             }
         }
         System.out.print("\n");
 
-        printCellRow(CellRow, DaysInMonth);
+        printCellRow(cellRow, daysInMonth);
 
-        for (int i = 0; i <= (cellLength * CalWidth); i++) {
+        for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
-                System.out.print(BotLeft);
-            } else if (i == (cellLength * CalWidth)) {
-                System.out.print(BotRight);
+                System.out.print(botLeft);
+            } else if (i == (cellLength * calWidth)) {
+                System.out.print(botRight);
             } else if ((i % cellLength) == 0) {
-                System.out.print(BotCentre);
+                System.out.print(botCentre);
             } else {
-                System.out.print(Horz);
+                System.out.print(horz);
             }
         }
         System.out.print("\n");
     }
 
-    private static int getLength(String phrase) {
+    private int getLength(String phrase) {
         return phrase.length();
     }
 
-    private static void printCellRow(int cellRow, int DaysInMonth) {
+    private void printCellRow(int cellRow, int daysInMonth) {
         for (int row = 2; row < cellHeight; row++) {
-            for (int i = 0; i <= cellLength * CalWidth; i++) {
+            for (int i = 0; i <= cellLength * calWidth; i++) {
                 int day = getDay(i, cellRow);
 
                 String phraseToPrint;
 
                 if ((i % cellLength) == 0) {
-                    System.out.print(Vert);
-                } else if (day > DaysInMonth) {
+                    System.out.print(vert);
+                } else if (day > daysInMonth) {
                     phraseToPrint = shortenPhrase("");
                     System.out.print(phraseToPrint);
-                    System.out.print(Vert);
+                    System.out.print(vert);
                     i += cellLength;
-                } else if (i == (cellLength * CalWidth)) {
-                    System.out.print(Vert);
+                } else if (i == (cellLength * calWidth)) {
+                    System.out.print(vert);
                 } else if (row == 2) {
                     phraseToPrint = shortenPhrase(day);
                     System.out.print(phraseToPrint);
-                    System.out.print(Vert);
+                    System.out.print(vert);
                     i += cellLength;
-                }
-
-                else if ((day - 1 >= data.length) || (row - 3 > data[day - 1].length - 1)) {
+                } else if ((day - 1 >= data.length) || (row - 3 > data[day - 1].length - 1)) {
                     phraseToPrint = shortenPhrase("");
                     System.out.print(phraseToPrint);
-                    System.out.print(Vert);
+                    System.out.print(vert);
                     i += cellLength;
-                }
-
-
-                else if ((row == cellHeight-1) && (data[day-1].length > cellHeight-3)){
+                } else if ((row == cellHeight - 1) && (data[day - 1].length > cellHeight - 3)) {
                     phraseToPrint = shortenPhrase("more...");
                     System.out.print(phraseToPrint);
-                    System.out.print(Vert);
+                    System.out.print(vert);
                     i += cellLength;
-                }
-
-                else {
+                } else {
                     String phrase = data[day - 1][row - 3];
                     phraseToPrint = shortenPhrase(phrase);
                     System.out.print(phraseToPrint);
-                    System.out.print(Vert);
+                    System.out.print(vert);
                     i += cellLength;
                 }
             }
@@ -213,25 +184,25 @@ public abstract class CalendarCommand extends Command {
         }
     }
 
-    private static String shortenPhrase(String Phrase) {
+    private String shortenPhrase(String phrase) {
         String result = " ";
         String padding = "";
-        int length = getLength(Phrase);
+        int length = getLength(phrase);
         if (length <= cellLength - 2) {
-            result += Phrase;
+            result += phrase;
             for (int i = 0; i < cellLength - length - 3; i++) {
                 padding += " ";
             }
             result += padding;
         } else { // assert need to truncate phrase
-            result += Phrase.substring(0, (cellLength - 6));
+            result += phrase.substring(0, (cellLength - 6));
             result += "...";
         }
         result += " ";
         return result;
     }
 
-    private static String shortenPhrase(int day) {
+    private String shortenPhrase(int day) {
         String result = "";
         String padding = "";
         if (day <= 9) {
@@ -239,7 +210,6 @@ public abstract class CalendarCommand extends Command {
                 padding += " ";
             }
             result += padding + day;
-
         } else { // assert that day is double digit
             for (int i = 0; i < cellLength - 4; i++) {
                 padding += " ";
@@ -250,20 +220,19 @@ public abstract class CalendarCommand extends Command {
         return result;
     }
 
-    private static int getDay(int i, int cellRow) {
+    private int getDay(int i, int cellRow) {
         int result = i / cellLength + 1 + ((cellRow - 1) * 7);
         return result;
     }
 
-    private static void getData(ResourceList resources, Ui ui) throws ParseException, RimsException {
+    private void getData() throws ParseException, RimsException {
         ArrayList<ArrayList<String>> tempData = new ArrayList<ArrayList<String>>();
-        for (int day = 1; day <= DaysInMonth; day++) {
+        for (int day = 1; day <= daysInMonth; day++) {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yyyy HHmm");
             String now = dtf.format(LocalDateTime.now());
 
             String strDate = day + "/" + now;
-            //System.out.print("\n date is \n" + strDate + '\n');
 
             Date date = stringToDate(strDate);
             tempData.add(getListForSpecificDay(date, resources, ui));
@@ -274,35 +243,46 @@ public abstract class CalendarCommand extends Command {
             ArrayList<String> row = tempData.get(i);
             array[i] = row.toArray(new String[row.size()]);
         }
-            /*
-             * list[1];
-             *
-             * iterate all days make a list for per day list for that day and get the first
-             * item append item to list do the same for the rest of the items on that same
-             * day append list to data return data
-             */
-            data = array;
-            //return array;
+        data = array;
+    }
+
+
+    private int getDaysInMonth(LocalDateTime date) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String strDate = dtf.format(date);
+        String[] ymd = strDate.split("/");
+        int year = Integer.parseInt(ymd[2]);
+        int month = Integer.parseInt(ymd[1]);
+        int day = Integer.parseInt(ymd[0]);
+
+        YearMonth yearMonthObject = YearMonth.of(year, month);
+        int daysInMonth = yearMonthObject.lengthOfMonth();
+        return daysInMonth;
+    }
+
+
+
+    @Override
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
+        ui.formattedPrint("ITEMS LOANED OR RESERVED FOR THIS MONTH:");
+        try {
+            if (operator == null) {
+                printCal();
+            } else if (operator.equals("+")) {
+                increaseSize();
+            } else if (operator.equals("-")) {
+                decreaseSize();
+            }
+        } catch (ParseException e) {
+            throw new RimsException("Invalid calendar size!");
         }
 
-
-        private static int getDaysInMonth(LocalDateTime date){
-
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String strDate = dtf.format(date);
-            String[] ymd = strDate.split("/");
-            int year = Integer.parseInt(ymd[2]);
-            int month = Integer.parseInt(ymd[1]);
-            int day = Integer.parseInt(ymd[0]);
-
-            YearMonth yearMonthObject = YearMonth.of(year, month);
-            int daysInMonth = yearMonthObject.lengthOfMonth();
-            return daysInMonth;
-        }
+           
+        
         public static void increaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
             cellHeight ++;
             cellLength += 3;
-            printCal(resources,ui);
+            printCal();
         }
 
         public static void decreaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
@@ -314,6 +294,7 @@ public abstract class CalendarCommand extends Command {
             System.out.println("You have reached the minimum calendar size! \n" +
                     "The calender will be printed at this minimum size.");
         }
-        printCal(resources,ui);
+        printCal();
     }
+
 }

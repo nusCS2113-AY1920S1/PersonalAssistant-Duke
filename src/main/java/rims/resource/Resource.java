@@ -1,15 +1,16 @@
 package rims.resource;
 
+import rims.exception.RimsException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-
-import rims.exception.RimsException;
 
 //@@author rabhijit
 /**
@@ -135,7 +136,7 @@ public abstract class Resource {
      * @throws ParseException if the dates are in an invalid format.
      * @throws RimsException if the date of return is before the date of borrowing.
      */
-    public void book(int reservationId, int userId, Date startDate, Date endDate) throws ParseException, RimsException {
+    public void book(int reservationId, int userId, Date startDate, Date endDate) throws RimsException {
         reservations.createReservation(reservationId, resourceId, userId, startDate, endDate);
     }
 
@@ -157,4 +158,5 @@ public abstract class Resource {
     public ReservationList getDueReservations(int daysDue) {
         return reservations.getDueReservations(daysDue);
     }
+
 }
