@@ -125,10 +125,25 @@ public class ScheduleCommand extends Command {
         for (int j = 1; j <= blank; j++) {
             blankSpace += " ";
         }
+        String[] money = task.split(" ");
+        int index = money.length - 1;
+        task = money[0];
+        for (int i = 1; i < index; i++) {
+            task += money[i];
+        }
         String blank2 = " ";
-        blank = 23 - task.length();
+        blank = 31 - task.length();
         for (int j = 0; j < blank; j++) {
             blank2 += " ";
+        }
+        String dollar = money[index];
+        if (task.length() >= 31) {
+            task = task.substring(0,28) + "...";
+        }
+        String blank3 = " ";
+        blank = 29 - dollar.length();
+        for (int i = 0; i < blank; i++) {
+            blank3 += " ";
         }
         String cow =
                 "._______________________________________.\n"
@@ -138,7 +153,8 @@ public class ScheduleCommand extends Command {
                 + "||___/\\___|_||_|___|___/ \\___/|____|___||\n"
                 + "|                                       |\n"
                 + "|Date : " + date + blankSpace + "|\n"
-                + "|Task : " + task + " dollars" + blank2 + "|\n"
+                + "|Task : " + task + blank2 + "|\n"
+                + "|Amount : " + dollar + blank3 + "|\n"
                 + ".---------------------------------------.\n"
                 + "        \\   ^__^\n"
                 + "         \\  (oo)\\_______\n"
