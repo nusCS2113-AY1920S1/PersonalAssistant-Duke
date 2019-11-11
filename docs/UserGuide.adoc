@@ -241,7 +241,10 @@ Format: `sort cca f`
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
-Format: `sort time DAYOFWEEK` , replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Format: `sort time DAYOFWEEK`, replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+
+Example: +
+`sort time monday`
 
 ==== Sorting and printing the modules : `sort module code`
 
@@ -258,7 +261,7 @@ Format: `sort module grade`
 Sorts the module list by the numerical order and prints the module list. + 
 Format: `sort module level`
 
-==== Sorting and printing the module : `sort modules mc`
+==== Sorting and printing the modules : `sort module mc`
 
 Sorts the module list according to the number of mcs and prints the module list. + 
 Format: `sort module mc`
