@@ -4,7 +4,7 @@ public class Room {
     protected String roomcode;
     protected int capacity;
 
-    //@@author AmosChan97
+    //@@author zkchang97
     /**
      * Public constructor, returns the details of the room to be added.
      * @param roomcode Room code

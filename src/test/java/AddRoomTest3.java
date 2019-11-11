@@ -58,7 +58,7 @@ public class AddRoomTest3 {
     // Test for correct error thrown when ending time is not input
     @Test
     void addRoomTest5() {
-        String input = "addroom SR4 /date 19/08/2019 0900";
+        String input = "addroom SR4 22.2";
         String[] splitStr = input.split(" ");
         assertThrows(DukeException.class, () -> {
             new AddRoomCommand(input, splitStr);
