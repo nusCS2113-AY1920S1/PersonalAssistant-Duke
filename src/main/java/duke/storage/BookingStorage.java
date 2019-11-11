@@ -20,6 +20,7 @@ import java.util.List;
 
 import static duke.common.Messages.filePathBookingTest;
 
+//@@author lizihan95
 /**
  * Handles the ability to read and write to the booking storage location.
  */
@@ -50,7 +51,7 @@ public class BookingStorage {
             }
             bufferedWriter.close();
         } catch (Exception exc) {
-            exc.printStackTrace(); // If there was an error, print the info.
+            exc.printStackTrace();
         }
     }
 

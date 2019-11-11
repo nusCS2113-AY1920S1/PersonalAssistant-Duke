@@ -1,10 +1,10 @@
-booking | Zihan | 91520567 | 4 | 12/12/2019 | prawn pasta, chicken pie
-booking | John_Lim | 82738364 | 6 | 1/1/2019 | chicken rice, fish and chips
-booking | Jack | 94847291 | 2 | 13/5/2019 | beef pasta
-booking | Alex | 84726384 | 4 | 30/10/2019 | chicken rice, beef bolognese
-booking | james | 8376324 | 4 | 3/3/2019 | steak, rice
-booking | Johnny | 9153174 | 4 | 9/2/2002 | steak, fish, chicken
-booking | zihan | 9153174 | 4 | 29/2/2000 | steak, fish, chicken
-booking | John | 845638575 | 7 | 28/2/2017 | fish fillet, seafood pasta, steak
-booking | Kelvin | 81234567 | 8 | 1/1/2000 | beef burger
-booking | Zihan_li | 91520567 | 5 | 8/11/2019 | fish burger, steak, seafood pasta
+booking | Zihan | 91520567 | 2 | 13/10/2019 | chicken rice, sphagetti
+booking | John | 8473739 | 2 | 1/1/2019 | pasta, garlic prawn
+booking | Jack | 94847291 | 2 | 30/10/2019 | nasi lemak, hokkien mee
+booking | Alex | 84726384 | 3 | 1/11/2019 | chilli crab, Char Kway Teow
+booking | James | 8371638 | 3 | 12/12/2019 | fish & chip, pasta
+booking | Alice | 9153174 | 4 | 18/11/2019 | omelette
+booking | Johnny | 85739543| 5 | 19/11/2019| hokkien mee, chicken rice
+booking | Wendy | 98757462| 4 | 14/12/2019 | sphagetti, chilli crab
+booking | William | 845638575 | 1 | 1/1/2020 | duck rice
+booking | Kelvin | 81234567 | 8 | 29/2/2020 | otak otak, sphagetti, duck rice

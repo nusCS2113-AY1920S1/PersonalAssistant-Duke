@@ -13,6 +13,7 @@ import static duke.common.BookingMessages.MESSAGE_ALL_CURRENT_BOOKINGS;
 import static duke.common.Messages.filePathBookingTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author lizihan95
 public class AllBookingsCommandTest {
 
     private Ui ui;

@@ -20,6 +20,7 @@ import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_DELETE_COMMAND;
 import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 
+//@@author lizihan95
 /**
  * Handles the delete booking command.
  */

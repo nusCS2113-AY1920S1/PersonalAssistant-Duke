@@ -26,6 +26,7 @@ import static duke.common.BookingMessages.ERROR_MESSAGE_OVERFLOW_DATE;
 import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_DATE;
 import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_VIEWBOOKINGSCHEDULE_COMMAND;
 
+//@@author lizihan95
 /**
  * Handles the view booking schedule command by searching with date.
  */

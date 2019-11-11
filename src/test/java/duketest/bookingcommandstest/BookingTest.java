@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author lizihan95
 public class BookingTest {
 
     @Test
@@ -19,13 +20,16 @@ public class BookingTest {
         String expectedToString = "[Customer name: Kelvin] [Contact No.: 81234567] [No. of pax: 8] [Booking on: 1 January 2000] [Orders: beef burger, seafood pasta, chicken rice]";
         assertEquals(expectedToString, bookingTest.toString());
 
-        String[] expectedOrders = {"beef burger", "seafood pasta", "chicken rice"};
-  //     assertEquals(expectedOrders, bookingTest.getOrders());
+        String expectedCustomerName = "Kelvin";
+        assertEquals(expectedCustomerName, bookingTest.getCustomerName());
+
+        String expectedBookingDate = "1/1/2000";
+        assertEquals(expectedBookingDate, bookingTest.getBookingDate());
 
         String expectedFormattedDate = "1 January 2000";
         assertEquals(expectedFormattedDate, bookingTest.getBookingDateFormatted());
 
-
+        System.out.println("Test passed.");
 
     }
 }

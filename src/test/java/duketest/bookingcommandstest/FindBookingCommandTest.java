@@ -13,6 +13,7 @@ import static duke.common.BookingMessages.MESSAGE_MATCHING_BOOKINGS;
 import static duke.common.Messages.filePathBookingTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author lizihan95
 public class FindBookingCommandTest {
 
     private Ui ui;

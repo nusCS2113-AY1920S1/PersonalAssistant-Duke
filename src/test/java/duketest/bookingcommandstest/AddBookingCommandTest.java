@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.filePathBookingTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author lizihan95
 public class AddBookingCommandTest {
 
     private Ui ui;
