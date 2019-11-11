@@ -4,7 +4,6 @@ package planner.credential.cryptography;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.logic.exceptions.legacy.ModException;
 import planner.util.cryptography.CryptographyUtils;
 
 import javax.crypto.BadPaddingException;
