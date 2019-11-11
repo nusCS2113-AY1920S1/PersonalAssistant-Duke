@@ -13,13 +13,6 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-
-// todo: java docs
-// todo: add a resize function V
-// todo: make headings - month and year V
-// todo: add "X more..." for when cell cannot display all rows V
-// todo: print days of the week
-
 //@@author danielcyc
 
 /**
