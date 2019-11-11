@@ -66,7 +66,7 @@ public class Parser {
             return ExpenditureParser.parse(commandType, scanner);
         }
     }
-
+    
     static String parseInput(Scanner scanner, String text) {
         if (scanner.hasNextLine()) {
             return scanner.nextLine().trim().toLowerCase();
@@ -75,50 +75,66 @@ public class Parser {
             return Ui.readCommand().trim().toLowerCase();
         }
     }
-
+    
     private static Command parseGraph(Scanner scanner) throws MooMooException {
         String input;
+        String inputCategory = "";
+        int inputMonth = LocalDate.now().getMonthValue();
+        int inputYear = LocalDate.now().getYear();
         try {
             input = scanner.next();
         } catch (Exception e) {
-            throw new MooMooException("Try adding c/[CATEGORY] d/[MONTH] or \"total\"!");
+            throw new MooMooException("Try adding c/[CATEGORY] m/[MONTH] y/[YEAR] or \"total\"!\n"
+                    + "*month and year are optional!");
         }
         
-        if (input.equals("total")) {
-            return new GraphTotalCommand();
-        } else if (input.startsWith("c/")) {
-            String inputCategory = input.substring(2);
+        try {
+            if (input.equals("total")) {
+                return new GraphTotalCommand();
+            } else if (input.startsWith("c/")) {
+                inputCategory = input.substring(2);
+            } else if (input.startsWith("m/")) {
+                inputMonth = Integer.parseInt(input.substring(2));
+            } else if (input.startsWith("y/")) {
+                inputYear = Integer.parseInt(input.substring(2));
+            }
             if (scanner.hasNext()) {
                 input = scanner.next();
-                if (input.startsWith("m/")) {
-                    try {
-                        String inputDate = input.substring(2);
-                        if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate)
-                                && Integer.parseInt(inputDate) < 13) {
-                            return new GraphCategoryCommand(inputCategory,
-                                    Integer.parseInt(inputDate),
-                                    LocalDate.now().getYear());
-                        } else {
-                            throw new MooMooException("Month must be from 1 to 12 (inclusive)!");
-                        }
-                    } catch (Exception e) {
-                        throw new MooMooException("Month must be from 1 to 12 (inclusive)!");
-                    }
-                } else {
-                    throw new MooMooException("Please enter in this format: d/[MONTH]");
-                }
-            } else {
-                return new GraphCategoryCommand(inputCategory,
-                        LocalDate.now().getMonthValue(),
-                        LocalDate.now().getYear());
             }
-            
-        } else {
-            throw new MooMooException("Please enter in this format: c/[CATEGORY]");
+            if (input.startsWith("c/")) {
+                inputCategory = input.substring(2);
+            } else if (input.startsWith("m/")) {
+                inputMonth = Integer.parseInt(input.substring(2));
+            } else if (input.startsWith("y/")) {
+                inputYear = Integer.parseInt(input.substring(2));
+            }
+            if (scanner.hasNext()) {
+                input = scanner.next();
+            }
+            if (input.startsWith("c/")) {
+                inputCategory = input.substring(2);
+            } else if (input.startsWith("m/")) {
+                inputMonth = Integer.parseInt(input.substring(2));
+            } else if (input.startsWith("y/")) {
+                inputYear = Integer.parseInt(input.substring(2));
+            }
+        } catch (Exception e) {
+            throw new MooMooException("Please enter valid input for the parameters!! MOOOOO!!!!");
         }
         
+        
+        if (inputCategory.equals("")) {
+            throw new MooMooException("Please add a CATEGORY!!! MoOoOoOoO");
+        } else if (0 < inputMonth && inputMonth < 13) {
+            return new GraphCategoryCommand(inputCategory,
+                    inputMonth,
+                    inputYear);
+        } else {
+            throw new MooMooException("Please enter a number (from 1 to 12) for the month!!! MOOOOO!!!!");
+        }
     }
-
+    
+    
     private static Command parseView(Scanner scanner) throws MooMooException {
         String text = "Which month's summary do you wish to view?" + "(m/) month" + "(y/) year";
         String input = parseInput(scanner, text);
@@ -147,7 +163,7 @@ public class Parser {
             int year = 0;
             return new MainDisplayCommand(month, year);
         }
-        throw new MooMooException("Sorry i did not recognize that command.");
+        throw new MooMooException("Sorry, but MooMoo no recognize that command :(");
     }
     
     private static Command parseBudget(Scanner scanner) throws MooMooException {

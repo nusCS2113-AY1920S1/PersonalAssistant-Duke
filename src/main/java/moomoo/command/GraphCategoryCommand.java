@@ -58,8 +58,12 @@ public class GraphCategoryCommand extends Command {
         } catch (Exception e) {
             throw new MooMooException("OH NO! No such category exists!");
         }
-        if (cat.size() == 0) {
-            throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
+        try {
+            if (cat.size() == 0 || cat.getTotal(month, year) == 0) {
+                throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
+            }
+        } catch (Exception e) {
+            throw new MooMooException("Please enter an existing category!! Moohoohoo");
         }
         
         double grandTotal = cat.getTotal(month, year);
@@ -79,9 +83,9 @@ public class GraphCategoryCommand extends Command {
             String expenditureName = cat.get(i).getName();
             if (expenditureName.length() > 14) {
                 expenditureName = expenditureName.substring(0, 11) + "...";
-
+                
             }
-    
+            
             if (i % 2 == 0) {
                 output = output + ANSI_CYAN + expenditureName;
             } else {
@@ -103,7 +107,7 @@ public class GraphCategoryCommand extends Command {
                 output = output + halfBlock;
             }
             output = output + "  " + roundToTwoDp(percentage) + "%\n";
-    
+            
             if (i % 2 == 0) {
                 output = output + ANSI_RESET;
             }
