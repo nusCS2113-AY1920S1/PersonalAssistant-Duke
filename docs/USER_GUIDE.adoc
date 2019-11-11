@@ -29,7 +29,9 @@ Our desktop application SpongeBob, is a Command Line Interface (CLI)  based assi
 . You can download the latest SpongeBob.jar https://github.com/AY1920S1-CS2113T-F11-1/main/releases[here].
 . Copy the file to the folder you want to use as your home folder for SpongeBob.
 . Open terminal and type ```java -jar [CS2113T-F11-1][SpongeBob].jar```. The CLI will start in a few seconds +
-image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/Ui.png[width="700"] +
++
+image::Ui.png[width="790"]
++
 . When the user starts their application for the first time, sample data is loaded to get the app started with.
 . To start with, you can type  **'help'** to check all the commands and press Enter
 .  Refer to <<Features>> for details of each command.
