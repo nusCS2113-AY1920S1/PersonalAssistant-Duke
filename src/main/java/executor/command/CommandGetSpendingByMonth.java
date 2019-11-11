@@ -100,6 +100,8 @@ public class CommandGetSpendingByMonth extends Command {
                 this.infoCapsule.setUiCode(UiCode.CLI);
                 this.infoCapsule.setOutputStr(outputMessage());
             }
+        } catch (DukeException f) {
+            throw f;
         } catch (Exception e) {
             throw new DukeException("Year input is either a double or contains String values.\n "
                     + "FORMAT : expendedmonth <month> /year <year>\n");
@@ -147,7 +149,6 @@ public class CommandGetSpendingByMonth extends Command {
      */
     private void checkIfYearIsCorrect() throws DukeException {
         yearStr = Parser.parseForFlag("year", userInput);
-        assert yearStr != null;
         if (yearStr.isEmpty()) {
             throw new DukeException("No year input detected. FORMAT : expendedmonth <month> /year <year>");
         }

@@ -27,7 +27,7 @@ public class CommandHelp extends Command {
            exists in the list of available commands.*/
         if (!specificCommand.isEmpty()) {
             for (String b : CommandType.getNames()) {
-                if (b.equals(specificCommand) & this.checkValidCommand(b)) {
+                if (b.equals(specificCommand)) {
                     StringBuilder outputsSpecificCommandDesc = getDescriptionOfSpecificCommand(b);
                     this.infoCapsule.setCodeCli();
                     this.infoCapsule.setOutputStr(outputsSpecificCommandDesc.toString());

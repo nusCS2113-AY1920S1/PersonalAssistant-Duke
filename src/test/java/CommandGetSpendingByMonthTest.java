@@ -26,12 +26,14 @@ class CommandGetSpendingByMonthTest {
         CommandGetSpendingByMonth c1 = new CommandGetSpendingByMonth("expendedmonth october /year 2019");
         c1.execute(storageManager);
         String ans1 = c1.getInfoCapsule().getOutputStr();
-        assertEquals("The total amount of money spent in october 2019 : $5.0\n", ans1);
+        assertEquals("The total amount of money spent in october 2019 : $5.0.\n", ans1);
 
         CommandGetSpendingByMonth c2 = new CommandGetSpendingByMonth("expendedmonth november /year 2019");
         c2.execute(storageManager);
         String ans2 = c2.getInfoCapsule().getOutputStr();
-        assertEquals("The total amount of money spent in november 2019 : $5.0\n", ans2);
+        assertEquals("The total amount of money spent in november 2019 : $5.0.\n"
+              + "Number of day(s) left in this month is/are 19",
+                ans2);
 
         CommandGetSpendingByMonth c3 = new CommandGetSpendingByMonth("expendedmonth nov /year 2019");
         c3.execute(storageManager);
