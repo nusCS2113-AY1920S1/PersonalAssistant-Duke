@@ -7,6 +7,8 @@ import eggventory.commons.enums.CommandType;
 import eggventory.ui.Ui;
 import eggventory.commons.exceptions.BadInputException;
 
+//@@author yanprosobo
+
 public class ListStockTypeCommand extends Command {
     private String query;
 
@@ -15,7 +17,12 @@ public class ListStockTypeCommand extends Command {
         this.query = query;
     }
 
-
+    /**
+     * Executes the list command.
+     * @param list Stocklist object.
+     * @param ui ui object.
+     * @param storage storage objcet.
+     */
     @Override
     public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
         String output = "";
@@ -44,3 +51,4 @@ public class ListStockTypeCommand extends Command {
         return output;
     }
 }
+//@@author
