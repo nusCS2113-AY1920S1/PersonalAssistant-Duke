@@ -298,26 +298,6 @@ Step 1: Assume that the current date is 01/01/2019 and the word ‘happy’ and 
 Step 2: The user enters schedule w/happy by/01/02/2019. The system should store the reminder deadline onto permanent storage. It calculates the number of days to the deadline, and schedules the recurring reminder for every 3 days until the deadline.
 Step 3: On each reminder date, there will be a notification showing the word and its meaning for the user to revise, thereby automating his learning process.
 
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-
 === Word Synonyms feature
 ==== Adding Synonym
 image::AddSynonym.png[align='center']
@@ -330,18 +310,18 @@ The synonym function implements the following operations:
 * execute(Ui, WordBank, Storage, WordCount) - Overwrites the storage file and WordBank while the program is running to append synonyms into their respective data structure.
 
 The synonyms are structured using a Union Find algorithm to group the words together. When word A and word B are synonyms to each other, adding a word C to synonym of word B will automatically classify all three words together as synonyms. They are stored in the same cell within the Excel File under the StorageBank Sheet. You may view the excel file to see storage structure of the words.
-image::Synonymexample.png[align='center']
+[]
 The following is a sample usage case:
 
-Step 1: Assume that the word “drink” and its meaning has already been saved into the word bank by the functions supported above.
+Step 1: Assume that the word “lovely” and its meaning has already been saved into the word bank by the functions supported above.
 []
-Step 2: User learnt a new word “beverage” that has the same meaning as “drink”. User adds “beverage” as a synonym to the main word “drink”.
+Step 2: User decides to add "beautiful", "pretty", "attractive" and "stunning" to "lovely"'s synonym.
 []
-Step 3: In doing so, the union find algorithm will group the words together and store them within the same cell. Note that beverage itself does not need to be saved into the dictionary before adding as a synonym to a main word. However the main word “drink” must be added to the dictionary before the usage of this feature.
-
+Step 3: In doing so, the union find algorithm will group the words together and store them within the same cell. Note that the four new words does not need to be saved into the dictionary before adding as a synonym to a main word ("lovely"). However the main word "lovely” must be added to the dictionary before the usage of this feature.
 
 
 ==== Searching of synonyms
+image::Synonymexample.png[align='center']
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
@@ -577,16 +557,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a word
 
-. Deleting a person while all persons are listed
+. Deleting a word while all words are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all words using the `list` command.
+.. Test case: `delete w/WORD` +
+   Expected: The word will be deleted from wordBank, it will however stay in synonymBank (if applicable) since banks are separated.
+.. Test case: `delete w/ABCDEFG` +
+   Expected: No word is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete w/NON-EXISTENCE-WORD` {give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
