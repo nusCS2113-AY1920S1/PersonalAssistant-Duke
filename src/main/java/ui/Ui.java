@@ -236,6 +236,15 @@ public class Ui {
     }
 
     /**
+     * Prints a message with the details of a payment that the user requested for.
+     * @param payment the payment object the user queried for.
+     */
+    public void printFoundMessage(Payments payment) {
+        System.out.println("\tHere are the details you requested!");
+        payment.printPayment();
+    }
+
+    /**
      * Prints the list of payments of a payee.
      * @param name Name of project
      * @param paymentList paymentList of the payee.
@@ -330,7 +339,6 @@ public class Ui {
         System.out.print("       " + tasklist.get(id).giveTask() + "\n");
         System.out.print(line);
     }
-
 
     //@@author lijiayu980606
     /**
@@ -540,7 +548,7 @@ public class Ui {
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've added " + amount + " dollars to the fund. The new fund is as follow:");
+        System.out.println("\t" + "Got it. I've added " + amount + " dollars to the fund. The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
@@ -575,7 +583,7 @@ public class Ui {
                 + projectname + ":");
         System.out.println(project.giveProject());
         System.out.println("");
-        System.out.println("\t" + "The new fund is as follow:");
+        System.out.println("\t" + "The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
@@ -627,7 +635,7 @@ public class Ui {
      */
     public void printReminderMessage(ArrayList<Payments> paymentlist) {
         System.out.print(line);
-        System.out.print("\tYour reminder is as follow:\n");
+        System.out.print("\tYour reminder is as follows:\n");
         for (int i = 0; i < paymentlist.size(); i++) {
             Payments p = paymentlist.get(i);
             System.out.println("\t" + (i + 1) + ":");
@@ -711,13 +719,15 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void cantUndomessage(){
-        System.out.println("This command can't be undone. Only add payment, delete payment, add payee and delete payee can be undone.")
+    public void cantUndomessage() {
+        System.out.println("This command can't be undone. Only add payment, " 
+            + "delete payment, add payee and delete payee can be undone.");
     }
 
-    public void cantRedomessage(){
+    public void cantRedomessage() {
         System.out.println("A command can only be redone if the previous command is undo.");
     }
+
     /**
      * Returns the scanned input.
      * @return Scanned input.

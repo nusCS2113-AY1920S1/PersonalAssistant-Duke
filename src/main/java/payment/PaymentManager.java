@@ -2,6 +2,8 @@ package payment;
 
 import ui.Ui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,7 +70,9 @@ public abstract class PaymentManager {
             }
             currProject = projectnames.iterator().next();
         }
-        return projectMap.get(currProject).managermap.get(name);
+        Payee found = projectMap.get(currProject).managermap.get(name);
+        checkStatus(found);
+        return found;
     }
 
     /**
@@ -82,6 +86,7 @@ public abstract class PaymentManager {
     public static void editPayee(String payee, String fieldToAmend, String replace,
             HashMap<String, Payee> managermap, Ui ui) {
         Field field = strToField(fieldToAmend);
+        checkStatus(managermap.get(payee));
         if (field == Field.PAYEE) {
             managermap.get(payee).payee = replace;
         } else if (field == Field.EMAIL) {
@@ -108,6 +113,7 @@ public abstract class PaymentManager {
         Field field = strToField(fieldToAmend);
         for (Payments payment : managermap.get(payee).payments) {
             if (payment.item.equals(item)) {
+                checkStatus(payment);
                 if (field == Field.ITEM) {
                     payment.item = replace;
                 } else if (field == Field.COST) {
@@ -122,6 +128,16 @@ public abstract class PaymentManager {
                     } else if (replace.equalsIgnoreCase("overdue")) {
                         payment.status = Status.OVERDUE;
                     }
+                } else if (field == Field.DEADLINE) {
+                    SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
+                    Date newDeadline = new Date();
+                    try {
+                        newDeadline = ft.parse(replace);
+                        payment.deadline = newDeadline;
+                    } catch (ParseException e) {
+                        ui.exceptionMessage("\t☹ OOPS!!! Unable to parse date," 
+                            + " use dd-mm-yyyy format");
+                    }
                 }
                 ui.printEditMessage(payment, payee);
                 break;
@@ -135,6 +151,7 @@ public abstract class PaymentManager {
      * @return a list containing a list each for pending, overdue and approved payments.
      */
     public static ArrayList<ArrayList<Payments>> listOfPayments(HashMap<String, Payee> managermap) {
+        checkStatus(managermap);
         ArrayList<ArrayList<Payments>> listOfPayments = new ArrayList<>();
         ArrayList<Payments> overdue = new ArrayList<>();
         ArrayList<Payments> pending = new ArrayList<>();
@@ -169,7 +186,12 @@ public abstract class PaymentManager {
      * @throws AlphaNUSException when error is found in writing to dict.json
      */
     public static Payments addPayments(String project, String payee, String item, double cost, String inv, 
-            HashMap<String, Payee> managermap, Set<String> dict) throws AlphaNUSException {
+            HashMap<String, Payee> managermap, Set<String> dict) {
+        for (Payments payment : managermap.get(payee).payments) {
+            if (payment.item.equals(item)) {
+                throw new IllegalAccessError();
+            }
+        }
         Payments pay = new Payments(project, payee, item, cost, inv);
         pay.paymentToDict(dict);
         managermap.get(payee).payments.add(pay);
@@ -265,8 +287,8 @@ public abstract class PaymentManager {
      * @param payment The payment object to check through.
      */
     public static void checkStatus(Payments payment) {
-        Date dateObj = new Date();
-        if (payment.status != Status.APPROVED && dateObj.compareTo(payment.deadline) < 0) {
+        Date currDate = new Date();
+        if (payment.status != Status.APPROVED && currDate.compareTo(payment.deadline) > 0) {
             payment.status = Status.OVERDUE;
         }
     }
