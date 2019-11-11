@@ -39,7 +39,7 @@ IntelliJ by default has Gradle plugin installed. +
 . Locate the `build.gradle` file and select it. Click `Open`
 . Open the IntelliJ console/terminal and run the gradle command `gradlew processResource` on *Windows* or
 `./gradlew processResource` on *Mac/Linux* (If you are encountered a permission error: `./gradlew: Permission denied`
-add the executable permission to the the shell script by running `chmod 744 gradlew` in your terminal) It should finish
+add the executable permission to the shell script by running `chmod 744 gradlew` in your terminal) It should finish
 with the `BUILD SUCCESSFUL` message. This will generate the resources required by the application and tests.
 
 === Verifying the setup
@@ -606,8 +606,8 @@ in the Predicate class depending on the type of the reference and input.
 In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to
 2359 the input number of days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder 
 method calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of 
-Events in `eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the
-EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true
+Events in `eventArrayList`.The EventDate object stored in the Event object is passed into the Predicate.check method. If the
+EventDate object stored in the Event object is a date before the reference date, the Predicate.check method returns true
 and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
 EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time,
 the date and time at 2359 the input number of days after the current date, and the filtered list of events. This string is 
