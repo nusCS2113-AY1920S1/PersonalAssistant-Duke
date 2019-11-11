@@ -78,8 +78,8 @@ public class PlanBot {
         this.planAttributes = planAttributes;
         this.questionQueue = new LinkedList<>();
         if (planAttributes.isEmpty()) {
-            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. "
-                    + "Let me plan your budget for you!"
+            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. \n"
+                    + "Let me plan your budget for you! \n"
                     + " Alternatively, type \"goto expense\" to start using Duke++!",
                     Agent.BOT));
         }
