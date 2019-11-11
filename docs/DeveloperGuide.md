@@ -173,7 +173,7 @@ makes sense of the data that is read by the user from the Duke Class.
 
 this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
-![Parser](C:\Users\s1014\Desktop\local_clone\docs\images\Parser.png)
+![Parser](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Parser.png)
 
 | methods                           | description                                       |
 | --------------------------------- | ------------------------------------------------- |
