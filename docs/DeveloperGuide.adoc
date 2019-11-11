@@ -1038,70 +1038,61 @@ Different ways were considered to display the employment statistics:
 <<<
 == Appendix B: Use Cases
 
-[cols="4*"] 
-|===
-|System
-|Actor
-|Use Case
-|Steps
+This section lists a few Use Cases that shows the *Actor*, who is the `user`, interacting with the *System*, which is `DEGREES.NUS`.
 
-|DEGREES.NUS (DEGREES.NUS)
-|Prospective Applicant to NUS Faculty of Engineering
-|View the whole list of possible commands for DEGREES.NUS
-|User requires help with command syntax +
- +
-User types in the command in the following manner: `help` +
- +
-DEGREES.NUS returns all the possible commands that it will accept +
- +
-User reads the information
 
-|DEGREES.NUS (DEGREES.NUS)
-|Prospective Applicant to NUS Faculty of Engineering
-|Check core modules for Bachelor of Engineering (Electrical Engineering)
-|User identifies a degree that he/she wishes to research +
- +
-User types in the command in the following manner: `details EE` +
- +
-DEGREES.NUS displays the degree requirements, including the core modules +
- +
-User reads the information
+=== Use Case: Get `help` for commands
 
-|DEGREES.NUS (DEGREES.NUS)
-|Prospective Applicant to NUS Faculty of Engineering
-|Compare core modules for EE and CEG
-|User identifies two degrees she wishes to compare +
- +
-User types in the command in the following manner: `compare EE CEG` +
- +
-DEGREES.NUS displays similar and different modules from the two degrees +
- +
-User reads the information
+1. User requires help with command syntax +
+ 
+2. User types in the command in the following manner: `help` +
+ 
+3. DEGREES.NUS returns all the possible commands that it will accept +
+ 
+4. User reads the information
 
-|DEGREES.NUS
-|Prospective Applicant to NUS Faculty of Engineering
-|Add CEG into degree list and view degree list
-|User identifies the degree he/she wishes to add to his/her list of possible degrees +
- +
-User types in the command in the following manner: `add EE` +
- +
-DEGREES.NUS adds Electrical Engineering to the user’s degree list +
- +
-User types in the command in the following manner: `degreelist` +
- +
-DEGREES.NUS returns the user’s degree list with Electrical Engineering added
 
-|DEGREES.NUS (DEGREES.NUS)
-|Prospective Applicant to NUS Faculty of Engineering
-|Swap CEG with EE in degree list
-|User identifies two degrees that he/she wishes to switch in the degree list +
- +
-User types in the command in the following manner: `swap CEG EE` +
- +
-DEGREES.NUS returns the user’s degree list with CEG and EE having switched indexes 
-|===
+=== Use Case: Check core modules for Bachelor of Engineering (Electrical Engineering)
 
+1. User identifies a degree that he/she wishes to research, Electrical Engineering +
+ 
+2. User types in the command in the following manner: `details EE` +
+ 
+3. DEGREES.NUS displays the degree requirements, including the core modules +
+ 
+4. User reads the information
+
+
+=== Compare core modules for EE and CEG
+1. User identifies two degrees she wishes to compare +
+ 
+2. User types in the command in the following manner: `compare EE CEG` +
+ 
+3. DEGREES.NUS displays similar and different modules from the two degrees +
+ 
+4. User reads the information
+
+
+=== Use Case: Add CEG into degree list and view degree list
+1. User identifies the degree he/she wishes to add to his/her list of possible degrees +
+ 
+2. User types in the command in the following manner: `add EE` +
+ 
+3. DEGREES.NUS adds Electrical Engineering to the user’s degree list +
+ 
+4. User types in the command in the following manner: `degreelist` +
+ 
+5. DEGREES.NUS returns the user’s degree list with Electrical Engineering added
+
+=== Use Case: Swap CEG with EE in degree list
+1. User identifies two degrees that he/she wishes to switch in the degree list +
+ 
+2. User types in the command in the following manner: `swap CEG EE` +
+ 
+3. DEGREES.NUS returns the user’s degree list with CEG and EE having switched indexes
 <<<
+
+
 == Appendix C: Non-Functional Requirements
 
 . DEGREES.NUS is a fast application.
