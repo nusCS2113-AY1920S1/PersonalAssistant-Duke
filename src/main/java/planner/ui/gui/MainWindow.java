@@ -108,7 +108,7 @@ public class MainWindow extends AnchorPane {
 
     private void exit() {
         try {
-            Thread.sleep(2500);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

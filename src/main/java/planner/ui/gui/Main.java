@@ -17,7 +17,7 @@ import planner.main.CliLauncher;
  */
 public class Main extends Application {
 
-    public static CliLauncher planner;
+    private CliLauncher planner;
 
     @Override
     public void start(Stage stage) {

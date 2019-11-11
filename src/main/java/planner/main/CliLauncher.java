@@ -76,6 +76,7 @@ public class CliLauncher {
         while (isAlive) {
             isAlive = this.handleInput();
         }
+        modUi.updateGui();
     }
 
     /**

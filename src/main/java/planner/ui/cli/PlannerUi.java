@@ -47,10 +47,17 @@ public class PlannerUi {
     /**
      * Print Object to String.
      * @param object to be printed
+     * @param update whether to update GUI
      */
-    public void print(Object object) {
+    public void print(Object object, boolean update) {
         System.out.print(object.toString());
-        updateGui();
+        if (update) {
+            updateGui();
+        }
+    }
+
+    public void print(Object object) {
+        print(object, false);
     }
 
     public void close() throws IOException {
@@ -60,20 +67,34 @@ public class PlannerUi {
     /**
      * Println Object to String.
      * @param object to be printed
+     * @param update whether to update GUI
      */
-    public void println(Object object) {
+    public void println(Object object, boolean update) {
         System.out.println(object.toString());
-        updateGui();
+        if (update) {
+            updateGui();
+        }
+    }
+
+    public void println(Object object) {
+        println(object, true);
     }
 
     /**
      * Printf.
      * @param s format to be printed
      * @param args arguments
+     * @param update whether to update GUI
      */
-    public void printf(String s, Object... args) {
+    public void printf(boolean update, String s, Object... args) {
         System.out.printf(s, args);
-        updateGui();
+        if (update) {
+            updateGui();
+        }
+    }
+
+    public void printf(String s, Object... args) {
+        printf(false, s, args);
     }
 
     private void setupGui() {
@@ -375,7 +396,7 @@ public class PlannerUi {
      * Prints the module task list with which to calculate CAP from.
      */
     public void capListStartMsg(TaskList<ModuleTask> moduleTasksList) {
-        println("Here is your list of modules to calculate CAP from.");
+        println("Here is your list of modules to calculate CAP from");
         int counter = 1;
         for (ModuleTask temp : moduleTasksList) {
             print(counter++ + " ");
@@ -396,7 +417,7 @@ public class PlannerUi {
      */
     public void capMsg(double averageCap) {
         showLine();
-        println("Here is your current cumulative/predicted CAP");
+        println("Here is your current cumulative/predicted CAP", false);
         printf("%.2f\n", averageCap);
     }
 
