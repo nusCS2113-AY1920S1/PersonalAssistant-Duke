@@ -15,9 +15,10 @@ public class CommandExportTest {
         StorageManager storageManager = new StorageManager();
         CommandExport c1 = new CommandExport("export");
         try {
+            c1.setFileName("testData.csv");
             c1.execute(storageManager);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         assertEquals(CommandType.EXPORT, c1.getCommandType());
 
