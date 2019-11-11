@@ -48,6 +48,7 @@ startdate
 stats
 suggestmeal
 type
+deletetransaction
 undo
 update
 wallet

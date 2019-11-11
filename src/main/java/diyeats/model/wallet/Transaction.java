@@ -56,6 +56,10 @@ public class Transaction {
         }
     }
 
+    /**
+     * This function overrides the toString() function in object.
+     * @return the String representation of a Transaction object.
+     */
     @Override
     public String toString() {
         return "[" + getType() + "]" + " SGD" + this.transactionAmount + " | " + getDate().format(LOCAL_DATE_FORMATTER);
