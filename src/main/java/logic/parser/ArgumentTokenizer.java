@@ -11,7 +11,7 @@ public class ArgumentTokenizer {
 
     //@@author chenyuheng
     /**
-     * From command separated by given tokens, get HashMap<String, String>.
+     * From command separated by given tokens, get the multimap as a HashMap from String to String.
      * The given tokens are:
      * <code>public static final String[] TOKENS = new String[]{"/to", "/at", "/from", "/skill"};</code>
      * @param userInput command
