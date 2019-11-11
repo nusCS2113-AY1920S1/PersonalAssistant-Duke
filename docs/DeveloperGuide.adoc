@@ -60,7 +60,8 @@ functions
 . *JDK `11`* or above is required
 . *IntelliJ* IDE is recommended
 
-[NOTE] IntelliJ by default has Gradle plugin installed. Do not disable them.
+[NOTE]
+IntelliJ by default has Gradle plugin installed. Do not disable them.
 If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === 1.2. Setting up the project environment on your local machine.
@@ -75,14 +76,17 @@ If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable th
 . Click `Import Project`
 .  Locate the `build.gradle` file and select it. Click `Open`.
 . Open the IntelliJ console/terminal and run the gradle command `gradlew processResource` on *Windows* or 
-`./gradlew processResource` on *Mac/Linux*  (If you are encountered a permission error: `./gradlew: Permission denied` add the executable permission to the 
+`./gradlew processResource` on *Mac/Linux*
+
+[NOTE]
+(If you are encountered a permission error: `./gradlew: Permission denied` add the executable permission to the
 the shell script by running `chmod 744 gradlew` in your terminal)
 It should finish with the `BUILD SUCCESSFUL` message. This will generate the resources required by the application and tests.
 
 === 1.3. Verifying the setup
 
-. Run ArchDuke to verify and try a few commands. (Refer here {insert link to the command page} the commands)
-. Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
+. Run ArchDuke to verify and try a few commands. Do refer to the user guide for a list of commands to try out.
+. Run the JUnit Tests/gradlew test command to ensure that all the test case passes.
 
 === 1.4. Configurations to do before writing code
 
@@ -98,7 +102,13 @@ You may refer to ArchDuke's `build.gradlew` file as a reference on how to set up
 ArchDuke utilizes Travis to perform Continuous Integration (CI). Other CI tools available are AppVeyor, GitLab CI or
 Github Actions. ArchDuke has decided on using Travis CI due to its ease of configurations.
 
-After setting up Travis, you can set up coverage reporting for your team fork.
+In order to set up Travis CI, a `.travis.yml` needs to be added in the root directory of your working directory.
+For more details on how to configure your `.yml` file, do refer to Travis documentation online, or ArchDuke's
+`.travis.yml` file located
+link:{repoURL}/.travis.yml[`here`]
+
+After setting up Travis, you can set up coverage reporting for your team fork. ArchDuke utilizes JaCoCo as test coverage
+tool and Coveralls as a web service to track our code coverage over time.
 
 ==== Getting started with coding
 
@@ -114,25 +124,29 @@ when the application is modified, we only had to rework the specific layer deali
 helped us in logically structuring the elements which made up ArchDuke. The Architecture Diagram given below explains the
 high-level design of ArchDuke.
 
-// TODO UPDATE architecture DIAGRAM
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
 
 Below is a quick overview of each component based on our Architecture.
 
 Not included in the diagram is the `Main` program in the folder *_launcher_*. The Main program is responsible for
-initializing the `View` layer.
+initializing the `View` layer and its subsequent dependencies.
 
 * In our case, as ArchDuke is a command line program, `Main` will initialize `CLIView`.
 
-`Utility` represents a collection of classes used by multiple other components and can be accessed by all layers.
+`Utility` layer represents a collection of classes used by multiple other components and can be accessed by all layers.
 
 * `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
-* `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
+** Examples of `Factory` classes used in ArchDuke are `MemberFactory`, `ProjectFactory` and `TaskFactory`.
+** These factory classes are grouped under the package `util.factories`.
+* `Logger` class: Used by all classes to write log messages to ArchDuke's log file.
 * `ParserHelper` class: Used by all classes for user input parsing.
 * `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
 before a Response model is generated for the `View` layer.
 * `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
+* `ConstantHelper` class: Stores all magic numbers and strings for better code readability
+* `ValidityHelper` class: Responsible for data validation before object creation
+* `UIFormatter` classes: Responsible for formatting data into String arrays for the `View` layer
 
 The rest of the App consists of four main layers.
 
@@ -141,7 +155,7 @@ from the user.
 * `Controller` layer: Responsible for handling user inputs and sending them to the respective classes for parsing,
 cleaning, or object creation.
 * `Repository` layer: Responsible for holding data in-memory during program runtime
-* `Storage` layer: Responsible for saving and loading persistent data from hard disk.
+* `Storage` layer: Responsible for serializing and serializing persistent JSON data files from hard disk.
 
 Each layer will be discussed in detail below.
 
@@ -257,7 +271,6 @@ to their API.
 |CommandHelper| Contains the command help instruction for the user to consume. | link:{repoURL}/src/main/java/util/uiformatter/CommandHelper.java[`CommandHelper.java`]
 |ConstantHelper| Contains most of the constants used throughout ArchDuke. | link:{repoURL}/src/main/java/util/constant/ConstantHelper.java[`ConstantHelper.java`]
 |DateTimeHelper| Handles the Date Format specific to ArchDuke | link:{repoURL}/src/main/java/util/date/DateTimeHelper.java[`DateTimeHelper.java`]
-|JsonConverter| Responsible for saving and loading data to and from persistent data. | link:{repoURL}/src/main/java/util/json/JsonConverter.java[`JsonConverter.java`]
 |ParserHelper| Contains methods used by other classes to parse the user input to retrieve and validate the desired information. | link:{repoURL}/src/main/java/util/ParserHelper.java[`ParserHelper.java`]
 |ProjectFactory| The `ProjectFactory` manages the object creation for `ConsoleInputController`. | link:{repoURL}/src/main/java/util/factories/ProjectFactory.java[`ProjectFactory.java`]
 |ReminderFactory| The `ReminderFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/ReminderFactory.java[`ReminderFactory.java`]
@@ -275,10 +288,10 @@ Create, Read, Update, Delete, also known as *CRUD* functions
 ==== Implementation
 
 CRUD functions are facilitated by `ConsoleInputController`, `ProjectRepository` and `ProjectFactory`. It allows
-ArchDuke to be able to do some basic CRUD functions for a Project, namely only Creation, Reading and Deletion.
-`ConsoleInputController` will
-read the relevant
-commands from the `View` layer and call the relevant methods in `ProjectRepository`.
+ArchDuke to be able to do some basic CRUD functions for a Project, namely Creation, Reading, Update and Deletion.
+
+`ConsoleInputController` will read the relevant commands from the `View` layer and call the relevant methods in
+`ProjectRepository`.
 
 It implements the following commands:
 
@@ -330,7 +343,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
-===3.2 CRUD functionality for Members
+=== 3.2 CRUD functionality for Members
 ==== Implementation
 
 CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
@@ -401,8 +414,8 @@ functions with regards to a `Task` object.
 
 Step 1) Assuming Project have been created and the user is currently managing a specific project.
 
-Step 2) The user execute the command `add task -n kill thanos! -p 100 -c 100` to create a new task with the task
-name “kill thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
+Step 2) The user execute the command `add task -n kill Thanos! -p 100 -c 100` to create a new task with the task
+name “kill Thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
 
 Step 3) The `ProjectInputController.manageProject()` will trigger the `TaskFactory` which will do a  validation to ensure the
 required input are given.
@@ -466,7 +479,7 @@ image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 .Sequence diagram of `view reminders by list` command
 image::images/sequenceDiagram/ViewReminders_Sequence.png[]
 
-=== 3.5. CRUD functionality for Assignments
+=== 3.5. Assignment between Tasks and Members feature
 
 ==== Implementation
 
@@ -475,7 +488,7 @@ Assignments establish a relationship between a task and a member. When a member 
 they are expected to complete it, and will be given the stipulated credit when the task state is marked
 as `DONE`. The degree of each member's contributions are measured by task credit.
 
-CRUD Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`, `AssignmentViewHelper`
+Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`, `AssignmentViewHelper`
 and `Project`.
 
 Assignment functions implement the following commands:
@@ -514,19 +527,19 @@ and exist within the project) using `ParserHelper.parseMembersIndexes()` and `Pa
 `AssignmentController.checkForSameMemberIndexes()` checks if the list of assignees and unassignees contain any identical
 index numbers, and removes them to avoid redundant work. `ParserHelper` returns all 3 sets of valid indexes to `AssignmentController`.
 
-Step 5) If there are valid task numbers, a for loop is used to iterate through the tasks to handle the assignments
+Step 6) If there are valid task numbers, a for loop is used to iterate through the tasks to handle the assignments
 one by one. `AssignmentController.assign()` and `AssignmentController.unassign()` are called to assign or unassign
 tasks to the members.
 
-Step 6) `Project.containsAssignment()` is used to check if an assignment between a task and member already exists to
+Step 7) `Project.containsAssignment()` is used to check if an assignment between a task and member already exists to
 avoid any errors (for example, duplicating assignments or trying to remove an assignment which does not exist).
 The errors are noted down by adding error messages to the ArrayList `errorMessages` which will be displayed to the user later.
 
-Step 7) If the input is valid, the assignment is created by calling `Project.createAssignment()` or removed by calling
+Step 8) If the input is valid, the assignment is created by calling `Project.createAssignment()` or removed by calling
 `Project.removeAssignment()`. The 2 HashMaps in the project are manipulated accordingly to note down the assignment between the specified task
 and member. Success messages are stored in `successMessages`.
 
-Step 8) The `errorMessages` and `successMessages` from `AssignmentController` are retrieved by `ProjectInputController`. The messages are validated, and then
+Step 9) The `errorMessages` and `successMessages` from `AssignmentController` are retrieved by `ProjectInputController`. The messages are validated, and then
 formatted with the help of `ViewHelper`, which organises the information into easy-to-read tables and displayed to the user.
 
 The following sequence diagram shows how the `assign task` command works.
@@ -752,14 +765,15 @@ logging every step that ArchDuke takes so that debugging will be easier.
 * The logging level is controlled by property name `rootLogger.level` in `log4j2.properties`. Currently the level is set to all.
 (Show all log level message)
 
-* The `ArchDukeLogger` call by using ArchDukeLogger.logInfo(className, Message); function which will log the
+* The `ArchDukeLogger` call by using `ArchDukeLogger.logInfo(className, Message);` function which will log the
 message according to the specified logging level method called.
 
 * Currently all the log messages are store in the log file located in the logs directory
 
 The `log4j2.properties` file in the resource folder is used configure the following:
 
-* RootLogger level - The level root logger to be shown in the log file. Currently it is set to `all`
+* RootLogger level - The level root logger to be shown in the log file. Currently it is set to `all` to view
+all the logs level.
 
 * File Appender - The file direction and log file name. The log file can be found in the logs folder.
 
@@ -769,6 +783,7 @@ The following shows the class diagram of ArchDukeLogger
 
 .Class diagram of ArchDuke logger
 image::images/classDiagram/ArchDukeLogger_ClassDiagram.png[]
+*API* : link:{repoURL}/src/main/java/util/log/ArchDukeLogger.java[`ArchDukeLogger.java`]
 
 [NOTE]
 If any bugs or errors encountered during the testing, please do create an issue on this repo and upload the logs file located
@@ -791,7 +806,7 @@ is the `logs` directory.
 // Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == 4. Documentation
-We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
+We chose to use AsciiDoc writing format to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
 for essential syntax unlike MarkDown.
 
 === 4.1 Written documentation
@@ -840,7 +855,7 @@ e.g. `java.helpertests.AssignmentViewHelperTest`
 Gradle is an open-source build automation tool that automates build-related tasks by running scripts.
 It is mainly used for the following tasks:
 
-* Running tests
+* Automating tests
 * Performing checks on code style
 * Managing dependencies on external libraries
 
@@ -886,12 +901,27 @@ Code style rules can be found in `config/checkstyle/checkstyle.xml`. These can b
 suit the purposes of the project.
 
 
-=== 6.2 Continuous Integration.
-We use Travis CI to perform continuous integration for ArchDuke.
+=== 6.2 Continuous Integration
+We use Travis CI to perform Continuous Integration (CI) for ArchDuke. Other CI tools can be used so long
+as an appriopriate `.yml` file is provided and the relevant toolchain is set up properly. Some examples are
 
-=== 6.3 Documentation Previews
+* GitLab CI
+* AppVeyor
+* Github Actions
 
-=== 6.4 Making a Release
+Travis CI can be configured to run JUnit tests automatically with the help of Gradle. This ensures
+that existing features and functionality are working as intended and are not broken by new code.
+
+For ArchDuke, TravisCI is configured to run the following things every time code is pushed or a pull request is submitted:
+
+* Runs `./gradlew clean checkstyleMain checkstyleTest test` command
+** This is to run all unit and code style tests and ensures all tests passes.
+* Upon success, it will run `./gradlew jacocoTestReport coveralls`
+** This utilizes JaCoCo to generate test coverage and send it to Coveralls
+
+Further customization   can be done by referring to Travis documentation online.
+
+=== 6.3 Making a Release
 Here are the steps to create a new release.
 
 1. Update the archiveVersion number in `build.gradle` shadowJar section.
