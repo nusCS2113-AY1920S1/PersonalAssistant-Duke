@@ -598,7 +598,7 @@ image::ModBadSuException.png[width="450"]
 ** Example `sh module` will return the same output as `show module` as `sh module` is unique enough for the program to identify its intended command.
 * Inputting an invalid time beyond `00:00` such as `25:00` will cause the time to automatically be set to `00:00`
 * Some of the prerequisites/preclusions in NUSMODS may not be updated for the `cap module`, or is not checked against each other in the prerequisite tree.
-**If you have completed all the necessary prerequisites but it is still showing you have not completed some of them, please add those modules into your list with the same grade you obtained as its preclusion and try the command again.
+** If you have completed all the necessary prerequisites but it is still showing you have not completed some of them, please add those modules into your list with the same grade you obtained as its preclusion and try the command again.
 ****
 
 == FAQ
