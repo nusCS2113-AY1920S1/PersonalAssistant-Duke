@@ -81,16 +81,16 @@ public class ListCommand extends Command {
             undo.undoSort(currentDate);
         }
         switch (sortBy) {
-            case "calorieAscending":
+            case "calorieascending":
                 currentMeals.sort(new SortMealByCalorie());
                 break;
-            case "calorieDescending":
+            case "caloriedescending":
                 currentMeals.sort(new SortMealByCalorie().reversed());
                 break;
-            case "costAscending":
+            case "costascending":
                 currentMeals.sort(new SortMealByCost());
                 break;
-            case "costDescending":
+            case "costdescending":
                 currentMeals.sort(new SortMealByCost().reversed());
                 break;
             default:
