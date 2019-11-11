@@ -1,17 +1,18 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.statusTypes.threadStatus;
+import seedu.hustler.MainWindow;
+import seedu.hustler.ui.timer.StatusTypes.ThreadStatus;
 import seedu.hustler.Hustler;
 
 /**
  * The timer device operated by timerManager.
  */
-public class Timer implements Runnable {
+public class Timer implements Runnable, TimerInterface {
     /**
      * The current status of the timer, an attribute that is
      * affected by the types of commands used by the user.
      */
-    protected static threadStatus threadstatus = threadStatus.DEFAULT;
+    protected static ThreadStatus threadstatus = ThreadStatus.DEFAULT;
 
     /**
      * An array of 3 integers representing the hours, minutes
@@ -26,7 +27,7 @@ public class Timer implements Runnable {
      */
     protected Timer() {
         timeArray = new int[3];
-        threadstatus = threadStatus.DEFAULT;
+        threadstatus = ThreadStatus.DEFAULT;
     }
 
     /**
@@ -57,7 +58,9 @@ public class Timer implements Runnable {
                 timeArray = TimerLogic.decrement(timeArray);
             }
         } catch (Exception e) {
+            MainWindow.offPrinting();
             e.printStackTrace();
+            MainWindow.onPrinting();
         }
         TimerUI.printThreadInterrupt(threadstatus);
         if (isFinished()) {

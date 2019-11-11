@@ -33,9 +33,19 @@ public class TimerAnomaly extends DetectAnomaly {
             throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
         }
 
+        //detects whether the arguments are integers. For example, 'timer
+        //tacobell' is a invalid input.
+        try {
+            int hours = Integer.parseInt(timeParts[0]);
+            int minutes = Integer.parseInt(timeParts[1]);
+            int seconds = Integer.parseInt(timeParts[2]);
+        } catch (NumberFormatException e) {
+            throw new CommandLineException("Timer commands only accept integers as hours, minutes and seconds!");
+        }
+
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);
-        int seconds = Integer.parseInt(timeParts[1]);
+        int seconds = Integer.parseInt(timeParts[2]);
 
         if (hours < 0 || minutes < 0 || seconds < 0) {
             throw new CommandLineException("Hours, minutes and seconds should be positive integers.");

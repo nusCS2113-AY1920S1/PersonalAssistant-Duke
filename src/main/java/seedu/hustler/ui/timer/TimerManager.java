@@ -1,13 +1,13 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.statusTypes.threadStatus;
-import seedu.hustler.ui.timer.statusTypes.threadError;
+import seedu.hustler.ui.timer.StatusTypes.ThreadStatus;
+import seedu.hustler.ui.timer.StatusTypes.ThreadError;
 
 
 /**
  * The access point for all Timer-related things.
  */
-public class TimerManager {
+public class TimerManager implements TimerManagerInterface {
 
     /**
      * All instances of TimerManager share the same Timer and
@@ -30,6 +30,7 @@ public class TimerManager {
      * Allows the timeManager to set the Timer's time as per
      * the user's wishes.
      */
+    @Override
     public void setTimer(String time) {
         String[] timeParts = time.split(" ");
         countdownTimer = new Timer(timeParts[0], timeParts[1], timeParts[2]);
@@ -42,15 +43,16 @@ public class TimerManager {
      */
     public static void resetTimer() {
         countdownTimer = new Timer();
-        Timer.threadstatus = threadStatus.RESET;
+        Timer.threadstatus = ThreadStatus.RESET;
     }
 
     /**
      * Allows the timeManager to start the Timer countdown,
      * usually done after setting the Timer.
      */
+    @Override
     public void startTimer() {
-        Timer.threadstatus = threadStatus.RUNNING;
+        Timer.threadstatus = ThreadStatus.RUNNING;
         countdownThread = new Thread(countdownTimer);
         countdownThread.start();
     }
@@ -60,6 +62,7 @@ public class TimerManager {
      * of the Timer in order to print and inform the user.
      * Lets the user know how much time is left.
      */
+    @Override
     public void checkTimeLeft() {
         TimerUI.printTimeLeft(countdownTimer.getTime());
     }
@@ -69,11 +72,11 @@ public class TimerManager {
      * user so desires.
      */
     public static void pauseTimer() {
-        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED) {
-            Timer.threadstatus = threadStatus.PAUSED;
+        if (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED) {
+            Timer.threadstatus = ThreadStatus.PAUSED;
             countdownThread.interrupt();
         } else {
-            TimerUI.printThreadError(threadError.PAUSEERROR);
+            TimerUI.printThreadError(ThreadError.PAUSEERROR);
         }
     }
 
@@ -83,12 +86,12 @@ public class TimerManager {
      * paused cannot be resumed.
      */
     public static void resumeTimer() {
-        if (Timer.threadstatus == threadStatus.PAUSED) {
-            Timer.threadstatus = threadStatus.RESUMED;
+        if (Timer.threadstatus == ThreadStatus.PAUSED) {
+            Timer.threadstatus = ThreadStatus.RESUMED;
             countdownThread = new Thread(countdownTimer);
             countdownThread.start();
         } else {
-            TimerUI.printThreadError(threadError.RESUMEERROR);
+            TimerUI.printThreadError(ThreadError.RESUMEERROR);
         }
     }
 
@@ -97,13 +100,13 @@ public class TimerManager {
      * prematurely.
      */
     public static void stopTimer() {
-        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED 
-                || Timer.threadstatus == threadStatus.PAUSED) {
-            Timer.threadstatus = threadStatus.STOPPED;
+        if (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED 
+                || Timer.threadstatus == ThreadStatus.PAUSED) {
+            Timer.threadstatus = ThreadStatus.STOPPED;
             countdownThread.interrupt();
             resetTimer();
         } else {
-            TimerUI.printThreadError(threadError.STOPERROR);
+            TimerUI.printThreadError(ThreadError.STOPERROR);
         }
     }
 
@@ -112,7 +115,7 @@ public class TimerManager {
      * stopped or finished.
      */
     public static boolean isRunning() {
-        return (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED 
-            || Timer.threadstatus == threadStatus.PAUSED);
+        return (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED 
+            || Timer.threadstatus == ThreadStatus.PAUSED);
     }
 }
