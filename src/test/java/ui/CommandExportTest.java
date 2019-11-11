@@ -6,6 +6,7 @@ import executor.command.CommandExport;
 import executor.command.CommandType;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
+import storage.wallet.Receipt;
 
 import java.io.FileReader;
 import java.time.LocalDate;
