@@ -307,12 +307,19 @@ The command also supports the editing of data in other dates: simply specify the
 
 Examples:
 
-* You have a breakfast item in the database today called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
-** You want to change the value of fats to 50g:
+* Suppose your current meal list via the `list` command looks like this:
+
++
+image::Edit_Command_List.png[]
+
+
+** You accidentally added kueh to your meal list with an extra 0 for calories (i.e. 1800 instead of 180). To update the calories from 1800 to 180:
+*** `edit 1 /calorie 180`
+** You want to add the value of fats (50g) to the kueh:
 *** `edit 1 /fats 50`
-** You want to change the value of fats and calcium to 50g
-*** `edit 1 /fats 50 /calcium 50`
-* You have a breakfast item in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
+** You want to change the name of the meal from `Kueh` to `Cocunut Kueh`:
+*** `edit 1 /name Cocunut Kueh`
+* You have a breakfast item (with index 2) in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
 ** You want to change the value of fats to 50g:
 *** `edit 2 /fats 50 /date 1/1/2019`
 
@@ -320,6 +327,7 @@ Examples:
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: dd/mm/yyyy.
+* Ensure integer values follow each meal tag (except for `name` tag, which allows string input and `cost` tag, which allows float input).
 ====
 ==== Locating a meal by keyword: `find`
 Perhaps you want to refer to the nutritional value of a meal you have had in the past, but cant seem to recall the date?
