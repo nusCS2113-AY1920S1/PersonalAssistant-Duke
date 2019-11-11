@@ -299,11 +299,6 @@ Displays the current month with any dates marked with an X if there is a task th
 Assigns or unassigns the task to a member or several members in the group.
 Task assignments can be added or removed simultaneously.
 
-* Flags:
-** `-i`: Task index numbers
-** `-to`: Assignee index numbers
-** `-rm`: Unassignee index numbers
-
 [NOTE]
 Multiple tasks may be assigned or unassigned to multiple members in 1 command.
 
@@ -313,6 +308,11 @@ A task may be assigned to multiple members. The task credit will then be split e
 [NOTE]
 The keyword `all' may be used after any of the flags to represent all task or member index numbers.
 This allows the user to assign/unassign all tasks to members, or assign/unassign a task to all members.
+
+* Flags:
+** `-i`: Task index numbers
+** `-to`: Assignee index numbers
+** `-rm`: Unassignee index numbers
 
 * Format: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
 * Examples:
