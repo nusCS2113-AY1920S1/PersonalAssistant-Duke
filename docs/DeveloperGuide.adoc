@@ -365,7 +365,7 @@ the user, which makes it significantly harder for new users to use our applicati
 
 ===== Aspect: How the improvised parser works
 
-* ** Current Choice :** The current parser returns `???!` to the user.
+* ** Current Choice :** The original parser returns `???!` to the user.
 ** Pros: The user understands that the input command was not read correctly by the application.
 ** Cons: There is no help being provided to the user on the possible syntax of the command he wishes to use.
 * ** Alternative :** It will be implemented under the invalid command, where the input string will be compared with our existing commands,
