@@ -1199,18 +1199,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to add new expenditure record.
-. System requests expenditure details.
+. System requests expenditure details and the account to add the expenditure.
 . User enters expenditure details.
-. System adds new expenditure record.
+. System adds new expenditure record into the specified account.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure details.
-** 3a1. System requests for the correct expenditure details.
-** 3a2. User re-enters the expenditure details.
-** Steps 3a1-3a2 are repeated until the expenditure details entered are correct.
+* 3a. System detects invalid expenditure details or account.
+** 3a1. System requests for the correct expenditure details and the account to add the expenditure.
+** 3a2. User re-enters the expenditure details and the account to add the expenditure.
+** Steps 3a1-3a2 are repeated until the expenditure details and the account to add the expenditure are entered correctly
+.
 ** Use case resumes from step 4.
 
 
@@ -1255,18 +1256,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to delete expenditure record.
-. System requests expenditure to be deleted.
-. User specifies the expenditure to be deleted.
+. System requests expenditure to be deleted and the account to delete the expenditure from.
+. User specifies the expenditure to be deleted and the account to delete the expenditure from.
 . System deletes the specified record from the database.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure to be deleted.
-** 3a1. System requests for the correct expenditure to be deleted.
-** 3a2. User re-enters the expenditure to be deleted.
-** Steps 3a1-3a2 are repeated until the expenditure to be deleted is entered correctly.
+* 3a. System detects invalid expenditure to be deleted or account to delete the expenditure from.
+** 3a1. System requests for the correct expenditure to be deleted and the account to delete the expenditure from.
+** 3a2. User re-enters the expenditure to be deleted and the account to delete the expenditure from.
+** Steps 3a1-3a2 are repeated until the expenditure to be deleted the account to delete the expenditure from are
+entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1283,18 +1285,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to list the expenditure record.
-. System requests the type of expenditure to be listed.
-. User specifies the type of expenditure to be listed.
+. System requests the type of expenditure to be listed and the account to list from.
+. User specifies the type of expenditure to be listed and the account to list from..
 . System displays the expenditure records specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid type of expenditure to be listed.
-** 3a1. System requests for the correct type of expenditure to be listed.
-** 3a2. User re-enters the type of expenditure to be listed.
-** Steps 3a1-3a2 are repeated until the type of expenditure to be listed is entered correctly.
+* 3a. System detects invalid type of expenditure to be listed or account to list from.
+** 3a1. System requests for the correct type of expenditure to be listed and the account to list from.
+** 3a2. User re-enters the type of expenditure to be listed and the account to list from.
+** Steps 3a1-3a2 are repeated until the type of expenditure to be listed and the account to list from are entered
+correctly.
 ** Use case resumes from step 4.
 
 
@@ -1303,23 +1306,26 @@ Use case ends.
 *Preconditions:*
 
 * *User has a profile created*
+* *User has existing savings account*
+* *User has existing investment account*
+* *User has existing card*
 * *User has existing transaction records*
 
 *Main success scenario:*
 
 . User chooses to search for transaction record.
-. System requests the keyword to be search.
-. User specifies the keyword to be search.
+. System requests the keywords to be search.
+. User specifies the keywords to be search.
 . System displays information found from the search.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid keyword to be search.
-** 3a1. System requests for the correct keyword to be search.
-** 3a2. User re-enters the keyword to be search.
-** Steps 3a1-3a2 are repeated until the keyword to be search is entered correctly.
+* 3a. System detects invalid keywords to be search.
+** 3a1. System requests for the correct keywords to be search.
+** 3a2. User re-enters the keywords to be search.
+** Steps 3a1-3a2 are repeated until the keywords to be search is entered correctly.
 ** Use case resumes from step 4.
 
 // tag::goals_usecase[]
@@ -1477,18 +1483,18 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to charge expenditure to credit card.
-. System requests the expenditure information.
-. User enters the expenditure information.
+. System requests the expenditure information and the card to be charged.
+. User enters the expenditure information and the card to be charged.
 . System creates the credit card expenditure record.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure information.
-** 3a1. System requests for the correct expenditure information.
-** 3a2. User re-enters the expenditure information.
-** Steps 3a1-3a2 are repeated until the expenditure information is entered correctly.
+* 3a. System detects invalid expenditure information or card to be charged.
+** 3a1. System requests for the correct expenditure information and card to be charged.
+** 3a2. User re-enters the expenditure information and card to be charged.
+** Steps 3a1-3a2 are repeated until the expenditure information and card to be charged are entered correctly.
 ** Use case resumes from step 4.
 
 *Actor: Credit card user* +
@@ -1501,18 +1507,18 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit credit card details.
-. System requests for new credit card details.
-. User enters new credit card details.
+. System requests for new credit card details and the credit card to be edited.
+. User enters new credit card details and the credit card to be edited.
 . System updates the credit card details.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid credit card details.
-** 3a1. System requests for the correct credit card details.
-** 3a2. User re-enters the credit card details.
-** Steps 3a1-3a2 are repeated until the credit card details is entered correctly.
+* 3a. System detects invalid credit card details or credit card to be edited
+** 3a1. System requests for the correct credit card details and credit card to be edited.
+** 3a2. User re-enters the credit card details and the credit card to be edited.
+** Steps 3a1-3a2 are repeated until the credit card details and the credit card to be edited are entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1546,18 +1552,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to set recurring expenditure.
-. System requests for details of recurring expenditure.
-. User enters details of recurring expenditure.
+. System requests for details of recurring expenditure and the savings account to be charged.
+. User enters details of recurring expenditure and the savings account to be charged.
 . System creates recurring expenditure.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid details of recurring expenditure.
-** 3a1. System requests for the correct details of recurring expenditure.
-** 3a2. User re-enters the details of recurring expenditure.
-** Steps 3a1-3a2 are repeated until the details of recurring expenditure is entered correctly.
+* 3a. System detects invalid details of recurring expenditure or savings account to be charged.
+** 3a1. System requests for the correct details of recurring expenditure and savings account to be charged.
+** 3a2. User re-enters the details of recurring expenditure and the savings account to be charged.
+** Steps 3a1-3a2 are repeated until the details of recurring expenditure and savings account to be charged are entered
+correctly.
 ** Use case resumes from step 4.
 
 
@@ -1601,11 +1608,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to view recurring expenditure.
+. System requests the savings account to be listed.
+. User enters the savings account to be listed.
 . System displays all recurring payments in chronological order.
 +
 Use case ends.
 
-
+*Extensions*
+[none]
+* 3a. System detects invalid savings account to be listed.
+** 3a1. System requests for the correct savings account to be listed.
+** 3a2. User re-enters the savings account to be listed.
+** Steps 3a1-3a2 are repeated until the savings account to be listed is entered correctly.
+** Use case resumes from step 4.
 
 
 
@@ -1837,18 +1852,19 @@ Use case ends.
 *Main success scenario:*
 
 . User choose to edit investment account.
-. System requests for new investment account details.
-. User enters investment account details.
+. System requests for new investment account details and the investment account to be edited.
+. User enters investment account details and the investment account to be edited.
 . System updates the investment account.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid investment account details.
-** 3a1. System requests for the correct investment account details.
-** 3a2. User re-enters the investment account details.
-** Steps 3a1-3a2 are repeated until the investment account details entered are correct.
+* 3a. System detects invalid investment account details or investment account to be edited.
+** 3a1. System requests for the correct investment account details and the investment account to be edited.
+** 3a2. User re-enters the investment account details and the investment account to be edited.
+** Steps 3a1-3a2 are repeated until the investment account details and the investment account to be edited entered
+are correct.
 ** Use case resumes from step 4.
 
 
@@ -1997,9 +2013,21 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses the type of financial details to list.
+. System requests for the type of financial details to be listed.
+. User specifies the type of financial details to be listed.
 . System displays the information in a table format.
 +
 Use case ends.
+
+
+*Extensions*
+[none]
+* 3a. System detects invalid type of financial details to be listed.
+** 3a1. System requests for the correct type of financial details to be listed.
+** 3a2. User re-enters the type of financial details to be listed.
+** Steps 3a1-3a2 are repeated until the type of financial details to be listed is entered correctly.
+** Use case resumes from step 4.
+
 
 *Actor: Existing user* +
 [[UC-40]] *Use case: UC40 - Search for specific recurring expenditure* +
@@ -2012,18 +2040,18 @@ Use case ends.
 *Main success scenario:*
 
 . User choose to search for specific recurring expenditure.
-. System requests for the keyword to be used for searching.
-. User specifies the keyword to be used for searching.
+. System requests for the keywords to be used for searching.
+. User specifies the keywords to be used for searching.
 . System displays information found from the search.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid keyword to be used for searching.
-** 3a1. System requests for the correct keyword to be used for searching.
-** 3a2. User re-enters the keyword to be used for searching.
-** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
+* 3a. System detects invalid keywords to be used for searching.
+** 3a1. System requests for the correct keywords to be used for searching.
+** 3a2. User re-enters the keywords to be used for searching.
+** Steps 3a1-3a2 are repeated until the keywords to be used for searching is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -2098,18 +2126,20 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to delete credit card expenditure record.
-. System requests expenditure to be deleted.
-. User specifies the expenditure to be deleted.
+. System requests expenditure to be deleted and the credit card to delete the expenditure from.
+. User specifies the expenditure to be deleted and the credit card to delete the expenditure from..
 . System deletes the specified record from the database.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure to be deleted.
-** 3a1. System requests for the correct expenditure to be deleted.
-** 3a2. User re-enters the expenditure to be deleted.
-** Steps 3a1-3a2 are repeated until the expenditure to be deleted is entered correctly.
+* 3a. System detects invalid expenditure to be deleted or credit card to delete the expenditure from.
+** 3a1. System requests for the correct expenditure to be deleted and the credit card to delete the expenditure from.
+** 3a2. User re-enters the expenditure to be deleted and the credit card to delete the expenditure from.
+** Steps 3a1-3a2 are repeated until the expenditure to be deleted and the credit card to delete the expenditure from are
+
+entered correctly.
 ** Use case resumes from step 4.
 
 
