@@ -154,7 +154,7 @@ public class Profile {
      * @throws ProfileException if name don't match or change same name or name contain special character.
      */
     public void profileSetUsername(String name, String newName, Ui ui) throws ProfileException {
-        checkProfileName(name, newName);
+        checkProfileName(name);
         this.username = newName;
         ui.printMessage("\nProfile name was: " + name);
         ui.printMessage("Now changed to: " + newName);
@@ -163,6 +163,7 @@ public class Profile {
         } catch (IOException ex) {
             ui.printError("Unable to save profile now, your data is at risk, but we will"
                     + " try saving again, feel free to continue using the program.");
+            logger.warning("Error exporting new profile name when /edit /profile");
         }
     }
 
@@ -170,12 +171,11 @@ public class Profile {
      * Checks if profile name exist and not changed to same name.
      *
      * @param name existing name of user.
-     * @param newName new name that user wants to change to.
      * @throws ProfileException if name don't match or change same name.
      */
-    public void checkProfileName(String name, String newName) throws ProfileException {
+    public void checkProfileName(String name) throws ProfileException {
         if (!name.equals(this.username)) {
-            throw new ProfileException("No profile name with " + name + "found!\nTry this instead: " + this.username);
+            throw new ProfileException("No profile name with " + name + " found!\nTry this instead: " + this.username);
         }
     }
 
