@@ -40,10 +40,10 @@ public class RecommenderTest {
             entry.setTimeAlloc(3600);
         }
         Recommender recommender = new Recommender(schedule);
-        ArrayList<ScheduleEntry> test_recommended = recommender.recommend(3 * 3600);
+        ArrayList<ScheduleEntry> testRecommended = recommender.recommend(3 * 3600);
         
         for (int i = 0; i < recommended.size(); i++) {
-            assertEquals(recommended.get(i).getTask(), test_recommended.get(i).getTask()); 
+            assertEquals(recommended.get(i).getTask(), testRecommended.get(i).getTask()); 
         }
     } 
 }

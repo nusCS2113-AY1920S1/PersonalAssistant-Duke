@@ -81,7 +81,7 @@ public class SchedulerTest {
         assertEquals(scheduler.recommended.size(), 1);
         try {
             scheduler.confirm();
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             System.out.println("Ignore this message.");
         }
         assertEquals(scheduler.getEntry(0).getTimeSpent(), 3600);
