@@ -88,7 +88,7 @@ public class TaskCommandParseHelper {
         } else if (input.startsWith("sort")) {
             return parseSortCommand(input);
         }
-        return new InvalidCommand("Invalid command word.");
+        return new InvalidCommand("Invalid command format. Please enter \'help\' for more information.");
     }
 
     private static Matcher prepareCommandMatcher(String input, String s) {
