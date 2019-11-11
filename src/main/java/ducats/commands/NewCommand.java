@@ -38,9 +38,6 @@ public class NewCommand extends Command {
         String key;
         String timeSignature;
         int tempo;
-        if (message.length() < 4 || !message.substring(0, 4).equals("new ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         Song song;
         try {
             String[] sections = message.substring(4).split(" ");

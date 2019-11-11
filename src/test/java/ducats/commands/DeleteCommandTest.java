@@ -79,28 +79,28 @@ public class DeleteCommandTest {
         DucatsException testDucatsException4 = assertThrows(DucatsException.class, () -> {
             newTest4.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException4 = new DucatsException("", "index");
+        DucatsException expectedDucatsException4 = new DucatsException("delete random", "delete");
         assertEquals(expectedDucatsException4.getMessage(), testDucatsException4.getMessage());
 
         DeleteCommand newTest5 = new DeleteCommand("delete 0");
         DucatsException testDucatsException5 = assertThrows(DucatsException.class, () -> {
             newTest5.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException5 = new DucatsException("", "index");
+        DucatsException expectedDucatsException5 = new DucatsException("delete random", "delete");
         assertEquals(expectedDucatsException5.getMessage(), testDucatsException5.getMessage());
 
         DeleteCommand newTest6 = new DeleteCommand("delete -1");
         DucatsException testDucatsException6 = assertThrows(DucatsException.class, () -> {
             newTest6.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException6 = new DucatsException("", "index");
+        DucatsException expectedDucatsException6 = new DucatsException("delete random", "delete");
         assertEquals(expectedDucatsException6.getMessage(), testDucatsException6.getMessage());
 
         DeleteCommand newTest7 = new DeleteCommand("delete 3");
         DucatsException testDucatsException7 = assertThrows(DucatsException.class, () -> {
             newTest7.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException7 = new DucatsException("", "index");
+        DucatsException expectedDucatsException7 = new DucatsException("delete random", "delete");
         assertEquals(expectedDucatsException7.getMessage(), testDucatsException7.getMessage());
     }
 

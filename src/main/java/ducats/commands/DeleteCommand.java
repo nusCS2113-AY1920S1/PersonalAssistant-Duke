@@ -1,5 +1,6 @@
 package ducats.commands;
 
+import ducats.Ducats;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
@@ -36,30 +37,31 @@ public class DeleteCommand extends Command {
         if (songList.getSize() == 0) {
             throw new DucatsException("", "empty");
         }
-        if (message.length() < 8 || !message.substring(0, 7).equals("delete ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         int songIndex = 0;
         try {
             songIndex = Integer.parseInt(message.substring(7));
         } catch (NumberFormatException e) {
             songIndex = songList.findSongIndex(message.substring(7)) + 1;
         } catch (Exception e) {
-            throw new DucatsException("","other");
+            throw new DucatsException(message, "delete");
         }
 
-        if (songIndex > songList.getSize() || songIndex < 1) {
-            throw new DucatsException("", "index");
-        } else {
+//        if (songIndex > songList.getSize() || songIndex < 1) {
+//            throw new DucatsException("", "index");
+//        } else {
+        try {
             Song deletedSong = songList.getSongIndex(songIndex - 1);
             songList.remove(songIndex - 1);
             try {
                 storage.updateFile(songList);
             } catch (Exception e) {
-                throw new DucatsException("","io");
+                throw new DucatsException("", "io");
             }
             return ui.formatDelete(songList, deletedSong);
+        } catch (Exception e) {
+            throw new DucatsException(message, "delete");
         }
+//        }
     }
 
     /**

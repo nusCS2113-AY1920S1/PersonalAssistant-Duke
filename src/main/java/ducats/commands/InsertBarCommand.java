@@ -38,9 +38,6 @@ public class InsertBarCommand extends Command {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         int barNo;
-        if (message.length() < 10 || !message.substring(0, 10).equals("insertbar ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         try {
             songIndex = songList.getActiveIndex();
             Song activeSong = songList.getSongIndex(songIndex);

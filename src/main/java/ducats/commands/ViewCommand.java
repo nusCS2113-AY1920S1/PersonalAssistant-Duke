@@ -34,9 +34,6 @@ public class ViewCommand extends Command {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         String songName;
-        if (message.length() < 5 || !message.substring(0, 5).equals("view ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         songName = message.substring(5).trim();
         ArrayList<Song> findList = songList.findSong(songName);
 

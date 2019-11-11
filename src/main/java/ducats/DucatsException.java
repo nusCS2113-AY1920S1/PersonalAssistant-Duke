@@ -8,7 +8,9 @@ public class DucatsException extends Exception {
     private String input;
     private String type = "other";
     private static final String[] COMMAND_STRINGS =
-        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay", "delete"};
+        {"todo","deadline", "event", "doafter", "new",
+        "view", "addbar", "copy", "group", "overlay",
+        "delete", "deletebar", "editbar", "insertbar", "swapbar"};
 
     //@@author rohan-av
     /**
@@ -47,7 +49,7 @@ public class DucatsException extends Exception {
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
-        String word = input.trim().equals("delete")
+        String word = input.trim().equals("editbar")
                 || input.trim().equals("overlay")
                 || input.trim().equals("addbar")
                 || input.trim().equals("insertbar")
@@ -61,12 +63,12 @@ public class DucatsException extends Exception {
                     + " command cannot be empty.";
         } else if (!type.equals("other")) {
             switch (type) {
-            case "doafter": {
-                if (!input.contains("/after")) {
-                    message = "OOPS!!! ducats.tasks.DoAfter is missing a task it is supposed to be done after.";
-                } else {
-                    message = "Please enter the task number of the task that the DoAfter should be after.";
-                }
+            case "delete": {
+                message = "OOPS!!! The song cannot be deleted due to invalid input format.";
+                break;
+            }
+            case "deletebar": {
+                message = "OOPS!!! The bar cannot be deleted due to invalid input format.";
                 break;
             }
             case "new": {
