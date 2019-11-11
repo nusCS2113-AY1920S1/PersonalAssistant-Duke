@@ -110,7 +110,7 @@ public class ReminderTest extends CommandTest {
         killAllTimers();
         resetAll();
 
-        /*execute("reminder two");
+        execute("reminder two");
         expectedOutput = "_______________________________\n"
                 +
                 "Please remember to update your module information!\n"
@@ -150,7 +150,7 @@ public class ReminderTest extends CommandTest {
                 "\n";
         assertEquals(expectedOutput, getOut());
         killAllTimers();
-        resetAll();*/
+        resetAll();
 
         execute("reminder stop");
         expectedOutput = "_______________________________\n"
