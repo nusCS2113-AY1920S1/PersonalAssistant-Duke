@@ -523,6 +523,9 @@ Different symbols are used to represent music notes, rest note and different dur
 | &
 |===
 
+_Format_:
+`ascii song s/SONG_NAME`
+
 === Undoing your previous action: `undo`
 
 UndoCommand can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
