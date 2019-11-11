@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import rims.exception.RimsException;
 
-//author aarushisingh1
+//@@author aarushisingh1
 
 public class Tag extends Resource{
 
