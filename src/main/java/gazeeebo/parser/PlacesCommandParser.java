@@ -9,6 +9,7 @@ import gazeeebo.commands.places.DeletePlacesCommand;
 import gazeeebo.commands.places.ListPlacesCommand;
 import gazeeebo.commands.places.FindPlacesCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.logger.LogCenter;
 import gazeeebo.storage.PlacesPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -76,6 +77,7 @@ public class PlacesCommandParser extends Command {
         System.out.println(WELCOME_MESSAGE);
         System.out.println(PLACES_COMMANDS);
         try {
+            LogCenter.setUpLogger(LOGGER);
             PlacesPageStorage placesPageStorage = new PlacesPageStorage();
             HashMap<String, String> map = placesPageStorage.readPlaces();
             Map<String, String> places = new TreeMap<String, String>(map);
@@ -83,14 +85,14 @@ public class PlacesCommandParser extends Command {
             boolean isExitFromPlaces = false;
             while (!isExitFromPlaces) {
                 ui.readCommand();
-                if (ui.fullCommand.contains("add-") || ui.fullCommand.equals("1")) {
+                if (ui.fullCommand.contains("add") || ui.fullCommand.equals("1")) {
                     copyMap(places, oldplaces);
                     new AddPlacesCommand(ui, places);
-                } else if (ui.fullCommand.equals("find-") || ui.fullCommand.equals("2")) {
+                } else if (ui.fullCommand.contains("find") || ui.fullCommand.equals("2")) {
                     new FindPlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("list") || ui.fullCommand.equals("4")) {
                     new ListPlacesCommand(places);
-                } else if (ui.fullCommand.contains("delete-") || ui.fullCommand.equals("3")) {
+                } else if (ui.fullCommand.contains("delete") || ui.fullCommand.equals("3")) {
                     copyMap(places, oldplaces);
                     new DeletePlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("commands") || ui.fullCommand.equals("6")) {
@@ -114,7 +116,7 @@ public class PlacesCommandParser extends Command {
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             System.out.println(INVALID_INPUT);
-            LOGGER.log(Level.SEVERE,"invalid input", e);
+            LOGGER.log(Level.WARNING,"invalid input", e);
         }
     }
 

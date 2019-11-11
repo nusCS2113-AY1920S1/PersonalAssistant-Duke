@@ -469,7 +469,7 @@ public class HelpText {
                     + "\tSteps for adding a place:\n"
                     + "\t\t1. Type in the command add-room,location in the above format. Eg. LT19,COM2 Level 1\n"
                     + "\t\t2. Press ENTER.\n"
-                    + "\t\t3. Alternatively, you can input the index of the add command, 1.\n"
+                    + "\t\t3. Alternatively, you can input add or the index of the add command, 1.\n"
                     + "\t\t4. The system will prompt you to enter the room and location in this format, "
                     + "room,location.\n";
 
@@ -485,8 +485,9 @@ public class HelpText {
                     + "\tSteps for finding a place:\n"
                     + "\t\t1. Type in the command in the format specified above. Eg. find-LT19\n"
                     + "\t\t2. Press ENTER.\n"
-                    + "\t\t3. Alternatively, type in the index for find command, 2 and press ENTER.\n"
-                    + "\t\t2. Press ENTER.\n";
+                    + "\t\t3. Alternatively, type in find or the index for find command, 2 and press ENTER.\n"
+                    + "\t\t4. Press ENTER.\n"
+                    + "\t\t5. The system will prompt you to enter the place you wish to find.\n";
 
     private static final String PLACES_LIST =
             "\t[ Listing all places in NUS School of Computing (SOC): list ]\n"
@@ -509,7 +510,7 @@ public class HelpText {
                     + "\tSteps for deleting a place:\n"
                     + "\t\t1. Type in the command in the format specified above. Eg. delete-LT19\n"
                     + "\t\t2. Press ENTER.\n"
-                    + "\t\t3. Alternatively, you can input the index of the delete command, 3.\n"
+                    + "\t\t3. Alternatively, you can input delete or the index of the delete command, 3.\n"
                     + "\t\t4. The system will prompt you to enter the name of the room you wish to delete.\n";
 
     private static final String PLACES_UNDO =
