@@ -53,7 +53,7 @@ public class ViewCommand extends Command<SongList> {
 
             AsciiCommand asciiCommand = new AsciiCommand("ascii bar " + Integer.toString(barSize));
             String result = asciiCommand.execute(songList, ui, storage);
-            return result;
+            return ui.formatView(result);
         }
     }
 

@@ -97,7 +97,7 @@ public class AsciiCommand extends Command<SongList> {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DucatsException(message, "AsciiCommand");
         }
-        return result;
+        return ui.formatAscii(result);
 
     }
 
