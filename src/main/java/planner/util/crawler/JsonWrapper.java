@@ -23,7 +23,6 @@ import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.TaskList;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleInfoSummary;
 import planner.logic.modules.module.ModuleTask;
 import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
@@ -60,13 +59,6 @@ public class JsonWrapper {
     }
 
     /**
-     * For each data set, request for nusMods API.
-     */
-    public void runRequests(Storage store) throws ModBadRequestStatus {
-        storeJson(Requests.DETAILED, store);
-    }
-
-    /**
      * Updating detailed module list file in data folder.
      * @param academicYear Academic Year input by user.
      * @param store Storage object to write files.
@@ -78,70 +70,6 @@ public class JsonWrapper {
             return;
         }
         requestsData.storeModData(requestsData.requestModuleListDetailed(academicYear), store);
-    }
-
-    private void storeJson(Requests type, Storage store) throws ModBadRequestStatus {
-        switch (type) {
-            case SUMMARY: {
-                store.setDataPath(Paths.get(listFile));
-                if (store.getDataPathExists()) {
-                    break;
-                }
-                requestsData.storeModData(requestsData.requestModuleList(academicYear), store);
-                break;
-            }
-            case DETAILED: {
-                store.setDataPath(Paths.get(listDetailedFile));
-                if (store.getDataPathExists()) {
-                    break;
-                }
-                requestsData.storeModData(requestsData.requestModuleListDetailed(academicYear), store);
-                break;
-            }
-            default: {
-                throw new ModBadRequestStatus();
-            }
-        }
-    }
-
-
-    /**
-     * Reads the Json file for to be parsed into a java object. Since the data is
-     * presented in a JSON array, our class object class would need to be wrapped
-     * in an array as well.
-     * @return List of ModuleInfoSummary Objects, null if it fails to parse.
-     */
-    private List<ModuleInfoSummary> getModuleListObject() {
-        try {
-            JsonReader reader = new JsonReader(new FileReader(listFile));
-            Type listType = new TypeToken<List<ModuleInfoSummary>>(){}.getType();
-            return gson.fromJson(reader, listType);
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-            PlannerLogger.log(e);
-        } catch (IOException ei) {
-            System.out.println(Arrays.toString(ei.getStackTrace()));
-            PlannerLogger.log(ei);
-        }
-        return null;
-    }
-
-    /**
-     * Main helper function to obtained HashMap of summary info from modsListData.json.
-     * @return HashMap with module code as the key and ModuleInfoSummary object as the value.
-     * @throws ModFailedJsonException If the previous call to getModuleListObject() returns null.
-     */
-    public HashMap<String, ModuleInfoSummary> getModuleSummaryMap() throws ModFailedJsonException {
-        List<ModuleInfoSummary> modsList = getModuleListObject();
-        if (modsList == null) {
-            throw new ModFailedJsonException();
-        }
-        HashMap<String, ModuleInfoSummary> ret = new HashMap<>();
-        for (ModuleInfoSummary temp : modsList) {
-            String modCode = temp.getModuleCode();
-            ret.put(modCode, temp);
-        }
-        return ret;
     }
 
     /**
