@@ -40,12 +40,12 @@ public class AddBookingCommand extends Command {
      */
     public AddBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (!input.contains("/from") || !input.contains("/at") || !input.contains("/to")) {
-            throw new DukeException(":-( " + BookingConstants.DATETIMEERROR);
+            throw new DukeException(BookingConstants.DATETIMEERROR);
         }
         String temp = input.substring(3).trim(); // name description /at roomcode /from dd/mm/yyyy hhmm /to hhmm
         splitC = temp.split("/at", 2); //splitC[] = {name, description, roomcode, dd/mm/yyyy hhmm /to hhmm)
         if (splitC.length < 2) {
-            throw new DukeException(":-( " + BookingConstants.DATETIMEERROR);
+            throw new DukeException(BookingConstants.DATETIMEERROR);
         }
         splitE = splitC[0].split(" ", 2);
         this.name = splitE[0].trim();
