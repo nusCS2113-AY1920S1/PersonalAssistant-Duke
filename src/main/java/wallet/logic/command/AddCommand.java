@@ -88,7 +88,6 @@ public class AddCommand extends Command {
                             + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                 }
             }
-            wallet.getRecordList().addRecord(expense);
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             Ui.printExpense(expense);
@@ -103,7 +102,6 @@ public class AddCommand extends Command {
         //@@author A0171206R
         if (loan != null) {
             wallet.getLoanList().addLoan(loan);
-            wallet.getRecordList().addRecord(loan);
             wallet.getLoanList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
             Ui.printLoanTableHeaders();

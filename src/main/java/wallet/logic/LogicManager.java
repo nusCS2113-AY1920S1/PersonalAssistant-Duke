@@ -14,7 +14,6 @@ import wallet.model.help.Help;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
-import wallet.model.record.RecordList;
 import wallet.reminder.Reminder;
 import wallet.storage.CurrencyStorage;
 import wallet.storage.HelpStorage;
@@ -50,7 +49,6 @@ public class LogicManager {
         this.storageManager = new StorageManager();
         this.wallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),
                 new BudgetList(storageManager.loadBudget()),
-                new RecordList(),
                 new ExpenseList(storageManager.loadExpense()),
                 new ContactList(storageManager.loadContact()),
                 new LoanList(storageManager.loadLoan()),
@@ -75,7 +73,6 @@ public class LogicManager {
 
         Wallet newWallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),
                 new BudgetList(newStorageManager.loadBudget()),
-                new RecordList(),
                 new ExpenseList(newStorageManager.loadExpense()),
                 new ContactList(newStorageManager.loadContact()),
                 new LoanList(newStorageManager.loadLoan()),
@@ -166,10 +163,6 @@ public class LogicManager {
 
     public static void setWalletList(WalletList walletList1) {
         walletList = walletList1;
-    }
-
-    public static StorageManager getStorageManager() {
-        return storageManager;
     }
 
     /**

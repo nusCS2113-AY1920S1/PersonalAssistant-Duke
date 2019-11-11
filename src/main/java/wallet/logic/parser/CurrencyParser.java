@@ -4,8 +4,6 @@ package wallet.logic.parser;
 
 import wallet.logic.command.CurrencyCommand;
 
-import java.text.ParseException;
-
 public class CurrencyParser implements Parser<CurrencyCommand> {
 
     @Override

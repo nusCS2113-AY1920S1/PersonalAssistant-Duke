@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class CurrencyList {
     private ArrayList<Currency> currencyList;
     private Currency currentCurrency;
-    private boolean isModified = false;
 
     public CurrencyList() {
         this.currencyList = new ArrayList<>();
@@ -53,18 +52,5 @@ public class CurrencyList {
         return this.currentCurrency = currentCurrency;
     }
 
-    /**
-     * Returns true if list is modified, else false.
-     */
-    public boolean getIsModified() {
-        return isModified;
-    }
-
-    /**
-     * Sets status of whether list is modified.
-     */
-    public void setModified(boolean modified) {
-        isModified = modified;
-    }
 
 }

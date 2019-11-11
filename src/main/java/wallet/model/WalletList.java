@@ -18,10 +18,6 @@ public class WalletList {
         return this.walletList;
     }
 
-    public void setWalletList(ArrayList<Wallet> walletList) {
-        this.walletList = walletList;
-    }
-
     public void setState(int state) {
         this.state = state;
     }

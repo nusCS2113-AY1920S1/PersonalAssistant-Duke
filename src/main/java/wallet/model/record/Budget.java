@@ -70,15 +70,6 @@ public class Budget {
     }
 
     /**
-     * Sets the year of the budget.
-     *
-     * @param year The year of budget.
-     */
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    /**
      * Gets the boolean value of whether the budget has taken existing expenses into account.
      * @return boolean value of existing budget with existing expenses
      */
