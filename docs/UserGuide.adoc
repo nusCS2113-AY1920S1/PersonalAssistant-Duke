@@ -112,9 +112,8 @@ e.g `find defence`
 
 ****
 * The search is case sensitive. e.g `banner` will not match `Banner`
-* If multiple words in [KEYWORD], the length of the space matters. e.g `read    book` will not match `read book`
+* If multiple words in [KEYWORD], the length of the space matters. e.g `read[space][space]book` will not match `read[space]book`
 * Search for both name and description
-* Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Banner` will return `Complete Banner`, `Brainstorm Banner`
 ****
 
 
