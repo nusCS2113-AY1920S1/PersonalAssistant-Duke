@@ -9,10 +9,7 @@ import leduc.task.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Represents a leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
@@ -41,6 +38,7 @@ public class Storage {
             catch( IOException e1){
                 e1.printStackTrace();
             }
+
         }
         this.configFile = new File(configFile);
         try {
@@ -78,6 +76,23 @@ public class Storage {
             }
             catch( IOException e1){
                 e1.printStackTrace();
+            }
+            // Create initialized file
+            FileWriter fileWriter = null;
+            String welcomeMessage ="\tHello I'm Duke\n\tWhat can I do for you ?";
+            try {
+                fileWriter = new FileWriter(this.welcomeFile);
+                try {
+                    //removes the first word of the user input
+                    fileWriter.write(welcomeMessage);
+                }
+                finally{
+                    fileWriter.close();
+                }
+            }
+            catch (IOException exception) {
+                exception.printStackTrace();
+                throw new FileException();
             }
         }
     }
