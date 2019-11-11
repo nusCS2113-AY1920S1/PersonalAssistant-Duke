@@ -133,6 +133,29 @@ public class Theatre {
     }
 
     /**
+     * function to reset the status of a seat (change it to available when a seat is removed).
+     *
+     * @param row desired seat row
+     * @param col desired seat column
+     */
+    public void resetSeat(int row, int col) {
+        seats[row][col].setSold(false);
+        switch (seats[row][col].getSeatTier()) {
+            case "1":
+                tierOneSeats++;
+                break;
+            case "2":
+                tierTwoSeats++;
+                break;
+            case "3":
+                tierThreeSeats++;
+                break;
+            default:
+                System.out.println("Should have a Seat Tier!");
+        }
+    }
+
+    /**
      * Get the seating arrangement of the Theatre.
      *
      * @return seating arrangement as a String.
@@ -306,31 +329,145 @@ public class Theatre {
         int col = getCol(seatToRemove.substring(1));
         double seatPrice = 0;
 
-        if (row == -1 || col == -1) {
-            return seatPrice;
-        } else if (!seats[row][col].isSold()) {
+        if (row == -1 || col == -1) { //if seat number is invalid
+            seatPrice = -1;
+        } else if (!seats[row][col].isSold()) { //if the seat is not sold yet
             seatPrice = 0;
-            return seatPrice;
+        } else {
+            double currRevenue = show.getProfit();
+            seatPrice = seats[row][col].getSeatPrice(seatBasePrice);
+            show.setProfit(currRevenue - seatPrice);
+            this.resetSeat(row, col);
         }
-        double currRevenue = show.getProfit();
-        seatPrice = seats[row][col].getSeatPrice(seatBasePrice);
-        seats[row][col].setSold(false);
-        show.setProfit(currRevenue - seatPrice);
-
-        switch (seats[row][col].getSeatTier()) {
-        case "1":
-            tierOneSeats++;
-            break;
-        case "2":
-            tierTwoSeats++;
-            break;
-        case "3":
-            tierThreeSeats++;
-            break;
-        default:
-        }
-
         return seatPrice;
+    }
+
+    /**
+     * Remove seats for customers. Used when customer wants to remove multiple seats.
+     *
+     * @param seats String array of seats to be removed
+     * @return Message detailing status of the removal
+     */
+    public String removeSeat(String... seatsToRemove) {
+        double totalRefund = 0;
+        ArrayList<String> seatsRemoved = new ArrayList<>();
+        ArrayList<String> seatsEmpty = new ArrayList<>();
+        ArrayList<String> seatsNotExist = new ArrayList<>();
+        StringBuilder message = new StringBuilder();
+        for (String seatNumber : seatsToRemove) {
+            double costOfSeat = removeSeat(seatNumber);
+
+            if (costOfSeat > 0) {
+                totalRefund += costOfSeat;
+                seatsRemoved.add(seatNumber);
+            } else if (costOfSeat == 0) {
+                seatsEmpty.add(seatNumber);
+            } else {
+                seatsNotExist.add(seatNumber);
+            }
+        }
+
+        if (seatsRemoved.isEmpty()) { //all seats are not yet sold or does not exist
+            if (!seatsEmpty.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! All of the seats %s are not yet sold.\n", seatsEmpty));
+            }
+            if (!seatsNotExist.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! All of the seats %s do not exist.\n", seatsNotExist));
+            }
+        } else if (seatsEmpty.isEmpty() && seatsNotExist.isEmpty()) { //all seats are valid
+            message.append("You have successfully removed the following seats: \n"
+                    + seatsRemoved + "\n"
+                    + String.format(MESSAGE_TICKET_COST, totalRefund));
+        } else { //combination of all
+            message.append("You have successfully removed the following seats: \n"
+                    + seatsRemoved + "\n"
+                    + String.format(MESSAGE_TICKET_COST, totalRefund));
+            if (!seatsEmpty.isEmpty()) {
+                message.append("The following seats are not yet sold: \n"
+                        + seatsEmpty + "\n");
+            }
+            if (!seatsNotExist.isEmpty()) {
+                message.append("The following seats do not exist: \n"
+                        + seatsNotExist + "\n");
+            }
+        }
+        return message.toString();
+    }
+
+    /**
+     * Refunds a seat booking from the theatre.
+     *
+     * @param seatToRemove The seat to be refunded
+     * @return The amount of money refunded for the seat
+     */
+    public double refundSeat(String seatToRefund) {
+        int row = getRow(seatToRefund.substring(0, 1));
+        int col = getCol(seatToRefund.substring(1));
+        double seatPrice = 0;
+
+        if (row == -1 || col == -1) { //if seat number is invalid
+            seatPrice = -1;
+        } else if (!seats[row][col].isSold()) { //if the seat is not sold yet
+            seatPrice = 0;
+        } else {
+            double currRevenue = show.getProfit();
+            seatPrice = seats[row][col].getSeatPrice(seatBasePrice) * 0.5;
+            show.setProfit(currRevenue - seatPrice);
+            this.resetSeat(row, col);
+        }
+        return seatPrice;
+    }
+
+    /**
+     * Refund seats for customers. Used when customer wants to refund multiple seats.
+     *
+     * @param seats String array of seats to be refunded
+     * @return Message detailing status of the refund
+     */
+    public String refundSeat(String... seatsToRefund) {
+        double totalRefund = 0;
+        ArrayList<String> seatsRefunded = new ArrayList<>();
+        ArrayList<String> seatsEmpty = new ArrayList<>();
+        ArrayList<String> seatsNotExist = new ArrayList<>();
+        StringBuilder message = new StringBuilder();
+        for (String seatNumber : seatsToRefund) {
+            double costOfSeat = refundSeat(seatNumber);
+
+            if (costOfSeat > 0) {
+                totalRefund += costOfSeat;
+                seatsRefunded.add(seatNumber);
+            } else if (costOfSeat == 0) {
+                seatsEmpty.add(seatNumber);
+            } else {
+                seatsNotExist.add(seatNumber);
+            }
+        }
+
+        if (seatsRefunded.isEmpty()) { //all seats are not yet sold or does not exist
+            if (!seatsEmpty.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! All of the seats %s are not yet sold.\n", seatsEmpty));
+            }
+            if (!seatsNotExist.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! All of the seats %s do not exist.\n", seatsNotExist));
+            }
+        } else if (seatsEmpty.isEmpty() && seatsNotExist.isEmpty()) { //all seats are valid
+            message.append("You have successfully refunded the following seats: \n"
+                    + seatsRefunded + "\n"
+                    + String.format(MESSAGE_TICKET_COST, totalRefund));
+        } else { //combination of all
+            message.append("You have successfully refunded the following seats: \n"
+                    + seatsRefunded + "\n"
+                    + String.format(MESSAGE_TICKET_COST, totalRefund));
+            if (!seatsEmpty.isEmpty()) {
+                message.append("The following seats are not yet sold: \n"
+                        + seatsEmpty + "\n");
+            }
+            if (!seatsNotExist.isEmpty()) {
+                message.append("The following seats do not exist: \n"
+                        + seatsNotExist + "\n");
+            }
+        }
+        return message.toString();
     }
 
     private int getRow(String row) {

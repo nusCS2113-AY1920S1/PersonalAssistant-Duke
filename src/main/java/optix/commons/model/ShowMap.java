@@ -160,6 +160,14 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         return this.get(showLocalDate).reassignSeat(oldSeat, newSeat);
     }
 
+    public String removeSeats(LocalDate localDate, String... seats) {
+        return this.get(localDate).removeSeat(seats);
+    }
+
+    public String refundSeats(LocalDate localDate, String... seats) {
+        return this.get(localDate).refundSeat(seats);
+    }
+
     public double getProfit(LocalDate localDate) {
         return this.get(localDate).getProfit();
     }

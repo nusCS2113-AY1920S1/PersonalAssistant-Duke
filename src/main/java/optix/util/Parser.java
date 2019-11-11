@@ -10,6 +10,8 @@ import optix.commands.parser.ListAliasCommand;
 import optix.commands.parser.RemoveAliasCommand;
 import optix.commands.parser.ResetAliasCommand;
 import optix.commands.seats.ReassignSeatCommand;
+import optix.commands.seats.RefundSeatCommand;
+import optix.commands.seats.RemoveSeatCommand;
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
@@ -133,6 +135,10 @@ public class Parser {
                 return new RemoveAliasCommand(splitStr[1], commandAliasMap);
             case "reassign-seat":
                 return new ReassignSeatCommand(splitStr[1]);
+            case "remove-seat":
+                return new RemoveSeatCommand(splitStr[1]);
+            case "refund-seat":
+                return new RefundSeatCommand(splitStr[1]);
             default:
                 OPTIXLOGGER.log(Level.WARNING, "Error with command: " + commandName);
                 throw new OptixInvalidCommandException();
