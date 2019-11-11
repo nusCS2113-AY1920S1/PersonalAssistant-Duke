@@ -100,7 +100,7 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
             if (!ParserUtil.isValidInteger(args[stockIndex + 1])) {
-                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                throw new ParserException(ParserErrorMessage.INVALID_INTEGER);
             }
             tempFood.setStock(Integer.parseInt(args[stockIndex + 1]));
         }

@@ -2,6 +2,7 @@
  * CubeApp.java
  * the Entry Point for the Graphical User Interface (GUI).
  */
+
 package cube;
 
 import cube.exception.CubeException;

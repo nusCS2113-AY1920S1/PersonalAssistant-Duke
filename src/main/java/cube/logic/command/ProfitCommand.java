@@ -163,8 +163,8 @@ public class ProfitCommand extends Command {
 
         String pattern = "MM/dd/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
-        String dateI_str = df.format(dateI);
-        String dateF_str = df.format(dateF);
+        String dateIStr = df.format(dateI);
+        String dateFStr = df.format(dateF);
 
         switch (param) {
             case ALL:
@@ -181,7 +181,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit,
-                        toGenerateRevenue, dateI_str, dateF_str));
+                        toGenerateRevenue, dateIStr, dateFStr));
 
             case INDEX:
                 //generating the profits and revenue for the food with given index in the list, in the given period
@@ -205,7 +205,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
-                        toGenerateRevenue, dateI_str, dateF_str));
+                        toGenerateRevenue, dateIStr, dateFStr));
 
             case NAME:
                 //generating the profits and revenue for the food with given food name, in the given period
@@ -227,7 +227,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
-                        toGenerateRevenue, dateI_str, dateF_str));
+                        toGenerateRevenue, dateIStr, dateFStr));
 
             case TYPE:
                 //generating the profits and revenue for the food with given food type, in the given period
@@ -266,7 +266,7 @@ public class ProfitCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, toGenerateProfit,
-                        toGenerateRevenue, count, dateI_str, dateF_str));
+                        toGenerateRevenue, count, dateIStr, dateFStr));
             default:
                 return null;
         }

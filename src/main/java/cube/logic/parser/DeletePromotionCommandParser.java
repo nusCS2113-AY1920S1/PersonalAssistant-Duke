@@ -36,7 +36,7 @@ public class DeletePromotionCommandParser implements ParserPrototype<DeletePromo
         }
 
         if (!ParserUtil.isValidInteger(args[2])) {
-            throw new ParserException((ParserErrorMessage.INVALID_NUMBER));
+            throw new ParserException((ParserErrorMessage.INVALID_INTEGER));
         }
         return new DeletePromotionCommand(Integer.parseInt(args[2]), "INDEX");
     }

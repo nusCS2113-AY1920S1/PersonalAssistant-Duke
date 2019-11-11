@@ -52,7 +52,7 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 			throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
 		}
 		if (!ParserUtil.isValidInteger(args[quantityIndex + 1])) {
-			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+			throw new ParserException(ParserErrorMessage.INVALID_INTEGER);
 		}
 		if (dateIndex == -1) {
 			return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex + 1]), new Date());

@@ -17,8 +17,10 @@ import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
 import cube.exception.CubeException;
 
-import java.util.logging.*;
 import cube.util.LogUtil;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Entry Point for the Command Line Interface (CLI).
