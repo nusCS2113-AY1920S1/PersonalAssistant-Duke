@@ -45,7 +45,6 @@ public class MainDisplayCommand extends Command {
         DetectOsCommand getOS = new DetectOsCommand();
         //String output = "";
         int t = 0; // Default Value 0 for mac
-
         //if (getOS.osName.contains("mac")) {
         //System.out.println("MainDisplay on Linux -> Color available");
         //} else
