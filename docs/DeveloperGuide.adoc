@@ -18,7 +18,7 @@ By: `AY1920S1-CS2113T-T14-3`      Since: `Aug 2019`
 
 == Setting up
 
-== Prerequisites
+=== Prerequisites
 
 . *JDK `11`* or above
 . *IntelliJ* IDE
@@ -27,7 +27,7 @@ By: `AY1920S1-CS2113T-T14-3`      Since: `Aug 2019`
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-== Setting up the project in your computer
+=== Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -41,14 +41,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
-== Verifying the setup
+=== Verifying the setup
 
 . Run the `Launcher` class and try a few commands
 . Run the tests under `src/test` to ensure they all pass. To run all tests, right-click on the `test` folder and select `Run 'All Tests'`.
 
-== Configurations to do before writing code
+=== Configurations to do before writing code
 
-=== Configuring the coding style
+==== Configuring the coding style
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
@@ -59,7 +59,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
-=== Updating documentation to match your fork
+==== Updating documentation to match your fork
 
 After forking the repo, the documentation will still have the `AY1920S1-CS2113-T14-3` branding and refer to the `AY1920S1-CS2113-T14-3/main` repo.
 
@@ -69,7 +69,7 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 . Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
-=== Setting up CI
+==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork.
 
@@ -83,7 +83,7 @@ Optionally, you can set up AppVeyor as a second CI.
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-=== Getting started with coding
+==== Getting started with coding
 
 When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, WordUp's architecture>>.
 
