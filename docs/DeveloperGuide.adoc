@@ -210,9 +210,11 @@ all the nodes after current node will be dropped, and the new version of the Und
 and you cannot visit the previous branch of nodes anymore.
 
 ==== Overlay
-For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
+For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar , bar-group, group - group. See Figure 1.4 for an example.
 
-image::overlay_demo.png[]
+image::overlay_1_2.png[]
+Figure 1.4 - Example of `overlay 1 2`
+
 
 `overlay`: 
 
@@ -262,10 +264,11 @@ We repeat this process till the end of the array list.
 
 If there is no repeat function, then we just get the bar to be overlayed from the array and call the combiner's `combineBar` function. 
 
-After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function: 
+After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function (Figure 1.5): 
 
 
 image::overlaysequencediagram.png[]
+Figure 1.5 - `overlay` command sequence diagram
 
 ==== overlay_bar_song
 
@@ -297,10 +300,11 @@ If there isnt a repeat parameter,then we just get the bar to be overlayed from t
 
 After which, we call the updatefile function of storage to store the new song and then return the string from the execute function of ascii to properly display the new song to the user through the UI. 
 
-Below is the action sequence diagram: 
+Below is the action sequence diagram (Figure 1.6): 
 
 
 image::overlay_bar_song_actionsequence.png[]
+Figure 1.6 - `overlay_bar_song` action sequence diagram
 
 ==== overlay_group_group
 
@@ -334,9 +338,93 @@ Allows the users to overlay a  bar onto a group from the same song. It works in 
 The group number can be obtained from the `list_group` function. 
 
 
-==== Group and Copy
+==== Group
+
+In music, there is often repetition of tunes. This command allows the users to group continuous bars together on the current track give a name to it. This group is then stored under that song. 
+
+
+image::image_1_sam.jpeg[]
+
+
+`group`:
+`group START_NUM END_NUM GROUP_NAME`
+
+How to go about it?
+
+The `group` command gets the command from the Parser and stores it in its private variable message.
+
+When the execute method of GroupCommand is invoked, it will first check if the message is valid by checking if it is a group command. Then, it takes the user input after the word "group" and splits it by spaces. It then gets the starting and ending indices of the group by parsing them into integers. The third parameter will be taken as the name of the group. With these information, first the createGroup method is called.
+
+    createGroup(songList, startNo, endNo, name);
+
+The createGroup method will check if the group name already exists or if there are no songs in the user's songlist. If there are songs in the songlist and the group name requested by the user does not exist, then it will proceed to do a final verifcation by calling the verifyAndCreateGroup method.
+   
+    verifyAndCreateGroup(song, name, start, end);
+
+This checks if both the start and end indices indicated by the user falls within the range of the song indices of the current track. If it does, it will create the group and pass this group to createGroup method. This method then adds the group to the song using:
+
+    song.getGroups().add(group);
+
+Finally, a message is printed to the user saying that the group has been successfully added to the song by using the formatGroupBar method in the Ui class as follows:
+
+    ui.formatGroupBar(startNo, endNo, name);
+
+Here's the sequence diagram for the GroupCommand class:
+
+    
+image::image_2_sam.jpeg[]
+
+==== Copy
+
+This command allows users to copy the group to the end of the current song track:
+`copy GROUP_NAME`
+
+This command allows users to copy a range of continuous bars (inclusive) to the end of the current track. Note that in particular, to copy just one bar to the end of the track, simply put the same numbers for starting and ending index.
+`copy START_INDEX END_INDEX`
+
+This command will copy a group and paste it into a specified index. All bars starting from that index will be pushed forward to make space for this group. Note that paste index cannot exceed the last index of the current track.
+`copy GROUP_NAME PASTE_INDEX`
+
+This command allows users to copy a continuous series of bars from the starting index to the ending index specified and paste it into the specified PASTE_INDEX. Note that users cannot paste index cannot exceed the last index of the current track. All the bars starting from the bar at the PASTE_INDEX will be pushed forward to make space for the copied bars.
+`copy START_INDEX END_INDEX PASTE_INDEX`
+
+When the execute method of the CopyCommand is invoked, it first substrings it to remove the "group " part and then it splits the remaining message by spaces.
+
+If the length of the resulting message is only 1, it is understood that the user wants to copy a group to the end of the current music track. Hence, the copyVerseToEnd method is called. Verse and group mean the same thing.
+
+    copyVerseToEnd(verseName);
+
+This method copies the bars in the group (if it exists) to the end of the current music track.
+
+If the length of the resulting message is two, it could mean two things. The user wants to copy a range of bars to the end of he wants to copy a group to a particular index in the music track. If two numbers are the input, it will be understood that the user wants to copy a range of bars. Hence the copyBarsToEnd method will be called.
+
+    copyBarsToEnd(startNum, endNum);
+
+This method simply copies all the bars in the input range (if the range is valid) to the end of the current music track.
+
+Where as, if the first input is a String, it will be understood that the user wants to copy a group to a particular index of the music track. Hence the insertVerse method is called.
+
+    insertVerse(verseName, startNum);
+
+This method will insert the bars in that said group into that particular index and push forward all the original bars starting from that index. 
+
+Also, if the user is found to have input 3 parameters and all of them are integers, it will be known that the user wants to copy a range of bars and insert into a particular index. Hence the insertCopiedBars method will be called.
+
+    insertCopiedBars(copyStartNum, copyEndNum, pasteStartNum);
+
+This method will check if all the input parameters are indices within the range of the current music track. If they are, it will proceed to insert those copied bars into the music track.
+
+
+Here's the sequence diagram for copy command
+
+
+image::image_3_sam.jpeg[]
+
 
 === Display
+
+
+
 
 === Metronome
 
@@ -354,10 +442,10 @@ Following this, the `TimerTask` of generating the appropriate output to the cons
 
 === Autosuggest
 
-This feature was built to ensure that the system can autocorrect for minor mistakes while typing the commands such as helo instead of help. There is no need to call a command to get the closest command but rather it will automatically try to understand the command that is being typed. 
+This feature was built to ensure that the system can autocorrect for minor mistakes while typing the commands such as helo instead of help. There is no need to call a command to get the closest command but rather it will automatically try to understand the command that is being typed. (FIgure 1.1) 
 
 image::autosuggest.png[]
-
+Figure 1.1 - Example of Autocorrect working 
 
 The feature works on the basis of the Jaccard theorem that finds the intersection between the 2 words and divides it by the union of the 2 words and hence gets the word with the highest ratio and is above a threshold as to account for random inputs. The intersection function is a custom function and uses hashmaps to keep count of the number of common alphabets between the 2 commands. Hahsmaps were choosen to help increase the efficiency. 
 
@@ -419,17 +507,23 @@ We have decided to use a storage directory that contains `.txt` files, each cont
 
 === Logging
 
+This feature allows our app to constantly log important information that the user inputs to better understand the user behavior in our application. Logging also helps us identify command pathways in the app that lead to unexpected bugs and we can remedy them without asking the user to repeat their actions. Furthermore, in the future, we can train our AI depending on how the amateur musicians learn and to give them a better learning experience. 
+
+
+
 == Adding a New Function
 
-When creating a new command for Ducats, one must first create a class separately for this command. This class must extend the abstract class Command.  One must also implement the method execute which is in charge of executing the command depending on the user’s input. Furthermore, the parser class must be changed to include the command, by editing the switch case. It should also be included in the Ducats class’s run method. It can be included by using c instance of <Class Name> .If the undo-redo function is not applicable to the implemented command, then it must be included the nested if statement in the code (Refer to Fig 1.3) . Furthermore the command must be included in the  WordGetter class’s commandList array of String (Fig 1.4 for more details).
+When creating a new command for Ducats, one must first create a class separately for this command. This class must extend the abstract class Command.  One must also implement the method execute which is in charge of executing the command depending on the user’s input. Furthermore, the parser class must be changed to include the command, by editing the switch case. It should also be included in the Ducats class’s run method. It can be included by using c instance of <Class Name> .If the undo-redo function is not applicable to the implemented command, then it must be included the nested if statement in the code (Refer to Figure 1.3) . Furthermore the command must be included in the  WordGetter class’s commandList array of String (Figure 1.4 for more details).
 
 
 image::adding_new_functionality_1.png[1.3]
+Figure 1.3 - Nested if statement in the Parser class. 
 
 image::adding_new_functionality_2.png[1.4]
-
+Figure 1.4 - `Commandlist` in `WordGetter class`
 
 == Testing
+We have used Junit Testing for our application and have done extensive testing on each feature. We have tried to be as broad in our test cases and used `jacoco` as way to test the extensiveness of our tests. We have achieved an overall extensiveness for our commands to be 78%. We will continue to increase this in the upcoming versions. 
 
 [appendix]
 == Product Scope
