@@ -2,7 +2,13 @@ package seedu.hustler;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.hustler.data.*;
+import seedu.hustler.data.ShopStorage;
+import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.data.TaskStorage;
+import seedu.hustler.data.AchievementStorage;
+import seedu.hustler.data.CommandLog;
+import seedu.hustler.data.Folder;
+import seedu.hustler.data.MemoryManager;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
