@@ -1,11 +1,15 @@
 package command;
 
 import degree.DegreeManager;
+import javafx.HelpFX;
 import ui.UI;
 import task.TaskList;
 import list.DegreeList;
 import storage.Storage;
 import exception.DukeException;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * PrintCommand Class extends the abstract Command class.
@@ -44,14 +48,29 @@ public class PrintCommand extends Command {
         if(this.command.matches("tasks")) {
             tasks.print();
         }
-        if(this.command.matches("choices")) {
+        else if(this.command.matches("choices")) {
             lists.print();
         }
-        if(this.command.matches("detail")) {
+        else if(this.command.matches("detail")) {
             degreesManager.print(input);
         }
-        if(this.command.matches("compare")){
+        else if(this.command.matches("compare")) {
             degreesManager.compare(input);
+        }
+        else if(this.command.matches("keywords")){
+            System.out.println("<Keyword> : <Alias>, <Alias> ...");
+            Map<String, List<String>> aliases = degreesManager.getKeywords();
+            for(Map.Entry<String, List<String>> entry: aliases.entrySet()) {
+                String key = entry.getKey();
+                List<String> commonAliases = entry.getValue();
+                StringBuilder myAliases = new StringBuilder();
+                for(String name: commonAliases) {
+                    if(!name.equalsIgnoreCase(key))
+                        myAliases.append(name).append(", ");
+                }
+                myAliases.setLength(myAliases.length() - 2);
+                System.out.println(key + ": " + myAliases.toString());
+            }
         }
     }
 }

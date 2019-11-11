@@ -1,6 +1,6 @@
 # DEGREES.NUS
 
-An application developed in Java for prospective applicants to NUS Faculty of Engineering, who prefer to use a desktop application in order to research on degrees offered by NUS' Faculty of Engineering and pertaining information. 
+An application developed in Java for prospective applicants to the NUS Faculty of Engineering, who prefer to use a desktop application in order to research on degrees and courses offered by the NUS Faculty of Engineering. 
 
 ## Features
 * Scrapes course information from the NUS database
@@ -8,6 +8,9 @@ An application developed in Java for prospective applicants to NUS Faculty of En
 * Display course information and module information
 * Accepts commands for input
 * Task manager to organise faculty events
+* Compares degrees and modules offered
+* Display employment statistics of recent graduates
+* Display recent cohort sizes of each degree 
 
 
 ## Technologies Used
@@ -29,13 +32,15 @@ For a quick guide to modifying gradle for this project, refer to [this guide](do
 
 ## Status
 
-Currently, this project only contains a task manager. We are currently in the process of designing a UI that best displays the course information and adding functions to manage the course data.
+Currently, this project only has support for 9 degrees in the NUS Faculty of Engineering. We plan to expand and eventually include all degrees and courses available in NUS, and maybe even include other Universities in Singapore. We also plan to add automatic scrapping of course and module information from the NUS database to reduce the workload on the development team and to ensure that the course information is always up-to-date.
 
-## UI Mock-ups
+## UI Screenshots
 
 ![UI](docs/images/Ui.png)
 
-![UI help](docs/images/UIhelp.png)
+![UI compare](docs/images/compareExample.jpeg)
+
+![UI detail](docs/images/detailExample.jpeg)
 
 ## Contributers
 

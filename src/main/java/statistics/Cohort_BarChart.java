@@ -12,12 +12,26 @@ import org.jfree.ui.RefineryUtilities;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * This class produces a BarChart to show the number of students in Year 1 for each degree for the years 2016-2018
+ *
+ */
+
 public class Cohort_BarChart extends JFrame {
     ArrayList<CohortStats> cohortStats = CohortSize.getCohortStats();
     ArrayList<Integer> Male = new ArrayList<>();
     ArrayList<Integer> Female = new ArrayList<>();
     ArrayList<Integer> Total = new ArrayList<>();
     String degree;
+
+    /**
+     * Creates a new instance of the Cohort_BarChart and sets the String degree declared earlier to input
+     *
+     * @param applicationTitle  the frame title.
+     * @param chartTitle the title displayed just above the bar chart
+     * @param input the degree inputted by the user
+     *
+     */
 
     public Cohort_BarChart(String applicationTitle, String chartTitle, String input) {
         super(applicationTitle);
@@ -34,6 +48,13 @@ public class Cohort_BarChart extends JFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
         setContentPane(chartPanel);
     }
+
+    /**
+     * Creates a dataset containing student statistics for the years 2016-2018 if the degree matches the user input
+     * ArrayLists named Male, Female and Total are populated with the corresponding values
+     *
+     * @return  The dataset.
+     */
 
     private CategoryDataset createDataset() {
         final String label = degree;
@@ -54,17 +75,18 @@ public class Cohort_BarChart extends JFrame {
                 Total.add(cohortStats.get(i).getD());
             }
         }
-        dataset.addValue(Male.get(0), male, year_2018);
+        dataset.addValue(Male.get(0), male, year_2016);
         dataset.addValue(Male.get(1), male, year_2017);
-        dataset.addValue(Male.get(2), male, year_2016);
+        dataset.addValue(Male.get(2), male, year_2018);
 
-        dataset.addValue(Female.get(0), female, year_2018);
+        dataset.addValue(Female.get(0), female, year_2016);
         dataset.addValue(Female.get(1), female, year_2017);
-        dataset.addValue(Female.get(2), female, year_2016);
+        dataset.addValue(Female.get(2), female, year_2018);
 
-        dataset.addValue(Total.get(0), total, year_2018);
+        dataset.addValue(Total.get(0), total, year_2016);
         dataset.addValue(Total.get(1), total, year_2017);
-        dataset.addValue(Total.get(2), total, year_2016);
+        dataset.addValue(Total.get(2), total, year_2018);
+
         return dataset;
     }
 }

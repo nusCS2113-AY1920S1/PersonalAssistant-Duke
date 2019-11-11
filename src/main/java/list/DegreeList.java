@@ -69,6 +69,12 @@ public class DegreeList implements Serializable, Cloneable {
         list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
     }
 
+    /**
+     * Method to check for duplicates in the list to prevent same degree from being added multiple times
+     * @param input the degree inputted by the user
+     * @return 0 or 1. If the list already contains the degree, the flag is set to 1. Else, it remains 0.
+     * @throws DukeException
+     */
     private int check_for_duplicates(String input) throws DukeException {
         int flag = 0;
         if (list.contains(input)){
@@ -163,12 +169,12 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree as specified by the user.
      * @throws DukeException The degree does not exist?
      */
-    public void add_custom(String input, Storage storage) throws DukeException {
+    public void add_custom(String input) throws DukeException {
         String fullDegreeName = Parser.degreeFullNameMap.get(input.toLowerCase());
         int flag = check_for_duplicates(fullDegreeName);
         if(flag == 0) {
             list.add(fullDegreeName);
-            System.out.print("Added " + input + " (also known as " + fullDegreeName + ") to your choice of degrees.\n\n");
+            System.out.print("Added "  + fullDegreeName + " to your choice of degrees.\n\n");
         }
 
         else {
@@ -184,12 +190,12 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree to be deleted
      * @throws DukeException Throws an error if the degree does not exist.
      */
-    public void delete(String input, DegreeListStorage dd) throws DukeException{
+    public void delete(String input) throws DukeException{
         try {
             int request = Integer.parseInt(input);
             request -= 1;
             if (isOutOfRange(request)) {
-                throw new DukeException("The index was not found within range");
+                throw new DukeException("The index was not found within range.");
             } else {
                 String imp = conversion(request);
                 System.out.println("Noted. I've removed this degree:\n"
@@ -202,7 +208,7 @@ public class DegreeList implements Serializable, Cloneable {
         } catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new DukeException("That is NOT a valid integer");
+            throw new DukeException("That is NOT a valid integer!");
         }
     }
 
@@ -211,7 +217,7 @@ public class DegreeList implements Serializable, Cloneable {
      */
     public void print() {
         if (list.size() == 0) {
-            System.out.println("Whoops, there doesn't seem to be anything here at the moment");
+            System.out.println("Whoops, there doesn't seem to be anything here at the moment!");
         } else {
             System.out.println("Here are your degree choices:");
             for(int i = 0; i < list.size(); i++) {
@@ -225,16 +231,16 @@ public class DegreeList implements Serializable, Cloneable {
      * The user can input 2 indices to rank 2 degrees based on his order of preference.
      *
      * @param input
-     * @param dd DegreeList Storage makes changes in the text file
      * @throws DukeException
      */
-    public void swap(String input, DegreeListStorage dd) throws DukeException {
+    public void swap(String input) throws DukeException {
         String[] split = input.split(" ");
         if(split.length < 2) {
-            throw new DukeException("Please mention both the indices to swap the degrees");
+            throw new DukeException("Please mention both the indices to swap the degrees.");
         } else if(split.length > 2) {
-            throw new DukeException("Too many arguments");
+            throw new DukeException("Too many arguments!");
         } else if (split.length == 2){
+            try {
                 String first_index = split[0];
                 String second_index = split[1];
                 int request = Integer.parseInt(first_index);
@@ -243,6 +249,9 @@ public class DegreeList implements Serializable, Cloneable {
                 //String degree1 = list.get(request1 - 1);
                 Collections.swap(list, request - 1, request1 - 1);
                 System.out.println("Swap complete!");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Swap index out of bounds!");
+            }
 //            try {
 //                //dd.work(degree, Integer.toString(request1 - 1));
 //            } catch (IOException e) {

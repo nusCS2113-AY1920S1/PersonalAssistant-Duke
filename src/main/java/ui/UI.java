@@ -89,16 +89,17 @@ public class UI {
 
         //view_employment Command.
         helpMap.put("view_employment", "Displays employment rate for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Format: view_employment <Degree>\n"
-                + "Examples: view_employment bme | view_employment ise\n");
+                + "Examples: view_employment BME | view_employment ISE\n");
 
         //compare Command.
         helpMap.put("compare", "Compares 2 degrees together and displays the differences in modules and their credits.\n"
                 + "Will also switch to the \"Degree Differences\" tab.\n"
                 + "Can be used on its own to simply switch tabs.\n\n"
                 + "Format: compare | compare <Degree> <Degree>\n"
-                + "Examples: compare bme come | compare ise ee\n");
+                + "Examples: compare Biomedical Engineering Computer Engineering | compare ise ee\n");
 
         //Todoo Command.
         helpMap.put("todo", "Adds a Todo task to your list of tasks.\n"
@@ -111,6 +112,7 @@ public class UI {
         //event Command.
         helpMap.put("event", "Adds an event task to your list of tasks.\n"
                 + "Event tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
+                + "You cannot input start and end times. Only events from adding degrees will have it. \n"
                 + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
                 + "This is done by adding /priority <priority> behind the task.\n\n"
                 + "Format: event <Description> /at <DD-MM-YYYY HHmm> |\n"
@@ -122,15 +124,16 @@ public class UI {
                 + "Deadline tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
                 + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
                 + "This is done by adding /priority <priority> behind the task.\n\n"
-                + "Format: deadline <Description> /by <DD-MM-YYYY HHmm>\n"
+                + "Format: deadline <Description> /by <DD-MM-YYYY HHmm> |\n"
                 + "deadline <Description> /by <DD-MM-YYYY HHmm> /priority <priority> \n"
                 + "Examples: deadline Sleep /by 01-01-1970 2359 | deadline Eat /by 01-02-2019 1500 /priority very high\n");
 
         //cohort_size Command.
         helpMap.put("cohort_size", "Displays cohort size for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
                 + "Format: cohort_size <Degree>\n"
-                + "Examples: cohort_size bme | cohort_size ise\n");
+                + "Examples: cohort_size BME | cohort_size ISE\n");
 
         //find Command.
         helpMap.put("find", "Checks your task list and searches for a tasks matching the input string.\n"
@@ -149,6 +152,20 @@ public class UI {
                 + "Format of date is DD-MM-YYYY. \n\n"
                 + "Format: schedule <DD-MM-YYYY>\n"
                 + "Examples: schedule 01-01-1970 | schedule 18-05-2019\n");
+
+        //undo Command.
+        helpMap.put("undo", "Undoes the most recent command.\n"
+                + "This only works for commands that modify tasks or choices.\n");
+
+        //redo Command.
+        helpMap.put("redo", "Redoes the most recent undone command.\n"
+                + "This only works for commands that modify tasks or choices.\n");
+
+        //keywords Command.
+        helpMap.put("keywords", "Displays the degrees and their accepted keywords and aliases.\n"
+                + "Will also switch to the \"Keywords\" tabs.\n"
+                + "These keywords and aliases are compatible with the \"add\", \"detail\" and \"compare\" command.\n"
+                + "Only KEYWORDS are compatible with the \"view_employment\" and \"cohort_size\" command.\n");
     }
 
     /**

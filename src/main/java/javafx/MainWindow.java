@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
     private GridPane gridPane;
 
     @FXML
-    private Tab tabDegreeChoices;
+    private Tab tabKeywords;
     @FXML
     private Tab tabTask;
     @FXML
@@ -92,8 +92,9 @@ public class MainWindow extends AnchorPane {
     private ModuleList moduleList;
     private boolean typoFlag;
 
-    private Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
-            "add", "swap", "bye", "replace", "undo", "redo", "sort"));
+    private Set<String> autoSuggestion = new HashSet<>(Arrays.asList("help", "detail", "compare", "add", "swap",
+            "delete", "bye", "undo", "redo",  "schedule", "event", "todo", "deadline", "view_employment",
+            "cohort_size", "done", "choices", "find", "remove", "snooze", "sort", "tasks", "keywords"));
     private SuggestionProvider<String> provider = SuggestionProvider.create(autoSuggestion);
 
     private ObservableList<TaskFX> dataTask;
@@ -123,7 +124,8 @@ public class MainWindow extends AnchorPane {
         duke = d;
 
 
-        new AutoCompletionTextFieldBinding<>(this.userInput, provider);
+        //new AutoCompletionTextFieldBinding<>(this.userInput, provider).setVisibleRowCount(1);
+        new AutoCompletionTextFieldBinding<>(this.userInput, provider).setDelay(50); //50ms
 
         String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
                 + " |  __ \\|  ____/ ____|  __ \\|  ____|  ____|/ ____|| \\ | | |  | |/ ____|\n"
@@ -276,6 +278,8 @@ public class MainWindow extends AnchorPane {
             tabPane.getSelectionModel().select(tabTask);
         } else if (input.matches("choices")) {
             tabPane.getSelectionModel().select(tabChoices);
+        } else if (input.matches("keywords")) {
+            tabPane.getSelectionModel().select(tabKeywords);
         } else if (input.matches("help")) {
             tabPane.getSelectionModel().select(tabHelp);
         } else if (input.matches("detail")) {
@@ -294,7 +298,7 @@ public class MainWindow extends AnchorPane {
         } else { //Now for commands with multiple inputs, to swap tabs when the user has modified something in that tab
             Scanner temp = new Scanner(input);
             String command = temp.next();
-            if (command.matches("done|event|todo") && (!typoFlag)) {
+            if (command.matches("done|event|todo|sort|snooze|deadline|schedule|find|delete") && (!typoFlag)) {
                 tabPane.getSelectionModel().select(tabTask);
             } else if (command.matches("swap|remove|add") && (!typoFlag)) {
                 tabPane.getSelectionModel().select(tabChoices);
@@ -501,15 +505,16 @@ public class MainWindow extends AnchorPane {
 
         //view_employment Command.
         description = "Displays employment rate for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
-                + "Examples: view_employment bme | view_employment ise";
+                + "Examples: view_employment BME | view_employment ISE";
         this.dataHelp.add(new HelpFX("view_employment <Degree>", description));
 
         //compare Command.
         description = "Compares 2 degrees together and displays the differences in modules and their credits.\n"
                 + "Will also switch to the \"Degree Differences\" tab.\n"
                 + "Can be used on its own to simply switch tabs.\n\n"
-                + "Examples: compare bme come | compare ise ee";
+                + "Examples: compare Biomedical Engineering Computer Engineering | compare ise ee";
         this.dataHelp.add(new HelpFX("compare\n\ncompare <Degree> <Degree>", description));
 
         //Todoo Command.
@@ -523,6 +528,7 @@ public class MainWindow extends AnchorPane {
         //event Command.
         description = "Adds an event task to your list of tasks.\n"
                 + "Event tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
+                + "You cannot input start and end times. Only events from adding degrees will have it. \n"
                 + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
                 + "This is done by adding /priority <priority> behind the task.\n\n"
                 + "Examples: event Sleep /at 01-01-1970 2359 | event Eat /at 01-02-2019 1500 /priority very high";
@@ -540,8 +546,9 @@ public class MainWindow extends AnchorPane {
 
         //cohort_size Command.
         description = "Displays cohort size for a given degree.\n"
+                + "Only works with keywords and is case-sensitive.\n"
                 + "This produces a bar graph in a separate window. \n\n"
-                + "Examples: cohort_size bme | cohort_size ise";
+                + "Examples: cohort_size BME | cohort_size ISE";
         this.dataHelp.add(new HelpFX("cohort_size <Degree>", description));
 
         //find Command.
@@ -561,6 +568,23 @@ public class MainWindow extends AnchorPane {
                 + "Format of date is DD-MM-YYYY. \n\n"
                 + "Examples: schedule 01-01-1970 | schedule 18-05-2019";
         this.dataHelp.add(new HelpFX("schedule <DD-MM-YYYY>", description));
+
+        //undo Command.
+        description = "Undoes the most recent command.\n"
+                + "This only works for commands that modify tasks or choices.";
+        this.dataHelp.add(new HelpFX("undo", description));
+
+        //redo Command.
+        description = "Redoes the most recent undone command.\n"
+                + "This only works for commands that modify tasks or choices.";
+        this.dataHelp.add(new HelpFX("redo", description));
+
+        //keywords Command.
+        description = "Displays the degrees and their accepted key words and aliases.\n"
+                + "Will also switch to the \"Keywords\" tabs.\n"
+                + "These key words and aliases are compatible with the \"add\", \"detail\" and \"compare\" command.\n"
+                + "Only KEYWORDS are compatible with the \"view_employment\" and \"cohort_size\" command.";
+        this.dataHelp.add(new HelpFX("keywords", description));
 
         helpView.sort();
     }

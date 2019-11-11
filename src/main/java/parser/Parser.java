@@ -108,16 +108,17 @@ public class Parser {
         }
 
         String command = temp.next();
-        if (command.matches("tasks|bye|choices")) {
+        if (command.matches("tasks|bye|choices|keywords")) {
             if (temp.hasNextLine()) {
-                throw new DukeException(command + " should not have any other arguments (whitespace acceptable)");
+                throw new DukeException(command + " should not have any other arguments.");
             } else {
                 if (command.matches("tasks")) {
-                    return new PrintCommand(command) {
-                    };
+                    return new PrintCommand(command);
                 } else if (command.matches("bye")) {
                     return new ExitCommand();
                 } else if (command.matches("choices")) {
+                    return new PrintCommand(command);
+                } else if (command.matches("keywords")) {
                     return new PrintCommand(command);
                 }
             }
@@ -128,7 +129,7 @@ public class Parser {
                 String input = temp.nextLine();
                 input = input.strip();
                 if (input.matches("help|detail|compare|add|swap|delete|bye|undo|redo|schedule|event|todo"
-                        + "|deadline|view_employment|cohort_size|done|choices|find|remove|snooze|sort|tasks")) {
+                        + "|deadline|view_employment|cohort_size|done|choices|find|remove|snooze|sort|tasks|keywords")) {
                     return new HelpCommand(command, input);
                 } else {
                     throw new DukeException("I do not understand that command. "

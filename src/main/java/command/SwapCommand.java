@@ -40,7 +40,7 @@ public class SwapCommand extends Command{
 
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
-            lists.swap(this.input, this.dd);
+            lists.swap(this.input);
             break;
         default:
             throw new DukeException("Invalid Swap Command");
