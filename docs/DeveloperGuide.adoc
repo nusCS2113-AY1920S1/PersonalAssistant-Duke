@@ -554,7 +554,7 @@ image::FutureRequests.png[]
 
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
 
-A better implementation might be considered so that the class itself can be more customized for `ModPlanner`.
+A better implementation might be considered so that the class itself can be more customized for `ModPlan`.
 =======
 The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
 

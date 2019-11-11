@@ -71,6 +71,8 @@ test {
         if (System.env.'CI') {
             events << TestLogEvent.STARTED
         }
+        events "failed"
+        exceptionFormat "full"
     }
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
