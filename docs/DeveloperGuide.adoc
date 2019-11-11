@@ -490,15 +490,15 @@ high risk of logic and coding errors, leaving room for bugs to be exploited.
 === Deleting Credit Card
 
 // tag::DeleteCreditCard_SequenceDiagram[]
-The `/delete /card` feature aims to help user to remove credit cards that they no longer wish to store in their profile.
-This could be because the credit card has expired and the user no longer wish to keep track of the card.
+The `/delete /card` feature aims to help users remove credit cards that they no longer wish to store in their
+profile. This could be because the credit card has expired and they no longer wish to keep track of it.
 
 ==== Current Implementation
-The current implementation of deleting `card` allows user to remove a credit card from their profile by entering
-the credit card name. Because we allow entering of case and trailing white space insensitive card name, users do not
-need to worry about typing the exact card name. Although each credit card has it's own Universal Unique Identifier
-(UUID), we do not expose it to the user for them to use for the deletion of card. The reason is because UUID
-is a string of 32 alphanumeric characters and it will be very unintuitive for the user to enter it into the command.
+The current implementation of deleting `card` allow users to remove a credit card from their profile by entering
+the credit card name. Because we allow entering of card name that is case and trailing whitespace insensitive, users do
+not need to worry about typing the exact card name. Although each credit card has it's own Universal Unique Identifier
+(UUID), it is not exposed to the users because UUID is a string of 32 alphanumeric characters and it will be very
+unintuitive for them to enter it into the command.
 
 .Sequence Diagram for deleting of credit card
 image::DeleteCardCommand.png[width="970"]
@@ -534,28 +534,28 @@ of the *successful* deletion of the card object.
 
 This section describes the various design considerations taken when implementing the `/delete /card` feature.
 
-*Aspect: Choice of using which parameters for deletion of credit cards*
+*Aspect: Choice of using which parameters for the deletion of credit cards*
 [cols="18%,37%,45%"]
 |======
 | *Approach* | *Pros* | *Cons*
 
-| *1.* Allowing deletion of credit cards by specifying the card name (case and trailing white space insensitive).
+| *1.* Allowing deletion of credit cards by specifying the card name (case and trailing whitespace insensitive).
 
 a| * More intuitive because users typically remembers their card by it's name.
 * Users do not need to worry about remembering the exact card name because it is case insensitive.
 
-a| * Harder to implement because we have to write additional functions for trimming of spaces from card name and also
+a| * Harder to implement because additional functions are required for trimming of spaces from card name and also
 converting the card name to a common case for comparison.
 * Users cannot have multiple cards with same name but different cases (e.g. VISA, Visa, ViSa).
 
 
-| *2.* Allowing deletion of credit cards by specifying the exact card name (case and trailing white space sensitive).
+| *2.* Allowing deletion of credit cards by specifying the exact card name (case and trailing whitespace sensitive).
 
 a| * Allows for multiple cards to have the same name with different cases (e.g. VISA, Visa, ViSa).
 
 a| * User may forget their exact card name because it is difficult to remember multiple variations of the same names
 with different cases.
-* User will be more prone to deleting a wrong card because card with same name but different cases look alike.
+* User will be more prone to deleting a wrong card because card with same name but different cases may look alike.
 
 
 | *3.* Allowing deletion of credit cards by specifying the card's order number.
@@ -568,39 +568,19 @@ they will have to `list` the credit cards to find out it's order number.
 | *4.* Allowing deletion of credit cards by specifying the card's UUID.
 a| * Easy to implement because we do not have to worry about case sensitiveness.
 
-a| * Unintuitive for user because they will be unable to remember a 32 character alphanumeric string.
+a| * Unintuitive for user because they will be unable to remember a random 32 character alphanumeric string.
 
 |======
+
+After careful considering and weighing of pros and cons, we decided to use *approach 1*.
+
+Although approach 1 is the hardest to implement, it is the most intuitive for users because they do not need to
+memorise unnecessary order number, random 32 characters alphanumeric string, or the exact name. In addition, we have
+decided for cards to have case insensitive names, so that users cannot add cards with same name but different cases.
+Therefore, since card names are case insensitive , it make sense for users to expect case insensitive names
+in the command.
+
 // end::DeleteCreditCard_SequenceDiagram[]
-
-
-=== Listing Credit Cards
-// tag::ListCreditCard_SequenceDiagram[]
-.Sequence Diagram for listing of credit card
-image::listCardCommand.png[width="970"]
-
-[NOTE]
-The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
-
-The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
-`ListCardCommand`.
-
-The `ListCardCommand` does not require any additional input.
-
-When the user executes the `ListCardCommand`, the following steps are taken by the application:
-
-. When the `ListCardCommand` is executed, it will invoke `profileListCard`.
-. Within the invocation of `profileListCard`, a method name `cardListListCard` will be invoked.
-. Once invoked, `cardListListCard` will perform the following checks:
-
-* Check the arraylist containing the card objects is not empty through the method cardListCheckListEmpty.
-
-[NOTE]
-`cardListListCard` will throw an error if the above check fail.
-
-[start=4]
-. After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
-// end::ListCreditCard_SequenceDiagram[]
 
 === Transferring Funds
 .Model Component Diagram

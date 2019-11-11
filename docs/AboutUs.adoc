@@ -41,7 +41,7 @@ image::terencetanwt.png[width="150", align="left"]
 {empty}[https://github.com/TerenceTanWT[github]] [<<terencetanwt#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model + Ui
+Responsibilities: Model + Logic + Logging
 
 '''
 

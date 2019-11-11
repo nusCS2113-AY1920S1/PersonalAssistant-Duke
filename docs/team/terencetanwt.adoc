@@ -1,4 +1,4 @@
-= Tan Wee Theng Terence - Project Portfolio
+= Tan Wee Theng Terence - OwlMoney Project Portfolio
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -22,15 +22,15 @@ endif::[]
 
 Hello there, I am Terence. I am currently pursuing a degree in Information Security at the National University of
 Singapore (NUS). +
-This portfolio documents my contributions towards OwlMoney for the module CS2113T Software Engineering &
+This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software Engineering &
 Object-Oriented Programming.
 
-== About the project
+== About the Project
 
 My team and I were tasked with enhancing the basic command line interface (CLI) personal assistant,
 Duke, for our software engineering project. We choose to morph it into a command line financial tracker called
-OwlMoney. This enhanced application is designed to assist undergraduates and fresh graduates to track and manage
-their finances. OwlMoney provides a simple and minimalistic CLI that presents information in an organized manner.
+*OwlMoney*. This enhanced application is designed to assist undergraduates and fresh graduates to track and manage
+their finances. *OwlMoney* provides a simple and minimalistic CLI that presents information in an organized manner.
 It is intuitive so that users who are unfamiliar with CLI can use it with ease.
 
 My role was to design and write codes for the `card` feature, which allow users to track and manage
@@ -40,13 +40,13 @@ information that I have added to the user and developer guide with reference to 
 Note the following symbols and formatting used.
 include::../UserGuide.adoc[tag=user_guide_common_logo]
 
-== Summary of contributions
+== Summary of Contributions
 This section shows the summary of my contributions to the project which include the coding, documentation
 and other helpful contributions.
 
-=== Features enhancement
+=== Features Enhancement
 
-==== Features implemented: Ability to manage credit cards
+==== Features Implemented: Ability to Manage Credit Cards
 
 * *What it does*: The `card` feature has `add`, `delete`, `edit`, and `list` commands which helps users manage
 their credit cards.
@@ -57,7 +57,7 @@ This feature gives users the ability to manage their credit cards.
 and rebates.
 * *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the /edit function.
 
-==== Features implemented: Ability to manage credit card expenditures
+==== Features Implemented: Ability to Manage Credit Card Expenditures
 
 * *What it does*: Each `card` is able to `add`, `delete`, `edit`, and `list` card expenditures which
 helps users manage their credit card spending.
@@ -71,7 +71,7 @@ add any expenditures to the card for that particular month.
 * *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the `add` and `list`
 card expenditures function.
 
-==== Features implemented: Ability to manage credit card bills
+==== Features Implemented: Ability to Manage Credit Card Bills
 
 * *What it does*: Each `card` is able to `add` and `delete` credit card bill payment to their savings account,
 so that users can keep track of their monthly credit card bill in their savings account expenditures.
@@ -84,12 +84,12 @@ be deposited back to the user's savings account to reflect the rebates earned fo
 into `bankexpenditure` and `deposit`. I had to edit, write additional, and use some of his methods
 in order to integrate my credit card bill expenditures with his bank expenditures.
 
-=== Code contributions
+=== Code Contributions
 [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=TerenceTanWT[RepoSense]],
 [link:{repoURL}/commits?author=TerenceTanWT[Commits]],
  [link:{repoURL}/pulls?q=author%3ATerenceTanWT[Pull Requests]]
 
-=== Other contributions
+=== Other Contributions
 
 ==== Project Management
 
@@ -168,28 +168,68 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valeri
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/180[#180],
  link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/181[#181]
 ).
+* Reviewed, reported bugs, and provided constructive feedback to other team's
+(link:https://github.com/AY1920S1-CS2113T-W17-4/main[OOF]) User Guide and Developer Guide.
 
 
 == Contributions to the User Guide
 
 I wrote the sections of the user guide related to the `card` function. The following contains an excerpt from our
-OwlMoney link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide],
+*OwlMoney* link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide],
 showing additions that I have made for the `card` function.
 
-=== Credit card bill management commands: `/cardbill`
+=== Credit Card Management
+In this section, you'll be introduced to commands and parameters that help you to manage your credit cards and
+expenditures associated with it in *OwlMoney*.
 
-==== Adding credit card bill to savings account `/add /cardbill`
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `CARD_NAME`
+| Indicates the name of the credit card.
+
+(e.g. POBB Everyday Card)
+
+| `CARD_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`CARD_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `ACCOUNT_NAME`
+| Indicates the name of the savings bank account.
+
+(e.g. JunBank Savings Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `YEARMONTH`
+| Indicates the month and year the expenditure was made.
+
+(e.g. 10/2019)
+
+| `YEARMONTH` should be in *MM/YYYY* format and cannot be ahead of the current month.
+|======
+
+=== Credit Card Bill Management Commands: `/cardbill`
+
+==== Adding Credit Card Bill to Savings Account `/add /cardbill`
 
 include::../UserGuide.adoc[tag=AddCreditCardBill_Command]
 
-==== Deleting credit card bill from savings account `/delete /cardbill`
+==== Deleting Credit Card Bill from Savings Account `/delete /cardbill`
 
 include::../UserGuide.adoc[tag=DeleteCreditCardBill_Command]
 
 == Contributions to the Developer Guide
 
 I wrote various sections of the developer guide, including sections related to the `card` function. The following
-contains an excerpt from our OwlMoney
+contains an excerpt from our *OwlMoney*
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
     , showing additions that I have made for the `card` function.
 
