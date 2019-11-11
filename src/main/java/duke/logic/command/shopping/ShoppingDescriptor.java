@@ -4,6 +4,9 @@ import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import java.util.Optional;
 
+/**
+ * A class that stores the details of an ingredient.
+ */
 public class ShoppingDescriptor {
     private String name;
     private Double quantity;
