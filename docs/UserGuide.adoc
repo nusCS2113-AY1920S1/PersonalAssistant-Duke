@@ -563,6 +563,8 @@ Display a list of all Treatments and Evidences matching the criteria specified i
 *find* "high" (This command searches for Treatments AND Evidences)
 ****
 
+.Example of a Treatment (Medicine) context
+image::Medicine.png[]
 === Treatment and Evidence
 
 All <<Treatment, Treatment>> (Medicine, Investigation, Plan) and <<Evidence, Evidence>> (Observation and Result) contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full.
