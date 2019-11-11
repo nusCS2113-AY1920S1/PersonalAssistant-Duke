@@ -3,7 +3,6 @@ package diyeats.logic.parsers;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.Command;
-import diyeats.logic.commands.DeleteTransactionCommand;
 import diyeats.logic.commands.ExitCommand;
 import diyeats.logic.commands.StatsCommand;
 import diyeats.logic.commands.UndoCommand;
@@ -116,7 +115,7 @@ public class Parser {
             case PARSER_STATS_COMMAND:
                 return new StatsCommand();
             case PARSER_CGRAPH_COMMAND:
-                return new CGraphCommandParser().parse(argumentStr);
+                return new GraphCommandParser().parse(argumentStr);
             case PARSER_SUGGEST_EXERCISE_COMMAND:
                 return new SuggestExerciseCommandParser().parse(argumentStr);
             case PARSER_ADD_EXERCISE_COMMAND:
