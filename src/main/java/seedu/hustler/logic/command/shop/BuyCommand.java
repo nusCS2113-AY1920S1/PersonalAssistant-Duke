@@ -3,7 +3,6 @@ package seedu.hustler.logic.command.shop;
 import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.data.ShopStorage;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.BuyAnomaly;
 import seedu.hustler.ui.Ui;

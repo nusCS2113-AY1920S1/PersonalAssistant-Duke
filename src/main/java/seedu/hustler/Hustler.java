@@ -111,11 +111,7 @@ public class Hustler extends Application {
         ConsecutiveLogin.updatePoints();
         ConsecutiveLogin.updateAchievementLevel();
         achievementList.updateDedicated();
-
-        avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
-        shopList = ShopStorage.load();
-        inventory = inventory.updateInventory();
     }
 
     /**
@@ -144,6 +140,8 @@ public class Hustler extends Application {
     public static void loadStorage() throws IOException {
         list = new TaskList(taskStorage.load());
         avatar = AvatarStorage.load();
+        shopList = ShopStorage.load();
+        inventory = inventory.updateInventory();
 
         //Loads information such as number of tasks done, added, points, etc.
         AchievementStorage.loadStatus();
@@ -169,6 +167,7 @@ public class Hustler extends Application {
             AvatarStorage.save(avatar);
             AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
+            ShopStorage.update();
             inventory.updateInventory();
         } catch (IOException e) {
             ui.showSaveError();

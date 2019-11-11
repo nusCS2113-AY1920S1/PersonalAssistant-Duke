@@ -10,9 +10,30 @@ public class Difficulty {
      * Enumerator that separates the level of the difficulty.
      */
     enum Level {
-        L,
-        M,
-        H
+        L ("LOW"),
+        M ("MED"),
+        H ("HIGH");
+
+        /**
+         * The string to be outputted on the Ui.
+         */
+        private String levelStr;
+
+        /**
+         * Constructs a new level with the given string.
+         * @param str the string to be outputted on the Ui.
+         */
+        Level(String str) {
+            this.levelStr = str;
+        }
+
+        /**
+         * Gets the level in string form.
+         * @return the level in the string form.
+         */
+        public String getLevel() {
+            return this.levelStr;
+        }
     }
 
     /**
@@ -42,12 +63,12 @@ public class Difficulty {
 
     @Override
     public String toString() {
-        return "[" + this.level.toString() + "]";
+        return "[" + this.level.getLevel() + "]";
     }
 
     /**
      * Converts the difficulty to string to be stored in a txt file.
-     * @return
+     * @return the string to be saved in hustler.txt.
      */
     public String toSaveFormat() {
         return this.level.toString();

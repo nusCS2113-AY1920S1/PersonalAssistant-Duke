@@ -1,11 +1,14 @@
 package seedu.hustler.game.shop.items.armors;
 
-import seedu.hustler.game.shop.items.ShopItem;
-
 /**
  * The highest tiered armor in the shop.
  */
 public class Chainmail extends Armor {
+
+    /**
+     * The name of the armor.
+     */
+    private static final String NAME = "Chainmail";
 
     /**
      * The defence increment of the Chainmail.
@@ -25,12 +28,12 @@ public class Chainmail extends Armor {
     /**
      * Constructs a new Chainmail with its default variables.
      */
-    public Chainmail() {
-        super(COST, false, DEF_INCR, STA_INCR);
+    public Chainmail(boolean isPurchased) {
+        super(COST, isPurchased, DEF_INCR, STA_INCR, NAME);
     }
 
     @Override
-    public String toString() {
-        return "Chainmail, " + super.toString();
+    public Chainmail setIsPurchased(boolean isPurchased) {
+        return new Chainmail(isPurchased);
     }
 }
