@@ -8,7 +8,7 @@ build.gradle
 
 # Gradle build files
 /.gradle/
-#/build
+/build
 
 # log files
 logs/
