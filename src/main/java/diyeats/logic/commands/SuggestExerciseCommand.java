@@ -19,11 +19,6 @@ import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 /**
  * Analyze the list of SuggestExercise objects as well as the current calorie goal of the
  * user, the date provided and the user meal parameters provided to give appropriate exercise suggestion.
- * TONOTE: calories burned from exercise is directly related to BMI, eg, a 200kg man running for 10 mins will burn
- * as many calories as a 100kg man running for 20 mins
- * Exercise needed to elevate activity level = user.getDailyCalorie * user.gerActivityLevelDifference();
- * Exercise is defined in metabolic unit at rest(MET), eg, 1 hr of running which is 14.5 MET
- * is equal to 14.5 hours of static calorie loss.
  * This class adds an exercise to a date, not a suggestable exercise.
  */
 public class SuggestExerciseCommand extends Command {
@@ -83,7 +78,7 @@ public class SuggestExerciseCommand extends Command {
         if (user.getGoal() == null) {
             ui.goalNotFound();
             isDone = true;
-        } else if (user.getGoal().getActivityLevelTarget() == 5) {
+        } else if (user.getTargetActivityLevel() == 5) {
             ui.goalNotFound();
             isDone = true;
         } else {
