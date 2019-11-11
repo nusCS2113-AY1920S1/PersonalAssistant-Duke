@@ -34,7 +34,8 @@
       "Jason"
     ],
     "skillReqList": [],
-    "time": "Nov 11, 2019, 11:59:00 PM"
+    "time": "Nov 11, 2019, 11:59:00 PM",
+    "reminder": "Nov 11, 2019, 10:59:00 PM"
   },
   {
     "name": "Finish Developer Guide",
@@ -90,7 +91,7 @@
     "time": "Nov 14, 2019, 2:00:00 PM"
   },
   {
-    "name": "Test Other\'s Project",
+    "name": "Test Other\u0027s Project",
     "isDone": false,
     "memberList": [],
     "skillReqList": [],

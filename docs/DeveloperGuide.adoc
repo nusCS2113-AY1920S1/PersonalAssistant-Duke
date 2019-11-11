@@ -342,3 +342,13 @@ Expected: Jack's email will be updated. A message will show that you have succes
 .. Test case: `edit member email /to` +
 Expected: No one's email wii be updated. A message will show that tag(name or change content) can't be empty.
 
+=== Setting a reminder
+
+. Setting and receiving a reminder
+.. Prerequisites: A task with a deadline more than 5 minutes after current time exists
+.. Test case: `reminder TASK_INDEX 5m` +
+Expected: A success message is shown. At 5 minutes before the deadline of the task, a reminder is shown and a sound is played.
+..Test case: `reminder TASK_INDEX -5m` +
+Expected: An error message is shown. No reminder is set or updated.
+..Test case: `reminder TASK_INDEX 1000d` +
+Expected: If deadline is less than 1000 days away, and error message is shown. No reminder is set or updated.
