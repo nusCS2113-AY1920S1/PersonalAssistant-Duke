@@ -59,7 +59,7 @@ public class Parser {
     /**
      * Valid string for input word, which contains a-z, A-Z.
      */
-    private static final String VALID_REGEX = "^[a-zA-Z ]*$";
+    private static final String VALID_REGEX = "^[a-zA-Z,. ]*$";
 
     /**
      * Extracts the command specified in the user input and creates the respective command objects.

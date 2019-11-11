@@ -237,16 +237,25 @@ Examples:
 Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
-// tag::synonyms[]
+// tag::addsynonyms[]
 === Adding synonyms of a word : `addsyn`
-*Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Adds one or many synonyms to an existing word in the database. +
 Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
 
 If there are more than one synonym to be added, please separate them by spaces.
 
-//end::synonyms[]
+//end::addsynonyms[]
+
+// tag::search_synonyms[]
+=== Searching synonyms of a word : `search_syn`
+
+Search for al the synonyms to an existing word in the database. +
+Format: `search_syn w/WORD` +
+
+Synonyms are chained together, so even new words will be recognize.
+
+//end::search_synonyms[]
 
 // tag::tag[]
 === Adding tags to a word : `tag`
@@ -334,12 +343,12 @@ e.g. `add w/life m/the existence of an individual human being or animal.`
 * *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
 e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/WORD` +
-* *Delete tag* : `delete w/WORD t/TAG`
-e.g. `delete w/one t/number`
 e.g. `delete w/life`
+* *Delete tag* : `delete w/WORD t/TAG` +
+e.g. `delete w/one t/number`
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
-* *Help* : `help [COMMAND]`
+* *Help* : `help [COMMAND]` +
 e.g. `help add`
 * *List* : `list`
 * *Quiz* : `quiz` -> `start`
