@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+//@@author leowyh
 public class ProjectManager {
     public String currentprojectname;
     public LinkedHashMap<String, Project> projectmap;
@@ -106,19 +107,7 @@ public class ProjectManager {
         projectmap.get(projectname).addBudget(amount);
     }
 
-    /**
-     * Allocates budget to a project.
-     * @param projectname Name of the project.
-     * @param budget Budget allocated to the project.
-     * @return Returns the Project object the budget is allocated to.
-     */
-    public Project allocateBudget(String projectname, double budget) {
-        Project projectallocated = projectmap.get(projectname);
-        projectmap.get(projectname).budget = budget;
-        return projectallocated; //TODO --> allocates budget to a project
-    }
-
-    //@@author
+    //@@author leowyh
     public HashMap<String, Payee> getCurrentProjectManagerMap() {
         return projectmap.get(currentprojectname).managermap;
     }
@@ -133,6 +122,7 @@ public class ProjectManager {
         this.currentprojectname = null;
     }
 
+    //@@author karansarat
     /**
      * Clears the dictionary and updates it with current vocabulary.
      * @param dict the dictionary containing vocabulary

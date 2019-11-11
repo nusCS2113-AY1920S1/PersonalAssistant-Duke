@@ -95,8 +95,8 @@ public class Process {
             splitamount = cleanStrStr(splitamount);
             //input validity check
             if (splitamount.length != 2) {
-                System.out.println("\t" + "Incorrect input");
-                System.out.println("\t" + "Correct Format: " + commandformat.addProjectFormat());
+                ui.exceptionMessage("\t" + "Incorrect input" + "\n"
+                        + "\t" + "Correct Format: " + commandformat.addProjectFormat());
                 return;
             }
 
@@ -104,14 +104,14 @@ public class Process {
             String inputamount = splitamount[1];
 
             if (projectname.isEmpty()) {
-                System.out.println("\t" + "Project name cannot be empty!");
-                System.out.println("\t" + "Correct Format: " + commandformat.addProjectFormat());
+                ui.exceptionMessage("\t" + "Project name cannot be empty!" + "\n"
+                        + "\t" + "Correct Format: " + commandformat.addProjectFormat());
                 return;
-            } //TODO refactor
+            }
             if (projectManager.projectmap.containsKey(projectname)) {
-                System.out.println("\t" + "Project already exists!");
+                ui.exceptionMessage("\t" + "Project already exists!");
                 return;
-            } //TODO refactor
+            }
 
             if (inputamount.isEmpty()) {
                 Project newProject = projectManager.addProject(projectname);
@@ -121,8 +121,10 @@ public class Process {
                 double projectamount = Double.parseDouble(inputamount);
                 if (projectamount < MIN_FUND) {
                     ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
-                } if (projectamount > MAX_FUND) {
+                }
+             else if (projectamount > MAX_FUND) {
                     ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
+                    return;
                 }
                 if (fund.getFundRemaining() >= projectamount) {
                     fund.takeFund(projectamount);
@@ -153,20 +155,20 @@ public class Process {
             String[] split = input.split("pr/", 2);
             split = cleanStrStr(split);
             if (split.length != 2) {
-                System.out.println("\t" + "Incorrect input");
-                System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
+                ui.exceptionMessage("\t" + "Incorrect input" + "\n"
+                        + "\t" + "Correct Format: " + commandformat.deleteProjectFormat());
                 return;
-            } //TODO refactor
+            }
             String projectname = split[1];
             if (projectname.isEmpty()) {
-                System.out.println("\t" + "Project name cannot be empty!");
-                System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
+                ui.exceptionMessage("\t" + "Project name cannot be empty!" + "\n"
+                        + "\t" + "Correct Format: " + commandformat.deleteProjectFormat());
                 return;
-            } //TODO refactor
+            }
             if (!projectManager.projectmap.containsKey(projectname)) {
-                System.out.println("\t" + "Project does not exist!");
+                ui.exceptionMessage("\t" + "Project does not exist!");
                 return;
-            } //TODO refactor
+            }
             double budget = projectManager.projectmap.get(projectname).budget;
             fund.addFund(budget);
             Project deletedProject = projectManager.deleteProject(projectname);
@@ -195,13 +197,13 @@ public class Process {
                 ui.gotoExceptionMessage("\t" + "Incorrect input format\n" + "\t"
                     + "Correct Format: " + commandformat.gotoProjectFormat(), projectManager.listProjects());
                 return;
-            } //TODO refactor
+            }
 
             int projectindex = Integer.parseInt(split[1]) - 1;
-            if (projectManager.projectmap.isEmpty()) { //TODO refactor
+            if (projectManager.projectmap.isEmpty()) {
                 ui.printNoProjectMessage();
                 return;
-            } //TODO refactor
+            }
             String currentprojectname = projectManager.gotoProject(projectindex);
             ui.printGoToProject(currentprojectname);
         } catch (NumberFormatException e) {

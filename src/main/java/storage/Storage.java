@@ -34,8 +34,8 @@ public class Storage {
     private static String tasklistfilepath =  basefilepath + "/localdata/TaskList.json";
     private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
     private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
-    private static String undofundfilepath = "localdata/undoFund.json";
-    private static String redofundfilepath = "localdata/redoFund.json";
+    private static String undofundfilepath = basefilepath + "localdata/undoFund.json";
+    private static String redofundfilepath = basefilepath + "localdata/redoFund.json";
     private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
     private static String dictFilePath = basefilepath + "/localdata/dict.json";
     private static String backuphistoryfilepath = "Backuphistory.json";
