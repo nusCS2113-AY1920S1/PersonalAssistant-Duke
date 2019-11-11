@@ -1,4 +1,4 @@
-package mistermusik.commons.Instruments;
+package mistermusik.commons.instruments;
 
 import mistermusik.commons.events.formatting.EventDate;
 
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Instrument {
     private String instrumentName;
     private ArrayList<ServiceInfo> serviceInfoList;
-
 
     /**
      * Creates an Instrument instance with the input name.

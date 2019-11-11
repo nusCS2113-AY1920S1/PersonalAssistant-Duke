@@ -1,4 +1,4 @@
-package mistermusik.commons.Instruments;
+package mistermusik.commons.instruments;
 
 import mistermusik.commons.events.formatting.EventDate;
 
