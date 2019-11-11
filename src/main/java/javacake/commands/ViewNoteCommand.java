@@ -33,9 +33,10 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @param inputCommand View note command by user.
      * @return Name of file specified for viewing.
      */
-    private String returnFileName(String inputCommand) {
+    private String returnFileName(String inputCommand) throws CakeException {
         String[] parametersInCommand = inputCommand.split(BY_SPACES);
-        return parametersInCommand[1];
+        String nameOfFile = IFileUtilities.returnOriginalFileName(defaultFilePath, parametersInCommand[1]);
+        return nameOfFile;
     }
 
     /**
