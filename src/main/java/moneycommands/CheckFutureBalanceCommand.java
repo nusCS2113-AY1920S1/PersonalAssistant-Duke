@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * This class allow user to estimate their future balance in an account.
@@ -25,12 +26,15 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
     /**
      * The constructor parses the input command and gets the description and the date.
      * @param inputString The command typed in by the user
-     * @throws ParseException The exception for parsing the date
      */
-    public CheckFutureBalanceCommand(String inputString) throws ParseException {
-        description = inputString.split(" /at ")[0];
-        description = description.replaceFirst("check-balance ", "");
-        futureDate = Parser.shortcutTime(inputString.split(" /at ")[1]);
+    public CheckFutureBalanceCommand(String inputString) throws DukeException {
+        try {
+            description = inputString.split(" /at ")[0];
+            description = description.replaceFirst("check-balance ", "");
+            futureDate = Parser.shortcutTime(inputString.split(" /at ")[1]);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
     }
 
     /**

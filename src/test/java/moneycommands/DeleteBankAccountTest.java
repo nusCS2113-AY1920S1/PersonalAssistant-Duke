@@ -42,6 +42,11 @@ public class DeleteBankAccountTest {
     }
 
     @Test
+    void isExit_success() {
+        Assertions.assertFalse(new DeleteBankAccountCommand(SAMPLE_VALID_INPUT1).isExit());
+    }
+
+    @Test
     void execute_outOfBound_exceptionThrown() throws ParseException, DukeException {
         createNewTrackerWithSample1();
         Assertions.assertThrows(DukeException.class, () -> executeDeleteCmd(SAMPLE_INPUT_OUT_OF_BOUND1));
