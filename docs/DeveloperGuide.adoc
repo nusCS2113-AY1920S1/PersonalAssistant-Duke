@@ -359,7 +359,7 @@ The following sequence shows how the Search Frequency feature works:
 
 [INSERT SEQUENCE DIAGRAM]
 
-==== Schedule Reminders feature
+=== Schedule Reminders feature
 The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
 
 [INSERT OBJECT DIAGRAMS]
