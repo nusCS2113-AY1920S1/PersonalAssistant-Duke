@@ -6,7 +6,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,11 +120,10 @@ public class CapCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper,
                         User profile)
         throws ModException {
-        Scanner scanner = new Scanner(System.in);
         switch (arg("toCap")) {
             case "overall":
                 plannerUi.capStartMsg();
-                calculateOverallCap(profile.getModules(), detailedMap, plannerUi, store, scanner);
+                calculateOverallCap(profile.getModules(), detailedMap, plannerUi, store);
                 break;
             case "module":
                 plannerUi.capModStartMsg();
@@ -134,7 +132,7 @@ public class CapCommand extends ModuleCommand {
             case "list":
                 TaskList<ModuleTask> hold = profile.getModules();
                 plannerUi.capListStartMsg(hold);
-                calculateListCap(profile.getModules(), detailedMap, plannerUi, store, scanner, hold);
+                calculateListCap(profile.getModules(), detailedMap, plannerUi, store, hold);
                 break;
             default:
                 throw new ModCommandException();
@@ -148,11 +146,10 @@ public class CapCommand extends ModuleCommand {
     public void calculateOverallCap(TaskList<ModuleTask> moduleTasksList,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
-                                    Storage store,
-                                    Scanner scanner)
+                                    Storage store)
         throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException,
         ModBadGradeException {
-        String userInput = scanner.nextLine();
+        String userInput = plannerUi.readInput();
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
                 throw new ModEmptyCommandException();
@@ -175,7 +172,7 @@ public class CapCommand extends ModuleCommand {
             if (userInfo[1].isEmpty() || userInfo[1].isBlank()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
-            userInput = scanner.nextLine();
+            userInput = plannerUi.readInput();
         }
         if (currentCap == 0 && mcCount == 0) {
             plannerUi.capMsg(0.00);
@@ -196,7 +193,7 @@ public class CapCommand extends ModuleCommand {
         throws ModNotFoundException,
         ModNoPrerequisiteException,
         ModEmptyListException {
-        String moduleCode = scanner.next().toUpperCase();
+        String moduleCode = plannerUi.readInput().toUpperCase();
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }
@@ -259,7 +256,6 @@ public class CapCommand extends ModuleCommand {
                                  HashMap<String, ModuleInfoDetailed> detailedMap,
                                  PlannerUi plannerUi,
                                  Storage store,
-                                 Scanner scanner,
                                  TaskList<ModuleTask> moduleList) {
         for (ModuleTask task : moduleList) {
             if (letterGradeToCap(task.getGrade()) != 0.00) {

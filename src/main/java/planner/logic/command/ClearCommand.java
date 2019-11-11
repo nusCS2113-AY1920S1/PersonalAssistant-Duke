@@ -33,7 +33,7 @@ public class ClearCommand extends ModuleCommand {
                     break;
                 }
 
-                case ("ccas"): {
+                case ("cca"): {
                     profile.getCcas().clear();
                     break;
                 }

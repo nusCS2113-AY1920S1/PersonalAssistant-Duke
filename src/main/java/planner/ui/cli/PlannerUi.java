@@ -1,61 +1,191 @@
 package planner.ui.cli;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import planner.logic.modules.TaskList;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleTask;
+import planner.ui.gui.MainWindow;
 
 /**
  * Mod Planner based on morphed implementation of Duke.
  */
 public class PlannerUi {
 
-    private Scanner scan;
     private static final String LINE = "_______________________________";
     private static Set<String> yes = new HashSet<>(Arrays.asList("y","yes", "true", "1",
                                                                  "confirm", "t", "yup", "yeah", "positive"));
     private static Set<String> no = new HashSet<>(Arrays.asList("n", "no", "false", "0", "f",
                                                                 "nope", "nah", "negative"));
+    private InputStream inputStream;
+    private MainWindow mainWindow;
 
     /**
      * Default constructor for Ui.
+     * @param window gui window
      */
+    public PlannerUi(MainWindow window) {
+        this.setInput(System.in);
+        this.setOutput(System.out, System.err);
+        mainWindow = window;
+        setupGui();
+    }
+
     public PlannerUi() {
-        scan = new Scanner(System.in);
-    }
-
-    public void print(Object object) {
-        System.out.print(object.toString());
-    }
-
-    public void println(Object object) {
-        System.out.println(object.toString());
-    }
-
-    public void showLine() {
-        System.out.println(LINE);
-    }
-
-    private void closeScanner() {
-        scan.close();
+        this(null);
     }
 
     /**
-     * Read input.
-     * @return input if exists else null
+     * Print Object to String.
+     * @param object to be printed
+     * @param update whether to update GUI
      */
-    public String readInput() {
-        if (scan.hasNextLine()) {
-            return scan.nextLine().strip();
+    public void print(Object object, boolean update) {
+        System.out.print(object.toString());
+        if (update) {
+            updateGui();
         }
-        return null;
+    }
+
+    public void print(Object object) {
+        print(object, false);
+    }
+
+    public void close() throws IOException {
+        inputStream.close();
+    }
+
+    /**
+     * Println Object to String.
+     * @param object to be printed
+     * @param update whether to update GUI
+     */
+    public void println(Object object, boolean update) {
+        System.out.println(object.toString());
+        if (update) {
+            updateGui();
+        }
+    }
+
+    public void println(Object object) {
+        println(object, true);
+    }
+
+    /**
+     * Printf.
+     * @param s format to be printed
+     * @param args arguments
+     * @param update whether to update GUI
+     */
+    public void printf(boolean update, String s, Object... args) {
+        System.out.printf(s, args);
+        if (update) {
+            updateGui();
+        }
+    }
+
+    public void printf(String s, Object... args) {
+        printf(false, s, args);
+    }
+
+    private void setupGui() {
+        if (mainWindow != null) {
+            setInput(mainWindow.getInput());
+            setOutput(mainWindow.getOutput(), mainWindow.getOutput());
+        }
+    }
+
+    /**
+     * Update GUI dialog.
+     */
+    public void updateGui() {
+        if (mainWindow != null) {
+            mainWindow.addModPlanDialog();
+        }
+    }
+
+    /**
+     * Show LINE, hidden in GUI mode.
+     */
+    public void showLine() {
+        if (mainWindow == null) {
+            println(LINE);
+        } else {
+            updateGui();
+        }
+    }
+
+    public void setInput(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
+
+    /**
+     * Set output stream and error stream.
+     * @param outStream output stream
+     * @param errStream error stream
+     */
+    public void setOutput(PrintStream outStream, PrintStream errStream) {
+        this.setOut(outStream);
+        this.setErr(errStream);
+    }
+
+    public void setOutput(ByteArrayOutputStream output, ByteArrayOutputStream error) {
+        this.setOutput(new PrintStream(output), new PrintStream(error));
+    }
+
+    public void setOut(PrintStream stream) {
+        System.setOut(stream);
+    }
+
+    public void setOut(ByteArrayOutputStream output) {
+        this.setOut(new PrintStream(output));
+    }
+
+    public void setErr(PrintStream stream) {
+        System.setErr(stream);
+    }
+
+    public void setErr(ByteArrayOutputStream error) {
+        this.setErr(new PrintStream(error));
+    }
+
+    public String readInput() {
+        return readInput(inputStream);
+    }
+
+    /**
+     * Read input from custom stream.
+     * @param stream stream to read from
+     * @return input by line
+     */
+    public String readInput(InputStream stream) {
+        try {
+            if (stream == null) {
+                return null;
+            }
+            StringBuilder input = new StringBuilder();
+            for (char c = (char) stream.read();
+                 c != '\n' && c != '\uFFFF';
+                 c = (char) stream.read()) {
+                input.append(c);
+            }
+            if (input.length() == 0) {
+                return null;
+            }
+            return input.toString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public String readPassword() {
@@ -174,11 +304,11 @@ public class PlannerUi {
     }
 
     public void clearedMsg(String type) {
-        System.out.println("Done! Your " + type + " have been cleared");
+        println("Done! Your " + type + " have been cleared");
     }
 
     public void abortMsg() {
-        System.out.println("Aborted! No actions were taken");
+        println("Aborted! No actions were taken");
     }
 
     /**
@@ -194,7 +324,7 @@ public class PlannerUi {
      * @param task Task to be added.
      */
     public void addedMsg(Task task) {
-        System.out.println("Got it, added the follow " + task.type() + "!");
+        println("Got it, added the follow " + task.type() + "!");
         showObject(task);
     }
 
@@ -203,16 +333,16 @@ public class PlannerUi {
      * @param task Task to be deleted.
      */
     public void deleteMsg(Task task) {
-        System.out.println("Got it, " + task.type() + " will be deleted");
+        println("Got it, " + task.type() + " will be deleted");
         showObject(task);
     }
 
     public void listMsg() {
-        System.out.println("All modules in the list!");
+        println("All modules in the list!");
     }
 
     public void listCcaMsg() {
-        System.out.println("All ccas in the list!");
+        println("All ccas in the list!");
     }
 
     /**
@@ -220,7 +350,7 @@ public class PlannerUi {
      */
     public void helloMsg() {
         showLine();
-        System.out.print(
+        print(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"
         );
@@ -232,7 +362,7 @@ public class PlannerUi {
      */
     public void goodbyeMsg() {
         showLine();
-        System.out.print(
+        print(
                 "Thanks for using ModPlanner!\n"
                  + "Your data will be stored in file shortly!\n"
         );
@@ -243,14 +373,14 @@ public class PlannerUi {
      * Message shown when clearing list.
      */
     public void clearMsg(String toClear) {
-        System.out.println("Are you sure you want to clear your " + toClear + "?");
+        println("Are you sure you want to clear your " + toClear + "?");
     }
 
     /**
      * Message shown at start of CapCommand.
      */
     public void capStartMsg() {
-        System.out.println(
+        println(
             "Start typing the module you have taken, along with it's letter grade\n"
             + "Type 'done' when you are ready to calculate your CAP");
     }
@@ -259,17 +389,17 @@ public class PlannerUi {
      * Requests input from user for which module to calculate CAP for.
      */
     public void capModStartMsg() {
-        System.out.println("Type the module code that you want to predict your CAP for: ");
+        println("Type the module code that you want to predict your CAP for: ");
     }
 
     /**
      * Prints the module task list with which to calculate CAP from.
      */
     public void capListStartMsg(TaskList<ModuleTask> moduleTasksList) {
-        System.out.println("Here is your list of modules to calculate CAP from.");
+        println("Here is your list of modules to calculate CAP from");
         int counter = 1;
         for (ModuleTask temp : moduleTasksList) {
-            System.out.print(counter++ + " ");
+            print(counter++ + " ");
             showObject(temp);
         }
     }
@@ -279,7 +409,7 @@ public class PlannerUi {
      */
     public void capListErrorMsg() {
         showLine();
-        System.out.println("Please input grades into your listed modules using the grade command");
+        println("Please input grades into your listed modules using the grade command");
     }
 
     /**
@@ -287,8 +417,8 @@ public class PlannerUi {
      */
     public void capMsg(double averageCap) {
         showLine();
-        System.out.println("Here is your current cumulative/predicted CAP");
-        System.out.printf("%.2f\n", averageCap);
+        println("Here is your current cumulative/predicted CAP", false);
+        printf("%.2f\n", averageCap);
     }
 
     /**
@@ -296,12 +426,12 @@ public class PlannerUi {
      */
     public void capModMsg(double predictedCap, String moduleCode) {
         showLine();
-        System.out.println("Here is your predicted CAP for "
+        println("Here is your predicted CAP for "
             +
             moduleCode
             +
             " based on the modules you have taken.");
-        System.out.printf("%.2f\n", predictedCap);
+        printf("%.2f\n", predictedCap);
     }
 
     /**
@@ -310,12 +440,12 @@ public class PlannerUi {
     public void capModuleIncompleteMsg(List<String> toCalculate) {
         int i = 0;
         showLine();
-        System.out.println("Please complete any/all of the following prerequisite modules and add them to your list: ");
+        println("Please complete any/all of the following prerequisite modules and add them to your list: ");
         while (i < toCalculate.size()) {
-            System.out.println(toCalculate.get(i));
+            println(toCalculate.get(i));
             i++;
         }
-        System.out.println("If you have completed any of these modules preclusions/co-requisites/equivalents, "
+        println("If you have completed any of these modules preclusions/co-requisites/equivalents,"
             +
                 "please add them to your module list with the same grade and try again.");
     }
@@ -325,14 +455,14 @@ public class PlannerUi {
      */
     public void gradedMsg(String moduleCode, String letterGrade) {
         showLine();
-        System.out.println("Got it, graded " + moduleCode + " with grade: " + letterGrade);
+        println("Got it, graded " + moduleCode + " with grade: " + letterGrade);
     }
 
     /**
      * Message to print the sorted module list.
      */
     public void sortMsg(String toSort) {
-        System.out.println("Here are your sorted "
+        println("Here are your sorted "
             +
             toSort
             +
@@ -345,7 +475,7 @@ public class PlannerUi {
     public void showSorted(List<?> list) {
         showLine();
         for (Object object : list) {
-            System.out.println(object);
+            println(object);
         }
     }
 
@@ -356,7 +486,7 @@ public class PlannerUi {
         showLine();
         for (TaskWithMultipleWeeklyPeriod task : list) {
             String taskNameAndPeriods = task.getName() + task.onWeekDayToString(dayOfWeek);
-            System.out.println(taskNameAndPeriods);
+            println(taskNameAndPeriods);
         }
     }
 
@@ -367,7 +497,7 @@ public class PlannerUi {
      */
     public void printUpcomingTasks(List<Task> upcomingTasksList) {
         if (upcomingTasksList.size() > 0) {
-            System.out.println(LINE
+            println(LINE
                                 +
                                 "You have "
                                 +
@@ -375,7 +505,7 @@ public class PlannerUi {
                                 +
                                 " upcoming tasks!\nHere's the list:");
             this.printTaskList(upcomingTasksList);
-            System.out.println(LINE);
+            println(LINE);
         }
     }
 
@@ -387,13 +517,13 @@ public class PlannerUi {
     private <E extends Task> void printTaskList(List<E> taskList) {
         int count = 1;
         for (Task temp : taskList) {
-            System.out.println(count + ". " + temp);
+            println(count + ". " + temp);
             count++;
         }
     }
 
     public void showUpdatedMsg() {
-        System.out.println("Your module data files has been updated!");
+        println("Your module data files has been updated!");
     }
 
     //@@author kyawtsan99
@@ -402,14 +532,14 @@ public class PlannerUi {
      * Message to print out CoreModuleReport.
      */
     public void coreModReport() {
-        System.out.println("Here is your list of core modules being added:");
+        println("Here is your list of core modules being added:");
     }
 
     /**
      * Message to print out the number of core modules left to take.
      */
     public void coreModLeft() {
-        System.out.println("\n"
+        println("\n"
                 +
                 "Number of core modules required to take for graduation:");
     }
@@ -418,14 +548,14 @@ public class PlannerUi {
      * Message to print out GEModuleReport.
      */
     public void geModReport() {
-        System.out.println("Here is your list of general education modules being added:");
+        println("Here is your list of general education modules being added:");
     }
 
     /**
      * Message to print out the number of ge modules left to take.
      */
     public void geModLeft() {
-        System.out.println("\n"
+        println("\n"
                 +
                 "Number of general education modules required to take for graduation:");
     }
@@ -434,14 +564,14 @@ public class PlannerUi {
      * Message to print out UEModuleReport.
      */
     public void ueModReport() {
-        System.out.println("Here is your list of unrestricted elective modules being added:");
+        println("Here is your list of unrestricted elective modules being added:");
     }
 
     /**
      * Message to print out the number of ue modules left to take.
      */
     public void ueModLeft() {
-        System.out.println("\n"
+        println("\n"
                 +
                 "Number of unrestricted elective modules required to take for graduation:");
     }
@@ -451,7 +581,7 @@ public class PlannerUi {
      */
     public void reminderMsg() {
         showLine();
-        System.out.println("Please remember to update your module information!\n"
+        println("Please remember to update your module information!\n"
                             +
                             "To do so, you can input the update command in the following format:\n"
                             +
@@ -463,7 +593,7 @@ public class PlannerUi {
      */
     public void reminderList() {
         showLine();
-        System.out.println("Would you like to set your reminder to every:\n"
+        println("Would you like to set your reminder to every:\n"
                             +
                             "1) for 10 seconds\n"
                             +

@@ -1,8 +1,6 @@
 package planner.main;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +14,7 @@ import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.parser.Parser;
 import planner.ui.cli.PlannerUi;
+import planner.ui.gui.MainWindow;
 import planner.util.crawler.JsonWrapper;
 import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
@@ -32,43 +31,28 @@ public class CliLauncher {
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private User profile;
-    private transient ByteArrayOutputStream output;
     public static List<Timer> timerPool = new ArrayList<>();
-
+    private boolean isAlive;
 
     /**
      * Constructor for Planner class.
      */
-    public CliLauncher(boolean gui) {
+    public CliLauncher(MainWindow mainWindow) {
         store = new Storage();
-        modUi = new PlannerUi();
+        modUi = new PlannerUi(mainWindow);
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
-        if (gui) {
-            this.redirectOutput();
-            //credential.prompt(modUi);
-            modUi.helloMsg();
-        }
+        isAlive = true;
     }
 
     public CliLauncher() {
-        this(false);
-    }
-
-    /**
-     * Redirect output for GUI compatibility.
-     */
-    private void redirectOutput() {
-        this.output = new ByteArrayOutputStream();
-        PrintStream printStreamGui = new PrintStream(this.output);
-        System.setOut(printStreamGui);
-        System.setErr(printStreamGui);
+        this(null);
     }
 
     /**
      * Setup data files for module data and logging.
      */
-    public void modSetup() {
+    public void setup() {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             // modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
@@ -86,16 +70,22 @@ public class CliLauncher {
         }
     }
 
-    private void modRunArgparse4j() {
-        modSetup();
+    /**
+     * Run Planner.
+     */
+    public void run() {
         modUi.helloMsg();
-        boolean isExit = true;
-        while (isExit) {
-            isExit = this.handleInput();
+        while (isAlive) {
+            isAlive = this.handleInput();
         }
+        modUi.updateGui();
     }
 
-    private boolean handleInput() {
+    /**
+     * Handle user input.
+     * @return false if EndCommand is reached, else true
+     */
+    public boolean handleInput() {
         try {
             String input = modUi.readInput();
             if (input == null) {
@@ -109,7 +99,7 @@ public class CliLauncher {
                 }
             }
         } catch (ModException e) {
-            System.out.println(e.getMessage());
+            modUi.println(e.getMessage());
             PlannerLogger.log(e);
         } finally {
             modUi.showLine();
@@ -117,17 +107,8 @@ public class CliLauncher {
         return true;
     }
 
-    /**
-     * Get output from commands.
-     * @param input user input
-     * @return command output
-     */
-    public String getResponse(String input) {
-        if (input != null) {
-            this.output.reset();
-            this.handleInput();
-        }
-        return this.output.toString();
+    public boolean isAlive() {
+        return isAlive;
     }
 
     /**
@@ -138,6 +119,7 @@ public class CliLauncher {
         User.restoreDefaultPath();
         //TODO: args flag could be passed into program for optional runs
         CliLauncher planner = new CliLauncher();
-        planner.modRunArgparse4j();
+        planner.setup();
+        planner.run();
     }
 }
