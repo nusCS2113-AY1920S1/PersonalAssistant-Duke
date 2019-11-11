@@ -277,7 +277,8 @@ Other alternatives would be to have the checks directly in the `GradeCommand` cl
 
 === Cap Calculation
 ==== Overview
-This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways.
+This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways. +
+
 ==== Current Implementation
 The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
