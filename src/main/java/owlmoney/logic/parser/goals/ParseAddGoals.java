@@ -73,23 +73,6 @@ public class ParseAddGoals extends ParseGoals {
     }
 
     /**
-     * Checks if only one of /by or /in is provided for Goals deadline.
-     *
-     * @param by Date of goals deadline.
-     * @param in Days of goals deadline.
-     * @throws ParserException If both /by and /in provided, or none provided.
-     */
-    void checkOptionalParameter(String by, String in) throws ParserException {
-        if (by.isBlank() && in.isBlank()) {
-            logger.warning("Date parameter not specified, use either /in [DAYS] or /by [DATE]");
-            throw new ParserException("/by and /in cannot be both empty when adding new goals");
-        } else if (!by.isBlank() && !in.isBlank()) {
-            logger.warning("Cannot specify both /in and /by");
-            throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
-        }
-    }
-
-    /**
      * Returns command to execute the adding of a new goal.
      *
      * @return AddGoalsCommand to be executed.

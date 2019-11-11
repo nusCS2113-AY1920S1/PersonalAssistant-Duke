@@ -104,7 +104,7 @@ public abstract class ParseGoals {
      * @throws ParserException If the string is not a double value.
      */
     void checkGoalsAmount(String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckGoalsAmount(valueString)) {
+        if (!RegexUtil.regexCheckMoney(valueString)) {
             logger.warning("Amount does not contain at most 9 digits and 2d.p or value of at least 1");
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
                     + " and a value of at least 1");
@@ -202,6 +202,23 @@ public abstract class ParseGoals {
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, day);
         return calendar.getTime();
+    }
+
+    /**
+     * Checks if only one of /by or /in is provided for Goals deadline.
+     *
+     * @param by Date of goals deadline.
+     * @param in Days of goals deadline.
+     * @throws ParserException If both /by and /in provided, or none provided.
+     */
+    void checkOptionalParameter(String by, String in) throws ParserException {
+        if (by.isBlank() && in.isBlank()) {
+            logger.warning("Date parameter not specified, use either /in [DAYS] or /by [DATE]");
+            throw new ParserException("/by and /in cannot be both empty when adding new goals");
+        } else if (!by.isBlank() && !in.isBlank()) {
+            logger.warning("Cannot specify both /in and /by");
+            throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
+        }
     }
 
     /**

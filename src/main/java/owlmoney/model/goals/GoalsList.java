@@ -149,12 +149,12 @@ public class GoalsList {
      * Compares there is already a goal name that exists.
      *
      *
-     * @param currGoal Name of current goal.
+     * @param currentGoal Name of current goal.
      * @param newGoalName New Goal Name that user intends to change.
      * @throws GoalsException If there's a goal of the same name.
      */
-    private void compareGoals(Goals currGoal, String newGoalName) throws GoalsException {
-        String currentGoalName = currGoal.getGoalsName();
+    private void compareGoals(Goals currentGoal, String newGoalName) throws GoalsException {
+        String currentGoalName = currentGoal.getGoalsName();
         String capitalCurrentGoalName = currentGoalName.toUpperCase();
         String capitalNewGoalName = newGoalName.toUpperCase();
 

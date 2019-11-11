@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProfileTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+    private static final String PROFILE_FILE_NAME = "profile.csv";
 
     //Tests function for transfer feature.
     @Test
@@ -265,36 +266,13 @@ class ProfileTest {
     }
 
     @Test
-    void editProfile_validNewName_success() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Ui uiTest = new Ui();
-        Profile profileTest = new Profile("Test User", uiTest);
-
-        try {
-            profileTest.profileSetUsername("Test User", "User", uiTest);
-        } catch (ProfileException exception) {
-            System.out.println("Expects success but error thrown");
-        }
-        String expectedOutput = NEWLINE + "Profile name was: Test User" + NEWLINE + "Now changed to: User" + NEWLINE;
-        assertEquals(expectedOutput, outContent.toString());
-        outContent.toString();
-    }
-
-    @Test
     void editProfile_providedWrongName_throwsErrorMessage() {
         Ui uiTest = new Ui();
-        Profile profileTest = new Profile("Test User", uiTest);
-        try {
-            profileTest.profileSetUsername("TestUser", "User", uiTest);
-        } catch (ProfileException exception) {
-            System.out.println("Expects success but error thrown");
-        }
+        Profile profileTest = new Profile("john", uiTest);
         ProfileException thrown = assertThrows(ProfileException.class, () ->
-                        profileTest.profileSetUsername("TestUser", "User", uiTest),
+                        profileTest.profileSetUsername("jon", "User", uiTest),
                 "Expected to throw error, but it didn't");
-        String expectedOutput = "No profile name with TestUser found!" + NEWLINE + "Try this instead: Test User";
+        String expectedOutput = "No profile name with jon found!" + NEWLINE + "Try this instead: john";
         assertEquals(expectedOutput, thrown.toString());
-        thrown.toString();
     }
 }
