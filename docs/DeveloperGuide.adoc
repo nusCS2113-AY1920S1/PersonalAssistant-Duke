@@ -71,15 +71,18 @@ Ducats, the main class, is responsible for the initialization of the different c
 
 DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
 
-Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components. The remaining seven components are as follows:
+Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components making use of the services provided by the lower-level components. The remaining seven components are as follows:
 
 * `UI`: interacts with the console (reading and writing)
 * `Parser`: parses the input command and creates of the appropriate Command object
+* `WordGetter`: suggests the correct command to the user if the user misspells his command
 * `Command`: executed to modify the UI, SongList and Storage
 * `SongList`: contains the list of Song objects
 * `Metronome`: displays a visual metronome on screen when initialized through a `MetronomeCommand`
 * `StorageParser`: parses data in persistent storage and converts song data to a form friendly to be stored in persistent storage
 * `Storage`: Reads data from and writes data to persistent storage in the hard disk
+
+Each of these classes have their API illustrated in their respective files.
 
 === UI
 
@@ -153,7 +156,7 @@ findSongIndex(songName) conducts a linear search on the SongList to return the i
 
     songList.setActiveIndex(songList.findSongIndex(songName));
 
-For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
+For future CRUD commands, the specific SongList method invoked by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
 
 image::songlist_activeIndex3.png[]
 
@@ -209,7 +212,7 @@ _Design Considerations_:
 
 * Using a single .txt file to store all the data
 ** _Pros_: easier implementation of `Storage`
-** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data
+** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
 * Using .csv files instead of .txt files to store the data
 ** _Pros_: arguably a more organized method of data management
 ** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
@@ -225,11 +228,182 @@ We have decided to use a storage directory that contains `.txt` files, each cont
 [appendix]
 == Product Scope
 
+Target user profile:
+
+* Is passionate in producing music
+* Is new to music composition
+* Has little to no background in music theory
+* Can effectively use the keyboard
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
+
+_Value proposition_:
+Quick and seamless composing, editing and saving of music.
+
+
 [appendix]
 == User Stories
+
+[cols=4*]
+|===
+|Priority
+|As a(an) ...
+|I want to ...
+|So that ...
+
+|3
+|amateur composer who does not want to be overwhelmed with music theory
+|know the different ways and options to compose music in a simplified way
+|I have a way to start learning about music composition
+
+|3
+| a self-taught musician who has no prior musical theory knowledge
+| visualize the songs I create and play in an intuitive yet comprehensive way to
+| I have a tangible way to represent and record my songs.
+| 3
+| pianist who is not pitch perfect
+| check out how certain specific chords sound in a convenient way
+| I can identify when I play the wrong chords
+| 2
+| electronic music enthusiast
+| create music that cannot be created with a physical musical instrument
+| I can create new music
+| 2
+| electronic music composer
+| save my music as mp3 file
+| I can share it with others
+| 1
+| musician who wants to start composing my own accompaniment
+| an easy-to-use platform to test out how the accompaniment would sound together with my musical piece
+| it is easier for me to create my accompaniment
+| 3
+| As someone who doesn’t have any musical instruments
+| I want to be able to learn about basic music theory without buying any instruments
+| I can create my own music and feel proud
+| 2
+| As an electronic music enthusiast,
+| I want to create music that cannot be created with a physical musical instrument
+| that I can create new music.
+| 3
+| As an electronic music composer
+| I want to save my music as mp3 file
+| so that I can share it with others
+| 2
+| As a newcomer to music
+| I want to have tips or tutorial on creating good music in the software
+| so that I can learn to create good and simple music through the app
+| 3
+| As a newcomer to music
+| I want the app to tell me about my progress in learning music
+| So that I can gauge my performance.
+| 2
+| As an amateur music creator
+| I want to be able to group certain rhythms and melodies that I compose
+| So that I can easily copy paste these rhythms and melodies to create long music
+| 3
+| As an amateur music creator
+| I want to group together notes that I find sounds good to create rhythms and melodies
+| so that I can reuse them later as I compose the music.
+| 4
+| As an experienced composer
+| I want an fast and easy way to hear out small snippets of my musical pieces.
+| This is so that it is easier for me pick out which notes to improve on and alter.
+| 4
+| As a wannabe composer
+| I want to be able to change the key of the song I am working on.
+| So that I can create or remix new songs.
+| 3
+| As a wannabe composer
+| I want to be able to easily set the time signature of the song I want to compose.
+| So that I can create or remix new songs.
+| 4
+| As an experimentalist musician
+| I want to be able to explore the sounds of different chords. Priority.
+| So that I can test it and create new songs.
+| 3
+| As a fan of music
+| I want to quickly listen to what I have composed.
+| So that I can share with my friends.
+| 4
+| As a music lover
+| I want to be able to easily edit songs in a command line interface.
+| I can share it with my musical buddies.
+| 4
+| As a person who enjoys music
+| I want to be able to jot down my musical ideas in a quick and seamless way.
+| I can share it with my friends.
+| 3
+| As a computer engineer with little to no experience in music
+| I need a tool to instantly combine two songs or voice for a presentation
+| I can share it with my friends.
+| 4
+| As a parent
+| I want to teach my kid the practicality approach of creating a song
+| so that i can gauge their interest level in music.
+| 4
+| As a person who is just starting off with piano
+| I would love to know if there is an app that allows me to compose music
+| so that I can learn practically.
+| 3
+| As a person who loves to analyse music
+| I want to know the notes in the music.
+| I can learn from it.
+| 4
+| As a person who is into remixing
+| I want a simple tool to remix different songs in a simple and intuitive way.
+| I can create my own songs
+| 4
+| A person who loves to create music
+| I really want to copy portions of a song into another
+| I can do it as a hobby!
+|===
 
 [appendix]
 == Use Cases
 
+(For all use cases below, the *System* is the Ducats program and the *Actor* is the user)
+
+Use case: Delete song
+
+. User requests to list songs
+. Ducats shows a list of songs
+. User requests to delete a specific song in the list
+. Ducats deletes the song _[Use case ends]_
+
+Extensions:
+
+2a. The list is empty _[Use case ends]_
+
+3a. The given song name is invalid
+
+3a1. Ducats shows an error message _[Use case ends]_
+
+Use case: Create song
+
+. User requests the format to create song using help
+. Ducats shows a list of commands
+. User lookup for the specific song creation command
+. Ducats shows the format for creating a song
+. User input a song according to the format
+. Ducats create the song and store it into the storage
+
+Extensions:
+
+3a. The input command name is invalid
+
+3a1. Ducats shows an error message _[Use case ends]_
+
+5a. The input format is incorrect
+
+5a1. Ducats shows an error message _[Use case ends]_
+
+
 [appendix]
 == Non-Functional Requirements
+
+* Response should be as fast as possible as there is no online communication and any complicated back-end algorithms. Response should be within 0.7s.
+* The product should work on all modern devices regardless of Operating System.
+* The product should show data in a human-readable, human-editable way in order to allow for easy manual entry and easy exporting of data.
+* The product should be intuitive and easily utilized with reference to an accompanying User Guide and/or Developer Guide.
+* The product should have clear updates that indicate what features have been added, removed or modified.
+* The product should not be excessively battery and resource intensive.
