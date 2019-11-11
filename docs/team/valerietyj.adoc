@@ -112,5 +112,3 @@ include::../DeveloperGuide.adoc[tag=goals_class]
 
 include::../DeveloperGuide.adoc[tags=goals_sequence]
 
-==== Use Cases for implementation of goals
-include::../DeveloperGuide.adoc[tag=goals_usecase]
