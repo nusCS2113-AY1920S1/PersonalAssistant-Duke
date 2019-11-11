@@ -81,9 +81,9 @@ Adds a new resource to the user's inventory, which is available for loan/reserva
 .*Format*:
 * `add /item ITEM_NAME /qty QUANTITY`
 * `add /room ROOM_NAME`
-. Quantity specified must be a positive integer.
-. If an item to be added already exists in RIMS, then its quantity will be incremented by the specified quantity.
-. If a room to be added already exists in RIMS, the program will send an error to the UI for the user's reading. 
+... Quantity specified must be a positive integer.
+... If an item to be added already exists in RIMS, then its quantity will be incremented by the specified quantity.
+... If a room to be added already exists in RIMS, the program will send an error message to the UI for the user's reading.
 
 .*Examples*:
 * `add /item book /qty 5`
@@ -95,48 +95,63 @@ Deletes a resource from the user's inventory in RIMS.
 .*Format*:
 * `delete /item ITEM_NAME`
 * `delete /room ROOM_NAME`
-. If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-. Quantity must be a positive integer.
-. Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+====
+* RIMS will display a list of all instances of the requested resource, and prompt the user to input the IDs of the resources to be deleted:
++
+image:delete.png[]
++
+* The IDs must be inputted as a positive integer.
+* If multiple resources are to be simultaneously deleted, the multiple resource IDs must be separated from each other by a single whitespace character.
+====
+... If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
+... Quantity must be a positive integer.
+... Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
 
 .*Examples*:
-* `delete /item book /qty 5`
+* `delete /item book` -> `6 7 8`
 * `delete /room multi purpose sports hall`
 
-=== Resource Status
+=== Booking and returning resources
 
 ==== Loan out resources: `loan`
-Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
+Registers a resource as having been loaned out, from the current date until a user-specified future date. The resource is thus unavailable for further loaning until it is returned.
 
 .*Format*:
 * `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE`
 * `loan /room ROOM_NAME /id USER_ID /by DEADLINE`
-. If the item or room does not exist in RIMS, then the UI will send an error message to inform the user.
-. Quantity and User ID must be non-negative integers.
-. If either of these values specified is less than or equal to zero, the UI will send an error message.
-. The deadline must be a valid date in the format `DD/MM/YYYY HHmm` or in the example format `Tuesday HHmm`, which will in this example, book the resource until the next Tuesday at the specified time.
-. If the deadline specified is in an invalid format, the UI will send an error message.
+... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
+... Quantity specified must be a positive integer above 0.
+... User ID must be a non-negative integer, with a value of 0 and above.
+... If either of these values specified are invalid, the program will send an error message to the UI.
+... If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
+... Rooms are unique and thus do not require quantities.
+... The deadline must be a valid date in the format `DD/MM/YYYY HHmm`, or in the example format `Tuesday HHmm`, for which the resource will be booked from the current date until the next Tuesday at the specified time.
+... If the deadline specified is in an invalid format, the program will send an error message.
 
 .*Examples*:
 * `loan /item book /qty 5 /id 1 /by 23/11/2019 1500`
 * `loan /room mpsh /id 2 /by Wednesday 1700`
 
 ==== Reserve resources: `reserve`
-Registers an item/room as having been reserved (loaned in advance) from a future date to another future date.
+Registers a resource as having been reserved for use between two dates in the future. The resource is thus unable to be further loaned or reserved during that time period.
+
+While loans take effect from the current date to a specified deadline, reservations specify a future time-frame between which a resource is to be loaned out.
 
 .*Format*:
-. `reserve /item ITEM /qty QUANTITY /id USER_ID /from BORROW_DATE /by DEADLINE`
-. `reserve /room ROOM /id USER_ID /from BORROW_DATE /to DEADLINE`
-* While loans take effect from the current date to a specified deadline, reservations specify a future time-frame between which a resource is to be loaned out.
-* Quantity must be a positive integer.
-* If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
-* If the item or room does not exist in the inventory, the UI will send an error message to the user.
-* Rooms are unique and thus do not require quantities.
-* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+* `reserve /item ITEM /qty QUANTITY /id USER_ID /from BORROW_DATE /by DEADLINE`
+* `reserve /room ROOM /id USER_ID /from BORROW_DATE /by DEADLINE`
+... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
+... Quantity must be a positive integer above 0.
+... User ID must be a non-negative integer, with a value of 0 and above.
+... If either of these values specified are invalid, the program will send an error message to the UI.
+... If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
+... Rooms are unique and thus do not require quantities.
+... The date of borrowing, and the deadline date must be valid date, either in the format `DD/MM/YYYY HHmm`, or in the example format `Tuesday HHmm`, where `Tuesday` can be replaced by any day of the user's choice and will obtain the next available instance of that day and time.
+... If the deadline specified is in an invalid format, the program will send an error message.
 
 .*Examples*:
-* `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* `reserve /room basketball court /from 01/10/2019 2300 /to 03/10/2019 2300`
+* `reserve /item basketball /qty 1 /from 01/12/2019 2300 /to 03/12/2019 2300`
+* `reserve /room basketball court /from Monday 1600 /to 20/11/2019 2300`
 
 
 ==== Return resources: `return`
