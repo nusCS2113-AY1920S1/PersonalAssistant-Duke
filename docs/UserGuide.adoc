@@ -220,10 +220,10 @@ lists all the members in order of todo task num from low to high in the CLI outp
 ==== Viewing Schedule for the whole team or a member: `schedule`
 
 view the whole team tasks in chronological order +
-`schedule team {all/todo}`
+`schedule tasks {all/todo}`
 
 view tasks for a specific member +
-`schedule member {all/todo} ([MEMBER_NAME])`
+`schedule member {all/todo} [MEMBER_NAME]`
 
 ****
 * The DATE has to be of pattern “dd/MM/yyyy”
@@ -243,7 +243,6 @@ it will output the member name, date and tasks' names.
 Q: How do I transfer my data to another Computer? +
 A: Copy and replace the /data folder to the other Team Manager
 
-{to be implemented}
 
 == Command Summary
 * Viewing Available Commands: `help`
@@ -258,7 +257,8 @@ A: Copy and replace the /data folder to the other Team Manager
 * Removing a member: `delete member [MEMBER_NAME],...`
 * Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
 * Listing for members: `list members (todonum/progress)`
-* View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
+* View Schedule: `schedule tasks {all/todo}`
+* View Schedule for a member: `schedule member {all/todo} [MEMBER_NAME]`
 * Find Task by Name: `find [KEYWORD]`
 * Mark Task as Complete: `done [INDEX] ...`
 * Mark Task as Incomplete: `undone [INDEX] ...`
