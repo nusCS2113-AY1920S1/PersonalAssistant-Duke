@@ -159,6 +159,7 @@ image::check_activityDiagram.png[width = "800"]
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
 This is implemented by storing an array list of strings in `Event` objects.
+Storing checklist data to files coming in v2.0.
 
 Checklist implementation contains 4 operations:
 
