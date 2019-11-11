@@ -14,31 +14,41 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-1/main
 
-By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS School of Computing`
+By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `MIT`
 
 == Introduction
 
 **ModPlan**
 
-Your one stop solution to module planning through out your university tenure! +
-ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree. ModPlan also helps NUS Computer Engineering students to customise the modules they want to take and keep track of the current and future modules to be taken. As such, NUS Computer Engineering students can graduate in time with the planning provided by the ModPlan!
+Your one stop solution to module planning through out your university tenure!
+
+ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree.
+
+ModPlan also helps NUS Computer Engineering students to customise the modules they want to take and keep track of the current and future modules to be taken.
+
+As such, NUS Computer Engineering students can graduate in time with the planning provided by the ModPlan!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ModPlan.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ModPlan application.
-//.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Open any terminal application, for example `Command Prompt` on Windows or `Terminal` on Mac in the folder directory containing ModPlan.
+.  Run the following `java -jar ModPlan.jar` in the terminal application.
+.  A welcome message should be prompted in the terminal.
+.  Type the commands in the terminal and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
 
 * *`show module`* : shows all modules
-* **`add`**`module CG2028` : searches for a module with a module code of CG2028 and adds the module into the module list
-* **`remove`**`module 3` : deletes the 3rd module shown in the module list
+* **`add`**`module CG2028` : searches for a module with module code of CG2028 and adds the module into the module list
+* **`remove`**`module 3` : deletes the 3rd module shown in the module list, if there are at least 3 modules in the list
 * *`bye`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+== Manual User Testing
+
+
 
 [[Features]]
 == Features
@@ -47,8 +57,9 @@ ModPlan is a module planning system that expands on NUSMODS to help NUS Computer
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add module MOD_CODE`, `MOD_CODE` is a parameter which can be used as `add module CG1112` or `add module GES1012`.
-//* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-//* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Arguments for time `--begin` and `--end` are supposed to be given in 24 hour format. Due to the use of `Natty` library for relative date parsing, other formats would work but may result in
+ anomalous behavior. The list of known expected behavior can be found <<Expected anomalous behavior>>
+
 ====
 
 === Adding a module or CCA: `add`
@@ -308,10 +319,12 @@ Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 === Updating module data : `update`
 
 Allows the user to directly update the module data. +
-Format: `update YEAR_SEM_1-YEAR_SEM_2`
+Format: `update module`
 
 ****
-* YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
+* This command requires internet connection to download data from NUSMOD API.
+* If either their server is down or there is no stable internet connection, a
+`ModBadRequestStatus` is thrown.
 ****
 
 === Enabling and disabling of reminders to update the module data: `reminder`
@@ -488,6 +501,9 @@ image::ModBadSuException.png[width="450"]
 > * Only modules with the "SU: true" indicates that the module is S/U'able and an S or U grade can be input.
 > ****
 
+== Expected Anomalous Behavior
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -541,8 +557,7 @@ eg. `sort time monday` +
 ** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
 e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
 * *Update* :
-** `update YEAR_SEM_1-YEAR_SEM_2` +
-e.g `update 2019-2020`
+** `update module`
 * *Reminder* :
 ** `reminder list`
 ** `reminder NUMBER` +
