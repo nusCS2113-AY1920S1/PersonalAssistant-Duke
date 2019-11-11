@@ -577,7 +577,7 @@ public class PlannerUi {
     }
 
     /**
-     * Message to print the reminder list.
+     * Message to print the reminder message.
      */
     public void reminderMsg() {
         showLine();

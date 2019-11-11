@@ -23,6 +23,10 @@ public class ShowCommand extends ModuleCommand {
         super(args);
     }
 
+    /**
+     * Function to return a string set containing all the core module codes.
+     * @return coreModList
+     */
     private Set<String> getCoreModList() {
         if (coreModList.size() == 0) {
             setCoreMods(coreModList);
@@ -31,7 +35,7 @@ public class ShowCommand extends ModuleCommand {
     }
 
     /**
-     * Function to return a string set containing all core module codes.
+     * Function to add all core module codes into a string set.
      * @param coreModList takes in a set of string and populates it with CEG core module codes.
      */
     public static void setCoreMods(Set<String> coreModList) {
