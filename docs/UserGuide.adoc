@@ -179,7 +179,11 @@ e.g `reminder 1 2d`
 ****
 * Reminders can only be set on a task that has a time
 * `TIME_BEFORE` is specified by a numeric value followed by `m` for minutes, `h` for hours, `d` for days
+* You cannot set a reminder before the current time, or after a task is due.
+* Upon reaching the time of the reminder, a reminder will be shown and a sound will be played.
 ****
+
+image::ReminderDemo.png[width="939", align="left"]
 
 ==== Matching a task to members : `match task`
 
