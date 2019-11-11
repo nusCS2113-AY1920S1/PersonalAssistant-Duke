@@ -169,7 +169,7 @@ Shows the full details of the selected task. +
 `show task TASK_INDEX` +
 e.g `show task 1`
 
-image::showTaskDetails.png[width="939", align="left"]
+image::showTaskDetails.PNG[width="939", align="left"]
 
 ==== Setting a Reminder :
 `reminder TASK_INDEX TIME_BEFORE` +
@@ -233,7 +233,7 @@ Shows the full details of the selected member. +
 `show member MEMBER_NAME` +
 e.g `show member 1`
 
-image::showMemberDetails.png[width="939", align="left"]
+image::showMemberDetails.PNG[width="939", align="left"]
 
 ==== Matching a member to tasks : `match member`
 
