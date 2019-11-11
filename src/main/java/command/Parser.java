@@ -90,7 +90,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, ui, storage, projectManager);
+                process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFind(input)) {
@@ -132,7 +132,7 @@ public class Parser {
                 process.addPayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
-                process.addPayee(input, ui, storage, projectManager);
+                process.addPayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
                 process.deletePayee(input, ui, storage, projectManager);

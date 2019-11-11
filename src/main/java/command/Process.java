@@ -76,7 +76,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @return
      */
-    public void addProject(String input, Ui ui, Fund fund, Storage storage, ProjectManager projectManager) {
+    public void addProject(String input, Ui ui, Fund fund, Storage storage) {
         try {
             BeforeAfterCommand.beforeCommand(projectManager, storage);
             String[] splitproject = input.split("pr/", 2);
@@ -144,7 +144,7 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deleteProject(String input, Ui ui, Storage storage, Fund fund, ProjectManager projectManager) throws AlphaNUSException {
+    public void deleteProject(String input, Ui ui, Storage storage, Fund fund) throws AlphaNUSException {
         try {
             BeforeAfterCommand.beforeCommand(projectManager, storage);
             String[] split = input.split("pr/", 2);
@@ -405,7 +405,7 @@ public class Process {
                 double newbudget = projectManager.projectmap.get(projectname).budget - amount;
                 if (newbudget < projectManager.projectmap.get(projectname).spending) {
                     ui.exceptionMessage("     ☹ OOPS!!! The remaining budget is not sufficient.  ");
-                    //showBudget("show budget pr/" + projectname, ui);
+                    showBudget("show budget pr/" + projectname, ui);
                     return;
                 }
                 projectManager.projectmap.get(projectname).budget = newbudget;
@@ -808,7 +808,8 @@ public class Process {
      * @throws AlphaNUSException for reading errors from json file
      *
      */
-    public void deletePayment(String input, Ui ui, Storage storage, ProjectManager projectManager) throws AlphaNUSException {
+    public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
+        String payeename = new String();
         try{
         BeforeAfterCommand.beforeCommand(projectManager, storage);
         HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
@@ -817,18 +818,11 @@ public class Process {
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
-
-        String payeename = split[1];
+        payeename = split[1];
         String itemname = split[2];
         Payee payee = managermap.get(payeename);
-        for (Payments p : payee.payments) {
-            if (p.getItem() == itemname) {
-                projectmanager.projectmap.get(currentprojectname).addBudget(p.getCost());
-                break;
-            }
-        }
-        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentprojectname);
-        ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentprojectname);
+        Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap);
+        ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
         BeforeAfterCommand.afterCommand(projectManager, storage);
     }catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format\n"
@@ -848,8 +842,7 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-<<<<<<< HEAD
-    public void addPayment(String input, Ui ui, Storage storage, ProjectManager projectManager) {
+    public void addPayment(String input, Ui ui, Storage storage, Set<String> dict) {
         try {
             BeforeAfterCommand.beforeCommand(projectManager, storage);
             HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
@@ -890,7 +883,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @param storage used to read from dict.json.
      */
-    public void addPayee(String input, Ui ui, Storage storage, ProjectManager projectManager) {
+    public void addPayee(String input, Ui ui, Storage storage) {
         try {
             BeforeAfterCommand.beforeCommand(projectManager, storage);
             HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
@@ -905,9 +898,8 @@ public class Process {
             Payee payee = PaymentManager.addPayee(currentProjectName, payeename, 
                 email, matricNum, phoneNum, managermap);
             int payeesize = managermap.size();
-            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentprojectname);
+            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
             BeforeAfterCommand.afterCommand(projectManager, storage);
-        } catch (ArrayIndexOutOfBoundsException e) {
         } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
@@ -925,7 +917,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @throws AlphaNUSException for reading errors from json file
      */
-    public void deletePayee(String input, Ui ui, Storage storage, ProjectManager projectManager) throws AlphaNUSException {
+    public void deletePayee(String input, Ui ui, Storage storage) throws AlphaNUSException {
         try {
             BeforeAfterCommand.beforeCommand(projectManager, storage);
             String payeename = new String();
@@ -943,21 +935,20 @@ public class Process {
                 totalspending += p.cost;
             }
             projectManager.projectmap.get(currentprojectname).addBudget(totalspending);//the total spending paid by a payee is released as budget
+            projectManager.projectmap.get(currentprojectname).retrieveBudget(totalspending);
+            Set<String> dict = storage.readFromDictFile();
+            ui.printSuggestion(dict, input, payeename);
             BeforeAfterCommand.afterCommand(projectManager, storage);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
-        } catch (AlphaNUSException e) {
-            e.printStackTrace();
-            projectManager.projectmap.get(currentprojectname).retrieveBudget(totalspending);
-        } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
+        }catch (AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
                     + "The correct format is [delete payee p/PAYEE_NAME]");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
-            Set<String> dict = storage.readFromDictFile();
-            ui.printSuggestion(dict, input, payeename);
+
         }
     }
 
