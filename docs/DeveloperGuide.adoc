@@ -359,7 +359,7 @@ The following sequence shows how the Search Frequency feature works:
 
 [INSERT SEQUENCE DIAGRAM]
 
-==== Schedule Reminders feature
+=== Schedule Reminders feature
 The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
 
 [INSERT OBJECT DIAGRAMS]
@@ -415,11 +415,11 @@ image::Synonymexample.PNG[align='center']
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
-* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. 
+* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. The quizzes are in the form of 4-option MCQs,4 in a row. (See QuizScene.java and QuizCommand.java for details.)
 
-See QuizScene.java and QuizCommand.java for details.
+* The generateQuiz() function in QuizCommand.java generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ. 
 
-* The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ.
+* The scene (GUI) will change form MainScene to QuizScene when user inputs “quiz” the QuizScene will then interacts between user and QuizCommand, generating MCQs for 4 in a row.
 
 * The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct.
 

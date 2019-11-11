@@ -355,6 +355,7 @@ Format: `list_tags`
 Add example sentence for a word.
 Format: `add_example w/ORDER e/EXAMPLE`
 
+When user `search` a word, WordUp will display the example sentence along with the meaning if the example sentence exists.
 
 
 === Exiting the program : `exit`
