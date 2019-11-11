@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seedu.hustler.game.shop.items.ShopItem;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  *  Test class for AvatarStats. Has unit testing for AvatarStats and
@@ -116,7 +117,7 @@ public class AvatarStatsTest {
      * Tests if the getting stats using the ShopItem interface is correct.
      */
     @Test
-    public void StatsWithShopItemCheck() {
+    public void statsWithShopItemCheck() {
         String statsStr;
 
         // Should give the same String as the base if there are no items equipped.

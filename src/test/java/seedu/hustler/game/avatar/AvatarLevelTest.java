@@ -3,7 +3,10 @@ package seedu.hustler.game.avatar;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  *  Test class for AvatarLevel. Contains the unit testing for AvatarLevel class.
@@ -15,10 +18,17 @@ public class AvatarLevelTest {
      */
     private static AvatarLevel test;
 
+    /**
+     * The AvatarLevel with instantiated variable.
+     */
+    private static AvatarLevel constructed;
+
     @BeforeAll
     static void start() {
         // Base AvatarLevel has level and xp to be 1 and 0 respectively.
         test = new AvatarLevel();
+        // Constructed AvatarLevel has level and xp to be 3 and 14 respectively.
+        constructed = new AvatarLevel(3, 14);
     }
 
     /**
@@ -88,17 +98,14 @@ public class AvatarLevelTest {
      */
     @Test
     public void toTxtCheck() {
-        AvatarLevel avatarLevel1 = new AvatarLevel(3, 14);
-        AvatarLevel avatarLevel2 = new AvatarLevel(4, 17);
-
         // The string should represent the level's current Level and Xp respectively, separated by a space.
         assertEquals("1 0", test.toTxt());
         assertEquals("1 1", test.increaseXp().toTxt());
-        assertEquals("3 14", avatarLevel1.toTxt());
-        assertEquals("4 17", avatarLevel2.toTxt());
+        assertEquals("3 14", constructed.toTxt());
+        assertEquals("3 15", constructed.increaseXp().toTxt());
 
         // Different levels with different values should not return the same toTxt format.
-        assertNotEquals(avatarLevel1.toTxt(), avatarLevel2.toTxt());
+        assertNotEquals(test.toTxt(), constructed.toTxt());
     }
 
     /**
