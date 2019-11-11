@@ -274,7 +274,7 @@ public class AsciiCommandTest {
         }
 
         String expected = "\n" + "_____________________________________________\n"
-                        +"UC:   @     \n"
+                        + "UC:   @     \n"
                         + "UB:  ---    \n"
                         + "UA: @       \n"
                         + "UG: --------\n"
