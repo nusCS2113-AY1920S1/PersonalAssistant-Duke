@@ -16,9 +16,9 @@ import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
 import cube.exception.CubeException;
-import cube.util.LogUtil;
 
-import java.util.logging.Logger;
+import java.util.logging.*;
+import cube.util.LogUtil;
 
 /**
  * The Entry Point for the Command Line Interface (CLI).
@@ -28,7 +28,7 @@ public class Cube {
     private ModelManager modelManager;
     private FileUtilJson<StorageManager> storage;
     private Ui ui;
-    private final Logger logger = LogUtil.getLogger(Cube.class);
+    private static Logger logger = LogUtil.getLogger(Cube.class);
 
     /**
      * The Cube constructor with filePath.
@@ -36,7 +36,7 @@ public class Cube {
      * @param filePath The file path where the Cube data is stored.
      */
     public Cube(String filePath) {
-        logger.info("=============================[ Initializing Cube ]===========================");
+        logger.info("==============================[ Initializing Cube ]==============================");
         ui = new Ui();
         storageManager = new StorageManager();
         storage = new FileUtilJson<>(filePath, "cube.json", storageManager);
@@ -49,7 +49,7 @@ public class Cube {
             PromotionList promotionList = storageManager.getPromotionList();
             modelManager = new ModelManager(foodList, salesHistory, promotionList);
         } catch (CubeException e) {
-            logger.warning(e.getMessage());
+            logger.log(Level.WARNING, e.getMessage());
             ui.showLoadingError(filePath);
             modelManager = new ModelManager();
         }
@@ -64,7 +64,7 @@ public class Cube {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                logger.info("Command Entered : " + fullCommand);
+                logger.log(Level.INFO, "Command Entered : " + fullCommand);
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
@@ -72,13 +72,13 @@ public class Cube {
                 ui.showCommandResult(result);
                 storage.save(storageManager);
             } catch (CubeException e) {
-                logger.warning(e.getMessage());
+                logger.log(Level.WARNING, e.getMessage());
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
         }
-        logger.info("=============================[  Exiting Cube  ]==============================");
+        logger.info("==============================[  Exiting Cube  ]==============================");
     }
 
     /**
