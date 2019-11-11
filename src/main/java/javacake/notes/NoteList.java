@@ -1,6 +1,5 @@
 package javacake.notes;
 
-import javacake.commands.Command;
 import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
 
