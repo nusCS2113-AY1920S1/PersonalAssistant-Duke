@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Nicholas Cheong
 image::therealnickcheong.png[width="150", align="left"]
-{empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/therealnickcheong[github]]
 
 Role: Team Lead +
 Responsibilities: +
@@ -26,7 +26,7 @@ GUI
 
 === Cheng Weixuan
 image::chengweixuan.png[width="150", align="left"]
-{empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/chengweixuan[github]]
 
 Role: Developer +
 Responsibilities: Documentation + Model +
@@ -40,7 +40,7 @@ Timing Shortcuts
 
 === Chen Chao
 image::chenchao19.png[width="150", align="left"]
-{empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ChenChao19[github]]
 
 Role: Developer +
 Responsibilities: Integration + Code Quality +
@@ -53,7 +53,7 @@ Command History
 
 === Chen Tong
 image::cctt1014.png[width="150", align="left"]
-{empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/cctt1014[github]] 
 
 Role: Developer +
 Responsibilities: Logic + UI +
@@ -67,7 +67,7 @@ Change Icon Function
 
 === Aw Chian Hao
 image::chianhaoplanks.png[width="150", align="left"]
-{empty}[http://github.com/Chianhaoplanks[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Chianhaoplanks[github]]
 
 Role: Developer +
 Responsibilities: Storage + Testing +
