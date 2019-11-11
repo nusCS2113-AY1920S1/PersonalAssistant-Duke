@@ -182,7 +182,7 @@ public abstract class SpinBoxList<T extends Item> implements StorageContainer {
             output.add(((i + 1) + ". " + inputList.get(i).toString()));
         }
         LOGGER.fine(LOG_OUTPUT_NUMBERED_LIST);
-        LOGGER.entering(getClass().getName(), "outputNumberedListWithHeader");
+        LOGGER.exiting(getClass().getName(), "outputNumberedListWithHeader");
         return output;
     }
 

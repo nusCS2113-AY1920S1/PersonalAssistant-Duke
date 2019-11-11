@@ -108,12 +108,12 @@ public class ViewCommand extends Command {
                 page = "modules";
                 moduleCode = contentComponents[1];
                 tab = "tasks";
+            } else if (contentComponents[0].equals("calendar")) {
+                page = "calendar";
+                tab = contentComponents[1];
             } else if (isValidTab) {
                 page = "modules";
                 moduleCode = contentComponents[0];
-                tab = contentComponents[1];
-            } else if (contentComponents[0].equals("calendar")) {
-                page = "calendar";
                 tab = contentComponents[1];
             } else {
                 LOGGER.severe(LOG_INVALID_VIEW_COMMAND);

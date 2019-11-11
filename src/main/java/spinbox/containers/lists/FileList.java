@@ -120,7 +120,7 @@ public class FileList extends SpinBoxList<File> {
         contains.sort(new FileComparator());
 
         LOGGER.fine(LOG_CONTAINS_KEYWORD);
-        LOGGER.entering(getClass().getName(), "containsKeyword");
+        LOGGER.exiting(getClass().getName(), "containsKeyword");
         return outputNumberedListWithHeader(FILES_CONTAIN + keyword, contains);
     }
 }

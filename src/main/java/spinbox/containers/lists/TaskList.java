@@ -199,7 +199,7 @@ public class TaskList extends SpinBoxList<Task> {
         contains.sort(new TaskComparator());
 
         LOGGER.fine(LOG_CONTAINS_KEYWORD);
-        LOGGER.entering(getClass().getName(), "containsKeyword");
+        LOGGER.exiting(getClass().getName(), "containsKeyword");
         return outputNumberedListWithHeader(TASKS_CONTAIN + keyword, contains);
     }
 }

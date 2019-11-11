@@ -122,7 +122,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         contains.sort(new GradedComponentComparator());
 
         LOGGER.fine(LOG_CONTAINS_KEYWORD);
-        LOGGER.entering(getClass().getName(), "containsKeyword");
+        LOGGER.exiting(getClass().getName(), "containsKeyword");
         return outputNumberedListWithHeader(GRADE_CONTAIN, contains);
     }
 
