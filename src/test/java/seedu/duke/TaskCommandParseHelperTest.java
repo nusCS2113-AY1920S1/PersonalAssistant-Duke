@@ -28,7 +28,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskCommandParseHelperTest {
     private void fakeModel() {
@@ -448,13 +451,13 @@ public class TaskCommandParseHelperTest {
                     new Command.Option("priority", "high"), new Command.Option("tag", "123"),
                     new Command.Option("doafter", "description"), new Command.Option("time", "Mon"),
                     new Command.Option("tag", "efg")));
-            ArrayList<Command.Option> optionListExtra2 = new ArrayList<>(Arrays.asList(new Command.Option(
-                    "doafter", "do after description"), new Command.Option("msg", "something")));
 
             //positive cases
             assertTrue(method.invoke(null, "update 1", optionListCorrect) instanceof TaskUpdateCommand);
             assertTrue(method.invoke(null, "update 1 ", optionListExtra) instanceof TaskUpdateCommand);
             assertTrue(method.invoke(null, "update  1", optionListExtra) instanceof TaskUpdateCommand);
+            ArrayList<Command.Option> optionListExtra2 = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "doafter", "do after description"), new Command.Option("msg", "something")));
             assertTrue(method.invoke(null, "update 1", optionListExtra2) instanceof TaskUpdateCommand);
 
             //negative cases
@@ -545,16 +548,17 @@ public class TaskCommandParseHelperTest {
                     "email", "1")));
             ArrayList<Command.Option> optionListEmail = new ArrayList<>(Arrays.asList(new Command.Option(
                     "email", "1"), new Command.Option("email", "2"), new Command.Option("email", "3")));
-            ArrayList<Command.Option> optionListDelete = new ArrayList<>(Arrays.asList(new Command.Option(
-                    "delete", "1"), new Command.Option("delete", "2"), new Command.Option("delete", "3")));
-            ArrayList<Command.Option> optionListMix = new ArrayList<>(Arrays.asList(new Command.Option(
-                    "delete", "1"), new Command.Option("email", "4"), new Command.Option("delete", "3")));
-            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
 
             //positive cases
             assertTrue(method.invoke(null, "link 1", optionListCorrect) instanceof TaskLinkCommand);
             assertTrue(method.invoke(null, "link 1 ", optionListEmail) instanceof TaskLinkCommand);
             assertTrue(method.invoke(null, "link  1", optionListEmail) instanceof TaskLinkCommand);
+
+            ArrayList<Command.Option> optionListDelete = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "delete", "1"), new Command.Option("delete", "2"), new Command.Option("delete", "3")));
+            ArrayList<Command.Option> optionListMix = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "delete", "1"), new Command.Option("email", "4"), new Command.Option("delete", "3")));
+            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
             assertTrue(method.invoke(null, "link 1", optionListDelete) instanceof TaskLinkCommand);
             assertTrue(method.invoke(null, "link 1", optionListMix) instanceof TaskLinkCommand);
             //no description
@@ -586,8 +590,6 @@ public class TaskCommandParseHelperTest {
             Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseSortCommand", String.class);
             method.setAccessible(true);
-
-            ArrayList<Command.Option> optionList = new ArrayList<>();
 
             //positive cases
             assertTrue(method.invoke(null, "sort status") instanceof TaskSortCommand);

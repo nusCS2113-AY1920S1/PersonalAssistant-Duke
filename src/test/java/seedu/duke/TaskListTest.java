@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
+    /**
+     * Creates a sample task list for tests to be conducted on.
+     * @return sample task list
+     */
     public TaskList createTaskList() {
         ArrayList<String> blankList = new ArrayList<>();
         ArrayList<String> testTag = new ArrayList<>();
@@ -118,7 +122,8 @@ public class TaskListTest {
         assertThrows(CommandParseHelper.CommandParseException.class, () -> taskList.snoozed(-1, 0));
         assertThrows(CommandParseHelper.CommandParseException.class, () -> taskList.snoozed(6, 3));
         // invalid duration
-        String failedResult1 = "Number of days snoozed not specified. Default is used. Noted. I've snoozed task 3 by 3 days";
+        String failedResult1 = "Number of days snoozed not specified. Default is used. "
+                + "Noted. I've snoozed task 3 by 3 days";
         String failedResult2 = "Number of days snoozed should be integer of range 1 ~ 99999.";
         try {
             assertEquals(failedResult1, taskList.snoozed(2, -1));
@@ -188,7 +193,6 @@ public class TaskListTest {
 
     @Test
     public void getTaskGuiStringListTest() {
-        TaskList taskList = createTaskList();
         ArrayList<String> expectedResult1 = new ArrayList<>();
         expectedResult1.add("[T][X] random");
         expectedResult1.add("[T][X] something Priority: HIGH");
@@ -196,6 +200,7 @@ public class TaskListTest {
         expectedResult1.add("[D][X] tabby (by: 02/02/2020 0000) #cat Priority: MEDIUM");
         expectedResult1.add("[E][X] SocCat (by: 29/02/2020 2359)" + System.lineSeparator() + "\tAfter which: feed");
         expectedResult1.add("[E][X] cat (by: 01/01/1980 1234)(Past) Priority: LOW");
+        TaskList taskList = createTaskList();
         assertEquals(expectedResult1, taskList.getTaskGuiStringList());
 
         TaskList emptyTaskList = new TaskList();
@@ -285,7 +290,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void clearListTest(){
+    public void clearListTest() {
         TaskList taskList = createTaskList();
         String expectedResponse = "Task List has been cleared";
         assertEquals(expectedResponse, taskList.clearList());
