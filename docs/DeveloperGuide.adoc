@@ -900,7 +900,7 @@ Code style rules can be found in `config/checkstyle/checkstyle.xml`. These can b
 suit the purposes of the project.
 
 
-=== 6.2 Continuous Integration.
+=== 6.2 Continuous Integration
 We use Travis CI to perform Continuous Integration (CI) for ArchDuke. Other CI tools can be used so long
 as an appriopriate `.yml` file is provided and the relevant toolchain is set up properly. Some examples are
 
