@@ -20,7 +20,7 @@ import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.TreeSet;
 
 /**
  * Controller for guicontroller.MainWindow. Provides the layout for the other controls.

@@ -1,2 +1,0 @@
-INIT @ true
-BS @ 0.0
