@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BudgetCommandTest {
     @Test
-    void testSetBudgetCommand() throws MooMooException, IOException {
+    public void testSetBudgetCommand() throws MooMooException, IOException {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
@@ -86,7 +86,7 @@ class BudgetCommandTest {
     }
 
     @Test
-    void testEditBudgetCommand() throws MooMooException, IOException  {
+    public void testEditBudgetCommand() throws MooMooException, IOException  {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
@@ -134,7 +134,7 @@ class BudgetCommandTest {
     }
 
     @Test
-    void testListBudgetCommand() throws MooMooException, IOException  {
+    public void testListBudgetCommand() throws MooMooException, IOException  {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
@@ -190,7 +190,7 @@ class BudgetCommandTest {
     }
 
     @Test
-    void testSavingsBudgetCommand() throws MooMooException, IOException  {
+    public void testSavingsBudgetCommand() throws MooMooException, IOException  {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 

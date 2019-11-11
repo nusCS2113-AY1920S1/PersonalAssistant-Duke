@@ -86,4 +86,47 @@ public class GraphTotalCommandTest {
                 + ANSI_CYAN + "transportation" + "   " + "0.0%\n" + ANSI_RESET
                 + "              " + ANSI_YELLOW + "" + ANSI_RESET + "\n", Ui.getOutput());
     }
+    
+    
+    @Test
+    void testGraphTotalCommandValues() throws MooMooException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate date = LocalDate.parse("25/11/2019", formatter);
+        CategoryList newCatList = new CategoryList();
+    
+        Category shoes = new Category("shoes");
+        shoes.add(new Expenditure("Value 6", 50.00,  date, "shoes"));
+    
+        Category food = new Category("food");
+        food.add(new Expenditure("Value 6", 50.00,  date, "food"));
+    
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        Budget newBudget = new Budget();
+        StorageStub newStorage = new StorageStub();
+    
+        newCatList.add(shoes);
+        newCatList.add(food);
+    
+        String completeBlock = "";
+        for (int i = 0; i < 50; i += 1) {
+            completeBlock += fullBlock;
+        }
+        String completeTop = "";
+        String completeBottom = "";
+        for (int i = 0; i < 50; i += 1) {
+            completeTop += topBorder;
+            completeBottom += bottomBorder;
+        }
+    
+        Command testGraph = new GraphTotalCommand();
+        testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
+        assertEquals("     " + ANSI_YELLOW + completeTop
+                + ANSI_RESET + "\n"
+                + ANSI_CYAN + "shoes " + completeBlock
+                + "  " + "50.0%\n" + ANSI_RESET
+                + "food  " + completeBlock
+                + "  " + "50.0%\n"
+                + "     " + ANSI_YELLOW + completeBottom
+                + ANSI_RESET + "\n", Ui.getOutput());
+    }
 }

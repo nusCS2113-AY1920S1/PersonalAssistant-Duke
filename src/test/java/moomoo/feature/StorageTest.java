@@ -4,12 +4,11 @@ import moomoo.command.EditBudgetCommand;
 import moomoo.command.SetBudgetCommand;
 import moomoo.feature.storage.Storage;
 import moomoo.stubs.CategoryListStub;
-import moomoo.stubs.CategoryStub;
 import moomoo.stubs.ScheduleListStub;
-import moomoo.stubs.UiStub;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,9 +45,7 @@ public class StorageTest {
         budgets.add(153.34);
         budgets.add(13840.45);
 
-        CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
-        UiStub newUi = new UiStub();
         Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
         Budget newBudget = new Budget();
 
@@ -70,5 +67,13 @@ public class StorageTest {
         assertEquals(500.23, newHashMap.get("window"));
         assertEquals(153.34, newHashMap.get("sweets"));
         assertEquals(123.45, newHashMap.get("laptop"));
+
+        FileWriter filewriter = new FileWriter(budgetFile);
+        filewriter.write("window\nhello\n1234\nhello\n");
+        filewriter.close();
+
+        newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
+
+        assertEquals("Budget file corrupted, please delete it. Your data will be reset.", Ui.getOutput());
     }
 }

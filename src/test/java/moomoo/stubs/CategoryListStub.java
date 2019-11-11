@@ -41,6 +41,5 @@ public class CategoryListStub extends CategoryList {
         }
         return null;
     }
-    
 
 }

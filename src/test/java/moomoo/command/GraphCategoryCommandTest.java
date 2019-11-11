@@ -58,7 +58,7 @@ public class GraphCategoryCommandTest {
         Throwable thrown = assertThrows(MooMooException.class, () -> {
             testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
         });
-        assertEquals("Please enter an existing category!! Moohoohoo", thrown.getMessage());
+        assertEquals("OH NO! No such category exists!", thrown.getMessage());
     }
     
     
@@ -66,7 +66,7 @@ public class GraphCategoryCommandTest {
     void testGraphCategoryCommand() throws MooMooException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate date = LocalDate.parse("25/10/2019", formatter);
-        CategoryList newCatList = new CategoryListStub();
+        CategoryList newCatList = new CategoryList();
         
         Category shoes = new Category("shoes");
         shoes.add(new Expenditure("Value 6", 50.00,  date, "shoes"));
@@ -102,6 +102,8 @@ public class GraphCategoryCommandTest {
                 + ANSI_RESET + "\n", Ui.getOutput());
     }
     
+    
+    
     @Test
     void testGraphCategoryCommandEmpty() throws MooMooException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -133,7 +135,7 @@ public class GraphCategoryCommandTest {
         Throwable thrown = assertThrows(MooMooException.class, () -> {
             testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
         });
-        assertEquals("Please enter an existing category!! Moohoohoo", thrown.getMessage());
+        assertEquals("No expenditure data found :(", thrown.getMessage());
     }
     
 }

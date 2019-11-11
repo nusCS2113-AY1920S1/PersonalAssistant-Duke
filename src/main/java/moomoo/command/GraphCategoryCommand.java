@@ -55,16 +55,17 @@ public class GraphCategoryCommand extends Command {
         Category cat;
         try {
             cat = categoryList.get(categoryName);
+            if (cat.equals(null)) {
+                throw new MooMooException("OH NO! No such category exists!");
+            }
         } catch (Exception e) {
             throw new MooMooException("OH NO! No such category exists!");
         }
-        try {
-            if (cat.size() == 0 || cat.getTotal(month, year) == 0) {
-                throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
-            }
-        } catch (Exception e) {
-            throw new MooMooException("Please enter an existing category!! Moohoohoo");
+
+        if (cat.size() == 0 || cat.getTotal(month, year) == 0) {
+            throw new MooMooException("No expenditure data found :(");
         }
+        
         
         double grandTotal = cat.getTotal(month, year);
         int maxAxisUnit = (int) ((cat.getLargestExpenditure() / grandTotal) * 100) + 1;

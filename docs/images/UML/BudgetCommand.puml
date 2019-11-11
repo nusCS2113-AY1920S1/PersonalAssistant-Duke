@@ -10,7 +10,6 @@ skinparam Class {
 }
 
 hide footbox
-hide members
 hide circle
 
 skinparam MinClassWidth 50
@@ -29,12 +28,55 @@ Package BudgetCommand {
 }
 Package Budget {
 Class Budget
-Class CategoryBudgets
-Class TotalBudget
 }
 
 Package Storage {
     Class Storage
+}
+
+class SetBudgetCommand {
+  -categories: HashMap<String, Double>
+  -budgets: HashMap<String, Double>
+  -df: DecimalFormat
+  +execute(budget: Budget, categoryList: CategoryList, \nstorage: Storage, calendar: ScheduleList)
+}
+
+class EditBudgetCommand {
+  -categories: HashMap<String, Double>
+  -budgets: HashMap<String, Double>
+  -df: DecimalFormat
+  +execute(budget: Budget, categoryList: CategoryList, \nstorage: Storage, calendar: ScheduleList)
+}
+
+class SavingsBudgetCommand {
+  -categories: ArrayList<String>
+  -startDate: LocalDate
+  -endDate: LocalDate
+  -df: DecimalFormat
+  +execute(budget: Budget, categoryList: CategoryList, storage: Storage, \ncalendar: ScheduleList)
+  -viewSingleMonthSavings(budget: Budget, iteratorCategory: String, \ncurrentCategory: Category, outputVal: String)
+  -viewMultiMonthSaving(budget: Budget, iteratorCategory: String, \ncurrentCategory: Category, outputVal: String)
+}
+
+class ListBudgetCommand {
+  -categories: ArrayList<String>
+  -df: DecimalFormat
+  +execute(budget: Budget, categoryList: CategoryList, \nstorage: Storage, calendar: ScheduleList)
+}
+
+class Storage {
+  -budgetFilePath: String
+  -scheduleFilePath: String
+  +loadBudget(catList: ArrayList<Category>) : HashMap<String, Double>
+  +saveBudgetToFile(budget: Budget)
+}
+
+class Budget {
+    -categoryBudget: HashMap<String, Double>
+    +addNewBudget(category: String, budget: double)
+    +getBudget() : HashMap<String, Double>
+    +getBudgetFromCategory(category: String) : double
+    +toString() : String
 }
 
 SetBudgetCommand -up-|> Command
@@ -45,12 +87,14 @@ SavingsBudgetCommand -up-|> Command
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Command
 
-Budget *-> CategoryBudgets
-Budget *-> TotalBudget
-
 SetBudgetCommand --> Storage
 EditBudgetCommand --> Storage
 
-Command o-down-> Budget
+SetBudgetCommand -down-|> Budget
+EditBudgetCommand -down-|> Budget
+ListBudgetCommand -down-|> Budget
+SavingsBudgetCommand -down-|> Budget
+
+
 
 @enduml
