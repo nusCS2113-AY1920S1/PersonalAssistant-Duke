@@ -52,9 +52,6 @@ public class CommandHelp extends Command {
         }
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(outputStr.toString());
-        for (String b : listToStoreAllCommands) {
-            System.out.println(b);
-        }
     }
 
     private StringBuilder getDescriptionOfSpecificCommand(String b) {
