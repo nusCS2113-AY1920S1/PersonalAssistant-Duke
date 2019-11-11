@@ -185,11 +185,7 @@ Data Structure to support undo/redo:
 
 The actions involving the NUS EventList are performed mostly using the `NUSEventList` class.
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
-
-
-This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
-
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/eventlist.PNG[width="900", align="left"]
 
 
 
