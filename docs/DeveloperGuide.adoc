@@ -281,8 +281,7 @@ and registered in the factory class `PrintCommandFactory`.
 
 [.center.text-center]
 .Class Diagram of Print Feature
-image::class_diagram_print_feature.png[width="500"]
-
+image::class_diagram_print_feature.png[width="700"]
 
 ==== Current Implementation
 The current print commands added are:
@@ -321,7 +320,8 @@ entered a number that can be converted to a number. Otherwise, an error message 
 `Ui`.
 
 .Sequence Diagram of PrintArchiveCommand
-image::print_command_activity.png[width="500"]
+image::sequence_diagram_print_archive_command.png[width="800"]
+
 
 
 Step 4: The user can print the archived question to PDF. Running `print archive archive.pdf` will

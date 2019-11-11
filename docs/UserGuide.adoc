@@ -492,7 +492,7 @@ running `quiz archive <filename>.pdf`. This will print the archived questions in
 information. You need to transfer this file to your another computer. When you start the application, run
 `load <file>.txt` to restore your information.
 
-*Q*: How can I reset my stats?
+*Q*: How can I reset my stats? +
 *A*: You can run `reset` to reset you stats. Alternatively, you can delete the file `UserData.txt` in the
 directory next to your application. However, information such as, your name and gender, will be lost in the
 process.

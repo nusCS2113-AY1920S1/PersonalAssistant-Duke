@@ -192,7 +192,7 @@ running `quiz archive <filename>.pdf`. This will print the archived questions in
 information. You need to transfer this file to your another computer. When you start the application, run
 `load <file>.txt` to restore your information.
 
-*Q*: How can I reset my stats?
+*Q*: How can I reset my stats? +
 *A*: You can run `reset` to reset you stats. Alternatively, you can delete the file `UserData.txt` in the
 directory next to your application. However, information such as, your name and gender, will be lost in the
 process.
@@ -246,7 +246,8 @@ and registered in the factory class `PrintCommandFactory`.
 
 [.center.text-center]
 .Class Diagram of Print Feature
-image::class_diagram_print_feature.png[width="500"]
+image::class_diagram_print_feature.png[width="700"]
+
 
 
 ==== Current Implementation
@@ -286,7 +287,8 @@ entered a number that can be converted to a number. Otherwise, an error message 
 `Ui`.
 
 .Sequence Diagram of PrintArchiveCommand
-image::print_command_activity.png[width="500"]
+image::sequence_diagram_print_archive_command.png[width="800"]
+
 
 
 Step 4: The user can print the archived question to PDF. Running `print archive archive.pdf` will
