@@ -325,7 +325,7 @@ public class RetrieveRequestTest {
         ArrayList<String> expectedCastList1 = new ArrayList<>();
         assertEquals(expectedCastList1, castList1);
     }
-    
+
 }
 
 

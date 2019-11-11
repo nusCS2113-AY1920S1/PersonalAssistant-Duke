@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers;
 
+import com.google.common.annotations.VisibleForTesting;
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -52,9 +53,6 @@ public abstract class CommandSuper {
         return execute;
     }
 
-    public static Logger getLogger() {
-        return logger;
-    }
 
     public void setExecute(boolean execute) {
         this.execute = execute;
@@ -271,7 +269,7 @@ public abstract class CommandSuper {
      *
      * @param commandArr command that was entered by the user in split array form
      */
-    public void processPayload(String []commandArr) {
+     public void processPayload(String []commandArr) {
         if (this.root != CommandKeys.NONE) {
             if (this.subRootCommand != CommandKeys.NONE) {
                 payload =  getThePayload(2, commandArr);

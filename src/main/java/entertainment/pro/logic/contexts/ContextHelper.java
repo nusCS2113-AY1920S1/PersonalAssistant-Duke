@@ -114,7 +114,7 @@ public class ContextHelper {
             incompleteCommand = lastinput[lastinput.length - 1];
 
         }
-        return incompleteCommand;
+        return incompleteCommand.trim();
     }
 
     /**
