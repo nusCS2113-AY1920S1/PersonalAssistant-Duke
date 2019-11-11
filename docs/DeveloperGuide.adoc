@@ -59,9 +59,8 @@ functions
 . *JDK `11`* or above is required
 . *IntelliJ* IDE is recommended
 
- [NOTE]
- IntelliJ by default has Gradle plugin installed. +
- Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+[NOTE] IntelliJ by default has Gradle plugin installed. Do not disable them.
+If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === 1.2. Setting up the project environment on your local machine.
 
@@ -249,22 +248,22 @@ Classes used by multiple components are in the 'util' package. Within this packa
 assist the functionality of ArchDuke. The following table shows a brief description of these classes and a link
 to their API.
 
-[width="100%",cols="22%,<60%,options="header",]
+[width="100%",cols="23%,<60%,<30%,options="header",]
 |=======================================================================
-|Class | Functionality
-|ArchDukeLogger| Handles logging of different levels.
-|AssignmentViewHelper| Handles `view assignments` commands, retrieves and organises task assignment information to display to the user.
-|CommandHelper|
-|ConstantHelper| Contains most of the constants used throughout ArchDuke.
-|DateTimeHelper| Deals with date-related user inputs.
-|MemberFactory| Parses and converts user input into a `Member` object.
-|JsonConverter| Converts information stored by ArchDuke into Json files for persistent storage.
-|ParserHelper| Contains methods used by other classes to parse the user input to retrieve the desired information.
-|ProjectFactory| Parses and converts user input into a `Project` object.
-|ReminderFactory| Parses and converts user input into a `Reminder` object.
-|SortHelper|
-|TaskFactory| Parses and converts user input into a `Task` object.
-|ViewHelper| Formats and organises information in a presentable and user-friendly manner to display to the user.
+|Class |Functionality |API
+|ArchDukeLogger | Help with the logging functionally for ArchDuke for easy debugging for the developers. | link:{repoURL}/src/main/java/util/log/ArchDukeLogger.java[`ArchDukeLogger.java`]
+|AssignmentViewHelper| Handles `view assignments` commands, retrieves and organises task assignment information to display to the user.| link:{repoURL}/src/main/java/util/uiformatter/AssignmentViewHelper.java[`AssignmentViewHelper.java`]
+|CommandHelper| Contains the command help instruction for the user to consume. | link:{repoURL}/src/main/java/util/uiformatter/CommandHelper.java[`CommandHelper.java`]
+|ConstantHelper| Contains most of the constants used throughout ArchDuke. | link:{repoURL}/src/main/java/util/constant/ConstantHelper.java[`ConstantHelper.java`]
+|DateTimeHelper| Handles the Date Format specific to ArchDuke | link:{repoURL}/src/main/java/util/date/DateTimeHelper.java[`DateTimeHelper.java`]
+|JsonConverter| Responsible for saving and loading data to and from persistent data. | link:{repoURL}/src/main/java/util/json/JsonConverter.java[`JsonConverter.java`]
+|ParserHelper| Contains methods used by other classes to parse the user input to retrieve and validate the desired information. | link:{repoURL}/src/main/java/util/ParserHelper.java[`ParserHelper.java`]
+|ProjectFactory| The `ProjectFactory` manages the object creation for `ConsoleInputController`. | link:{repoURL}/src/main/java/util/factories/ProjectFactory.java[`ProjectFactory.java`]
+|ReminderFactory| The `ReminderFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/ReminderFactory.java[`ReminderFactory.java`]
+|MemberFactory| The `MemberFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/MemberFactory.java[`MemberFactory.java`]
+|TaskFactory| The `TaskFactory` manages the object creation for `ProjectInputController`. | link:{repoURL}/src/main/java/util/factories/TaskFactory.java[`TaskFactory.java`]
+|SortHelper| Contains various function for sorting the item in different format. | link:{repoURL}/src/main/java/util/SortHelper.java[`SortHelper.java`]
+|ViewHelper| Formats and organises information in a presentable and user-friendly manner to display to the user.| link:{repoURL}/src/main/java/util/uiformatter/ViewHelper.java[`ViewHelper.java`]
 |=======================================================================
 
 == 3. Implementation
@@ -418,23 +417,28 @@ The following sequence diagram show how `add task` operation works.
 .Sequence diagram of `add task` command
 image::images/sequenceDiagram/CreateTask_Sequence.png[]
 
-=== 3.4. CRUD functionality for Reminder [Plan to do]
+=== 3.4. CRUD functionality for Reminder
 ==== Implementation
 
 CRUD Reminder functions are handled by `Reminder`, `ReminderList` and `ReminderFactory`,`Project` and `ProjectInputController`.
 It allows ArchDuke to perform simple CRUD function for Reminder in the Project, these simple functions include Create, Read,
-Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
-added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
+Update and Delete. `ReminderFactory` will create the relevant task with the appropriated input from the user which will then be
+added into the `ReminderList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
 function and call the relevant methods in `ReminderFactory` And `ParserHelper`.
 
 Reminder function implements the following commands:
 
-* `add reminder -n REMINDER_NAME -d REMINDER_DUEDATE -Tag REMINDER_TAG` -- Creation of a new Reminder with the reminder
-name and due date (optional)
+* `add reminder -n REMINDER_NAME -r REMINDER_REMARKS -d REMINDER_DUEDATE -l REMINDER_LIST_NAME` -- Creation of a new
+Reminder with the reminder name and due date (optional) the remarks of the reminder and the reminder list name.
 
-* `edit reminder TASK_INDEX -n REMINDER_NAME -d REMINDER_DUEDATE` -- Edits existing task with the new input values
+* `edit reminder TASK_INDEX -n REMINDER_NAME -r REMINDER_REMARKS -d REMINDER_DUEDATE -l REMINDER_LIST_NAME` -- Edits
+existing reminders with the new input values specified by the user.
 
-* `view reminder` -- Viewing of all reminders in current project
+* `delete reminder REMINDER_INDEX` -- Delete existing reminder with the specified index.
+
+* `view reminders` -- Viewing of all reminders in current project
+
+* `view reminders by list` -- Viewing of all reminders in current project sort in their respective list.
 
 The following sequence diagram show how `add reminder` operation works.
 
@@ -457,6 +461,9 @@ be added into `ReminderList` managed by the project and a successfully or unsucc
 
 .Sequence diagram of `add reminder` command
 image::images/sequenceDiagram/CreateReminder_Sequence.png[]
+
+.Sequence diagram of `view reminders by list` command
+image::images/sequenceDiagram/ViewReminders_Sequence.png[]
 
 === 3.5. CRUD functionality for Assignments
 
@@ -732,7 +739,6 @@ The `log4j2.properties` file in the resource folder is used configure the follow
 * File Appender - The file direction and log file name. The log file can be found in the logs folder.
 
 * PatternLayout - The output format message displayed in the log file
-
 
 The following shows the class diagram of ArchDukeLogger
 
