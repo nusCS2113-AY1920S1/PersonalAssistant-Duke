@@ -8,7 +8,6 @@ import dukeexceptions.DukeInvalidFormatException;
 import parser.FindFreeTimesParse;
 import parser.ShowPreviousParse;
 import parser.WeekParse;
-import stubclasses.DukeStub;
 import stubclasses.StorageStub;
 import tasks.TaskList;
 import org.junit.Before;
@@ -42,6 +41,7 @@ public class RetrievePreviousCommandTest {
      */
     @BeforeAll
     public static void setAllVariables() {
+        previousInputList = new ArrayList<>();
         userInputWithInvalidNumberGreaterThanSize = "retrieve/previous 3";
         userInputWithValidNumber = "retrieve/previous 2";
         userInputToGetFromNonEmptyPreviousInputList = "retrieve/previous 1";
@@ -94,13 +94,11 @@ public class RetrievePreviousCommandTest {
      */
     @Before
     public void showPreviousCommandList() {
-//        setRetrievedFreeTimesList();
-//        runWeekCommand();
-//        setRetrievedFreeTimesList();
-//        runWeekCommand();
-
-        DukeStub dukeStub = new DukeStub();
-        dukeStub.runGetResponse();
+        setRetrievedFreeTimesList();
+        runWeekCommand();
+        setRetrievedFreeTimesList();
+        runWeekCommand();
+        populateUserList();
         String actual = "No error";
         String validUserInput = "show/previous 2";
         Command command = null;
@@ -115,24 +113,10 @@ public class RetrievePreviousCommandTest {
         assertNotNull(command, actual);
     }
 
-    @Test
-    public void retrievePreviousCommand_userInputWithInvalidNumberGreaterThanSize_throwsDukeInvalidCommandException() {
-        showPreviousCommandList();
-        runWeekCommand();
-
-
-        previousInputList = ShowPreviousCommand.getOutputList();
-        int sizeOfList = previousInputList.size();
-        Command command = new RetrievePreviousCommand(userInputWithInvalidNumberGreaterThanSize);
-        String expected = "There are only " + sizeOfList + " of previous commands."
-                + "Please enter a valid number less than or equal to " + sizeOfList + " but greater than 0.";
-        String actual = "";
-        try {
-            actual = command.execute(events, deadlines, ui, storageStub);
-        } catch (Exception e) {
-            actual = e.getMessage();
-        }
-        assertEquals(expected, actual);
+    @Before
+    public void populateUserList() {
+        previousInputList.add("find/time 1 hour");
+        previousInputList.add("find/time 1 hour");
     }
 
     @Test
@@ -185,10 +169,15 @@ public class RetrievePreviousCommandTest {
 
     @Test
     public void retrievePreviousCommand_userInputWithNegativeNumber_throwsDukeInvalidCommandException() {
+        setRetrievedFreeTimesList();
+        runWeekCommand();
+        setRetrievedFreeTimesList();
+        runWeekCommand();
         showPreviousCommandList();
         runWeekCommand();
 
         previousInputList = ShowPreviousCommand.getOutputList();
+        populateUserList();
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithNegativeNumber);
         String expected = "Please enter a valid integer x from 1 to " + sizeOfList + " .";
@@ -222,6 +211,8 @@ public class RetrievePreviousCommandTest {
 
     @Test
     public void retrievePreviousCommand_UserInputWithNonEmptyList() {
+        populateUserList();
+        populateUserList();
         showPreviousCommandList();
         runWeekCommand();
 
@@ -239,4 +230,3 @@ public class RetrievePreviousCommandTest {
         assertEquals(expected, actual);
     }
 }
-
