@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: ./images
 :xrefstyle: full
 :repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
 
@@ -92,7 +92,7 @@ Parsing rules:
 === Home [[home]]
 
 .Home
-image::Home.png[]
+image::home.png[]
 
 Displays up to *100* indexed panels of `Patients`.
 Each panel provides the user with a *summary* of the main details of a particular `Patient`.
@@ -211,7 +211,7 @@ Format: `archive`
 === Patient [[patient]]
 
 .Patient
-image::Patient.png[]
+image::Patient.PNG[]
 
 Shows a detailed view of a `Patient`. The details are displayed in separate panels as seen in the figure above.
 
@@ -372,7 +372,7 @@ Everything else will be treated as input.
 === Impression [[impression]]
 
 .Impression
-image::Impression.png[]
+image::Impression.PNG[]
 
 Shows a detailed view of an Impression, displaying in separate panels as seen in the figure above:
 
@@ -563,6 +563,8 @@ Display a list of all Treatments and Evidences matching the criteria specified i
 *find* "high" (This command searches for Treatments AND Evidences)
 ****
 
+.Example of a Treatment (Medicine) context
+image::Medicine.PNG[]
 === Treatment and Evidence
 
 All <<Treatment, Treatment>> (Medicine, Investigation, Plan) and <<Evidence, Evidence>> (Observation and Result) contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full.

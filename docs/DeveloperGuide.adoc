@@ -190,9 +190,58 @@ The `ArgParser` also checks for the corner case of a switch without an argument 
 .Class Diagram
 image::DataModel.png[]
 
-The *_Class Diagram_* shown above describes the relationship among the different data classes used in *Dr. Duke*.
+The Class Diagram shown above describes the relationship among the different data classes invloved in storing
+information used in `Dr. Duke`. The class is named after the object it represents. All objects extend the `DukeObject`
+abstract class, which stores basic information to identify the object and its parent.
 
-The `statusArr` stores the textual description of each numerical value for the `status`.
+The `DukeObject` class specifies several abstract functions crucial for the UI to access. All `DukeObjects` also have a
+`parent` DukeObject which is transient and may be null. This is to facilitate storing in Gson and allow objects to
+reference their parent if needed. A `String` representation of `DukeObjects` can be obtained using the `toString` and
+`toReportString` methods.
+
+==== Patient
+
+Patients entered into our system are stored as `Patient` objects in our `PatientData` object. This can be converted to
+Gson easily after accounting for abstract objects. All patients may have `Impressions` associated with them which are
+created by the Doctor's impression of a Patient. This is supported with `DukeData` objects as evidences or treatments.
+
+The `Patient` object should provide the following functionality:
+* Input validation to ensure it stores valid input
+* Sorting of Impressions
+** Currently, Primary Impressions are also stored at the head of the `impressions` list. If a future metric for assessing
+ importance of impressions are suggested by users, it can be added here as well.
+* Filtered list of important critical `DukeData`
+* Filtered list of uncompleted `Treatments` which require follow ups
+* Quick notes on the Patient
+
+==== Impression
+
+Impressions are what a doctor diagnoses a Patient of. Each impression may be supported by Evidences and associated with
+Treatments.
+
+The `Impression` object should provide the following functionality:
+* Input validation
+* Sorting of Treatments
+** High priorities are the first metric
+** Incomplete status requiring follow up is the second metric
+* Sorting of Evidences
+** High priorities are the first metric
+
+==== DukeData
+
+The `DukeData` objects represent evidence and treatment recorded by the doctor.
+
+==== Extension
+
+To define new forms of `DukeData` representing information on the Patient, extend `DukeData` or its abstract subclasses
+To define other types of data, extend `DukeObject`.
+
+If the class is abstract and needs to be stored, an adaptor implementing `JsonSerializer` and `JsonDeserializer` for it
+needs to be created for Gson storage. Any circular referencing must be stored as transient but must be reinitialised at
+launch.
+
+NOTE: By convention, we store invalid values instead of null values to prevent nullptr exceptions. If there are
+attributes that may be null, consider returning an empty object instead. E.g. for `String`, return `""`.
 
 [[Design-Storage]]
 === Storage System [JACOB TORESSON]
@@ -317,26 +366,31 @@ Taxicab distance is used as opposed to Euclidean in order to avoid computing squ
 This function is called by the parser finite state machine whenever a complete switch that does not match any alias is processed, instead of presenting all combinations of possible corrections after the whole input is parsed. This allows mistyped switches to be individually and unambiguously corrected, instead of creating a confusing combinatorical explosion of possible switches if the user makes several mistakes in a complex query, some of which may have more than two close matches for a switch if the user had used their shortened forms.
 
 === Search all records [KWOK KUIN EK JEREMY]
-image:placeholder.png[]
+image::SearchExample.PNG[]
 
 ==== Rationale
 
-Dr. Duke aims to assist House Officers in quick, accurate recording and retrieval of patient data required
-to provide efficient care. Therefore, it makes sense to be able to view past history of a Patient. If the patient was previously admitted,
-there would be numerous benefits in implementing the find feature.
+Dr. Duke aims to assist House Officers in quick, accurate recording and retrieval of patient data required to provide
+efficient care. When more patients are added to the system or the user want to directly access a nested data we need a
+method to directly assess the data. Therefore, it makes sense to be able to search through the entire system or a subset
+of the system. Hence, a find feature is essential for users to quickly locate data or for disambiguation using existing
+data in the system when it is unclear what the user wants.
 
-* Reduce the time taken for the user to enter details of the Patient.
-* Understand the past medical history of a Patient better.
+* Reduce the time taken for the user to enter details of the Patient and navigate in the system.
+* Search a subset of the system or only for data of a certain type.
 
 
 ==== Proposed Implementation
-The search mechanism is facilitated by two main functions, namely `toString` and `find`.
+The search mechanism is facilitated by two main functions, namely `contains` and `find`.
 
-`toString` is a method every component of the data model has. It is overridden when there is more information to be added for a particular
-class. In our case, this facilitates searching for information by representing everything in String form.
+`contains` is a method every concrete component of the data model has. It is specific to the type of information stored
+by the class. In our case, this facilitates searching for information by representing relevant attributes in String form
+and checking if the search term is contained within.
 
-`find` method is included in every class that store HashMaps or Observable Maps. It searches all string representation of the elements in the
-HashMap by utilising the `toString` method.
+`find` method is included in every class that stores ArrayLists of other objects. It searches if an object contains a
+search term by utilising the `contains` method. Different flavours of the `find` function is post fixed with information
+on what its purpose is. For example, `findImpressionsByName` searches only the `name` field of `Impression` objects.
+The master `find` function is `searchAll` which searches through all related information from a particular object down.
 
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
@@ -347,17 +401,14 @@ e.g. Fever (a sample valid command syntax is `find Fever`).
 Step 2: The find method will be called and all data related to the Patient will be searched for `Fever`, It will display the results in a new
 Context containing all impressions where `John` had `Fever` in a seperate window
 
-Step 3: The user can then select a particular impression and review the information or change the information if desired,
-
-The following activity diagram summarizes what happens when a user types in the `AutoCompleteTextField`.
-
-image::SearchActivityDiagram.png[]
+Step 3: The user can then select a particular impression and review the information or change the information if desired.
 
 ==== Alternatives
 
 * ChainSearching
-** Pros: Java String have a character limit of 2147483647. By chain searching we avoid the problem of overflow
-** Cons: More complex to implement. Unlikely for any impression to exceed this limit.
+** Pros: We can instead use the `toString` method to search. Simpler to implement and maintain.
+** Cons: However, this may include unnecessary information. Java String have a character limit of 2147483647.
+If any String is very long, it may have overflow.
 
 === Discharge patients and create discharge reports [JACOB TORESSON]
  

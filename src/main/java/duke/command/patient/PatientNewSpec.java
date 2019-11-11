@@ -10,6 +10,8 @@ import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
+//@@author JeremyKwok
+
 public class PatientNewSpec extends ArgSpec {
 
     private static final PatientNewSpec spec = new PatientNewSpec();

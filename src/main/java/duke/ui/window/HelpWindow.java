@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class HelpWindow extends UiElement<Region> implements ChangeListener<String> {
     private static final String FXML = "HelpWindow.fxml";
-    private static final String HELP_FILE = "data" + File.separator + "helpDetails.json";
+    private static final String HELP_FILE = "/data/helpDetails.json";
 
     @FXML
     private JFXListView<HelpCard> helpListView;
@@ -35,6 +34,7 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
 
     private List<Help> helpList;
     private List<Help> contextedHelpList;
+    private Context currentContext;
 
     /**
      * Constructs a help window.
@@ -57,7 +57,7 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
      * @param storage GSON storage object.
      * @throws DukeException If the data file cannot be loaded.
      */
-    private void initialise(GsonStorage storage) throws DukeException {
+    private void initialise(GsonStorage storage) {
         helpList = storage.loadHelpList(HELP_FILE);
         update(Context.HOME);
     }
@@ -89,7 +89,10 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
      * @param uiContext UiContext object.
      */
     private void attachListenerToContext(UiContext uiContext) {
-        uiContext.addListener(event -> update((Context) event.getNewValue()));
+        uiContext.addListener(event -> {
+            this.currentContext = (Context) event.getNewValue();
+            update(currentContext);
+        });
     }
 
     /**
@@ -110,6 +113,10 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
      */
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        if (currentContext == Context.SEARCH) {
+            return;
+        }
+
         List<Help> filteredHelpList = new ArrayList<>();
         helpListView.getItems().clear();
 
