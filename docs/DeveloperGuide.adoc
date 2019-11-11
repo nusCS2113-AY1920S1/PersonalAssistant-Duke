@@ -617,3 +617,11 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Remains at `HOME` context. The GUI display remains at `HomeContextWindow`. `CommandWindow` prompts a message to notify the user that no context transitions has taken place.
 .. Test case: `back` +
    Expected: Remains at `HOME` context. The GUI display remains at `HomeContextWindow`. `CommandWindow` prompts a message to notify the user that no context transitions has taken place.
+
+=== Searching Dr. Duke
+
+.. Prerequisites: Currently at `HOME`, `PATIENT` or `IMPRESSION` context, and managing at least 1 patient.
+.. Test case: `find a` +
+    Expected: Navigate successfully to the `SEARCH` context, have results which contain the substring 'a'. Note that you
+    will remain in the current context if no `DukeObjects` which contain the data exist. `CommandWindow` will feedback
+    if the search is successful or not.
