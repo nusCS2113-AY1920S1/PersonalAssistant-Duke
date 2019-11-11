@@ -61,7 +61,7 @@ public class GraduateEmployment implements Statistics {
         for (int i = 13; i < 16; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("EE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("ElecE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 17; i < 20; i++) {
