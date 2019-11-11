@@ -100,14 +100,21 @@ public class ObjCommandTest extends CommandTest {
      */
     @Test
     public void homeOpenCommand_irrelevantMatches_matchesIgnored() {
-        setupCommand(HomeOpenSpec.getSpec());
+        String[] switchNames = {"impression"};
+        String[] switchVals = {null};
+        try {
+            cmd = new ObjCommand(HomeOpenSpec.getSpec(), "jo", switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown while trying to create command: " + excp.getMessage());
+        }
+
         try {
             cmd.execute(core); // opens search results
             List<DukeObject> searchList = getSearchResultList();
             assertTrue(searchList.contains(patient1) && searchList.contains(patient2)
                     && searchList.size() == 2);
             cmd.execute(core, patient1);
-            assertEquals(core.uiContext.getObject(), patient1);
+            assertEquals(core.uiContext.getObject(), impression1);
         } catch (DukeException excp) {
             fail("Exception thrown while executing home open command: " + excp.getMessage());
         }

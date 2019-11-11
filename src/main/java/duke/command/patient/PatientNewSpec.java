@@ -1,3 +1,5 @@
+/* @@author JeremyKwok */
+
 package duke.command.patient;
 
 import duke.DukeCore;

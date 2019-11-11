@@ -1,3 +1,5 @@
+/* @@author JeremyKwok */
+
 package duke.data;
 
 import duke.exception.DukeException;
@@ -85,7 +87,6 @@ public abstract class DukeData extends DukeObject {
         return getName().equals(other.getName())
                 && priority.equals(other.priority)
                 && getParent() == other.getParent();
-        // null check required because medicine summary is null
     }
 
     /**
