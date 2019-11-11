@@ -37,12 +37,6 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             //of food, then it requires at least 7 arguments in total.
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
-        if (ParserUtil.hasInvalidParameters(args,params)) {
-            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
-        }
-        if (ParserUtil.hasRepetitiveParameters(args)) {
-            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
-        }
         Date dateI = ParserUtil.parseStringToDate(args[2]); //the start date of the period (initial)
         Date dateF = ParserUtil.parseStringToDate(args[4]); //the end date of the period (final)
         switch (args[5]) {

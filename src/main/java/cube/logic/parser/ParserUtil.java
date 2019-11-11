@@ -87,7 +87,7 @@ public class ParserUtil {
 	 *         false otherwise.
 	 */
 	public static boolean hasInvalidParameters(String[] inputs, String[] params) {
-		boolean flag;
+		boolean flag = false;
 		for (int i = 0; i < inputs.length; i++) {
 			if (inputs[i].matches("-(.*)")) {
 				flag = false;
