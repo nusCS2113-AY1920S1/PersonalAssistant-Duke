@@ -39,7 +39,9 @@ public class DeadlineCommandParser implements CommandParser {
             finalDate = startDateList.get(lastStartDateIndex);
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
+
         isValidInterval(interval);
+        isValidAmountTaskToAdd(startDateList.get(0),finalDate,interval);
         isValidKey(key, restOfInput,MESSAGE_INVALID_PARAM);
         logger.info("Successfully parse deadline command");
         return new DeadlineCommand(description, priority, startDateList, endTime, finalDate, interval);

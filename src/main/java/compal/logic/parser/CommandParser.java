@@ -19,6 +19,7 @@ import java.util.Scanner;
 import java.util.HashSet;
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -222,6 +223,29 @@ public interface CommandParser {
     }
 
     /**
+     * Check if there are more than 500 tasks to be added.
+     *
+     * @param startDate the start date of the tasks
+     * @param endDate the end date of the task
+     * @param interval the interval input by user.
+     * @throws ParserException if more than 500 tasks are added at a time.
+     */
+    default void isValidAmountTaskToAdd(String startDate, String endDate, int interval) throws ParserException {
+        Date startingDate = CompalUtils.stringToDate(startDate);
+        Date endingDate = CompalUtils.stringToDate(endDate);
+
+        long diff = endingDate.getTime() - startingDate.getTime();
+        long dayAdded = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        int maxAddition = 500;
+
+        int toAdd = (int) (dayAdded / interval);
+
+        if (toAdd > maxAddition) {
+            throw new ParserException("You cannot attempt to add more than 500 tasks at one go!");
+        }
+    }
+
+    /**
      * Returns a date in the String input.
      *
      * @param restOfInput String input of user after command word
@@ -271,6 +295,7 @@ public interface CommandParser {
     }
 
     //@@author LTPZ
+
     /**
      * Parses through user input for description field, and returns the description if present.
      *
@@ -292,6 +317,7 @@ public interface CommandParser {
 
 
     //@@author yueyeah
+
     /**
      * Parses user input for optional interval token, and returns the interval specified.
      *
@@ -374,6 +400,7 @@ public interface CommandParser {
     }
 
     //@@author LTPZ
+
     /**
      * Parses through user input for priority token, and returns the enum priority if present.
      *
@@ -439,6 +466,7 @@ public interface CommandParser {
     }
 
     //@@author LTPZ
+
     /**
      * Parses through user input for /end token and return the end time.
      *
@@ -473,6 +501,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Parses through the user input for /final-date token and return the final date of iteration of events/deadline.
      * The presence of the /final-date token must be checked first in the specialised
@@ -505,6 +534,7 @@ public interface CommandParser {
     }
 
     //@@author SholihinK
+
     /**
      * check if file name to read/write is valid and if file-name tag exist.
      *
@@ -541,6 +571,7 @@ public interface CommandParser {
 
 
     //@@author SholihinK
+
     /**
      * Check if the date input is of valid format.
      *
@@ -570,6 +601,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Check if the time input is of valid format.
      *
@@ -584,6 +616,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Check if the priority input is valid.
      *
@@ -598,6 +631,7 @@ public interface CommandParser {
     }
 
     //@author LTPZ
+
     /**
      * Check if the final date is after start date.
      *
@@ -619,6 +653,7 @@ public interface CommandParser {
     }
 
     //@author LTPZ
+
     /**
      * Check if the interval is positive.
      *
@@ -632,14 +667,15 @@ public interface CommandParser {
     }
 
     //@author LTPZ
+
     /**
      * Check if there is any invalid key.
      *
-     * @param key The set of valid keys of the command
+     * @param key         The set of valid keys of the command
      * @param restOfInput The input command
      * @throws ParserException if the command contains invalid keys
      */
-    default void isValidKey(ArrayList<String> key, String restOfInput,String invalidParam)
+    default void isValidKey(ArrayList<String> key, String restOfInput, String invalidParam)
         throws ParserException {
         ArrayList<String> copyofKeys = new ArrayList<>(key);
         Scanner scanner = new Scanner(restOfInput);
@@ -655,6 +691,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Check if the user input contains the token. Used to check for optional arguments like /final-date.
      *
