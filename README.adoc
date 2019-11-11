@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop Team Managing application. It has a gui but most of the user interactions happen using a CLI (Command Line Interface).
