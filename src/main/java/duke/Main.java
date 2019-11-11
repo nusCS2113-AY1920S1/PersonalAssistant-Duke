@@ -8,6 +8,7 @@ import duke.model.DukePP;
 import duke.model.Expense;
 import duke.model.ExpenseList;
 import duke.model.Model;
+import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
 import duke.storage.IncomeListStorage;
 import duke.storage.ExpenseListStorage;
@@ -26,6 +27,7 @@ import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -113,48 +115,50 @@ public class Main extends Application {
     }
 
     private final Storage loadListDemoData(Storage storage) {
-        Expense.Builder builder = new Expense.Builder();
+        Expense.Builder expenseBuilder = new Expense.Builder();
+        Payment.Builder paymentBuilder = new Payment.Builder();
         try {
-            builder.setAmount("3.50");
-            builder.setDescription("Chicken Rice");
-            builder.setTag("FOOD");
-            builder.setTime("18:00 09/11/2019");
+            // loading expense demo data
+            expenseBuilder.setAmount("3.50");
+            expenseBuilder.setDescription("Chicken Rice");
+            expenseBuilder.setTag("FOOD");
+            expenseBuilder.setTime("18:00 09/11/2019");
             ExpenseList expenseList = storage.loadExpenseList();
-            expenseList.add(builder.build());
+            expenseList.add(expenseBuilder.build());
 
-            builder.setAmount("5.50");
-            builder.setDescription("Pineapple Fried Rice");
-            builder.setTag("FOOD");
-            builder.setTime("18:00 08/11/2019");
-            expenseList.add(builder.build());
+            expenseBuilder.setAmount("5.50");
+            expenseBuilder.setDescription("Pineapple Fried Rice");
+            expenseBuilder.setTag("FOOD");
+            expenseBuilder.setTime("18:00 08/11/2019");
+            expenseList.add(expenseBuilder.build());
 
-            builder.setAmount("4.99");
-            builder.setDescription("Mighty Zinger Burger");
-            builder.setTag("FOOD");
-            builder.setTime("12:00 08/11/2019");
-            expenseList.add(builder.build());
+            expenseBuilder.setAmount("4.99");
+            expenseBuilder.setDescription("Mighty Zinger Burger");
+            expenseBuilder.setTag("FOOD");
+            expenseBuilder.setTime("12:00 08/11/2019");
+            expenseList.add(expenseBuilder.build());
 
-            builder.setAmount("3.80");
-            builder.setDescription("Gong Cha");
-            builder.setTag("DRINKS");
-            builder.setTime("14:00 09/11/2019");
-            expenseList.add(builder.build());
+            expenseBuilder.setAmount("3.80");
+            expenseBuilder.setDescription("Gong Cha");
+            expenseBuilder.setTag("DRINKS");
+            expenseBuilder.setTime("14:00 09/11/2019");
+            expenseList.add(expenseBuilder.build());
 
-            builder.setAmount("78.50");
-            builder.setDescription("Uniqlo");
-            builder.setTag("CLOTHES");
-            builder.setTime("14:00 09/06/2019");
-            expenseList.add(builder.build());
+            expenseBuilder.setAmount("78.50");
+            expenseBuilder.setDescription("Uniqlo");
+            expenseBuilder.setTag("CLOTHES");
+            expenseBuilder.setTime("14:00 09/06/2019");
+            expenseList.add(expenseBuilder.build());
 
 
-            builder.setAmount("85");
-            builder.setDescription("Mario Kart 8");
-            builder.setTag("GAMES");
-            builder.setTime("14:00 09/06/2018");
-            expenseList.add(builder.build());
+            expenseBuilder.setAmount("85");
+            expenseBuilder.setDescription("Mario Kart 8");
+            expenseBuilder.setTag("GAMES");
+            expenseBuilder.setTime("14:00 09/06/2018");
+            expenseList.add(expenseBuilder.build());
             storage.saveExpenseList(expenseList);
 
-
+            // loading plan bot demo data
             Map<String, String> planAttributes = storage.loadPlanAttributes();
             planAttributes.put("NUS_STUDENT", "TRUE");
             planAttributes.put("ONLINE_SHOPPING", "100");
@@ -162,7 +166,61 @@ public class Main extends Application {
             planAttributes.put("PHONE_BILL", "30.00");
             planAttributes.put("NETFLIX", "TRUE");
             storage.savePlanAttributes(planAttributes);
-            PaymentList paymentList = new PaymentList();
+
+            // loading payment demo data
+            PaymentList paymentList = storage.loadPaymentList().get();
+            paymentBuilder.setDescription("Raffles Hall Orientation Fee");
+            paymentBuilder.setAmount("60").setTag("school life").setDue("05/01/2020");
+            paymentBuilder.setPriority("Low").setReceiver("Raffles Hall");
+            paymentList.add(paymentBuilder.build());
+
+            logger.info("*********loading sample payment");
+
+            paymentBuilder.setDescription("Matriculation Card Replacement Fee");
+            paymentBuilder.setAmount("30").setTag("school life").setDue("08/12/2019");
+            paymentBuilder.setPriority("High").setReceiver("OSA");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("Top Up Mobile Data for November");
+            paymentBuilder.setAmount("10").setTag("phone bill").setDue("01/11/2019");
+            paymentBuilder.setPriority("Low").setReceiver("Singtel");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("Raffles Hall Room Preservation Fee");
+            paymentBuilder.setAmount("200").setTag("housing").setDue("05/12/2019");
+            paymentBuilder.setPriority("High").setReceiver("Raffles Hall");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("Pay Back Money to John");
+            paymentBuilder.setAmount("35").setTag("loan").setDue("05/11/2019");
+            paymentBuilder.setPriority("Medium").setReceiver("John");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("Pay Back Money to Alice");
+            paymentBuilder.setAmount("15").setTag("loan").setDue("17/11/2019");
+            paymentBuilder.setPriority("Medium").setReceiver("Alice");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("Repay OCBC Student Loan for November");
+            paymentBuilder.setAmount("600").setTag("loan").setDue("30/11/2019");
+            paymentBuilder.setPriority("High").setReceiver("OCBC");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("In Room Storage Fee");
+            paymentBuilder.setAmount("150").setTag("housing").setDue("19/11/2019");
+            paymentBuilder.setPriority("Medium").setReceiver("Alice");
+            paymentList.add(paymentBuilder.build());
+
+            paymentBuilder.setDescription("PhotoShop Camp Sign Up Fee");
+            paymentBuilder.setAmount("60").setTag("study").setDue("03/12/2019");
+            paymentBuilder.setPriority("Medium").setReceiver("NUSSU CommIT");
+            paymentList.add(paymentBuilder.build());
+
+            try {
+                storage.savePaymentList(paymentList);
+            } catch (IOException e) {
+                logger.warning("Sample data did not save");
+            }
 
         } catch (DukeException e) {
             e.printStackTrace();
