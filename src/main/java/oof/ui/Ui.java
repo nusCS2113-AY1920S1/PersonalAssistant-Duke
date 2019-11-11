@@ -26,6 +26,8 @@ import oof.storage.StorageManager;
  */
 public class Ui {
 
+    private static final int INDEX_TIME = 0;
+    private static final int INDEX_DESCRIPTION = 1;
     private Scanner scan;
     private static final int DATE_SPACES = 3;
     private static final int SPLIT_EVEN = 2;
@@ -664,21 +666,35 @@ public class Ui {
         for (int row = 0; row < calendarRows; row++) {
             System.out.print("|");
             for (int day = 0; day < DAYS_IN_WEEK; day++) {
-                String dayString = calendarDates.get(dayIndex + day).trim();
-                if (dayString.equals("") || calendar.get(Integer.parseInt(dayString)).size() <= row) {
-                    System.out.print("                           |");
-                } else {
-                    int currentDay = Integer.parseInt(dayString);
-                    String taskTime = calendar.get(currentDay).get(row)[0];
-                    String taskName = calendar.get(currentDay).get(row)[1];
-                    if (taskTime.equals("")) {
-                        printTodo(taskName);
-                    } else {
-                        printDeadlineAndEvent(taskTime, taskName);
-                    }
-                }
+                printDetails(calendar, calendarDates, dayIndex, row, day);
             }
             System.out.println();
+        }
+    }
+
+    /**
+     * Print the details for each calendar slot.
+     *
+     * @param calendar      ArrayList containing task information for current month.
+     * @param calendarDates ArrayList containing dates for current month.
+     * @param dayIndex      Offset for current day.
+     * @param row           Current row for week.
+     * @param day           Current day of month.
+     */
+    private void printDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
+                              int dayIndex, int row, int day) {
+        String dayString = calendarDates.get(dayIndex + day).trim();
+        if (dayString.equals("") || calendar.get(Integer.parseInt(dayString)).size() <= row) {
+            System.out.print("                           |");
+        } else {
+            int currentDay = Integer.parseInt(dayString);
+            String taskTime = calendar.get(currentDay).get(row)[0];
+            String taskName = calendar.get(currentDay).get(row)[1];
+            if (taskTime.equals("")) {
+                printTodo(taskName);
+            } else {
+                printDeadlineAndEvent(taskTime, taskName);
+            }
         }
     }
 
@@ -996,13 +1012,16 @@ public class Ui {
 
     /**
      * Prints all tasks scheduled on the provided date.
-     *  @param scheduledTasks List of all Tasks scheduled on the date provided.
-     * @param date           Date parameter provided by user.*/
+     *
+     * @param scheduledTasks List of all Tasks scheduled on the date provided.
+     * @param date           Date parameter provided by user.
+     */
     public void printTasksByDate(ArrayList<String[]> scheduledTasks, String date) {
         printLine();
-        System.out.println(" Here are your tasks for " + date + ": ");
+        System.out.println(" Here is your schedule for " + date + ": ");
         for (int i = 0; i < scheduledTasks.size(); i++) {
-            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.get(i)[0] + " " + scheduledTasks.get(i)[1]);
+            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.get(i)[INDEX_TIME] + " "
+                    + scheduledTasks.get(i)[INDEX_DESCRIPTION]);
         }
     }
 

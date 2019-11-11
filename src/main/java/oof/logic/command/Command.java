@@ -6,15 +6,11 @@ import java.time.DateTimeException;
 import java.util.Comparator;
 import java.util.Date;
 
-import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
-import oof.model.university.SemesterList;
-import oof.model.task.Deadline;
-import oof.model.task.Event;
-import oof.model.task.Task;
 import oof.model.task.TaskList;
-import oof.model.task.Todo;
+import oof.model.university.SemesterList;
 import oof.storage.StorageManager;
+import oof.ui.Ui;
 
 /**
  * Represents a Command object that corresponds to specific commands
@@ -22,6 +18,13 @@ import oof.storage.StorageManager;
  * Abstract parent of all other Command subclasses.
  */
 public abstract class Command {
+
+    private static final int INDEX_TIME = 0;
+    private static final int INDEX_DESCRIPTION = 1;
+    private static final int INDEX_HOUR_START = 0;
+    private static final int INDEX_HOUR_END = 2;
+    private static final int INDEX_MINUTE_START = 3;
+    private static final int INDEX_MINUTE_END = 5;
 
 
     /**
@@ -142,41 +145,26 @@ public abstract class Command {
     }
 
     /**
-     * Get Date from Task object.
-     *
-     * @param task Task object.
-     * @return String containing date from Task object.
-     */
-    public String getDate(Task task) {
-        if (task instanceof Todo) {
-            return ((Todo) task).getTodoDate().substring(0, 10);
-        } else if (task instanceof Deadline) {
-            return ((Deadline) task).getDeadlineDateTime().substring(0, 10);
-        } else if (task instanceof Event) {
-            return ((Event) task).getStartDateTime().substring(0, 10);
-        }
-        return null;
-    }
-
-    /**
      * Comparator to sort tasks by their time in ascending order.
      */
     public class SortByTime implements Comparator<String[]> {
         @Override
         public int compare(String[] a, String[] b) {
-            if (a[0].equals("")) {
+            if (a[INDEX_TIME].equals("")) {
                 return -1;
-            } else if (b[0].equals("")) {
+            } else if (b[INDEX_TIME].equals("")) {
                 return 1;
             }
-            int hour1 = Integer.parseInt(a[0].substring(0, 2));
-            int hour2 = Integer.parseInt(b[0].substring(0, 2));
+            int hour1 = Integer.parseInt(a[INDEX_TIME].substring(INDEX_HOUR_START, INDEX_HOUR_END));
+            int hour2 = Integer.parseInt(b[INDEX_TIME].substring(INDEX_HOUR_START, INDEX_HOUR_END));
+            int minute1 = Integer.parseInt(a[INDEX_TIME].substring(INDEX_MINUTE_START, INDEX_MINUTE_END));
+            int minute2 = Integer.parseInt(b[INDEX_TIME].substring(INDEX_MINUTE_START, INDEX_MINUTE_END));
             if (hour1 != hour2) {
                 return hour1 - hour2;
-            } else {
-                int minute1 = Integer.parseInt(a[0].substring(3, 5));
-                int minute2 = Integer.parseInt(b[0].substring(3, 5));
+            } else if (minute1 != minute2){
                 return minute1 - minute2;
+            } else {
+                return a[INDEX_DESCRIPTION].compareTo(b[INDEX_DESCRIPTION]);
             }
         }
 
