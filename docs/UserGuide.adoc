@@ -406,10 +406,10 @@ Displays all tasks whose description contains the word "Sleep".
 
 === Find employment rate of a given degree: `view_employment <DEGREE>`
 
-You can view statistics, in this the employment rate, of your specified degree. +
+You can view the employment rates and basic mean salary of the recent graduates of your specified degree. +
 This will produce a bar graph in another window. +
 
-Format: `view_employment <DEGREE>` 
+Format: `view_employment <DEGREE>` (The degree entered MUST be the keyword of that particular degree)
 
 Examples: +
 
@@ -423,7 +423,7 @@ Displays the employment rate of graduates of the Industrial and Systems Engineer
 You can view past cohort sizes of your specified degree. +
 This will produce a bar graph in another window. +
 
-Format: `cohort_size <DEGREE>` 
+Format: `cohort_size <DEGREE>` (The degree entered MUST be the keyword of that particular degree)
 
 Examples: +
 
