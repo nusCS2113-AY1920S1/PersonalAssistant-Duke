@@ -19,7 +19,7 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 <<<
 === The Product
-DEGREES.NUS is a desktop application developed to help *prospective applicants of NUS Faculty of Engineering* view, choose  and manage engineering degrees, modules, and course events in a coherent and systematic manner.
+DEGREES.NUS is a desktop application developed to help *prospective applicants of NUS Faculty of Engineering* view, choose and manage engineering degrees, modules, and course events in a coherent and systematic manner.
 
 DEGREES.NUS offers various functionalities that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list and viewing past statistics of the degrees. Moreover, as a task manager, DEGREES.NUS is suitable to be used as a personal assistant as it lets you organise and remind you of the important tasks pertaining to university application, such as document submission deadlines or freshman events.
 
