@@ -275,16 +275,7 @@ Examples:
 * GOOD: `add payment p/John Doe i/Welcome Tea c/12.00 v/INV-001`
 * BAD: `add payment p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
 
-<<<<<<< HEAD
 === Edit the payment details: `edit`
-=======
-==== Delete an existing payee: `delete payee`
-==== Delete an existing payment: `delete payment`
-==== List Payments: ` `
-==== Find an existing payee with all his/her payments: `find payee`
-
-==== Edit the payment details: `edit`
->>>>>>> 55071827d297c9b33d701883b23ca8d4d13c4361
 
 Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
 The following payee fields are acceptable: `PAYEE`, `EMAIL`, `MATRIC`, `PHONE` +
@@ -306,7 +297,6 @@ Examples:
 * `edit p/John Doe f/EMAIL r/johnyy@u.nus.edu`
 * `edit p/John Doe i/Voucher f/COST r/10.00`
 
-<<<<<<< HEAD
 === Find a payee based on its description: `find payee`
 
 Find a payment or deadline based on its description +
@@ -327,22 +317,7 @@ Format: `find payment p/PAYEE i/ITEM`
 
 [TIP]
 If you forgot the `ITEM` description, you can use `list payments` (Section 3.16) instead!
-=======
-//Jiayu
-==== Get total cost of a payee in current project: `total cost`
-This command calculates the total cost of all payments under a certain payee's name in the current project. +
-Format: `total cost p/PAYEE_NAME`
 
-Example:
-
-* `total cost p/John`
-
-UI:
->>>>>>> 55071827d297c9b33d701883b23ca8d4d13c4361
-
-image::totalCost.png[]
-
-<<<<<<< HEAD
 * `find payment p/John Doe i/Venue Booking`
 
 
@@ -371,6 +346,19 @@ Format: `list payments pr/PROJECT`
 
 [TIP] 
 If you wish to list the payee details of a specific payee, use `find payee` (Section 3.14) instead!
+
+//Jiayu
+==== Get total cost of a payee in current project: `total cost`
+This command calculates the total cost of all payments under a certain payee's name in the current project. +
+Format: `total cost p/PAYEE_NAME`
+
+Example:
+
+* `total cost p/John`
+
+UI:
+
+image::totalCost.png[]
 
 //=== List out all current submission deadlines: `list`
 //
@@ -407,12 +395,6 @@ If you wish to list the payee details of a specific payee, use `find payee` (Sec
 === (Proposed)See the nearest deadline: `reminder`
 
 Show the deadline task with the nearest deadline. +
-=======
-//Jiayu
-==== Sort deadlines af all existing unapproved payments: `reminder`
-This command sort payments from all payments that are not approved yet according to its deadline, and
-print out a list of such payments. The earlier payments are printed first. +
->>>>>>> 55071827d297c9b33d701883b23ca8d4d13c4361
 Format: `reminder`
 
 Example:
