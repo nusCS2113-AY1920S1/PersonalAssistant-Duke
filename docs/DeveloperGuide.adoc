@@ -42,8 +42,6 @@ Users can use this app to manage projects faster than a typical mouse/gui driven
 === UI component
 === Logic component
 
-API: No Interface for now
-
 1. `LogicController` uses the `NewParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicController`.
 3. The command execution talks to `Model` and do some behavior to get desired result and return it back.
@@ -303,3 +301,39 @@ Actor: Project Manager
 * Parsing user input.
 * Suggestion of relevant commands based on closest fit.
 * Team Manager can be used in any OS.
+
+[discrete]
+[appendix]
+== Instructions for Manual Testing
+
+=== Deleting a task
+
+. Delete a task while all tasks are listed
+.. Prerequisites: List all tasks using the `list tasks all` command. Multiple tasks in the list.
+.. Test case: `delete task 1` +
+Expected: First task is deleted from the list. A message will show that you successfully delete that task.
+.. Test case: `delete task 0` +
+Expected: No task will be deleted. A message will show that 0 is not a index within the task list.
+.. Test case: `delete task a` +
+Expected: No task will be deleted. A message will show that a is a wrong index format.
+
+=== Change GUI
+
+. Change to show member list in GUI
+.. Prerequisites: List all tasks using `list tasks all` command.
+.. Test case: `list members` +
+Expected: GUI change to show member list. And also the message will show all members' name.
+.. Test case: `list members something` +
+Expected: GUI won't change. A message will show the correct usage of list members.
+
+=== Edit member details
+
+. Edit the member email
+.. Prerequisites: In member list, there is a member called 'Jack' with no email.
+.. Test case: `edit member email Jack /to xxx` +
+Expected: Member's email won't change. A message will show the email is in wrong format.
+.. Test case: `edit member email Jack /to jack@cs.com` +
+Expected: Jack's email will be updated. A message will show that you have successfully set the email.
+.. Test case: `edit member email /to` +
+Expected: No one's email wii be updated. A message will show that tag(name or change content) can't be empty.
+

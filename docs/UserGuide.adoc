@@ -18,13 +18,13 @@ By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
 
 == Introduction
 
-Team Manager is a schedule handler application for team managers
+Team Manager is a schedule handler application targeted at team managers
 with very packed schedules who prefer to use a desktop app for managing *tasks*, *members* and *reminders*. +
 The Team Manager personal assistant application will enable team managers to *efficiently and seamlessly plan their schedules*,
 *assign tasks to proper members*, as well as *providing visual cues for deadlines and reminders*. +
 Team Manager is optimized for those who prefer to work with a *Command Line Interface (CLI)*
 while providing an intuitive GUI for them to visualise and easily keep track of their busy schedules.
-
+Team Manager is created to increase productivity and improve the quality of work a team produces.
 
 == Quick Start
 
@@ -92,7 +92,7 @@ e.g `add task final defence /at 23/11/2019 1300`
 * task with member(s): assign task to member(s) when creating the task +
 `add task [TASK_NAME] /to [MEMBER_NAME] ...` +
 e.g `add task restructure parsers /to Alice` +
-e.g `add task restructure parsers /to Alice Bob Carol`
+e.g `add task restructure parsers /to Alice, Bob, Carol`
 
 * task with time and member(s): +
 `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...` +
@@ -153,8 +153,16 @@ Deletes the specified task from the schedule list. +
 ==== Editing the details of Task : `edit`
 
 Edits the details of the tasks. +
-`edit task {name/time/des} TASK_INDEX /to [change content]`
+`edit task {name/time/des} TASK_INDEX /to [change content]` +
+e.g `edit task name 1 /to Create swim meet poster` +
+e.g `edit task time 1 /to 12/12/2019 1010` +
+e.g `edit task des 1 /to This is a very tough task`
 
+==== Showing the full details of Task : `show`
+
+Shows the full details of the selected task. +
+`show task TASK_INDEX` +
+e.g `show task 1`
 
 ==== Setting a Reminder :
 `reminder TASK_INDEX TIME_BEFORE` +
@@ -187,7 +195,18 @@ e.g `unlink 1 /from Alice` +
 e.g `unlink 2 3 /from Alice, Bob` +
 
 ==== Editing the profile of member: `edit`
-`edit member {bio/email/phone} MEMBER_INDEX /to [change content]`
+
+`edit member {name/bio/email/phone} [MEMBER_NAME] /to [change content]` +
+e.g `edit member name Alex /to Alexia` +
+e.g `edit member bio Annie /to She is a programmer` +
+e.g `edit member email Justin /to justin@cs.com` +
+e.g `edit member phone Jason /to 98765432`
+
+==== Showing the full details of Member : `show`
+
+Shows the full details of the selected member. +
+`show member MEMBER_NAME` +
+e.g `show member 1`
 
 === Commands related to both tasks and members
 
@@ -220,10 +239,10 @@ lists all the members in order of todo task num from low to high in the CLI outp
 ==== Viewing Schedule for the whole team or a member: `schedule`
 
 view the whole team tasks in chronological order +
-`schedule team {all/todo}`
+`schedule tasks {all/todo}`
 
 view tasks for a specific member +
-`schedule member {all/todo} ([MEMBER_NAME])`
+`schedule member {all/todo} [MEMBER_NAME]`
 
 ****
 * The DATE has to be of pattern “dd/MM/yyyy”
@@ -243,7 +262,6 @@ it will output the member name, date and tasks' names.
 Q: How do I transfer my data to another Computer? +
 A: Copy and replace the /data folder to the other Team Manager
 
-{to be implemented}
 
 == Command Summary
 * Viewing Available Commands: `help`
@@ -258,14 +276,17 @@ A: Copy and replace the /data folder to the other Team Manager
 * Removing a member: `delete member [MEMBER_NAME],...`
 * Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
 * Listing for members: `list members (todonum/progress)`
-* View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
+* View Schedule: `schedule tasks {all/todo}`
+* View Schedule for a member: `schedule member {all/todo} [MEMBER_NAME]`
 * Find Task by Name: `find [KEYWORD]`
 * Mark Task as Complete: `done [INDEX] ...`
 * Mark Task as Incomplete: `undone [INDEX] ...`
 * Linking task to a member: `link [INDEX] ... /to [MEMBER_NAME] ...`
 * Unlinking task from a member: `unlink [INDEX] ... /from [MEMBER_NAME] ...`
-* Editing task details: `edit task {name/time/des} INDEX /to [NEW_CONTENT]`
+* Editing task details: `edit task {name/time/des} TASK_INDEX /to [NEW_CONTENT]`
 * Editing member details: `edit member {name/bio/email/phone} [MEMBER_NAME] /to [NEW_CONTENT]`
+* Showing task details: `show task TASK_INDEX`
+* Showing member details: `show member MEMBER_NAME`
 * Setting a reminder: `reminder INDEX BEFORE_INT{m/d/h}`
 * Checking deadline: `check`
 * Exiting the program: `bye`
