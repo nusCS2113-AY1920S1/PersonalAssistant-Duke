@@ -42,7 +42,7 @@ public class PatientUtils {
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findFromPatient(Patient patient, String type, String nameOrIdx)
+    public static DukeObject getFromPatientByIdx(Patient patient, String type, String nameOrIdx)
             throws DukeException {
         int idx = CommandUtils.idxFromString(nameOrIdx);
         if (idx != -1) {

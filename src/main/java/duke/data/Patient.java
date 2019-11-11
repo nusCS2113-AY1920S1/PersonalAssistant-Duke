@@ -96,19 +96,6 @@ public class Patient extends DukeObject {
             if (impressionList.size() == 1) {
                 primaryDiagnosis = impressionList.get(0);
             }
-
-            // this is very slow but we have no choice
-            for (DukeData data : criticalList) {
-                if (data.getParent() == deletedImpression) {
-                    criticalList.remove(data);
-                }
-            }
-            for (Treatment treatment : followUpList) {
-                if (treatment.getParent() == deletedImpression) {
-                    followUpList.remove(treatment);
-                }
-            }
-
             return deletedImpression;
         }
 

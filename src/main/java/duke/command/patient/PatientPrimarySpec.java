@@ -26,7 +26,7 @@ public class PatientPrimarySpec extends ObjSpec {
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
         Patient patient = PatientUtils.getPatient(core);
-        Impression impression = (Impression) PatientUtils.findFromPatient(patient,"impression", cmd.getArg());
+        Impression impression = (Impression) PatientUtils.getFromPatientByIdx(patient,"impression", cmd.getArg());
         if (impression == null) {
             SearchResults results = PatientUtils.getPatient(core).findImpressions(cmd.getArg());
             processResults(core, results);
