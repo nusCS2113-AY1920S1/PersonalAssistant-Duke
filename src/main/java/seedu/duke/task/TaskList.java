@@ -1,6 +1,5 @@
 package seedu.duke.task;
 
-import seedu.duke.common.command.Command;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;

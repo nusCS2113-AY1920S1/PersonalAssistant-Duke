@@ -401,7 +401,7 @@ command.
 
 [[update]]
 ==== Update Tasks Commands: `update`
-Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...`
 
 Updates attributes of the specified task. Requires minimum of one attribute to function.
 
