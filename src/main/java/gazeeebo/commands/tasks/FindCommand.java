@@ -52,8 +52,8 @@ public class FindCommand extends Command {
             throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.length() == FIND_AND_SPACE_CHAR_COUNT
-                    || ui.fullCommand.length() == FIND_CHAR_COUNT) {
-                throw new DukeException("OOPS!!! The description of a"
+            || ui.fullCommand.length() == FIND_CHAR_COUNT) {
+                throw new DukeException("OOPS!!! The description of a "
                         + "search cannot be empty.");
             } else {
                 ArrayList<Task> searchedList = new ArrayList<Task>();
@@ -63,11 +63,15 @@ public class FindCommand extends Command {
                         searchedList.add(it);
                     }
                 }
-                System.out.println("Here are the "
-                        + "matching tasks in your list:");
-                for (int i = 0; i < searchedList.size(); i++) {
-                    System.out.println(i + 1 + "."
-                            + searchedList.get(i).listFormat());
+                if (!searchedList.isEmpty()) {
+                    System.out.println("Here are the "
+                            + "matching tasks in your list:");
+                    for (int i = 0; i < searchedList.size(); i++) {
+                        System.out.println(i + 1 + "."
+                                + searchedList.get(i).listFormat());
+                    }
+                } else {
+                    System.out.println("There are no matching tasks found.");
                 }
             }
 
