@@ -56,22 +56,23 @@ public class AddCommand extends Command {
             tasks.conflict_check();
         }
         else if (this.command.matches("add")) {
-            this.listType = 2; //1 for degree list
+            this.listType = 2; //2 for both degree list and task list
 
-            degreesBuffer = lists.deepClone();
-            tasksBuffer = tasks.deepClone();
-            memento1 = new Memento(degreesBuffer);
-            memento2 = new Memento(tasksBuffer);
+
             String fullDegreeName = Parser.degreeFullNameMap.get(this.arguments.toLowerCase());
-            if(fullDegreeName.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering" +
+            if (fullDegreeName == null) {
+                throw new DukeException("Wrong formatting convention is used to add degree");
+            }
+            else if (fullDegreeName.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering" +
                             "|Electrical Engineering|Environmental Engineering|Industrial and Systems Engineering" +
                             "|Mechanical Engineering|Materials Science and Engineering")) {
+                degreesBuffer = lists.deepClone();
+                tasksBuffer = tasks.deepClone();
+                memento1 = new Memento(degreesBuffer);
+                memento2 = new Memento(tasksBuffer);
                 lists.add_custom(this.arguments, storage);
                 NUSEventList NUSEventList = new NUSEventList();
                 NUSEventList.addDegreeTasks(fullDegreeName, tasks);
-            }
-            else {
-                throw new DukeException("Wrong formatting convention is used to add degree");
             }
         }
         else {
@@ -81,6 +82,13 @@ public class AddCommand extends Command {
             memento = new Memento(tasksBuffer);
 
             tasks.add(this.command, this.arguments);
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

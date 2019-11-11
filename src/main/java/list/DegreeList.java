@@ -11,10 +11,7 @@ import java.util.Collections;
 
 
 public class DegreeList implements Serializable, Cloneable {
-    private static ArrayList<String> list = new ArrayList<>();
-    public static ArrayList<String> getDegrees(){
-        return list;
-    }
+    private ArrayList<String> list = new ArrayList<>();
 
     //private static final String filename = "../data/savedegree.txt";
 
@@ -29,11 +26,11 @@ public class DegreeList implements Serializable, Cloneable {
     }
 
     /**
-     * Method to facilitate the deep cloning of this taskList.
+     * Method to facilitate the deep cloning of this degreeList.
      * Returns a copy of this taskList, but with different references.
-     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     * This is to avoid shallow copying, which will also modify the saved state of the degreeList.
      *
-     * @return A copy of this taskList with different references to objects.
+     * @return A copy of this degreeList with different references to objects.
      */
     public DegreeList deepClone() {
         try {
@@ -171,7 +168,7 @@ public class DegreeList implements Serializable, Cloneable {
         int flag = check_for_duplicates(fullDegreeName);
         if(flag == 0) {
             list.add(fullDegreeName);
-            System.out.print("Added " + input + " (also known as " + fullDegreeName + ") to your choice of degrees.\n\n");
+            System.out.print("Added "  + fullDegreeName + " to your choice of degrees.\n\n");
         }
 
         else {
@@ -192,7 +189,7 @@ public class DegreeList implements Serializable, Cloneable {
             int request = Integer.parseInt(input);
             request -= 1;
             if (isOutOfRange(request)) {
-                throw new DukeException("The index was not found within range");
+                throw new DukeException("The index was not found within range.");
             } else {
                 String imp = conversion(request);
                 System.out.println("Noted. I've removed this degree:\n"
@@ -205,7 +202,7 @@ public class DegreeList implements Serializable, Cloneable {
         } catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new DukeException("That is NOT a valid integer");
+            throw new DukeException("That is NOT a valid integer!");
         }
     }
 
@@ -214,7 +211,7 @@ public class DegreeList implements Serializable, Cloneable {
      */
     public void print() {
         if (list.size() == 0) {
-            System.out.println("Whoops, there doesn't seem to be anything here at the moment");
+            System.out.println("Whoops, there doesn't seem to be anything here at the moment!");
         } else {
             System.out.println("Here are your degree choices:");
             for(int i = 0; i < list.size(); i++) {
@@ -234,10 +231,11 @@ public class DegreeList implements Serializable, Cloneable {
     public void swap(String input, DegreeListStorage dd) throws DukeException {
         String[] split = input.split(" ");
         if(split.length < 2) {
-            throw new DukeException("Please mention both the indices to swap the degrees");
+            throw new DukeException("Please mention both the indices to swap the degrees.");
         } else if(split.length > 2) {
-            throw new DukeException("Too many arguments");
+            throw new DukeException("Too many arguments!");
         } else if (split.length == 2){
+            try {
                 String first_index = split[0];
                 String second_index = split[1];
                 int request = Integer.parseInt(first_index);
@@ -246,6 +244,9 @@ public class DegreeList implements Serializable, Cloneable {
                 //String degree1 = list.get(request1 - 1);
                 Collections.swap(list, request - 1, request1 - 1);
                 System.out.println("Swap complete!");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Swap index out of bounds!");
+            }
 //            try {
 //                //dd.work(degree, Integer.toString(request1 - 1));
 //            } catch (IOException e) {
@@ -259,7 +260,9 @@ public class DegreeList implements Serializable, Cloneable {
         }
     }
 
-
+    public ArrayList<String> getDegrees(){
+        return this.list;
+    }
 
     /**
      * Deletes the entire degree list.

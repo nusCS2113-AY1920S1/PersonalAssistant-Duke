@@ -89,7 +89,7 @@ public class NUSEventList {
      */
     public void loadEventLists(List<String> taskDataRaw) throws DukeException {
         if(taskDataRaw == null)
-            throw new DukeException("degreeTasks.txt file not found");
+            throw new DukeException("degreeTasks.txt file not found.");
         String toTasklist = "";
         for (int i = 1; i < taskDataRaw.size(); i++) {
             if((taskDataRaw.get(i) != null) && (!taskDataRaw.get(i).equals("")) && (taskDataRaw.get(i).matches("^[a-zA-Z]*$"))){
@@ -101,6 +101,8 @@ public class NUSEventList {
                 toTasklist = toTasklist + taskDataRaw.get(i) + "\n";
             }
         }
+        TaskList thisList = new TaskList(toTasklist);
+        fullDegreeTasklist.add(thisList); //one final task list to be added
     }
 
     /**
@@ -114,7 +116,7 @@ public class NUSEventList {
         int degreeID = degreeMap.get(abbreviatedDegreeName);
         int n = fullDegreeTasklist.get(degreeID).size();
         if (n < 1){
-            throw new DukeException("There are no tasks related to " + degreeName);
+            throw new DukeException("There are no tasks related to " + degreeName + "!");
         }
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeID).get(i);
@@ -124,7 +126,7 @@ public class NUSEventList {
             }
 
         }
-        System.out.println("I've also added tasks related to " + degreeName + "\n");
+        System.out.println("I've also added tasks related to " + degreeName + ".\n");
     }
 
     /**
@@ -135,16 +137,20 @@ public class NUSEventList {
      * @throws DukeException
      */
     public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
-        Integer request = Integer.parseInt(index) - 1;
-        String removedDegreeFull =  userDegreeList.get(request);
-        String removedDegreeAlias = aliasMap.get(removedDegreeFull.toLowerCase());
-        for (int i = (userTaskList.size()-1); i >= 0; i--){
-            if(userTaskList.get(i).getNusDegreeName() == null){
-                continue;
+        try {
+            Integer request = Integer.parseInt(index) - 1;
+            String removedDegreeFull = userDegreeList.get(request);
+            String removedDegreeAlias = aliasMap.get(removedDegreeFull.toLowerCase());
+            for (int i = (userTaskList.size() - 1); i >= 0; i--) {
+                if (userTaskList.get(i).getNusDegreeName() == null) {
+                    continue;
+                }
+                if (userTaskList.get(i).getNusDegreeName().matches(removedDegreeAlias)) {
+                    userTaskList.remove(i);
+                }
             }
-            if (userTaskList.get(i).getNusDegreeName().matches(removedDegreeAlias)){
-                userTaskList.remove(i);
-            }
+        } catch (NumberFormatException e) {
+            throw new DukeException("Enter the ID of the degree you want removed!");
         }
     }
 

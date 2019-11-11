@@ -11,6 +11,7 @@ import task.TaskList;
 import ui.UI;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,7 +41,7 @@ class ExitCommandTest {
         System.setOut(originalOut);
     }
 
-    ExitCommandTest() throws DukeException {
+    ExitCommandTest() throws DukeException, IOException {
     }
 
     @Test

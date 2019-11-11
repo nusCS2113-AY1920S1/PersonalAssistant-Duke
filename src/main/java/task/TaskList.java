@@ -77,7 +77,7 @@ public class TaskList implements Serializable, Cloneable {
                     throw new DukeException((i + 1) + "has incorrect task format.");
                 }
             }
-        } catch (DukeException e) {
+        } catch (DukeException | ArrayIndexOutOfBoundsException e) {
             list.clear();
             throw new DukeException("Issues encountered when creating tasks, initializing empty list.");
         }
@@ -411,7 +411,6 @@ public class TaskList implements Serializable, Cloneable {
     public void sortbyPriority(){
         for (int i = 0 ; i < this.list.size(); i++){
             this.list.get(i).calculatePriorityScore();
-            System.out.println(this.list.get(i).sortingScore);
         }
         Collections.sort(this.list, new Comparator<Task>() {
             @Override

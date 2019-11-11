@@ -18,6 +18,7 @@ import task.TaskList;
 import ui.UI;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath, String another_filePath) {
+    public Duke(String filePath, String another_filePath) throws IOException, DukeException {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.storage = new Storage(filePath, another_filePath);
@@ -89,18 +90,30 @@ public class Duke extends Application {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            graduateEmployment.loadDegreeEmploymentStats(storage.fetchListOutput("stats_employer"));
+            graduateEmployment.loadStatistics(storage.fetchListOutput("stats_employer"));
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            cohortSize.loadCohortStats(storage.fetchListOutput("cohort"));
+            cohortSize.loadStatistics(storage.fetchListOutput("cohort"));
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }
-        this.lists = new DegreeList();
-        DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
-
+        try {
+            this.lists = new DegreeList();
+            DegreeListStorage.setDegreeList(lists);
+            DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
+        } catch (DukeException e) {
+            this.lists = new DegreeList();
+            DegreeListStorage.setDegreeList(lists);
+            System.out.println("Issues trying to read savedegree.txt file. Creating new list of choices.");
+        }
+        try { //When initializing, do 1 save to save internal data into external save files
+            storage.store(myList);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
+        }
     }
 
 
@@ -143,27 +156,42 @@ public class Duke extends Application {
             }
 
             if (command.matches("undo")) {
-                commandList.undo();
-                this.myList = commandList.getTaskList();
-                this.lists = commandList.getDegreeLists();
+                if (temp.hasNext()) { //Undo should be a single command, reject if there is another input after undo
+                    typoFlag = true;
+                    throw new DukeException("undo should be a single command!");
+                } else {
+                    commandList.undo();
+                    this.myList = commandList.getTaskList();
+                    this.lists = commandList.getDegreeLists();
+                }
             } else if (command.matches("redo")) {
-                commandList.redo();
-                this.myList = commandList.getTaskList();
-                this.lists = commandList.getDegreeLists();
+                if (temp.hasNext()) {
+                    typoFlag = true;
+                    throw new DukeException("redo should be a single command!");
+                } else {
+                    commandList.redo();
+                    this.myList = commandList.getTaskList();
+                    this.lists = commandList.getDegreeLists();
+                }
             } else {
                 Command c = Parser.parse(line);
 
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
                         | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
                     commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
-                } else if ((c.getClass() == BadCommand.class) || c.getClass() == null) {
-                    typoFlag = true; //when the user enters a command not understood by the program, trigger flag
+                } else if ((c.getClass() == BadCommand.class) || (c.getClass() == null)) {
+                    typoFlag = true;
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 } else {
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 }
             }
         } catch (DukeException | NullPointerException e) {
+            if (line.matches("detail") || line.matches("compare")) {
+                typoFlag = false; //when the user enters a command not understood by the program, trigger flag
+            } else {
+                typoFlag = true;
+            }
             ui.showError(e.getLocalizedMessage());
         } finally {
             ui.showLine();
@@ -199,7 +227,7 @@ public class Duke extends Application {
      *
      * @param args A duke program.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, DukeException {
 
         new Duke("save.txt", "savedegree.txt").run();
         System.exit(0);

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class DeadlineTest {
 
     private Deadline testDeadline = new Deadline("Sleep /by 01-01-1970 2200");
-    private Deadline testDeadlineOverload = new Deadline("0", "Sleep", "01-01-1970 2200");
+    private Deadline testDeadlineOverload = new Deadline("T", "0", "Sleep", "01-01-1970 2200");
 
     DeadlineTest() throws DukeException {
     }

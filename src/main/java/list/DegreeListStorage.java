@@ -1,5 +1,6 @@
 package list;
 
+import exception.DukeException;
 import javafx.util.Pair;
 
 import java.io.BufferedReader;
@@ -13,10 +14,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class DegreeListStorage {
-    private static final String filename = "../data/savedegree.txt"; //text file that stores all the information
+    private String filename = "../data/savedegree.txt"; //text file that stores all the information
     File file = new File(filename);
-    ArrayList<String> list = DegreeList.getDegrees();
-    private static List<String> lines;
+    ArrayList<String> list;
+    private List<String> lines;
     UpdateFile upd = new UpdateFile();
     List<Pair<String, Integer>> store = new ArrayList<Pair<String, Integer>>();
 
@@ -25,32 +26,43 @@ public class DegreeListStorage {
      * The Degreelist of the user is then updated based on the rank each degree is given by the user/
      *
      */
-    public void ReadFile(List<String> st) {
-        for(int i = 0; i < st.size(); i++) {
-            String[] data = st.get(i).split("-");
-            if (data[0].equals("degree")) {
-                if(data.length < 4) {
-                    store.add(new Pair<String, Integer>(data[1], Integer.parseInt(data[2])));
-                }
-            }
+    public void ReadFile(List<String> st) throws DukeException {
+        //Check for existence of external save file first
+        if (!file.exists()) { //If it does not exist, read from internally
+            this.filename = "/data/savedegree.txt"; //text file that stores all the information
+            this.file = new File(filename);
         }
-        store.sort(new Comparator<Pair<String, Integer>>() {
-            @Override
-            public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-                if (o1.getValue() < o2.getValue()) {
-                    return -1;
-                } else if (o1.getValue().equals(o2.getValue())) {
-                    return 0; // You can change this to make it then look at the
-                    //words alphabetical order
-                } else {
-                    return 1;
+        try {
+            for (int i = 0; i < st.size(); i++) {
+                String[] data = st.get(i).split("-");
+                if (data[0].equals("degree")) {
+                    if (data.length < 4) {
+                        store.add(new Pair<String, Integer>(data[1], Integer.parseInt(data[2])));
+                    }
                 }
             }
-        });
+            store.sort(new Comparator<Pair<String, Integer>>() {
+                @Override
+                public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
+                    if (o1.getValue() < o2.getValue()) {
+                        return -1;
+                    } else if (o1.getValue().equals(o2.getValue())) {
+                        return 0; // You can change this to make it then look at the
+                        //words alphabetical order
+                    } else {
+                        return 1;
+                    }
+                }
+            });
 
-        for(int i = 0; i < store.size(); i++) {
-            list.add(store.get(i).getKey());
+            for(int i = 0; i < store.size(); i++) {
+                list.add(store.get(i).getKey());
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            list.clear();
+            throw new DukeException("Issues trying to read savedegree.txt file. Creating new list of choices.");
         }
+
 
     }
 
@@ -60,7 +72,7 @@ public class DegreeListStorage {
      * @param imp
      * @return newLines
      */
-    public static List<String> AddRemoved(String imp) {
+    public List<String> AddRemoved(String imp) {
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
             String [] vals = line.split("-");
@@ -98,7 +110,7 @@ public class DegreeListStorage {
      * @return newLines
      */
 
-    public static List<String> Swap(String degree, String index) {
+    public List<String> Swap(String degree, String index) {
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
             String [] vals = line.split("-");
@@ -124,5 +136,8 @@ public class DegreeListStorage {
         Files.write(file.toPath(), Swap(degree, index), Charset.defaultCharset());
     }
 
+    public void setDegreeList(DegreeList lists) {
+        this.list = lists.getDegrees();
+    }
 
 }

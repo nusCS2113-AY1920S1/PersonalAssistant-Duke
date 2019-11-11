@@ -7,6 +7,8 @@ import task.TaskList;
 import exception.DukeException;
 import list.DegreeList;
 
+import java.util.HashMap;
+
 /**
  * AddCommand Class extends the abstract Command class.
  * Called when items should be ADDED to tasks.
@@ -17,6 +19,8 @@ import list.DegreeList;
 public class HelpCommand extends Command {
     private String arguments;
     private String command;
+
+
 
     /**
      * Creates HelpCommand for a particular command.
@@ -45,69 +49,14 @@ public class HelpCommand extends Command {
      * @param degreesManager
      * @throws DukeException DukeException throws exception.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) {
+
+        //Display help for all commands
         if (this.arguments.matches("")) {
-            System.out.println("help: Displays a full list of possible commands.\n"
-                            + "detail DEGREE|MODULE: View detailed information about a degree or module\n"
-                            + "compare DEGREE DEGREE: Lists the module similarities and differences "
-                    + "between two degree programs given their keywords.\n"
-                            + "add DEGREE [t/TAG]...: To add a newly chosen degree programme into "
-                    + "your personalised degree list.\n"
-                            + "degreelist: Shows a list of all degrees in the list.\n"
-                            + "swap INDEX INDEX: Swaps the position of two degrees in the degree list.\n"
-                            + "replace INDEX NEWDEGREE: Replaces and existing degree in the list with a new one.\n"
-                            + "delete INDEX: Deletes the specified item in the list.\n"
-                            + "clear: Clears all degrees from the list.\n"
-                            + "undo: Undo the previous change to the task or degree list.\n"
-                            + "redo: Redo the command that was previously undone.\n"
-                            + "custom KEYWORD KEYPHRASE: Customize a word to be evaluated as a "
-                    + "phrase to be executed with additional parameters.\n"
-                            + "bye: Exits the program.");
-        } else {
-            if (this.arguments.matches("detail")) {
-                System.out.println("detail DEGREE: View detailed information about a degree "
-                        + "by using any of its aliases");
-            } else if (this.arguments.matches("compare")) {
-                System.out.println("compare DEGREE DEGREE: Lists the module similarities and differences "
-                        + "between two degree programs given their keywords.");
-            } else if (this.arguments.matches("add")) {
-                System.out.println("add DEGREE [t/TAG]...: To add a newly chosen degree programme into "
-                        + "your personalised degree list.");
-                System.out.println("Here are the possible degrees that you can add to your personalised degree list:\n" +
-                        "Biomedical Engineering\n" +
-                        "Chemical Engineering\n" +
-                        "Civil Engineering\n" +
-                        "Computer Engineering\n" +
-                        "Electrical Engineering\n" +
-                        "Environmental Engineering\n" +
-                        "Industrial Systems Engineering\n" +
-                        "Mechanical Engineering\n" +
-                        "Materials Science and Engineering");
-            } else if (this.arguments.matches("degreelist")) {
-                System.out.println("degreelist: Shows a list of all degrees in the list.");
-            } else if (this.arguments.matches("swap")) {
-                System.out.println("swap INDEX INDEX: Swaps the position of two degrees in the degree list.");
-            } else if (this.arguments.matches("replace")) {
-                System.out.println("replace INDEX NEWDEGREE: Replaces and existing degree in the list with a new one.");
-            } else if (this.arguments.matches("delete")) {
-                System.out.println("delete INDEX: Deletes the specified item in the list.");
-            } else if (this.arguments.matches("clear")) {
-                System.out.println("clear: Clears all degrees from the list.");
-            } else if (this.arguments.matches("custom")) {
-                System.out.println("custom KEYWORD KEYPHRASE: Customize a word to be evaluated as a "
-                        + "phrase to be executed with additional parameters.");
-            } else if (this.arguments.matches("bye")) {
-                System.out.println("bye: Exits the program");
-            } else if (this.arguments.matches("help")) {
-                System.out.println("help: Displays a full list of possible commands.");
-            } else if (this.arguments.matches("undo")) {
-                System.out.println("undo: Undo the previous change to the task or degree list.");
-            } else if (this.arguments.matches("redo")) {
-                System.out.println("redo: Redo the command that was previously undone.");
-            }
+            ui.getAllHelp();
+        } else { //Display help for the specified command.
+            ui.getHelp(this.arguments);
         }
-
     }
-
 }
 

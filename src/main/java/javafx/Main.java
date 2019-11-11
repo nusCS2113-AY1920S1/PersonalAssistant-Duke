@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +29,7 @@ public class Main extends Application {
 
     private Duke duke = new Duke("save.txt", "savedegree.txt");
 
-    public Main() throws DukeException {
+    public Main() throws DukeException, IOException {
     }
 
     /**
