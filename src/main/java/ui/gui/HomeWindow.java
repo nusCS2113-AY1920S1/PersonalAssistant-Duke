@@ -80,7 +80,7 @@ public class HomeWindow extends AnchorPane {
         if (expensesCapsule.getUiCode() == UiCode.ERROR) {
             throw new DukeException(expensesCapsule.getOutputStr());
         }
-        this.pieChartData.get(0).setPieValue(expensesCapsule.getOutputDouble());
+            this.pieChartData.get(0).setPieValue(expensesCapsule.getOutputDouble());
         this.pieChartData.get(1).setPieValue(balanceCapsule.getOutputDouble());
         DecimalFormat decimalFormat = new DecimalFormat("$#0");
         this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()));
