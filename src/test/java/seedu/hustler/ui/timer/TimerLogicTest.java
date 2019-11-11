@@ -34,7 +34,8 @@ class TimerLogicTest {
 
         assertEquals(timeOutput2[0], timeInput2[0]);
         assertEquals(timeOutput2[1], timeInput2[1]);
-        assertEquals(timeOutput2[2], timeInput2[2]);    }
+        assertEquals(timeOutput2[2], timeInput2[2]);
+    }
 
     @Test
     public void minutesModulo60_input010000_output005959() {
@@ -42,7 +43,8 @@ class TimerLogicTest {
 
         assertEquals(timeOutput3[0], timeInput3[0]);
         assertEquals(timeOutput3[1], timeInput3[1]);
-        assertEquals(timeOutput3[2], timeInput3[2]);    }
+        assertEquals(timeOutput3[2], timeInput3[2]);
+    }
 
     @Test
     public void basicDecrement_input000001_output000000() {
@@ -50,5 +52,6 @@ class TimerLogicTest {
 
         assertEquals(timeOutput4[0], timeInput4[0]);
         assertEquals(timeOutput4[1], timeInput4[1]);
-        assertEquals(timeOutput4[2], timeInput4[2]);    }
+        assertEquals(timeOutput4[2], timeInput4[2]);
+    }
 }
