@@ -168,12 +168,12 @@ public class MainWindow extends GridPane {
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
+                } else if (isReview) {
+                    LOGGER.info("Review Quiz Settings");
+                    handleIsReview();
                 } else if (isResult) { // On results screen
                     LOGGER.info("Display Results Settings");
                     handleIsResult();
-                } else if (isReview) {
-                    handleIsReview();
-                    LOGGER.info("Review Quiz Settings");
                 } else if ("listnote".equals(input)) {
                     //must be "listnote" exactly, else wont exe
                     handleListNote();

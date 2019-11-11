@@ -107,7 +107,7 @@ public class ReviewSession implements QuizManager {
                 return false;
             }
         } catch (NumberFormatException | NullPointerException e) {
-            throw new CakeException("You can't use that command here or number is out of range! " 
+            throw new CakeException("You can't use that command here or number is out of range! "
                     + "Type a valid question number or \"back\".");
         }
         return true;
