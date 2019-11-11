@@ -1,6 +1,4 @@
-
 package gazeeebo.storage;
-
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,6 +66,7 @@ public class Storage {
      *
      * @throws IOException exception when there is an error read the txt file
      */
+
     public void startUp() throws IOException {
         ArrayList<String[]> resourcelist = new ArrayList<>();
         resourcelist.add(relativePath);
@@ -113,6 +112,7 @@ public class Storage {
      * @return hash-map of keywords and inputs
      * @throws FileNotFoundException file cannot be found
      */
+
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
 
@@ -142,6 +142,7 @@ public class Storage {
      * @param fileContent
      * @throws IOException
      */
+
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(relativePathTriviaResource);
         if (file.exists() && !file.canWrite()) {
@@ -166,6 +167,7 @@ public class Storage {
      * @return double ArrayList storing the table.
      * @throws IOException
      */
+
     public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
         File file = new File(relativePathStudyPlannerResource);
@@ -190,6 +192,7 @@ public class Storage {
      * @param fileContent
      * @throws IOException
      */
+
     public void Storage_StudyPlan(String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(relativePathStudyPlannerResource));
         fileWriter.write(fileContent);
@@ -203,6 +206,7 @@ public class Storage {
      * @return
      * @throws IOException
      */
+
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();
         File file = new File(relativePathPrerequisiteResource);

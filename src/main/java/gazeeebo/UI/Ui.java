@@ -20,6 +20,11 @@ import java.util.Comparator;
 public class Ui {
     public String fullCommand;
 
+    /**
+     * Reads the user's input into the command line.
+     * @throws IOException exception when there is an error in reading the user input
+     */
+
     public void readCommand() throws IOException {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(System.in));
@@ -34,6 +39,7 @@ public class Ui {
      * @return the logo
      * @throws IOException catch the error if the read file fails.
      */
+
     public String showWelcome() throws IOException {
         System.out.println("Input password to enter Gazeeebo:");
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
@@ -53,8 +59,7 @@ public class Ui {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is "
-                        + a.format(DateTimeFormatter.
-                        ofLocalizedDate(FormatStyle.FULL)));
+                        + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
 
             } else {
@@ -68,6 +73,7 @@ public class Ui {
     /**
      * List of major features.
      */
+
     public void majorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
@@ -87,15 +93,15 @@ public class Ui {
         for (int i = 0; i < majorCategories.size(); i++) {
             System.out.println(i + 1 + ". " + majorCategories.get(i));
         }
-
         System.out.println("To exit: bye");
     }
 
     /**
      * Reminder for upcoming tasks.
      * @param list Task list
-     * @throws ParseException
+     * @throws ParseException exception when there is an error parsing the date of the task
      */
+
     public void upcomingTask(final ArrayList<Task> list) throws ParseException {
         ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
         ArrayList<Event> eventList = new ArrayList<Event>();
@@ -123,6 +129,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the progress of the tasks done.
+     * @param list Array list of tasks
+     */
+
     public void showProgessiveBar(final ArrayList<Task> list) {
         int undoneNumber = 0;
         int doneNumber = 0;
@@ -134,10 +145,8 @@ public class Ui {
                 undoneNumber++;
             }
         }
-//        System.out.println(undoneNumber+" "+doneNumber);
         double progressPercentageTemp = (doneNumber * 1.00 / (doneNumber + undoneNumber) * 1.00) * 100.000;
         int progressPercentage = (int) progressPercentageTemp;
-//        System.out.println(progressPercentageTemp+" "+progressPercentage);
         StringBuilder progressivebar = new StringBuilder();
         for (int i = 0; i < progressPercentage / 2; i++) {
             progressivebar.append("/");
@@ -155,7 +164,9 @@ public class Ui {
     public static void showDeadlineDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
+
     /** Incorrect date input.*/
+
     public static void showEventDateFormatError() {
         System.out.println("Date Time has to be in "
                 + "YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
@@ -168,13 +179,13 @@ public class Ui {
     public void showSystemTerminateMessage() {
         System.err.println("System terminating without an input");
     }
+
     public void showErrorMessage(final Exception e) {
         System.out.println(e.getMessage());
     }
 
     public void showDontKnowErrorMessage() {
-        System.out.println("OOPS!!! I'm sorry, " +
-                "but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
 }
