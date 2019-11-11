@@ -27,7 +27,7 @@ public class CommandHelp extends Command {
            exists in the list of available commands.*/
         if (!specificCommand.isEmpty()) {
             for (String b : CommandType.getNames()) {
-                if (b.equals(specificCommand)) {
+                if (b.equals(specificCommand) && isCommandValid(b)) {
                     StringBuilder outputsSpecificCommandDesc = getDescriptionOfSpecificCommand(b);
                     this.infoCapsule.setCodeCli();
                     this.infoCapsule.setOutputStr(outputsSpecificCommandDesc.toString());
@@ -76,7 +76,7 @@ public class CommandHelp extends Command {
      */
     private void getAndSortAllDescriptions() {
         for (String s : CommandType.getNames()) {
-            if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
+            if (isCommandValid(s)) {
                 getDescriptionOfAllCommands(s, listToStoreAllCommands);
                 listToStoreAllCommands.sort(String.CASE_INSENSITIVE_ORDER);
             }
@@ -84,5 +84,9 @@ public class CommandHelp extends Command {
         for (String a : listToStoreAllCommands) {
             outputStr.append(a).append("\n");
         }
+    }
+
+    private boolean isCommandValid(String s) {
+        return !s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK");
     }
 }
