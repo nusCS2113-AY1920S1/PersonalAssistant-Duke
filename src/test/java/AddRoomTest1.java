@@ -10,14 +10,11 @@ public class AddRoomTest1 {
     @Test
     void addRoomTest() throws DukeException {
         String roomcode = "SR4";
-        String dateStartTime = "19/02/2019 0800";
-        String endTime = "2000";
-        Room newRoom = new Room(roomcode, dateStartTime, endTime);
-        assertEquals("SR4 19/02/2019 0800 to 2000", newRoom.toString());
+        int capacity = 111;
+        Room newRoom = new Room(roomcode, capacity);
+        assertEquals("SR4 111", newRoom.toString());
         assertEquals("SR4", newRoom.getRoomcode());
-        assertEquals("2019-02-19", newRoom.getDateStart().toString());
-        assertEquals("08:00", newRoom.getTimeStart().toString());
-        assertEquals("20:00", newRoom.getTimeEnd().toString());
+        assertEquals(111, newRoom.getCapacity());
     }
 
 }

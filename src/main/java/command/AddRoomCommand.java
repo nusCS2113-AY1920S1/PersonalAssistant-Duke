@@ -19,9 +19,7 @@ public class AddRoomCommand extends Command {
 
     private String[] splitC;
     private String roomcode;
-    private String[] datesplit;
-    private String dateStartTime;
-    private String endTime;
+    private int capacity;
 
     //@@author zkchang97
     /**
@@ -35,19 +33,17 @@ public class AddRoomCommand extends Command {
         if (splitStr.length == 1) {
             throw new DukeException(Constants.ADDROOMFORMAT);
         }
-        if (!input.contains(" /date ")) {
-            throw new DukeException(Constants.WRONGDATETIMEFORMAT);
-        }
-        if (!input.contains(" /to ")) {
-            throw new DukeException(Constants.NOSTARTENDTIME);
-        }
-        // addroom ROOMCODE /date DATE TIMESTART /to TIMEEND
         String tempAR = input.substring(8);
-        splitC = tempAR.split(" /date ", 2); // splitC[] = {ROOMCODE, DATE TIMESTART /to TIMEEND}
-        this.roomcode = splitC[0]; // ROOMCODE
-        this.datesplit = splitC[1].split(" /to ", 2); // datesplit[] == {DATE TIMESTART, TIMEEND}
-        this.dateStartTime = datesplit[0];
-        this.endTime = datesplit[1];
+        splitC = tempAR.split(" ");
+        this.roomcode = splitC[Constants.ROOMCODE]; // ROOMCODE
+        try {
+            this.capacity = Integer.parseInt(splitC[Constants.CAPACITY]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Capacity should be an integer");
+        }
+        if(capacity < 0) {
+            throw new DukeException(Constants.INVALIDCAPACITY);
+        }
     }
 
     /**
@@ -63,8 +59,8 @@ public class AddRoomCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws IOException, DukeException {
-        Room addroom = new Room(roomcode, dateStartTime, endTime);
-        boolean clash = RoomList.checkRoom(roomList, roomcode, dateStartTime, endTime);
+        Room addroom = new Room(roomcode, capacity);
+        boolean clash = RoomList.checkRoom(roomList, roomcode);
         if (clash) {
             throw new DukeException(":-("
                     + " OOPS!!! This room is already added, please add another one.");

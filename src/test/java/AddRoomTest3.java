@@ -14,10 +14,9 @@ public class AddRoomTest3 {
     @Test
     void addRoomTest1() {
         String roomcode = "SR4";
-        String dateStartTime = "19/13/2019 0900";
-        String endTime = "2100";
+        int capacity = 120;
         assertThrows(DukeException.class, () -> {
-            new Room(roomcode, dateStartTime, endTime);
+            new Room(roomcode, capacity);
         });
         assertEquals(Constants.INVALIDDATETIME, "Please enter a valid date or time.");
     }
@@ -71,23 +70,21 @@ public class AddRoomTest3 {
     @Test
     void addRoomTest6() {
         String roomcode = "SR4";
-        String startDateTime = "19-08-2019 0900";
-        String endTime = "2100";
+        int capacity = -1;
         assertThrows(DukeException.class, () -> {
-            new Room(roomcode, startDateTime, endTime);
+            new Room(roomcode, capacity);
         });
-        assertEquals(Constants.INVALIDDATETIME, "Please enter a valid date or time.");
+        assertEquals(Constants.INVALIDCAPACITY, "Capacity cannot be negative.");
     }
 
     // Test for correct message thrown when invalid time is input
     @Test
     void addRoomTest7() {
         String roomcode = "SR4";
-        String startDateTime = "19/08/2019 0900";
-        String endTime = "2500";
+        int capacity = -1;
         assertThrows(DukeException.class, () -> {
-            new Room(roomcode, startDateTime, endTime);
+            new Room(roomcode, capacity);
         });
-        assertEquals(Constants.INVALIDDATETIME, "Please enter a valid date or time.");
+        assertEquals(Constants.INVALIDCAPACITY, "Capacity cannot be negative.");
     }
 }
