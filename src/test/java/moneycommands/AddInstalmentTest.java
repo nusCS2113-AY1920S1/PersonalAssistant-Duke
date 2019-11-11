@@ -28,6 +28,9 @@ public class AddInstalmentTest {
     private String testDate = "9/10/1997";
     private LocalDate dateTestDate = LocalDate.parse(testDate, dateTimeFormatter);
 
+    /**
+     * the method to initialise the data path for the tests to populate.
+     */
     public AddInstalmentTest() {
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();
@@ -114,12 +117,13 @@ public class AddInstalmentTest {
     @Test
     void testUndoAddInstalment() throws ParseException, DukeException {
         account.getInstalments().clear();
-        Instalment instalment = new Instalment(100000, "mortgage", "instalments",
-                dateTestDate, 200, 6);
-        AddInstalmentCommand cmd = new AddInstalmentCommand("add instalment mortgage /amt 100000 " +
-                "/within 200 months /from 9/10/1997 /percentage 6");
+
+        AddInstalmentCommand cmd = new AddInstalmentCommand("add instalment mortgage /amt 100000 "
+                + "/within 200 months /from 9/10/1997 /percentage 6");
         cmd.execute(account, ui, moneyStorage);
         ui.clearOutputString();
+        Instalment instalment = new Instalment(100000, "mortgage", "instalments",
+                dateTestDate, 200, 6);
         cmd.undo(account, ui, moneyStorage);
         assertEquals(" Last command undone: \n" + instalment.toString() + "\n Now you have "
                 + account.getInstalments().size() + " instalments listed\n", ui.getOutputString());

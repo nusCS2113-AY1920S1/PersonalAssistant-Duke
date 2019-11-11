@@ -18,22 +18,23 @@ public class UndoCommandHandlerTest {
     private Account account;
     private Ui ui;
     private MoneyStorage storage;
+
     UndoCommandHandlerTest() {
-        Path currentDir = Paths.get("data/account-test.txt");
-        String filePath = currentDir.toAbsolutePath().toString();
         undoCommandHandler = new UndoCommandHandler();
         account = new Account();
         ui = new Ui();
+        Path currentDir = Paths.get("data/account-test.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
         storage = new MoneyStorage(filePath);
     }
 
     @Test
     void testFixedSizeStack() {
-      for (int i = 0; i < 6; i++) {
-          ListTotalIncomeCommand dummy = new ListTotalIncomeCommand();
-          undoCommandHandler.updateLastIssuedCommands(dummy);
-      }
-      assertEquals(5, undoCommandHandler.getLastIssuedCommandsSize());
+        for (int i = 0; i < 6; i++) {
+            ListTotalIncomeCommand dummy = new ListTotalIncomeCommand();
+            undoCommandHandler.updateLastIssuedCommands(dummy);
+        }
+        assertEquals(5, undoCommandHandler.getLastIssuedCommandsSize());
     }
 
     @Test
@@ -44,10 +45,10 @@ public class UndoCommandHandlerTest {
         }
 
         Assertions.assertThrows(DukeException.class, () -> {
-           for (int i = 0; i < 6; i++) {
-               MoneyCommand c = undoCommandHandler.getLastIssuedCommand();
-               c.execute(account, ui, storage);
-           }
+            for (int i = 0; i < 6; i++) {
+                MoneyCommand c = undoCommandHandler.getLastIssuedCommand();
+                c.execute(account, ui, storage);
+            }
         });
     }
 
@@ -57,8 +58,8 @@ public class UndoCommandHandlerTest {
         undoCommandHandler.updateLastIssuedCommands(dummy);
 
         Assertions.assertThrows(DukeException.class, () -> {
-           MoneyCommand c = undoCommandHandler.getLastIssuedCommand();
-           c.undo(account, ui, storage);
+            MoneyCommand c = undoCommandHandler.getLastIssuedCommand();
+            c.undo(account, ui, storage);
         });
     }
 }
