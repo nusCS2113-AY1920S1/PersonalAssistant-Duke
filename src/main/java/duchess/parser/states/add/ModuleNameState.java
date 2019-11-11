@@ -16,6 +16,8 @@ import java.util.logging.Logger;
  * Handles the parsing of module names.
  */
 public class ModuleNameState extends ParserState {
+    private static final String NAME_KEYWORD = "name";
+    private static final String NAME_STATE_LOG_MSG = "In module name state now";
     private final Parser parser;
     private final Logger logger = Log.getLogger();
 
@@ -25,8 +27,8 @@ public class ModuleNameState extends ParserState {
      * @param parser the parser instance
      */
     public ModuleNameState(Parser parser) {
-        super("name");
-        logger.log(Level.INFO, "In module name state now");
+        super(NAME_KEYWORD);
+        logger.log(Level.INFO, NAME_STATE_LOG_MSG);
         this.parser = parser;
     }
 

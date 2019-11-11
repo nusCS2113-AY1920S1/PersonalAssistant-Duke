@@ -25,11 +25,12 @@ import static duchess.parser.Parser.TODO_KEYWORD;
  * Handles the parsing of entity type to add.
  */
 public class AddState extends ParserState {
+    private static final String ADD_STATE_LOG_MSG = "In add state now";
     private final Parser parser;
     private final Logger logger = Log.getLogger();
 
     public AddState(Parser parser) {
-        logger.log(Level.INFO, "In add state now");
+        logger.log(Level.INFO, ADD_STATE_LOG_MSG);
         this.parser = parser;
     }
 

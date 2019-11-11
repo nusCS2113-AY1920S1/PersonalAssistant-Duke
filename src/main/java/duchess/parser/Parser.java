@@ -85,6 +85,8 @@ public class Parser {
             "If this is an assessment, what's its weightage? (enter 'nil' to skip)";
     public static final String TASK_INVALID_WEIGHTAGE =
             "Please enter a weightage between 0 to 100. (enter 'nil' to skip)";
+    private static final String PARSING_LOG_MSG = "Parsing ";
+    private static final String CONTINUING_PARSING_LOG_MSG = "Continuing parsing ";
 
     private final Logger logger;
 
@@ -112,7 +114,7 @@ public class Parser {
      * @throws DuchessException if the user input is invalid
      */
     public Command parse(String input) throws DuchessException {
-        logger.log(Level.INFO, "Parsing " + input);
+        logger.log(Level.INFO, PARSING_LOG_MSG + input);
 
         if (input.equals("exit") || input.equals("bye")) {
             this.parserState = new DefaultState(this);
@@ -133,7 +135,7 @@ public class Parser {
      * @throws DuchessException if the user input is invalid
      */
     public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        logger.log(Level.INFO, "Continuing parsing " + parameters);
+        logger.log(Level.INFO, CONTINUING_PARSING_LOG_MSG + parameters);
 
         return this.parserState.continueParsing(parameters);
     }

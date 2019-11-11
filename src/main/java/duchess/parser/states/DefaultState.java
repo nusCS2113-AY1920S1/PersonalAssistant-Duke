@@ -25,6 +25,28 @@ import java.util.List;
 import java.util.Map;
 
 public class DefaultState extends ParserState {
+    private static final String LIST_KEYWORD = "list";
+    private static final String USAGE_SCHEDULE_DATE_DAY_WEEK = "Usage: schedule <date> (day | week)";
+    private static final String ADD_KEYWORD = "add";
+    private static final String FIND_KEYWORD = "find";
+    private static final String DELETE_KEYWORD = "delete";
+    private static final String DONE_KEYWORD = "done";
+    private static final String REMINDER_KEYWORD = "reminder";
+    private static final String SNOOZE_KEYWORD = "snooze";
+    private static final String SCHEDULE_KEYWORD = "schedule";
+    private static final String DAY_KEYWORD = "day";
+    private static final String WEEK_KEYWORD = "week";
+    private static final String CALENDAR_KEYWORD = "calendar";
+    private static final String LESSON_KEYWORD = "lesson";
+    private static final String BYE_KEYWORD = "bye";
+    private static final String HISTORY_KEYWORD = "history";
+    private static final String UNDO_COMMAND = "undo";
+    private static final String REDO_KEYWORD = "redo";
+    private static final String EXIT_KEYWORD = "exit";
+    private static final String ABORTED_MSG = "Operation aborted.";
+    private static final String INVALID_COMMAND_MSG = "Please enter a valid command.";
+    private static final String PARSING_ERROR_MSG = "An unexpected error occurred while processing your command.";
+
     private Parser parser;
 
     public DefaultState(Parser parser) {
@@ -44,26 +66,26 @@ public class DefaultState extends ParserState {
         List<String> arguments = words.subList(1, words.size());
         Map<String, String> parameters = Util.parameterize(input);
 
-        if ("list".equals(keyword)) {
+        if (LIST_KEYWORD.equals(keyword)) {
             return ListCommandParser.parse(parameters);
-        } else if ("add".equals(keyword)) {
+        } else if (ADD_KEYWORD.equals(keyword)) {
             return this.parser
                     .setParserState(new AddState(this.parser))
                     .continueParsing(parameters);
-        } else if ("find".equals(keyword)) {
+        } else if (FIND_KEYWORD.equals(keyword)) {
             return new FindCommand(arguments);
-        } else if ("delete".equals(keyword)) {
+        } else if (DELETE_KEYWORD.equals(keyword)) {
             return DeleteCommandParser.parse(parameters);
-        } else if ("done".equals(keyword)) {
+        } else if (DONE_KEYWORD.equals(keyword)) {
             return DoneCommandParser.parse(parameters);
-        } else if ("reminder".equals(keyword)) {
+        } else if (REMINDER_KEYWORD.equals(keyword)) {
             return new ReminderCommand();
-        } else if ("snooze".equals(keyword)) {
+        } else if (SNOOZE_KEYWORD.equals(keyword)) {
             return new SnoozeCommand(arguments);
-        } else if ("schedule".equals(keyword)) {
+        } else if (SCHEDULE_KEYWORD.equals(keyword)) {
             try {
                 String view = words.get(2);
-                boolean isInvalidView = !view.equals("day") && !view.equals("week");
+                boolean isInvalidView = !view.equals(DAY_KEYWORD) && !view.equals(WEEK_KEYWORD);
                 boolean isIllegalArgument = isInvalidView && (words.size() > 3);
                 if (isIllegalArgument) {
                     throw new IllegalArgumentException();
@@ -71,29 +93,29 @@ public class DefaultState extends ParserState {
                 String date = words.get(1);
                 return new ViewScheduleCommand(date, view);
             } catch (IndexOutOfBoundsException e) {
-                throw new DuchessException("Usage: schedule <date> (day | week)");
+                throw new DuchessException(USAGE_SCHEDULE_DATE_DAY_WEEK);
             }
-        } else if ("calendar".equals(keyword)) {
+        } else if (CALENDAR_KEYWORD.equals(keyword)) {
             return CalendarCommandParser.parse(parameters);
-        } else if ("lesson".equals(keyword)) {
+        } else if (LESSON_KEYWORD.equals(keyword)) {
             return LessonCommandParser.parse(parameters);
-        } else if ("bye".equals(keyword)) {
+        } else if (BYE_KEYWORD.equals(keyword)) {
             return new ByeCommand();
-        } else if ("history".equals(keyword)) {
+        } else if (HISTORY_KEYWORD.equals(keyword)) {
             return new HistoryCommand();
-        } else if ("undo".equals(keyword)) {
+        } else if (UNDO_COMMAND.equals(keyword)) {
             return new UndoCommand(arguments);
-        } else if ("redo".equals(keyword)) {
+        } else if (REDO_KEYWORD.equals(keyword)) {
             return new RedoCommand(arguments);
-        } else if ("exit".equals(keyword)) {
-            return new DisplayCommand("Operation aborted.");
+        } else if (EXIT_KEYWORD.equals(keyword)) {
+            return new DisplayCommand(ABORTED_MSG);
         } else {
-            throw new DuchessException("Please enter a valid command.");
+            throw new DuchessException(INVALID_COMMAND_MSG);
         }
     }
 
     @Override
     public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        throw new DuchessException("An unexpected error occurred while processing your command.");
+        throw new DuchessException(PARSING_ERROR_MSG);
     }
 }

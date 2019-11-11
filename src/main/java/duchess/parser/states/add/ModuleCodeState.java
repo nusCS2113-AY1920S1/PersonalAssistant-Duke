@@ -17,6 +17,8 @@ import java.util.logging.Logger;
  * Handles the parsing of module code.
  */
 public class ModuleCodeState extends ParserState {
+    private static final String MODULE_CODE_LOG_MSG = "In module code state now";
+    private static final String CODE_KEYWORD = "code";
     private final Parser parser;
     private final Logger logger = Log.getLogger();
     private final String moduleName;
@@ -28,8 +30,8 @@ public class ModuleCodeState extends ParserState {
      * @param moduleName the name of the module
      */
     public ModuleCodeState(Parser parser, String moduleName) {
-        super("code");
-        logger.log(Level.INFO, "In module code state now");
+        super(CODE_KEYWORD);
+        logger.log(Level.INFO, MODULE_CODE_LOG_MSG);
         this.parser = parser;
         this.moduleName = moduleName;
     }
