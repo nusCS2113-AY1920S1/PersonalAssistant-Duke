@@ -127,7 +127,7 @@ public class CapCommand extends ModuleCommand {
                 break;
             case "module":
                 plannerUi.capModStartMsg();
-                calculateModuleCap(detailedMap, plannerUi, store, scanner, profile);
+                calculateModuleCap(detailedMap, plannerUi, store, profile);
                 break;
             case "list":
                 TaskList<ModuleTask> hold = profile.getModules();
@@ -188,7 +188,6 @@ public class CapCommand extends ModuleCommand {
     public void calculateModuleCap(HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
                                     Storage store,
-                                    Scanner scanner,
                                     User profile)
         throws ModNotFoundException,
         ModNoPrerequisiteException,
