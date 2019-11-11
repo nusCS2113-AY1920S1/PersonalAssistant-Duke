@@ -17,6 +17,9 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
         if (input.length() < 8) {
             return new NullProject();
         }
+        if (!input.matches("^[a-zA-Z0-9 ]*$")) {
+            return new NullProject();
+        }
         String projectName = input.substring(7);
         return new Project(projectName);
     }

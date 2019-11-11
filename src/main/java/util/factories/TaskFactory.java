@@ -26,7 +26,7 @@ public class TaskFactory implements IArchDukeFactory<ITask> {
      * @return Task as an object
      */
     public ITask create(String input) {
-        if (!input.contains("-t") || !input.contains("-p") || !input.contains("-c")) {
+        if (!input.contains("-n") || !input.contains("-p") || !input.contains("-c")) {
             return new NullTask();
         }
 

@@ -1,0 +1,280 @@
+{
+  "name": "CS1010",
+  "memberList": {
+    "memberList": [
+      {
+        "name": "Tom",
+        "phone": "--",
+        "email": "--",
+        "indexNumber": 1,
+        "role": "member",
+        "memberID": "b1e4d4e1-57f6-4ba7-829d-e524b043a0e3"
+      },
+      {
+        "name": "Harry",
+        "phone": "91451613",
+        "email": "--",
+        "indexNumber": 2,
+        "role": "member",
+        "memberID": "f2bf124f-36c2-40d9-863c-41f32b20bd90"
+      },
+      {
+        "name": "Steve",
+        "phone": "--",
+        "email": "steve.aoki@zoho.com",
+        "indexNumber": 3,
+        "role": "member",
+        "memberID": "d7f781ff-e251-4071-bdf1-0274e0e7be32"
+      },
+      {
+        "name": "John",
+        "phone": "81234123",
+        "email": "john.park@gmail.com",
+        "indexNumber": 4,
+        "role": "member",
+        "memberID": "3e03bb08-f18f-4478-9935-4f5b0be383e3"
+      },
+      {
+        "name": "Ben Leong",
+        "phone": "61536122",
+        "email": "benleong@u.nus.edu",
+        "indexNumber": 5,
+        "role": "Leader",
+        "memberID": "78559b0a-43f5-432c-bb0f-fc406dee83e1"
+      },
+      {
+        "name": "Henry Tan",
+        "phone": "--",
+        "email": "--",
+        "indexNumber": 6,
+        "role": "Teacher",
+        "memberID": "8e298aac-81f1-4fe3-b29d-9f923f872f4b"
+      }
+    ],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "validityHelper": {}
+  },
+  "taskList": {
+    "taskList": [
+      {
+        "taskName": "Assignment 1",
+        "taskPriority": 1,
+        "taskCredit": 1,
+        "taskState": "DONE",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 12,
+            "second": 30
+          }
+        },
+        "taskID": "d3760d70-49e1-4eeb-b58a-ffeb55858d73"
+      },
+      {
+        "taskName": "Assignment 2",
+        "taskPriority": 1,
+        "taskCredit": 2,
+        "taskState": "DONE",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 12,
+            "second": 39
+          }
+        },
+        "taskID": "3a4fcdd5-bd09-4af0-926a-3f67b398e31b"
+      },
+      {
+        "taskName": "Build a Robot!",
+        "taskPriority": 1,
+        "dueDate": "Nov 29, 2019, 12:00:00 AM",
+        "taskCredit": 100,
+        "taskState": "OPEN",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 16,
+            "second": 22
+          }
+        },
+        "taskID": "b652c6fd-8306-4c22-80a7-577b78b9ff90"
+      },
+      {
+        "taskName": "Project Coding Assignment",
+        "taskPriority": 3,
+        "taskCredit": 20,
+        "taskState": "DOING",
+        "taskRequirements": [
+          "Create Telegram Group"
+        ],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 12,
+            "second": 53
+          }
+        },
+        "taskID": "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e"
+      },
+      {
+        "taskName": "Consultation with Professor Steven Halim",
+        "taskPriority": 4,
+        "dueDate": "Nov 13, 2019, 12:00:00 AM",
+        "taskCredit": 1,
+        "taskState": "DOING",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 15,
+            "second": 14
+          }
+        },
+        "taskID": "4731aafc-41b2-410d-9a11-8d171ef8786a"
+      },
+      {
+        "taskName": "Final",
+        "taskPriority": 5,
+        "dueDate": "Nov 20, 2019, 12:00:00 AM",
+        "taskCredit": 100,
+        "taskState": "OPEN",
+        "taskRequirements": [
+          "Read textbook"
+        ],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 13,
+            "second": 33
+          }
+        },
+        "taskID": "507bbe29-61f4-4aa8-949a-22d29f263806"
+      },
+      {
+        "taskName": "Revising for Finals",
+        "taskPriority": 5,
+        "taskCredit": 20,
+        "taskState": "DOING",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 18,
+            "minute": 15,
+            "second": 52
+          }
+        },
+        "taskID": "bbe3f736-7563-4911-bab0-5049b1488370"
+      }
+    ],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "sortHelper": {},
+    "dateTimeHelper": {
+      "calender": {
+        "year": 2019,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 18,
+        "minute": 8,
+        "second": 26
+      }
+    }
+  },
+  "reminderList": {
+    "reminderList": []
+  },
+  "taskAndListOfMembersAssigned": {
+    "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e": [
+      "b1e4d4e1-57f6-4ba7-829d-e524b043a0e3",
+      "f2bf124f-36c2-40d9-863c-41f32b20bd90",
+      "d7f781ff-e251-4071-bdf1-0274e0e7be32",
+      "3e03bb08-f18f-4478-9935-4f5b0be383e3",
+      "78559b0a-43f5-432c-bb0f-fc406dee83e1",
+      "8e298aac-81f1-4fe3-b29d-9f923f872f4b"
+    ],
+    "3a4fcdd5-bd09-4af0-926a-3f67b398e31b": [
+      "b1e4d4e1-57f6-4ba7-829d-e524b043a0e3",
+      "f2bf124f-36c2-40d9-863c-41f32b20bd90",
+      "d7f781ff-e251-4071-bdf1-0274e0e7be32"
+    ],
+    "507bbe29-61f4-4aa8-949a-22d29f263806": [],
+    "4731aafc-41b2-410d-9a11-8d171ef8786a": [
+      "d7f781ff-e251-4071-bdf1-0274e0e7be32",
+      "78559b0a-43f5-432c-bb0f-fc406dee83e1"
+    ],
+    "d3760d70-49e1-4eeb-b58a-ffeb55858d73": [
+      "b1e4d4e1-57f6-4ba7-829d-e524b043a0e3",
+      "f2bf124f-36c2-40d9-863c-41f32b20bd90",
+      "d7f781ff-e251-4071-bdf1-0274e0e7be32"
+    ],
+    "b652c6fd-8306-4c22-80a7-577b78b9ff90": [
+      "8e298aac-81f1-4fe3-b29d-9f923f872f4b",
+      "78559b0a-43f5-432c-bb0f-fc406dee83e1",
+      "b1e4d4e1-57f6-4ba7-829d-e524b043a0e3"
+    ],
+    "bbe3f736-7563-4911-bab0-5049b1488370": [
+      "3e03bb08-f18f-4478-9935-4f5b0be383e3"
+    ]
+  },
+  "memberAndIndividualListOfTasks": {
+    "b1e4d4e1-57f6-4ba7-829d-e524b043a0e3": [
+      "d3760d70-49e1-4eeb-b58a-ffeb55858d73",
+      "3a4fcdd5-bd09-4af0-926a-3f67b398e31b",
+      "b652c6fd-8306-4c22-80a7-577b78b9ff90",
+      "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e"
+    ],
+    "f2bf124f-36c2-40d9-863c-41f32b20bd90": [
+      "d3760d70-49e1-4eeb-b58a-ffeb55858d73",
+      "3a4fcdd5-bd09-4af0-926a-3f67b398e31b",
+      "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e"
+    ],
+    "78559b0a-43f5-432c-bb0f-fc406dee83e1": [
+      "b652c6fd-8306-4c22-80a7-577b78b9ff90",
+      "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e",
+      "4731aafc-41b2-410d-9a11-8d171ef8786a"
+    ],
+    "8e298aac-81f1-4fe3-b29d-9f923f872f4b": [
+      "b652c6fd-8306-4c22-80a7-577b78b9ff90",
+      "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e"
+    ],
+    "d7f781ff-e251-4071-bdf1-0274e0e7be32": [
+      "d3760d70-49e1-4eeb-b58a-ffeb55858d73",
+      "3a4fcdd5-bd09-4af0-926a-3f67b398e31b",
+      "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e",
+      "4731aafc-41b2-410d-9a11-8d171ef8786a"
+    ],
+    "3e03bb08-f18f-4478-9935-4f5b0be383e3": [
+      "1aa19a29-8644-48a1-a8cd-1ac50f0fb79e",
+      "bbe3f736-7563-4911-bab0-5049b1488370"
+    ]
+  }
+}

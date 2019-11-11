@@ -34,7 +34,26 @@ import util.uiformatter.AssignmentViewHelper;
 import util.uiformatter.CommandHelper;
 import util.uiformatter.ViewHelper;
 
-//@@author
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
+import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
+import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
+import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS;
+
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
     private MemberFactory memberFactory;
@@ -123,7 +142,7 @@ public class ProjectInputController implements IController {
             responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view reminders"))  {
             responseToView = projectViewReminder(this.projectToManage);
-        }  else if (projectFullCommand.matches("view reminders category"))  {
+        }  else if (projectFullCommand.matches("view reminders by list"))  {
             responseToView = projectViewReminderCategory(this.projectToManage);
         } else if (projectFullCommand.matches("edit reminder.*")) {
             responseToView = projectEditReminder(this.projectToManage,projectFullCommand);
@@ -511,12 +530,12 @@ public class ProjectInputController implements IController {
             HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                 = projectToManage.getTasksAndAssignedMembers();
             ArrayList<ArrayList<String>> allTaskDetailsForTable = new ArrayList<>();
-            if (("view tasks").equals(projectCommand)) {
+            if (("view tasks").equals(projectCommand.trim())) {
                 allTaskDetailsForTable = projectToManage.getTaskList().getAllTaskDetailsForTable(
                     tasksAndAssignedMembers,"-priority", projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
             } else if (projectCommand.length() >= COMMAND_VIEW_TASKS.length()) {
-                String sortCriteria = projectCommand.substring(COMMAND_VIEW_TASKS.length());
+                String sortCriteria = projectCommand.substring(COMMAND_VIEW_TASKS.length()).trim();
                 allTaskDetailsForTable =
                     projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);
@@ -533,8 +552,8 @@ public class ProjectInputController implements IController {
                 taskTable.add(allTaskDetailsForTable.get(0).get(0));
                 return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
             }
-            return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
-                "Tasks of " + projectToManage.getName() + ":");
+            return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH,
+                    NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS, "Tasks of " + projectToManage.getName() + ":");
         } catch (IndexOutOfBoundsException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
                 + "Currently there are no tasks with the specified attribute.");
@@ -563,8 +582,8 @@ public class ProjectInputController implements IController {
         if (successMessages.isEmpty()) {
             return new String[]{"No valid assignment input detected! Please refer to the user guide for help."};
         }
-        return viewHelper.consolePrintMultipleTables(successMessages,
-            DEFAULT_HORI_BORDER_LENGTH, 1, "Results from task assignments:");
+        return viewHelper.consolePrintMultipleTables(successMessages, DEFAULT_HORI_BORDER_LENGTH,
+                NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS, "Results from task assignments:");
     }
 
     /**
@@ -613,7 +632,8 @@ public class ProjectInputController implements IController {
             IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
             if (newReminder.getReminderName() != null) {
                 projectToManage.addReminderToList((Reminder) newReminder);
-                return new String[] {"Added new reminder to the Reminder List in the project."};
+                return new String[] {"Added new reminder '" + newReminder.getReminderName()
+                        + "' to the Reminder List in the project."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
                 + "necessary parameters are given"};
@@ -677,7 +697,7 @@ public class ProjectInputController implements IController {
             Reminder removedReminder = projectToManage.getReminder(index);
             projectToManage.removeReminder(index);
             return new String[] {removedReminder.getReminderName()
-                + " has been remove from the reminder list in the project."};
+                + " has been removed from the reminder list in the project."};
         }
     }
 
@@ -768,7 +788,8 @@ public class ProjectInputController implements IController {
             reminderCategory.add(categoryOfReminder);
             indexCategory++;
         }
-        return viewHelper.consolePrintMultipleTables(reminderCategory, DEFAULT_HORI_BORDER_LENGTH, 2,
-            "Reminders of " + projectToManage.getName() + ":");
+        return viewHelper.consolePrintMultipleTables(reminderCategory, DEFAULT_HORI_BORDER_LENGTH,
+                NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY,
+                "Reminders of " + projectToManage.getName() + ":");
     }
 }

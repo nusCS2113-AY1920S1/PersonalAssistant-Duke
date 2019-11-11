@@ -17,6 +17,8 @@
  to a GUI.
  * Command Prompt, Windows Powershell, Mac Terminal, Linux Terminal are all supported terminals.
 
+![UI of ArchDuke](docs/images/Ui.png)
+
 # Table of Contents
 * [Usage](#usage)
 * [Setting Up](#setting-up)
