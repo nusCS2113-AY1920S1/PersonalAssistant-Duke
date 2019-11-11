@@ -675,7 +675,7 @@ Examples:
 
 [NOTE]
 If you enter `show ITEM_NUMBER`, then followed with `delete ITEM_NUMBER`, the content of email at
-`ITEM_NUMBER` will still remains displayed although the email has been deleted.
+`ITEM_NUMBER` will remain displayed although the email has been deleted.
 
 [NOTE]
 This command will only delete email from local storage. If you enter `delete 1`, after that you enter `fetch`
@@ -687,7 +687,7 @@ Format: `clear`
 
 This command deletes all emails in the list from local storage.
 
-When you have accumulate too many emails in the email list, auto-parsing function will take
+When you have accumulated too many emails in the email list, auto-parsing function will take
 longer time to complete, if you do not need the older emails in your list, this function can `clear` your
 email list.
 
@@ -696,7 +696,7 @@ Once executed, you will not be able to undo this command.
 
 [TIP]
 After clearing all the emails from local storage, you can enter `fetch` to retrieve latest 60 emails from
-server. Those cleared email will be loaded into your local storage again provided that it is present in your
+server. Those cleared email will be loaded into your local storage again if it is present in your
 remote server.
 
 ==== Sending email (coming in v2.0)

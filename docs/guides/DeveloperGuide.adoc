@@ -1023,6 +1023,50 @@ priority level|Invalid input with invalid index
 priority level|Invalid input without index
 |===
 
+==== Doafter Command
+
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|`Task`|`doafter 1 -msg do something`|Task 1 has `do something` set as a task to be done after|Normal use case
+|`Task`|`doafter`|Invalid command reported asking for positive index that is in valid and description|Invalid input without
+|`Task`|`doafter abc`|Invalid command reported asking for valid positive index with description|Invalid input with non-positive integer index
+|`Task`|`doafter 0`|Invalid command reported saying index out of bound|Invalid input with invalid index
+|`Task`|`doafter 1`|Invalid command reported asking for description|Invalid input with missing doafter message
+|`Task`|`doafter 1 -msg`|Invalid command format reported asking for description|Invalid input without description
+
+|===
+
+==== Update Command
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|`Task`|`update 1 -priority high`|Priority of task 1 set to `HIGH`|Normal use case
+|`Task`|`update 3 -time 19/02/2019 1200 -doafter CS2113T -tag a -tag b`|Task 1 time, doafter and tags are updated as per input|Normal use case, multiple parameters
+|`Task`|`update`|Invalid command reported asking for valid index|Invalid input with
+missing index
+|`Task`|`update 1`|Invalid command format reported asking for at least one valid parameter to change|Invalid input without items to change
+|`Task`|`update abc`|Invalid command format asking for valid index reported|Invalid input with non-integer index
+|`Task`|`update 0 -priority low`|Invalid command reported saying index out of bound|Invalid input with non-positive integer
+|`Task`|`update 1 -priority high -priority low`|Invalid command reported, too many of the same parameter (only 1 allowed for priority, time and doafter)|Invalid input with too many parameters
+|`Task`|`update 1 -priority abc`|Invalid command reported asking for at least one valid parameter|Invalid input, wrong parameter format (for priority and time)
+|===
+
+==== Link Command
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|`Task`|`link 1`|Displays a list of emails linked to task 1|Normal use case
+|`Task`|`link 1 -email 1`|Links email 1 to task 1, and displays links|Normal use case, addition of links
+|`Task`|`link 1 -delete 1`|Deletes link 1 for task 1, if it exists. Displays updated list of links|Normal use case, deletion of links
+|`Task`|`link 1 -email 3 -delete 1 -email 9`|Deletes link 1 (if it exists), then links email 3 and 9. Displays updated list of links|Normal use case, mixture of parameters
+|`Task`|`link`|Invalid command format asking for valid index reported|Invalid input with no index
+|`Task`|`link abc`|Invalid command reported asking for a valid index reported|Invalid input with non-integer index
+|`Task`|`link 0`|Invalid command reported saying index out of bound|Invalid input with non-positive integer
+|`Task`|`link 1 -delete`|Invalid command, wrong format for parameter|Parameter does not have valid index
+
+|===
+
 ==== Clear task list Command
 
 |===
@@ -1096,6 +1140,40 @@ use case with more than two target words should be captured properly
 | `email` | `fuzzySearch CS2113` | Many emails about CS2113T, CS2101, CS2102 should be listed, with CS2113T
 emails generally listed first | Normal use case when multiple words can be matched but the most relevant
 should be listed first
+|===
+
+==== Email Tagging
+*Duke Email Manager* allows user to tag emails by tags.
+
+[NOTE]
+Minimum number of tags is 1. Tags without duplication will be added.
+
+|===
+| Mode | Input | Expected Result | Purpose of Testing
+
+| `email` | `update 1 -tag project` | The 1st email will have #project on the list | Normal use case of
+tagging email
+| `email` | `update 1 -tag final demo` | The 1st email will have #project demo on the list | Normal use
+case with space in tag
+| `email` | `update 1 -tag notice -tag fun` | The 1st email will have #notice and #fun on the list | Normal
+use case with multiple tags
+| `email` | `update 1 -tag notice` | The 1st email will have #notice remains on the list | Normal use case
+with existing tag
+| `email` | `update 1 -tag notice -tag career` | The 1st email will have new tag #career on the list, the
+tag #notice remains on the list | Normal use case with multiple tags including existing and new tags
+| `email` | `update 1 -tag 123` | The 1st email will have #tag on the list| Normal use case with numbers in tag
+
+| `email` | `update` | Invalid command reported asking for an index after `update`| Invalid input
+without index specified
+| `email` | `update -tag 123` | Invalid command reported asking for an index after `update`| Invalid input
+with tag but without index specified
+| `email` | `update 1` | Invalid command reported asking for tag options| Invalid input without tag specified
+| `email` | `update 1 -tag` | Invalid command format reported | Empty tag in tag option should trigger the
+ invalid command format check as option must not be empty
+| `email` | `update 1 -tag!@#` | Invalid command format reported | Invalid character in input will
+trigger the invalid command format check
+
+
 |===
 
 === Launch and Shutdown
