@@ -19,6 +19,7 @@ import java.util.Optional;
 public class ReplaceCommand extends Command {
 	private ArrayList<Task> taskList;
 	private Optional<String> filter;
+	private String cmd;
 
 	/**
 	 * Constructor for ReplaceCommand
@@ -26,9 +27,10 @@ public class ReplaceCommand extends Command {
 	 * @param tasks list of tasks in current task list
 	 * @param filter filter of tasks to be cleared from the task list
 	 */
-	public ReplaceCommand(ArrayList<Task> tasks, Optional<String> filter) {
+	public ReplaceCommand(ArrayList<Task> tasks, Optional<String> filter, String command) {
 		this.taskList = new ArrayList<>(tasks);
 		this.filter = filter;
+		this.cmd = command;
 	}
 
 	/**
@@ -46,9 +48,9 @@ public class ReplaceCommand extends Command {
 	public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
 		tasks.replace(taskList);
 		if (filter.isPresent()) {
-			ui.showLine(filter.get() + " clear command has been undone!");
+			ui.showLine(filter.get() + " " + cmd + " command has been undone!");
 		} else {
-			ui.showLine("Clear command has been undone!");
+			ui.showLine("The " + cmd + " command has been undone!");
 		}
 		storage.save(tasks);
 	}
