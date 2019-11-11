@@ -46,15 +46,18 @@ public class EditBudgetCommand extends Command {
             if (categoryList.get(categoryName) != null) {
                 double currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
-                    outputValue = "Budget for " + categoryName + " has not been set. Please set it first.\n";
+                    outputValue = "Budget for " + categoryName + " has not been set. Please set it first.";
+                    outputArray.add(outputValue);
                     continue;
                 }
                 if (currentBudget == categoryBudget) {
-                    outputValue = "The budget for " + categoryName + " is the same.\n";
+                    outputValue = "The budget for " + categoryName + " is the same.";
+                    outputArray.add(outputValue);
                     continue;
                 }
                 if (categoryBudget <= 0) {
-                    outputValue = "Please set your budget for " + categoryName + " to a value more than 0\n";
+                    outputValue = "Please set your budget for " + categoryName + " to a value more than 0.";
+                    outputArray.add(outputValue);
                     continue;
                 }
                 isUpdated = true;
@@ -62,11 +65,12 @@ public class EditBudgetCommand extends Command {
                 outputValue = "You have changed the budget for " + categoryName
                         + " from $" + df.format(currentBudget) + " to $" + df.format(categoryBudget);
                 outputArray.add(outputValue);
-                outputValue = Ui.showInCowBox(outputArray);
             } else {
-                outputValue = categoryName + " category does not exist. Please add it first.\n";
+                outputValue = categoryName + " category does not exist. Please add it first.";
+                outputArray.add(outputValue);
             }
         }
+        outputValue = Ui.showInCowBox(outputArray);
         Ui.setOutput(outputValue);
         if (isUpdated) {
             storage.saveBudgetToFile(budget);

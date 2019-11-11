@@ -164,10 +164,11 @@ class ParserTest {
 
         c = newParser.parse("budget list c/food c/hello c/shoes");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals(".__________________________________________________.\n"
-                + "|Budget for food is $100.00                        |\n"
-                + "|Budget for shoes has not been set.                |\n"
-                + ".--------------------------------------------------.\n"
+        assertEquals(".________________________________________________________.\n"
+                + "|Budget for food is $100.00                              |\n"
+                + "|hello category does not exist. Please add it first.     |\n"
+                + "|Budget for shoes has not been set.                      |\n"
+                + ".--------------------------------------------------------.\n"
                 + "        \\   ^__^\n"
                 + "         \\  (oo)\\_______\n"
                 + "            (__)\\       )\\/\\\n"
@@ -178,7 +179,15 @@ class ParserTest {
         c = newParser.parse("budget list c/food s/food");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("food s/food category does not exist. Please add it first.\n", Ui.getOutput());
+        assertEquals(".______________________________________________________________.\n"
+                + "|food s/food category does not exist. Please add it first.     |\n"
+                + ".--------------------------------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + "\n", Ui.getOutput());
 
     }
 
@@ -197,6 +206,7 @@ class ParserTest {
         c = newParser.parse("budget edit c/food c/laptop b/100 c/places to go b/150");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
         assertEquals("._________________________________________________________________________.\n"
+                + "|The budget for food is the same.                                         |\n"
                 + "|You have changed the budget for laptop from $125.00 to $100.00           |\n"
                 + "|You have changed the budget for places to go from $123.00 to $150.00     |\n"
                 + ".-------------------------------------------------------------------------.\n"
