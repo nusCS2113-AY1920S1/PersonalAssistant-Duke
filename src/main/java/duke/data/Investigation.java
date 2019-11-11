@@ -38,7 +38,7 @@ public class Investigation extends SummaryTreatment {
      */
     public Result toResult(String resultSummary) throws DukeException {
         return new Result(getName() + " Result", getParent(), getPriority(),
-                (resultSummary == null) ? "" : resultSummary);
+                (resultSummary == null) ? summary : summary + "\n\n" + resultSummary);
     }
 
     //TODO complete

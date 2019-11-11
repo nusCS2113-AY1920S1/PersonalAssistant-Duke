@@ -8,8 +8,10 @@ import duke.command.impression.ImpressionEditSpec;
 import duke.command.impression.ImpressionNewSpec;
 import duke.command.impression.ImpressionPrimarySpec;
 import duke.command.impression.ImpressionPrioritySpec;
+import duke.command.impression.ImpressionResultSpec;
 import duke.command.impression.ImpressionStatusSpec;
 import duke.data.Impression;
+import duke.data.Investigation;
 import duke.data.Medicine;
 import duke.data.Patient;
 import duke.data.Result;
@@ -217,7 +219,7 @@ public class ImpressionCommandTest extends CommandTest {
             prioCmd.execute(core); // unambiguous
             assertEquals(1, impression.getEvidenceAtIdx(0).getPriority());
         } catch (DukeException excp) {
-            fail("Exception thrown while executing valid deletion in Impression context: "
+            fail("Exception thrown while executing valid priority update in Impression context: "
                     + excp.getMessage());
         }
     }
@@ -240,7 +242,35 @@ public class ImpressionCommandTest extends CommandTest {
             statusCmd.execute(core); // unambiguous
             assertEquals(2, impression.getTreatmentAtIdx(0).getStatusIdx());
         } catch (DukeException excp) {
-            fail("Exception thrown while executing valid deletion in Impression context: "
+            fail("Exception thrown while executing valid status update in Impression context: "
+                    + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void impressionResultCommand_validInvx_resultCreated() {
+        ObjCommand resultCmd = null;
+        String[] switchNames = {"summary"};
+        String[] switchVals = {"Uric acid was found to be extremely high."};
+        Result invxResult = null;
+
+        try {
+            Investigation invx = new Investigation("Blood test", impression, 3, "1",
+                    "Test patient's serum uric acid level.");
+            invxResult = new Result("Blood test Result", impression, 3,
+                    "Test patient's serum uric acid level.\n\nUric acid was found to be extremely high.");
+            impression.addNewTreatment(invx);
+            resultCmd = new ObjCommand(ImpressionResultSpec.getSpec(), "Blood test", switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            resultCmd.execute(core); // unambiguous
+            assertTrue(invxResult.equals(impression.getEvidence("blood test result")));
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid result command in Impression context: "
                     + excp.getMessage());
         }
     }
