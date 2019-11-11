@@ -34,12 +34,16 @@ The role of a team manager is to initiate, plan, design, execute and monitor the
 
 
 == Value proposition
+Team Manager software is an application that helps you to better collaborate,
+communicate, and, ultimately, manage a group of people. Team Manager is created
+to increase productivity and improve the quality of work a team produces.
+
 The Team Manager application will enable the team manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
 Users can use this app to manage projects faster than a typical mouse/gui driven app.
 
 == Design
 === Architecture
-image::SoftWareArchitecture.png[]
+image::SoftwareArchitecture.png[]
 
 1. The program enters from TeamManager(currently implemented as core.Duke)
 2. The `Software` consists of 3 main components: `UI` `Logic` `Model`
@@ -83,6 +87,9 @@ image::ModelDiagram.png[]
 5. This methods also allows for easy editing by the user as it is stored in a json notation text file.
 
 === Common
+
+1. Classes used by multiple components are in the `common` package.
+2. The `Common` component contains `DukeException` and `LoggerController`.
 
 == Implementation
 
@@ -378,7 +385,73 @@ Expected: GUI change to show member list. And also the message will show all mem
 .. Test case: `list members something` +
 Expected: GUI won't change. A message will show the correct usage of list members.
 
+=== Edit task details
+
+. Edit the task name
+.. Prerequisites: In task list, there are 2 tasks in the list: 1. 'Write Financial Report' and 2. 'Prepare for weekly meeting'
+.. Test case: `edit task name` +
+Expected: usage: edit task name [Index of Task] /to [New Name]
+.. Test case: `edit task name  /to Create event posters` +
+Expected: Not a valid task index!
+.. Test case: `edit task name 1 /to` +
+Expected: [NEW Name] cannot be empty!
+.. Test case: `edit task name a /to Create event posters` +
+Expected: Not a valid task index!
+.. Test case: `edit task name 1 Create event posters` +
+Expected: Please input a /to
+.. Test case: `edit task name 999 /to Create event posters` +
+Expected: Index: 999 is not within the task list!
+.. Test case: `edit task name -999 /to Create event posters` +
+Expected: Index: -999 is not within the task list!
+.. Test case: `edit task name 1 /to Prepare for weekly meeting` +
+Expected: Index: Task: Prepare for weekly meeting already exists within the task list!
+.. Test case: `edit task name 1 /to Complete event posters` +
+Expected: xxx has been renamed to: Complete event posters
+
+. Edit the task time
+.. Prerequisites: In task list, there is only 1 task in the list
+.. Test case: `edit task time` +
+Expected: usage: edit task time [Index of task] /to [New DateTime]
+.. Test case: `edit task time a /to 12/12/2020 1010` +
+Expected: Not a valid task index or date!
+.. Test case: `edit task time /to 12/12/2020 1010` +
+Expected: Not a valid task index or date!
+.. Test case: `edit task time 1 /to 12/a/2020 1010` +
+Expected: Not a valid task index or date!
+.. Test case: `edit task time 1 /to 1234/1234/1234 123456` +
+Expected: Not a valid task index or date!
+.. Test case: `edit task time 1 12/12/2020 1010` +
+Expected: Please input a /to
+.. Test case: `edit task time 999 /to 12/12/2020 1010` +
+Expected: Index is not within the task list
+.. Test case: `edit task time -999 /to 12/12/2020 1010` +
+Expected: Index is not within the task list
+.. Test case: `edit task time 1 /to 12/12/1019 1010` +
+Expected: The input DateTime has already passed!
+.. Test case: `edit task time 1 /to 12/12/2020 1010` +
+Expected: The deadline has been changed to: Sat Dec 12 10:10:00 SGT 2020
+
 === Edit member details
+
+. Edit the member name
+.. Prerequisites: In member list, there is a member called 'John' and a member called 'Jack'.
+.. Test case: `edit member name` +
+Expected: usage: edit member name [Old Name] /to [New Name]
+.. Test case: `edit member name /to Romeo` +
+Expected: [Old Name] cannot be empty!
+.. Test case: `edit member name John /to` +
+Expected: [NEW Name] cannot be empty!
+.. Test case: `edit member name John Romeo` +
+Expected: Please input a /to
+.. Test case: `edit member name John /to` +
+Expected: [NEW Name] cannot be empty!
+.. Test case: `edit member name Alvin /to Beatrice` +
+Expected: Alvin is not within the member list!
+.. Test case: `edit member name John /to Jack` +
+Expected: Jack already exists within the member list!
+.. Test case: `edit member name John /to Romeo` +
+Expected: John has been renamed to: Romeo
+
 
 . Edit the member email
 .. Prerequisites: In member list, there is a member called 'Jack' with no email.
@@ -389,3 +462,13 @@ Expected: Jack's email will be updated. A message will show that you have succes
 .. Test case: `edit member email /to` +
 Expected: No one's email wii be updated. A message will show that tag(name or change content) can't be empty.
 
+=== Setting a reminder
+
+. Setting and receiving a reminder
+.. Prerequisites: A task with a deadline more than 5 minutes after current time exists
+.. Test case: `reminder TASK_INDEX 5m` +
+Expected: A success message is shown. At 5 minutes before the deadline of the task, a reminder is shown and a sound is played.
+.. Test case: `reminder TASK_INDEX -5m` +
+Expected: An error message is shown. No reminder is set or updated.
+.. Test case: `reminder TASK_INDEX 1000d` +
+Expected: If deadline is less than 1000 days away, and error message is shown. No reminder is set or updated.
