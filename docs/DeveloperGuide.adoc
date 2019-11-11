@@ -296,7 +296,7 @@ The list of `Command` and their instructions are stored externally in persistent
 
 Additionally, it contains the following feature:
 
-* User may request for `Help` with a specific command.
+* Users may request for `Help` with a specific command.
 
 All `Help` features are implemented in the `parse` method of the `CommandParser` class that parses user input.
 
@@ -306,7 +306,7 @@ Provided below is an example scenario of use and how `HelpCommand` class behaves
 The user enters the `help Deadline`. The `parse` method in the `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
 
 [WARNING]
-`InvalidArgumentException` will be thrown is the user enters an invalid command.
+`InvalidArgumentException` will be thrown if the user enters an invalid command.
 
 *Step 2:* +
 The `execute` method of `HelpCommand` class will read the list of `Command` and their instructions from persistent storage in `manual.txt` and store them into a `commands` ArrayList by calling the `readManual` method from `Storage` class.
@@ -332,7 +332,7 @@ Once a check is completed to ensure that `command` is not empty, both `keyword` 
 If they match, that particular element of `commands` ArrayList will be stored into a String called `description` and the for loop will break before returning `description` to the `execute` method of `HelpCommand`.
 
 [WARNING]
-`InvalidArgumentException` will be thrown is no successful match between `keyword` and `command` String is found.
+`InvalidArgumentException` will be thrown if no successful match between `keyword` and `command` String is found.
 
 *Step 4:* +
 The `execute` method of `HelpCommand` calls `printHelpCommand` in `Ui` class with `description` String as the parameter. This is where the individual `Command` and its instruction will be printed.
@@ -531,7 +531,7 @@ In the `execute` method, the `isDateAfterCurrentDate()` and `isDateSame()` metho
 The `findFreeTime()` method iterates through the current list of `Tasks` from the `TaskList` class and checks for both `Event` and `Deadline` tasks. If an `Event` or `Deadline` is found, the `populateEventTimes` or `populateDeadlines` method is then called respectively. 
 
 *Step 5.* +
-The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lies within the input date and if they are a duplicate `Event` respectively. If the `Event` date lies within the input date and is not a duplicate entry, its start and end times will be added to an `ArrayList` corresponding to `startTimes` and `endTimes` respectively.  
+The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lies within the input date and if they are a duplicate `Event` respectively. If the `Event` date lies within the input date and is not a duplicate entry, its start and end time will be added to an `ArrayList` corresponding to `startTimes` and `endTimes` respectively.  
 
 *Step 6.* + 
 The `populateDeadlines` method calls the `isDeadlineDueNextWeek()`, `isDuplicateDeadline()` and `isCompleted()` methods to check if the `Deadline` due date lies within one week from the input date, whether they are a duplicate `Deadline` and if they have already been completed respectively. If the `Deadline` due date lies within one week from the input date given that is not a duplicate entry and has not been completed yet, its due date will be added to an `ArrayList` corresponding to `deadlinesDue` while its name will be added to both `deadlineNames` and `sortedDeadlineNames`. 
@@ -636,7 +636,7 @@ image::ListTracker.png[ListTracker]
 
 * You may `tracker /list` with a specific command.
 
-Provided below is an example scenario of use and how `TrackerCommand` class behaves and interacts with other relevant classes.
+Provided below is an example usage scenario and how `TrackerCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
 The user enters `tracker` command.
@@ -649,7 +649,7 @@ The `readTrackerList` method in `StorageManager` class retrieves and processes `
 The `loadFile` method calls the `dataToTrackerList` method in `StorageParser` class, which in turn calls the `processLine` method.
 
 * *Step 1c:* +
-The `processLine` method of `StorageParser` class splits each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
+The `processLine` method of `StorageParser` class splits each line into its respective fields through the use of `,` delimiters before parsing and assigning them to the correct fields.
 A new `Tracker` object will be created with the processed data and returned to the `dataToTrackerList` method.
 
 * *Step 1d:* +
@@ -1697,6 +1697,15 @@ You must enter either today's date or a date in the future.
 
 ==== Testing the command 
 You can enter the command `free DD-MM-YYYY` to view your free time slots on the given date as well as suggestions for upcoming deadlines to complete. 
+
+. Test case: `free 12-12-2020` +
+Expected: The free time on `12-12-2020` will be displayed along with suggestions for deadlines to complete. +
+. Test case: `free 01-01-2010` + 
+Expected: Error displayed to warn users to enter either the current date or a date in the future. +
+. Test case: `free 32-32-2019` + 
+Expected: Error displayed regarding invalid date. +
+. Other incorrect free commands to try: `free a`, `free -1` +
+Expected: Similar to previous.
 
 === Viewing your tasks in a calendar format 
 
