@@ -23,7 +23,7 @@ image::briantkm.png[width="150", align="left"]
 {empty}[https://github.com/BrianTKM[github]] [<<briantkm#, portfolio>>]
 
 Role: Assistant Team Lead +
-Responsibilities: Code Maintainer + Model + Logic
+Responsibilities: Code Maintainer + Model + Logic + Logging
 
 '''
 

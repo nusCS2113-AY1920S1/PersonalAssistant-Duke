@@ -17,20 +17,24 @@ Hello there I am Brian. I am a current student from National University of Singa
 degree in Information Security.
 
 I have collaborated with
-link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
-link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
-link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence]
-and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+<<shamussy#,Shamus New Zhi Kai>>,
+<<mong-nus#,Mong Zheng Wei>>,
+<<terencetanwt#,Tan Wee Theng Terence>> and
+<<valerietyj#,Valerie Tan Yi Jia>>
 to work on a project for the module CS2113T (Software Engineering & Object-Oriented Programming).
 
 === About the project
 
 My team and I were tasked to enhance a basic command line interface desktop personal assistance, named Duke, for our
-project. We have decided to morph it into a finance tracker, which mainly targets undergraduates and fresh graduates, called OwlMoney.
+project. We have decided to morph it into a finance tracker, which mainly targets undergraduates and fresh graduates,
+called *OwlMoney*.
 This morphed product allows the users to keep track of their finances, while also allowing them to set goals for themselves to achieve.
 
-My role was to design and implement the `add`, `edit`, `delete` and `list` functions for the `Savings` account,
-`expenditures`, `deposit` and recurring bank expenditures, `recurbankexp`. The following sections illustrates these implementations in more detail, as well as the relevant documentation I have added to the User Guide and Developer Guide in relation to these implementations.
+My role was to design and implement the `add`, `edit`, `delete` and `list` functions for `savings`,
+`expenditures`, `deposit` and recurring bank expenditures (`recurbankexp`).
+The following sections illustrates these implementations in more detail, as well as the relevant documentation
+I have added to the User Guide and Developer Guide in relation to these implementations.
+In addition to this, I have aided <<shamussy#,Shamus>> in implementing investment and bonds.
 
 Note the following symbols and formatting used.
 include::../UserGuide.adoc[tag=user_guide_common_logo]
@@ -48,10 +52,10 @@ large number of users.
 * Highlights: The bank account also keeps track of the user's monthly income so that it can automatically be credited
 into the `Savings` account. This prevents errors such as forgetting to add a deposit for the monthly income.
 * Credits: A majority of this class inherits from the parent class `bank` which was collaborated by
-link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
-link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei],
-link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence]
-and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie].
+<<shamussy#,Shamus>>,
+<<mong-nus#,Zheng Wei>>,
+<<terencetanwt#,Terence>> and
+<<valerietyj#,Valerie>>.
 
 *Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` transactions, which consists of
 `expenditures`, `deposit`, and `recurbankexp`.
@@ -65,6 +69,15 @@ specified bank account. This enables the ability to track the user's finances.
 is added, modified or deleted. This allows effective tracking of the user's finances in the account without the need
 to manually edit the bank amount.
 
+*Features implemented:* I have assisted <<shamussy#,Shamus>> to implement the investment account.
+
+* What it does: The investment account allows *OwlMoney* to be able to track investments and bonds that the user has.
+* Justification: Investments are common sources of income for many users, including our target users of fresh and
+undergraduates. By allowing them to track their investments, users are able to track more than just their savings
+* Highlights: This enhancement automatically credits the 6 month interest into the bank account. This allows
+effective tracking of the user's investments while reducing errors from user input.
+* Credits: A majority of this class inherits from the parent class `bank` which was collaborated by
+
 *Code contributed:*
 [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=briantkm[RepoSense]],
 [link:{repoURL}/commits?author=briantkm[Commits]],
@@ -75,19 +88,19 @@ to manually edit the bank amount.
 * Project Management:
 ** Managed Issue tracker.
 * Enhancement made to existing features:
-** Fixed error in the Ui of the program. (Pull Request )
+** Fixed error in the Ui of the program. (Pull Request #152)
 * Documentation:
 ** Corrected mistakes in the Developer Guide. (Pull Request
 https://github.com/AY1920S1-CS2113T-W17-3/main/pull/163[#163])
-** Planned the initial user stories and use cases of the project. (Collaborated with link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
-{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei], {repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence] and {repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
-) (Issue https://github.com/AY1920S1-CS2113T-W17-3/main/issues/24[#24],
+** Planned the initial user stories and use cases of the project. (<<shamussy#,Shamus>>,
+<<mong-nus#,Zheng Wei>>,
+<<terencetanwt#,Terence>> and
+<<valerietyj#,Valerie>>) (Issue https://github.com/AY1920S1-CS2113T-W17-3/main/issues/24[#24],
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/26[#26],
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/27[#27])
 * Community:
 ** Reviewed the User Guide and Developer Guide of other groups.
-** Reported several bugs found in another team's project, MisterMusik.
-https://github.com/BrianTKM/ped/issues[MisterMusik issues]
+** Reported several bugs found in another team's project, https://github.com/BrianTKM/ped/issues[MisterMusik].
 * Team Collaboration:
 ** Reported bugs on team member's code. (Issue
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/138[#138])
@@ -100,27 +113,36 @@ https://github.com/AY1920S1-CS2113T-W17-3/main/pull/67/files[#67])
 ** Resolved bugs in the program. (Pull Request
 https://github.com/AY1920S1-CS2113T-W17-3/main/pull/90/files[#90])
 ** Designed and implemented the abstract class `bank`, `parser`, `command`, and `transaction` which serve as the code
-base of the project with everyone (
-link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
-link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei],
-link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence]
-and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
-).
+base of the project with everyone (<<shamussy#,Shamus>>,
+<<mong-nus#,Zheng Wei>>,
+<<terencetanwt#,Terence>> and
+<<valerietyj#,Valerie>>) (Pull Request https://github.com/AY1920S1-CS2113T-W17-3/main/pull/64/files[#64],
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/67/files[#67]).
 
-** Implemented logging for *OwlMoney* while collaborating with everyone (
-link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
-link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei],
-link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence]
-and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
-).
+** Implemented logging for *OwlMoney* while collaborating with everyone (<<shamussy#,Shamus>>,
+<<mong-nus#,Zheng Wei>>,
+<<terencetanwt#,Terence>> and
+<<valerietyj#,Valerie>>).
 
 
 === Contributions to the User Guide
-The User Guide had to be updated to reflect the instructions on how to use the morphed product, OwlMoney.
+The User Guide had to be updated to reflect the instructions on how to use the morphed product, *OwlMoney*.
 The following is a portion of the User Guide which shows the commands for managing `Savings`, `expenditures`,
 `deposit` and `bankrecurexp`.
 
 ==== {nbsp}
 
+include::../UserGuide.adoc[tag=AddSavings]
+
+include::../UserGuide.adoc[tag=AddBankExpenditure]
+
+include::../UserGuide.adoc[tag=AddDeposit]
+
+include::../UserGuide.adoc[tag=AddRecurringExpenditure]
+
 === Contributions to the Developer Guide
-The following section shows my contribution to the Developer guide for the `Savings` feature.
+The following section shows my contribution to the Developer guide for the `Bank` and `Savings` feature.
+
+include::../DeveloperGuide.adoc[tag=BankClassDiagram]
+
+include::../DeveloperGuide.adoc[tag=AddSavingsDG]

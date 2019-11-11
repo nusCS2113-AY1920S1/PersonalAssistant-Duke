@@ -245,8 +245,7 @@ Take note that there is a maximum of *15* character limit.
 
 |======
 
-
-
+// tag::AddSavings[]
 
 ===== Adding savings bank account `/add /savings`
 Before you can add any *expenditures*, you will need to add a savings account first.
@@ -277,6 +276,7 @@ Adds a savings account named `JunBank Savings Account` which has an initial amou
 of $`218.90` inside with a monthly income of `2000` automatically credited into the account
 every start of the month.
 
+// end::AddSavings[]
 
 ===== Editing savings bank account `/edit /savings`
 
@@ -345,6 +345,8 @@ image::DeleteSavings.png[Caption="Figure : "]
 
 Deletes a savings account named `JunBank Savings Account`.
 
+// tag::AddBankExpenditure[]
+
 ===== Adding expenditures for savings bank account `/add /bankexpenditure`
 
 Spending is a daily affair and it is difficult to keep track of so many of them. Fret not!
@@ -369,6 +371,8 @@ image::AddBankExpenditure.png[Caption="Figure : "]
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
 the description of `bubble tea` and category of `Dining`.
+
+// end::AddBankExpenditure[]
 
 ===== Editing expenditures for savings bank account `/edit /bankexpenditure`
 
@@ -434,6 +438,8 @@ image::DeleteBankExpenditure.png[Caption="Figure : "]
 
 Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
 
+// tag::AddDeposit[]
+
 ===== Adding deposit to savings bank account `/add /deposit`
 
 Saved up some spare cash to deposit into your bank account? Record them here!
@@ -450,6 +456,8 @@ Saved up some spare cash to deposit into your bank account? Record them here!
 image::AddDeposit.png[Caption="Figure : "]
 
 Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
+
+// end::AddDeposit[]
 
 ===== Editing deposit details for savings bank account `/edit /deposit`
 
@@ -1888,6 +1896,8 @@ Take note that there is a maximum of *15* character limit.
 
 |======
 
+// tag::AddRecurringExpenditure[]
+
 ===== Adding recurring expenditures `/add /recurbankexp`
 
 Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
@@ -1904,8 +1914,9 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 image::AddRecurringExpenditure.png[Caption="Figure : "]
 
 Adds a recurring expenditure that deducts $`72.90` every *1st* of the month to pay `Telco Bills` charged to `JunBank
-Savings
-Account` categorised under the `Bills` category.
+Savings Account` categorised under the `Bills` category.
+
+// end::AddRecurringExpenditure[]
 
 ===== Editing recurring expenditure `/edit /recurbankexp`
 
@@ -1949,8 +1960,6 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 * `/delete /recurbankexp /from JunBank Savings Account /transno 1`
 
 Deletes a recurring expenditure from `JunBank Savings Account` with transaction number `1`.
-
-// end::recurringExpenditureSyntax[]
 
 ==== Updating profile
 

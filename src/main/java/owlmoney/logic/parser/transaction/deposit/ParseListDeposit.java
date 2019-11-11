@@ -1,9 +1,6 @@
 package owlmoney.logic.parser.transaction.deposit;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.ListDepositCommand;
@@ -14,7 +11,6 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseListDeposit extends ParseDeposit {
     private static final String LIST_COMMAND = "/list";
-    private static final Logger logger = getLogger(ParseListDeposit.class);
     private static String DEFAULT_NUMBER = "30";
 
     /**
@@ -65,6 +61,7 @@ public class ParseListDeposit extends ParseDeposit {
     public Command getCommand() {
         ListDepositCommand newListDepositCommand = new ListDepositCommand(depositParameters.get(FROM_PARAMETER),
                 Integer.parseInt(depositParameters.get(NUM_PARAMETER)));
+        logger.info("Successful creation of ListDepositCommand object");
         return newListDepositCommand;
     }
 }
