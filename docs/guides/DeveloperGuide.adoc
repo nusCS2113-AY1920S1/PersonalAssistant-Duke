@@ -970,7 +970,7 @@ task|Invalid input with time present in todo task
 
 |`Task`|`sort priority`|Task List is sorted according to the priority level of the task, with `high` being at
 the top of the list|Normal use case
-|`Task`|`sort `|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
+|`Task`|`sort`|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
 |`Task`|`sort prio`|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
 |===
 
@@ -987,7 +987,7 @@ To aid with testing, let task with index 1 be a `deadline` task, and task with i
 
 |`Task`|`snooze 1`|Task with index 1 is snoozed by 3 days|Normal use case without a specific duration to snooze
 |`Task`|`snooze 1 -by 2`|Task with index 1 is snoozed by 2 days|Normal use case with a specific duration to snooze
-|`Task`|`snooze `|Invalid command reported asking for valid task index and duration|Invalid input without task
+|`Task`|`snooze`|Invalid command reported asking for valid task index and duration|Invalid input without task
 index
 |`Task`|`snooze 0`|Invalid command reported saying index out of bound|Invalid input with invalid index
 |`Task`|`snooze abc`|Invalid command reported asking for valid task index and duration|Invalid input with

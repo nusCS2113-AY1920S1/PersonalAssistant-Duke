@@ -197,7 +197,7 @@ public class UI {
     }
 
     /**
-     * Leads to github user guide
+     * Leads to github user guide.
      */
     public void loadHelpPage() {
         Http.openBrowser("https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/UserGuide"
