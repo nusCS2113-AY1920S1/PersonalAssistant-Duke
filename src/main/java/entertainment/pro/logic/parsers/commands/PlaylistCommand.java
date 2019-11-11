@@ -70,15 +70,14 @@ public class PlaylistCommand extends CommandSuper {
     private void executeCreatePlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String createPlaylistName = this.getPayload();
-        EditProfileJson editProfileJson = new EditProfileJson();
-        UserProfile userProfile = editProfileJson.load();
-        ProfileCommands profileCommands = new ProfileCommands(userProfile);
+        UserProfile userProfile = movieHandler.getUserProfile();
         try {
             PlaylistExceptions.checkCreateCommand(createPlaylistName, userProfile);
+            PlaylistCommands command = new PlaylistCommands(createPlaylistName);
+            command.create();
+            ProfileCommands profileCommands = new ProfileCommands(userProfile);
             userProfile = profileCommands.addPlaylist(createPlaylistName);
-            PlaylistCommands playlistCommands = new PlaylistCommands(createPlaylistName);
-            playlistCommands.create();
-            editProfileJson.updateProfile(userProfile);
+            new EditProfileJson().updateProfile(userProfile);
             movieHandler.setLabels();
             movieHandler.refresh();
             logger.log(Level.INFO, PromptMessages.PLAYLIST_CREATED);

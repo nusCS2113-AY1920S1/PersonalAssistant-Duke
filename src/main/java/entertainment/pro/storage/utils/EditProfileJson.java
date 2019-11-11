@@ -22,22 +22,16 @@ import java.util.ArrayList;
 public class EditProfileJson {
     private ObjectMapper mapper = new ObjectMapper();
     private File file;
-    private InputStream inputStream;
-    private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() {
-    };
 
     /**
      * Constructor for EditProfileJson.
      */
     public EditProfileJson() throws IOException {
         file = new File("./userProfile.json");
-        if (file.exists()) {
-            this.inputStream = new FileInputStream(file);
-        } else {
+        if (!file.exists()) {
             file.createNewFile();
             UserProfile userProfile = new UserProfile();
             mapper.writeValue(file, userProfile);
-            this.inputStream = new FileInputStream(file);
         }
     }
 

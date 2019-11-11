@@ -28,10 +28,10 @@ import java.util.logging.Logger;
  */
 public class PreferenceCommand extends CommandSuper {
 
-    private static String GET_NEW_GENRE_PREF = "-g";
-    private static String GET_NEW_GENRE_RESTRICT = "-r";
-    private static String GET_NEW_SORT = "-s";
-    private static String GET_NEW_ADULT_RATING = "-a";
+    private static final String GET_NEW_GENRE_PREF = "-g";
+    private static final String GET_NEW_GENRE_RESTRICT = "-r";
+    private static final String GET_NEW_SORT = "-s";
+    private static final String GET_NEW_ADULT_RATING = "-a";
     ArrayList<String> containsPossibleInputs = new ArrayList<>();
     List<String> flagList = Arrays.asList(GET_NEW_GENRE_PREF, GET_NEW_GENRE_RESTRICT, GET_NEW_SORT,
             GET_NEW_ADULT_RATING);

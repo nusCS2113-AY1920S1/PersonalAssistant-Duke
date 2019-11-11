@@ -5,7 +5,6 @@ import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.model.UserProfile;
-import entertainment.pro.storage.utils.EditProfileJson;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -23,8 +22,7 @@ import java.util.TreeMap;
  * Class contains all methods that deal with Profile object.
  */
 public class ProfileCommands {
-    UserProfile userProfile;
-    private EditProfileJson editProfileJson;
+    private UserProfile userProfile;
     private static final String GET_NEW_GENRE_PREF = "-g";
     private static final String GET_NEW_GENRE_RESTRICT = "-r";
     private static final String GET_NEW_SORT = "-s";
@@ -35,7 +33,6 @@ public class ProfileCommands {
      */
     public ProfileCommands(UserProfile userProfile) throws IOException {
         this.userProfile = userProfile;
-        this.editProfileJson = new EditProfileJson();
     }
 
     /**
@@ -272,14 +269,14 @@ public class ProfileCommands {
      * Responsible for clearing the sort options in the userProfile.
      * @throws IOException
      */
-    public UserProfile clearSortPreference() throws IOException {
+    private UserProfile clearSortPreference() throws IOException {
         return setSort(false, false, false);
     }
 
     /**
      * Responsible for clearing all the genres set under gene restrictions in the userProfile.
      */
-    public UserProfile clearGenreRestrict() {
+    private UserProfile clearGenreRestrict() {
         return userProfile.removeGenreIdRestriction(userProfile.getGenreIdRestriction());
     }
 
@@ -287,7 +284,7 @@ public class ProfileCommands {
     /**
      * Responsible for clearing all the genres set under gene preferences in the userProfile.
      */
-    public UserProfile clearGenrePreference() {
+    private UserProfile clearGenrePreference() {
         return userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
     }
 
@@ -295,7 +292,7 @@ public class ProfileCommands {
     /**
      * Responsible for clearing whether to have search results that conatin adult content in the userProfile.
      */
-    public UserProfile clearAdultPreference() {
+    private UserProfile clearAdultPreference() {
         return userProfile.setAdult(false);
     }
 
@@ -423,7 +420,7 @@ public class ProfileCommands {
         return userProfile.removeGenreIdRestriction(genreRestrictions);
     }
 
-    public UserProfile clearRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+    public UserProfile clearRestriction() throws IOException {
         return userProfile.removeGenreIdRestriction(userProfile.getGenreIdRestriction());
     }
 

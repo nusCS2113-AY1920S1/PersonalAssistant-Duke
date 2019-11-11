@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SetCommand extends CommandSuper {
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public SetCommand(Controller uiController) {
         super(CommandKeys.SET, CommandStructure.cmdStructure.get(CommandKeys.SET), uiController);
@@ -140,12 +140,11 @@ public class SetCommand extends CommandSuper {
     private void executeSetPreference() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         try {
-            EditProfileJson editProfileJson = new EditProfileJson();
-            UserProfile userProfile = editProfileJson.load();
+            UserProfile userProfile = movieHandler.getUserProfile();
             SetExceptions.checkPreferenceCommand(this.getFlagMap(), userProfile);
-            ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+            ProfileCommands command = new ProfileCommands(userProfile);
             userProfile = command.setPreference(this.getFlagMap());
-            editProfileJson.updateProfile(userProfile);
+            new EditProfileJson().updateProfile(userProfile);
             movieHandler.setLabels();
             logger.log(Level.INFO, PromptMessages.PREFERENCE_SET);
         } catch (InvalidParameterException | NoPermissionException | InvalidFormatCommandException e) {
