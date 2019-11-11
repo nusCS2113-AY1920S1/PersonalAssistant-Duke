@@ -659,6 +659,130 @@ The time signature of a song consists of two numbers that signify how many how m
 
 4 4 is the most common time signature for modern popular music. Considering this, the default time signature for songs composed in Ducats is 4 4, with the functionality to support other time signatures coming in v2.0.
 
-== FAQ
 
 == Command Summary
+
+*1.* play
+
+_Format_: `play [n/STARTING_BAR_NO n/ENDING_BAR_NO]`
+
+_Format_: `play s/SONG_NAME  (when no song has been opened)`
+
+*2.* overlay_group_group
+
+_Format_: `overlay_group_group n/SONG1 n/GROUP1 n/SONG2 n/GROUP2`
+
+_Format_: `overlay_group_group n/SONG1 n/GROUP1 n/SONG2 n/GROUP2 repeat`
+
+*3.* overlay_bar_song
+
+_Format_: `overlay_bar_song n/SONG1 n/BAR1 n/SONG2 n/BAR2`
+
+_Format_: `overlay_bar_song n/SONG1 n/BAR1 n/SONG2 n/BAR2 repeat`
+
+*4.* redo
+
+_Format_: `redo`
+
+*5.* delete
+
+_Format_: `delete song:n/SONG_NUM OR delete song:s/SONG_NAME`
+
+*6.* view
+
+_Format_: `view [n/BAR_NO](last bar - 1)`
+
+*7.* undo
+
+Format: `undo`
+
+*8.* overlay_bar_group
+
+_Format_: `overlay_bar_group n/BAR n/GROUP`
+
+_Format_: `overlay_bar_group n/BAR n/GROUP repeat`
+
+*9.* deletebar
+
+_Format_: `deletebar bar:n/BAR_NUM`
+
+*10.* metronome
+
+_Format_: `metronome n/DURATION_IN_NO_OF_BARS n/TEMP0 s/TIME_SIG`
+
+*11.* list_group
+
+_Format_: `list_group`
+
+_Format_: `list_group s/STARTING_SUBSTRING`
+
+*12.* copy
+
+_Format_: `copy s/GROUP_NAME`
+
+_Format_: `copy n/START_NUM n/END_NUM`
+
+_Format_: `copy s/GROUP_NAME n/INSERT_INDEX`
+
+_Format_: `copy n/START_NUM n/END_NUM n/INSERT_INDEX`
+
+*13.* ascii
+
+_Format_: `ascii song s/SONG_NAME`
+
+*14.* close
+
+_Format_: To be implemented in version 2.0
+
+*15.* group
+
+_Format_: `group n/START_NUM n/END_NUM s/GROUP_NAME`
+
+*16.* add
+
+_Format_: `add s/NOTE`
+
+*17.* new
+
+_Format_: `new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)`
+
+*18.* addbar
+
+_Format_: `addbar s/NOTES [bar:n/BAR_NO_TO_ADD_AFTER](last bar)`
+
+*19.* overlay
+
+_Format_: `overlay n/BAR_NUM1 n/BAR_NUM2`
+
+_Format_: `overlay n/BAR_NUM1 n/BAR_NUM2 repeat`
+
+*20.* swapbar
+
+_Format_: `swapbar bar:n/BAR_NUM bar:n/BAR_NUM`
+
+*21.* clear
+
+_Format_: To be implemented in version 2.0
+
+*22.* list
+_Format_: `list`
+
+*23.* insertbar
+
+_Format_: `insertbar bar:n/BAR_NUM s/NOTES`
+
+*24.* help
+
+_Format_: `help`
+
+*25.* exit
+
+_Format_: `bye`
+
+*26.* open
+
+_Format_: `open s/SONG_NAME`
+
+*27.* editbar
+
+_Format_: `editbar bar:n/BAR_NUM s/NOTES`
