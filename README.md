@@ -19,7 +19,7 @@ Libraries used:
 - JUnit
 - PrettyTime
 
-Refrence Project:
+Reference Project:
 - AddressBook 4
 - Duke
 
