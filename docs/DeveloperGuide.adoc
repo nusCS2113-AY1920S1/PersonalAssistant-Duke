@@ -247,12 +247,18 @@ The `PaymentManager` is an abstract class that is subclassed in the payments pac
 * PaymentManager#deletePayments
 * PaymentManager#editPayee
 * PaymentManager#findPayee
-* PaymentManafer#checkStatus
+* PaymentManager#checkStatus
+
+[[fig-AddPayeeSeqDiagram]]
+.Sequence Diagram of the add payee command
+image::AddPayeeSeqDiagram.png[]
 
 A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other. +
-1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Command where the input will be parsed to determine the command to execute. +
+1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Parser where the input will be parsed to determine the command to execute. It then invokes Process, which splits the user input and breaks down the user's intended answer into information our classes can interact with. +
 2. The PaymentManager is invoked, and in this case, the addPayee method is called. The method checks which project is currently selected and constructs a new Payee object. The Payee object is pushed into the current project's managerMap, a HashMap of all the project's payees. +
-3. Assuming a valid input was passed from the user, a confirmation message showing the summary of the details of the newly created Payee would be printed. Else, an error will prompt the user to try again and provide the correct template for the command they attempted. +
+3. Assuming a valid input was passed from the user, a confirmation message showing the summary of the details of the newly created Payee would be printed. Else, an error will prompt the user to try again and provide the correct template for the command they attempted. In Process, most of the Exception handling is done to catch all possible user error cases. +
+
+The Payment Manager handles most other commands the same way, given that all payee information is stored within a single project LinkedHashMap, and all payment information is stored in an ArrayList in each Payee. The only method in Payment Manger that is different is the helper function 
 
 === History Feature
 The `history` feature is implemented to keep track of the list of all input commands entered by the user. It is facilitated by the `Storage` class which is called by the `Process` class in the `command` component.
@@ -301,11 +307,156 @@ Below is the sequence diagram showing the interactions between the different com
 
 image::undo seq diagram.PNG[]
 
-=== Fund and Budget feature
+//tag::fund[]
+=== Fund feature
+The Fund Feature is implemented to provide convenience to our target audience
+and reduce the manual calculations required to manage the finance of an organisation. +
+This feature extends the AlphaNUS with an overall fund.  The fund is stored locally in a local folder
+and is loaded every time the user starts the application. +
+Currently, it implements the following implementations:
 
+* `fund#setFund` -- Set a new fund to all projects.
+* `fund#takeFund` -- Take value from funds and assign it to a specific project as the project's budget.
+* `fund#addFund` -- Add more fund to the original fund
+* `fund#retrieveFund` -- Retrieve the unused budget and add it back into fund when a project is deleted.
+
+This feature allows the following commands:
+
+* *Set Fund:*            `set fund am/AMOUNT`
+* *Add Fund:*            `add fund add/AMOUNT`
+* *Assign budget:*         `assign budget pr/PROJECT_NAME am/AMOUNT`
+* *Change Fund:*        `change fund new/AMOUNT`
+* *Show Fund:*           `show fund`
+
+Given below is an example usage scenario and how the fund mechanism behaves at each step.
+
+* Step 1: The user run the application for the first time. He cannot call any other fund commands as the fund is not set yet.
+He thus input `set fund am/2000` and set the overall command as 2000 dollars.
+* Step 2: The user can now perform `add fund add/AMOUNT` and `change fund new/AMOUNT` to change the fund.
+He can also call `show fund` to see the current fund status. However he cannot call `assign fund pr/PROJECT am/AMOUNT` as
+there is no projects yet.
+* Step 3: The user adds a project by calling `add project` command. He can assign a budget from the fund
+when creating the project, or assign later by calling the `assign fund` function.
+* Step 4: The user exits the application. The fund object is stored in a json file under localdata folder.
+* Step 5: The user reopen the application. The fund object is loaded from the json file.
+* Step 6: The user can now call all commands related to funds.
+
+==== Design Considerations
+
+===== Aspect: How fund feature executes
+
+* **Alternative 1 (current choice):** automatically save to and load from local folder as string. User can directly call commands to change it.
+** Pros: Easy to implement.
+** Cons: The data is not safe. unauthorized user can change it from the json file or call relative commands.
+* **Alternative 2(Proposed and preferred):** automatically save to and load from local folder as encoded strings. User needs to input a security key to call commands to changeit.
+** Pros: Protect important data such as total fund to be changed by unauthorized user.
+** Cons: The steps would become more tedious and les convenient.
+
+===== Aspect: Data structure to support the fund commands
+
+* **Alternative 1 (current choice):** Use a Fund object.
+** Pros: Can show different attributes such as fund.remaining and fund.taken, which makes the feature more useful
+and easy to use.
+** Cons: Relatively more complex as compare to Alternative 2
+* **Alternative 2:** Use a global double variable.
+** Pros: Simple and straightforward.
+** Cons: Less useful as it provides less functions and implementations as in Alternative 1
+// end::fund[]
+
+//tag::budget[]
+=== Budget feature
+The Budget Feature is implemented to provide convenience to our target audience
+and reduce the manual calculations required to manage the finance of an organisation. +
+This feature  extends the project features with a budget for each project object. The budget for a project is automatically
+saved in a json file in localdata folder.
+
+This feature allows the following commands:
+
+* *Assign budget:*         `assign budget pr/PROJECT_NAME am/AMOUNT`
+* *Reduce budget:*         `reduce budget pr/PROJECT_NAME am/AMOUNT`
+* *Show Fund:*           `show fund`
+
+Given below is an example usage scenario and how the fund mechanism behaves at each step.
+
+* Step 1: The user run the application for the first time. He cannot call `assign fund pr/PROJECT am/AMOUNT` as
+ no project is added and fund is not set yet. He cannot call `reduce fund pr/PROJECT am/AMOUNT` as well.
+* Step 2: The user sets a fund of 2000 dollars and adds a project named "Rag". He can assign a budget from the fund
+when creating the project, or assign later by calling the `assign fund` function.
+* Step 3: He can add new payee and payments which take their costs from the budget until the remaining budget is not
+enough to cover the cost of the new-added payments. He can reduce budget from the project the the reduced budget will be added back to fund. He can reduce budget from the project the the reduced budget will be added back to fund.
+* Step 4: The user exit the application. The budget is saved as an attribute of the relative project in a json file.
+* Step 5: The user reopen the application. The budget is loaded together with the project it belongs to.
+
+==== Design Considerations
+
+===== Aspect: How fund feature executes
+
+* **Alternative 1 (current choice):** automatically save to and load from local folder as string. User can directly call commands to change it.
+** Pros: Easy to implement.
+** Cons: The data is not safe. unauthorized user can change it from the json file or call relative commands.
+* **Alternative 2(Proposed and preferred):** automatically save to and load from local folder as encoded strings. User needs to input a security key to call commands to change it.
+** Pros: Protect important data such as total fund to be changed by unauthorized user.
+** Cons: The steps would become more tedious and les convenient.
+
+// end::budget[]
+
+//tag::task[]
 === Task feature
+The Task Feature is implemented to provide convenience to our target audience
+to manage other tasks with or without a deadline. +
+This feature extends the AlphaNUS with a Arraylist of task named tasklist.  The fund is stored locally in a local folder
+and is loaded every time the user starts the application. +
+This feature allows the following commands:
 
+* *Add Todo:*            `add todo d/DESCRIPTION`
+* *Add Deadline:*        `add deadline d/DESCRIPTION by/DATE.`
+* *Done Task:*           `done id/ID`
+* *Delete Task:*         `delete task id/ID`
+* *Find Task:*          `find task key/KEY_WORD`
+* *List Tasks:*          `list tasks`
+* *Snooze Deadline:*     `snooze id/ID`
+* *Postpone Deadline:*   `postpone id/ID n/DAYS`
+* *Reschedule Deadline:* `reschedule id/ID d/DATE`
+* *View Schedule:*       `view schedule d/DATE`
+
+Given below is an example usage scenario and how the fund mechanism behaves at each step.
+
+* Step 1: The user run the application for the first time. The first step he can take is adding in todo or deadline tasks based on his needs
+* Step 2: The user can now perform other commands such as list/find/view schedule on the tasklist, or done/delete/reschedule on individual tasks.
+* Step 4: The user exits the application. The tasklist object is stored in a json file under localdata folder.
+* Step 5: The user reopen the application. The tasklist object is loaded from the json file.
+* Step 6: The user can now call all commands related to tasks.
+//end::task[]
+
+//tag::reminder[]
 === Reminder feature
+The reminder feature is implemented to provide convenience to our target audience
+by allowing the to keep track on the submission deadlines of payment forms easily. +
+This feature  extends the project and payment features and sort payments across all projects based on their deadlines.
+
+This feature allows the following command:
+* *Reminder:*            `reminder`
+
+Given below is an example usage scenario and how the fund mechanism behaves at each step.
+
+* Step 1: The user has one or more projects added.
+* Step 2: The user has added in one or more payments, each has an auto-generated deadline based on the date it was added.
+* Step 3: The user can set the status of some payments as `APPROVED`.
+* Step 4: He can then call the `reminder` command, which returns a list of all pending and overdue payments.
+The payments are sorted according to their priority(i.e. sorted based on the deadline)
+
+==== Design Considerations
+
+===== Aspect: How fund feature executes
+
+* **Alternative 1 (current choice):** Takes payments from all projects and store it into a temporary arraylist.
+Then the arraylist is sorted based on the payments' dates.
+** Pros: Provides helpful results which helps users to know the priority of payment forms easier
+** Cons: Long execution time as compared to the 2nd alternative when there are a great number of payment forms.
+* **Alternative 2(Proposed and preferred):** Only process and sort the payments in current project.
+** Pros: Easier to implement and faster
+** Cons: Less Meaningful.
+//end::reminder[]
 
 == Documentation
 
