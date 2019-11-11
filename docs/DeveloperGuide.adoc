@@ -167,7 +167,7 @@ The state transitions on encountering would not be clearly represented on a stat
 
 Preceding any transition character with a backslash `\` will escape it, allowing it to be treated as an ordinary character.
 
-When transitioning from `EMPTY` to any other state, `checkInputAllowed()` is used to check if input is allowed at that point. While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written to the `Command` being constructed as an argument by `writeElement()`. This can be an argument for the `Command` itself, or a switch argument. For more details on how switches are processed, see above on `Command` objects, and on the <<Feature-Switch-Autocorrect,Switch Autocorrect>> feature.
+While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written to the `Command` being constructed as an argument by `writeElement()`. These functions also check if adding a switch or argument would be valid. This can be an argument for the `Command` itself, or a switch argument. For more details on how switches are processed, see above on `Command` objects, and on the <<Feature-Switch-Autocorrect,Switch Autocorrect>> feature.
 
 When every character in the input has been consumed, cleanup will be performed based on the state that the `Parser` is in at that point:
 
