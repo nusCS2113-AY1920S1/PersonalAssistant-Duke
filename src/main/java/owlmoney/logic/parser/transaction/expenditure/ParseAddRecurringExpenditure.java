@@ -1,12 +1,9 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddRecurringExpenditureCommand;
@@ -25,7 +22,6 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String[] RESERVED_CATEGORY = new String[] {
         DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
     private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
-    private static final Logger logger = getLogger(ParseAddRecurringExpenditure.class);
 
     /**
      * Creates an instance of ParseAddRecurringExpenditure.
@@ -98,6 +94,7 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
                 calendar.getTime(),
                 (expendituresParameters.get(DESCRIPTION_PARAMETER)),
                 (expendituresParameters.get(CATEGORY_PARAMETER)), this.type);
+        logger.info("Successful creation of AddRecurringExpenditureCommand object");
         return newAddRecurringExpenditureCommand;
     }
 }

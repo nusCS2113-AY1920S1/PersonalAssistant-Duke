@@ -1,9 +1,6 @@
 package owlmoney.logic.parser.saving;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.EditSavingsCommand;
@@ -13,8 +10,6 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses the inputs for editing a saving.
  */
 public class ParseEditSaving extends ParseSaving {
-
-    private static final Logger logger = getLogger(ParseEditSaving.class);
 
     /**
      * Creates an instance of ParseEditSaving.
@@ -73,6 +68,7 @@ public class ParseEditSaving extends ParseSaving {
                 savingsParameters.get(INCOME_PARAMETER),
                 savingsParameters.get(AMOUNT_PARAMETER),
                 savingsParameters.get(NEW_NAME_PARAMETER));
+        logger.info("Successful creation of EditSavingsCommand object");
         return newEditSavingsCommand;
     }
 

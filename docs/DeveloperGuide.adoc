@@ -186,6 +186,8 @@ will proceed to create an instance of the appropriate command class and return i
 
 ==== Command
 
+// tag::BankClassDiagram[]
+
 .Bank Command Class Diagram
 image::LogicCommandBankPackage.png[width="800"]
 
@@ -200,6 +202,8 @@ Both the `Savings` and `Investments` classes have the following common features:
 
 `Main` will call the specific `Savings` or `Investment` command class that will construct the *required
 parameters* before calling the `Profile` class in `Model` to *execute*.
+
+// end::BankClassDiagram[]
 
 // tag::bonds_class_diagram[]
 
@@ -335,7 +339,19 @@ Depending on the `type` of command the user enters, the specific parser class in
 
 The execution of commands will be elaborated in subsequent diagrams below.
 
-// tag::add_savings[]
+// tag::AddSavingsDG[]
+
+=== Adding Savings
+
+The `/add /savings` feature aims to provide the user with the ability to add a new `savings` account into *OwlMoney*.
+With this feature, the user will be able to start tracking their expenses.
+Hence, allowing the user to track their monthly budget and save up effectively.
+
+==== Current Implementation
+The current implementation of adding a `savings` account requires 2 parameters; `amount` and `income`.
+The ability to track the `savings` account is enhanced through monitoring the `amount`,
+while also being able to update it through any `income` the user has.
+Hence, the user will be able to control their spending effectively.
 
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="800"]
@@ -373,7 +389,44 @@ bank objects.
 . Once the savings object has been added, the details of the new savings object will be displayed to inform the user
 of the *successful* addition of the savings object.
 
-// end::add_savings[]
+==== Design consideration
+
+This section describes the various design considerations taken when implementing the `/add /savings` feature.
+
+*Aspect: Choice of whether to set the account name as case-sensitive or case-insensitive*
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Case-insensitive name
+
+a| * All banks added have unique names.
+
+* More intuitive for users as they usually remember the names, and not the capitalisation of each letter.
+
+a| * More checks need to be done by trimming and comparing the capitalised newly added bank name to existing bank names
+
+* Unable to have similar bank names only differing by capitalising letters
+
+| *2.* Case-sensitive name
+
+a| * More accurate names
+
+* Allows for multiple similar name banks (eg. POSB, Posb, POsb)
+
+a| * Confusing when there are multiple banks with similar names,
+
+|======
+
+After weighing the pros and cons, *approach 1* was taken.
+
+By designing the name to be case-insensitive, it increases the user-friendliness of *OwlMoney* since bank names are
+commonly remembered without the exact capitalisation of letters. Also, in the event the user keys in a
+different capitalised character for the same bank, there is no need for the user to re-enter the command
+due to the bank account "not existing". Additionally, the case-sensitivity check can also be used with the Card
+function or with any other case-insensitive model or logic.
+
+// end::AddSavingsDG[]
 
 // tag::editing_bonds[]
 

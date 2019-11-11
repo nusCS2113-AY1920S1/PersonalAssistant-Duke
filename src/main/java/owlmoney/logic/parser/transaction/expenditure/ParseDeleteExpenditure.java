@@ -1,9 +1,6 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.DeleteExpenditureCommand;
@@ -15,7 +12,6 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseDeleteExpenditure extends ParseExpenditure {
 
     private static final String DELETE_COMMAND = "/delete";
-    private static final Logger logger = getLogger(ParseDeleteExpenditure.class);
 
     /**
      * Creates an instance of ParseDeleteExpenditure.
@@ -67,6 +63,7 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
         DeleteExpenditureCommand newDeleteExpenditureCommand =
                 new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSACTION_NUMBER_PARAMETER)),
                         expendituresParameters.get(FROM_PARAMETER), this.type);
+        logger.info("Successful creation of DeleteExpenditureCommand object");
         return newDeleteExpenditureCommand;
     }
 }
