@@ -2,3 +2,7 @@ E | 100.0 | Expense Description | 03/12/2011
 E | 100.0 | Expense Description | 03/12/2051
 E | 100.0 | Expense Description | 03/12/2021
 E | 100.0 | Expense Description | 03/12/2031
+BU | 10.0 | daily
+S | 100.0 | weekly
+BU | 1000.0 | monthly
+BU | 100.0 | weekly
