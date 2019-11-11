@@ -1,5 +1,3 @@
-//@@author LL-Pengfei
-
 package cube.ui;
 
 import org.junit.jupiter.api.Test;
