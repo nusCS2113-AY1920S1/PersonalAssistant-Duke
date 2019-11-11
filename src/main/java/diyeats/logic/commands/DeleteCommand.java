@@ -9,6 +9,7 @@ import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 //@@author HashirZahir
 /**
@@ -18,12 +19,14 @@ import java.time.LocalDate;
 public class DeleteCommand extends Command {
     private int index;
     private LocalDate deleteDate;
-
+    private LocalDate addBackDate;
+    private ArrayList<Meal> addBackMeal;
     /**
      * Constructor for DeleteCommand.
      * @param index the index of meal on the date to be deleted.
      * @param deleteDate Date of meal to be deleted.
      */
+
     public DeleteCommand(int index, LocalDate deleteDate) {
         this.index = index;
         this.deleteDate = deleteDate;
@@ -36,6 +39,11 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
         this.deleteDate = LocalDate.now();
+    }
+
+    public DeleteCommand(LocalDate date, ArrayList<Meal> meal) {
+        this.addBackDate = date;
+        this.addBackMeal = meal;
     }
 
     public DeleteCommand(boolean flag, String messageStr) {
@@ -74,4 +82,12 @@ public class DeleteCommand extends Command {
         ui.showLine();
     }
 
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        meals.setMealsList(addBackDate, addBackMeal);
+        try {
+            storage.writeFile(meals);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
 }

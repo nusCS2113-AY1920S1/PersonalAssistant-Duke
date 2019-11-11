@@ -43,6 +43,17 @@
         "calorie": 50000000
       },
       "costStr": "0"
+    },
+    {
+      "description": "asdf",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 232
+      },
+      "costStr": "0"
     }
   ]
 }

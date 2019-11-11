@@ -7,6 +7,7 @@ import diyeats.logic.commands.AddDefaultValueCommand;
 import diyeats.logic.commands.AddExerciseCommand;
 import diyeats.logic.commands.AddGoalCommand;
 import diyeats.logic.commands.AddTransactionCommand;
+import diyeats.logic.commands.DeleteCommand;
 import diyeats.logic.commands.DeleteDefaultValueCommand;
 import diyeats.logic.commands.MarkDoneCommand;
 import diyeats.logic.commands.SuggestExerciseCommand;
@@ -385,7 +386,8 @@ public class Undo {
     public void deleteFood(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         LocalDate date = LocalDate.parse(toBeParsed, dateFormat);
         ArrayList<Meal> temp = mealListHistory.pop();
-        meals.setMealsList(date, temp);
+        DeleteCommand c = new DeleteCommand(date, temp);
+        c.undo(meals, storage, user, wallet);
     }
 
     /**
