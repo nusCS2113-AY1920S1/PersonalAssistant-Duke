@@ -1,20 +1,21 @@
 //@@author JasonLeeWeiHern
 
-package contactCommandTest;
+package ContactCommandTest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.contact.DeleteContactCommand;
+import gazeeebo.commands.contact.AddContactCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteContactCommandTest {
+class AddContactCommandTest {
     private Ui ui = new Ui();
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -34,32 +35,20 @@ public class DeleteContactCommandTest {
     }
 
     @Test
-    void testDeleteInContactsCommand() {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+    void testAddContactsCommand() throws IOException {
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<>(map);
-        contact.put("jason", "9625 1722");
-        ui.fullCommand = "delete jason";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("Successfully deleted: jason\n", output.toString());
+        ui.fullCommand = "add Test,96251822";
+        AddContactCommand test = new AddContactCommand(ui, contact);
+        assertEquals("Successfully added: Test,96251822\n", output.toString());
     }
 
     @Test
-    void testDeleteNotInContactsCommand() {
+    void testIncorrectFormatAddContactsCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<>(map);
-        contact.put("janel", "9625 1722");
-        ui.fullCommand = "delete jason";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("jason is not found in the list.\n", output.toString());
-    }
-
-    @Test
-    void testDeleteIncorrectFormatContactsCommand() {
-        HashMap<String, String> map = new HashMap<>();
-        Map<String, String> contact = new TreeMap<>(map);
-        contact.put("janel", "9625 1722");
-        ui.fullCommand = "delete jason and janel";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
+        ui.fullCommand = "add Test,96251822 and Jason,123412";
+        AddContactCommand test = new AddContactCommand(ui, contact);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

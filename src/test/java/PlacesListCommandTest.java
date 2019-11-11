@@ -16,7 +16,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlacesListCommandTest {
+class PlacesListCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -42,11 +42,11 @@ public class PlacesListCommandTest {
         places.put("LT50", "COM6");
         places.put("LT20", "COM7");
         ListPlacesCommand test = new ListPlacesCommand(places);
-        assertEquals("Room:                                             | Location:\n" +
-                "------------------------------------------\n" +
-                "LT20                                              | COM7\n" +
-                "------------------------------------------\n" +
-                "LT50                                              | COM6\n" +
-                "------------------------------------------\n", output.toString());
+        assertEquals("Room:                                             | Location:\n"
+                + "------------------------------------------\n"
+                + "LT20                                              | COM7\n"
+                + "------------------------------------------\n"
+                + "LT50                                              | COM6\n"
+                + "------------------------------------------\n", output.toString());
     }
 }

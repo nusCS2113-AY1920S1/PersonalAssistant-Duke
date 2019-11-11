@@ -13,6 +13,17 @@ import java.text.ParseException;
 
 
 public class ParserManager {
+    /**
+     * Parser command to parse the input into different pages.
+     * @param command full command that is input into the command line
+     * @param ui the object that deals with printing things to the user.
+     * @return Command type
+     * @throws DukeException Throws custom exception when
+     *                        format of find command is wrong
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
+     */
+
     public static Command parse(final String command,
                                 final Ui ui)
             throws DukeException, IOException, ParseException {

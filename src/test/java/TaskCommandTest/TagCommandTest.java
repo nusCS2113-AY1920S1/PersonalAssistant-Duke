@@ -1,4 +1,4 @@
-//@@author e0323290
+package TaskCommandTest;//@@author e0323290
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
@@ -24,7 +24,7 @@ import java.util.Stack;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Testing TagCommandTest when there is an existing tag
+ * Testing TaskCommandTest.TagCommandTest when there is an existing tag
  * and when a nonexistent tag is called.
  */
 public class TagCommandTest {

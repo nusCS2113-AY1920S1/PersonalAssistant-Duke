@@ -1,5 +1,7 @@
 //@@author jessteoxizhi
 
+package TaskCommandTest;
+
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -23,7 +25,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UndoCommandTest extends UndoTaskCommand{
+class UndoCommandTest extends UndoTaskCommand {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
@@ -34,38 +36,40 @@ class UndoCommandTest extends UndoTaskCommand{
     }
 
     @AfterEach
-    void restoreStream(){
+    void restoreStream() {
         System.out.flush();
         System.setOut(original);
     }
+
     @Test
-    void EmptyCommandStackTest() throws IOException {
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+    void emptyCommandStackTest() throws IOException {
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> list = new ArrayList<>();
         Storage storage = new Storage();
-        undo(CommandStack,list,storage);
+        undo(commandStack,list,storage);
         assertEquals("You cannot undo the previous command.\r\n", output.toString());
     }
+
     @Test
-    void CommandStackTest() throws IOException, ParseException, DukeException {
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
-        Storage storage = new Storage();
+    void commandStackTest() throws IOException, ParseException, DukeException {
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         TasksPageStorage tasksPageStorage = new TasksPageStorage();
         ArrayList<Task> list = tasksPageStorage.readFromSaveFile();
-        TodoCommand todoCommand = new TodoCommand();
         Ui ui = new Ui();
-        ArrayList<Task> deletedTask = new ArrayList<>();
-        TriviaStorage triviaStorage = new TriviaStorage();
-        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ArrayList<Task> oldList = new ArrayList<>();
         TaskCommandParser.copyOldList(oldList, list);
-        CommandStack.push(oldList);
+        commandStack.push(oldList);
         ui.fullCommand = "todo study";
-        todoCommand.execute(list,ui,storage,CommandStack,deletedTask, triviaManager);
-        undo(CommandStack,list,storage);
-        assertEquals("Got it. I've added this task:\r\n" +
-                "[T][ND] study\r\n" +
-                "Now you have " + list.size() + " tasks in the list.\r\n" +
-                "You have undo the previous command.\r\n", output.toString());
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
+        ArrayList<Task> deletedTask = new ArrayList<>();
+        TodoCommand todoCommand = new TodoCommand();
+        Storage storage = new Storage();
+        todoCommand.execute(list,ui,storage,commandStack,deletedTask, triviaManager);
+        undo(commandStack,list,storage);
+        assertEquals("Got it. I've added this task:\r\n"
+                + "[T][ND] study\r\n"
+                + "Now you have " + list.size() + " tasks in the list.\r\n"
+                + "You have undo the previous command.\r\n", output.toString());
     }
 }

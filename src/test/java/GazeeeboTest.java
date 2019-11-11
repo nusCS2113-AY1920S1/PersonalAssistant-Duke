@@ -1,4 +1,5 @@
-import gazeeebo.storage.StudyAssistPageStorage;
+//@@author jessteoxizhi
+
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -14,10 +15,10 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GazeeeboTest {
+class GazeeeboTest {
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
@@ -41,7 +42,7 @@ public class GazeeeboTest {
     }
 
     @Test
-    public void testUpcomingTasks() {
+    void testUpcomingTasks() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         try {
