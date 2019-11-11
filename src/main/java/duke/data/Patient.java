@@ -302,6 +302,10 @@ public class Patient extends DukeObject {
         return bedNo;
     }
 
+    public void setBedNo(String bedNo) {
+        this.bedNo = bedNo;
+    }
+
     public String getAllergies() {
         return allergies;
     }

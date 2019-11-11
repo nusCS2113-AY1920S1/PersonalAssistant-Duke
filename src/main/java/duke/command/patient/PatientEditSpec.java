@@ -37,6 +37,20 @@ public class PatientEditSpec extends ArgSpec {
         Patient patient = (Patient) core.uiContext.getObject();
         boolean append = cmd.isSwitchSet("append");
 
+        String name = cmd.getSwitchVal("name");
+        if (name != null) {
+            patient.setName(append ? (patient.getName() + " " + name) : name);
+        }
+
+        String bedNo = cmd.getSwitchVal("bedNo");
+        if (bedNo != null) {
+            String newBed = (append) ? (patient.getBedNo() + " " + bedNo) : bedNo;
+            if (core.patientData.getPatientByBed(newBed) != null) {
+                throw new DukeException("There is already a patient at that bed!");
+            }
+            patient.setBedNo(newBed);
+        }
+
         int height = cmd.switchToInt("height");
         if (height != -1) {
             patient.setHeight(height);
