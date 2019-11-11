@@ -13,6 +13,7 @@ public class ListPlacesCommand {
      *
      * @param places Map each place to a location
      */
+
     public ListPlacesCommand(Map<String,String> places) throws ArrayIndexOutOfBoundsException {
         System.out.print("Room:                                             | Location:\n" + LINE_BREAK);
         for (String key : places.keySet()) {

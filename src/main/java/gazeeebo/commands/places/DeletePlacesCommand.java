@@ -21,7 +21,8 @@ public class DeletePlacesCommand {
     public DeletePlacesCommand(Ui ui, Map<String, String> places) {
         try {
             String placeToDelete = null;
-            if (ui.fullCommand.equals("3") || ui.fullCommand.trim().equals("delete") || ui.fullCommand.trim().equals("delete-")) {
+            if (ui.fullCommand.equals("3") || ui.fullCommand.trim().equals("delete")
+                    || ui.fullCommand.trim().equals("delete-")) {
                 System.out.println("Input place to delete");
                 ui.readCommand();
                 placeToDelete = ui.fullCommand;

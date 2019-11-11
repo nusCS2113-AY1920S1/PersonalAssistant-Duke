@@ -15,7 +15,8 @@ public class FindPlacesCommand {
      *
      * @param ui the object that deals with printing things to the user.
      * @param places Map each place to a location
-\     */
+     */
+
     public FindPlacesCommand(Ui ui, Map<String,String> places) throws IOException {
         try {
             String placeSearchingFor;

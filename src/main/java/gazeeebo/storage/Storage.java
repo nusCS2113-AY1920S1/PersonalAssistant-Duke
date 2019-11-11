@@ -7,19 +7,13 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.BufferedWriter;
-
-
-import gazeeebo.commands.specialization.ModuleCategory;
-import gazeeebo.tasks.Deadline;
-import gazeeebo.tasks.DoAfter;
-import gazeeebo.tasks.Event;
-import gazeeebo.tasks.FixedDuration;
-import gazeeebo.tasks.Task;
-
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.Arrays;
+
 import java.util.stream.Collectors;
 
 public class Storage {
@@ -36,7 +30,7 @@ public class Storage {
             = {"Places.txt", "/Places.txt"};
     private String[] relativePathTrivia
             = {"Trivia.txt", "/Trivia.txt"};
-    private String[] relativePathCAP
+    private String[] relativePathCap
             = {"CAP.txt", "/CAP.txt"};
     private String[] relativePathSpecialization
             = {"Specialization.txt", "/Specialization.txt"};
@@ -70,7 +64,7 @@ public class Storage {
 
     /**
      * Check if there are save txt file in the directory, if there is not, create a new txt file and copy
-     * preloaded data into the new txt file
+     * preloaded data into the new txt file.
      *
      * @throws IOException exception when there is an error read the txt file
      */
@@ -83,7 +77,7 @@ public class Storage {
         resourcelist.add(relativePathExpenses);
         resourcelist.add(relativePathPlaces);
         resourcelist.add(relativePathTrivia);
-        resourcelist.add(relativePathCAP);
+        resourcelist.add(relativePathCap);
         resourcelist.add(relativePathSpecialization);
         resourcelist.add(relativePathStudyPlanner);
         resourcelist.add(relativePathCompletedElectives);
@@ -117,7 +111,7 @@ public class Storage {
      * This method read Trivia.txt, get users' past inputs from the file.
      *
      * @return hash-map of keywords and inputs
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException file cannot be found
      */
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();

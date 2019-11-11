@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class UndoPlacesCommand {
     /**
-     *  Undo places previous command
+     *  Undo places previous command.
      *
      * @param places map of current places
      * @param oldplaces stack of map of previous places
