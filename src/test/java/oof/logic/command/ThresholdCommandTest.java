@@ -83,7 +83,7 @@ public class ThresholdCommandTest {
         System.setOut(new PrintStream(actualMessagePrinted));
         oof.executeCommand("threshold 48");
         String expectedMessage = "________________________________________________________________________________"
-                + System.lineSeparator() + " You will now be reminded of deadlines in 48 hours.";
+                + System.lineSeparator() + " You will now be reminded of deadlines due in 48 hours.";
         assertEquals(expectedMessage, actualMessagePrinted.toString().trim());
     }
 }
