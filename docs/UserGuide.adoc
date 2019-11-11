@@ -153,7 +153,9 @@ Deletes the specified task from the schedule list. +
 ==== Editing the details of Task : `edit`
 
 Edits the details of the tasks. +
-`edit task {name/time/des} TASK_INDEX /to [change content]`
+`edit task {name/time/des} TASK_INDEX /to [change content]` +
+e.g `edit task des 1 /to This is a very tough task` +
+e.g `edit task tim 1 /to 11/11/2019 1111`
 
 
 ==== Setting a Reminder :
@@ -187,7 +189,10 @@ e.g `unlink 1 /from Alice` +
 e.g `unlink 2 3 /from Alice, Bob` +
 
 ==== Editing the profile of member: `edit`
-`edit member {bio/email/phone} MEMBER_INDEX /to [change content]`
+`edit member {name/bio/email/phone} [MEMBER_NAME] /to [change content]` +
+e.g `edit member bio Annie /to She is a programmer` +
+e.g `edit member email Justin /to justin@cs.com` +
+e.g `edit member phone Jason /to 11112222`
 
 === Commands related to both tasks and members
 
