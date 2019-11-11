@@ -49,8 +49,7 @@ include::../UserGuide.adoc[tag=user_guide_common_logo]
 === Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-*Enhancement added:* I added the ability to add `investment` accounts and `bonds`. Other notable features I was in
-charge of implementing for the entire project was `logging` and `storage`.
+*Enhancement added:* I added the ability to add `investment` accounts and `bonds`.
 
 * *What it does:* The `investment` account allows the user to create an account specially dedicated for `investment`
 purposes.
@@ -67,6 +66,12 @@ credits twice a year.
 
 * *Credits:* A portion of recording `transactions` and similar features across all bank accounts were inherited from
 a common parent class `bank` which was coded by both <<briantkm#,Brian Tan Kian Ming>> and I.
+
+Other notable features I was in charge of implementing for the entire project were: +
+`Storage`: Responsible for saving data persistently and ensuring the program's data is imported back smoothly. +
+`Logging`: Enable developers and tech-savvy users to debug and see errors that were logged in *OwlMoney*. +
+With these *2* features, my team was able to swiftly make use of my comprehensive functions to implement
+these features on their portion of code.
 
 *Code contributed:*
 
@@ -87,8 +92,8 @@ better clarity and organisation of stored data in secondary storage.
 
 * *Documentation:*
 
-** Responsible for maintaining *over 70%* of content on both the *User Guide* and *Developer Guide* as well as making
-it presentable in the `.adoc` format which can be rendered and converted to various other formats since it is
+** Responsible for writing and maintaining *over 70%* of content on both the *User Guide* and *Developer Guide* as well
+as making it presentable in the `.adoc` format which can be rendered and converted to various other formats since it is
 platform independent.
 
 * *Community:*
@@ -96,7 +101,8 @@ platform independent.
 link:{forumURL}/60[#60],
 link:{forumURL}/57[#57], link:{forumURL}/26[#26], link:{forumURL}/8[#8])
 
-** Reported *substantial amount bugs* in another team's project, link:{mooMoneyURL}[MooMooMoney]
+** Reported *substantial amount bugs* in another team's project and provided constructive suggestions,
+link:{mooMoneyURL}[MooMooMoney]
 (examples: {mooMoneyURL}/issues/156)[#156], {mooMoneyURL}/issues/157)[#157], {mooMoneyURL}/issues/158)[#158],
 {mooMoneyURL}/issues/159)[#159], {mooMoneyURL}/issues/160)[#160], {mooMoneyURL}/issues/161)[#161],
 {mooMoneyURL}/issues/162)[#162], {mooMoneyURL}/issues/163)[#163], {mooMoneyURL}/issues/164)[#164],
@@ -124,7 +130,9 @@ the team's link:{repoURL}/projects/[Project Board]
 === Contributions to User Guide
 
 |===
-|_The following sections illustrate my ability in writing documentation targeting end-users to guide them in using the various features of the application._
+|_The sections below showcases my ability in writing documentation targeting end-users to guide them in using
+the various features of *OwlMoney* in a clear and concise manner. It includes pictures that showcases the results
+when necessary_
 |===
 
 include::../UserGuide.adoc[tag=investment_management]
@@ -132,8 +140,10 @@ include::../UserGuide.adoc[tag=investment_management]
 === Contributions to Developer Guide
 
 |===
-|_The following sections illustrate my ability in writing documentation to provide developers insights on the design
-of the application. It also showcase the technical depth of my contributions to the project._
+|_A developer guide is important in allowing future developers to continue developing *OwlMoney*
+The following sections illustrates my ability in writing documentation to provide developers insights on the design
+of the application. It also showcases some notable technical design considerations and depth of my contributions to the
+project._
 |===
 
 include::../DeveloperGuide.adoc[tag=bonds_class_diagram]
