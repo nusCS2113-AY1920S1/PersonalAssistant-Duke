@@ -20,8 +20,8 @@ public class AddBookingTest4 {
         assertThrows(DukeException.class, () -> {
             new Booking(name, roomcode, description, startDateTime, endTime);
         });
-        assertEquals(BookingConstants.DATETIMEERROR, "Not able to parse the date for all patterns given, "
+        assertEquals(":-( Not able to parse the date for all patterns given, "
                 + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM");
+                + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM", BookingConstants.DATETIMEERROR);
     }
 }
