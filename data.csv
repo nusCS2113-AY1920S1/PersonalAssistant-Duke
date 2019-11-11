@@ -1,4 +1,4 @@
-"ID","Tag","Amount","Date"
+"ID","Tag","Expenditure","Date"
 "1.","[Expenses,food]","4.5","2019-11-01"
 "2.","[Expenses,travel]","120.0","2019-11-01"
 "3.","[Expenses,food]","5.0","2019-11-01"

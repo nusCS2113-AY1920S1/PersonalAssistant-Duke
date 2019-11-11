@@ -51,7 +51,7 @@ public class CommandExport extends Command {
             }
             writer.close();
             this.infoCapsule.setCodeCli();
-            this.infoCapsule.setOutputStr("data.csv has been created ! Please check the project folder \n"
+            this.infoCapsule.setOutputStr(getFileName() + " has been created ! Please check the project folder \n"
                     + userMessageForEnteringExtraFields);
         } catch (DukeException | IOException e) {
             this.infoCapsule.setCodeError();
