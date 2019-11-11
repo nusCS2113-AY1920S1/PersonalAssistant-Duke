@@ -50,7 +50,6 @@ public class StorageRead extends Storage {
 
             while ((inLine = inStream.readLine()) != null) {
                 String[] inArray = inLine.split(DELIMITER);
-                int numOfElements = inArray.length;
                 String type = inArray[0];
                 Record newRecord = null;
                 switch (type) {
@@ -98,7 +97,6 @@ public class StorageRead extends Storage {
             StorageWrite.save();
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();
-            LogsCentreUtil.setLogger.log(Level.SEVERE, "Create a new save file.", e);
         } catch (IOException e) {
             StorageUi.printErrorReadingSaveMessage();
             LogsCentreUtil.setLogger.log(Level.SEVERE, "Error reading dolla.txt.", e);
