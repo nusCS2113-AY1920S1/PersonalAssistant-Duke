@@ -34,13 +34,13 @@ public class RemoveUserCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException {
-        if (userList.doesExist(splitL[1])) {
-            if (splitL[1].equals(userList.getCurrentUser())) {
-                throw new DukeException("OOPS! You are currently logged in as " + userList.getCurrentUser() + "!");
+        if (userList.doesExist(splitL[1].trim())) {
+            if (splitL[1].trim().equals(userList.getCurrentUser())) {
+                throw new DukeException("OOPS! You are currently logged in as " + userList.getCurrentUser().trim() + "!");
             } else {
-                userList.removeUser(splitL[1]);
+                ui.addToOutput("You have successfully removed user: " + splitL[1].trim());
+                userList.removeUser(splitL[1].trim());
                 allStorage.getUserStorage().saveToFile(userList);
-                ui.addToOutput("You have successfully removed user: " + splitL[1]);
             }
         } else {
             throw new DukeException("The user you are trying to remove does not exist!");

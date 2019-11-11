@@ -35,9 +35,9 @@ public class AddUserCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException {
-        if (userList.addUser(splitL[1])) {
+        if (userList.addUser(splitL[1].trim())) {
             allStorage.getUserStorage().saveToFile(userList);
-            ui.addToOutput("You have successfully created an account: " + splitL[1]);
+            ui.addToOutput("You have successfully created an account: " + splitL[1].trim());
         } else {
             throw new DukeException("Sorry, that user already exists!");
         }
