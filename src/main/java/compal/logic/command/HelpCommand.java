@@ -10,12 +10,14 @@ import java.util.logging.Logger;
 public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE = "help\n\t"
-            + "Format:1. help <command>\n\t"
-            + "2. help\n\n\t"
-            + "Note: content in \"<>\": need to be fulfilled by the user\n\n\t"
-            + "This command will tell you how to use command\n"
+            + "Format:1. help|TRASH_COMMAND\n\t"
+            + "2. help COMMAND_NAME\n\n\t"
+            + "Note: content in CAP: need to be fulfilled by the user\n\n\t"
+            + "This command will tell you how to use command(s)\n"
             + "Examples:\n\t"
             + "help\n\t\t"
+            + "show all list of commands\n\t"
+            + "idk\n\t\t"
             + "show all list of commands\n\t"
             + "help deadline\n\t\t"
             + "show how to use deadline command";

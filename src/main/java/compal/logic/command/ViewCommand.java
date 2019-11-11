@@ -21,12 +21,13 @@ import java.util.logging.Logger;
 public class ViewCommand extends Command {
 
     public static final String MESSAGE_USAGE = "view\n\t"
-        + "Format: view day|week|month [/date dd/mm/yyyy] "
-        + "[/type deadline|event]\n\n\t"
+        + "Format: view day|week|month [/date DATE] "
+        + "[/type TASK_TYPE]\n\n\t"
         + "Note: content in \\\"[]\\\": optional\n\t"
         + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
         + "content separated by \"|\": must choose exactly one from them\n\t"
-        + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
+        + "TASK_TYPE should be either \"deadline\" or \"event\"\n\t"
+        + "DATE: dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
         + "This command will view the timetable in a daily/weekly/monthly view\n"
         + "Examples:\n\t"
         + "view day|week|month\n\t\t"

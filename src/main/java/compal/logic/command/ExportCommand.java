@@ -31,8 +31,8 @@ import java.util.logging.Logger;
 
 public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = "export\n\t"
-        + "Format: export /file-name <name of file>\n\n\t"
-        + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
+        + "Format: export /file-name FILE_NAME\n\n\t"
+        + "Note: content in CAP: need to be fulfilled by the user\n\n"
         + "This command will export COMPal current schedule to an ics file\n"
         + "Examples:\n\t"
         + "export /file-name cal\n\t\t"

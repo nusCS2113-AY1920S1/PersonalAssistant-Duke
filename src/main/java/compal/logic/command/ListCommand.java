@@ -17,8 +17,9 @@ import java.util.logging.Logger;
  */
 public class ListCommand extends Command {
     public static final String MESSAGE_USAGE = "list\n\t"
-        + "Format: list [/type deadline|event] [/status done|ongoing|due]\n\n\t"
+        + "Format: list [/type TASK_TYPE] [/status done|ongoing|due]\n\n\t"
         + "Note: content in \"[]\": optional\n\t"
+        + "TASK_TYPE should be either \"deadline\" or \"event\"\n\t"
         + "content separated by \"|\": must choose exactly one from them\n\n"
         + "This command will list all the deadline stored in COMPal that not due and incomplete.\n"
         + "Examples:\n\t"
