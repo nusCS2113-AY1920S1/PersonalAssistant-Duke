@@ -2,6 +2,7 @@ package wallet.logic.parser;
 
 import wallet.exception.InsufficientParameters;
 import wallet.exception.WrongDateTimeFormat;
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
@@ -153,7 +154,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         LocalDate createdDate = LocalDate.parse(info[1].trim(), formatter);
 
         info = info[3].split("/c ");
-        int contactId = Integer.parseInt(info[1].trim());
+        int contactId;
+        try {
+            contactId = Integer.parseInt(info[1].trim());
+        } catch (NumberFormatException err) {
+            throw new WrongParameterFormat("Contact ID must be an integer!");
+        }
 
         if (input.matches("(?s).*\\b( /l)\\b.*")) {
             isLend = true;
