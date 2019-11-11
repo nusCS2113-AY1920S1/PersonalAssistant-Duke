@@ -50,8 +50,10 @@ public class EditCommand extends Command {
                 new EditDescriptionCommand(list, ui, listnoIndex);
             } else if (ui.fullCommand.equals("time")) {
                 new EditTimeCommand(list, ui, listnoIndex);
-            } else {
+            } else if (ui.fullCommand.equals("both")) {
                 new EditBothCommand(list, ui, listnoIndex);
+            } else {
+                throw new ArrayIndexOutOfBoundsException();
             }
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
