@@ -127,10 +127,10 @@ class BudgetCommandTest {
         EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
         editBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("You have changed the budget for shoes from $123.45 to $300.00\n"
-                + "Please set your budget for window to a value more than 0\n"
-                + "You have changed the budget for sweets from $217.00 to $675.00\n"
-                + "invalid value category does not exist. Please add it first.\n", Ui.getOutput());
+        assertEquals(".___________________________________________________________________.\n"
+                + "|You have changed the budget for shoes from $123.45 to $300.00      |\n"
+                + "|You have changed the budget for sweets from $217.00 to $675.00     |\n"
+                + ".-------------------------------------------------------------------.\n", Ui.getTestOutput());
     }
 
     @Test
@@ -181,11 +181,12 @@ class BudgetCommandTest {
         ListBudgetCommand listBudget = new ListBudgetCommand(false, listCategories);
         listBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("Budget for shoes is $183.00\n"
-                + "Budget for food is $128.00\n"
-                + "Budget for places to go is $527.00\n"
-                + "test value category does not exist. Please add it first.\n"
-                + "Budget for sweets is $105.00\n", Ui.getOutput());
+        assertEquals(".__________________________________________________.\n"
+                + "|Budget for shoes is $183.00                       |\n"
+                + "|Budget for food is $128.00                        |\n"
+                + "|Budget for places to go is $527.00                |\n"
+                + "|Budget for sweets is $105.00                      |\n"
+                + ".--------------------------------------------------.\n", Ui.getTestOutput());
     }
 
     @Test
@@ -233,20 +234,32 @@ class BudgetCommandTest {
         SavingsBudgetCommand savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
         savingsBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("slippers category does not exist. Please create it first.\n"
-                + "Your savings for window from SEPTEMBER 2019 to NOVEMBER 2019 is: $2549.00\n"
-                + "You have overspent for your budget for laptop from SEPTEMBER 2019 to NOVEMBER 2019 by: $37.33\n"
-                + "dogs category does not exist. Please create it first.\n"
-                + "Your total savings: $2511.67\n", Ui.getOutput());
+        assertEquals("._____________________________________________________________________________________"
+                + "_____________.\n"
+                + "|slippers category does not exist. Please create it first.                                         "
+                + "|\n"
+                + "|Your savings for window from SEPTEMBER 2019 to NOVEMBER 2019 is: $2549.00                         "
+                + "|\n"
+                + "|You have overspent for your budget for laptop from SEPTEMBER 2019 to NOVEMBER 2019 by: $37.33     "
+                + "|\n"
+                + "|dogs category does not exist. Please create it first.                                             "
+                + "|\n"
+                + "|Your total savings: $2511.67                                                                      "
+                + "|\n"
+                + ".--------------------------------------------------------------------------------------------------."
+                + "\n", Ui.getTestOutput());
 
         savingsBudget = new SavingsBudgetCommand(false, categories, startDate, null);
         savingsBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("slippers category does not exist. Please create it first.\n"
-                + "Your savings for window for SEPTEMBER 2019 is: $788.00\n"
-                + "You have overspent your budget for laptop for SEPTEMBER 2019 by $74.11\n"
-                + "dogs category does not exist. Please create it first.\n"
-                + "Your total savings: $713.89\n", Ui.getOutput());
+        assertEquals(".___________________________________________________________________________.\n"
+                + "|slippers category does not exist. Please create it first.                  |\n"
+                + "|Your savings for window for SEPTEMBER 2019 is: $788.00                     |\n"
+                + "|You have overspent your budget for laptop for SEPTEMBER 2019 by $74.11     |\n"
+                + "|dogs category does not exist. Please create it first.                      |\n"
+                + "|Your total savings: $713.89                                                |\n"
+                + ".---------------------------------------------------------------------------.\n",
+                Ui.getTestOutput());
 
         categories.clear();
         assertEquals(0, categories.size());
@@ -254,13 +267,16 @@ class BudgetCommandTest {
         savingsBudget = new SavingsBudgetCommand(false, categories, startDate, null);
         savingsBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("The budget for shoes does not exist. Please set it using budget set.\n"
-                + "The budget for food does not exist. Please set it using budget set.\n"
-                + "Your savings for window for SEPTEMBER 2019 is: $788.00\n"
-                + "The budget for places to go does not exist. Please set it using budget set.\n"
-                + "The budget for sweets does not exist. Please set it using budget set.\n"
-                + "You have overspent your budget for laptop for SEPTEMBER 2019 by $74.11\n"
-                + "Your total savings: $713.89\n", Ui.getOutput());
+        assertEquals(".________________________________________________________________________________.\n"
+                + "|The budget for shoes does not exist. Please set it using budget set.            |\n"
+                + "|The budget for food does not exist. Please set it using budget set.             |\n"
+                + "|Your savings for window for SEPTEMBER 2019 is: $788.00                          |\n"
+                + "|The budget for places to go does not exist. Please set it using budget set.     |\n"
+                + "|The budget for sweets does not exist. Please set it using budget set.           |\n"
+                + "|You have overspent your budget for laptop for SEPTEMBER 2019 by $74.11          |\n"
+                + "|Your total savings: $713.89                                                     |\n"
+                + ".--------------------------------------------------------------------------------.\n",
+                Ui.getTestOutput());
 
         categories.clear();
         assertEquals(0, categories.size());
@@ -273,7 +289,10 @@ class BudgetCommandTest {
         savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
         savingsBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        assertEquals("Your savings for laptop from SEPTEMBER 2017 to FEBRUARY 2019 is: $1066.02\n"
-                + "Your total savings: $1066.02\n", Ui.getOutput());
+        assertEquals(".______________________________________________________________________________.\n"
+                + "|Your savings for laptop from SEPTEMBER 2017 to FEBRUARY 2019 is: $1066.02     |\n"
+                + "|Your total savings: $1066.02                                                  |\n"
+                + ".------------------------------------------------------------------------------.\n",
+                Ui.getTestOutput());
     }
 }

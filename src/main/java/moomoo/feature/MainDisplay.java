@@ -376,7 +376,7 @@ public class MainDisplay {
                             String amountString = "";
                             if (!newCategoryList.get(categoryName).isEmpty()) {
                                 // for nth row, nth category, extract the expenditure name (odd no in array list)
-                                expenditureName = newCategoryList.get(categoryName).get(0);
+                                expenditureName = (i + 1) + ". " + newCategoryList.get(categoryName).get(0);
                                 // for nth row, nth category, extract the expenditure cost (even no in array list)
                                 amountString = newCategoryList.get(categoryName).get(1);
                             }

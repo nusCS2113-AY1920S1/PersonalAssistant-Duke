@@ -36,6 +36,7 @@ public class EditBudgetCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         String outputValue = "";
+        ArrayList<String> outputArray = new ArrayList<>();
         boolean isUpdated = false;
 
         for (int i = 0; i < categories.size(); ++i) {
@@ -45,23 +46,25 @@ public class EditBudgetCommand extends Command {
             if (categoryList.get(categoryName) != null) {
                 double currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
-                    outputValue += "Budget for " + categoryName + " has not been set. Please set it first.\n";
+                    outputValue = "Budget for " + categoryName + " has not been set. Please set it first.\n";
                     continue;
                 }
                 if (currentBudget == categoryBudget) {
-                    outputValue += "The budget for " + categoryName + " is the same.\n";
+                    outputValue = "The budget for " + categoryName + " is the same.\n";
                     continue;
                 }
                 if (categoryBudget <= 0) {
-                    outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
+                    outputValue = "Please set your budget for " + categoryName + " to a value more than 0\n";
                     continue;
                 }
                 isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
-                outputValue += "You have changed the budget for " + categoryName
-                        + " from $" + df.format(currentBudget) + " to $" + df.format(categoryBudget) + "\n";
+                outputValue = "You have changed the budget for " + categoryName
+                        + " from $" + df.format(currentBudget) + " to $" + df.format(categoryBudget);
+                outputArray.add(outputValue);
+                outputValue = Ui.showInCowBox(outputArray);
             } else {
-                outputValue += categoryName + " category does not exist. Please add it first.\n";
+                outputValue = categoryName + " category does not exist. Please add it first.\n";
             }
         }
         Ui.setOutput(outputValue);
