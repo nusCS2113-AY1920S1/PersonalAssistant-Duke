@@ -31,7 +31,12 @@ import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_INVALID_COMMAND;
 import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
+import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_REQUEST_INPUT;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_CORRUPTED;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_EMPTY_NAME;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_INVALID_COMMAND;
 import static util.constant.ConstantHelper.COMMAND_ROLE_CORRECT_LENGTH;
 import static util.constant.ConstantHelper.COMMAND_ROLE_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
@@ -83,7 +88,7 @@ public class ProjectInputController implements IController {
         }
         this.projectToManage = projectRepository.getItem(projectNumber);
         isManagingAProject = true;
-        return COMMAND_MANAGE_PROJECT_INVALID_NUMBER;
+        return COMMAND_MANAGE_PROJECT_REQUEST_INPUT;
     }
 
     /**
@@ -150,7 +155,7 @@ public class ProjectInputController implements IController {
         } else if (projectFullCommand.matches("bye")) {
             return end();
         } else {
-            return new String[] {"Invalid command. Try again!"};
+            return COMMAND_MANAGE_PROJECT_INVALID_COMMAND;
         }
         projectRepository.saveToRepo(this.projectToManage);
         return responseToView;
@@ -166,17 +171,17 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRename] User input: '"
             + projectCommand + "'");
         if (projectCommand.length() < 7) {
-            return new String[] {"Please enter the command correctly in the format rename PROJECT_NAME"};
+            return COMMAND_RENAME_PROJECT_INVALID_COMMAND;
         }
         String parsedName = projectCommand.substring(7);
         if (("").equals(parsedName)) {
-            return new String[] {"Project Name cannot be empty!"};
+            return COMMAND_RENAME_PROJECT_EMPTY_NAME;
         }
         boolean isProjectEdited = projectRepository.updateItem(projectToManage, parsedName);
         if (isProjectEdited) {
             return new String[] {"Project name has been updated to " + parsedName + "."};
         } else {
-            return new String[] {"An error has occurred! Project JSON is not updated correctly!"};
+            return COMMAND_RENAME_PROJECT_CORRUPTED;
         }
     }
 
