@@ -34,6 +34,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
+        ui.showLine();
         if (fridge.isEmpty())
             throw new DukeException("The fridge is empty, there is nothing to remove!");
         if (ingredientIndex <= fridge.numberOfIngredients() && ingredientIndex > 0) {
@@ -44,5 +45,6 @@ public class DeleteCommand extends Command {
             String errorMessage = "Enter a valid ingredient index number after delete, between 1 and " + fridge.numberOfIngredients();
             throw new DukeException(errorMessage);
         }
+        ui.showLine();
     }
 }

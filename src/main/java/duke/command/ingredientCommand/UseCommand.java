@@ -29,11 +29,13 @@ public class UseCommand extends Command {
 
     @Override
         public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
+        ui.showLine();
         if (fridge.useIngredient(toUse)) {
             ui.show("Great you used " + toUse.toStringWithoutDate()); // if the fridge was able to provide the required amount of the ingredient
             fridgeStorage.update(); //updating the storage
         } else {
             ui.show("There is not a sufficient amount of " + toUse.getName() + " that is not expired, maybe you could buy some first? ");
         }
+        ui.showLine();
     }
 }
