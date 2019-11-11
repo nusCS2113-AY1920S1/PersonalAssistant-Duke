@@ -44,7 +44,7 @@ public class EditCommand extends Command {
         try {
             String[] input = ui.fullCommand.split(" ");
             int listnoIndex = Integer.parseInt(input[1]) - 1;
-            if (listnoIndex < list.size()) {
+            if (listnoIndex < list.size() && listnoIndex >= 0) {
                 System.out.println("Edit description/time/both ?");
                 ui.readCommand();
                 if (ui.fullCommand.equals("description")) {
