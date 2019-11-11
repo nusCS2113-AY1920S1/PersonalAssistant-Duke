@@ -39,11 +39,11 @@ public class ReminderCommand extends Command {
             String feedback = "Alright! I'll remind you about:\n"
                     + model.getTasksManager().getTaskById(taskIndex - 1) + "\n" + beforeInt;
             if (beforeMult == 'm') {
-                feedback += " minutes ";
+                feedback += " minute(s) ";
             } else if (beforeMult == 'h') {
-                feedback += " hours ";
+                feedback += " hour(s) ";
             } else {
-                feedback += " days ";
+                feedback += " day(s) ";
             }
             feedback += "before it's due";
 

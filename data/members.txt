@@ -1,7 +1,45 @@
 [
   {
-    "name": "John",
-    "taskList": [],
+    "name": "Jason",
+    "taskList": [
+      "Do UI Mockup",
+      "Submit PPP",
+      "Demo Project"
+    ],
+    "skillList": []
+  },
+  {
+    "name": "Annie",
+    "taskList": [
+      "Submit PPP",
+      "Demo Project"
+    ],
+    "skillList": []
+  },
+  {
+    "name": "Jiaying",
+    "taskList": [
+      "Add Data Generator",
+      "Submit PPP",
+      "Demo Project"
+    ],
+    "skillList": []
+  },
+  {
+    "name": "Justin",
+    "taskList": [
+      "Restucture backend",
+      "Submit PPP",
+      "Demo Project"
+    ],
+    "skillList": []
+  },
+  {
+    "name": "Yuheng",
+    "taskList": [
+      "Submit PPP",
+      "Demo Project"
+    ],
     "skillList": []
   }
 ]
