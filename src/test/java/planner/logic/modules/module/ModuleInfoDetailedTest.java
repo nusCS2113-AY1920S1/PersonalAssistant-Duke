@@ -4,6 +4,8 @@ package planner.logic.modules.module;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,13 +71,11 @@ public class ModuleInfoDetailedTest {
 
     @Test
     public void testString() {
-        try {
-            modDetailed.setModuleCredit("B");
-            String expectedString = "Module Code:, MC:, SU:, grade:";
-            assertEquals(expectedString, modDetailed.toString());
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-        }
+        modDetailed.setModuleCredit("B");
+        String expectedString = "Module Code:, MC:, SU:, grade:";
+        assertThrows(NumberFormatException.class,
+                modDetailed::toString,
+                expectedString);
     }
 }
 
