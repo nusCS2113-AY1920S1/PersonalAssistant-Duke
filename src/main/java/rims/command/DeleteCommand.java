@@ -95,8 +95,8 @@ public class DeleteCommand extends Command {
             for (int j = 0; j < intIdInput.size(); j++) {
                 Resource thisResource = resources.getResourceById(intIdInput.get(j));
                 if (!thisResource.getName().equals(resourceName)) {
-                    throw new RimsException("Please specify an ID that belongs to the " +
-                            "requested resource!");
+                    throw new RimsException("Please specify an ID that belongs to the "
+                            + "requested resource!");
                 }
             }
             for (int k = 0; k < intIdInput.size(); k++) {
