@@ -46,7 +46,7 @@ public class ExportCommandParser {
                 throw new DuchessException("Export command terminated.");
             }
             return new ExportCommand(date, file, selectedFile.toString(), isWeek);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | IllegalArgumentException e) {
             throw new DuchessException(Parser.CALENDAR_USAGE);
         }
     }

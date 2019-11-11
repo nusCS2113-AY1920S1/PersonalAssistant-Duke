@@ -10,7 +10,6 @@ import duchess.logic.commands.RedoCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
 import duchess.logic.commands.UndoCommand;
-import duchess.logic.commands.ViewScheduleCommand;
 import duchess.parser.Parser;
 import duchess.parser.Util;
 import duchess.parser.commands.CalendarCommandParser;
@@ -19,6 +18,7 @@ import duchess.parser.commands.DoneCommandParser;
 import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.commands.UnmarkCommandParser;
+import duchess.parser.commands.ViewScheduleCommandParser;
 import duchess.parser.states.add.AddState;
 
 import java.util.Arrays;
@@ -27,7 +27,6 @@ import java.util.Map;
 
 public class DefaultState extends ParserState {
     private static final String LIST_KEYWORD = "list";
-    private static final String USAGE_SCHEDULE_DATE_DAY_WEEK = "Usage: schedule <date> (day | week)";
     private static final String ADD_KEYWORD = "add";
     private static final String FIND_KEYWORD = "find";
     private static final String DELETE_KEYWORD = "delete";
@@ -35,8 +34,6 @@ public class DefaultState extends ParserState {
     private static final String REMINDER_KEYWORD = "reminder";
     private static final String SNOOZE_KEYWORD = "snooze";
     private static final String SCHEDULE_KEYWORD = "schedule";
-    private static final String DAY_KEYWORD = "day";
-    private static final String WEEK_KEYWORD = "week";
     private static final String CALENDAR_KEYWORD = "calendar";
     private static final String LESSON_KEYWORD = "lesson";
     private static final String BYE_KEYWORD = "bye";
@@ -87,18 +84,7 @@ public class DefaultState extends ParserState {
         } else if (SNOOZE_KEYWORD.equals(keyword)) {
             return new SnoozeCommand(arguments);
         } else if (SCHEDULE_KEYWORD.equals(keyword)) {
-            try {
-                String view = words.get(2);
-                boolean isInvalidView = !view.equals(DAY_KEYWORD) && !view.equals(WEEK_KEYWORD);
-                boolean isIllegalArgument = isInvalidView && (words.size() > 3);
-                if (isIllegalArgument) {
-                    throw new IllegalArgumentException();
-                }
-                String date = words.get(1);
-                return new ViewScheduleCommand(date, view);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DuchessException(USAGE_SCHEDULE_DATE_DAY_WEEK);
-            }
+            return ViewScheduleCommandParser.parse(words);
         } else if (CALENDAR_KEYWORD.equals(keyword)) {
             return CalendarCommandParser.parse(parameters);
         } else if (LESSON_KEYWORD.equals(keyword)) {

@@ -23,6 +23,9 @@ public class ViewScheduleCommand extends Command {
     private String date;
     private String view;
     private TimeFrame timeFrame;
+    private static String EMPTY_SCHEDULE = "There are no tasks in the schedule.";
+    private static String INVALID_DATE = "Invalid date format. Please follow dd/MM/yyyy.";
+    private static String FORMAT = "Format for viewing schedule: schedule /for <date> view <view>";
 
     /**
      * Constructor for class.
@@ -63,9 +66,9 @@ public class ViewScheduleCommand extends Command {
             }
             return localDateTime;
         } catch (DateTimeParseException e) {
-            throw new DuchessException("Invalid date format. Please follow dd/MM/yyyy.");
+            throw new DuchessException(INVALID_DATE);
         } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Format for viewing schedule: schedule /for <date> view <view>");
+            throw new DuchessException(FORMAT);
         }
     }
 
@@ -76,7 +79,7 @@ public class ViewScheduleCommand extends Command {
                         .filter(task -> task.getTimeFrame().fallsWithin(this.timeFrame))
                         .collect(Collectors.toList());
         if (tasksForToday.size() <= 0) {
-            throw new DuchessException("There are no tasks in the schedule.");
+            throw new DuchessException(EMPTY_SCHEDULE);
         } else if (view.equals("week")) {
             date = "the week of " + date;
         }
