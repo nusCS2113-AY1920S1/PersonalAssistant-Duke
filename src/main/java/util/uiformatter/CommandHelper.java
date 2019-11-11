@@ -81,8 +81,11 @@ public class CommandHelper {
         helpList.add(" - assign task -i TASK_INDEX -to [MEMBER1_INDEX] [MEMBER2_INDEX] -rm [MEMBER3_INDEX]");
         helpList.add("Assigns or unassigns specified tasks to specified members.");
         helpList.add("");
-        helpList.add(" - view reminder [-l LIST_NAME]");
-        helpList.add("Displays list of reminders.");
+        helpList.add(" - view reminders");
+        helpList.add("Displays all the reminders.");
+        helpList.add("");
+        helpList.add(" - view reminders by list");
+        helpList.add("Displays the reminders in list format.");
         helpList.add("");
         helpList.add(" - add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]");
         helpList.add("Adds a new reminder to the project.");
