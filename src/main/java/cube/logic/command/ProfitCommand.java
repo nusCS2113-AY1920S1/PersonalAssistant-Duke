@@ -44,18 +44,18 @@ public class ProfitCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_ALL
             = "Nice! I've generated the profits and revenue for all the stocks:\n"
-            + "profit:  $ %1$s\n"
-            + "revenue: $ %2$s\n"
+            + "profit:  $ %1$.2f\n"
+            + "revenue: $ %2$.2f\n"
             + "From the time %3$s to the time %4$s.\n";
     public static final String MESSAGE_SUCCESS_SINGLE
             = "Nice! I've generated the profits and revenue for this food:\n"
-            + "profit:  $ %1$s\n"
-            + "revenue: $ %2$s\n"
+            + "profit:  $ %1$.2f\n"
+            + "revenue: $ %2$.2f\n"
             + "From the time %3$s to the time %4$s.\n";
     public static final String MESSAGE_SUCCESS_MULTIPLE
             = "Nice! I've generated the profits and revenue for this type:\n"
-            + "profit:  $ %1$s\n"
-            + "revenue: $ %2$s\n"
+            + "profit:  $ %1$.2f\n"
+            + "revenue: $ %2$.2f\n"
             + "This type contains "
             + "%3$s food items\n"
             + "From the time %4$s to the time %5$s.\n";
