@@ -12,11 +12,6 @@ public class CommandEditTest {
     void execute() {
         StorageManager storageManager = new StorageManager();
 
-//        CommandEdit c0 = new CommandEdit("edit");
-//        c0.execute(storageManager);
-//        String ans0 = c0.getInfoCapsule().getOutputStr();
-//        assertEquals("No receipts to edit", ans0);
-
         Receipt receipt1 = new Receipt(5.0);
         receipt1.addTag("Expenses,food");
         receipt1.setDate(LocalDate.parse("2019-10-10"));
@@ -33,16 +28,6 @@ public class CommandEditTest {
         assertEquals("Index has to be an INTEGER"
                 + "\nFORMAT : edit <index> /<part to be edited> <new-input>", ans1);
 
-        CommandEdit c2 = new CommandEdit("edit 2 /tag mike");
-        c2.execute(storageManager);
-        String ans2 = c2.getInfoCapsule().getOutputStr();
-        assertEquals("The tag for receipt "
-                + 2
-                + " was changed from "
-                + "[bike]"
-                + " to "
-                + "[mike]"
-                + ".", ans2);
 
         CommandEdit c3 = new CommandEdit("edit 0");
         c3.execute(storageManager);
@@ -53,43 +38,18 @@ public class CommandEditTest {
         c4.execute(storageManager);
         String ans4 = c4.getInfoCapsule().getOutputStr();
         assertEquals("Index has to be an INTEGER"
-                +"\nFORMAT : edit <index> /<part to be edited> <new-input>", ans4);
+                + "\nFORMAT : edit <index> /<part to be edited> <new-input>", ans4);
 
         CommandEdit c5 = new CommandEdit("edit acwev");
         c5.execute(storageManager);
         String ans5 = c5.getInfoCapsule().getOutputStr();
         assertEquals("Index has to be an INTEGER"
-                +"\nFORMAT : edit <index> /<part to be edited> <new-input>", ans5);
+                + "\nFORMAT : edit <index> /<part to be edited> <new-input>", ans5);
 
         CommandEdit c6 = new CommandEdit("edit 2 /ascw");
         c6.execute(storageManager);
         String ans6 = c6.getInfoCapsule().getOutputStr();
         assertEquals("Flag invalid. Valid input : /tag/value/date", ans6);
-
-//        CommandEdit c7 = new CommandEdit("edit 2 /tag");
-//        c7.execute(storageManager);
-//        String ans7 = c7.getInfoCapsule().getOutputStr();
-//        assertEquals("The tag for receipt "
-//                        + 2
-//                        + " was changed from "
-//                        + "[mike]"
-//                        + " to "
-//                        + "."
-//                        + "\nNOTE : Tag is empty",
-//                ans7);
-
-//        CommandEdit c8 = new CommandEdit("edit 2 /tag avrwav(*867");
-//        c8.execute(storageManager);
-//        String ans8 = c8.getInfoCapsule().getOutputStr();
-//        assertEquals("The tag for receipt "
-//                        + 2
-//                        + " was changed from "
-//                        + "[]"
-//                        + " to "
-//                        + "avrwav(*867"
-//                        + "."
-//                        + "\nNOTE : Tag contains other characters apart from alphabets",
-//                ans8);
 
         CommandEdit c9 = new CommandEdit("edit 2 /value");
         c9.execute(storageManager);

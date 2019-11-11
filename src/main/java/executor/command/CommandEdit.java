@@ -50,7 +50,6 @@ public class CommandEdit extends Command {
             indexChecker(storageManager);
             checkAndUpdateFlag(storageManager);
         } catch (DukeException f) {
-//            this.infoCapsule.setCodeError();
             this.infoCapsule.setCodeCli();
             this.infoCapsule.setOutputStr(f.getMessage());
         } catch (NumberFormatException e) {
@@ -186,7 +185,7 @@ public class CommandEdit extends Command {
         if (typeOfReceipt.equals("Income")) {
             isIncomeReceipt = true;
         }
-          }
+    }
 
     /**
      * Function to update the cash value with the new input by the user.
