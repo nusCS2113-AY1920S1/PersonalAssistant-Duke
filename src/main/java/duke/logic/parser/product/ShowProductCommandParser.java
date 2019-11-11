@@ -1,6 +1,5 @@
 package duke.logic.parser.product;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.product.ShowProductCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
@@ -11,6 +10,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_EMPTY_INDICES;
 
+/**
+ * A parser that parses {@code ShowProductCommand}.
+ */
 public class ShowProductCommandParser implements Parser<ShowProductCommand> {
 
 
@@ -26,7 +28,7 @@ public class ShowProductCommandParser implements Parser<ShowProductCommand> {
         try {
             index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(pe.getMessage());
         }
 
         return new ShowProductCommand(index);

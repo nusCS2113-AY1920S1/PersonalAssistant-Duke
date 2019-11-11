@@ -15,12 +15,32 @@ endif::[]
 
 By: `Team T12-3`      Since: `Oct 2019`      Licence: `MIT`
 
-== Setting up
+<<<
 
-Refer to the guide <<SettingUp#, here>>.
+== Introduction
 
+=== Purpose
+
+This document specified architecture and software design decisions for BakingHome, a one-stop application for managers of home bakeries to manage their business efficiently.
+
+=== Scope
+
+This guide describes the software architecture and software design decisions for the implementation of BakingHome.
+The intended audience of this document is the developers, designers, and software testers of BakingHome.
+
+=== Using the Guide
+
+This guide follows the following format:
+
+`marke-up` text represents a component or a command.
+
+[NOTE]
+This box provides additional information.
+
+<<<
 == Design
 
+This section describes the architecture and components of BakingHome.
 [[Design-Architecture]]
 === Architecture
 
@@ -120,6 +140,8 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `duke.commons` package.
+
+<<<
 
 == Implementation
 
@@ -228,33 +250,70 @@ May require additional components other than JavaFx's built-in components.
 
 ==== Implementation
 
-This feature shows only products with a certain status, i.e. shows only products with an ARCHIVE status.
+BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`.
+This feature allows user to view product with a given certain status, i.e. shows only products with an ARCHIVE status.
 
-The filter mechanism in product is facilitated by `FilteredList` which wraps an `ObservableList` and filters using the provided Predicate.
-A `FilteredList<Product>`  `filteredProducts` is stored in the `ModelManager`.
+The filter mechanism in product is facilitated by
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
+which wraps a ObservableList and
+filters using the provided Predicate.
+A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`.
 In `BakingHome`, there is an
-`ObservableList<Product>` `products` which contains all products, regardless of the status. `filteredProducts`
-in the ModelManager is initialized with this `ObservableList`.
+`ObservableList<Product> products` which contains all products, regardless of the status. `filteredProducts`
+in the ModelManager is initialized with this ObservableList.
 
-Since a `FilteredList` needs a `Predicate`, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
 
 * `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property Predicate in the `filteredProducts`.
-The `ListProductCommand` will use this method to change the visibility of products with different status by passing in the corresponding predicate.
-The predicates declared statically in the `Model` interface, namely `PREDICATE_SHOW_ACTIVE_PRODUCTS`,
-* `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+
+** Predicates are declared statically in the `Model` interface, namely
+`PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
+```java
+    Predicate<Product> PREDICATE_SHOW_ARCHIVE_PRODUCTS = product -> {
+        return product.getStatus() == Product.Status.ARCHIVE;
+    };
+```
+
+** The `ListProductCommand` will call this method to change the visibility of products with different status by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
 
-**Step1.** The user launches the application for the first time.
-`UniqueProductList` will be initialized with a list of default products in BakingHome.
+**Step 1.** The user launched the application for the first time.
+UniqueProductList will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
 
-**Step 2.** The user executes `product filter -scope archive` command to list all archived products.
+**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the input to `Logic`.
+Logic then uses a few `Parser` class to extract layers of information out.
 
-The Sequence Diagram below shows how the components interact with each other for filter product feature.
+**Step 3.** Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
+through the word "product".
+It then creates a
+`ProductCommandParser` to parse the remaining information, i.e. "filter -scope archive".
+
+**Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word "filter".
+It then creates a `FilterProductCommandParser` to parse the scope.
+
+**Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope.
+It then returns a
+`FilterProductCommand` with the scope information.
+
+**Step 6.** `Logic` finally gets the `FilterProductCommand` and execute it.
+The execution firstly calls
+`Model#updateFilteredProductList(Predicate<Product> predicate)` to update the Predicate in
+`filteredProducts` in `Model`.
+This execution then returns a `CommandResult` to `UI`, containing the response to the user.
+
+**Step 7.** `UI` displays the response in the `CommandResult`.
+In addition, UI will change to display archived products after model updates `filteredProducts`, since `UI` is constantly listening for the change in `Model`.
+
+The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
 
 .Sequence Diagram for Filter Product Mechanism
 image::FilterProductSD.png[]
+
+Note that almost all other commands follow the same sequences, with different `Command` and `Parser`
+class.
 
 ==== Design considerations
 
@@ -355,6 +414,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+<<<
+
 [appendix]
 == Product Scope
 
@@ -370,14 +431,18 @@ Thus, it is hard for him to switch between different apps to manage his bakery b
 
 BakingHome is a one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
 
-*Value proposition*: One-stop bakery management system for home bakeries.
+*Value proposition*:
+
+A one-stop bakery management system for home bakeries.
+
+<<<
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%,10%,40%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
@@ -437,7 +502,7 @@ something to refer to when deciding the retail price
 |`* *` |user |Calculate revenue, cost and hence profit instantly |Check the bakery's finances with a quick glance
 |=======================================================================
 
-_{More to be added}_
+<<<
 
 [appendix]
 == Use Cases
@@ -564,6 +629,36 @@ Use case ends.
 +
 Use case ends.
 
+* 3a.
+The given index(indices) is(are) invalid.
++
+[none]
+** 3a1. BakingHome shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 7: Show a Product
+
+* **Precondition:** User has at least 1 product in the product list.
+
+* **MSS**
+
+1. User can be viewing any pages.
+2. User enters a ShowProductCommand indicating the index of the product to be shown, e.g. `product show 1`.
+3. BakingHome parses the command.
+4. BakingHome executes the command.
+5. BakingHome displays the details of the product.
+* **Extensions**
+
+[none]
+** 3a.
+BakingHome detects a invalid command.
+** 3a1. BakingHome shows an error message
+** 3a2. Use case ends.
+
+<<<
+
 [appendix]
 == Non Functional Requirements
 
@@ -577,11 +672,8 @@ Use case ends.
 . A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 . A user would be able to execute every operation with typing only, and without the assist of a mouse
 
-[appendix]
-== Glossary
+<<<
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
 
 [appendix]
 == Instructions for Manual Testing
@@ -604,170 +696,258 @@ These instructions only provide a starting point for testers to work on; testers
 .. Enter `exit` in command box. +
    Expected: The application quits.
 
-=== Adding an Order
-
-. Adding an order with no item
-.. Test case: `order add -name Jiajun` +
-   Expected: A new order with no item is added.
-The order's customer name field is `Jiajun`
-.. Test case: `order add -name abcdabcdabcdabcdabcdabcd`
-Expected: A error message pops up.
-The error message is "Name should be no more than 20 characters"
-.. Test case: `order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
-Expected: A error message pops up.
-The error message is "Remarks should be no more than 50 characters"
-
-. Adding an order with items
-.. Prerequisites: `Cake` product should be in Product List; `Fish` product should **not** be in Product List.
-.. Test case: `order add -item Cake, 1` +
-   Expected: A new order with one item `Cake` is added.
-.. Test case: `order add -item Fish, 1` +
-   Expected: A error message pops up.
-
-=== Deleting Orders
-
-. Deleting a single order
-
-.. Prerequisites: At least 1 order in Order List
-.. Test case: `order remove 1` +
-   Expected: The first order is deleted from the list.
-.. Test case: `order remove 0` +
-   Expected: No order is deleted.
-Error details shown in the pop-up bar.
-.. Other incorrect delete commands to try: `order remove`, `order remove x` (where x is larger than the list size) Expected: Similar to previous.
-
-. Deleting multiple orders
-
-.. Prerequisites: At least 2 orders in Order List
-.. Test case: `order remove 2, 1` + 
-   Expected: The first and second orders are deleted.
-.. Test case: `order remove 1~2` + 
-   Expected: Similar to previous
-.. Test case: `order remove 1~x` (where x is larger than the list size) +
-   Expected: Error details shown in the pop-up bar.
-.. Other incorrect commands to try: `order remove 1,x` (where x is larger than the list size), `order remove 2~1`
-Expected: Similar to previous
-
-=== Adding a Sale
-
-. Adding an empty sale
-.. Test case: `sale add` +
-   Expected: A new sale with default value 0.0 is added.
-The sale's description and remarks are "N/A" and date is set to current date and time.
-.. Test case: `sale add -desc Refund     abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
-Expected: A error message pops up.
-The error message is "Description should be no more than 50 characters"
-.. Test case: `sale add -rmk Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas`
-Expected: A error message pops up.
-The error message is "Remarks should be no more than 50 characters"
-
-. Adding a sale with date
-.. Test case: `sale add -at 31/12/2019 23:00` +
-   Expected: A new sale with date Tue, Dec 31, 2019 23:00 is added.
-.. Test case: `sale add -at 32/13/2019 23:00` +
-   Expected: An error message pops up.
-
-=== Deleting Sales
-
-. Deleting a single sale.
-
-.. Prerequisites: At least 1 sale in Sale List
-.. Test case: `sale remove 1` +
-   Expected: The first sale is deleted from the list.
-.. Test case: `sale remove 0` +
-   Expected: No sale is deleted.
-Error details shown in the pop-up bar.
-.. Other incorrect delete commands to try: `sale remove`, `sale remove x` (where x is larger than the list size) Expected: Similar to previous.
-
-. Deleting multiple sales
-
-.. Prerequisites: At least 2 sales in Sale List
-.. Test case: `sale remove 2, 1` +
-   Expected: The first and second sales are deleted.
-.. Test case: `sale remove 1~2` +
-   Expected: Similar to previous
-.. Test case: `sale remove 1~x` (where x is larger than the list size) +
-   Expected: Error details shown in the pop-up bar.
-.. Other incorrect commands to try: `sale remove 1,x` (where x is larger than the list size), `sale remove 2~1`
-Expected: Similar to previous
-
-=== Filtering Sales
-
-. Showing only sales between two dates not inclusive of date itself.
-.. Test case: `sale filter -from 01/01/2019 06:00 -to 10/01/2019 06:00` +
-   Expected: Sale entries starting from 02/01/2019 00:00 to 09/01/2019 23:59 are shown.
-.. Test case: `sale -from 01/01/2019 15:00 -to 32/01/2019 15:00` +
-   Expected: Error is shown. Nothing changes to sale.
-Error details shown in the pop-up bar.
-.. Other incorrect delete commands to try: `sale filter -from 02/01/2019 00:00`, `sale filter -to 02/01/2019 00:00` Expected: Similar to previous.
-
-=== Buying ingredients 
-
-. Buying a single ingredient
-.. Prerequisites: At least 1 ingredient in Shopping List
-.. Test case: `shop buy 1` +
-   Expected: The first ingredient is bought and transferred to Inventory List.
-.. Test case: `shop buy 0` +
-   Expected: No ingredients are bought.
-Error details shown in the pop-up bar.
-
-. Buying multiple ingredients
-.. Prerequisites: At least 2 ingredients in Shopping List
-.. Test case: `shop buy 1, 2` +
-   Expected: The first and second ingredients are bought and transferred to Inventory List.
-.. Test case: `shop buy Cheese` +
-   Expected: No ingredients are bought.
-Error details shown in the pop-up bar.
-
-=== Adding a Product
-
-. Adding a product with default values
-.. Test case: `product add -name Bread` +
-   Expected: A new product named `Bread` is added.
-Ingredient cost and Retail price are both $0.0. Status is active.
-. Adding a product with cost and price
-.. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
-   Expected: A new product named `Cheese cake` is added.
-Ingredient cost are $3 and Retail price is $5.9. Status is active.
-
-=== Searching a Product
-
-. Searching for products whose name contains the given keyword
-.. Test case: `product search -include cake` +
-   Expected: All products whose name include `cake` are listed.
-List will be empty if no products' names contain `cake`.
-
-=== Filtering Products
-
-. Filters to show only archived products
-.. Test case: `product filter -scope archive` +
-   Expected: All archive products are listed.
-List will be empty if no products have archive status.
-
-. No filter
-.. Test case: `product filter -scope all` +
-   Expected: All products, regardless their status, are listed.
-
-=== Editing data in BakingHome
-
-.. Prerequisites: At least 1 object in the list in order to edit
-.. Test case: `shop edit 1 -qty 10 -cost 10` +
-   Expected: In the shopping list, the first ingredient's quantity is changed to 10, and its unit cost is changed to 10. +
-   All other data that is not inputted as parameters will be unchanged.
-.. Test case: `order edit 1 -name Eugene -rmk Birthday`
-Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
-   All other data that is not inputted as parameters will be unchanged. +
-   This is provided the order status is not completed.
-If the order status is completed, you cannot edit the order. +
-.. Test case: `product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]` +
-   Expected: The name of the first product is changed to `_name`, and cost is changed to $5. It has a ingredient `Cream cheese` associated.
-You can check the ingredient using command `product show 1`.
-
 === Saving data
 
 . Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 .. Test case (missing data file): Delete the folder `data` in BakingHome's directory and restart BakingHome +
    Expected: BakingHome loads demo data
 .. Test case (corrupted data file): Change the content of data file at `data/baking.json` to "This file is damaged" and restart BakingHome. +
    Expected: BakingHome loads demo data
+
+
+
+BakingHome provides basic Add, Edit, Delete operations for all sections.
+
+=== Adding entries
+
+[cols="1,1,1",options="header"]
+.Add Operation
+|===
+|Section
+|Test Case
+|Expected Output
+
+
+.3+|Products
+2+| Product with name `Bread` and `Cheese cake` are not in the product list.
+
+|`product add -name Bread`
+|A new product named Bread is added.
+Ingredient cost and Retail price are both $0.0.
+Status is active.
+
+
+|`product add -name Cheese cake -ingt [Cream cheese, 3] [Sugar, 5] -cost 3.0 -price 5.9`
+to check the ingredients
+|A new product named `Cheese cake` is added.
+Ingredient cost are $3 and Retail price is $5.9. Status is active. Use `product show INDEX_OF_CHEESE_CAKE`
+to check ingredients
+
+.6+|Orders
+|`order add -name Jiajun`
+|A new order with no item is added. The order’s customer name field is Jiajun
+
+|`order add -name abcdabcdabcdabcdabcdabcd`
+| A error message pops up. The error message is "Name should be no more than 20 characters"
+
+|`order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
+|A error message pops up. The error message is "Remarks should be no more than 50 characters"
+
+2+| Pre-requisite for below `Order`: Cake product should be in Product List; Fish product should not be in
+Product List.
+
+|`order add -item Cake, 1`
+|A new order with one item Cake is added.
+
+|`order add -item Fish, 1`
+|A error message pops up.
+
+.7+|Sales
+2+|Adding an empty sale
+
+|`sale add`
+|A new sale with default value 0.0 is added. The sale’s description and remarks are "N/A" and date is set to current date and time.
+
+|`sale add -desc Refund abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
+|A error message pops up. The error message is "Description should be no more than 50 characters"
+
+|`sale add -rmk Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas`
+|A error message pops up. The error message is "Remarks should be no more than 50 characters"
+
+2+|Adding a sale with date
+
+
+|`sale add -at 31/12/2019 23:00`
+|A new sale with date Tue, Dec 31, 2019 23:00 is added
+
+|`sale add -at 32/13/2019 23:00`
+|An error message pops up
+|===
+
+=== Edit entries
+
+[cols="1,1,1",options="header"]
+.Edit Operation
+|===
+|Section
+|Test Case
+|Expected Output
+
+|Shopping
+| `shop edit 1 -qty 10 -cost 10`
+|In the shopping list, the first ingredient’s quantity is changed to 10, and its unit cost is changed to 10.
+All other data that is not inputted as parameters will be unchanged.
+
+|Products
+|`product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]`
+|The name of the first product is changed to _name, and cost is changed to $5. It has a ingredient Cream cheese associated. You can check the ingredient using command `product show 1`
+
+|Orders
+|`order edit 1 -name Eugene -rmk Birthday`
+|In orders, the first order’s customer name is changed to Eugene, and the remarks is changed to Birthday`
+All other data that is not inputted as parameters will be unchanged.
+This is provided the order status is not completed. If the order status is completed, you cannot edit the order.
+|===
+
+=== Deleting entries
+
+Delete operation is have the same syntax for all five sections.
+The table below use order as an example.
+`order`
+can be replaced with `inv`, `shop`, `product` and `sale`
+
+[cols="1,1,2",options="header"]
+[width="100%",cols="10%,45%,45%",options="header",]
+.Delete Operation
+|===
+|Section
+|Test Case
+|Expected Output
+
+.7+|Orders
+2+|Deleting a single order
+
+Prerequisites: At least 1 order in Order List
+
+|`order remove 1`
+|The first order is deleted from the list
+
+
+|`order remove 0`
+|No order is deleted. Error details shown in the pop-up bar
+
+2+|Deleting multiple orders
+
+Prerequisites: At least 2 orders in Order List
+
+
+|`order remove 2, 1`
+|The first and second orders are deleted
+
+
+|`order remove 1~2`
+|The first and second orders are deleted
+
+
+|1. `order remove 1~x`
+
+2. `order remove 1,x` (where x is larger than the list size)
+
+3. `order remove 2~1`
+|Error details shown in the pop-up bar.
+|===
+
+=== Sales operations
+
+Sales can be filtered by time.
+
+[cols="1,1,1",options="header"]
+.Filter Operation
+|===
+|Section
+|Test Case
+|Expected Output
+
+\
+.3+|Sales
+2+| Showing only sales between two dates not inclusive of date itself.
+
+
+|`sale filter -from 01/01/2019 06:00 -to 10/01/2019 06:00`
+| Sale entries starting from 02/01/2019 00:00 to 09/01/2019 23:59 are shown
+
+| `sale -from 01/01/2019 15:00 -to 32/01/2019 15:00`
+|Error is shown. Nothing changes to sale. Error details shown in the pop-up bar.
+
+|===
+
+=== Shopping List operations
+
+[cols="1,1,1",options="header"]
+
+.Buying Operation
+|===
+|Feature
+|Test Case
+|Expected
+
+.3+|Buying a single ingredient. Prerequisites: At least 1 ingredient in Shopping List.
+|`shop buy 1`
+|The first ingredient is bought and transferred to Inventory List.
+
+|`shop buy 0`
+|No ingredients are bought.
+Error details shown in the pop-up bar.
+
+|`shop buy Cheese`
+|No ingredients are bought.
+Error details shown in the pop-up bar.
+
+.2+|Buying multiple ingredients. Prerequisites: At least 2 ingredients in Shopping List.
+|`shop buy 1, 2`
+|The first and second ingredients are bought and transferred to Inventory List.
+
+|`shop buy 0, 2`
+|No ingredients are bought.
+Error details shown in the pop-up bar.
+
+|===
+
+=== Product operations
+
+[cols="1,1,1",options="header"]
+.Filter Operation
+|===
+|Feature
+|Test Case
+|Expected
+
+|Searching for products whose name contains the given keyword
+|`product search -include cake`
+|All products whose name include `cake` are listed.
+List will be empty if no products' names contain `cake`.
+
+.2+|Filtering Products by Categories, namely `active`, `archive` and `all`.
+|`product filter -scope active`
+|Only active products are listed.
+
+|`product filter -scope all`
+|Both active and archived products are listed. Note that no archived products will be shown if no products
+are archived.
+
+.2+|Sorting Products.
+|`product sort -by cost -scope active -re`
+|Active products are sorted by cost in ascending order.
+
+|`product sort -by price`
+|Active products are sorted by price in descending order.
+
+|===
+
+<<<
+
+[appendix]
+== Glossary
+
+[[mainstream-os]]
+Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+<<<
+
+
+
+

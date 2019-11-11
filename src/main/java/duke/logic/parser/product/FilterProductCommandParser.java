@@ -9,7 +9,10 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SCOPE;
 
-public class ListProductCommandParser implements Parser<FilterProductCommand> {
+/**
+ * A parser that parses {@code FilterProductCommand}.
+ */
+public class FilterProductCommandParser implements Parser<FilterProductCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
      *

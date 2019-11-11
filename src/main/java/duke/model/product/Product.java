@@ -7,6 +7,9 @@ import java.util.Objects;
 import static duke.commons.util.AppUtil.checkEmpty;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents an selling product in order list.
+ */
 public class Product {
 
     public static final Double DEFAULT_RETAIL_PRICE = 0.0;

@@ -6,6 +6,9 @@ import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 
+/**
+ * Jackson-friendly version of Ingredient Item.
+ */
 public class JsonAdaptedIngredientItem {
     private final JsonAdaptedIngredient ingredient;
     private final double amount;
@@ -15,8 +18,8 @@ public class JsonAdaptedIngredientItem {
      */
     @JsonCreator
     public JsonAdaptedIngredientItem(
-            @JsonProperty("ingredient") JsonAdaptedIngredient ingredient,
-            @JsonProperty("amount") double amount) {
+        @JsonProperty("ingredient") JsonAdaptedIngredient ingredient,
+        @JsonProperty("amount") double amount) {
         this.ingredient = ingredient;
         this.amount = amount;
     }
@@ -34,8 +37,8 @@ public class JsonAdaptedIngredientItem {
      */
     public Item<Ingredient> toModelType() {
         return new Item<Ingredient>(
-                ingredient.toModelType(),
-                new Quantity(amount)
+            ingredient.toModelType(),
+            new Quantity(amount)
         );
     }
 }

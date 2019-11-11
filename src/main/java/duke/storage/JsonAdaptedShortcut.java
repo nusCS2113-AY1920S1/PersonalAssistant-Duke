@@ -26,7 +26,7 @@ public class JsonAdaptedShortcut {
      */
     public JsonAdaptedShortcut(Shortcut source) {
         this.name = source.getName();
-        this.userInputs = source.getUserInputs();
+        this.userInputs = source.getCommandStrings();
     }
 
     /**

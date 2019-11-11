@@ -16,7 +16,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 public class
 
-
+/**
+ * A parser that parses {@code ProductCommand}.
+ */
 ProductCommandParser implements SubCommandParser<ProductCommand> {
 
     @Override
@@ -35,7 +37,7 @@ ProductCommandParser implements SubCommandParser<ProductCommand> {
         case EditProductCommand.COMMAND_WORD:
             return new EditProductCommandParser().parse(args);
         case FilterProductCommand.COMMAND_WORD:
-            return new ListProductCommandParser().parse(args);
+            return new FilterProductCommandParser().parse(args);
         case DeleteProductCommand.COMMAND_WORD:
             return new DeleteProductCommandParser().parse(args);
         case SearchProductCommand.COMMAND_WORD:
