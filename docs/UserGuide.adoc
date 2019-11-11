@@ -363,7 +363,7 @@ Creates a deadline task with the description "Bites the Dust" to be done by 10-1
 
 You can change the deadlines of deadline and event tasks. +
 Deadlines require the following format: `DD-MM-YYYY HHmm`. +
-The time format `HHmm` is in 24-hour format. =
+The time format `HHmm` is in 24-hour format. +
 This will switch to the `[Tasks]` tab. +
 
 Format: `snooze <ID> /to <DEADLINE>` 
