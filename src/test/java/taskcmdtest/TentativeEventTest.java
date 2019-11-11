@@ -1,4 +1,4 @@
-package TaskCommandTest;//@@author mononokehime14
+package taskcmdtest;//@@author mononokehime14
 import gazeeebo.tasks.TentativeEvent;
 import org.junit.jupiter.api.Test;
 

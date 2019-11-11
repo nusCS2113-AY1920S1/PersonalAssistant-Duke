@@ -1,4 +1,4 @@
-package TaskCommandTest;//@@author jessteoxizhi
+package taskcmdtest;//@@author jessteoxizhi
 
 import gazeeebo.commands.tasks.CalendarView;
 import gazeeebo.tasks.Deadline;

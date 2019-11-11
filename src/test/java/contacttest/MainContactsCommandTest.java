@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package ContactCommandTest;
+package contacttest;
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
@@ -76,8 +76,7 @@ public class MainContactsCommandTest {
                         + "8. moduleplanner\n"
                         + "9. notes\n"
                         + "10. change password\n"
-                        + "To exit: bye\n"
-                , output.toString()
+                        + "To exit: bye\n", output.toString()
         );
     }
 }

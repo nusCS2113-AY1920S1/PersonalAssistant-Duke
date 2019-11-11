@@ -1,4 +1,4 @@
-package TaskCommandTest;//@@author e0323290
+package taskcmdtest;//@@author e0323290
 import gazeeebo.tasks.Timebound;
 import org.junit.jupiter.api.Test;
 
