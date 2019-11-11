@@ -5,7 +5,6 @@ import executor.command.CommandType;
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
-import main.Duke;
 import ui.Receipt;
 import ui.ReceiptTracker;
 import ui.Wallet;
@@ -36,10 +35,42 @@ public class StorageManager {
         this.initializationStatus = "";
     }
 
+    /**
+     * Saves both the TaskList and the Wallet.
+     * @throws DukeException Error Saving either the Wallet or the TaskList
+     */
     public void saveAllData() throws DukeException {
         this.taskStore.saveData(this.taskList);
         this.walletStore.saveData(this.wallet);
     }
+
+    /**
+     * Loads both TaskList and Wallet Test Data for Testers.
+     * @throws DukeException Cannot find either Wallet or Test Data
+     */
+    public void loadTestData() throws DukeException {
+        this.taskStore.loadTestData(this.taskList);
+        this.walletStore.loadTestData(this.wallet);
+    }
+
+    /**
+     * Tracks a particular tag.
+     * @param tag String to track by
+     * @throws DukeException The tag is already tracked.
+     */
+    public void trackTag(String tag) throws DukeException {
+        this.wallet.addFolder(tag);
+    }
+
+    /**
+     * Untracks a particular tag.
+     * @param tag String to untrack
+     * @throws DukeException The tag is not yet tracked.
+     */
+    public void untrackTag(String tag) throws DukeException {
+        this.wallet.removeFolder(tag);
+    }
+
 
     /**
      * Adds a receipt to the Wallet Object.
@@ -130,8 +161,43 @@ public class StorageManager {
     public ReceiptTracker getReceiptsByTag(String tag) throws DukeException {
         try {
             return this.wallet.getReceipts().getReceiptsByTag(tag);
-        } catch (Exception e) {
+        }  catch (Exception e) {
             throw new DukeException("Unable to get receipts with tag: " + tag + "\n");
+        }
+    }
+
+    /**
+     * Gets all receipts that have cash spent attribute more than or equal to user input.
+     * Used by CommandMajorExpense
+     * @param amount String that represents the user input
+     * @return ReceiptTracker containing all the major expense receipts
+     * @throws DukeException Error occurred when getting major expenses
+     */
+    public String getMajorExpense(String amount) throws DukeException {
+        try {
+            return this.wallet.getReceipts().getMajorExpenses(amount).getPrintableReceipts();
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid cash input. Please enter integer");
+        } catch (DukeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DukeException("Unable to get major expenses");
+        }
+    }
+
+    /**
+     * Gets all receipts that have cash spent attribute more than or equal to $100.
+     * Used by CommandMajorExpense
+     * @return ReceiptTracker containing all the receipts above or equal to $100
+     * @throws DukeException Error occurred when getting major expenses
+     */
+    public String getMajorReceipt() throws DukeException {
+        try {
+            return this.wallet.getReceipts().getMajorReceipts().getPrintableReceipts();
+        } catch (DukeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DukeException("Unable to get major receipts");
         }
     }
 
@@ -160,7 +226,7 @@ public class StorageManager {
         try {
             this.wallet.getReceipts().deleteReceiptsByIndex(index);
         } catch (Exception e) {
-            throw new DukeException("Invalid 'receiptdelete' statement. "
+            throw new DukeException("Invalid 'deletereceipt' statement."
             + "Please indicate the index of the receipt you wish to delete.\n");
         }
     }

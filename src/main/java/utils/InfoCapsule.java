@@ -7,6 +7,8 @@ import javafx.scene.chart.PieChart;
 import ui.UiCode;
 import ui.Wallet;
 
+import java.time.DayOfWeek;
+
 public class InfoCapsule {
     private UiCode uiCode;
     private String outputStr;

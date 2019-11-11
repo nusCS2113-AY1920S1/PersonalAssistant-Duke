@@ -2,6 +2,8 @@ package executor.command;
 
 import duke.exception.DukeException;
 import storage.StorageManager;
+import ui.UiCode;
+
 import java.time.LocalDate;
 
 public class CommandGetSpendingByDay extends Command {
@@ -24,13 +26,13 @@ public class CommandGetSpendingByDay extends Command {
         String currDate = LocalDate.now().toString();
         Double totalMoney;
         try {
-            totalMoney = storageManager.getReceiptsByDate(currDate).getTotalCashSpent();
+            totalMoney = storageManager.getReceiptsByDate(currDate).getNettCashSpent();
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
             return;
         }
-        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setUiCode(UiCode.CLI);
         this.infoCapsule.setOutputStr("The total amount of money spent today"
                 + "(" + currDate + ") " + "is $" + totalMoney);
     }

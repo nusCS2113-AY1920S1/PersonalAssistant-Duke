@@ -1,22 +1,16 @@
 package ui.gui;
 
 import duke.exception.DukeException;
-import executor.task.TaskList;
 import interpreter.Interpreter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import storage.StorageTask;
-import storage.StorageWallet;
 import ui.UiCode;
-import ui.Wallet;
 import utils.InfoCapsule;
 
 import java.util.ArrayList;
@@ -51,8 +45,7 @@ public class MainWindow extends AnchorPane {
 
         this.fetchStoredImages();
         this.showHomeDisplay();
-        this.displayToast("test");
-
+        this.refresh();
     }
 
     @FXML
@@ -62,7 +55,8 @@ public class MainWindow extends AnchorPane {
         InfoCapsule infoCapsule = this.interpreterLayer.interpret(input);
         this.updateGui(infoCapsule);
         if (this.displayType == DisplayType.HOME) {
-            updateHomeDisplay();
+            this.updateHomeDisplay();
+            this.refresh(); // Javafx won't update completely
         }
         this.userInput.clear();
         if (this.exitRequest) {
@@ -75,23 +69,21 @@ public class MainWindow extends AnchorPane {
      */
     private void showHomeDisplay() {
         if (this.displayType == DisplayType.HOME) {
+            this.updateHomeDisplay();
             return;
         }
         try {
             FXMLLoader loaderHomeDisplay = new FXMLLoader(MainGui.class
                     .getResource("/view/HomeWindow.fxml"));
+            AnchorPane homeDisplayRoot = loaderHomeDisplay.load();
             this.homeController = loaderHomeDisplay.<HomeWindow>getController();
             this.homeController.initialize(this.userInputHistory, this.interpreterLayer);
-            this.homeController.displayBalanceChart();
-            this.homeController.displayBreakdownChart();
-            this.homeController.displayTasks();
-            AnchorPane homeDisplayRoot = loaderHomeDisplay.load();
             this.contentPane.getChildren().add(homeDisplayRoot);
             this.displayType = DisplayType.HOME;
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            // Catch Error
         }
         if (this.contentPane.getChildren().size() > 1) {
             this.contentPane.getChildren().remove(0);
@@ -108,6 +100,11 @@ public class MainWindow extends AnchorPane {
             this.homeController.displayTasks();
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
+        }
+        try {
+            this.homeController.updateBreakdownData();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -134,6 +131,13 @@ public class MainWindow extends AnchorPane {
             case DISPLAY_CLI:
                 this.showCliDisplay();
                 break;
+            case CLEAR_CLI:
+                this.cliController.clearCliDisplay();
+                break;
+            case TESTER:
+                this.enableTesterMode();
+                this.displayToast(infoCapsule.getOutputStr());
+                break;
             case UPDATE:
                 break;
             default:
@@ -147,6 +151,9 @@ public class MainWindow extends AnchorPane {
         this.interpreterLayer.requestSave();
     }
 
+    void refresh() {
+        this.updateHomeDisplay();
+    }
 
     /**
      * Fetches Images stored in application for display in slots for features yet to be developed.
@@ -198,6 +205,13 @@ public class MainWindow extends AnchorPane {
     private void printSeparator() {
         this.showCliDisplay();
         this.cliController.printSeparator();
+    }
+
+    private void enableTesterMode() {
+        InfoCapsule infoCapsule = this.interpreterLayer.requestTesterData();
+        this.showCliDisplay();
+        this.showHomeDisplay();
+        this.displayToast(infoCapsule.getOutputStr());
     }
 
 }

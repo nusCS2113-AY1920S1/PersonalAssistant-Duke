@@ -1,7 +1,5 @@
 package executor.command;
 
-import ui.gui.CommandLineDisplay;
-
 public enum CommandType {
     TASK(CommandNewTask.class),
     BYE(CommandBye.class),
@@ -9,16 +7,18 @@ public enum CommandType {
     BLANK(CommandBlank.class),
     FIND(CommandFind.class),
     DELETE(CommandDelete.class),
-    RECEIPTDELETE(CommandReceiptDelete.class),
+    DELETERECEIPT(CommandDeleteReceipt.class),
     DONE(CommandMarkDone.class),
+    MAJOREXPENSE(CommandMajorExpense.class),
     QUEUE(CommandQueue.class),
+    STATS(CommandStatistics.class),
     VIEWSCHEDULE(CommandSchedule.class),
     REMINDER(CommandReminder.class),
     BALANCE(CommandDisplayBalance.class),
-    PERCENT(CommandPercent.class),
     IN(CommandAddIncomeReceipt.class),
     OUT(CommandAddSpendingReceipt.class),
-    SETBALANCE(CommandUpdateBalance.class),
+    BUDGET(CommandBudget.class),
+    EXPORT(CommandExport.class),
     EXPENSES(CommandDisplayExpenditure.class),
     HELP(CommandHelp.class),
     DEADLINE(CommandNewTask.class),
@@ -28,6 +28,7 @@ public enum CommandType {
     FDURATION(CommandNewTask.class),
     TAGLIST(CommandTagList.class),
     EXPENDEDDAY(CommandGetSpendingByDay.class),
+    EXPENDEDWEEK(CommandGetSpendingByWeek.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
     EXPENDEDYEAR(CommandGetSpendingByYear.class),
     CONVERT(CommandConvert.class),
@@ -39,7 +40,11 @@ public enum CommandType {
     ADD(CommandAdd.class),
     SUB(CommandSub.class),
     DIV(CommandDiv.class),
-    MUL(CommandMul.class);
+    MUL(CommandMul.class),
+    TRACK(CommandTrackTag.class),
+    UNTRACK(CommandUntrackTag.class),
+    CLEAR(CommandClearCli.class),
+    ENABLETEST(CommandEnableTesting.class);
 
     private final Class commandClass;
 

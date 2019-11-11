@@ -25,7 +25,7 @@ public class StorageWalletTest {
                 "Loaded wrong cashSpent");
         assertEquals("2019-08-30", firstReceipt.getDate().toString(),
                 "Loaded wrong date");
-        assertEquals("street", firstReceipt.getTags().get(0),
+        assertEquals("street", firstReceipt.getTags().get(1),
                 "Loaded wrong tag");
 
         //out $10 /date 2001-08-25
@@ -41,11 +41,11 @@ public class StorageWalletTest {
                 "Loaded wrong cashSpent");
         assertEquals("2019-12-10", thirdReceipt.getDate().toString(),
                 "Loaded wrong date");
-        assertEquals("dogfood", thirdReceipt.getTags().get(0),
+        assertEquals("dogfood", thirdReceipt.getTags().get(1),
                 "Loaded wrong tag");
-        assertEquals("puppy", thirdReceipt.getTags().get(1),
+        assertEquals("puppy", thirdReceipt.getTags().get(2),
                         "Loaded wrong tag");
-        assertEquals("monthly", thirdReceipt.getTags().get(2),
+        assertEquals("monthly", thirdReceipt.getTags().get(3),
                         "Loaded wrong tag");
 
         //in $3.00 /date 2018-03-14 /tags refund clothes
@@ -54,9 +54,9 @@ public class StorageWalletTest {
                 "Loaded wrong cashSpent");
         assertEquals("2018-03-14", fourthReceipt.getDate().toString(),
                 "Loaded wrong date");
-        assertEquals("refund", fourthReceipt.getTags().get(0),
+        assertEquals("refund", fourthReceipt.getTags().get(1),
                 "Loaded wrong tag");
-        assertEquals("clothes", fourthReceipt.getTags().get(1),
+        assertEquals("clothes", fourthReceipt.getTags().get(2),
                         "Loaded wrong tag");
     }
 

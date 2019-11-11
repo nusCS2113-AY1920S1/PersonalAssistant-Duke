@@ -2,10 +2,7 @@ package ui.gui;
 
 import duke.exception.DukeException;
 import executor.task.Task;
-import executor.task.TaskList;
 import interpreter.Interpreter;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -44,11 +41,25 @@ public class HomeWindow extends AnchorPane {
     private Interpreter interpreterLayer;
     private ArrayList<String> userInputHistory;
     private ObservableList<PieChart.Data> pieChartData;
+    private XYChart.Series<String, Double> expenditureSeries;
+    private XYChart.Series<String, Double> incomeSeries;
+    private XYChart.Series<String, Double> backdrop;
 
-    void initialize(ArrayList<String> userInputHistory, Interpreter interpreterLayer) {
+    void initialize(ArrayList<String> userInputHistory, Interpreter interpreterLayer) throws DukeException {
         this.exitRequest = false;
         this.userInputHistory = userInputHistory;
         this.interpreterLayer = interpreterLayer;
+
+        this.expenditureSeries = new XYChart.Series<>();
+        this.expenditureSeries.setName("Expenditure");
+        this.incomeSeries = new XYChart.Series<>();
+        this.incomeSeries.setName("Income");
+        this.backdrop = new XYChart.Series<>();
+        this.backdrop.setName("Backdrop");
+
+        this.displayTasks();
+        this.displayBalanceChart();
+        this.displayBreakdownChart();
     }
 
     private void extractPieChartData() throws DukeException {
@@ -69,14 +80,13 @@ public class HomeWindow extends AnchorPane {
         if (expensesCapsule.getUiCode() == UiCode.ERROR) {
             throw new DukeException(expensesCapsule.getOutputStr());
         }
-        this.pieChartData.get(0).setPieValue(expensesCapsule.getOutputDouble());
-        this.pieChartData.get(1).setPieValue(balanceCapsule.getOutputDouble()
-                - expensesCapsule.getOutputDouble());
+            this.pieChartData.get(0).setPieValue(expensesCapsule.getOutputDouble());
+        this.pieChartData.get(1).setPieValue(balanceCapsule.getOutputDouble());
         DecimalFormat decimalFormat = new DecimalFormat("$#0");
         this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()));
     }
 
-    void displayBalanceChart() throws DukeException {
+    private void displayBalanceChart() throws DukeException {
         this.extractPieChartData();
         this.balanceChart.setData(this.pieChartData);
         this.balanceChart.setLegendVisible(false);
@@ -119,58 +129,80 @@ public class HomeWindow extends AnchorPane {
         }
     }
 
-    void displayBreakdownChart() {
-        XYChart.Series<String, Double> expenditureSeries = new XYChart.Series<>();
-        expenditureSeries.setName("Expenditure");
-        XYChart.Series<String, Double> incomeSeries = new XYChart.Series<>();
-        incomeSeries.setName("Income");
-        updateBreakdownData(expenditureSeries, incomeSeries);
+    private void displayBreakdownChart() {
+        updateBreakdownData();
 
-        XYChart.Series<String, Double> backdrop = new XYChart.Series<>();
-        backdrop.setName("Backdrop");
-        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
-        Wallet wallet = infoCapsule.getWallet();
-        Double backdropValue = this.getBackdropValue(wallet);
-        HashMap<String, Double> backdropData = this.getBackdropData(backdropValue, expenditureSeries, incomeSeries);
-
-        for (Map.Entry<String, Double> data : backdropData.entrySet()) {
-            backdrop.getData().add(new XYChart.Data<String, Double>(data.getKey(), data.getValue()));
-        }
-
-        this.breakdownChart.getData().add(expenditureSeries);
-        this.breakdownChart.getData().add(incomeSeries);
-        this.breakdownChart.getData().add(backdrop);
+        this.breakdownChart.getData().add(this.expenditureSeries);
+        this.breakdownChart.getData().add(this.incomeSeries);
+        this.breakdownChart.getData().add(this.backdrop);
         this.breakdownChart.setScaleY(1.1);
         String css = this.getClass().getResource("/css/BreakdownChart.css").toExternalForm();
         this.breakdownChart.getStylesheets().add(css);
     }
 
-    private void updateBreakdownData(XYChart.Series<String, Double> expenditureSeries,
-                                     XYChart.Series<String, Double> incomeSeries) {
+    void updateBreakdownData() {
         InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
         Wallet wallet = infoCapsule.getWallet();
+        HashMap<String, Double> newExpenditureData = new HashMap<>();
+        HashMap<String, Double> newIncomeData = new HashMap<>();
         for (Map.Entry<String, ReceiptTracker> folder : wallet.getFolders().entrySet()) {
-            if (folder.getValue().getTotalCashSpent() > 0) {
-                expenditureSeries.getData().add(new XYChart.Data<>(
-                        folder.getKey(),
-                        folder.getValue().getTotalCashSpent())
-                );
-            } else if (-folder.getValue().getTotalCashSpent() > 0) {
-                incomeSeries.getData().add(new XYChart.Data<>(
-                        folder.getKey(),
-                        -folder.getValue().getTotalCashSpent())
-                );
+            if (isFolderValid(folder)) {
+                newExpenditureData.put(folder.getKey(), folder.getValue().getTotalExpenses());
+                newIncomeData.put(folder.getKey(), folder.getValue().getTotalIncome());
             }
         }
+        Double backdropValue = this.getBackdropValue(wallet);
+        HashMap<String, Double> newBackdropData = this.getBackdropData(backdropValue,
+                this.expenditureSeries, this.incomeSeries);
+        this.updateSeriesData(this.expenditureSeries, newExpenditureData);
+        this.updateSeriesData(this.incomeSeries, newIncomeData);
+        this.updateSeriesData(this.backdrop, newBackdropData);
+    }
+
+    private void updateSeriesData(XYChart.Series<String, Double> series, HashMap<String, Double> newData) {
+        ArrayList<XYChart.Data<String, Double>> toDelete = new ArrayList<>();
+        for (XYChart.Data<String, Double> oldDataPoint : series.getData()) {
+            String key = oldDataPoint.getXValue();
+            if (newData.containsKey(key)) {
+                oldDataPoint.setYValue(newData.get(key));
+                newData.remove(key);
+            } else {
+                toDelete.add(oldDataPoint);
+            }
+        }
+
+        for (XYChart.Data<String, Double> item : toDelete) {
+            series.getData().remove(item);
+        }
+
+        for (Map.Entry<String, Double> newDataPoint : newData.entrySet()) {
+            series.getData().add(new XYChart.Data<String, Double>(
+                    newDataPoint.getKey(),
+                    newDataPoint.getValue()
+            ));
+        }
+    }
+
+    private boolean isFolderValid(Map.Entry<String, ReceiptTracker> folder) {
+        if (folder.getKey().equals("Expenses")) {
+            return false;
+        } else if (folder.getKey().equals("Income")) {
+            return false;
+        } else if (folder.getValue().size() == 0) {
+            return false;
+        }
+        return true;
     }
 
     private Double getBackdropValue(Wallet wallet) {
         double maxValue = 100.0;
-        for (ReceiptTracker folderContent : wallet.getFolders().values()) {
-            if (folderContent.getTotalCashSpent() > maxValue) {
-                maxValue = folderContent.getTotalCashSpent();
-            } else if (-folderContent.getTotalCashSpent() > maxValue) {
-                maxValue = -folderContent.getTotalCashSpent();
+        for (Map.Entry<String, ReceiptTracker> folder : wallet.getFolders().entrySet()) {
+            if (!folder.getKey().equals("Income") && !folder.getKey().equals("Expenses")) {
+                if (folder.getValue().getTotalExpenses() > maxValue) {
+                    maxValue = folder.getValue().getTotalExpenses();
+                } else if (folder.getValue().getTotalIncome() > maxValue) {
+                    maxValue = folder.getValue().getTotalIncome();
+                }
             }
         }
         return maxValue;
@@ -192,5 +224,4 @@ public class HomeWindow extends AnchorPane {
         }
         return backdropData;
     }
-
 }

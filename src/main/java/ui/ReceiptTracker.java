@@ -1,21 +1,29 @@
 package ui;
 
 import duke.exception.DukeException;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReceiptTracker extends ArrayList<Receipt> {
     private HashMap<String, ReceiptTracker> folders;
-    private Double totalCashSpent;
+    private Double nettCashSpent;
+    private Double budget;
 
     /**
      * Overloaded Constructor for ReceiptTracker.
      * @param receiptList List of receipts to be loaded into the ReceiptTracker.
      */
     public ReceiptTracker(ArrayList<Receipt> receiptList) {
+        this.setFolders(new HashMap<>());
         this.addAll(receiptList);
-        this.updateTotalCashSpent();
+        try {
+            this.addFolder("Income");
+            this.addFolder("Expenditure");
+        } catch (DukeException e) {
+            e.printStackTrace();
+        }
+        this.updateNettCashSpent();
         this.setFolders(new HashMap<>());
     }
 
@@ -23,9 +31,13 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * Default Constructor for ReceiptTracker.
      */
     public ReceiptTracker() {
+        this.updateNettCashSpent();
         this.setFolders(new HashMap<>());
-        this.updateTotalCashSpent();
-        this.setFolders(new HashMap<>());
+    }
+
+    public void initializeMainReceiptTracker() {
+        this.getFolders().put("Income", new ReceiptTracker());
+        this.getFolders().put("Expenses", new ReceiptTracker());
     }
 
     /**
@@ -36,19 +48,19 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         this.add(receipt);
         for (String tag : receipt.getTags()) {
             if (isRegisteredTag(tag)) {
-                Double currTotalCashSpent = folders.get(tag).getTotalCashSpent();
+                Double currTotalCashSpent = folders.get(tag).getNettCashSpent();
                 folders.get(tag).addReceipt(receipt);
-                folders.get(tag).setTotalCashSpent(currTotalCashSpent + receipt.getCashSpent());
+                folders.get(tag).setNettCashSpent(currTotalCashSpent + receipt.getCashSpent());
             }
         }
-        this.updateTotalCashSpent();
+        this.updateNettCashSpent();
     }
 
     /**
      * Updates totalCashSpent property of this ReceiptTracker Object.
      */
-    public void updateTotalCashSpent() {
-        this.setTotalCashSpent(this.sumReceipts());
+    public void updateNettCashSpent() {
+        this.setNettCashSpent(this.sumReceipts());
     }
 
     /**
@@ -66,13 +78,28 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     /**
      * Registers a tag to be tracked.
      * @param tag String to be registered into the folders property of ReceiptTracker Object
+     * @throws DukeException Folder already exists
      */
     public void addFolder(String tag) throws DukeException {
-        if (this.getFolders().containsKey(tag)) {
+        if (isRegisteredTag(tag)) {
             throw new DukeException("Category already exists!");
         }
         ArrayList<Receipt> taggedReceipts = getReceiptsByTag(tag);
-        this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
+        if (taggedReceipts.size() < this.size()) {
+            this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
+        }
+    }
+
+    /**
+     * Unregisters a tag.
+     * @param tag String to be unregistered
+     * @throws DukeException Folder doesn't exist
+     */
+    public void removeFolder(String tag) throws DukeException {
+        if (!isRegisteredTag(tag)) {
+            throw new DukeException("<" + tag + "> is not being tracked!");
+        }
+        this.getFolders().remove(tag);
     }
 
     /**
@@ -80,8 +107,9 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ReceiptTracker getReceiptsByTag(String tag) {
+    public ReceiptTracker getReceiptsByTag(String tag)  {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
+        taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
                 taggedReceipts.addReceipt(receipt);
@@ -91,12 +119,52 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     }
 
     /**
+     * Find all the expenses more than or equal to the cash input.
+     * @param amount Specific String to be filtered with.
+     * @return ArrayList containing all the Receipts with all the major expenses
+     */
+    public ReceiptTracker getMajorExpenses(String amount) throws DukeException {
+        int input = Integer.parseInt(amount);
+        ReceiptTracker expenseReceipts = new ReceiptTracker();
+        expenseReceipts.initializeMainReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.getCashSpent() >= input) {
+                expenseReceipts.addReceipt(receipt);
+            }
+        }
+        if (expenseReceipts.isEmpty()) {
+            throw new DukeException("Unable to get major expenses for this case");
+        }
+        return expenseReceipts;
+    }
+
+    /**
+     * Find all the expenses more than or equal to $100.
+     *
+     * @return ArrayList containing all the receipts with expenses above/equal to $100
+     */
+    public ReceiptTracker getMajorReceipts() throws DukeException {
+        ReceiptTracker receipts = new ReceiptTracker();
+        receipts.initializeMainReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.getCashSpent() >= 100) {
+                receipts.addReceipt(receipt);
+            }
+        }
+        if (receipts.isEmpty()) {
+            throw new DukeException("No major expenses above/equal to $100 was found");
+        }
+        return receipts;
+    }
+
+    /**
      * Find all receipts that corresponds to the specific date.
      * @param date Specific String to be filtered with
      * @return ArrayList containing all the Receipts with the specific date
      */
     public ReceiptTracker getReceiptsByDate(String date) {
         ReceiptTracker dateReceipts = new ReceiptTracker();
+        dateReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.equalsDate(date)) {
                 dateReceipts.addReceipt(receipt);
@@ -114,6 +182,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByMonthYear(int month, int year) {
         ReceiptTracker receiptByMonthYear = new ReceiptTracker();
+        receiptByMonthYear.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if ((receipt.getDate().getMonthValue() == month) && (receipt.getDate().getYear() == year)) {
                 receiptByMonthYear.addReceipt(receipt);
@@ -129,6 +198,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByYear(int year) {
         ReceiptTracker receiptByYear = new ReceiptTracker();
+        receiptByYear.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getDate().getYear() == year) {
                 receiptByYear.addReceipt(receipt);
@@ -157,10 +227,10 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public double getCashSpentByTag(String tag) {
         if (isRegisteredTag(tag)) {
-            return this.getFolders().get(tag).getTotalCashSpent();
+            return this.getFolders().get(tag).getNettCashSpent();
         } else {
             ReceiptTracker temp = new ReceiptTracker(this.getReceiptsByTag(tag));
-            return temp.getTotalCashSpent();
+            return temp.getNettCashSpent();
         }
     }
 
@@ -182,18 +252,18 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     /**
      * Setter for the totalCashSpent property of the ReceiptTracker Object.
-     * @param totalCashSpent Double amount to be set as the totalCashSpent property of ReceiptTracker Object
+     * @param nettCashSpent Double amount to be set as the totalCashSpent property of ReceiptTracker Object
      */
-    public void setTotalCashSpent(Double totalCashSpent) {
-        this.totalCashSpent = totalCashSpent;
+    public void setNettCashSpent(Double nettCashSpent) {
+        this.nettCashSpent = nettCashSpent;
     }
 
     /**
      * Getter for totalCashSpent property of ReceiptTracker Object.
      * @return Double representing the totalCashSpent property of ReceiptTracker Object
      */
-    public Double getTotalCashSpent() {
-        return totalCashSpent;
+    public Double getNettCashSpent() {
+        return nettCashSpent;
     }
 
     /**
@@ -211,14 +281,19 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public String getPrintableReceipts() {
         StringBuilder outputStr = new StringBuilder();
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         for (int index = 0; index < this.size(); ++index) {
             try {
                 outputStr.append(index + 1)
                         .append(". ")
                         .append(this.get(index).getTags())
-                        .append(" ")
-                        .append(this.get(index).getCashSpent())
-                        .append(" ")
+                        .append(" $");
+                if (this.get(index).getCashSpent() >= 0) {
+                    outputStr.append(decimalFormat.format(this.get(index).getCashSpent()));
+                } else {
+                    outputStr.append(decimalFormat.format(-this.get(index).getCashSpent()));
+                }
+                outputStr.append(" ")
                         .append(this.get(index).getDate())
                         .append("\n")
                 ;
@@ -230,5 +305,42 @@ public class ReceiptTracker extends ArrayList<Receipt> {
             }
         }
         return outputStr.toString();
+    }
+
+    /**
+     * Gets the total sum of all the Income Receipts.
+     * @return Double representing said sum
+     */
+    public Double getTotalIncome() {
+        if (isRegisteredTag("Income")) {
+            return -this.getFolders().get("Income").getNettCashSpent();
+        } else if (this.nettCashSpent < 0) {
+            return -this.nettCashSpent;
+        } else {
+            return 0.0;
+        }
+
+    }
+
+    /**
+     * Gets the total sum of all the Spending Receipts.
+     * @return Double representing said sum
+     */
+    public Double getTotalExpenses() {
+        if (isRegisteredTag("Expenses")) {
+            return this.getFolders().get("Expenses").getNettCashSpent();
+        } else if (this.nettCashSpent >= 0) {
+            return this.nettCashSpent;
+        } else {
+            return 0.0;
+        }
+    }
+      
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
     }
 }

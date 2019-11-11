@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 import storage.StorageManager;
 import ui.Receipt;
 
+import java.text.DecimalFormat;
+
 public class CommandAddSpendingReceipt extends CommandAddReceipt {
 
     /**
@@ -34,11 +36,11 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
         Receipt r = new Receipt(this.cash, this.date, this.tags);
         try {
             storageManager.addReceipt(r);
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             this.infoCapsule.setCodeToast();
             this.infoCapsule.setOutputStr("Added Spending Receipt: $"
-                    + r.getCashSpent().toString()
-                    + " "
-                    + "with tags: "
+                    + decimalFormat.format(r.getCashSpent())
+                    + " with tags: "
                     + r.getTags().toString());
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
