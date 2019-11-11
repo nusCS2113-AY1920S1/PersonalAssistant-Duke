@@ -39,21 +39,49 @@ Users can use this app to manage projects faster than a typical mouse/gui driven
 
 == Design
 === Architecture
+image::SoftWareArchitecture.png[]
+
+1. The program enters from TeamManager(currently implemented as core.Duke)
+2. The `Software` consists of 3 main components: `UI` `Logic` `Model`
+3. The `UI` component holds the responsibility of gui and console ui
+4. The `Logic` component holds the responsibility of running business logic e.g manipulating the `Model`
+5. The `Model` exposes the software's data object models, including methods for manipulation
+6. The `Storage` component utilises gson to parse the data into a json format, which is easy to edit and maintain
+7. The Json data files are persistent and open for user editing.
+
 === UI component
 === Logic component
+image::LogicDiagram.png[]
 
 1. `LogicController` uses the `NewParser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicController`.
-3. The command execution talks to `Model` and do some behavior to get desired result and return it back.
-4. The command execution talks to `Storage` (if necessary, e.g. adding a member) throw `Model` (e.g. a save() method in `Model` API).
-5. The result of the command execution is encapsulated as a `CommandOutput` object which is passed back to the `Ui`.
+2. NewParser parses the commands and returns the correct command to be called
+3. Command takes from an `abstract` command class, following the command design pattern
+4. Each command must implement a execute method, where a `CommandOutput` is returned
+5. `CommandOuput` contains the string output to user, which is what the user sees, and flags such as the exit flag
+6. This results in a `Command` object which is executed by the `LogicController`.
+7. The command execution talks to `Model` and do some behavior to get desired result and return it back.
+8. The command execution talks to `Storage` (if necessary, e.g. adding a member) throw `Model` (e.g. a save() method in `Model` API).
+9. The result of the command execution is encapsulated as a `CommandOutput` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram interactions within the Logic component for the execute("delete task 1") call.
 
 image::Logic_delete.png[width="939", align="left"]
 
 === Model component
+image::ModelDiagram.png[]
+1. The `Model` component uses an interface `Model` to expose the api, while the actual implementation is in `ModelController`
+2. This allows for the implementation of the model to change without affecting the rest of the code(UI & Logic)
+3. The `Model Controller` calls two main data managers: `TasksManager` & `MemberManager`
+4. These two data managers handles the manipulation of the two data objects, `Task` & `Member`
+5. The fields associated with each data model is described in `Task` & `Manager`
+
 === Storage component
+1. The `Storage` component imports the gson library provided by google to perform serializing
+2. The `Save` method in `Storage` serializes the java objects into a json string before using a file IO to write to persistent storage
+3. The `Load` method in `Storage` uses a file IO to load the data into a string, before deserializing according to the original java object shape
+4. This method allows for easy maintenance, where we do not need to modify the parser(for storage) to accommodate for date model changes
+5. This methods also allows for easy editing by the user as it is stored in a json notation text file.
+
 === Common
 
 == Implementation
