@@ -81,8 +81,10 @@ public class MainWindow extends AnchorPane {
             this.contentPane.getChildren().add(homeDisplayRoot);
             this.displayType = DisplayType.HOME;
         } catch (DukeException e) {
+            e.printStackTrace();
             this.displayToast(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             // Catch Error
         }
         if (this.contentPane.getChildren().size() > 1) {

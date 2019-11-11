@@ -102,7 +102,6 @@ public class StorageWallet {
         }
         wallet.setBalance(storedBalanceDouble);
         String folderNames = s.nextLine();
-        System.out.println("???: " + folderNames);
         while (s.hasNextLine()) {
             String loadedInput = s.nextLine();
             if (loadedInput.equals("")) {
