@@ -30,6 +30,7 @@ Our desktop application SpongeBob, is a Command Line Interface (CLI)  based assi
 . Copy the file to the folder you want to use as your home folder for SpongeBob.
 . Open terminal and type ```java -jar spongeBob.jar```. The CLI will start in a few seconds +
 image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/Ui.png[width="700"] +
+. When the user starts their application for the first time, sample data is loaded to get the app started with.
 . To start with, you can type  **'help'** to check all the commands and press Enter
 .  Refer to <<Features>> for details of each command.
 
@@ -41,7 +42,7 @@ image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/Ui.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addLocker s/SERIALNUMBER`, `SERIALNUMBER` is a parameter which can be used as `addLocker s/1234`.
 * Items in square brackets are optional e.g `n/NAME [c/CONDITION]` can be used as `n/John Doe c/in-use` or as `n/John Doe`.
-* Parameters can be in any order e.g. if the command specifies `n/NAME i/ID`, `I/ID n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME i/ID`, `i/ID n/NAME` is also acceptable.
 * In case a token is used multiple times in a command then its last instance is taken eg. if the command entered is `n/NAME1 n/NAME2` then
 the second instance of `n/NAME2` is considered.
 * All commands are case insensitive e.g `help` or `HELP` or `HeLp` will display all the commands and their usage.
@@ -62,6 +63,8 @@ the second instance of `n/NAME2` is considered.
 * `t/` -> The ending date for rental of the locker
 * `p/` -> Preferences for locker subscription
 * `c/` -> Condition (tags) of the locker
+* `asc/` -> sort in ascending order
+* `des/` -> sort in descending order
 ====
 
 === Viewing User manual
@@ -76,13 +79,13 @@ Format: `list`
 
 === Clearing All the Lockers from the List of Lockers
 
-Clears all entries from the specified list. +
+Clears all entries from the list. +
 Format: `clear`
 
 Examples:
 
 * `clear` +
-Clears all the entries from the members list.
+Clears all the entries from the list of lockers.
 
 === Exiting the Program
 
@@ -91,90 +94,19 @@ Format: `bye`
 
 === Saving Data
 
-All the data is automatically saved as a JSON file.
+All the data is automatically saved as a JSON file. Please note that although you are allowed to edit data inside the data inside the storage file, do this at your own risk. This is a feature meant for only advanced users. Any sort of corrupted data will cause SpongeBob to load the sample data instead of loading from the file.
+****
+[NOTE]
+* Corrupted data means (not limited to) having lockers with duplicate serial numbers, a locker having a status of in-use but without usage details, a locker having a status of not-in-use, unauthorized or broken but still having usage associated with it. 
+* Also you must make sure that serial number, zone and other details associated with the locker should adhere to their particular constraints
+* Locker subscriptions that have a rental ending period before the current date will be automatically deleted i.e the usage of the locker and its status will be changed to not-in-use.
+****
 
-=== Display Stats
-It displays the details for lockers +
-Format : `stats`
 
 === Export as CSV file
 Exports a list of lockers as CSV file. +
-
-[NOTE]
-only the valid tokens will be considered, if the user enters `exports Locker 'some_gibberish'`, it will export only locker details.
-
 Format: `export`
-Format: `exports` + detail name. +
-example: `exports lockers status names`
 
-=== Finding and Searching for Lockers: `find`
-
-Finds lockers based on their serial number, area, zone and tags +
-Format: `find s/SERIALNUMBER a/AREA z/zone c/tags`
-
-Additionally you could find lockers based on a student's particulars. +
-Format: `find n/name i/studentid m/major e/email`
-
-
-****
-[NOTE]
-* The search is case insensitive. e.g `computer` will match `Computer`
-* SERIAL NUMBER will only accept numeric characters such as `s/12345`
-* AREA will only accept alphanumeric characters such as `a/COM1`
-* ZONE will only accept alphanumeric characters such as `z/A1`
-* Tags can only accept these 4 keywords (adhere to the exact spelling)
-which are `c/in-use`, `c/not-in-use`, `c/unauthorized`, `c/broken`.
-****
-
-Examples:
-
-* find `s/1234` +
-* find `a/COM2 z/B2` +
-* find `c/in-use` +
-* find `n/Kevin` +
-
-When searching for multiple tokens such as `find a/COM2 z/B2`,
-Spongebob will look for all lockers that have matching keywords for either tokens.
-
-Returns a list of lockers(s) that contains those parameters/keywords.
-
-=== Sorting the List of Lockers: `sortby`
-
-Sort the list of lockers either in ascending or descending order
-based on the attributes of lockers serial number, area, zone and tags +
-Format: `find asc/[attribute]` OR `find des/[attribute]`
-
-****
-[NOTE]
-* The search is case insensitive. e.g `serialNumber` will match `serialnumber`
-* The feature only allows for 4 keyword attributes:
-`serialNumber`, `address`, `zone` and `tags`.
-* Always use the token `asc/` for ascending order and `des/` descending order.
-****
-
-Examples:
-
-* sortby `asc/serialNumber` +
-* sortby `des/tags` +
-* sortby `asc/zone` +
-* sortby `des/address` +
-
-Returns a sorted list of lockers(s) based on the user's parameters.
-
-=== Viewing Reminders List: `reminders`
-
-View the reminders list based on the status of lockers that require immediate action.
-These lockers that require immediate action are lockers that are `expiring within 7 days`,
-as well as locker with `unauthorised` and `broken` statuses. +
-Format: `reminders`
-
-
-[NOTE]
-Reminders will provide 3 lists of lockers: `expiring within 7 days`, `unauthorised` and `broken`
-if there are any.
-If there are none, there will be no lists shown.
-
-Returns a list of lockers(s) that are `expiring within 7 days`, `unauthorised` and `broken`
 
 //tag::addLocker[]
 === Adding Lockers
@@ -188,11 +120,15 @@ Format: `addLocker s/SERIALNUMBER a/ADDRESS z/ZONE`
 
 [NOTE]
 A locker serial number is unique and there should not be multiple lockers with the
-same serial number. A serial number should be a non-negative integer with not more than 6 digits
+same serial number. A serial number should be a non-negative integer with not more than 6 digits.
+Also the leading zeroes do not add to uniqueness i.e `0123` and `123` are considered to be the same locker.
 
 
 [NOTE]
-`ZONE` can only be a single letter character.
+`ZONE` can only be a single letter character and cannot be empty
+
+[NOTE]
+There are no restrictions on `ADDRESS` except for the fact that it should not be empty.
 
 Examples:
 
@@ -221,19 +157,21 @@ Format: `assign n/NAME e/EMAIL i/ID m/MAJOR f/STARTDATE t/ENDDATE p/PREFERENCES`
 ****
 * Assigns locker to the student based on their preferences.
 * Preferences are based on the `ZONE` and the user can provide any number of preferences but there must be at least one valid `ZONE` in the preferences
+* There should be a difference of atleast 7 days and not more than the 365 days between the `STARTDATE` and `ENDDATE`
+* The `ENDDATE` should be on or after the current date
 * A student can rent any number of lockers he/she wants (duplicates allowed).
 * A free locker means that its current tag/condition is `not-in-use`
 * If SpongeBob is unable to find any free lockers in the list of preferences
 * then it will try to find free lockers in any zone and assign it to the student.
 * If there are no free lockers in the entire list then the student wont be
-assigned any locker.
+  assigned any locker.
 ****
 
 Examples:
 
-* `assign n/JohnDoe i/A111111B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/30-10-2019 p/A` +
+* `assign n/JohnDoe i/A1234567B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/11-11-2019 p/A` +
 will assign a locker that is currently `not-in-use` in Zone A
-* `assign n/JohnDoe i/A111111B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/30-10-2019 p/AB` +
+* `assign n/JohnDoe i/A1234567B m/Computer Sci e/jonhdoe@example.com f/22-10-2019 t/11-11-2019 p/AB` +
 is an invalid entry as there are no valid zones entered under preferences
 
 //end::assignLocker[]
@@ -251,7 +189,7 @@ Format: `editLocker SERIALNUMBER [s/SERIALNUMBER] [a/AREA] [z/ZONE] [c/CONDITION
 * Lockers with condition/tag `unauthorized` and `not-in-use` cannot be edited to `in-use` and vice-versa.
 * Lockers with condition/tag `in-use` can only be edited to condition/tag `broken`.
 * If a locker is edited from `CONDITION` `in-use` to `broken` , SpongeBob will try to re allocate
-a free locker to the student who was using the locker.
+  a free locker to the student who was using the locker.
 ****
 
 Examples:
@@ -306,7 +244,7 @@ Format: `deleteUsage SERIALNUMBER`
 Example: +
 
 `deleteUsage 1234` +
-will delete the rental information.
+will delete the rental information associated with this locker.
 
 //end::deleteUsage[]
 
@@ -345,6 +283,48 @@ Examples:
 returns a list of lockers(s) that contains those parameters.
 
 //end::find[]
+
+//tag::sort[]
+=== Sorting the List of Lockers: `sortby`
+
+Sort the list of lockers either in ascending or descending order
+based on the attributes of lockers serial number, area, zone and tags +
+Format: `find asc/[attribute]` OR `find des/[attribute]`
+
+****
+[NOTE]
+* The search is case insensitive. e.g `serialNumber` will match `serialnumber`
+* The feature only allows for 4 keyword attributes:
+`serialNumber`, `address`, `zone` and `tags`.
+* Always use the token `asc/` for ascending order and `des/` descending order.
+****
+
+Examples:
+
+* sortby `asc/serialNumber` +
+* sortby `des/tags` +
+* sortby `asc/zone` +
+* sortby `des/address` +
+
+Returns a sorted list of lockers(s) based on the user's parameters.
+//end::sort[]
+
+//tag::reminders[]
+=== Viewing Reminders List: `reminders`
+
+View the reminders list based on the status of lockers that require immediate action.
+These lockers that require immediate action are lockers that are `expiring within 7 days`,
+as well as locker with `unauthorised` and `broken` statuses. +
+Format: `reminders`
+
+
+[NOTE]
+Reminders will provide 3 lists of lockers: `expiring within 7 days`, `unauthorised` and `broken`
+if there are any.
+If there are none, there will be no lists shown.
+
+Returns a list of lockers(s) that are `expiring within 7 days`, `unauthorised` and `broken`
+//end::reminders[]
 
 //tag::undo/redo[]
 === Undo/Redo the Locker List into Previous States: `Undo`/`Redo`
@@ -427,8 +407,7 @@ this command will import the csv file whose path is specified by `FILEPATH`
 * *editLocker*: `editLocker SERIALNUMBER [s/] [a/] [z/] [c/]`
 * *editUsage* : `editUsage SERIALNUMBER [n/] [i/] [e/] [f/] [t/] [m/]`
 * *clear*: `clear`
-* *stats*: `stats`
 * *export*: `export`
-* *exports*: `exports 'detail name'`
 * *bye*: `bye`
 // end::summary[]
+
