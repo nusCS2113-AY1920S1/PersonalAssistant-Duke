@@ -1,13 +1,15 @@
 package moomoo.feature.category;
 
 import java.time.LocalDate;
+import java.text.DecimalFormat;
 
 public class Expenditure {
 
-    private double cost;
     private String name;
+    private double cost;
     private LocalDate date;
     private String category;
+    private static DecimalFormat df = new DecimalFormat("#.##");
 
     /**
      * Initializes name, value and date of expenditure if given by user.
@@ -31,20 +33,16 @@ public class Expenditure {
         return name;
     }
 
-    String dateToString() {
-        return "0";
+    public String dateToString() {
+        return date.toString();
     }
 
     public double getCost() {
         return this.cost;
     }
 
-    public String getCostString() {
-        return Double.toString(this.cost);
-    }
-
     public int getLength() {
-        return (Double.toString(this.cost)).length();
+        return (df.format(this.cost)).length();
     }
 
     public LocalDate getDate() {

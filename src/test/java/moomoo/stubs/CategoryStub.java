@@ -51,7 +51,6 @@ public class CategoryStub extends Category {
                 20), name));
         this.category.add(new ExpenditureStub("Value 3", 100, LocalDate.of(2019, Month.JANUARY,
                 20), name));
-
         this.category.add(new ExpenditureStub("Value 4", 200, LocalDate.of(2019, Month.AUGUST,
                 20), name));
         this.category.add(new ExpenditureStub("Value 5", 150, LocalDate.of(2019, Month.SEPTEMBER,

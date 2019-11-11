@@ -8,8 +8,8 @@ public class Category {
     private static final String DATE = "date";
     private static final String NAME = "name";
     private static final String COST = "cost";
-    private String categoryName;
     private ArrayList<Expenditure> category;
+    private String categoryName;
     private String sortOrder;
 
     /**
@@ -17,8 +17,8 @@ public class Category {
      * @param name category name
      */
     public Category(String name) {
-        this.categoryName = name;
         this.category = new ArrayList<>();
+        this.categoryName = name;
         this.sortOrder = DATE;
     }
 

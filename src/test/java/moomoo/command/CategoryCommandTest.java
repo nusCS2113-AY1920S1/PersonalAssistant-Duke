@@ -30,22 +30,15 @@ class CategoryCommandTest {
         Budget budget = new Budget();
         CategoryList categoryList = new CategoryList();
         Storage storage = new StorageStub();
-        AddCategoryCommand command = new AddCategoryCommand("food");
+        Command command = new AddCategoryCommand("food");
         command.execute(calendar, budget, categoryList, storage);
 
         assertEquals(" __________________________________________________\n"
                 + "/ Mooo.                                            \\\n"
                 + "\\ Added category named : food                      /\n"
                 + " --------------------------------------------------\n", Ui.getTestOutput());
-
-
-        command = new AddCategoryCommand("2271    CG");
+        command = new DeleteCategoryCommand("food");
         command.execute(calendar, budget, categoryList, storage);
-
-        assertEquals(" __________________________________________________\n"
-                + "/ Mooo.                                            \\\n"
-                + "\\ Added category named : 2271    CG                /\n"
-                + " --------------------------------------------------\n", Ui.getTestOutput());
     }
 
     @Test
@@ -53,7 +46,7 @@ class CategoryCommandTest {
         ScheduleListStub calendar = new ScheduleListStub();
         Budget budget = new Budget();
         CategoryList categoryList = new CategoryList();
-        Storage storage = new CategoryStorage();
+        Storage storage = new StorageStub();
 
         Command command = new AddCategoryCommand("food");
         command.execute(calendar, budget, categoryList, storage);
@@ -92,7 +85,7 @@ class CategoryCommandTest {
         CategoryList categoryList = new CategoryList();
         Storage storage = new StorageStub();
         categoryList.add(new Category("food"));
-        AddExpenditureCommand command = new AddExpenditureCommand("banana", 8.50,
+        Command command = new AddExpenditureCommand("banana", 8.50,
                 LocalDate.now(), "food");
         command.execute(calendar, budget, categoryList, storage);
 
@@ -101,6 +94,8 @@ class CategoryCommandTest {
                 + "|  Expenditure named : banana                        |\n"
                 + " \\ Added to category : food                         /\n"
                 + "  --------------------------------------------------\n", Ui.getTestOutput());
+        command = new DeleteExpenditureCommand(0, "food");
+        command.execute(calendar, budget, categoryList, storage);
     }
 
     @Test
@@ -111,19 +106,21 @@ class CategoryCommandTest {
         Storage storage = new ExpenditureStorage();
 
         Command command;
-        command = new AddCategoryCommand("new stuff");
+        command = new AddCategoryCommand("stuff");
         command.execute(calendar, budget, categoryList, storage);
         command = new AddExpenditureCommand("bike", 99.9, LocalDate.now(),
-                "new stuff");
+                "stuff");
         command.execute(calendar, budget, categoryList, storage);
-        command = new DeleteExpenditureCommand(0, "new stuff");
+        command = new DeleteExpenditureCommand(0, "stuff");
         command.execute(calendar, budget, categoryList, storage);
 
         assertEquals("  __________________________________________________\n"
                 + " / Mooo.                                            \\\n"
                 + "|  Expenditure named : bike                          |\n"
-                + " \\ Deleted from category : new stuff                /\n"
+                + " \\ Deleted from category : stuff                    /\n"
                 + "  --------------------------------------------------\n", Ui.getTestOutput());
+        command = new DeleteCategoryCommand("stuff");
+        command.execute(calendar, budget, categoryList, storage);
     }
 
     @Test
