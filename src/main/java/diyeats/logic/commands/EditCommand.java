@@ -76,7 +76,7 @@ public class EditCommand extends Command {
         Meal oldMeal = meals.getMealsList(localDate).get(mealIndex);
         undo.undoEdit(mealIndex, oldMeal);
         Meal updatedMeal = getUpdatedMeal(oldMeal, this.nutritionInfoMap);
-        meals.getMealsList(localDate).set(mealIndex, updatedMeal);
+        meals.updateMealList(localDate, mealIndex, updatedMeal);
 
         ui.showLine();
         try {

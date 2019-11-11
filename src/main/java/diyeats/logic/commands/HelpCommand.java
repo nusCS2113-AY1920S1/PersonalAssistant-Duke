@@ -42,6 +42,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        logger.setLevel(Level.OFF);
         ui.showLine();
         ArrayList<String> helpLines = new ArrayList<>();
         try {

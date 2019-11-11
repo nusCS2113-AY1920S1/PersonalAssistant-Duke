@@ -23,6 +23,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
      */
     @Override
     public ListCommand parse(String userInputStr) throws ProgramException {
+        logger.setLevel(Level.OFF);
         HashMap<String, String> argumentInfoMap;
         LocalDate localDate = LocalDate.now();
         String sortArgStr = "";
@@ -48,7 +49,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
                 if (!(sortArgStr.equals("costAscending") || sortArgStr.equals("calorieAscending")
                     || sortArgStr.equals("costDescending") || sortArgStr.equals("calorieDescending"))) {
                     logger.log(Level.WARNING, "the sorting arguments are not valid");
-                    throw new ProgramException("The only valid sorting arguments are costAscending, calorieAscending,"
+                    return new ListCommand(false, "The only valid sorting arguments are costAscending, calorieAscending,"
                             + " , costDescending, and calorieDescending");
                 }
             }
