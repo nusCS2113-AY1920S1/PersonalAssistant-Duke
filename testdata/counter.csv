@@ -1,0 +1,6 @@
+Command Name,Frequency
+DeleteTaskCommand,8
+DeletePatientCommand,4
+DeleteAssignedTaskCommand,2
+AssignPeriodTaskCommand,1
+AddTaskCommand,1

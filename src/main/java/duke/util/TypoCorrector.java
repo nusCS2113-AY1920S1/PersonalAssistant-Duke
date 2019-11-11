@@ -15,7 +15,7 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 public class TypoCorrector {
 
     //The maximum ratio changes of a text in % that is acceptable
-    private static final double MAX_DISTANCE_DIFF_RATIO = 0.8;
+    private static final double MAX_DISTANCE_DIFF_RATIO = 0.3;
 
     //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
     private static final String[] SIMPLE_COMMANDS = {"bye", "help", "list patients", "list tasks",
@@ -136,9 +136,9 @@ public class TypoCorrector {
 
     /**
      * Method indicating if a message can be considered similar, based on Levenshtein distance
-     * calculation with an allowed variation of 70%.
+     * calculation with an allowed variation.
      * Max tolerated distance is derived from the current scenario's error message
-     * The arbitrary MAX_DISTANCE_DIFF_RATIO (50%) means we consider 10% change to be acceptable
+     * The arbitrary MAX_DISTANCE_DIFF_RATIO = 0.2 means we consider 30% change to be acceptable.
      *
      * @param referenceText the reference text
      * @param targetText    the target text for the comparison

@@ -159,7 +159,11 @@ public class CommandManager {
         case "show tomorrow":
             return new ShowTomorrowCommand();
         case "filter":
-            return new FilterCommand(parser.parseUserInput()[0]);
+            try {
+                return new FilterCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException(CommandManager.class, "Please use the `filter: <content>");
+            }
         case "clear filter":
             return new ClearFilterCommand();
         case "duke":
