@@ -134,7 +134,7 @@ public class Parser {
             throw new DukeException(ErrorMessages.AVOID_PIPELINE.message);
         } else if (sentence.equals("list")) {
             return new ListCommand();
-        } else if (sentence.equals("priority")) {
+        } else if (sentence.equals("priority") || sentence.equals("listpriority") || sentence.equals("lp")) {
             return new ListPriorityCommand();
         } else if (!emptyString && (arr[Numbers.ZERO.value].equals("done")
                 || arr[Numbers.ZERO.value].equals("delete"))) {
