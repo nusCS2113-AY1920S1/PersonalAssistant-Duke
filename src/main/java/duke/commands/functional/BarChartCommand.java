@@ -25,6 +25,7 @@ public class BarChartCommand implements Command {
             final ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
             final ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
             BarChartBox.showBarChartBox(frequencyList, commandNameList);
+            dukeUi.showBarChartResponse();
         } catch (DukeException e) {
             throw new DukeException(BarChartCommand.class,"No command has been entered yet.");
 

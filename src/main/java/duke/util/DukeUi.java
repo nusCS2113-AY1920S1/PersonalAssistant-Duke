@@ -440,6 +440,14 @@ public class DukeUi {
         }
     }
 
+    public void showPieChartResponse() {
+        printDukeResponse("Here is the Pie Chart");
+    }
+
+    public void showBarChartResponse() {
+        printDukeResponse("Here is the Bar Chart");
+    }
+
     //@@lmtaek
 
     /**
