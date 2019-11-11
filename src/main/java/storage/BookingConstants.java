@@ -15,6 +15,8 @@ public class BookingConstants {
             + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM";
     public static final String DATEERROR = "Not able to parse the date for all patterns given, "
             + "please use this format: DATE" + ", DATE format is dd/mm/yyyy";
+    public static final String MONTHERROR = ":-( OOPS!!! Please create your booking with the "
+            + "following format: month value";
     public static final String INDEXERROR1 = ":-( OOPS!!! "
             + "Please enter the index of the item you want to edit as well as the "
             + "updated description of your booking!";
