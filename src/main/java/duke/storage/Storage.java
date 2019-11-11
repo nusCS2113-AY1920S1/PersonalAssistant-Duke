@@ -13,4 +13,6 @@ public interface Storage {
     LockerList retrieveData() throws DukeException;
 
     void exportAsCsv(LockerList listToExport) throws DukeException;
+
+    void exportSelection(LockerList lockerList,String input) throws DukeException;
 }

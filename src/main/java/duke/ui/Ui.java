@@ -191,7 +191,15 @@ public class Ui {
      * This function tells the user that SpongeBob has exported the CSV file.
      */
     public void exportMessage() {
-        printSpaces("Noted. I have exported the details to a new CSV file");
+        printSpaces("Noted. I have exported the details to 'export.csv'. ");
+        printDash();
+    }
+
+    /**
+     * This function tells the user that SpongeBob has exported the CSV file.
+     */
+    public void exportSelect() {
+        printSpaces("Noted. I have exported the selected details to 'export.csv'. ");
         printDash();
     }
 

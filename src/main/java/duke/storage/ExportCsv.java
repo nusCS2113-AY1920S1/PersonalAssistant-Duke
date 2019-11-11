@@ -21,6 +21,8 @@ public class ExportCsv {
     private static final int SIXTH_COLUMN = 5;
     private static final int SEVENTH_COLUMN = 6;
     private static final int EIGHTH_COLUMN = 7;
+    private static final int NINTH_COLUMN = 8;
+    private static final int TENTH_COLUMN = 9;
 
     /**
      * This function exports a CSV file.
@@ -37,7 +39,9 @@ public class ExportCsv {
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
 
-            String[] header = {"Locker", "Address", "Zone", "Status", "Name", "Matrix Number", "Course", "Email"};
+            String[] header = {"Locker", "Address", "Zone", "Status",
+                "Name", "Matrix-Number", "Course", "Email",
+                "Start-Date","End-Date" };
 
             csvWriter.writeNext(header);
 
@@ -49,11 +53,15 @@ public class ExportCsv {
                 details[THIRD_COLUMN] = l.getZone().getZone();
                 details[FORTH_COLUMN] = l.getTag().getTagName();
 
-                if (details[THIRD_COLUMN].equals("in-use")) {
+                if (details[FORTH_COLUMN].equals("in-use")) {
+                    
                     details[FIFTH_COLUMN] = l.getUsage().get().getStudent().getName().getName();
                     details[SIXTH_COLUMN] = l.getUsage().get().getStudent().getStudentId().getStudentId();
                     details[SEVENTH_COLUMN] = l.getUsage().get().getStudent().getMajor().getCourse();
                     details[EIGHTH_COLUMN] = l.getUsage().get().getStudent().getEmail().getEmail();
+                    details[NINTH_COLUMN] = l.getUsage().get().getStartDate().getDate();
+                    details[TENTH_COLUMN] = l.getUsage().get().getEndDate().getDate();
+
                 }
 
                 csvWriter.writeNext(details);
@@ -65,4 +73,5 @@ public class ExportCsv {
             throw new DukeException(" Unable to export csv ");
         }
     }
+
 }
