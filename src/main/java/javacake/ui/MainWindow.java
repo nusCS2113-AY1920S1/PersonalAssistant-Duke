@@ -155,6 +155,10 @@ public class MainWindow extends GridPane {
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
+                } else if (isResult) { // On results screen
+                    handleIsResult();
+                } else if (isReview) {
+                    handleIsReview();
                 } else if ("listnote".equals(input)) {
                     //must be "listnote" exactly, else wont exe
                     handleListNote();
@@ -168,10 +172,6 @@ public class MainWindow extends GridPane {
                     handleResetConfirmation();
                 } else if (isWritingNote) {
                     handleWriteNote();
-                } else if (isResult) { // On results screen
-                    handleIsResult();
-                } else if (isReview) {
-                    handleIsReview();
                 } else {
                     handleOtherProcesses();
                 }
