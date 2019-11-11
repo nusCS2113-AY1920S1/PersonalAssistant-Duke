@@ -1,13 +1,11 @@
 package utils;
 
 import duke.exception.DukeException;
-import executor.task.TaskList;
+import storage.task.TaskList;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import ui.UiCode;
-import ui.Wallet;
-
-import java.time.DayOfWeek;
+import storage.wallet.Wallet;
 
 public class InfoCapsule {
     private UiCode uiCode;

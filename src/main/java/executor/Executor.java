@@ -8,7 +8,7 @@ import executor.command.CommandError;
 import executor.command.CommandType;
 import storage.StorageManager;
 import ui.UiCode;
-import utils.AccessType;
+import executor.accessors.AccessType;
 import utils.InfoCapsule;
 
 public class Executor {

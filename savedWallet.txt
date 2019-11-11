@@ -1,5 +1,5 @@
-1000.0
--
+328.0
+
 out $4.5 /date 2019-11-01 /tags food
 out $120.0 /date 2019-11-01 /tags travel
 out $5.0 /date 2019-11-01 /tags food

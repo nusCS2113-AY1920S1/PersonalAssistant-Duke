@@ -1,7 +1,7 @@
 package executor.command;
 
 import duke.exception.DukeException;
-import executor.task.TaskType;
+import storage.task.TaskType;
 import interpreter.Parser;
 import storage.StorageManager;
 

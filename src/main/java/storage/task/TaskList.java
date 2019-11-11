@@ -1,4 +1,4 @@
-package executor.task;
+package storage.task;
 
 import duke.exception.DukeException;
 import interpreter.Parser;

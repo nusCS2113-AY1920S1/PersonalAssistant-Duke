@@ -4,7 +4,7 @@ import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.Receipt;
+import storage.wallet.Receipt;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

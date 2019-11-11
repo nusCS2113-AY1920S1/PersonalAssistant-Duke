@@ -1,4 +1,4 @@
-package executor.task;
+package storage.task;
 
 import interpreter.Parser;
 

@@ -3,7 +3,7 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.ReceiptTracker;
+import storage.wallet.ReceiptTracker;
 
 import java.text.DecimalFormat;
 

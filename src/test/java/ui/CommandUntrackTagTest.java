@@ -3,6 +3,7 @@ package ui;
 import duke.exception.DukeException;
 import executor.command.CommandUntrackTag;
 import org.junit.jupiter.api.Test;
+import storage.wallet.Receipt;
 import storage.StorageManager;
 
 import java.time.LocalDate;

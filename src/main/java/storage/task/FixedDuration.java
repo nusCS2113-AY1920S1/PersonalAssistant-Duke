@@ -1,4 +1,4 @@
-package executor.task;
+package storage.task;
 
 public class FixedDuration extends Task {
 

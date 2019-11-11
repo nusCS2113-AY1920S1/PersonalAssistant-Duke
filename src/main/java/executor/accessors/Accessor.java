@@ -2,7 +2,6 @@ package executor.accessors;
 
 import storage.StorageManager;
 import ui.UiCode;
-import utils.AccessType;
 import utils.InfoCapsule;
 
 public abstract class Accessor {

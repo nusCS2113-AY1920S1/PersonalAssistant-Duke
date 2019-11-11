@@ -1,16 +1,10 @@
 package ui.gui;
 
-import executor.task.TaskList;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import main.Duke;
-import storage.StorageTask;
-import storage.StorageWallet;
-import ui.Wallet;
 
 import java.io.IOException;
 

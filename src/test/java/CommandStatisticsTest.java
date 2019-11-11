@@ -1,8 +1,8 @@
 import executor.command.CommandStatistics;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-import ui.IncomeReceipt;
-import ui.Receipt;
+import storage.wallet.IncomeReceipt;
+import storage.wallet.Receipt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -128,6 +128,23 @@ public class CommandStatisticsTest {
                 + "1. [Income, food] $4.00 2019-02-02\n"
                 + "2. [Expenses, food] $4.00 2019-02-01\n\n", output);
 
+    }
+
+    @Test
+    void multipleTags() {
+        Receipt receipt1 = new Receipt(4.0);
+        receipt1.addTag("food");
+        receipt1.addTag("transport");
+        StorageManager storageManager = new StorageManager();
+        receipt1.setDate(LocalDate.parse("2019-02-02"));
+        storageManager.getWallet().addReceipt(receipt1);
+
+        CommandStatistics s1 = new CommandStatistics("stats food");
+        s1.execute(storageManager);
+        String output = s1.getInfoCapsule().getOutputStr();
+        assertEquals("100.00% of your wallet expenses is spent on food\n"
+                + "You spent a total of $4.00 on food\n\n"
+                + "1. [Expenses, food, transport] $4.00 2019-02-02\n\n", output);
     }
 
 }

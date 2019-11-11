@@ -2,7 +2,7 @@ package executor.command;
 
 import duke.exception.DukeException;
 import storage.StorageManager;
-import ui.IncomeReceipt;
+import storage.wallet.IncomeReceipt;
 
 import java.text.DecimalFormat;
 
