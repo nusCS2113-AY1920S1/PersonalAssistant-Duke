@@ -12,6 +12,7 @@ import project.ProjectManager;
 import task.Task;
 import ui.Suggest;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -93,7 +94,7 @@ public class Ui {
         System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
         if (currentprojectname == null) {
             System.out.println("\t" + "Please go to a project to manage its payments and payees.");
-            System.out.println("\t" + "Command Format: " + commandFormat.listProjectFormat());
+            System.out.println("\t" + "Command Format: " + commandFormat.gotoProjectFormat());
         } else {
             System.out.println("\t" + "Current Project: " + currentprojectname);
         }
@@ -419,6 +420,27 @@ public class Ui {
     public void exceptionMessage(String message) {
         System.out.print(line);
         System.out.println(message);
+        System.out.print(line);
+    }
+
+    /**
+     * Prints the message for the goto exception thrown.
+     * Also prints projects list for user reference.
+     * @param message Exception message.
+     */
+    public void gotoExceptionMessage(String message, ArrayList<Project> projectslist) {
+        int index = 1;
+        System.out.print(line);
+        System.out.println(message);
+        System.out.println("\t" + "Here is the list of projects:");
+        for (Project project : projectslist) {
+            System.out.println("\t" + index + ". " + project.projectname);
+            System.out.println("\t\t" + "Budget: " + project.budget);
+            System.out.println("\t\t" + "Spending: " + project.spending);
+            System.out.println("");
+            index++;
+        }
+        System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
         System.out.print(line);
     }
 
