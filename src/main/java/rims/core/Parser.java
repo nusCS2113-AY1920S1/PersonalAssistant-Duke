@@ -1,6 +1,18 @@
 package rims.core;
 
-import rims.command.*;
+import rims.command.Command;
+import rims.command.AddCommand;
+import rims.command.ReserveCommand;
+import rims.command.DeleteCommand;
+import rims.command.CalendarCommand;
+import rims.command.CloseCommand;
+import rims.command.HelpCommand;
+import rims.command.ListCommand;
+import rims.command.ReturnCommand;
+import rims.command.StatsCommand;
+import rims.command.UndoCommand;
+import rims.command.TagCommand;
+import rims.command.ViewDeadlinesCommand;
 
 import rims.exception.RimsException;
 
