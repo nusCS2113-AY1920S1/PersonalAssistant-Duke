@@ -28,7 +28,7 @@ Our desktop application SpongeBob, is a Command Line Interface (CLI)  based assi
 . Ensure that you have Java 11 or later installed in your computer.
 . You can download the latest SpongeBob.jar https://github.com/AY1920S1-CS2113T-F11-1/main/releases[here].
 . Copy the file to the folder you want to use as your home folder for SpongeBob.
-. Open terminal and type ```java -jar spongeBob.jar```. The CLI will start in a few seconds +
+. Open terminal and type ```java -jar [CS2113T-F11-1][SpongeBob].jar```. The CLI will start in a few seconds +
 image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/Ui.png[width="700"] +
 . When the user starts their application for the first time, sample data is loaded to get the app started with.
 . To start with, you can type  **'help'** to check all the commands and press Enter
@@ -221,7 +221,7 @@ respectively, provided the locker #1234 has a student assigned to it already.
 
 //tag::deleteLocker[]
 === Deleting Locker
-Deletes the locker associated with the given serial number +
+Deletes the locker associated with the given serial number (provided the locker associated witht the serial number is already present in SpongeBob) +
 Format: `deleteLocker SERIALNUMBER` +
 
 Example: +
@@ -260,7 +260,7 @@ Format: `selectLocker SERIALNUMBER` +
 Example: +
 
 * `selectLocker 1234` +
-returns a table with the information of the selected locker and the information of the student assigned to it (if any).
+returns a table with the information of the selected locker (provided the serial number is associated with a locker actually present in SpongeBob) and the information of the student assigned to it (if any).
 
 //end::selectLocker[]
 
