@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import rims.core.ResourceList;
+import rims.core.Rims;
 import rims.core.Storage;
 import rims.core.Ui;
 
@@ -16,6 +17,7 @@ import rims.resource.Resource;
 import rims.resource.ReservationList;
 
 import rims.exception.RimsException;
+import rims.resource.Tag;
 
 //@@author rabhijit
 /**
@@ -66,6 +68,9 @@ public class ListCommand extends Command {
         return dateValue;
     }
 
+    /**
+     * Obtains the list of resources available on a specified day, in String format.
+     */
     //@@author danielcyc
     public static ArrayList<String> getListForSpecificDay(Date day, ResourceList resources, Ui ui)
             throws ParseException, RimsException {
@@ -180,6 +185,29 @@ public class ListCommand extends Command {
             ui.printLine();
 
         // @@author aarushisingh1
+        } else if (listType.equals("tag")) {
+            if (!Rims.tags.tagExists(resourceDetail)) {
+                throw new RimsException("There is no such tag!");
+            }
+            ui.printLine();
+            ArrayList<Tag> listTag = Rims.tags.getAllOfResource(resourceDetail);
+            for (int i = 0; i < listTag.size(); i++) {
+                Tag thisTag = listTag.get(i);
+                ReservationList thisResourceReservations = thisTag.getReservations();
+                ui.printDash();
+                ui.print(thisTag.toString() + " (resource ID: " + thisTag.getResourceId() + ")");
+                if (!thisResourceReservations.isEmpty()) {
+                    for (int j = 0; j < thisResourceReservations.size(); j++) {
+                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
+                    }
+                } else {
+                    ui.print("No bookings for this resource yet!");
+                }
+            }
+            ui.printDash();
+            ui.printLine();
+
+            // @@author aarushisingh1
         } else if (listType.equals("date")) {
             ui.printLine();
             ArrayList<String> coveredResources = new ArrayList<String>();
