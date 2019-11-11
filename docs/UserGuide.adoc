@@ -324,7 +324,7 @@ This allows the user to assign/unassign all tasks to members, or assign/unassign
 ** `assign task -i 1 -rm all`      | unassign task 1 from all members
 
 .Example of assign task command
-image::images/screenshots/assigntask.png[]
+image::images/screenshots/assigntask.PNG[]
 
 ==== View task assignments : `view assignments`
 Shows user the task assignments based on certain specifications.
@@ -355,10 +355,10 @@ In case of confusion, the following are examples that demonstrate the difference
 and how they can be used to show assignments in different formats.
 
 .`view assignments -t all`
-image::images/screenshots/viewassignmentstall.png[]
+image::images/screenshots/viewassignmentstall.PNG[]
 
 .`view assignments -m all`
-image::images/screenshots/viewassignmentsmall.png[]
+image::images/screenshots/viewassignmentsmall.PNG[]
 
 ====  View total credits completed by each member : view credits
 Shows all members’ credits, their index number, name, and name of tasks completed.
