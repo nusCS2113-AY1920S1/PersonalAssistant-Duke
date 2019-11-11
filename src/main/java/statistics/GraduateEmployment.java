@@ -6,13 +6,38 @@ import org.jfree.ui.RefineryUtilities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * GraduateEmployment Class contains the employment rates of recent graduates and their basic mean salary
+ * It implements the interface Statistics and uses the methods declared in it
+ * It initialises an ArrayList of type GraduateStats in which the information is stored.
+ * The Stats ArrayList allows to store 4 types of data - degree name, employment rate, basic mean salary
+ * The class also initialises the Employment_BarChart which then displays the information in the form of a Dual Axis Bar Chart
+ *
+ */
+
 public class GraduateEmployment implements Statistics {
     private static ArrayList<GraduateStats> Stats = new ArrayList<>();
+
+    /**
+     * Returns the ArrayList Stats when the method is called
+     *
+     * @param
+     * @return cohortStats the ArrayList that contains the employment statistics
+     *
+     */
+
     public static ArrayList<GraduateStats> getStats() {
         return Stats;
     }
 
-
+    /**
+     * The method is derived from the Statistics Interface
+     * The ArrayList Stats is loaded with the employment statistics for each particular degree
+     *
+     * @param st A list consisting of strings that have been read from the text file
+     * @return
+     *
+     */
     @Override
     public void loadStatistics(List<String> st) throws DukeException {
         for (int i = 1; i < 4; i++) {
@@ -71,18 +96,21 @@ public class GraduateEmployment implements Statistics {
         }
     }
 
+    /**
+     * The method is derived from the Statistics Interface
+     * The method creates an instance of Employment_BarChart
+     * A Bar Chart is displayed to the users on a separate window
+     *
+     * @param input An input string which is the degree inputted by the user
+     * @return
+     *
+     */
     @Override
     public void print(String input) {
-        for (int i = 0; i < Stats.size(); i++) {
-            if (Stats.get(i).getA().equals(input)) {
-                System.out.println(Stats.get(i).getB() + " " + Stats.get(i).getC());
-            }
-        }
         final Employment_BarChart demo = new Employment_BarChart("Basic Mean Salary and Employment rates", input);
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 }
 

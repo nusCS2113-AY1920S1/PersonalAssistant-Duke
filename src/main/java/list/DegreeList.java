@@ -69,6 +69,12 @@ public class DegreeList implements Serializable, Cloneable {
         list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
     }
 
+    /**
+     * Method to check for duplicates in the list to prevent same degree from being added multiple times
+     * @param input the degree inputted by the user
+     * @return 0 or 1. If the list already contains the degree, the flag is set to 1. Else, it remains 0.
+     * @throws DukeException
+     */
     private int check_for_duplicates(String input) throws DukeException {
         int flag = 0;
         if (list.contains(input)){
