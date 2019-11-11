@@ -27,7 +27,7 @@ public abstract class IndexParser extends Parser {
     }
 
     private int parseIndex(String taskFeatures) throws ChronologerException {
-        Integer index;
+        int index;
         try {
             index = Integer.parseInt(taskFeatures.split("\\s+", 2)[0].trim()) - 1;
         } catch (NumberFormatException e) {

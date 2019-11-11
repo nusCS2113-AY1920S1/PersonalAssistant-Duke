@@ -3,12 +3,13 @@ package chronologer.parser;
 import chronologer.exception.ChronologerException;
 
 /**
- * Extracts the version that they want!.
+ * Extracts the version the user wants.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.4
  */
 public abstract class VersionParser extends DescriptionParser {
+
     VersionParser(String userInput, String command)  {
         super(userInput, command);
     }

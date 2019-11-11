@@ -2,11 +2,11 @@ package chronologer.command;
 
 import chronologer.exception.ChronologerException;
 import chronologer.storage.CalendarOutput;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiMessageHandler;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -19,6 +19,7 @@ import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import net.fortuna.ical4j.validate.ValidationException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -36,6 +37,7 @@ public class ExportCommand extends Command {
     private static final String DEADLINE = "DEADLINE";
     private static final String EVENT = "EVENT";
     private static final String TODO_PERIOD = "TODO PERIOD";
+    private static final String PROD_ID = "-//Chronologer//iCal4j 1.1//EN";
 
     private String fileName;
     private boolean hasDeadlineFlag;
@@ -62,11 +64,13 @@ public class ExportCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      * @throws ChronologerException If the task list is empty.
      * @throws ValidationException  If the calendar is empty.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException, ValidationException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException,
+        ValidationException {
         Calendar calendar = initializeCalendar();
         ArrayList<Task> taskList = tasks.getTasks();
         checkEmptyList(taskList);
@@ -99,7 +103,7 @@ public class ExportCommand extends Command {
      */
     private Calendar initializeCalendar() {
         Calendar calendar = new Calendar();
-        calendar.getProperties().add(new ProdId("-//Chronologer//iCal4j 1.1//EN"));
+        calendar.getProperties().add(new ProdId(PROD_ID));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
         return calendar;

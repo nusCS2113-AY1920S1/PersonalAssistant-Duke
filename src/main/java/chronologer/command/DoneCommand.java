@@ -25,11 +25,12 @@ public class DoneCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task task = tasks.markAsDone(indexOfTask);
-            ChronologerStateList.addState((tasks.getTasks()));
+            history.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiMessageHandler.outputMessage("Nice! I've marked this task as done: " + task.toString());
         }

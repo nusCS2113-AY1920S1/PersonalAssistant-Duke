@@ -73,6 +73,4 @@ class StorageTest {
     static void teardownSetup() {
         assert file.delete();
     }
-
-
 }

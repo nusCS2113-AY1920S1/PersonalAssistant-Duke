@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 import chronologer.ui.UiMessageHandler;
@@ -19,8 +20,7 @@ import java.net.URISyntaxException;
  */
 public class ManualCommand extends Command {
 
-    private static final String UG_URI = "https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/%5BAY1920S1-"
-            + "CS2113-T13-3%5D-C[hronologer-UG.pdf";
+    private static final String UG_URI = "https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/UserGuide.adoc";
 
     /**
      * Removes the task from the TaskList and saves the updated TaskList to
@@ -28,9 +28,10 @@ public class ManualCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         try {
             Desktop desktop = Desktop.getDesktop();
             desktop.browse(new URI(UG_URI));

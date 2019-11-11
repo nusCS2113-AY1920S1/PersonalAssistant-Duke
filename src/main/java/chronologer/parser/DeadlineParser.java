@@ -25,7 +25,7 @@ public class DeadlineParser extends DescriptionParser {
     DeadlineParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.BY.getFlag();
-        this.hasModCode = userInput.contains("/m");
+        this.hasModCode = userInput.contains(Flag.MOD.getFlag());
     }
 
     /**

@@ -19,10 +19,10 @@ import java.io.IOException;
  * @version v1.1
  */
 public class CalendarOutput {
-
-    private static CalendarOutputter calendarOutputter = new CalendarOutputter();
+    private static final String CLASS_NAME = "chronologer.storage.CalenderOutput";
+    private static final String LOG_NAME = "StorageErrors";
     private static String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/";
-    private static MyLogger logger = new MyLogger("CalendarOutput class", "StorageErrors");
+    private static MyLogger logger = new MyLogger(CLASS_NAME, LOG_NAME);
 
     /**
      * Process the calendar into an ics file.
@@ -33,16 +33,19 @@ public class CalendarOutput {
      */
     public static void outputCalendar(String fileName, Calendar calendar) throws ChronologerException {
         File icsFile = new File(filePath.concat(fileName).concat(".ics"));
+        icsFile.getParentFile().mkdirs();
+
+        FileOutputStream fileOutputStream;
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(icsFile);
+            fileOutputStream = new FileOutputStream(icsFile);
+            CalendarOutputter calendarOutputter = new CalendarOutputter();
             calendarOutputter.output(calendar, fileOutputStream);
             UiMessageHandler.outputMessage("Success,ics file written at src/ChronologerDatabase/" + fileName);
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
-            logger.writeLog(e.toString(), "Calendar Output");
-            throw new ChronologerException(ChronologerException.fileDoesNotExist());
+            logger.writeLog(e.toString(), CLASS_NAME);
         } catch (IOException e) {
-            logger.writeLog(e.toString(), "Calendar Output");
+            logger.writeLog(e.toString(), CLASS_NAME);
             throw new ChronologerException(ChronologerException.errorWriteCalendar());
         }
     }
