@@ -70,6 +70,8 @@ For example, typing `add s` will give suggest `add stock` as the predicted input
 
 After hitting `TAB`, the command is autocompleted for you, and you will be shown the valid arguments required by the command to help you remember the correct format of inputs for each command.
 
+Holding the `SHIFT` key while hitting the `UP` or `DOWN` key will cycle through the other autocomplete possibilities suggested by the Predictive Search.
+
 ![](images/predictive_search_argument.png)
 
 **Command History**
