@@ -33,8 +33,9 @@ public class ListBookingYearCommand extends Command {
      */
     public ListBookingYearCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
-                    + "date");
+            throw new DukeException(":-( OOPS!!! Please create your booking with the following format!\n"
+                    + "listyear <date>\n"
+                    + "<date>: <dd/mm/yyyy>");
         }
         String date = input.substring(9);
         try {

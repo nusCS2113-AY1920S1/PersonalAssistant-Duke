@@ -29,6 +29,10 @@ public class Item {
         return roomcode;
     }
 
+    public int getQuantity(){
+        return quantity;
+    }
+
     /**
      * Method that sorts the whole inventory according to Roomcode.
      */

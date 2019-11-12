@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class EditBookingTest {
 
     @Test
-    void TestEditBooking1() throws DukeException {
+    void testEditBooking1() throws DukeException {
         String user = "Bob";
         String room = "ST4";
         String description = "study";

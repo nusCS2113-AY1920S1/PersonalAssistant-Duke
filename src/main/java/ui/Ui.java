@@ -325,7 +325,7 @@ public class Ui extends AnchorPane {
                 + "Logout: logout\n"
                 + "--------------\n"
                 + "Booking\n"
-                + "Add booking: add <name> <description> /at <room code> /from <DD/MM/YYYY> <HHMM> /to <HHMM>\n"
+                + "Add booking: add <name> <description> /at <room code> /from <HHMM> /to <HHMM>\n"
                 + "List booking: list\n"
                 + "List day: listday <date>\n"
                 + "List month: listmonth <month>\n"

@@ -28,8 +28,9 @@ public class ListBookingMonthCommand extends Command {
      */
     public ListBookingMonthCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException(":-( OOPS!!! Please create your booking with the following format: "
-                    + "month value");
+            throw new DukeException(":-( OOPS!!! Please enter the correct format!\n"
+                    + "listmonth <month>\n"
+                    + "<month>: <mm>");
         }
         try {
             this.monthStart = Integer.parseInt(input.substring(10));

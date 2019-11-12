@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ApproveBookingTest2 {
 
     @Test
-    void TestApproveBooking1() throws DukeException {
+    void testApproveBooking1() throws DukeException {
         String user = "Bob";
         String room = "ST4";
         String description = "study";
@@ -21,7 +21,7 @@ public class ApproveBookingTest2 {
         Booking newBooking = new Booking(user, room, description, dateTimeStart, timeEnd);
         assertEquals("Bob ST4 30/12/9999 1400 to 1900 P", newBooking.toString());
         newBooking.approveStatus("amir");
-        assertEquals( "Bob ST4 30/12/9999 1400 to 1900 A", newBooking.toString());
+        assertEquals("Bob ST4 30/12/9999 1400 to 1900 A", newBooking.toString());
     }
 
     @Test
