@@ -9,6 +9,7 @@ import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.commands.BlacklistCommand;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.logic.parsers.commands.WatchlistCommand;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -36,11 +37,15 @@ public class CommandStacktest {
 
     @Test
     public void commandStack_invalidInputs_failure() {
+
         assertEquals(0, CommandStack.getSize());
-
         assertEquals(null, CommandStack.nextCommand());
-
         assertEquals(null, CommandStack.topCmd());
 
+    }
+
+    @BeforeEach
+    public void clearStack() {
+        CommandStack.clearStack();
     }
 }
