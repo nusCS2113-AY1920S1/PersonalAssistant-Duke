@@ -7,8 +7,9 @@ import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-//TODO REMOVE THIS CLASS
-
+/**
+ * Remove command class.
+ */
 public class RemoveCommand extends CommandSuper {
     /**
      * Constructor for each Command Super class.
