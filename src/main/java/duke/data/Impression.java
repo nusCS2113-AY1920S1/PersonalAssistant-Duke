@@ -50,7 +50,9 @@ public class Impression extends DukeObject {
     public Patient getParent() {
         return parent;
     }
-
+    
+    /* @@author JeremyKwok */
+    
     /**
      * This function searches for DukeData whose names contain the searchTerm.
      *
@@ -367,6 +369,8 @@ public class Impression extends DukeObject {
         }
     }
 
+    /* @@author JeremyKwok */
+    
     /**
      * This functions search for treatment relevant to the searchTerm.
      *
@@ -383,6 +387,8 @@ public class Impression extends DukeObject {
         }
         return new SearchResults(searchTerm, treatmentList, this);
     }
+    
+    /* @@author JeremyKwok */
 
     /**
      * This functions search for Evidence relevant to the searchTerm.
@@ -401,6 +407,8 @@ public class Impression extends DukeObject {
         return new SearchResults(searchTerm, evidenceList, this);
     }
 
+    /* @@author JeremyKwok */
+    
     /**
      * Searches through all DukeData associated with this impression containing the search term.
      *
@@ -414,6 +422,8 @@ public class Impression extends DukeObject {
         return results;
     }
 
+    /* @@author JeremyKwok */
+    
     /**
      * This function searches for treatments whose names contain the searchTerm.
      *
@@ -430,6 +440,8 @@ public class Impression extends DukeObject {
         }
         return new SearchResults(searchTerm, treatmentList, this);
     }
+    
+    /* @@author JeremyKwok */
 
     /**
      * This function searches for evidences whose names contain the searchTerm.
