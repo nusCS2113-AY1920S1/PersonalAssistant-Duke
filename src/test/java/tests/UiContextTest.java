@@ -1,6 +1,7 @@
 package tests;
 
 import duke.data.Impression;
+import duke.data.Investigation;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
@@ -17,9 +18,11 @@ public class UiContextTest {
     private UiContext uiContext;
     private Patient patient;
     private Impression impression;
+    private Investigation investigation;
 
     /**
-     * Sets up Patient and Impression so context can be navigated into.
+     * Sets up {@link Patient}, {@link Impression}, and {@link Investigation} objects so contexts can be navigated into.
+     *
      * @throws DukeException if the impression cannot be added to the patient
      */
     @BeforeEach
@@ -27,7 +30,10 @@ public class UiContextTest {
         patient = new Patient("John Doe", "A105", "Cinnarizine", 170, 50,
                 30, 98765432, "NUS", "Heart attack 5 years ago");
         impression = new Impression("Impression 1", "Description 1", patient);
+        investigation = new Investigation("investigation 1", impression, 0, "", "Test 1");
+
         patient.addNewImpression(impression);
+        impression.addNewTreatment(investigation);
     }
 
     /**
@@ -43,7 +49,7 @@ public class UiContextTest {
      */
     @Test
     public void testUiContext_noInputs_currentContextIsHomeContext() {
-        assertEquals(uiContext.getContext(), Context.HOME);
+        assertEquals(Context.HOME, uiContext.getContext());
         assertNull(uiContext.getObject());
     }
 
@@ -54,21 +60,35 @@ public class UiContextTest {
     @Test
     public void testOpen_patient_currentContextBecomesPatientContext() {
         uiContext.open(patient);
-        assertEquals(uiContext.getContext(), Context.PATIENT);
-        assertEquals(uiContext.getObject(), patient);
+        assertEquals(Context.PATIENT, uiContext.getContext());
+        assertEquals(patient, uiContext.getObject());
     }
 
     /**
      * Tests open for a UiContext object. The UiContext object should transit from the HOME context to the IMPRESSION
      * context without needing to hierarchically access the PATIENT context, and have a reference of the
-     * associated Impression object.
+     * associated Impression object, whose parent is the intended Patient object.
      */
     @Test
     public void testOpen_impression_currentContextBecomesImpressionContext() {
         uiContext.open(impression);
-        assertEquals(uiContext.getContext(), Context.IMPRESSION);
-        assertEquals(uiContext.getObject(), impression);
-        assertEquals(uiContext.getObject().getParent(), patient);
+        assertEquals(Context.IMPRESSION, uiContext.getContext());
+        assertEquals(impression, uiContext.getObject());
+        assertEquals(patient, uiContext.getObject().getParent());
+    }
+
+    /**
+     * Tests open for a UiContext object. The UiContext object should transit from the HOME context to the TREATMENT AND
+     * EVIDENCE context without needing to hierarchically access the PATIENT and IMPRESSION contexts, and have a
+     * reference of the associated INVESTIGATION object.
+     */
+    @Test
+    public void testOpen_investigation_currentContextBecomesInvestigationContext() {
+        uiContext.open(investigation);
+        assertEquals(Context.INVESTIGATION, uiContext.getContext());
+        assertEquals(investigation, uiContext.getObject());
+        assertEquals(impression, uiContext.getObject().getParent());
+        assertEquals(patient, uiContext.getObject().getParent().getParent());
     }
 
     /**
@@ -90,7 +110,8 @@ public class UiContextTest {
     public void testMoveUpOneContext_currentlyAtPatientContext_moveUpToHomeContext() throws DukeException {
         uiContext.open(patient);
         uiContext.moveUpOneContext();
-        assertEquals(uiContext.getContext(), Context.HOME);
+
+        assertEquals(Context.HOME, uiContext.getContext());
         assertNull(uiContext.getObject());
     }
 
@@ -102,8 +123,22 @@ public class UiContextTest {
     public void testMoveUpOneContext_currentlyAtImpressionContext_moveUpToPatientContext() throws DukeException {
         uiContext.open(impression);
         uiContext.moveUpOneContext();
-        assertEquals(uiContext.getContext(), Context.PATIENT);
-        assertEquals(uiContext.getObject(), patient);
+
+        assertEquals(Context.PATIENT, uiContext.getContext());
+        assertEquals(patient, uiContext.getObject());
+    }
+
+    /**
+     * Tests moving up a context for a UiContext object. The UiContext object is currently at the INVESTIGATION context,
+     * and should be able to hierarchically move up a context to the IMPRESSION context.
+     */
+    @Test
+    public void testMoveUpOneContext_currentlyAtInvestigationContext_moveUpToImpressionContext() throws DukeException {
+        uiContext.open(investigation);
+        uiContext.moveUpOneContext();
+
+        assertEquals(Context.IMPRESSION, uiContext.getContext());
+        assertEquals(impression, uiContext.getObject());
     }
 
     /**
@@ -112,9 +147,7 @@ public class UiContextTest {
      */
     @Test
     public void testMoveBackOneContext_noPreviousContexts_exceptionThrown() {
-        assertThrows(DukeException.class, () -> {
-            uiContext.moveBackOneContext();
-        });
+        assertThrows(DukeException.class, () -> uiContext.moveBackOneContext());
     }
 
     /**
@@ -126,7 +159,8 @@ public class UiContextTest {
     public void testMoveBackOneContext_OnePreviousContexts_moveBackToPreviousContext() throws DukeException {
         uiContext.open(impression);
         uiContext.moveBackOneContext();
-        assertEquals(uiContext.getContext(), Context.HOME);
+
+        assertEquals(Context.HOME, uiContext.getContext());
         assertNull(uiContext.getObject());
     }
 
@@ -143,20 +177,20 @@ public class UiContextTest {
         uiContext.open(impression);
 
         uiContext.moveBackOneContext();
-        assertEquals(uiContext.getContext(), Context.PATIENT);
-        assertEquals(uiContext.getObject(), patient);
+        assertEquals(Context.PATIENT, uiContext.getContext());
+        assertEquals(patient, uiContext.getObject());
 
         uiContext.moveBackOneContext();
-        assertEquals(uiContext.getContext(), Context.IMPRESSION);
-        assertEquals(uiContext.getObject(), impression);
+        assertEquals(Context.IMPRESSION, uiContext.getContext());
+        assertEquals(impression, uiContext.getObject());
 
         uiContext.moveBackOneContext();
-        assertEquals(uiContext.getContext(), Context.HOME);
+        assertEquals(Context.HOME, uiContext.getContext());
         assertNull(uiContext.getObject());
     }
 
     /**
-     * Tests add listener method for a UiContext object.
+     * Tests add listener method for a UiContext object. An event should be fired whenever there is a context change.
      */
     @Test
     public void testAddListener_transitionBetweenVariousContexts_success() {
@@ -167,12 +201,16 @@ public class UiContextTest {
                 assertNull(uiContext.getObject());
                 break;
             case PATIENT:
-                assertEquals(uiContext.getContext(), Context.PATIENT);
-                assertEquals(uiContext.getContext(), Context.PATIENT);
+                assertEquals(Context.PATIENT, uiContext.getContext());
+                assertEquals(patient, uiContext.getObject());
                 break;
             case IMPRESSION:
-                assertEquals(uiContext.getContext(), Context.IMPRESSION);
-                assertEquals(uiContext.getObject(), impression);
+                assertEquals(Context.IMPRESSION, uiContext.getContext());
+                assertEquals(impression, uiContext.getObject());
+                break;
+            case INVESTIGATION:
+                assertEquals(Context.INVESTIGATION, uiContext.getContext());
+                assertEquals(investigation, uiContext.getObject());
                 break;
             default:
                 break;
@@ -180,7 +218,39 @@ public class UiContextTest {
         });
 
         uiContext.open(impression);
+        uiContext.open(investigation);
         uiContext.open(patient);
         uiContext.open(null);
+    }
+
+    /**
+     * Tests openWithoutHistory for a UiContext object. The UiContext object should transit from the HOME context to
+     * the PATIENT context, and have a reference of the associated Patient object. It shouldn't store any history of
+     * this transition and hence would throw an exception when attempting to go back to a previous context.
+     */
+    @Test
+    public void testOpenWithoutHistory_moveBackOneContext_exceptionThrown() {
+        uiContext.openWithoutHistory(patient);
+        assertEquals(Context.PATIENT, uiContext.getContext());
+        assertEquals(uiContext.getObject(), patient);
+
+        assertThrows(DukeException.class, () -> uiContext.moveBackOneContext());
+    }
+
+    /**
+     * Tests openWithoutHistory for a UiContext object. The UiContext object should transit from the HOME context to
+     * the PATIENT context, and have a reference of the associated Patient object. It shouldn't store any history of
+     * this transition. Since moving up to a higher context doesn't require the history, it should successfully move up
+     * to the HOME context.
+     */
+    @Test
+    public void testOpenWithoutHistory_moveUpOneContext_success() throws DukeException {
+        uiContext.openWithoutHistory(patient);
+        assertEquals(Context.PATIENT, uiContext.getContext());
+        assertEquals(uiContext.getObject(), patient);
+
+        uiContext.moveUpOneContext();
+        assertEquals(Context.HOME, uiContext.getContext());
+        assertNull(uiContext.getObject());
     }
 }
