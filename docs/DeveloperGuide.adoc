@@ -12,7 +12,7 @@ By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to the *Dr. Duke* developer guide! This document assumes a familiarity with the link:UserGuide.adoc[user guide].
+Welcome to the *Dr. Duke* developer guide! This document assumes a familiarity with the https://github.com/AY1920S1-CS2113-T14-1/main/blob/master/docs/UserGuide.adoc[User Guide].
 
 In order to be a successful *Dr. Duke* developer, you need a general understanding of: +
 
@@ -58,9 +58,14 @@ This will generate all resources required by the application and tests.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[Architecture Diagram]
 
-The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
+The *_Architecture Diagram_* shown above describes the high-level design of *Dr. Duke*. The application comprises 4 main components:
+
+* *UI*: Graphical User Interface (GUI) of the application
+* *Parser* Logic: Responsible for parsing and executing user commands
+* *Model*: Stores Dr. Duke's data in-memory
+* *Storage*: Reads/writes data from/to persistent storage
 
 [[Design-Logic]]
 === Parser Logic [JOHN CUTHBERT KHOO TENG FONG]
@@ -68,9 +73,9 @@ image::john1.png[]
 
 This class diagram describes the relationships between the various core classes involved in parsing the user's input into `Command` s. The two highest-level components are the `Parser` and the `Executor`, both members of the `CommandWindow`. They begin parsing when the user enters some input through the `CommandWindow`.
 
-The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the `CommandSpec` singleton it is constructed with, via the `execute` method. 
+The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the `CommandSpec` singleton it is constructed with, via the `execute` method.
 
-The mapping from the command name to the `CommandSpec` should be created in the `Commands` class, which is loaded by the default `Parser` constructor. A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands.  
+The mapping from the command name to the `CommandSpec` should be created in the `Commands` class, which is loaded by the default `Parser` constructor. A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands.
 
 The `Commands` class has a single function `getCommand()`, which takes, as arguments, a String that should uniquely identify the requested `CommandSpec` within a particular `Context`, and a `Context` enum representing the context from which `getCommand()` was called. It then returns a new instance of the `Command`, constructing it with the required `CommandSpec`. The `Parser` will supply the command name and the `context` field in the `DukeCore` instance to the `getCommand()` method in its `Commands` instance.
 
@@ -129,7 +134,7 @@ In summary, to define a new command: [[New-Command-Steps]]
 If this command requires arguments, in addition to doing the above for a subclass of `ArgSpec` (instead of `CommandSpec`):
 
 . Create a private constructor for the subclass, and within the constructor:
-.. Define `cmdArgLevel` 
+.. Define `cmdArgLevel`
 .. Construct the switches for the command and supply them as arguments to `switchInit()`
 ... If there are no switches, call `switchInit()` with no arguments
 
@@ -148,20 +153,20 @@ The finite state machine for input parsing has the following states:
 
 The state transitions are as follows:
 
-* `EMPTY` 
+* `EMPTY`
 ** `EMPTY` -> `EMPTY`: <Space> or <Newline>
 ** `EMPTY` -> `SWITCH`: `-`
 ** `EMPTY` -> `STRING`: `"`
 ** `EMPTY` -> `ARG`: <any other character>
-* `SWITCH` 
+* `SWITCH`
 ** `SWITCH` -> `EMPTY`: <Space> or <Newline>
 ** `SWITCH` -> `SWITCH` (add current switch and begin processing a new switch): `-`
 ** `SWITCH` -> `STRING` (add current switch and begin parsing a string as an argument): `"`
 ** `SWITCH` -> `SWITCH` (add char to elementBuilder): <any other character>
-* `STRING` 
+* `STRING`
 ** `STRING` -> `EMPTY` : `"`
 ** `STRING` -> `STRING` (add char to elementBuilder) : <any other character>
-* `ARG` 
+* `ARG`
 ** `ARG` -> `EMPTY`: <Space> or <Newline>
 ** `ARG` -> `DukeException`: Unescaped `"` or `-`
 ** `ARG` -> `ARG` (add char to elementBuilder): <any other character>
@@ -285,69 +290,82 @@ As can be seen in the class diagram, every individual's patient's data in nested
 If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s.
 
 [[Design-UI]]
-=== UI [PANG JIA JUN VERNON]
-The UI for Dr. Duke acts as an abstract layer that exists independently and interacts with the other modules/components of the application via a simple interface. It is designed to be easily expandable with its use of abstract classes that can easily be inherited for the purpose of future development of the application (e.g. addition of contexts / data). The overall UI class diagram is a good place to understand how the UI component is constructed.
+=== UI  [PANG JIA JUN VERNON]
+The `UI` component for Dr. Duke is an abstract model/layer that exists independently in the application. It interacts with the other components (i.e. Model, Logic, Storage) of the application via a simple interface. It is designed to be easily expanded or modified by other developers with its liberal use of abstract classes. Hence, future developments such as the addition of `Contexts` can be accomplished with ease.
+
+The `UI` component uses the JavaFX UI framework. The layout of these UI elements are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/duke/ui/window/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+The `UI` component executes user commands using the `Parser` component and listens for changes to `Model` data so that the UI can be updated with the newly modified data.
+
+The overall UI class diagram shown below is a good starting point to understand how the UI component is designed and constructed.
 
 .Overall UI class diagram
 image::ui_overall.png[]
 
-This overall class diagram aptly describes the relationships between the various core classes/packages in the UI component.
+This overall class diagram aptly describes the relationships between the various core classes and packages of the UI component.
 
 The UI component can be categorised into 3 main parts.
 
 *   `UiManager`
-*   Windows
-*   Cards
+*   `Windows`
+*   `Cards`
 
-The UI component is exposed to external modules/components via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. Hence, `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
+The UI component is exposed to other components of Dr. Duke via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
 
 .UI Windows class diagram
 image::ui_windows.png[]
-As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the parent class for all of the UI elements used in the application, and allows for their easy creation. In addtion, the `MainWindow` holds a reference of the `UiContext` that exposes the current `Context` of the application. This is required as the `Context` of the application determines what UI window is shown, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context. As Dr. Duke works with a huge number of contexts, the various context windows extend from `ContextWindow`. This greatly enables for the use of polymorphism when dealing with the context windows. Therefore, when dealing with a new context, you, as the developer, should always inherit from `ContextWindow` to display the context in GUI form.
+
+As mentioned, the `MainWindow` houses various UI elements such as the `CommandWindow`, `ContextWindow`, and `HelpWindow`. The `MainWindow` holds a reference of the `UiContext` object that exposes the current `Context` (a core feature) of the application. The `Context` of the application determines what UI window the `ContextWindow` takes on, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context, etc. As Dr. Duke works with a huge number of contexts, the various context windows extend from `ContextWindow`. This greatly enables the use of polymorphism when dealing with the context windows. Therefore, when implementing a new context, you, as the developer, should always inherit from `ContextWindow` to display the context in GUI format.
 
 .UI Cards class diagram
 image::ui_cards.png[]
-The various windows mentioned previously hold the corresponding cards as shown in the diagram above. These cards show an excerpt of the details of the respecitve `DukeObjects`. All cards extend from `UiCard`. What has been mentioned for `ContextWindow` applies to `UiCard` as well.
 
-The UI component executes user commands using the Parser component and listens for changes to Model data so that the UI can be updated with the newly modified data.
-
-The `UI` component uses the JavaFX UI framework. The layout of these UI elements are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+The `ContextWindow` houses the various cards shown in the figure above (corresponding to their respective context). These cards show an excerpt of the details of the `DukeObjects` they represent. All cards extend from `UiCard`. Hence, what has been mentioned with regards to polymorphism for `ContextWindow` applies to `UiCard` as well.
 
 == Feature Implementation
 
 This section describes some noteworthy details on how certain features in Dr. Duke are implemented.
 
-[[Feature-Switch-Autocomplete]]
-=== Contexts [PANG JIA JUN VERNON]
+[[Feature-Context Mechanism]]
+
+=== Context Mechanism [PANG JIA JUN VERNON]
+
 ==== Rationale
 
-Dr. Duke aims to assist House Officers in quick, accurate, and efficient recording and retrieval of patient data required to provide efficient care. On a day-to-day basis, house officers deal with a lot of information, ranging from the biometrics details of a patient to the investigation results from a blood test. To make things worse, a house officer also typically has to manage many patients. Therefore, with this information overload, it would be really helpful if the house officer is able to view each piece of information in a very focused setting. This has inspired us to come up with the idea of `Contexts`. In Dr. Duke, there are currently 4 main contexts. They are the `HOME`, `PATIENT`, `IMPRESSION`, and `TREATMENT AND EVIDENCE` contexts (listed in hierarchical order). The different contexts allow the house officer to focus on a particular patient or a particular impression of a patient without being overloaded by other irrelevant information.
+Dr. Duke aims to assist house officers in quick, accurate, and efficient recording and retrieval of patient data required to provide efficient care. On a day-to-day basis, house officers deal with a lot of information, ranging from the biometrics details of a patient to the investigation results of a blood test. Therefore, it would be really helpful if they are able to view these chunks of information in a very focused setting. This has inspired us to come up with the idea of `Contexts`. In Dr. Duke, there are currently four main contexts. They are the `HOME`, `PATIENT`, `IMPRESSION`, and `TREATMENT AND EVIDENCE` contexts (listed in hierarchical order). The different contexts allow the house officers to focus on a particular patient or a particular impression of a patient at hand without being overloaded by other irrelevant information.
 
 ==== Implementation
-The `Context` mechanism is mainly facilitated by the `UiContext` class. It implements the following operations:
 
-* `UiContext#open()` - Opens and displays a context.
+The `Context` mechanism is facilitated by the `UiContext` class. It implements the following operations:
+
+* `UiContext#open(DukeObject)` - Opens and displays a context.
 * `UiContext#moveBackOneContext()` - Moves back one context.
 * `UiContext#moveUpOneContext()` - Moves up one in the hierarchy of contexts.
 
 Given below is an example usage scenario and how the context mechanism behaves accordingly.
 
-Step 1: The user launches the application. The application starts out in the `HOME` context. The user currently manages 3 patients.
+image::context_sequence.png[Sequence diagram for Context mechanism]
 
-Step 2: The user keys in "open 1" in the text field and presses the Enter key. At this point, the parser parses the input and executes the open command. This command invokes the context mechanism.
+Step 1: The user launches the application. The application (`UiContext`) starts out in the `HOME` context. The user currently manages 3 patients.
 
-Step 3: The context mechanism first stores the current context (and the associated `DukeObject`) in a stack (so it can still be accessed later when the user wishes to execute the back command). Then, the context mechanism updates the context to the `PATIENT` context and retrieves the corresponding `Patient` object as selected by the user.
+Step 2: The user keys in "open 1" in the text field and presses the Enter key. At this point, the `Parser` parses the input and passes a `open` command to the `Executor` for execution. This command invokes the context mechanism.
 
-Step 4: The UI component of Dr. Duke listens to changes in the context of the application via an attached `PropertyChangeListener` and updates the current context window from `HomeContextWindow` to the `PatientContextWindow`.
+Step 3: The `Context` mechanism first stores the current context (and the associated `DukeObject`) in a stack (so it can still be accessed later when the user wishes to execute the `back` command). Then, it updates the context to the `PATIENT` context and retrieves the corresponding `Patient` object as selected by the user.
+
+Step 4: The `UI` component of Dr. Duke listens to changes in the context of the application via an attached `PropertyChangeListener` and updates the current context window from `HomeContextWindow` to the `PatientContextWindow`.
 
 Step 5: The transition to the `PATIENT` context is fully completed.
 
+==== Comparison with Alternatives
+
+We could possibly adopt the same format used by most existing Electronic Health Record (EHR) system and put all information regarding a patient in a single display screen. This will, without a doubt, significantly simplify the internal workings of Dr. Duke. However, the application will become cluttered and unintuitive to the users.
+
 [[Feature-Object-Disambiguation]]
-=== Object Disambiguation [JOHN CUTHBERT KHOO TENG FONG] 
+=== Object Disambiguation [JOHN CUTHBERT KHOO TENG FONG]
 
 ==== Rationale
 
-In order to provide the smoothest experience and least delay to our users, we want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, or by one of its attributes, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. 
+In order to provide the smoothest experience and least delay to our users, we want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, or by one of its attributes, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form.
 
 ==== Implementation
 
@@ -394,7 +412,7 @@ While rapidly adding different types of patient data, it is inevitable that typi
 
 ==== Implementation
 
-If a user-supplied switch is _not_ an alias for any switch, this triggers the disambiguation functions in `CommandUtils`. We use a modified Levenshtein-Damerau distance which takes into account the taxicab distance between keys on a standard QWERTY keyboard in weighting the cost of substitutions. Pseudocode for the Levenshtein-Damerau distance computation can be found https://dl.acm.org/citation.cfm?doid=1963190.1963191[here] and ideas for implementation of keyboard distance analysis are taken from https://stackoverflow.com/questions/29233888/[here]. This provides a realistic measure of the likelihood that a particular mistake was made, as the likelihood of accidentally pressing an incorrect key is dramatically decreased if the incorrect key in question is a keyboard's length away from one's intended key, which is a fact that the basic Levenshtein-Damerau distance algorithm fails to capture. 
+If a user-supplied switch is _not_ an alias for any switch, this triggers the disambiguation functions in `CommandUtils`. We use a modified Levenshtein-Damerau distance which takes into account the taxicab distance between keys on a standard QWERTY keyboard in weighting the cost of substitutions. Pseudocode for the Levenshtein-Damerau distance computation can be found https://dl.acm.org/citation.cfm?doid=1963190.1963191[here] and ideas for implementation of keyboard distance analysis are taken from https://stackoverflow.com/questions/29233888/[here]. This provides a realistic measure of the likelihood that a particular mistake was made, as the likelihood of accidentally pressing an incorrect key is dramatically decreased if the incorrect key in question is a keyboard's length away from one's intended key, which is a fact that the basic Levenshtein-Damerau distance algorithm fails to capture.
 
 The distance of the ambiguous string to every alias whose length differs from the string's by at most 2 is calculated. Basic pruning is implemented, terminating the distance estimation computation if it exceeds the minimum distance found so far.
 
@@ -466,7 +484,7 @@ The discharge feature deletes a patient from `Dr.Duke` and creates a `.txt` repo
 
 ==== Implementation
 
-The discharge mechanism is facilitated by the `Command` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a "discharge"�command followed by a valid bed number. The "discharge" command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.
+The discharge mechanism is facilitated by the `Command` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a "discharge"�command followed by a valid bed number. The "discharge" command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.
 
 Given below is an example of what a discharge command with a discharge summary that follows the syntax could look like
 
@@ -687,7 +705,7 @@ users on how to use this software.
 software easily so that they can further develop and enhance the software.
 . The software should be easily testable.
 . A user with an above average typing speed for regular English text should be able to accomplish most of his/her
-  intended tasks faster using commands than using the mouse.
+intended tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
@@ -746,8 +764,8 @@ Dr. Duke manages patients, who have impressions (diagnoses), each of which have 
 .. Prerequisites: Currently at `HOME`, `PATIENT` or `IMPRESSION` context, and managing at least 1 patient.
 .. Test case: `find a` +
     Expected: Navigate successfully to the `SEARCH` context, have results which contain the substring 'a'. Note that you
-    will remain in the current context if no `DukeObjects` which contain the data exist. `CommandWindow` will feedback
-    if the search is successful or not.
+will remain in the current context if no `DukeObjects` which contain the data exist. `CommandWindow` will feedback
+if the search is successful or not.
 
 === Disambiguating Objects
 
@@ -755,8 +773,8 @@ Dr. Duke manages patients, who have impressions (diagnoses), each of which have 
 
 .. Prerequisites: Currently at `HOME` context, with two patients with similar names e.g. "John" and "Joe" in testing data.
 .. Test case: `discharge jo`
-    Expected: Navigate successfully to the `SEARCH` context, have the two similar patients there.
+Expected: Navigate successfully to the `SEARCH` context, have the two similar patients there.
 .. Test case: `1`
-    Expected: Patient labelled `[1]` will be selected and discharged. User will be returned to `HOME` context after successful discharge.
+Expected: Patient labelled `[1]` will be selected and discharged. User will be returned to `HOME` context after successful discharge.
 
 This functionality works for any command that takes _string_or_idx_ as an input (see User Guide). Refer to Quick Start section to see how to construct other test cases.
