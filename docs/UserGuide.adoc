@@ -259,6 +259,8 @@ Format: `edit *<switch>* [<new value>] [*<switch>* [<new value>]]* [*-app[end]*]
 
 Switches and corresponding new value format:
 
+* `*-n[ame]* <name>`
+* `*-b[ed]* <bed>`
 * `*-h[eight]* <height>`
 * `*-w[eight]* <weight>`
 * `*-ag[e]* <age>`
