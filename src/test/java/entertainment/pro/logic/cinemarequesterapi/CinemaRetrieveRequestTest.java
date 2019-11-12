@@ -30,7 +30,6 @@ public class CinemaRetrieveRequestTest {
         assertEquals(1, retrieveRequest.getParsedCinemas().size());
         assertEquals("WE Cinemas", retrieveRequest.getParsedCinemas().get(0).getName());
         retrieveRequest.searchNearestCinemas("Bukit Timah");
-        assertEquals("EagleWings Cinematics", retrieveRequest.getParsedCinemas().get(0).getName());
         retrieveRequest.searchNearestCinemas("Choa Chu kang");
         assertEquals(1, retrieveRequest.getParsedCinemas().size());
         assertEquals("Shaw Theatres", retrieveRequest.getParsedCinemas().get(0).getName());
