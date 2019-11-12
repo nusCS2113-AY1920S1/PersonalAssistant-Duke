@@ -1,4 +1,5 @@
 //@@author pdotdeep
+
 package entertainment.pro.logic.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,31 +17,29 @@ import java.util.Arrays;
 
 public class CommandSuperTest {
     @Test
-    public void subCommand_validInputs_success(){
+    public void subCommand_validInputs_success() throws Exception {
         SearchCommand sc = new SearchCommand(null);
 
-        try{
 
-            assertEquals(true , sc.subCommand(new String[]{"search" , "movies" , "testing"}));
-            assertEquals( CommandKeys.MOVIES, sc.getSubRootCommand());
-            assertEquals(true, sc.subCommand(new String[]{"search" , "tvshows" , "testing"}));
-            assertEquals(  CommandKeys.TVSHOWS, sc.getSubRootCommand());
-            assertEquals(true, sc.subCommand(new String[]{"search" , "mioivies" , "testing"}));
-            assertEquals(  CommandKeys.MOVIES, sc.getSubRootCommand());
-            assertEquals(true, sc.subCommand(new String[]{"search" , "telvshows" , "testing"}));
-            assertEquals(  CommandKeys.TVSHOWS, sc.getSubRootCommand());
-            assertEquals(false , sc.subCommand(new String[]{"search"}));
-            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
 
-        }catch (Exception e){
+        assertEquals(true, sc.subCommand(new String[]{"search", "movies", "testing"}));
+        assertEquals(CommandKeys.MOVIES, sc.getSubRootCommand());
+        assertEquals(true, sc.subCommand(new String[]{"search", "tvshows", "testing"}));
+        assertEquals(CommandKeys.TVSHOWS, sc.getSubRootCommand());
+        assertEquals(true, sc.subCommand(new String[]{"search", "mioivies", "testing"}));
+        assertEquals(CommandKeys.MOVIES, sc.getSubRootCommand());
+        assertEquals(true, sc.subCommand(new String[]{"search", "telvshows", "testing"}));
+        assertEquals(CommandKeys.TVSHOWS, sc.getSubRootCommand());
+        assertEquals(false, sc.subCommand(new String[]{"search"}));
+        assertEquals(CommandKeys.NONE, sc.getSubRootCommand());
 
-        }
+
 
     }
 
 
     @Test
-    public void subCommand_invalidInputs_throws_MissingInfoException(){
+    public void subCommand_invalidInputs_throws_MissingInfoException() {
         SearchCommand sc = new SearchCommand(new MovieHandler());
 
         assertThrows(MissingInfoException.class, () -> {
@@ -54,21 +53,21 @@ public class CommandSuperTest {
 
 
     @Test
-    public void subCommand_invalidInputs_failure(){
+    public void subCommand_invalidInputs_failure() {
         SearchCommand sc = new SearchCommand(new MovieHandler());
 
-        try{
+        try {
+            assertEquals(false, sc.subCommand(new String[]{}));
+            assertEquals(CommandKeys.NONE, sc.getSubRootCommand());
+            assertEquals(false, sc.subCommand(new String[]{"Jupiter is a planet"}));
+            assertEquals(CommandKeys.NONE, sc.getSubRootCommand());
+            assertEquals(false, sc.subCommand(new String[]{"search"}));
+            assertEquals(CommandKeys.NONE, sc.getSubRootCommand());
 
-            assertEquals(false , sc.subCommand(new String[]{}));
-            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
-            assertEquals(false , sc.subCommand(new String[]{"Jupiter is a planet"}));
-            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
-            assertEquals(false , sc.subCommand(new String[]{"search"}));
-            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
-
-        }catch (MissingInfoException e){
-
+        } catch (MissingInfoException e) {
+            System.out.print(e.toString());
         }
+
 
     }
 
@@ -80,31 +79,34 @@ public class CommandSuperTest {
 
         String command = "search movies joker -A albert -a alex , ashley , alan -b benny -c";
         sc.processFlags(command);
-        assertEquals(true , sc.getFlagMap().containsKey("-A"));
-        assertEquals(true , sc.getFlagMap().containsKey("-a"));
-        assertEquals(true , sc.getFlagMap().containsKey("-b"));
-        ArrayList<String> AFlag = sc.getFlagMap().get("-A");
-        AFlag.sort(null);
-        ArrayList<String> aFlag = sc.getFlagMap().get("-a");
-        aFlag.sort(null);
-        ArrayList<String> bFlag = sc.getFlagMap().get("-b");
-        bFlag.sort(null);
-        ArrayList<String> cFlag = sc.getFlagMap().get("-c");
-        ArrayList<String> dFlag = sc.getFlagMap().get("-d");
-        assertEquals(true , AFlag.equals(new ArrayList<String>(
+        assertEquals(true, sc.getFlagMap().containsKey("-A"));
+        assertEquals(true, sc.getFlagMap().containsKey("-a"));
+        assertEquals(true, sc.getFlagMap().containsKey("-b"));
+
+        ArrayList<String> aflag = sc.getFlagMap().get("-A");
+        aflag.sort(null);
+        ArrayList<String> aflag2 = sc.getFlagMap().get("-a");
+        aflag2.sort(null);
+        ArrayList<String> bflag = sc.getFlagMap().get("-b");
+        bflag.sort(null);
+        assertEquals(true, aflag.equals(new ArrayList<String>(
             Arrays.asList("albert"))));
-        assertEquals(true , aFlag.equals(new ArrayList<String>(
-                Arrays.asList("alan" , "alex" , "ashley"))));
-        assertEquals(true , bFlag.equals(new ArrayList<String>(
+        assertEquals(true, aflag2.equals(new ArrayList<String>(
+                Arrays.asList("alan", "alex", "ashley"))));
+        assertEquals(true, bflag.equals(new ArrayList<String>(
                 Arrays.asList("benny"))));
-        assertEquals(0 , cFlag.size());
-        assertEquals(null , dFlag);
+
+        ArrayList<String> cflag = sc.getFlagMap().get("-c");
+        assertEquals(0, cflag.size());
+
+        ArrayList<String> dflag = sc.getFlagMap().get("-d");
+        assertEquals(null, dflag);
 
 
         SearchCommand sc2 = new SearchCommand(null);
         String command2 = "search movies joker";
         sc2.processFlags(command2);
-        assertEquals(0 , sc2.getFlagMap().keySet().size());
+        assertEquals(0, sc2.getFlagMap().keySet().size());
 
 
     }
@@ -113,17 +115,15 @@ public class CommandSuperTest {
     @Test
     public void processFlags_validInputs_failure() throws InvalidFormatCommandException {
 
-
-
         SearchCommand sc2 = new SearchCommand(null);
         String command2 = "search movies joker";
         sc2.processFlags(command2);
-        assertEquals(0 , sc2.getFlagMap().keySet().size());
+        assertEquals(0, sc2.getFlagMap().keySet().size());
 
 
         String command3 = "";
         sc2.processFlags(command3);
-        assertEquals(0 , sc2.getFlagMap().keySet().size());
+        assertEquals(0, sc2.getFlagMap().keySet().size());
 
 
     }
@@ -136,24 +136,24 @@ public class CommandSuperTest {
 
         String command = "search movies joker -A albert -a alex , ashley , alan -b benny -c";
         sc.processPayload(command.split(" "));
-        assertEquals("joker" , sc.getPayload());
+        assertEquals("joker", sc.getPayload());
 
         String command2 = "search movies batman and robbin";
         sc.processPayload(command2.split(" "));
-        assertEquals("batman and robbin" , sc.getPayload());
+        assertEquals("batman and robbin", sc.getPayload());
 
 
         String command3 = "search movies Atlantis";
         sc.processPayload(command3.split(" "));
-        assertEquals("Atlantis" , sc.getPayload());
+        assertEquals("Atlantis", sc.getPayload());
 
         String command4 = "search movies";
         sc.processPayload(command4.split(" "));
-        assertEquals("" , sc.getPayload());
+        assertEquals("", sc.getPayload());
 
         String command5 = "search movies ";
         sc.processPayload(command5.split(" "));
-        assertEquals("" , sc.getPayload());
+        assertEquals("", sc.getPayload());
 
     }
 
@@ -166,19 +166,19 @@ public class CommandSuperTest {
 
         String command4 = "search movies";
         sc.processPayload(command4.split(" "));
-        assertEquals("" , sc.getPayload());
+        assertEquals("", sc.getPayload());
 
         String command5 = "search movies ";
         sc.processPayload(command5.split(" "));
-        assertEquals("" , sc.getPayload());
+        assertEquals("", sc.getPayload());
 
         String command6 = "";
         sc.processPayload(command6.split(" "));
-        assertEquals("" , sc.getPayload());
+        assertEquals("", sc.getPayload());
 
         String command7 = "blreacjlist adu joker";
         sc.processPayload(command7.split(" "));
-        assertEquals("joker" , sc.getPayload());
+        assertEquals("joker", sc.getPayload());
 
 
     }

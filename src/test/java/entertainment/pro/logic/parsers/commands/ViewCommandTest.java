@@ -20,9 +20,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ViewCommandTest extends MovieHandler{
+
+public class ViewCommandTest extends MovieHandler {
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
     ArrayList<String> playlist = new ArrayList<>();
@@ -50,11 +52,11 @@ public class ViewCommandTest extends MovieHandler{
             movieHandler.showMovie(1);
         });
         String filename = "/data/movieData/1.json";
-        String dataFromJSON = RetrieveRequestTest.getString(filename);
+        String datafromjson = RetrieveRequestTest.getString(filename);
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = new JSONArray();
         try {
-            jsonArray = (JSONArray) jsonParser.parse(dataFromJSON);
+            jsonArray = (JSONArray) jsonParser.parse(datafromjson);
         } catch (ParseException e) {
             e.printStackTrace();
         }

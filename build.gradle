@@ -13,8 +13,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "Entertainment-Pro"
-    archiveVersion = "1.4.0"
+    archiveBaseName = "[CS2113T-T09-4][Entertainment-Pro]"
+    archiveVersion = ""
     archiveClassifier = null
     archiveAppendix = null
 }

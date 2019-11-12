@@ -14,12 +14,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ProfileCommandsTest {
 
     static ProfileCommands profileCommands;
     static UserProfile userProfile;
+
     {
         try {
             userProfile = new EditProfileJson().load();
@@ -43,7 +47,8 @@ public class ProfileCommandsTest {
         flagMap.put("-g", genreOption);
         try {
             profileCommands.addPreference(flagMap, "-g");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         ArrayList<Integer> getUserProfileGenre = userProfile.getGenreIdPreference();
@@ -56,7 +61,8 @@ public class ProfileCommandsTest {
         newFlagMap.put("-g", newGenreOption);
         try {
             profileCommands.addPreference(newFlagMap, "-g");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         ArrayList<Integer> getNewUserProfileGenre = userProfile.getGenreIdPreference();
@@ -90,7 +96,8 @@ public class ProfileCommandsTest {
         flagMap.put("-r", genreOption);
         try {
             profileCommands.addPreference(flagMap, "-r");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         TreeMap<String, ArrayList<String>> newFlagMap = new TreeMap<>();
@@ -114,7 +121,8 @@ public class ProfileCommandsTest {
         flagMap.put("-r", genreOption);
         try {
             profileCommands.addPreference(flagMap, "-r");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         ArrayList<Integer> getUserProfileGenre = userProfile.getGenreIdRestriction();
@@ -127,7 +135,8 @@ public class ProfileCommandsTest {
         newFlagMap.put("-r", newGenreOption);
         try {
             profileCommands.addPreference(newFlagMap, "-r");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         ArrayList<Integer> getNewUserProfileGenre = userProfile.getGenreIdRestriction();
@@ -161,7 +170,8 @@ public class ProfileCommandsTest {
         flagMap.put("-g", genreOption);
         try {
             profileCommands.addPreference(flagMap, "-g");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         TreeMap<String, ArrayList<String>> newFlagMap = new TreeMap<>();
@@ -186,7 +196,8 @@ public class ProfileCommandsTest {
             assertTrue(newUserProfile.isSortByAlphabetical(), "Test failed");
             assertFalse(newUserProfile.isSortByHighestRating(), "Test failed");
             assertFalse(newUserProfile.isSortByLatestRelease(), "Test failed");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         profileCommands.clearSortPreference();
@@ -195,7 +206,6 @@ public class ProfileCommandsTest {
     @Test
     public void addPreferenceTest_invalid_sort_input() throws IOException, InvalidFormatCommandException {
         TreeMap<String, ArrayList<String>> testFlagMap1 = new TreeMap<>();
-        TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         ArrayList<String> sortOption = new ArrayList<>();
         sortOption.add("4");
         testFlagMap1.put("-s", sortOption);
@@ -208,6 +218,7 @@ public class ProfileCommandsTest {
         });
         sortOption.clear();
         sortOption.add("0");
+        TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         testFlagMap2.put("-s", sortOption);
         assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap2, "-s");
@@ -215,7 +226,8 @@ public class ProfileCommandsTest {
     }
 
     @Test
-    public void addPreferenceTest_valid_adult_input() throws InvalidFormatCommandException, IOException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    public void addPreferenceTest_valid_adult_input() throws InvalidFormatCommandException, IOException,
+            InvalidGenreNameEnteredException, DuplicateGenreException {
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
         ArrayList<String> adultOption = new ArrayList<>();
         adultOption.add("true");
@@ -232,7 +244,6 @@ public class ProfileCommandsTest {
     @Test
     public void addPreferenceTest_invalid_adult_input() throws IOException, InvalidFormatCommandException {
         TreeMap<String, ArrayList<String>> testFlagMap1 = new TreeMap<>();
-        TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         ArrayList<String> adultOption = new ArrayList<>();
         adultOption.add("yes");
         testFlagMap1.put("-a", adultOption);
@@ -245,6 +256,7 @@ public class ProfileCommandsTest {
         });
         adultOption.clear();
         adultOption.add("allow");
+        TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         testFlagMap2.put("-a", adultOption);
         assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap2, "-a");
@@ -286,17 +298,20 @@ public class ProfileCommandsTest {
         profileCommands.clearGenrePreference();
         profileCommands.clearGenreRestrict();
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
-        TreeMap<String, ArrayList<String>> clearFlagMap = new TreeMap<>();
         ArrayList<String> genreOption = new ArrayList<>();
-        ArrayList<String> newGenreOption = new ArrayList<>();
         genreOption.add("action");
         genreOption.add("adventure");
         flagMap.put("-g", genreOption);
+
+
+        ArrayList<String> newGenreOption = new ArrayList<>();
+        TreeMap<String, ArrayList<String>> clearFlagMap = new TreeMap<>();
         clearFlagMap.put("-g", newGenreOption);
         try {
             profileCommands.addPreference(flagMap, "-g");
             profileCommands.clearPreference(clearFlagMap, "-g");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         assertEquals(0, userProfile.getGenreIdPreference().size());
@@ -307,17 +322,19 @@ public class ProfileCommandsTest {
         profileCommands.clearGenrePreference();
         profileCommands.clearGenreRestrict();
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
-        TreeMap<String, ArrayList<String>> clearFlagMap = new TreeMap<>();
         ArrayList<String> genreOption = new ArrayList<>();
-        ArrayList<String> newGenreOption = new ArrayList<>();
         genreOption.add("action");
         genreOption.add("adventure");
         flagMap.put("-r", genreOption);
+
+        TreeMap<String, ArrayList<String>> clearFlagMap = new TreeMap<>();
+        ArrayList<String> newGenreOption = new ArrayList<>();
         clearFlagMap.put("-r", newGenreOption);
         try {
             profileCommands.addPreference(flagMap, "-r");
             profileCommands.clearPreference(clearFlagMap, "-r");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
         assertEquals(0, userProfile.getGenreIdPreference().size());
@@ -326,7 +343,6 @@ public class ProfileCommandsTest {
     @Test
     public void clearPreferenceTest_invalid_sort_input() throws IOException, InvalidFormatCommandException {
         TreeMap<String, ArrayList<String>> testFlagMap1 = new TreeMap<>();
-        TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         ArrayList<String> sortOption = new ArrayList<>();
         sortOption.add("4");
         testFlagMap1.put("-s", sortOption);
@@ -339,6 +355,8 @@ public class ProfileCommandsTest {
         });
         sortOption.clear();
         sortOption.add("0");
+
+        TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         testFlagMap2.put("-s", sortOption);
         assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.clearPreference(testFlagMap2, "-s");
@@ -361,7 +379,8 @@ public class ProfileCommandsTest {
         try {
             profileCommands.addPreference(flagMap, "-g");
             profileCommands.removePreference(removeFlagMap, "-g");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException | GenreDoesNotExistException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException | GenreDoesNotExistException e) {
             e.printStackTrace();
         }
         ArrayList<Integer> getUserProfileGenre = userProfile.getGenreIdPreference();
@@ -385,7 +404,8 @@ public class ProfileCommandsTest {
         try {
             profileCommands.addPreference(flagMap, "-r");
             profileCommands.removePreference(removeFlagMap, "-r");
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException | GenreDoesNotExistException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException | GenreDoesNotExistException e) {
             e.printStackTrace();
         }
         ArrayList<Integer> getUserProfileGenre = userProfile.getGenreIdRestriction();
@@ -411,13 +431,15 @@ public class ProfileCommandsTest {
             assertThrows(InvalidGenreNameEnteredException.class, () -> {
                 profileCommands.removePreference(removeFlagMap, "-g");
             });
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void removePreferenceTest_genre_pref_returns_does_not_exists() throws InvalidFormatCommandException, IOException {
+    public void removePreferenceTest_genre_pref_returns_does_not_exists()
+            throws InvalidFormatCommandException, IOException {
         profileCommands.clearGenrePreference();
         profileCommands.clearGenreRestrict();
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
@@ -434,13 +456,15 @@ public class ProfileCommandsTest {
             assertThrows(GenreDoesNotExistException.class, () -> {
                 profileCommands.removePreference(removeFlagMap, "-g");
             });
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void removePreferenceTest_genre_restrict_returns_does_not_exists() throws InvalidFormatCommandException, IOException {
+    public void removePreferenceTest_genre_restrict_returns_does_not_exists()
+            throws InvalidFormatCommandException, IOException {
         profileCommands.clearGenrePreference();
         profileCommands.clearGenreRestrict();
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
@@ -457,7 +481,8 @@ public class ProfileCommandsTest {
             assertThrows(GenreDoesNotExistException.class, () -> {
                 profileCommands.removePreference(removeFlagMap, "-r");
             });
-        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
+        } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException
+                | DuplicateGenreException e) {
             e.printStackTrace();
         }
     }
