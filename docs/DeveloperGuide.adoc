@@ -19,6 +19,14 @@ In order to be a successful *Dr. Duke* developer, you need a general understandi
 * *Dr. Duke*'s architecture and object model
 * The Java framework which *Dr. Duke* builds on
 
+=== Notation
+
+* `Mark-up` is used to indicate a code literal. This can be a `method()`, a `Class`, an `ENUM_VALUE`, or `literal input`. It is generally used when discussing concrete implementation details, as opposed to abstract ideas, e.g. "patient" refers to an actual human patient, while `Patient` refers to the Patient class, or an object thereof, in *Dr. Duke*.
+** A method may be specified with its arguments: `method(String strArg, int intArg)` in order to let the reader know what arguments it takes, or to differentiate between two methods with the same name but different arguments. However, unless explicitly stated, a `method()` specified without its arguments *does not* imply that the method takes no arguments. A method may be referred to without arguments after being introduced with its arguments for brevity.
+* _Italics_ are used when introducing a new term or concept.
+
+NOTE: This box draws attention to quirk or caveat that may not be obvious.
+
 == Setting up
 === Prerequisites
 
@@ -60,13 +68,13 @@ image::john1.png[]
 
 This class diagram describes the relationships between the various core classes involved in parsing the user's input into `Command` s. The two highest-level components are the `Parser` and the `Executor`, both members of the `CommandWindow`. They begin parsing when the user enters some input through the `CommandWindow`.
 
-The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` abstract class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the associated `CommandSpec` singleton, via the `execute` method. 
+The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the `CommandSpec` singleton it is constructed with, via the `execute` method. 
 
-The mapping from the command name to the `CommandSpec` should be created in the `Commands` class, which is loaded by the default `Parser` constructor. A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands. The `Parser` will supply the command name and the `context` field in the `DukeCore` instance to the `getCommand()` method in `Commands`. 
+The mapping from the command name to the `CommandSpec` should be created in the `Commands` class, which is loaded by the default `Parser` constructor. A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands.  
 
-The `Commands` class has a single function `getCommand()`, which takes, as arguments, a String that should uniquely identify the requested `CommandSpec` within a particular `Context`, and a `Context` enum representing the context from which `getCommand()` was called. It then returns a new instance of the `Command`, constructing it with the required `CommandSpec`.
+The `Commands` class has a single function `getCommand()`, which takes, as arguments, a String that should uniquely identify the requested `CommandSpec` within a particular `Context`, and a `Context` enum representing the context from which `getCommand()` was called. It then returns a new instance of the `Command`, constructing it with the required `CommandSpec`. The `Parser` will supply the command name and the `context` field in the `DukeCore` instance to the `getCommand()` method in its `Commands` instance.
 
-If the command requires an argument, the `ArgParser` class will parse the rest of the input to determine the argument of the command and/or the switches supplied to it, and set these parameters in the `Command`. Finally, the `Executor` class will call the `execute()` method of the command, suppling the `DukeCore` object, which provides access to the rest of the components, to the `Command`.
+If the command requires an argument, the `ArgParser` object in the `Parser` will parse the rest of the input to determine the argument of the command, the switches supplied to it, and the arguments of the switches, and will set these parameters in the `Command`. Finally, after the `Command` has been constructed (and loaded with parameters if necessary), it is returned to the `CommandWindow`. The `Executor` class will then call the `execute()` method of the command, supplying the `DukeCore` object to the `Command`, which will allow it to execute its operations.
 
 This transaction is modelled by the following sequence diagram:
 
@@ -111,28 +119,25 @@ Note that the "Parser Logic" abstraction represents the system of `Parser`, `Arg
 
 This model of having `Command` objects configured by configuration objects is somewhat unconventional, but it provides the benefit of enforcing the static initialisation of the switches, and facilitates testing - `Command`, `ArgCommand` and `ObjCommand` are equipped with public constructors that can take in switch values and arguments, hence allowing us to set them up for testing without making the switch setters public, and without copying these constructors across every subclass (as constructors are not inherited).
 
-In summary, to define a new command:
+In summary, to define a new command: [[New-Command-Steps]]
 
 . Define a subclass of `CommandSpec`
 . Specify its execution in `execute` of `CommandSpec`
 . Define the private static field `spec` and the public static method `getSpec()` to provide singleton behaviour
 . Update `Commands` to link the command name to the new `CommandSpec`
 
-If this command requires arguments, in addition to doing the above for a subclass of `ArgSpec`:
+If this command requires arguments, in addition to doing the above for a subclass of `ArgSpec` (instead of `CommandSpec`):
 
-. Define a subclass of `ArgSpec` 
-. Create a private constructor for the subclass
+. Create a private constructor for the subclass, and within the constructor:
 .. Define `cmdArgLevel` 
 .. Construct the switches for the command and supply them as arguments to `switchInit()`
 ... If there are no switches, call `switchInit()` with no arguments
-
-Switch values are accessed from the `ArgCommand` with the `getSwitchVal()` method, which takes the name of a switch, as a String, as an argument, and returns the String representing the argument supplied for the switch.
 
 NOTE: If there is no argument given for a switch, `getSwitchVal(<switch name>)` returns `null`. However, if a switch is not given, `getSwitchVal(<switch name>)` also returns `null`. The former case can be distinguished by the fact that `switchVals` will contain `<switch name>` as a key.
 
 ==== Parsing
 
-The `Parser` object scans through a user-supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses several nested finite state machines (FSMs) which switch on the characters in the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
+The `Parser` object scans through a user-supplied input string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses a finite state machine (FSM) which switches on the characters in the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
 
 The finite state machine for input parsing has the following states:
 
@@ -163,7 +168,7 @@ The state transitions are as follows:
 
 Preceding any transition character with a backslash `\` will escape it, allowing it to be treated as an ordinary character.
 
-While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written as an argument to the `Command` being constructed by `writeElement()`. These functions also check if adding a switch or argument would be valid. This can be an argument for the `Command` itself, or a switch argument. `elementBuilder` is then cleared, and the parser continues. 
+While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written as an argument to the `Command` being constructed by `writeElement()`. These functions also check if adding a switch or argument would be valid. This can be an argument for the `Command` itself, or a switch argument. `elementBuilder` is then cleared, and the parser continues parsing input characters.
 
 These transitions are summarised in the following finite state diagram:
 
@@ -251,7 +256,6 @@ attributes that may be null, consider returning an empty object instead. E.g. fo
 We considered how we should store our collections of objects and how we should update our UI when designing our model.
 
 image::DataModelComparison.PNG[]
-
 
 [[Design-Storage]]
 === Storage System [JACOB TORESSON]
@@ -343,25 +347,35 @@ Step 5: The transition to the `PATIENT` context is fully completed.
 
 ==== Rationale
 
-In order to provide the smoothest experience and least delay to our users, we would want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. 
+In order to provide the smoothest experience and least delay to our users, we want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, or by one of its attributes, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. 
 
 ==== Implementation
 
-This system extends and generalises the <<Feature-Search, search feature>>: instead of only being able to open objects from the search context, we are able to perform any other command on objects identified from a search. This is done by storing the original command before opening the search context, and executing the command again, with the identified object supplied to it, after exiting the search context. Commands that are capable of such operation are `ObjCommand` s, and their behaviour is controlled by `ObjSpec` s. Although the discussion of the rationale focused on `ObjCommand` s that search by name, this system facilitates searching for objects by any measure, and allowing the user to access the results of that search.
+This system extends and generalises the <<Feature-Search, search feature>>: instead of only being able to open objects from the search context, we are able to perform any other command on objects identified from a search. This is done by storing the original command before opening the search context. After the user selects a particular object, the system executes the original command again, with the identified object supplied to it. Commands that are capable of such operations are `ObjCommand` s, and their behaviour is controlled by `ObjSpec` s. This system allows the user to search for objects based on any attribute, to select a result from that search, and perform an arbitrary command on it.
 
-A brief recap of *Dr. Duke's* other systems is necessary here. All of *Dr. Duke's* components can be accessed from the `DukeCore` object. The `DukeCore` object is supplied to a command whenever it is executed, as commands may require all these systems to function. In the `DukeCore`, the `PatientMap` holds all patients being managed. `Patient` s, their `Impression` s, and the `Treatment` s and `Evidence` s of the `Impression` s are all `DukeObject` s. Each `DukeObject` can be viewed, and has an associated context which displays its information. "Viewing" `null` would open the Home context, and would display all `Patient` s in the `PatientMap`. Searching in *Dr. Duke* is done by constructing a `SearchResults` object, using a search method of the current `DukeObject` being viewed. This will only find matching results that are the children of the `DukeObject`, and that `DukeObject` will be the the parent of the `SearchResults` returned. These search methods populate the `SearchResults` object through various strategies, such as matching all immediate children whose names contain the search term, matching all immediate children whose fields contain the search term, and matching any children whose fields contain the search term. We refer to these generically as `findByName()`, `find()`, and `searchAll()`, even though the actual implementations in the classes may have different names.
+A brief recap of *Dr. Duke's* other systems is necessary here. All of *Dr. Duke's* components can be accessed from the `DukeCore` object. The `DukeCore` object is supplied to a command whenever it is executed, as commands may require all these systems to function. In the `DukeCore`, the `PatientMap` holds all patients being managed. `Patient` s, their `Impression` s, and the `Treatment` s and `Evidence` s of the `Impression` s are all `DukeObject` s. Each `DukeObject` can be viewed, and has an associated context which displays its information. "Viewing" `null` would open the `HOME` context, and would display all `Patient` s in the `PatientMap`. Searching in *Dr. Duke* is done by constructing a `SearchResults` object, using a search method of the current `DukeObject` being viewed. This will only find matching results that are the children of the `DukeObject`, and that `DukeObject` will be the the parent of the `SearchResults` returned. These search methods populate the `SearchResults` object through various strategies, such as matching all immediate children whose names contain the search term (`findByName()`), matching all immediate children whose fields contain the search term(`find()`), and matching any children whose fields contain the search term(`searchAll()`). Refer to the individual objects' Javadocs to see what capabilities they offer.
 
-`ObjSpec` extends `ArgSpec` to provide the method `execute(DukeCore core, ObjCommand cmd, DukeObject obj)`, while `ObjCommand` extends `ArgCommand` to provide the method `execute(DukeCore core, DukeObject obj)`, which calls the `ObjSpec` `execute` method, with itself as the `cmd` parameter. Finally, `ObjSpec` has an abstract `executeWithObj(DukeCore core, DukeObject obj)` method, which specifies the operation of the command once the object in question has been found.
+NOTE: `findByName()`, `find()` and `searchAll()` refer generically to these strategies, rather than to specifc methods implementing them (which may have different names).
 
-When an `ObjCommand` is executed via the regular `execute(DukeCore core)` method, it first attempts to see if the object can be disambiguated without requesting for explicit intervention by the user, via the `execute(DukeCore core)` method inherited by `ObjSpec`. Although there are no constraints on how this is to be done, the typical `ObjCommand` allows user input in either index or string form. If the user did not input an index, the `ObjCommand` will typically perform a `findByName()` search, which, as discussed in the Rationale section, is likely the intention of the user. It is also presumable that the user intends to select an object based on what is visible to him.
+`SearchResults` are constructed with a name, which is the search term used to populate it, a `List` of `DukeObject` s, which are the results of the search, and a parent `DukeObject`, which indicates the scope of the search. `SearchResults` can be combined using the `addAll()` method.
 
-If there is only one result in the returned `SearchResults` object (or if a valid index was supplied), then the command can be performed on that object without ambiguity, with a direct call wot `executeWithObj`. If none are found, the command fails with an exception. However, if more than one result is found, then disambiguation is required. The `ObjCommand` then calls `core.search(SearchResults results, ObjCommand objCmd)`, which opens the `SearchResults` in a search context, and stores the `ObjCommand`, with its `ObjSpec` and the switches in the `ObjSpec` set, as `queuedCmd`.
+`ObjSpec` extends `ArgSpec` to provide the method `execute(DukeCore core, ObjCommand cmd, DukeObject obj)`, while `ObjCommand` extends `ArgCommand` to provide the method `execute(DukeCore core, DukeObject obj)`, which calls the `ObjSpec` `execute` method, with itself as the `cmd` parameter. Finally, `ObjSpec` has an abstract `executeWithObj(DukeCore core, DukeObject obj)` method, which specifies the operation of the command once the object in question has been identified.
 
-When viewing a `SearchResults` object, the user can only issue one command, by selecting the index of the item he wishes to execute. This command, specified by `SearchSpec`, calls `core.executeQueuedCmd(DukeObject obj)` on the object identified. This method would then call the `execute(DukeCore core, DukeObject obj)` of the stored `queuedCmd`, providing the identified `DukeObject` as an argument. The `ObjCommand` thus gains access to the object selected by the user, clearing up the ambiguity and allowing the user's desired operation to be executed.
+When an `ObjCommand` is executed via the regular `execute(DukeCore core)` method, it first attempts to see if the object can be disambiguated without requesting for explicit intervention by the user, via the `execute(DukeCore core)` method inherited by `ObjSpec`. Although there are no constraints on how this is to be done, the typical `ObjCommand` allows user input in either index or string form. If the user did not input an index, the `ObjCommand` will typically perform a `findByName()` search, as the user likely intends to select an object based on what is visible to him (which is primarily the name of the object). The typical behaviour detailed here is implemented in `HomeObjSpec`, `PatientObjSpec`, and `ImpressionObjSpec`, which provide these behaviours in the specific contexts, using the functions in `HomeUtils`, `PatientUtils` and `ImpressionUtils` respectively. These classes contain helper functions that can assist in the extraction of argument and switch values from typical commands in their respective contexts.
+
+If there is only one result in the returned `SearchResults` object (or if a valid index was supplied), then the command can be performed on that object without ambiguity, with a direct call wot `executeWithObj`. If none are found, the command fails with an exception. However, if more than one result is found, then disambiguation is required. The `ObjCommand` then calls `search(SearchResults results, ObjCommand objCmd)` from the `DukeCore`, which opens the `SearchResults` in a search context, and stores the `ObjCommand`, with its `ObjSpec` and the switches in the `ObjSpec` set, as `queuedCmd`.
+
+When viewing a `SearchResults` object, the user can only issue one command, by selecting the index of the item he wishes to execute. This command, specified by `SearchSpec`, calls `executeQueuedCmd(DukeObject obj)` from the `DukeCore` on the object identified. This method would then call the `execute(DukeCore core, DukeObject obj)` of the stored `queuedCmd`, providing the identified `DukeObject` as an argument. The `ObjCommand` thus gains access to the object selected by the user, clearing up the ambiguity and allowing the user's desired operation to be executed.
 
 This entire sequence of operations is summarised in this diagram (note that the UI and Parser have been abstracted into the `DukeCore` object):
 
 image::plantuml/objcommand.svg[]
+
+To summarise, in order to use `ObjCommand` s:
+. Perform the <<New-Command-Steps, steps>> for `ArgSpec` s. but using an `ObjSpec` instead
+. In `execute(DukeCore core)`, if the user's input is ambiguous as to which object it refers to,construct a `SearchResults` object containing the possible candidates, and call `search(SearchResults results, ObjCommand objCmd)`
+.. The `processResults()` method in `ObjSpec` will throw an exception if the `SearchResults` object contains no objects, will call `executeWithObj()` if there is only one object (using that object), and will call `search()` if there is more than one object.
+. Implement the abstract method `executeWithObj(DukeCore core, DukeObject obj)`. All operations that actually affect the system should be in `executeWithObj()`.
 
 ==== Comparison with Alternatives
 
@@ -452,11 +466,11 @@ The discharge feature deletes a patient from `Dr.Duke` and creates a `.txt` repo
 
 ==== Implementation
 
-The discharge mechanism is facilitated by the `ReportCommand` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a “discharge” command followed by a valid bed number. The “discharge” command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.
+The discharge mechanism is facilitated by the `Command` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a "discharge"�command followed by a valid bed number. The "discharge" command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.
 
 Given below is an example of what a discharge command with a discharge summary that follows the syntax could look like
 
-* `discharge A12 -sum Patient left the hospital, 2019-03-03 08:00`
+* `discharge -b A12 -sum "Patient left the hospital, 2019-03-03 08:00"`
 
 The `execute` method in `ReportCommand` creates one report file for each discharged patient and places it in the “report” folder within the “data” folder. Every discharged patient file is named with the patient's name and bed number separated by a `-`. For example, if a patient named “Alexander Smith” with the bed number "A300" was discharged the file name would be `AlexanderSmith-A300`.
 
