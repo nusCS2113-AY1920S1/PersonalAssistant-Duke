@@ -55,7 +55,7 @@ public class SearchTest {
             assertEquals(patientData.findPatients(pattern2).getSearchList().size(), 1);
             assertEquals(patientData.searchAll(pattern1).getSearchList().size(), 2);
         } catch (DukeException e) {
-            fail("Could not excute find");
+            fail("Could not execute find");
         }
     }
 
@@ -68,7 +68,7 @@ public class SearchTest {
         assertEquals(patient.searchAll(pattern4).getSearchList().size(), 1);
         assertEquals(patient.findCriticalsByName("inv").getSearchList().size(), 1);
         assertEquals(patient.findCriticalsByName("med blah").getSearchList().size(), 0);
-        assertEquals(patient.findFollowUpsByName("med blah").getSearchList().size(), 1);
+        assertEquals(patient.findFollowUpsByName("inv").getSearchList().size(), 1);
     }
 
     @Test
