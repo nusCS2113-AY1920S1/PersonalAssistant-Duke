@@ -91,7 +91,7 @@ public class ImpressionTest {
             fail("Could not add items for critCount testing!");
         }
         assertEquals("2 critical issues", impression.getCriticalCountStr());
-        assertEquals("3 follow-ups", impression.getFollowUpCountStr());
+        assertEquals("2 follow-ups", impression.getFollowUpCountStr());
     }
 
     /**
