@@ -270,7 +270,7 @@ public class ProfileCommandsTest {
         flagMap.put("-s", sortOption);
         try {
             profileCommands.clearPreference(flagMap, "-s");
-        } catch (IOException e) {
+        } catch (IOException | InvalidFormatCommandException e) {
             e.printStackTrace();
         }
         UserProfile newUserProfile = new EditProfileJson().load();

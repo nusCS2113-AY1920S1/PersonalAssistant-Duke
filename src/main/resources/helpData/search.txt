@@ -1,9 +1,15 @@
 Search functionality:
-    #movies     :search for movies
-    #tvshows    :search fot tvshows
-    #cast       :search for cast
+    search movies /current: search for current movies
+    search movies /upcoming: search for upcoming movies
+    search movies /trend: search for trending movies
+    search movies /popular: search for popular movies
+    search movies /rated: search for top-rated movies
+    search movies <type> where <type> is a movie name that you want to search
+    (e.g: search movies joker)
 
-    usage: search movies MOVIE_NAME [-Current] [-Popular] [-Upcoming]
-                                    [-Trending] [-genre <genre1 , genre2 , genre3>]
-           search tvshows TVSHOW_NAME [-Current] [-Popular] [-Upcoming]
-                                      [-Trending] [-genre <genre1 , genre2 , genre3>]
+    search tvshows /current: search for current TV shows
+    search tvshows /trend: search for trending TV shows
+    search tvshows /popular: search for popular TV shows
+    search tvshows /rated: search for top-rated TV shows
+    search tvshows <type> where <type> is a TV show name that you want to search
+    (e.g: search tvshows joker)
