@@ -19,6 +19,10 @@ public class PromptMessages {
     public static final String GENRE_DOES_NOT_EXIST = "I'm sorry but the genre entered by you does not exists "
             + "under your preferences";
 
+
+    public static final String CATEGORY_EMPTY = "The category that you selected is already "
+            + "empty or you have entered a invalid command/parameter";
+
     //ui related messages
     public static final String SETTING_LABELS_UI = "Setting/editing labels in UI";
 

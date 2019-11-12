@@ -4,6 +4,7 @@ import entertainment.pro.commons.exceptions.DuplicateGenreException;
 import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.model.UserProfile;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -221,20 +222,30 @@ public class ProfileCommands {
      * @param flagMap The elements to be added under a particular category in the userProfile.
      * @param getInput String that signifies a particular category in the userProfile.
      */
-    public UserProfile clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
-            InvalidFormatCommandException {
+    public UserProfile clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput)
+            throws InvalidFormatCommandException, IOException {
         ArrayList<String> getFlag = flagMap.get(getInput);
         if (getFlag.isEmpty()) {
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
+                if (userProfile.getGenreIdPreference().size() == 0) {
+                    throw new InvalidFormatCommandException(PromptMessages.CATEGORY_EMPTY);
+                }
                 return clearGenrePreference();
             }
             if (getInput.equals(GET_NEW_GENRE_RESTRICT)) {
+                if (userProfile.getGenreIdRestriction().size() == 0) {
+                    throw new InvalidFormatCommandException(PromptMessages.CATEGORY_EMPTY);
+                }
                 return clearGenreRestrict();
             }
             if (getInput.equals(GET_NEW_ADULT_RATING)) {
                 return clearAdultPreference();
             }
             if (getInput.equals(GET_NEW_SORT)) {
+                if ((!userProfile.isSortByHighestRating() && (!userProfile.isSortByLatestRelease()
+                        && !userProfile.isSortByAlphabetical()))) {
+                    throw new InvalidFormatCommandException(PromptMessages.CATEGORY_EMPTY);
+                }
                 return clearSortPreference();
             }
         } else {

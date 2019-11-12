@@ -280,10 +280,12 @@ public class CommandParser {
     private static void askUserConfirmation(CommandPair pair, Controller uicontroller, String[] commandArr) {
         if (pair.getSubRootCommand() == CommandKeys.NONE) {
             ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr());
+            ((MovieHandler) uicontroller).clearGeneralFeedbackText();
         } else {
             ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr()
                     + " " + pair.getSubRootCommandStr() + " "
                     + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length)));
+            ((MovieHandler) uicontroller).clearGeneralFeedbackText();
         }
     }
 }

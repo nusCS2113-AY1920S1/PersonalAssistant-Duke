@@ -6,6 +6,7 @@ import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
+import entertainment.pro.model.UserProfile;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
 import org.json.simple.JSONArray;
@@ -364,6 +365,7 @@ public class RetrieveRequestTest {
         ArrayList<String> expectedCastList1 = new ArrayList<>();
         assertEquals(expectedCastList1, castList1);
     }
+
 
 }
 

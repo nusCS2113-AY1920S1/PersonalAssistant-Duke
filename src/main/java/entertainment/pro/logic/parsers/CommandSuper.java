@@ -179,6 +179,7 @@ public abstract class CommandSuper {
             setExecute(false);
             if (uicontroller != null) {
                 ((MovieHandler) uicontroller).setAutoCompleteText(getDidYouMeanText(commandArr));
+                ((MovieHandler) uicontroller).clearGeneralFeedbackText();
             }
 
             return true;

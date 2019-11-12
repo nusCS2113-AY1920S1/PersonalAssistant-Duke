@@ -198,14 +198,13 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     userProfile = command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandException invalidFormatCommandException) {
+                } catch (Exception e) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
-                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-                    movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.CATEGORY_EMPTY);
                 }
+                editProfileJson.updateProfile(userProfile);
+                movieHandler.setLabels();
             }
         }
-        editProfileJson.updateProfile(userProfile);
-        movieHandler.setLabels();
     }
 }
