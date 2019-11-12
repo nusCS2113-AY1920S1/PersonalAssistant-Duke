@@ -50,9 +50,14 @@ public class EditBookingCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException, ParseException {
-        bookingList.get(index).setDescription(textToEdit);
-        ui.addToOutput(BookingConstants.EDITSUCCESS);
-        ui.addToOutput(bookingList.get(index).toString());
-        allStorage.getBookingStorage().saveToFile(bookingList);
+        if ((index >= bookingList.size()) || (index <= 0)) {
+            throw new DukeException("OOPS!!!  No such entry exist!");
+        }
+        else {
+            bookingList.get(index).setDescription(textToEdit);
+            ui.addToOutput(BookingConstants.EDITSUCCESS);
+            ui.addToOutput(bookingList.get(index).toString());
+            allStorage.getBookingStorage().saveToFile(bookingList);
+        }
     }
 }
