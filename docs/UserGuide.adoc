@@ -146,7 +146,7 @@ Edits the user's preferences by *add*, *remove*, or *clear*. +
 * *add* +
 Adds on genres to genre preferences. +
 *_Valid inout values will not overwrite existing values, but will be appended on to existing values._* +
-Format: `preference add [-g GENRE_NAME ...]` +
+Format: `preference add [-g GENRE_NAME ...][-r GENRE_NAME ...]` +
 Examples: `preference add -g action` +
 ** `GENRE_NAME` cannot already belong to preferences or restrictions. +
 ** `GENRE_NAME` must be a valid genre name.
