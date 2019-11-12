@@ -2,6 +2,7 @@
 
 package duke;
 
+import duke.exceptions.DukeException;
 import duke.gui.Ui;
 import duke.gui.UiManager;
 import javafx.application.Application;
@@ -26,7 +27,7 @@ public class Main extends Application {
      * Initialize Duke with local data.
      * Create data directory if it is not existed.
      */
-    private void initialize() {
+    private void initialize() throws DukeException {
         String currentDir = System.getProperty("user.dir");
         String dataDir = currentDir + "/data";
         File directory = new File(dataDir);
