@@ -21,7 +21,7 @@ Role: Lecturer / Project Supervisor
 
 === Pang Jia Jun Vernon
 image::gowgos5.png[width="150", align="left"]
-{empty}[https://github.com/gowgos5[github]] [<<portfolio/vernon#, portfolio>>]
+{empty}[https://github.com/gowgos5[github]] [<<vernon#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Scheduling and tracking, Deliverables and deadlines, In charge of UI
@@ -30,7 +30,7 @@ Responsibilities: Scheduling and tracking, Deliverables and deadlines, In charge
 
 === John Khoo
 image::aquohn.png[width="150", align="left"]
-{empty}[http://github.com/aquohn[github]] [<<portfolio/john#, portfolio>>]
+{empty}[http://github.com/aquohn[github]] [<<john#, portfolio>>]
 
 Role: Integration Lead +
 Responsibilities: Documentation, Integration, In charge of Logic
@@ -39,7 +39,7 @@ Responsibilities: Documentation, Integration, In charge of Logic
 
 === Jacob Toresson
 image::jacobtoresson.png[width="150", align="left"]
-{empty}[http://github.com/JacobToresson[github]] [<<portfolio/jacob#, portfolio>>]
+{empty}[http://github.com/JacobToresson[github]] [<<jacob#, portfolio>>]
 
 Role: Devops Lead +
 Responsibilities: Code quality, Devops, In charge of Storage
@@ -48,7 +48,7 @@ Responsibilities: Code quality, Devops, In charge of Storage
 
 === Jeremy Kwok
 image::jeremykwok.png[width="150", align="left"]
-{empty}[http://github.com/JeremyKwok[github]] [<<portfolio/jeremy#, portfolio>>]
+{empty}[http://github.com/JeremyKwok[github]] [<<jeremy#, portfolio>>]
 
 Role: Test Lead +
 Responsibilities: Testing, In charge of Model

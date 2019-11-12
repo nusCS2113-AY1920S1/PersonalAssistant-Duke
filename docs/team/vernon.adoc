@@ -46,7 +46,7 @@ Dr. Duke is a GUI-based personal assistant for house officers to manage their pa
 
 === Patient
 
-image::Patient.png[Patient]
+image::Patient.PNG[Patient]
 
 Shows a detailed view of a `Patient`. The details are displayed in separate panels as seen in the figure above.
 
