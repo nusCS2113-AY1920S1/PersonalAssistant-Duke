@@ -164,31 +164,6 @@ Clears all genre preferences. +
 *_All existing values will be removed._* +
 Format: `preference clear`
 
-==== User Restrictions: `restriction`
-
-Edits the user's restrictions by *add*, *remove*, or *clear*.
-
-* *add* +
-Adds on genres to genre restrictions. +
-*_Valid inout values will not overwrite existing values, but will be appended on to existing values._* +
-Format: `restriction add [-g GENRE_NAME ...]` +
-Examples: `restriction add -g action` +
-** `GENRE_NAME` cannot already belong to preferences or restrictions. +
-** `GENRE_NAME` must be a valid genre name.
-
-* *remove* +
-Remove genres from genre restrictions. +
-*_Valid inout values will not overwrite existing values, but will remove equivalent existing values._* +
-Format: `restriction remove [-g GENRE_NAME ...]` +
-Examples: `restriction remove -g comedy` +
-** `GENRE_NAME` must already belong to restrictions. +
-** `GENRE_NAME` must be a valid genre name.
-
-* *clear* +
-Clears all genre restrictions. +
-*_All existing values will be removed._* +
-Format: `restriction clear`
-
 === Search for movies and TV shows: `search`
 
 Searches for movies or TV shows using keywords and optionally, results can be filtered using specific genres and user profile.
