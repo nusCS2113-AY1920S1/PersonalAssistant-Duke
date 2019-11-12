@@ -1,7 +1,7 @@
 = Project Portfolio for Dr. Duke
 :site-section: DeveloperGuide
 :sectnums:
-:imagesDir: images
+:imagesDir: ../../images
 :xrefstyle: full
 :doctype: article
 :repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
@@ -25,19 +25,19 @@ NOTE: This box draws attention to quirk or caveat that may not be obvious.
 
 == Contributions
 
-My role in the project was primarily focused on parser logic: translating input from the user into commands to manipulate the app's data. I also developed and implemented several other features, and contributed to project planning and management and the class community. My code contributions can be found https://nuscs2113-ay1920s1.github.io/dashboard/#search=aquohn[here], and further details on my implemented features can be found in the User and Developer Guide excerpts below.
+My role in the project was focused on parser and command logic: translating input from the user into commands to manipulate the app's data. I also developed and implemented several other features, notably a system for allowing the user to disambiguate the intended target of a command, and contributed to project planning and management and the class community. My code contributions can be found https://nuscs2113-ay1920s1.github.io/dashboard/#search=aquohn[here], and further details on my implemented features can be found in the User and Developer Guide excerpts below.
 
 === Primary Features
 
 ==== Parser
 
-I wrote a simple parser for extracting commands, arguments, switches and switch arguments from a user's input and translating them into `Command` objects, which can be executed to perfrom the user's desired action. In order for my teammates to easily extend the system by creating more commands, I designed a system for specifying a commaand, and the switches required for it, such that my parser would be able to automatically check the user's input to see if it matches the requirements of the command. We had decided to write our own parser instead of using a library as it was a relatively straightforward task and gave us much more control over the formats of our commands, and for providing feedback to the user based on his input.
+I wrote a simple parser for extracting commands, arguments, switches and switch arguments from a user's input and translating them into `Command` objects, which can be executed to perfrom the user's desired action. In order for my teammates to easily extend the system by creating more commands, I designed a system for specifying a command's operation, and the switches required for it, such that my parser would be able to automatically check the user's input to see if it matches the requirements of the command. We had decided to write our own parser instead of using a library as it was a relatively straightforward task and gave us much more control over the formats of our commands, and for providing feedback to the user based on his input.
 
 ==== Autocorrect
 
 I additionally developed the switch autocorrect feature, which provided a system for automatically correcting typing mistakes made by the user when specifying switches. It is an enhancement to the parser, which identifies, using a custom metric based on the https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance[Damerau-Levenshtein distance], the edit distance between the user's input and each possible valid input. The Damerau-Levenshtein distance computation assigns equal weightage to transpositions (swapping adjacent characters), insertion, deletion and substitution. However, I had decided to enhance my implementation by weighing physical keyboard distance in computing the cost for substitutions, which would more accurately reflect the likelihood of a substitution typo. If there is a unique closest match to the string, then it is supplied to the user with a warning. If not, the user would be taken to separate context, from which they can select the correct value for the string. 
 
-This enhancement is beneficial to our target group of house officers, who need to rapdily input and organise a large quantity of information regarding a patient. This would naturally lead to mistakes being made while typing. In order for the user's experience to be as smooth as possible in the face of mistakes, this feature provides robust automatic correction for errors, and where automatic correction fails, enables the user to correct his mistake with minimal disruption to his workflow. Further, it can be extended to other parts of the project, for example, for the `find` command, providing a powerful API that can mitigate the impact of user errors on the smoothness of their workflow.
+This enhancement is beneficial to our target group of house officers, who need to rapidly input and organise a large quantity of information regarding a patient. This would naturally lead to mistakes being made while typing. In order for the user's experience to be as smooth as possible in the face of mistakes, this feature provides robust automatic correction for errors, and where automatic correction fails, enables the user to correct his mistake with minimal disruption to his workflow. Further, it can be extended to other parts of the project, for example, for the `find` command, providing a powerful API that can mitigate the impact of user errors on the smoothness of their workflow.
 
 The algorithm was implemented based on pseudocode from https://dl.acm.org/citation.cfm?doid=1963190.1963191[this paper]. The enhancement of considering weighted substitution costs was assisted by the discussion on https://stackoverflow.com/questions/29233888/edit-distance-such-as-levenshtein-taking-into-account-proximity-on-keyboard[this StackOverflow post].
 
@@ -45,11 +45,13 @@ The algorithm was implemented based on pseudocode from https://dl.acm.org/citati
 
 I additionally developed the following features:
 
-* Commands in the `Impression` context: `new`, `edit`, `delete`, `move`, `priority`, `primary`, `status`, `result`
-* Refactored helper functions into `ImpressionUtils` and `CommandUtils`
-* Wrote `findByName` functions to allow commands to find objects by name or part thereof
-* General refactoring in `Impression` and `Patient` to add functions to produce descriptor strings, instead of getting and processing raw data, and to perform comparisons for tests
-* Refactor and polish the `back` and `up` context navigation commands
+* Commands in the `Impression` context: `new`, `edit`, `delete`, `move`, `priority`, `primary`, `status`, `result`, `open`
+* Refactored helper functions into `PatientUtils`, `HomeUtils`, `ImpressionUtils`, `CommandUtils`
+* Wrote `contains()`, `findByName()`, `find()` and `searchAll()` methods in `Patient`, `PatientData` and `Impression` to allow commands to find objects by name or part thereof
+* General refactoring in `Impression` and `Patient`:
+** Add methods `getFollowUpCountStr()` and `getCriticalCountStr()` to produce descriptor strings instead of getting and processing raw data
+** `equals()` method to perform comparisons for tests
+* An autocorrect system that was not able to be integrated with the codebase in time.
 
 === Additional Contributions
 
