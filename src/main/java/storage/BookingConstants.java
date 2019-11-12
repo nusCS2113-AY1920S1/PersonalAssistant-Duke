@@ -15,8 +15,9 @@ public class BookingConstants {
             + "<date start-time>: <dd/mm/yyyy HHMM>, <end-time>: <HHMM>.";
     public static final String DATEERROR = "Not able to parse the date for all patterns given, "
             + "please use this format: DATE" + ", DATE format is dd/mm/yyyy";
-    public static final String MONTHERROR = ":-( OOPS!!! Please create your booking with the "
-            + "following format: month value";
+    public static final String MONTHERROR = ":-( OOPS!!! Please enter the correct format!\n"
+            + "listmonth <month>\n"
+            + "<month>: <mm>";
     public static final String APPROVEERROR = ":-( OOPS!!! "
             + "Please enter the index of the item you want to approve"
             + " with the following format: approve INDEX";

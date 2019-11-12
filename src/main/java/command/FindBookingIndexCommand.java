@@ -40,7 +40,7 @@ public class FindBookingIndexCommand extends Command {
                         StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         ui.addToOutput("Here is the request");
-        if (index >= bookingList.size()) {
+        if ((index >= bookingList.size()) || (index <= 0)) {
             throw new DukeException("OOPS!!!  No such entry exist!");
         } else {
             Booking result = bookingList.get(index);

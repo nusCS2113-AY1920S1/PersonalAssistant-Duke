@@ -1,11 +1,10 @@
 import booking.Booking;
 import command.ListBookingDailyCommand;
 import command.ListBookingMonthCommand;
-import control.Duke;
 import exception.DukeException;
 import org.junit.jupiter.api.Test;
 import storage.BookingConstants;
-import user.UserList;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -97,8 +96,9 @@ public class ListTest {
         assertThrows(DukeException.class, () -> {
             new ListBookingMonthCommand(input, splitStr);
         });
-        assertEquals( ":-( OOPS!!! Please create your booking with the "
-                        + "following format: month value"
+        assertEquals( ":-( OOPS!!! Please enter the correct format!\n"
+                        + "listmonth <month>\n"
+                        + "<month>: <mm>"
                 , BookingConstants.MONTHERROR);
     }
 
