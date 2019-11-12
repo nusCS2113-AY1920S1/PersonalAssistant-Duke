@@ -52,7 +52,7 @@ public class UiContext {
      *
      * @param obj DukeObject whose context we wish to view.
      */
-    private void openWithoutHistory(DukeObject obj) {
+    public void openWithoutHistory(DukeObject obj) {
         Context newContext = Context.HOME;
         if (obj != null) {
             obj.update();

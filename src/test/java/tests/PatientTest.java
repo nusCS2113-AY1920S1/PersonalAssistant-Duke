@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //@@author gowgos5
 public class PatientTest {
-    private static final String validBasicPatientStringRepresentation = "Name: John Doe\n"
+    private final String validBasicPatientStringRepresentation = "Name: John Doe\n"
             + "Personal details\n"
             + "Height: 170\n"
             + "Weight: 50\n"
@@ -23,7 +23,7 @@ public class PatientTest {
             + "Registration details\n"
             + "Bed Number: A105\n"
             + "Allergies: Cinnarizine\n";
-    private static final String validBasicPatientWithPrimaryDiagnosisStringRepresentation =
+    private final String validBasicPatientWithPrimaryDiagnosisStringRepresentation =
             validBasicPatientStringRepresentation + "\n"
                     + "Primary Diagnosis: \n"
                     + "Impression details\n"

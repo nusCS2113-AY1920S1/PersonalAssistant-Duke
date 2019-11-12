@@ -1,5 +1,6 @@
 package tests;
 
+import duke.data.Help;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -221,5 +223,15 @@ public class GsonStorageTest extends CommandTest {
             System.out.println("str1 " + str1.length() + " str2 " + str2.length());
             System.out.println(str1);
         }
+    }
+
+    //@@author gowgos5
+    /**
+     * Test loadHelpList(). Help list should be loaded and returned successfully.
+     */
+    @Test
+    public void testLoadHelpList_noInputs_success() {
+        List<Help> helpList = core.storage.loadHelpList("/data/helpDetails.json");
+        assertEquals(53, helpList.size());
     }
 }

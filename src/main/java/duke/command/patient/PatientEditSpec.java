@@ -7,6 +7,7 @@ import duke.command.Switch;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
+//@@author gowgos5
 public class PatientEditSpec extends ArgSpec {
     private static final PatientEditSpec spec = new PatientEditSpec();
 
