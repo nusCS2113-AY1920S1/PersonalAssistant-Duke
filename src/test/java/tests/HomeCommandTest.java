@@ -41,7 +41,6 @@ public class HomeCommandTest extends CommandTest {
     /**
      * Tests HomeReport Command with the summary switch present.
      */
-    /*
     @Test
     public void homeReportCommandTest() {
         String[] switchNames = {"bed", "summary"};
@@ -69,7 +68,6 @@ public class HomeCommandTest extends CommandTest {
             fail("Exception thrown when validly creating report from command in home context: " + excp.getMessage());
         }
     }
-     */
 
     /**
      * Function to print out the characters that differ between two strings that should be identical.

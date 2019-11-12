@@ -163,7 +163,7 @@ image::ui_cards.png[]
 
 The `ContextWindow` houses the various cards shown in the figure above (corresponding to their respective context). These cards show an excerpt of the details of the `DukeObjects` they represent. All cards extend from `UiCard`. Hence, what has been mentioned with regards to polymorphism for `ContextWindow` applies to `UiCard` as well.
 
-=== Contexts
+=== Context Mechanism
 ==== Rationale
 
 Dr. Duke aims to assist house officers in quick, accurate, and efficient recording and retrieval of patient data required to provide efficient care. On a day-to-day basis, house officers deal with a lot of information, ranging from the biometrics details of a patient to the investigation results of a blood test. Therefore, it would be really helpful if they are able to view these chunks of information in a very focused setting. This has inspired us to come up with the idea of `Contexts`. In Dr. Duke, there are currently four main contexts. They are the `HOME`, `PATIENT`, `IMPRESSION`, and `TREATMENT AND EVIDENCE` contexts (listed in hierarchical order). The different contexts allow the house officers to focus on a particular patient or a particular impression of a patient at hand without being overloaded by other irrelevant information.
