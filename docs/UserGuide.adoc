@@ -94,8 +94,6 @@ Parsing rules:
 .Home
 image::home.png[Home]
 
-{nbsp} +
-
 Displays up to *100* indexed panels of `Patients`.
 Each panel provides the user with a *summary* of the main details of a particular `Patient`.
 They are as follows.
@@ -214,8 +212,6 @@ Format: `archive`
 
 .Patient
 image::Patient.PNG[Patient]
-
-{nbsp} +
 
 Shows a detailed view of a `Patient`. The details are displayed in separate panels as seen in the figure above.
 
@@ -377,8 +373,6 @@ Everything else will be treated as input.
 
 .Impression
 image::Impression.PNG[Impression]
-
-{nbsp} +
 
 Shows a detailed view of an Impression, displaying in separate panels as seen in the figure above:
 
@@ -571,8 +565,6 @@ Display a list of all Treatments and Evidences matching the criteria specified i
 
 .Example of a Treatment (Medicine) context
 image::Medicine.PNG[Medicine]
-
-{nbsp} +
 
 === Treatment and Evidence
 

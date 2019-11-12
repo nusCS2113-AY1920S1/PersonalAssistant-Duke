@@ -12,11 +12,11 @@ Dr. Duke is a GUI-based personal assistant for house officers to manage their pa
 * *Major enhancement*: Added the ability to navigate across `Contexts` in the application.
 ** What it does: Allows the user to switch between contexts ordered in a hierarchical fashion. Each context displays its respective information in a focused manner.
 ** Justification: One of the primary goals of Dr. Duke is to improve the work processes of house officers. House officers typically manages many patients on a day-to-day basis. Hence, they have to deal with a lot of information from all over the place. The `Context` mechanism is an extremely effective method to provide users with a focused view of the information that they are interested in at any given point in time.
-** Highlights: This enhancement affects both existing and planned commands as commands are highly contextual in nature in Dr. Duke. This means that the `open` command in the `HOME` context does not necessarily operate in the same way as the `open` command in the `PATIENT` context. Therefore, it involved an in-depth analysis before implementation. In addition, the implementation too was challenging as it required modifications to existing commands in order for them to work as intended in a given context.
+** Highlights: This enhancement affects both existing and planned commands as commands are highly contextual in nature in Dr. Duke. This means that the `open` command in the `HOME` context does not necessarily operate in the same way as the `open` command in the `PATIENT` context. Therefore, it involves an in-depth analysis before actual implementation. In addition, the implementation too is challenging as it requires modifications to existing commands in order for them to work as intended in a given context.
 
-* *Minor enhancement*: Added the `Help` window to provide users with real-time and interactive visual guide on the avaliable commands for each context.
+* *Minor enhancement*: Added the `Help` window to provide users with real-time and interactive visual guide on the available commands for each context.
 
-* *Code contibuted*: Snippets of my code contributions can be found here: https://nuscs2113-ay1920s1.github.io/dashboard/#search=gowgos5
+* *Code contributed*: Snippets of my code contributions can be found https://nuscs2113-ay1920s1.github.io/dashboard/#search=gowgos5[here].
 
 * *Other notable contributions*:
 ** Project management
@@ -25,7 +25,7 @@ Dr. Duke is a GUI-based personal assistant for house officers to manage their pa
 
 ** Documentation
 *** Written Section 4.2 (Patient context) of the User Guide
-*** Written Section 3.5 (UI component) and Sections 4.1 (Context) and 4.2 (Help) of the Developer Guide
+*** Written Section 3.5 (UI component) and Section 4.1 (Context mechanism) of the Developer Guide
 *** Finalised the User Guide for submission (cosmetic tweaks, formatting, spell checks, etc.)
 
 ** Community
@@ -48,8 +48,6 @@ Dr. Duke is a GUI-based personal assistant for house officers to manage their pa
 
 image::Patient.png[Patient]
 
-{nbsp} +
-
 Shows a detailed view of a `Patient`. The details are displayed in separate panels as seen in the figure above.
 
 * Personal details such as name, age, height, weight, etc.
@@ -62,10 +60,6 @@ and the number of critical items associated with the Impression)
 ** `Plan` items with status less than 2 (a status of 2 indicates completion)
 ** `Investigation` items (once completed, an `Investigation` would be converted to a `Result`)
 ** There may be items *duplicated* across the critical and follow-up lists as it is meant to give a view of two different but possibly overlapping categories of items that the user might want to view at a glance.
-
-Inherits: <<home-undo,`undo`>>, <<home-redo,`redo`>>
-
-{nbsp} +
 
 ==== `new` - Add a new Impression for this Patient [[patient-new]]
 
@@ -113,20 +107,6 @@ If `*-app*` is selected, the `<new value>` of *ALL* string-valued fields will be
 *edit* `*-height*` 180 `*-weight*` 60 `*-history*` "Dengue Fever" `*-app*`    (changes the Patient's height and weight to the respective numbers shown, and appends "Dengue Fever" to his existing history).
 ****
 
-==== `delete` - Delete a critical, follow-up, or an Impression [[patient-delete]]
-
-Format: `delete ("<search string>" | _string_or_idx_ *-c[ritical]* | _string_or_idx_ *-i[nv(x|estigation)]* | _string_or_idx_ *-im[pression]*)` +
-
-Deletes an Impression, critical item or follow-up. The same <<patient-open, selection rules for `open`>> apply here.
-
-**Example**
-****
-*delete* 3 `*-impress*`    +
-*delete* "Hip" `*-crit*`   +
-*delete* "Blood" `*-follow*`  +
-*delete* "Fever"
-****
-
 ==== `find` - Find items matching certain criteria [[patient-find]]
 
 Format: `find ["<search string>"] [_type_]` +
@@ -150,12 +130,16 @@ If at least one of them is listed, only objects whose type is used as a switch w
 |===
 
 === UI
-The UI component for Dr. Duke is an abstract model/layer that exists independently in the application. It interacts with the other components (i.e. Model, Logic, Storage) of the application via a simple interface. It is designed to be easily expanded or modified by other developers with its liberal use of abstract classes. Hence, future developments such as the addition of `Contexts` can be accomplished with ease. The overall UI class diagram seen below is a good starting point to understand how the UI component is designed and constructed.
+The `UI` component for Dr. Duke is an abstract model/layer that exists independently in the application. It interacts with the other components (i.e. Model, Logic, Storage) of the application via a simple interface. It is designed to be easily expanded or modified by other developers with its liberal use of abstract classes. Hence, future developments such as the addition of `Contexts` can be accomplished with ease.
+
+The `UI` component uses the JavaFX UI framework. The layout of these UI elements are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/duke/ui/window/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+The `UI` component executes user commands using the `Parser` component and listens for changes to `Model` data so that the UI can be updated with the newly modified data.
+
+The overall UI class diagram shown below is a good starting point to understand how the UI component is designed and constructed.
 
 .Overall UI class diagram
 image::ui_overall.png[]
-
-{nbsp} +
 
 This overall class diagram aptly describes the relationships between the various core classes and packages of the UI component.
 
@@ -170,14 +154,39 @@ The UI component is exposed to other components of Dr. Duke via the `Ui` interfa
 .UI Windows class diagram
 image::ui_windows.png[]
 
-{nbsp} +
-
-As mentioned, the `MainWindow` houses various UI elements such as the `CommandWindow`, `ContextWindow`, and `HelpWindow`. All of these windows extend from the abstract class `UiElement` (not shown in the above diagram). This abstract class serves as the parent class for all of the UI elements used in the application, which allows for their easy creation. In addition, as seen in Figure 2, the `MainWindow` holds a reference of the `UiContext` object that exposes the current `Context` (a core feature) of the application. The `Context` of the application determines what UI window the `ContextWindow` takes on, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context, etc. As Dr. Duke works with a huge number of contexts, the various context windows extend from `ContextWindow`. This greatly enables the use of polymorphism when dealing with the context windows. Therefore, when implementing a new context, you, as the developer, should always inherit from `ContextWindow` to display the context in GUI format.
+As mentioned, the `MainWindow` houses various UI elements such as the `CommandWindow`, `ContextWindow`, and `HelpWindow`. The `MainWindow` holds a reference of the `UiContext` object that exposes the current `Context` (a core feature) of the application. The `Context` of the application determines what UI window the `ContextWindow` takes on, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context, etc. As Dr. Duke works with a huge number of contexts, the various context windows extend from `ContextWindow`. This greatly enables the use of polymorphism when dealing with the context windows. Therefore, when implementing a new context, you, as the developer, should always inherit from `ContextWindow` to display the context in GUI format.
 
 .UI Cards class diagram
 image::ui_cards.png[]
 
-{nbsp} +
+The `ContextWindow` houses the various cards shown in the figure above (corresponding to their respective context). These cards show an excerpt of the details of the `DukeObjects` they represent. All cards extend from `UiCard`. Hence, what has been mentioned with regards to polymorphism for `ContextWindow` applies to `UiCard` as well.
 
-The `ContextWindow` houses the various cards shown in the figure above (corresponding to their respecitve context). These cards show an excerpt of the details of the `DukeObjects` they represent. All cards extend from `UiCard`. Hence, what has been mentioned with regards to polymorphism for `ContextWindow` applies to `UiCard` as well.
+=== Contexts
+==== Rationale
 
+Dr. Duke aims to assist house officers in quick, accurate, and efficient recording and retrieval of patient data required to provide efficient care. On a day-to-day basis, house officers deal with a lot of information, ranging from the biometrics details of a patient to the investigation results of a blood test. Therefore, it would be really helpful if they are able to view these chunks of information in a very focused setting. This has inspired us to come up with the idea of `Contexts`. In Dr. Duke, there are currently four main contexts. They are the `HOME`, `PATIENT`, `IMPRESSION`, and `TREATMENT AND EVIDENCE` contexts (listed in hierarchical order). The different contexts allow the house officers to focus on a particular patient or a particular impression of a patient at hand without being overloaded by other irrelevant information.
+
+==== Implementation
+The `Context` mechanism is facilitated by the `UiContext` class. It implements the following operations:
+
+* `UiContext#open(DukeObject)` - Opens and displays a context.
+* `UiContext#moveBackOneContext()` - Moves back one context.
+* `UiContext#moveUpOneContext()` - Moves up one in the hierarchy of contexts.
+
+Given below is an example usage scenario and how the context mechanism behaves accordingly.
+
+image::context_sequence.png[Sequence diagram for `Context` mechanism]
+
+Step 1: The user launches the application. The application (`UiContext`) starts out in the `HOME` context. The user currently manages 3 patients.
+
+Step 2: The user keys in "open 1" in the text field and presses the Enter key. At this point, the `Parser` parses the input and passes a `open` command to the `Executor` for execution. This command invokes the context mechanism.
+
+Step 3: The `Context` mechanism first stores the current context (and the associated `DukeObject`) in a stack (so it can still be accessed later when the user wishes to execute the `back` command). Then, it updates the context to the `PATIENT` context and retrieves the corresponding `Patient` object as selected by the user.
+
+Step 4: The `UI` component of Dr. Duke listens to changes in the context of the application via an attached `PropertyChangeListener` and updates the current context window from `HomeContextWindow` to the `PatientContextWindow`.
+
+Step 5: The transition to the `PATIENT` context is fully completed.
+
+==== Comparison with Alternatives
+
+We could possibly adopt the same format used by most existing Electronic Health Record (EHR) system and put all information regarding a patient in a single display screen. This will, without a doubt, significantly simplify the internal workings of Dr. Duke. However, the application will become cluttered and unintuitive to the users.
