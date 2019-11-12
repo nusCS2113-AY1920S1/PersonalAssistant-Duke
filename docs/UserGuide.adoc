@@ -57,7 +57,7 @@ Each command consists of a _name_, an _argument_ (information supplied to a comm
 For example, `discharge "John Doe" *-sum* "John Doe was discharged on 9 October 2019 at 3:54 pm".` represents the command `discharge` with the argument `"John Doe"`, modified by the switch `*-sum*` (meaning "summary"), which has the switch argument `"John Doe was discharged on 9 October 2019 at 3:54 pm."`.
 
 Only a few characters have a special meaning when you are giving *Dr. Duke* commands.
-These are `\`, `-`, `<Space>`/`<Newline>`, and `<Enter>`:
+These are `\`, `-`, `<Space>`/`<Newline>`, `<Enter>`, `<Shift-Enter>`, `<Page Up>` and `<Page Down>`:
 
 * `\` -> Escape character: the special character after a backslash loses its special meaning.
 To type a literal backslash, you need to escape the backslash: `Hello\\World` becomes `Hello\World`.
