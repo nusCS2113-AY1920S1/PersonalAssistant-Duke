@@ -8,17 +8,20 @@ import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 
 import java.io.IOException;
 import java.sql.Array;
 import java.util.Arrays;
 import java.util.List;
 
-public class PreferenceCommandTest extends MovieHandler{
+public class PreferenceCommandTest extends MovieHandler {
 
     @Test
-    public void executeCommands_add_throws_exception()  {
+    public void executeCommands_add_throws_exception() {
         String command1 = "preference add -h action";
         String command2 = "preference add -a true, false -t horror";
         String command3 = "preference add -a true -s 1 2 -t horror";
@@ -32,13 +35,13 @@ public class PreferenceCommandTest extends MovieHandler{
             String[] commandParse = commandList.get(i).split(" ");
             String testCommand = commandList.get(i);
             assertThrows(InvalidFormatCommandException.class, () -> {
-                CommandParser.rootCommand(commandParse , testCommand, this);
+                CommandParser.rootCommand(commandParse, testCommand, this);
             });
         }
     }
 
     @Test
-    public void executeCommands_remove_throws_exception()  {
+    public void executeCommands_remove_throws_exception() {
         String command1 = "preference remove -h action";
         String command2 = "preference remove -a true, false -t horror";
         String command3 = "preference remove -a true -s 1 2 -t horror";
@@ -52,13 +55,13 @@ public class PreferenceCommandTest extends MovieHandler{
             String[] commandParse = commandList.get(i).split(" ");
             String testCommand = commandList.get(i);
             assertThrows(InvalidFormatCommandException.class, () -> {
-                CommandParser.rootCommand(commandParse , testCommand, this);
+                CommandParser.rootCommand(commandParse, testCommand, this);
             });
         }
     }
 
     @Test
-    public void executeCommands_clear_throws_exception()  {
+    public void executeCommands_clear_throws_exception() {
         String command1 = "preference clear -h action";
         String command2 = "preference clear -a true, false -t horror";
         String command3 = "preference clear -a true -s 1 2 -t horror";
@@ -72,7 +75,7 @@ public class PreferenceCommandTest extends MovieHandler{
             String[] commandParse = commandList.get(i).split(" ");
             String testCommand = commandList.get(i);
             assertThrows(InvalidFormatCommandException.class, () -> {
-                CommandParser.rootCommand(commandParse , testCommand, this);
+                CommandParser.rootCommand(commandParse, testCommand, this);
             });
         }
     }

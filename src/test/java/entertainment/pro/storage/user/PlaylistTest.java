@@ -19,15 +19,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class PlaylistTest {
     private final String playlistName = "testName";
     private Playlist testPlaylist = new Playlist(playlistName);
     private final String playlistDescription = "testDescription";
-    private final MovieInfoObject testMovieInfoObject1 = new MovieInfoObject(1234, "title1", true, new Date(), "summary1", "posterpath", "backdroppath", 1.2, new ArrayList<>(), false);
-    private final MovieInfoObject testMovieInfoObject2 = new MovieInfoObject(4321, "title2", true, new Date(), "summary2", "posterpath", "backdroppath", 1.2, new ArrayList<>(), false);
-    private ArrayList<MovieInfoObject> movies = new ArrayList<>(); {
+    private final MovieInfoObject testMovieInfoObject1 = new MovieInfoObject(1234, "title1",
+            true, new Date(), "summary1", "posterpath", "backdroppath",
+            1.2, new ArrayList<>(), false);
+    private final MovieInfoObject testMovieInfoObject2 = new MovieInfoObject(4321, "title2",
+            true, new Date(), "summary2", "posterpath", "backdroppath",
+            1.2, new ArrayList<>(), false);
+    private ArrayList<MovieInfoObject> movies = new ArrayList<>();
+
+    {
         movies.add(testMovieInfoObject1);
         movies.add(testMovieInfoObject2);
     }
@@ -35,12 +42,13 @@ public class PlaylistTest {
     @Test
     void addToPlaylistTest() {
         try {
-            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> arrayListTest = new ArrayList<>();
             arrayListTest.add("1");
             arrayListTest.add("2");
             flagMapTest.put("-m", arrayListTest);
+
+            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             Playlist actual = playlistCommands.add(testPlaylist, flagMapTest, movies);
             Playlist expected = new Playlist(playlistName, "", convert(movies));
             assertEqualPlaylist(expected, actual);
@@ -53,13 +61,15 @@ public class PlaylistTest {
     void removeFromPlaylistTest() {
         try {
             testPlaylist = testPlaylist.add(convert(movies));
-            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> arrayListTest = new ArrayList<>();
             arrayListTest.add("1");
             flagMapTest.put("-m", arrayListTest);
             ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
             playlistMovies.add(testMovieInfoObject2);
+
+
+            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             Playlist actual = playlistCommands.remove(testPlaylist, flagMapTest);
             Playlist expected = new Playlist(playlistName, "", convert(playlistMovies));
             assertEqualPlaylist(expected, actual);
@@ -100,11 +110,12 @@ public class PlaylistTest {
     @Test
     void setDescriptionTest() {
         try {
-            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> arrayListTest = new ArrayList<>();
             arrayListTest.add(playlistDescription);
             flagMapTest.put("-d", arrayListTest);
+
+            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             Playlist actual = playlistCommands.setToPlaylist(testPlaylist, flagMapTest);
             Playlist expected = new Playlist(playlistName, playlistDescription, new ArrayList<>());
             assertEqualPlaylist(expected, actual);
@@ -116,7 +127,6 @@ public class PlaylistTest {
     @Test
     void setBothTest() {
         try {
-            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> arrayListDescription = new ArrayList<>();
             arrayListDescription.add(playlistDescription);
@@ -124,6 +134,9 @@ public class PlaylistTest {
             ArrayList<String> arrayListName = new ArrayList<>();
             arrayListName.add("new title");
             flagMapTest.put("-n", arrayListName);
+
+
+            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             Playlist actual = playlistCommands.setToPlaylist(testPlaylist, flagMapTest);
             Playlist expected = new Playlist("new title", playlistDescription, new ArrayList<>());
             assertEqualPlaylist(expected, actual);
@@ -135,13 +148,14 @@ public class PlaylistTest {
     @Test
     void duplicateAddTest() {
         Assertions.assertThrows(InvalidParameterException.class, () -> {
-            UserProfile userProfile = new EditProfileJson().load();
             testPlaylist = testPlaylist.add(convert(movies));
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> arrayListTest = new ArrayList<>();
             arrayListTest.add("1");
             arrayListTest.add("2");
             flagMapTest.put("-m", arrayListTest);
+
+            UserProfile userProfile = new EditProfileJson().load();
             PlaylistExceptions.checkAddCommand(playlistName, flagMapTest, userProfile, movies);
         });
     }
@@ -149,12 +163,13 @@ public class PlaylistTest {
     @Test
     void nonExistentRemoveTest() {
         Assertions.assertThrows(InvalidParameterException.class, () -> {
-            UserProfile userProfile = new EditProfileJson().load();
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> arrayListTest = new ArrayList<>();
             arrayListTest.add("1");
             arrayListTest.add("2");
             flagMapTest.put("-m", arrayListTest);
+
+            UserProfile userProfile = new EditProfileJson().load();
             PlaylistExceptions.checkRemoveCommand(playlistName, flagMapTest, userProfile, new ArrayList<>());
         });
     }

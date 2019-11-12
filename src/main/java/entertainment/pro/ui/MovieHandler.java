@@ -122,6 +122,9 @@ public class MovieHandler extends Controller implements RequestListener {
     String name = "";
     int age = 0;
 
+    private static final String UNAVAILABLE_INFO = "Unavailable";
+    private static final String DECIMAL_FORMAT = "%.2f";
+
     /**
      * Initializes the Search Profile.
      */
@@ -693,9 +696,10 @@ public class MovieHandler extends Controller implements RequestListener {
         return null;
     }
 
+
+    //@@author nwenhui
     /**
      * Shows playlists.
-     * @@author nwenhui
      */
     public void showPlaylistList() throws IOException {
         playlist = userProfile.getPlaylistNames();
@@ -715,80 +719,6 @@ public class MovieHandler extends Controller implements RequestListener {
         return converted;
     }
 
-
-    /**
-     * This function is called when the user wants to see more information about a movie.
-     * @param movie Object that contains all the informations about a movie/TV show.
-     */
-    public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {
-        try {
-            //mMainApplication.transitToMovieInfoController(movie);
-            logger.log(Level.INFO, PromptMessages.DISPLAYING_MORE_INFO);
-            moviesFlowPane.getChildren().clear();
-            moviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
-            moviesFlowPane.setHgap(4);
-            moviesFlowPane.setVgap(10);
-            moviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
-            moviesFlowPane.prefWrapLengthProperty().bind(moviesScrollPane.widthProperty());
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
-            //AnchorPane posterView = loader.load();
-            InfoController controller = loader.getController();
-            controller.getMovieTitleLabel().setText(movie.getTitle());
-            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRatingInfo()));
-            if (movie.getReleaseDateInfo() != null) {
-                Date date = movie.getReleaseDateInfo();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
-                controller.getMovieReleaseDateLabel().setText(printDate);
-            } else {
-                controller.getMovieReleaseDateLabel().setText("N/A");
-            }
-            try {
-                Image posterImage = new Image(movie.getFullBackdropPathInfo(), true);
-                controller.getMovieBackdropImageView().setImage(posterImage);
-            } catch (NullPointerException ex) {
-                ex.printStackTrace();
-            }
-
-            controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
-            mMovieRequest.beginMoreInfoRequest(movie);
-            ArrayList<String> castStrings = movie.getCastInfo();
-            String cast = "";
-            for (int i = 0; i < castStrings.size(); i += 1) {
-                cast += castStrings.get(i);
-                cast += ", ";
-            }
-            controller.getMovieCastLabel().setText(cast);
-            controller.getMovieCertLabel().setText(movie.getCertInfo());
-
-            ArrayList<Long> genres = movie.getGenreIdInfo();
-            String genreText = "";
-            for (int i = 0; i < genres.size(); i += 1) {
-                Long getGenre = genres.get(i);
-                int convertGenre = getGenre.intValue();
-                String genreAdd = ProfileCommands.findGenreName(convertGenre);
-                if (!genreAdd.equals("0")) {
-                    genreText += ProfileCommands.findGenreName(convertGenre);
-                }
-                if (i != genres.size() - 1) {
-                    genreText += ", ";
-                }
-
-            }
-            AnchorPane posterView = loader.load();
-            controller.getMovieGenresLabel().setText(genreText);
-            moviesFlowPane.getChildren().add(posterView);
-            moviesScrollPane.setContent(moviesFlowPane);
-            moviesScrollPane.setVvalue(0);
-            setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
-            isViewMoreInfoPage = true;
-            clearAutoCompleteFeedbackText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * This function is called when the user wants to see more information about a movie.
@@ -1015,4 +945,88 @@ public class MovieHandler extends Controller implements RequestListener {
             refresh();
         }
     }
+
+    //@@author riyas97
+    private void getInfo(InfoController controller, MovieInfoObject movie) throws Exceptions, IOException {
+        controller.getMovieTitleLabel().setText(movie.getTitle());
+        controller.getMovieRatingLabel().setText(String.format(DECIMAL_FORMAT, movie.getRatingInfo()));
+        if (movie.getReleaseDateInfo() != null) {
+            Date date = movie.getReleaseDateInfo();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+            controller.getMovieReleaseDateLabel().setText(printDate);
+        } else {
+            controller.getMovieReleaseDateLabel().setText(UNAVAILABLE_INFO);
+        }
+        try {
+            Image posterImage = new Image(movie.getFullBackdropPathInfo(), true);
+            controller.getMovieBackdropImageView().setImage(posterImage);
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
+
+        controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
+        mMovieRequest.beginMoreInfoRequest(movie);
+        ArrayList<String> castStrings = movie.getCastInfo();
+        String cast = "";
+        if (castStrings.size() == 0) {
+            cast = UNAVAILABLE_INFO;
+        } else {
+            for (int i = 0; i < castStrings.size(); i += 1) {
+                cast += castStrings.get(i);
+                cast += ", ";
+            }
+        }
+        controller.getMovieCastLabel().setText(cast);
+        controller.getMovieCertLabel().setText(movie.getCertInfo());
+
+        ArrayList<Long> genres = movie.getGenreIdInfo();
+        String genreText = "";
+        for (int i = 0; i < genres.size(); i += 1) {
+            Long getGenre = genres.get(i);
+            int convertGenre = getGenre.intValue();
+            String genreAdd = ProfileCommands.findGenreName(convertGenre);
+            if (!genreAdd.equals("0")) {
+                // System.out.println(ProfileCommands.findGenreName(convertGenre));
+                genreText += ProfileCommands.findGenreName(convertGenre);
+            }
+            if (i != genres.size() - 1) {
+                genreText += ", ";
+            }
+
+        }
+        controller.getMovieGenresLabel().setText(genreText);
+    }
+
+    /**
+     * This function is called when the user wants to see more information about a movie.
+     * @param movie Object that contains all the informations about a movie/TV show.
+     */
+    public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {
+        try {
+            //mMainApplication.transitToMovieInfoController(movie);
+            logger.log(Level.INFO, PromptMessages.DISPLAYING_MORE_INFO);
+            moviesFlowPane.getChildren().clear();
+            moviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
+            moviesFlowPane.setHgap(4);
+            moviesFlowPane.setVgap(10);
+            moviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
+            moviesFlowPane.prefWrapLengthProperty().bind(moviesScrollPane.widthProperty());
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
+            AnchorPane posterView = loader.load();
+            InfoController controller = loader.getController();
+            getInfo(controller, movie);
+            moviesFlowPane.getChildren().add(posterView);
+            moviesScrollPane.setContent(moviesFlowPane);
+            moviesScrollPane.setVvalue(0);
+            setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
+            isViewMoreInfoPage = true;
+            clearAutoCompleteFeedbackText();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

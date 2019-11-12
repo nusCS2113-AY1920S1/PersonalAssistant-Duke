@@ -28,7 +28,9 @@ public class UserProfileTest {
     void setNameTest() {
         try {
             UserProfile actual = profileCommands.setName("test");
-            UserProfile expected = new UserProfile("test", -1, new ArrayList<>(), new ArrayList<>(), true, new ArrayList<>(), false, false, false);
+            UserProfile expected = new UserProfile("test", -1, new ArrayList<>(), new ArrayList<>(),
+                    true, new ArrayList<>(), false,
+                    false, false);
             assertEqualProfile(expected, actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +41,9 @@ public class UserProfileTest {
     void setAgeTest() {
         try {
             UserProfile actual = profileCommands.setAge("10");
-            UserProfile expected = new UserProfile("", 10, new ArrayList<>(), new ArrayList<>(), false, new ArrayList<>(), false, false, false);
+            UserProfile expected = new UserProfile("", 10, new ArrayList<>(), new ArrayList<>(),
+                    false, new ArrayList<>(), false,
+                    false, false);
             assertEqualProfile(expected, actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,7 +60,9 @@ public class UserProfileTest {
             UserProfile actual = profileCommands.setPreference(flagMapTest);
             ArrayList<Integer> genreIdListTest = new ArrayList<>();
             genreIdListTest.add(35);
-            UserProfile expected = new UserProfile("", -1, genreIdListTest, new ArrayList<>(), true, new ArrayList<>(), false, false, false);
+            UserProfile expected = new UserProfile("", -1, genreIdListTest, new ArrayList<>(),
+                    true, new ArrayList<>(), false,
+                    false, false);
             assertEqualProfile(expected, actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,7 +79,9 @@ public class UserProfileTest {
             UserProfile actual = profileCommands.setRestriction(flagMapTest);
             ArrayList<Integer> genreIdListTest = new ArrayList<>();
             genreIdListTest.add(35);
-            UserProfile expected = new UserProfile("", -1, new ArrayList<>(), genreIdListTest, true, new ArrayList<>(), false, false, false);
+            UserProfile expected = new UserProfile("", -1, new ArrayList<>(), genreIdListTest,
+                    true, new ArrayList<>(),
+                    false, false, false);
             assertEqualProfile(expected, actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,7 +96,9 @@ public class UserProfileTest {
             genreListTest.add("no");
             flagMapTest.put("-a", genreListTest);
             UserProfile actual = profileCommands.setPreference(flagMapTest);
-            UserProfile expected = new UserProfile("", -1, new ArrayList<>(), new ArrayList<>(), false, new ArrayList<>(), false, false, false);
+            UserProfile expected = new UserProfile("", -1, new ArrayList<>(), new ArrayList<>(),
+                    false, new ArrayList<>(), false,
+                    false, false);
             assertEqualProfile(expected, actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,7 +109,9 @@ public class UserProfileTest {
     void setSortTest() {
         try {
             UserProfile actual = profileCommands.setSort(true, false, false);
-            UserProfile expected = new UserProfile("", -1, new ArrayList<>(), new ArrayList<>(), true, new ArrayList<>(), true, false, false);
+            UserProfile expected = new UserProfile("", -1, new ArrayList<>(), new ArrayList<>(),
+                    true, new ArrayList<>(), true,
+                    false, false);
             assertEqualProfile(expected, actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,7 +183,7 @@ public class UserProfileTest {
     @Test
     void setAdultFailTest() {
         Assertions.assertThrows(NoPermissionException.class, () -> {
-           testUserProfile = profileCommands.setAge("10");
+            testUserProfile = profileCommands.setAge("10");
             TreeMap<String, ArrayList<String>> flagMapTest = new TreeMap<>();
             ArrayList<String> genreListTest = new ArrayList<>();
             genreListTest.add("yes");
