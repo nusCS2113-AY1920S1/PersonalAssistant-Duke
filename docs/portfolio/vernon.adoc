@@ -1,0 +1,183 @@
+= Pang Jia Jun Vernon - Personal Portfolio for Dr. Duke
+:site-section: Portfolio
+:imagesDir: ../images
+:xrefstyle: full
+:repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
+
+== Overview
+Dr. Duke is a GUI-based personal assistant for house officers to manage their patients' data. It aims to increase the speed at which patient data can be entered, organised, and accessed by providing a powerful and flexible GUI, together with easily understandable visual cues. We believe Dr. Duke will greatly complement the tight workflow of house officers.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the ability to navigate across `Contexts` in the application.
+** What it does: Allows the user to switch between contexts ordered in a hierarchical fashion. Each context displays its respective information in a focused manner.
+** Justification: One of the primary goals of Dr. Duke is to improve the work processes of house officers. House officers typically manages many patients on a day-to-day basis. Hence, they have to deal with a lot of information from all over the place. The `Context` mechanism is an extremely effective method to provide users with a focused view of the information that they are interested in at any given point in time.
+** Highlights: This enhancement affects both existing and planned commands as commands are highly contextual in nature in Dr. Duke. This means that the `open` command in the `HOME` context does not necessarily operate in the same way as the `open` command in the `PATIENT` context. Therefore, it involved an in-depth analysis before implementation. In addition, the implementation too was challenging as it required modifications to existing commands in order for them to work as intended in a given context.
+
+* *Minor enhancement*: Added the `Help` window to provide users with real-time and interactive visual guide on the avaliable commands for each context.
+
+* *Code contibuted*: Snippets of my code contributions can be found here: https://nuscs2113-ay1920s1.github.io/dashboard/#search=gowgos5
+
+* *Other notable contributions*:
+** Project management
+*** Managed releases v1.2 and v1.3 (2 releases) on GitHub
+*** Assigned tasks and deadlines to my team members
+
+** Documentation
+*** Written Section 4.2 (Patient context) of the User Guide
+*** Written Section 3.5 (UI component) and Sections 4.1 (Context) and 4.2 (Help) of the Developer Guide
+*** Finalised the User Guide for submission (cosmetic tweaks, formatting, spell checks, etc.)
+
+** Community
+*** Reviewed various PRs
+*** Contributed to forum discussions (https://github.com/nusCS2113-AY1920S1/forum/issues/61#issuecomment-533765281[#61])
+
+** Tools
+*** Integrated a third-party library (JFoenix) to the project
+*** Integrated a Continuous Integration service (Travis CI) to the project (https://github.com/AY1920S1-CS2113-T14-1/main/pull/5[#5])
+*** Integrated a Continuous Integration service (AppVeyor) to the project (https://github.com/AY1920S1-CS2113-T14-1/main/pull/81[#81])
+*** Integrated a Code Coverage service (Coveralls) to the project (https://github.com/AY1920S1-CS2113-T14-1/main/pull/175[#175])
+*** Integrated an Automated Code Analysis/Quality tool (Codacy) to the project (https://github.com/AY1920S1-CS2113-T14-1/main/pull/51[#51])
+
+== Contributions to the User Guide
+|===
+|_Given below is an excerpt of my contribution to the User Guide. It showcases my ability to write documentation targeting end-users. For the full documentation, refer https://github.com/AY1920S1-CS2113-T14-1/main/blob/master/docs/UserGuide.adoc#patient[here]._
+|===
+
+=== Patient
+
+image::Patient.png[Patient]
+
+{nbsp} +
+
+Shows a detailed view of a `Patient`. The details are displayed in separate panels as seen in the figure above.
+
+* Personal details such as name, age, height, weight, etc.
+* List of allergies
+* Medical history
+* List of `Impressions` with their associated details (the name, an excerpt of its description,
+and the number of critical items associated with the Impression)
+* List of _critical_ `Treatments` and `Evidences` (of priority 1)
+* List of _follow-up_ items, which are items that are not completed and that the user will need to follow up on. These consist of:
+** `Plan` items with status less than 2 (a status of 2 indicates completion)
+** `Investigation` items (once completed, an `Investigation` would be converted to a `Result`)
+** There may be items *duplicated* across the critical and follow-up lists as it is meant to give a view of two different but possibly overlapping categories of items that the user might want to view at a glance.
+
+Inherits: <<home-undo,`undo`>>, <<home-redo,`redo`>>
+
+{nbsp} +
+
+==== `new` - Add a new Impression for this Patient [[patient-new]]
+
+Format: `new *-n[ame]* "<name>" *-desc[ription]* "<description>" [*-g[o]*]` +
+
+Opens the new Impression's context if `-g[o]` is specified.
+
+**Example**
+****
+*new* `*-n*` "Dengue Fever" `*-desc*` "High fever and back pain" `*-go*`
+****
+
+==== `open` - Open a critical item, a follow-up item, or an Impression [[patient-open]]
+
+Format: `open ("<search string>" | _string_or_idx_ *-c[ritical]* | _string_or_idx_ *-f[ollowup]* | _string_or_idx_ *-im[pression]*)`
+
+If a _<search string>_ is used, items will be searched through by *name*, and results presented and selected as per the <<patient-open, `open`>> command,
+
+**Example**
+****
+*open* 3 `*-impress*`   (This command opens the third Impression in the Impression list) +
+*open* "Hip" `*-crit*`  (This command opens a critical item whose name contains "Hip", or a search window if there are multiple such items) +
+*open* "Blood" `*-follow*`  (This command opens a follow-up by search string) +
+*open* "Fever"  (This command opens an Impression, critical item or follow-up that contains "fever", displaying all matching results in a search window if there are multiple such items)
+****
+
+==== `edit` - Edit details of the Patient [[patient-edit]]
+
+Format: `edit *<switch>* [<new value>] [*<switch>* [<new value>]]* [*-app[end]*]` +
+
+Switches and corresponding new value format:
+
+* `*-h[eight]* <height>`
+* `*-w[eight]* <weight>`
+* `*-ag[e]* <age>`
+* `*-num[ber]* <number>`
+* `*-ad[dress]* "<address>"`
+* `*-hi[story]* "<history>"`
+* `*-a[llerg(y | ies)]* "<allergies>"`
+
+If `*-app*` is selected, the `<new value>` of *ALL* string-valued fields will be appended to their current values.
+
+**Example**
+****
+*edit* `*-height*` 180 `*-weight*` 60 `*-history*` "Dengue Fever" `*-app*`    (changes the Patient's height and weight to the respective numbers shown, and appends "Dengue Fever" to his existing history).
+****
+
+==== `delete` - Delete a critical, follow-up, or an Impression [[patient-delete]]
+
+Format: `delete ("<search string>" | _string_or_idx_ *-c[ritical]* | _string_or_idx_ *-i[nv(x|estigation)]* | _string_or_idx_ *-im[pression]*)` +
+
+Deletes an Impression, critical item or follow-up. The same <<patient-open, selection rules for `open`>> apply here.
+
+**Example**
+****
+*delete* 3 `*-impress*`    +
+*delete* "Hip" `*-crit*`   +
+*delete* "Blood" `*-follow*`  +
+*delete* "Fever"
+****
+
+==== `find` - Find items matching certain criteria [[patient-find]]
+
+Format: `find ["<search string>"] [_type_]` +
+`_type_` -> (`*-im[pression]*` | `*-e[vidence]*` | `*-t[reatment]*`)
+
+Display a list of all Impressions, Treatments, and Evidence belonging to this Patient that match the criteria specified in the search.
+If none of the `_type_` switches are used, all types of objects will be listed.
+If at least one of them is listed, only objects whose type is used as a switch will be listed.
+
+**Example**
+****
+*find* "aspirin" `*-im*` (This command searches for Impressions) +
+*find* "blood" `*-e*` (This command searches for Evidences) +
+*find* "high" (This command searches for Impressions, Evidences, and Treatments)
+****
+
+== Contributions to the Developer Guide
+
+|===
+|_I am in charge of managing the Developer Guide. Given below are sections that I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. For the full documentation, refer https://github.com/AY1920S1-CS2113-T14-1/main/blob/master/docs/DeveloperGuide.adoc[here]._
+|===
+
+=== UI
+The UI component for Dr. Duke is an abstract model/layer that exists independently in the application. It interacts with the other components (i.e. Model, Logic, Storage) of the application via a simple interface. It is designed to be easily expanded or modified by other developers with its liberal use of abstract classes. Hence, future developments such as the addition of `Contexts` can be accomplished with ease. The overall UI class diagram seen below is a good starting point to understand how the UI component is designed and constructed.
+
+.Overall UI class diagram
+image::ui_overall.png[]
+
+{nbsp} +
+
+This overall class diagram aptly describes the relationships between the various core classes and packages of the UI component.
+
+The UI component can be categorised into 3 main parts.
+
+*   `UiManager`
+*   `Windows`
+*   `Cards`
+
+The UI component is exposed to other components of Dr. Duke via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
+
+.UI Windows class diagram
+image::ui_windows.png[]
+
+{nbsp} +
+
+As mentioned, the `MainWindow` houses various UI elements such as the `CommandWindow`, `ContextWindow`, and `HelpWindow`. All of these windows extend from the abstract class `UiElement` (not shown in the above diagram). This abstract class serves as the parent class for all of the UI elements used in the application, which allows for their easy creation. In addition, as seen in Figure 2, the `MainWindow` holds a reference of the `UiContext` object that exposes the current `Context` (a core feature) of the application. The `Context` of the application determines what UI window the `ContextWindow` takes on, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context, etc. As Dr. Duke works with a huge number of contexts, the various context windows extend from `ContextWindow`. This greatly enables the use of polymorphism when dealing with the context windows. Therefore, when implementing a new context, you, as the developer, should always inherit from `ContextWindow` to display the context in GUI format.
+
+.UI Cards class diagram
+image::ui_cards.png[]
+
+{nbsp} +
+
+The `ContextWindow` houses the various cards shown in the figure above (corresponding to their respecitve context). These cards show an excerpt of the details of the `DukeObjects` they represent. All cards extend from `UiCard`. Hence, what has been mentioned with regards to polymorphism for `ContextWindow` applies to `UiCard` as well.
+

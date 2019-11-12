@@ -313,7 +313,7 @@ The `UI` component uses the JavaFX UI framework. The layout of these UI elements
 
 This section describes some noteworthy details on how certain features in Dr. Duke are implemented.
 
-[[Feature-Switch-Autocomplete]]
+[[Feature-Contexts]]
 === Contexts [PANG JIA JUN VERNON]
 ==== Rationale
 
