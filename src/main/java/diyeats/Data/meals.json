@@ -1,92 +1,910 @@
 {
-  "2019-11-11": [
+  "2019-11-01": [
     {
-      "description": "roti",
+      "description": "Egg Prata",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
-      "date": "2019-11-11",
+      "date": "2019-11-01",
       "nutritionValue": {
-        "calorie": 500
+        "calorie": 300
       },
-      "costStr": "7.5"
+      "costStr": "2.20"
     },
+    {
+      "description": "Curry Puff",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 180
+      },
+      "costStr": "1.80"
+    },
+    {
+      "description": "Tea",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "1.20"
+    },
+    {
+      "description": "Chicken Biryani",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 850
+      },
+      "costStr": "5.00"
+    },
+    {
+      "description": "Mango Lassi",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "3.50"
+    },
+    {
+      "description": "Gulab Jamun",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 380
+      },
+      "costStr": "2.90"
+    },
+    {
+      "description": "Fried Chicken Wings",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 355
+      },
+      "costStr": "2.50"
+    },
+    {
+      "description": "Nasi Lemak",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-01",
+      "nutritionValue": {
+        "calorie": 395
+      },
+      "costStr": "3.50"
+    }
+  ],
+
+
+  "2019-11-02": [
+    {
+      "description": "Cheese Prata",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 320
+      },
+      "costStr": "2.50"
+    },
+    {
+      "description": "Crackers",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 120
+      },
+      "costStr": "1.20"
+    },
+    {
+      "description": "Tea",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "1.20"
+    },
+    {
+      "description": "Mutton Biryani",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 850
+      },
+      "costStr": "5.00"
+    },
+    {
+      "description": "Mango Juice",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "3.50"
+    },
+    {
+      "description": "Ferrero Rocher",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 380
+      },
+      "costStr": "4.90"
+    },
+    {
+      "description": "BBQ Chicken Wings",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 400
+      },
+      "costStr": "2.70"
+    },
+    {
+      "description": "Chicken Fried Rice",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-02",
+      "nutritionValue": {
+        "calorie": 400
+      },
+      "costStr": "3.80"
+    }
+  ],
+
+
+
+  "2019-11-03": [
+    {
+      "description": "Egg Prata",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "2.20"
+    },
+    {
+      "description": "Curry Puff",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 180
+      },
+      "costStr": "1.80"
+    },
+    {
+      "description": "Tea",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "1.20"
+    },
+    {
+      "description": "Chicken Biryani",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 850
+      },
+      "costStr": "5.00"
+    },
+    {
+      "description": "Mango Lassi",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "3.50"
+    },
+    {
+      "description": "Gulab Jamun",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 380
+      },
+      "costStr": "2.90"
+    },
+    {
+      "description": "Fried Chicken Wings",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 355
+      },
+      "costStr": "2.50"
+    },
+    {
+      "description": "Nasi Lemak",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 395
+      },
+      "costStr": "3.50"
+    }
+  ],
+
+
+
+  "2019-11-04": [
+    {
+      "description": "Chapatti",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 240
+      },
+      "costStr": "3.00"
+    },
+    {
+      "description": "Chocolate Chip",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "2.50"
+    },
+    {
+      "description": "Tea",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "1.20"
+    },
+    {
+      "description": "Chicken Biryani",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 850
+      },
+      "costStr": "5.00"
+    },
+    {
+      "description": "Mango Lassi",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "3.50"
+    },
+    {
+      "description": "Gulab Jamun",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 380
+      },
+      "costStr": "2.90"
+    },
+    {
+      "description": "Fried Chicken Wings",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 355
+      },
+      "costStr": "2.50"
+    },
+    {
+      "description": "Nasi Lemak",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 395
+      },
+      "costStr": "3.50"
+    }
+  ],
+
+
+  "2019-11-05": [
+    {
+      "description": "Egg Prata",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "2.20"
+    },
+    {
+      "description": "Curry Puff",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 180
+      },
+      "costStr": "1.80"
+    },
+    {
+      "description": "Tea",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "1.20"
+    },
+    {
+      "description": "Chicken Biryani",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 850
+      },
+      "costStr": "5.00"
+    },
+    {
+      "description": "Mango Lassi",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 250
+      },
+      "costStr": "3.50"
+    },
+    {
+      "description": "Gulab Jamun",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 380
+      },
+      "costStr": "2.90"
+    },
+    {
+      "description": "Fried Chicken Wings",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 355
+      },
+      "costStr": "2.50"
+    },
+    {
+      "description": "Nasi Lemak",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 395
+      },
+      "costStr": "3.50"
+    }
+  ],
+
+
+  "2019-11-06": [
+    {
+      "description": "Porridge",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "1.90"
+    },
+    {
+      "description": "Egg Puff",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 180
+      },
+      "costStr": "1.80"
+    },
+    {
+      "description": "Coffee",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "1.40"
+    },
+    {
+      "description": "Chicken Pasta",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 580
+      },
+      "costStr": "5.00"
+    },
+    {
+      "description": "Apple Juice",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 120
+      },
+      "costStr": "1.70"
+    },
+    {
+      "description": "Banana Split",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 380
+      },
+      "costStr": "3.50"
+    },
+    {
+      "description": "Salmon Tereyaki",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 400
+      },
+      "costStr": "4.50"
+    },
+    {
+      "description": "Nasi Goreng Pattaya",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 550
+      },
+      "costStr": "5.50"
+    }
+  ],
+
+
+  "2019-11-13": [
+    {
+      "description": "yamyam",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-13",
+      "nutritionValue": {
+        "calorie": 900
+      },
+      "costStr": "3"
+    },
+    {
+      "description": "chicken rice",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-13",
+      "nutritionValue": {
+        "calorie": 1300
+      },
+      "costStr": "4.50"
+    },
+    {
+      "description": "pasta",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-13",
+      "nutritionValue": {
+        "calorie": 1300
+      },
+      "costStr": "8"
+    }
+  ],
+  "2019-11-12": [
     {
       "description": "curry puff",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
-      "date": "2019-11-11",
+      "date": "2019-11-12",
       "nutritionValue": {
-        "calorie": 300
+        "calorie": 950
       },
-      "costStr": "7.0"
+      "costStr": "4.50"
     },
     {
-      "description": "crab",
+      "description": "fried rice",
       "type": "L",
       "mealType": "LUNCH",
       "isDone": false,
-      "date": "2019-11-11",
+      "date": "2019-11-12",
       "nutritionValue": {
-        "calorie": 100
+        "calorie": 1100
       },
-      "costStr": "10.0"
+      "costStr": "4.50"
     },
     {
-      "description": "tomyam",
+      "description": "macburger",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-12",
+      "nutritionValue": {
+        "calorie": 1250
+      },
+      "costStr": "10"
+    }
+  ],
+  "2019-11-11": [
+    {
+      "description": "roti prata",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 3000
+        "calorie": 950
       },
-      "costStr": "0"
+      "costStr": "4.50"
     },
     {
-      "description": "asdf",
-      "type": "B",
-      "mealType": "BREAKFAST",
-      "isDone": false,
-      "date": "2019-11-11",
-      "nutritionValue": {
-        "calorie": 232
-      },
-      "costStr": "0"
-    },
-    {
-      "description": "mee so tong",
+      "description": "pork rice",
       "type": "L",
       "mealType": "LUNCH",
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 123
+        "calorie": 1300
       },
-      "costStr": "0"
+      "costStr": "6.50"
     },
     {
-      "description": "asd so tong",
-      "type": "L",
-      "mealType": "LUNCH",
+      "description": "pork rice",
+      "type": "D",
+      "mealType": "DINNER",
       "isDone": false,
       "date": "2019-11-11",
       "nutritionValue": {
-        "calorie": 123
+        "calorie": 1300
       },
-      "costStr": "0"
-    },
+      "costStr": "6.50"
+    }
+  ],
+  "2019-11-10": [
     {
-      "description": "asdasdfasfd tong",
+      "description": "maggie mee",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
-      "date": "2019-11-11",
+      "date": "2019-11-10",
       "nutritionValue": {
-        "calorie": 123
+        "calorie": 850
       },
       "costStr": "0"
+    },
+    {
+      "description": "maggie mee",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-10",
+      "nutritionValue": {
+        "calorie": 850
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "kfc",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-10",
+      "nutritionValue": {
+        "calorie": 1700
+      },
+      "costStr": "11.50"
+    }
+  ],
+  "2019-11-09": [
+    {
+      "description": "hotdog bread",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-09",
+      "nutritionValue": {
+        "calorie": 1000
+      },
+      "costStr": "4"
+    },
+    {
+      "description": "chicken tama",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-09",
+      "nutritionValue": {
+        "calorie": 1050
+      },
+      "costStr": "4.3"
+    },
+    {
+      "description": "chicken rice",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-09",
+      "nutritionValue": {
+        "calorie": 1150
+      },
+      "costStr": "4.50"
+    }
+  ],
+  "2019-11-08": [
+    {
+      "description": "toast bun",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 800
+      },
+      "costStr": "4"
+    },
+    {
+      "description": "mee sotong",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 1100
+      },
+      "costStr": "6"
+    },
+    {
+      "description": "fried rice",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone"
+      : false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 1000
+      },
+      "costStr": "5"
+    }
+  ],
+  "2019-11-07": [
+    {
+      "description": "fried rice",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-07",
+      "nutritionValue": {
+        "calorie": 1000
+      },
+      "costStr": "5"
+    },
+    {
+      "description": "fried rice",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-07",
+      "nutritionValue": {
+        "calorie": 1000
+      },
+      "costStr": "5"
+    },
+    {
+      "description": "fried rice",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-07",
+      "nutritionValue": {
+        "calorie": 900
+      },
+      "costStr": "5"
+    }
+  ],
+
+
+  "2019-11-15": [
+    {
+      "description": "maggie mee",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-15",
+      "nutritionValue": {
+        "calorie": 900
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "fried rice",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-15",
+      "nutritionValue": {
+        "calorie": 1200
+      },
+      "costStr": "7"
+    },
+    {
+      "description": "aston pasta",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-15",
+      "nutritionValue": {
+        "calorie": 1300
+      },
+      "costStr": "8"
+    }
+  ],
+  "2019-11-14": [
+    {
+      "description": "yamyam",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-14",
+      "nutritionValue": {
+        "calorie": 1240
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "kfc",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-14",
+      "nutritionValue": {
+        "calorie": 1200
+      },
+      "costStr": "9"
+    },
+    {
+      "description": "noodle",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-14",
+      "nutritionValue": {
+        "calorie": 1000
+      },
+      "costStr": "0"
+    }
+  ],
+
+  "2019-11-16": [
+    {
+      "description": "porridge",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-16",
+      "nutritionValue": {
+        "calorie": 900
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "meepok",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-16",
+      "nutritionValue": {
+        "calorie": 1300
+      },
+      "costStr": "4"
+    },
+    {
+      "description": "steak with caviar and gold plated grapes",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-16",
+      "nutritionValue": {
+        "calorie": 1350
+      },
+      "costStr": "9"
     }
   ]
 }
