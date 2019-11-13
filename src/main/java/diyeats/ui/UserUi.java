@@ -63,49 +63,35 @@ public class UserUi {
     }
 
     public void showLackAge() {
-        showLine();
         showMessage("Please enter an age using /age.");
-        showLine();
     }
 
     public void showLackName() {
-        showLine();
         showMessage("Please enter a name using /name.");
-        showLine();
     }
 
     public void showLackWeight() {
-        showLine();
         showMessage("Please enter a weight(cannot be less than 2kg)");
         showMessage("using /weight/.");
-        showLine();
     }
 
     public void showLackHeight() {
-        showLine();
         showMessage("Please enter a height(cannot be less than 54cm");
         showMessage("or more than 272cm) using /height.");
-        showLine();
     }
 
     public void showLackActivity() {
-        showLine();
         showMessage("Please enter an activity level using /activity.");
         showActivityLevel();
-        showLine();
     }
 
     public void showLackGender() {
-        showLine();
         showMessage("Please enter a gender(M/F) using /gender.");
-        showLine();
     }
 
     public void showWrongGenderInfo() {
-        showLine();
         showMessage("Please enter either M/F for gender.");
         showActivityLevel();
-        showLine();
     }
 
 }

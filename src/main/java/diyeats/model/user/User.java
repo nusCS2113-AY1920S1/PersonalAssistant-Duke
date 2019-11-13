@@ -103,6 +103,9 @@ public class User {
         if (goal.getActivityLevelTarget() < activityLevel && activityLevel != 5) {
             throw new ProgramException("Set goal failed, cannot set target activity level to\n"
                     + "     be lower than current activity level.");
+        } else if (activityLevel == 4) {
+            throw new ProgramException("It appears that you are already pursuing a very active lifestyle. \n"
+                    + "     The application cannot suggest something to add on to your routine.");
         } else if (!checkGoalFeasibility(goal)) {
             throw new ProgramException("Set goal failed. Average calorie loss in a day\n"
                     + "     must not exceed 40% of your current calorie expenditure!");

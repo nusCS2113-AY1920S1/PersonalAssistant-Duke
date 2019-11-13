@@ -32,9 +32,6 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
             return new AddDefaultValueCommand(true, e.getMessage());
         }
 
-        if (nutritionInfoMap.containsKey("cost")) {
-            foodCostStr = nutritionInfoMap.get("cost");
-        }
 
         for (String details : nutritionInfoMap.keySet()) {
             String intArgStr = nutritionInfoMap.get(details);

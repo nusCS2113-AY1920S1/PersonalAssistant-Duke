@@ -85,7 +85,7 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
             }
             if (parsedValue > 5 || parsedValue < 1) {
                 return new AddGoalCommand(true, "Integer after /activity must belong"
-                        + "to the range 1-5");
+                        + " to the range 1-5");
             }
         }
 

@@ -67,6 +67,7 @@ public class SuggestMealCommand extends Command {
     }
 
     public void execute_stage_0(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         MealSuggestionAnalytics mealSuggestionAnalytics = new MealSuggestionAnalytics();
         int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDate));
         suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
@@ -80,7 +81,7 @@ public class SuggestMealCommand extends Command {
             ui.showMessage("No meals could be suggested by DIYeats");
             isDone = true;
         }
-
+        ui.showLine();
     }
 
     // second stage user input execution
@@ -89,13 +90,17 @@ public class SuggestMealCommand extends Command {
         try {
             mealSelectedIndex = Integer.parseInt(this.responseStr);
         } catch (NumberFormatException e) {
+            ui.showLine();
             ui.showMessage("Could not parse " + responseStr + " as a number. Please input an integer.");
+            ui.showLine();
             return;
         }
 
         if (mealSelectedIndex == 0) {
+            ui.showLine();
             ui.showMessage("Declining suggestions.");
             isDone = true;
+            ui.showLine();
             return;
         } else if (mealSelectedIndex < 1 || mealSelectedIndex > suggestedMealList.size()) {
             ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)"

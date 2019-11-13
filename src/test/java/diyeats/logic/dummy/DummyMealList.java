@@ -29,6 +29,23 @@ public class DummyMealList extends MealList {
         this.exerciseList = exerciseList;
     }
 
+    public DummyMealList() {
+        ArrayList<Meal> meals = new ArrayList<>();
+        HashMap<String, Integer> nutritionInfoMap = new HashMap<>();
+        meals.add(new Meal("coke", nutritionInfoMap));
+        meals.add(new Meal("bread", nutritionInfoMap));
+        meals.add(new Meal("eggs", nutritionInfoMap));
+        meals.add(new Meal("chocolate", nutritionInfoMap));
+        mealTracker.put(LocalDate.of(2019, 11, 1), meals);
+        mealTracker.put(LocalDate.of(2019, 11, 2), meals);
+        mealTracker.put(LocalDate.of(2019, 11, 3), meals);
+        mealTracker.put(LocalDate.of(2019, 11, 4), meals);
+        mealTracker.put(LocalDate.of(2019, 11, 5), meals);
+        mealTracker.put(LocalDate.of(2019, 11, 10), meals);
+        mealTracker.put(LocalDate.of(2019, 12, 31), meals);
+        mealTracker.put(LocalDate.of(2020, 1, 1), meals);
+    }
+
     @Override
     public void addMeals(Meal data) throws ProgramException {
     }
@@ -45,10 +62,6 @@ public class DummyMealList extends MealList {
     @Override
     public Meal delete(LocalDate date, int index) {
         return null;
-    }
-
-    @Override
-    public void deleteAllMealsOnDate(LocalDate dateStr) {
     }
 
     @Override

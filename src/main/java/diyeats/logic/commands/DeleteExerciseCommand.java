@@ -48,6 +48,7 @@ public class DeleteExerciseCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         isDone = false;
         switch (stage) {
             case 0:
@@ -63,6 +64,7 @@ public class DeleteExerciseCommand extends Command {
                 //Exits execute loop if command enters invalid state
                 isDone = true;
         }
+        ui.showLine();
     }
 
     /**
@@ -87,20 +89,26 @@ public class DeleteExerciseCommand extends Command {
 
         if (isInstantDelete || deleteCandidateKeys.size() == 1) {
             int lastIdx = deleteCandidateKeys.size() - 1;
+            ui.showLine();
             ui.showMessage("Success! " + deleteCandidateKeys.get(lastIdx)
                     + " has been deleted from the list of exercises.");
+            ui.showLine();
             undo.undoDeleteExercise(deleteCandidateKeys.get(lastIdx),
                     meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(lastIdx)));
             meals.getExerciseList().getStoredExercises().remove(deleteCandidateKeys.get(lastIdx));
             try {
                 storage.writeFile(meals);
             } catch (ProgramException e) {
+                ui.showLine();
                 ui.showMessage(e.getMessage());
+                ui.showLine();
             }
             isDone = true;
         } else if (deleteCandidateKeys.size() == 0) {
+            ui.showLine();
             ui.showMessage("It appears there are no exercises associated with the keyword provided");
             isDone = true;
+            ui.showLine();
         } else {
             ui.showDeleteCandidateKeys(deleteCandidateKeys);
             ui.showMessage("Input 0 to cancel selection");

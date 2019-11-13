@@ -138,6 +138,6 @@ public class GraphCommand extends Command {
             }
         }
 
-        graphUi.show(graph, month, type);
+        graphUi.show(graph, month, type, (int)highest);
     }
 }

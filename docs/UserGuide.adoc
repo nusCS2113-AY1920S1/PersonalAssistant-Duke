@@ -133,7 +133,7 @@ Now that you have familiarized yourself with the command syntax that will be use
 If this is the first time you are launching our application on your computer, you will be prompted with the following
 text:
 
-image::startup1.PNG[]
+image::startup1.png[]
 
 If so, please enter the user initialisation command in the following format.
 
@@ -446,6 +446,7 @@ image::Add_Command_1.png[]
 * To override the existing defaults, simply run another default command with the same name, or override the existing
 tag within the `breakfast`, `lunch` or `dinner` command.
 * Assigning default values to a meal will also make DIYeats able to suggest it the next time you use the suggestmeal command
+* This function does not support addition of default cost. Doing so will treat "cost" as the name of a nutrient, and will not update actual cost of the meal.
 ====
 
 ==== Deleting default values to a meal: `deldefault`
@@ -545,11 +546,11 @@ Examples:
 * You deposit 100SGD today
 ** `deposit 100`
 +
-image::deposit1.png[]
+image::Deposit_1.png[]
 * You deposited 300SGD on 1st January, 2019, but you are only adding the transaction now
 ** `deposit 300 /date 1/1/2019`
 +
-image::deposit2.png[]
+image::Deposit_2.png[]
 
 [NOTE]
 ====
@@ -576,11 +577,11 @@ Examples:
 * You pay 100SGD today (assuming original account balance of 400SGD)
 ** `pay 100`
 +
-image::pay1.png[]
+image::Pay_1.png[]
 * You paid 300SGD on 1st January, 2019, but you are only adding the transaction now
 ** `pay 300 /date 1/1/2019`
 +
-image::pay2.png[]
+image::Pay_2.png[]
 
 [NOTE]
 ====

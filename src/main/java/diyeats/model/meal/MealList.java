@@ -14,11 +14,11 @@ public class MealList {
     private HashMap<LocalDate, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> defaultValues = new HashMap<>();
     private ExerciseList exerciseList = new ExerciseList();
+
     /**
      * This is the constructor of MealList object if there is no argument.
      * The MealList object will initialise a new empty arraylist of meals.
      */
-
     public MealList() {
     }
 

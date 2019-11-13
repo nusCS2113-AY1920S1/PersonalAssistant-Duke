@@ -38,6 +38,17 @@ public class DummyUser extends User {
         this.lastDate = lastDate;
     }
 
+    public DummyUser() {
+        this.name = "Test Only";
+        this.height = 174;
+        this.age = 23;
+        this.gender = Gender.MALE;
+        this.isSetup = true;
+        this.activityLevel = 2;
+        this.originalWeight = 75;
+        this.lastDate = LocalDate.now();
+    }
+
     public boolean isValid() {
         return true;
     }

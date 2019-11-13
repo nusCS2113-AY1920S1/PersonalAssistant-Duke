@@ -36,16 +36,17 @@ public class UpdateActivityCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
-
         int activityInt = 0;
         try {
             activityInt = Integer.parseInt(description);
             if (activityInt < 1) {
                 ui.showMessage("Activity Level cannot be less than 1");
                 ui.showActivityLevel();
+                ui.showLine();
             } else if (activityInt > 5) {
                 ui.showMessage("Activity Level cannot be more than 5");
                 ui.showActivityLevel();
+                ui.showLine();
             } else {
                 user.setActivityLevel(activityInt);
                 ui.showSuccess("Activity Level", description);
@@ -67,7 +68,6 @@ public class UpdateActivityCommand extends Command {
      */
 
     public void updateUser(User user) {
-
         int activityInt = 0;
         try {
             activityInt = Integer.parseInt(description);

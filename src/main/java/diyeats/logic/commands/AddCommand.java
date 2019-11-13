@@ -46,6 +46,7 @@ public class AddCommand extends Command {
      * @param undo the object that facilitates the removal of effect of previous command
      */
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         try {
             if (!meals.getMealTracker().containsKey(this.meal.getDate())) {
                 undo.undoAdd(this.meal, new ArrayList<Meal>());
@@ -59,6 +60,7 @@ public class AddCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 
     /**
