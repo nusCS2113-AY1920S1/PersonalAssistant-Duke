@@ -1030,7 +1030,8 @@ Use case ends.
 
 [TIP]
 ====
-This is only a guideline to test some features in our application, and by all means should not limit the tester from engaging in their own variants of testing
+* This is only a guideline to test some features in our application, and by all means should not limit the tester from engaging in their own variants of testing
+* Data is only populated for 1st to 15th November
 ====
 * *Initial Setup*
 . Launch
