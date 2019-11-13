@@ -23,7 +23,6 @@ import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 public class Ui {
     private static final String UI_PADDING = "     ";
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
-    public Scanner in = new Scanner(System.in);
     private static Logger logger = Logger.getLogger(Ui.class.getName());
 
     public void showLine() {
