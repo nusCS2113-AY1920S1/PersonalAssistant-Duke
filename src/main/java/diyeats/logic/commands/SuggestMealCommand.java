@@ -69,12 +69,12 @@ public class SuggestMealCommand extends Command {
     public void execute_stage_0(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         MealSuggestionAnalytics mealSuggestionAnalytics = new MealSuggestionAnalytics();
-        int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDate));
+        int calorieLimit = getCalorieLimit(user, meals.getMealsList(this.suggestionDate));
         suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
                                                                         maxMealsToSuggest, mealType);
 
         if (suggestedMealList.size() > 0) {
-            ui.showSuggestedMealList(suggestedMealList, currentDate);
+            ui.showSuggestedMealList(suggestedMealList, this.suggestionDate);
             // Allow followup user action after meals are suggested.
             isDone = false;
         } else {

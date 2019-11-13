@@ -59,7 +59,6 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
         }
 
         if (argumentsMap.containsKey(mealTypeArgStr)) {
-            // TODO: Parameterize magic constants of meal type.
             String tempMealTypeStr = argumentsMap.get(mealTypeArgStr).toUpperCase();
             if (tempMealTypeStr.equals("B") || tempMealTypeStr.equals("L") || tempMealTypeStr.equals("D")) {
                 if (tempMealTypeStr.equals("B")) {
