@@ -783,7 +783,7 @@ public class Process {
 
 
     //===========================* Payments *================================
-    //@@karansarat
+    //@@author karansarat
     /**
      * Splits the user input according to regex to get the information needed.
      * 
