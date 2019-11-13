@@ -576,11 +576,11 @@ Examples:
 * You pay 100SGD today (assuming original account balance of 400SGD)
 ** `pay 100`
 +
-image::pay1.png[]
+image::Pay_1.png[]
 * You paid 300SGD on 1st January, 2019, but you are only adding the transaction now
 ** `pay 300 /date 1/1/2019`
 +
-image::pay2.png[]
+image::Pay_2.png[]
 
 [NOTE]
 ====
