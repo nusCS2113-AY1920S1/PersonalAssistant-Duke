@@ -25,7 +25,6 @@ deldefault
 delete
 delexercise
 deposit
-deposit
 dinner
 display
 done
@@ -62,3 +61,4 @@ costascending
 costdescending
 listtransaction
 deletetransaction
+cost

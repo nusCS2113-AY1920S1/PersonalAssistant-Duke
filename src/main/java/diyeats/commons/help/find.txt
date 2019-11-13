@@ -7,3 +7,8 @@ for example:
     find fish
 
 will list down the meals with "fish" as a description.
+
+Note:
+- The search is case sensitive
+- Only description of the meal is searched
+- Substrings will be matched e.g. Han will match Hans

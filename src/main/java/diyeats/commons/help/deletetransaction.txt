@@ -1,3 +1,18 @@
 Deleting a transaction at a certain date
 
     deletetransaction INDEX [/date]<DATE>
+
+For Example:
+
+1. You want to delete transaction indexed 2 for today
+
+    deletetransaction 2
+
+2. You want to delete transaction indexed 3 on 1/1/2019
+
+    deletetransaction 1 /date 1/1/2019
+
+Note:
+- Current date is obtained from the system date in your computer.
+- Dates should be entered in the following format: dd/mm/yyyy and must be a valid date.
+- The index must be a positive integer 1, 2, 3 …​ (and must not exceed the bound of the list).

@@ -22,3 +22,4 @@ For example:
 Note:
 - Current date is obtained from the system date in your computer
 - Dates should be entered in the following format: day/month/year
+- Only meals recorded under default meals can be added without their nutritional values.

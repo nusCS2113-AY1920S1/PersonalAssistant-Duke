@@ -1,3 +1,23 @@
 Mark a meal as done and updating the account balance.
 
     done INDEX [/date] <DATE>
+
+For Example:
+
+1. You want to mark the 2nd meal on today's list as done
+
+    done 2
+
+2. You want to mark the 3rd meal on 1/1/2019 as done
+
+    done 3 /date 1/1/2019
+
+Note:
+
+- Marked done the task at the specified INDEX
+- The index refers to the index number shown in the displayed tasklist
+- The index must be a positive integer (1,2,3, ...) and must not go out of bound of the list of meals.
+- Only meals that have been eaten are counted to the calories you have eaten that day.
+- Only meals that have been marked done will deduct the account balance.
+- Marking done meal that has been eaten would not do anything.
+- If the food cost exceeds the account balance remaining, the meal will not be marked done.
