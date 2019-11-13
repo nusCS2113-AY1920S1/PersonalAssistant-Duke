@@ -9,6 +9,8 @@ import diyeats.storage.Storage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author HashirZahir
 /**
@@ -16,8 +18,9 @@ import java.util.ArrayList;
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.
  */
 public class ClearCommand extends Command {
-    LocalDate startDate;
-    LocalDate endDate;
+    public LocalDate startDate;
+    public LocalDate endDate;
+    private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Constructor for ClearCommand.
@@ -49,7 +52,11 @@ public class ClearCommand extends Command {
         undo.undoClearStage1();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             undo.undoClearStage2((ArrayList)meals.getMealsList(date).clone());
+            logger.log(Level.WARNING, "Before clear operation: Number of items in meals on " + date
+                    + ": " + meals.getMealsList(date));
             meals.deleteAllMealsOnDate(date);
+            logger.log(Level.WARNING, "After clear operation: Number of items in meals on " + date
+                    + ": " + meals.getMealsList(date));
         }
         undo.undoClearStage3();
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate.minusDays(1)));
