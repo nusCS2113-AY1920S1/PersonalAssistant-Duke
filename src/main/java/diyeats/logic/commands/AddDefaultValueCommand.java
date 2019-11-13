@@ -47,6 +47,7 @@ public class AddDefaultValueCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         meals.addDefaultValues(this.meal);
         undo.undoDefaultValues(this.meal.getDescription());
         ui.showAddedItem(this.meal);
@@ -55,6 +56,7 @@ public class AddDefaultValueCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 
     /**
