@@ -1,3 +1,18 @@
 Deleting a suggestable exercise
 
     delexercise DESCRIPTION
+
+For example:
+
+1. There is an exercise routine associated with sprinting, and you wish to remove it.
+
+    delexercise sprinting
+
+2. You want to delete a default value associated with cyling, but you are not exactly
+sure what's the exact name of the exercise routine.
+
+    delexercise cycling
+
+Info:
+- Deleting default values to a meal will also prevent DIYeats from suggesting in the suggestmeal command.
+- This function is case sensitive.

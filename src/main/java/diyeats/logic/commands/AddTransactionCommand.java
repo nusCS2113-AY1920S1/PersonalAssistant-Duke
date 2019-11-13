@@ -47,6 +47,7 @@ public class AddTransactionCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo)
             throws ProgramException {
+        ui.showLine();
         undo.undoTransaction(this.transaction);
         if (transaction.getType().equals("PAY")) {
             if (!wallet.getAccount().isSufficientBalance(this.transaction.getTransactionAmount())) {
@@ -63,6 +64,7 @@ public class AddTransactionCommand extends Command {
             storage.writeTransaction(wallet);
             ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
         }
+        ui.showLine();
     }
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {

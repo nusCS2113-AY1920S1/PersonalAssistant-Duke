@@ -1,3 +1,18 @@
 Adding/modifying default values to a meal.
 
     default DESCRIPTION [/TAG\<QUANTITY>...
+
+For Example:
+
+1. You want to assign the default values of 1100 calories to food items that have the name "Mega Zinger burger"
+
+    default Mega Zinger burger /calories 1100
+
+Note:
+- Only one set of default values can exist for every name of meal
+- To override the existing defaults, simply run another default command with the same name,
+or override the existing tag within the breakfast, lunch, dinner command.
+- Assigning default values to a meal will also make DIYeats able to
+suggest it the next time you use the suggestmeal command.
+- THis functio does not suppoer addition of default cost. Doing so will treat "cost" as the name of a nutrient, and
+will not update actual cost of the meal.

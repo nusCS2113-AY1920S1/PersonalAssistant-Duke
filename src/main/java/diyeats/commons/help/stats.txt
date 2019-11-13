@@ -1,3 +1,11 @@
 show the statistics regarding the nutritional progress
 
-    stats
+    stats [/date]<START_DATE> <END_DATE>
+
+Note:
+- This command does not work if no goal has been set. Please refer to the setgoal command to set a goal.
+- The default date (if not specified) is the current date on the user's computer.
+- The default display size (if not specified) is 5.
+- No suggestions may be displayed by DIYeats if your remaining calories for the day are low or no default meals exists
+in DIYeats.
+

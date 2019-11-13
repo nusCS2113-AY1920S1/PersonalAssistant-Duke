@@ -1,3 +1,28 @@
 Formulate exercise plan
 
     suggestexercise [/date] <DATE> [/find] <KEYWORD>
+
+For example;
+
+1. You want an exercise suggestion for today.
+
+    suggestexercise
+
+    enter the index of the exercise you want
+
+        for example: 1, 2, ...
+
+2. You want an exercise suggestion for 1/1/2000
+
+    suggestexercise /date 1/1/2000
+
+     enter the index of the exercise you want
+
+        for example: 1, 2, ...
+
+Note:
+- the default date (if not specified) is the current date on the user's computer.
+- If no keyword is specified, the command will display all exercises it can suggest.
+- Date should be entered in the form dd/MM/yyyy.
+
+

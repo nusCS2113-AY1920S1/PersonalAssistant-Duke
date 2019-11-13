@@ -35,7 +35,7 @@ public class Meal implements Cloneable {
         }
         if (nutritionValue.size() != 0) {
             for (String nutrient : nutritionValue.keySet()) {
-                if (!nutrient.equals("date") && !nutrient.equals("cost")) {
+                if (!nutrient.equals("date")) {
                     int value = Integer.parseInt(nutritionValue.get(nutrient));
                     this.nutritionValue.put(nutrient, value);
                 }

@@ -1,3 +1,19 @@
 Add suggestable exercise
 
     addexercise DESCRIPTION /value MET
+
+For example:
+
+1. You want a "sprinting" exercise routine worth 23 METs.
+
+    addexercise sprinting /value 23
+
+2. You want a "Rock climbing" exercise routine worth 10 METs.
+
+    addexercise Rock climbing /value 10
+
+Note:
+- MET value cannot be negative, or lower than 1 (no activity should cause you to lose less energy than doing nothing)
+- There cannot be two suggestable exercises with exactly the same name. The new one will override the older entry’s MET value.
+
+

@@ -1,3 +1,16 @@
 Deleting default values to a meal.
 
 deldefault DESCRIPTION
+
+For example:
+
+1. There is a default value associated with Mega Zinger burger, and you wish to remove it.
+
+    deldefault Mega Zinger burger
+
+2. You want to delete a default value associated with burger,
+but you are not exactly sure what's the exact name of the meal.
+
+    deldefault burger
+
+A list of items associated with the key word will be provided, you can choose based on the index.
