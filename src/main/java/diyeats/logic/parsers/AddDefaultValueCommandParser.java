@@ -32,10 +32,8 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
             return new AddDefaultValueCommand(true, e.getMessage());
         }
 
-
         for (String details : nutritionInfoMap.keySet()) {
             String intArgStr = nutritionInfoMap.get(details);
-
             try {
                 Integer.parseInt(intArgStr);
             } catch (NumberFormatException e) {

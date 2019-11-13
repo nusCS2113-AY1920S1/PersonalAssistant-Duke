@@ -19,7 +19,7 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
     private static final String mealTypeArgStr = "type";
     // Default values for arguments
     private LocalDate suggestionDate = LocalDate.now();
-    private int maxMealsToSuggest = 5;
+    private int maxMealsToSuggest = 20;
     private MealType mealType = MealType.LUNCH;
 
     /**

@@ -1,0 +1,40 @@
+{
+  "Mega Zinger Burger": {
+    "sodium": 20,
+    "fats": 20,
+    "calorie": 1000
+  },
+  "Roti Chanai": {
+    "calorie": 400
+  },
+  "burger": {
+    "cost": 2,
+    "calorie": 600
+  },
+  "Fish burger": {
+    "calorie": 400
+  },
+  "Chicken Burger": {
+    "calorie": 400
+  },
+  "Turkey Bacon Burger": {
+    "calorie": 400
+  },
+  "Chicken Rice": {
+    "sodium": 20,
+    "fats": 15,
+    "calorie": 500
+  },
+  "Raspberry Tea": {
+    "calorie": 50
+  },
+  "Kaya Toast": {
+    "calorie": 300
+  },
+  "chocolate": {
+    "calorie": 300
+  },
+  "Peach Tea": {
+    "calorie": 70
+  }
+}
