@@ -48,8 +48,8 @@ public class DeleteDefaultValueCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         isDone = false;
-
         switch (stage) {
             case 0:
                 //Checks for exact matches and deletes. Otherwise shows a list of similar items.
@@ -64,6 +64,7 @@ public class DeleteDefaultValueCommand extends Command {
                 //Exits execute loop if command enters invalid state
                 isDone = true;
         }
+        ui.showLine();
     }
 
     /**

@@ -36,7 +36,6 @@ public class UpdateActivityCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
-
         int activityInt = 0;
         try {
             activityInt = Integer.parseInt(description);
@@ -67,7 +66,6 @@ public class UpdateActivityCommand extends Command {
      */
 
     public void updateUser(User user) {
-
         int activityInt = 0;
         try {
             activityInt = Integer.parseInt(description);

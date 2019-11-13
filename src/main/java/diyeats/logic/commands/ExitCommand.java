@@ -31,6 +31,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         ui.showBye();
+        ui.showLine();
     }
 }
