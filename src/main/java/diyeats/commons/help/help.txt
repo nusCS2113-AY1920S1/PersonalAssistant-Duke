@@ -1,6 +1,6 @@
 For more information on a specific command, type help <command-name>
 add                 creating/modifying a fixed food item
-addexercise
+addexercise         add suggestable exercise.
 breakfast           record a breakfast meal along with its nutritional intake.
 bye                 exit the application.
 clear               clear all the data in an interval between two times.
@@ -8,10 +8,10 @@ default             add/modify default values to a meal.
 delete              delete a meal from a day.
 deldefault          deleting default values to a meal.
 deletetransaction   delete transaction at a certain date.
-delexercise         deleting a suggestable exerccise
+delexercise         deleting a suggestable exercise.
 deposit             deposit money to your account.
 dinner              record a dinner meal along with its nutritional intake.
-done
+done                mark a meal as done
 edit                edit the nutritional intake of a meal.
 exercise            record an exercise data.
 delete              delete a meal on a particular date from the database.

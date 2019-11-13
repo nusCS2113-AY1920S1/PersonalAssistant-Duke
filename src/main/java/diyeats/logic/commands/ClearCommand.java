@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.
  */
 public class ClearCommand extends Command {
-    public LocalDate startDate;
-    public LocalDate endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**

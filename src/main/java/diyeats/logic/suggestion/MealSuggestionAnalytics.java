@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author HashirZahir
 /**
@@ -19,6 +21,7 @@ import java.util.HashMap;
 public class MealSuggestionAnalytics {
 
     private static ArrayList<SuggestMeal> defaultSuggestionMealList = new ArrayList<>();
+    private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public MealSuggestionAnalytics() {
     }
@@ -42,6 +45,7 @@ public class MealSuggestionAnalytics {
             HashMap<String, Integer> mealNutrients  = defaultMealSuggestionList.get(mealNameStr);
             defaultSuggestionMealList.add(new SuggestMeal(mealNameStr, mealNutrients, suggestionDate, mealType));
         }
+        logger.log(Level.FINE, "Number of default meals ready for suggestion: " + defaultSuggestionMealList.size());
     }
 
     /**
@@ -67,7 +71,10 @@ public class MealSuggestionAnalytics {
             // negative index returned by subList.
             endIdx = -1 * (compareIdx + 1);
         }
-        return new ArrayList<SuggestMeal>(tempSuggestionMealList.subList(startIdx, endIdx));
+
+        ArrayList<SuggestMeal> suggestMeals = new ArrayList<>(tempSuggestionMealList.subList(startIdx, endIdx));
+        logger.log(Level.FINE, "Number of total meal suggestions made without display filter: " + suggestMeals.size());
+        return suggestMeals;
     }
 
     /**
@@ -84,6 +91,7 @@ public class MealSuggestionAnalytics {
         }
 
         mealList = new ArrayList<SuggestMeal>(mealList.subList(startIdx, endIdx));
+        logger.log(Level.FINE, "Meals to display: " + maxMealsToSuggest + ". Actual meals" + mealList.size());
         return mealList;
     }
 }

@@ -155,6 +155,16 @@ personalized user experience tailored specifically to you!
 ==== Viewing help : `help`
 Lost? Simply open up this user guide from inside the application by entering the command `help` in the CLI.
 
+Format: `help COMMAND_NAME`
+
+Examples:
+
+* You want to see what commands are available in DIYEats.
+** `help`
+
+* You want to see the description of list
+** `help list`
+
 ==== Undo previous command: `undo`
 Accidentally entered an erroneous command? Revert the command by entering the command `undo` in the CLI.
 
@@ -186,9 +196,9 @@ Simply enter the `clear` command followed by a start date and the end date, and 
 * To delete all meals on 1 particular day, simply enter `clear /startdate 1/1/2019 /enddate 1/1/2019` to clear all meals on 1st Jan 2019.
 ====
 
-==== Exiting the application: `exit`
+==== Exiting the application: `bye`
 
-To exit the application, simply enter `exit` in the CLI. All of your changes are automatically saved, before ending the current session.
+To exit the application, simply enter `bye` in the CLI. All of your changes are automatically saved, before ending the current session.
 
 ==== Listing nutritional intake for the day: `list`
 Format: `list [/date] <DATE> [/sort] <SORTING_CRITERION>`
@@ -221,7 +231,7 @@ image::list_4.png[]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: dd/mm/yyyy and must be valid date.
-* There are three sorting criteria, `costascending`, `costdescending`, `calorieascending`, and `caloriedescending`:
+* There are three sorting criteria: `costascending`, `costdescending`, `calorieascending`, and `caloriedescending`:
 ** `costascending` will sort the list based on their costs in ascending order.
 ** `costdescending` will sort the list based on their costs in descending order.
 ** `calorieascending` will sort the list based on their calories in ascending order.
