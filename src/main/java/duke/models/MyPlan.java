@@ -91,9 +91,15 @@ public class MyPlan {
      * @return the arraylist of keys, sorted by intensity and plan number
      */
     public ArrayList<String> keyList() {
-        Set<String> keys = getMap().keySet();
-        ArrayList<String> kl = new ArrayList<>(keys);
-        Collections.sort(kl);
+        ArrayList<String> kl = new ArrayList<>();
+        try {
+            Set<String> keys = getMap().keySet();
+            kl = new ArrayList<>(keys);
+            Collections.sort(kl);
+            return kl;
+        } catch (NullPointerException e) {
+            System.out.println("No plan in map");
+        }
         return kl;
     }
 
@@ -278,15 +284,13 @@ public class MyPlan {
      */
     public void editPlan(final String intensity,
                          final String key) throws IOException {
-        cliView.printLine();
         System.out.println(viewPlan());
-        cliView.printLine();
         while (true) {
+            cliView.printLine();
             cliView.showEditPlanPrompt1();
             if (sc.hasNextLine()) {
                 String input = sc.nextLine();
                 if (input.equals("switch")) {
-                    cliView.printLine();
                     cliView.showEditPlanPrompt2();
                     cliView.printLine();
                     String[] pos = sc.nextLine().split(" ");
@@ -312,21 +316,18 @@ public class MyPlan {
                     cliView.showActivityAdded();
                     System.out.println("     "
                             + getList().get(lastAdded).toString());
-                    cliView.printLine();
                 } else if (input.equals("show")) {
                     if (getList().isEmpty()) {
                         cliView.showNoActivity();
                     } else {
                         cliView.printLine();
                         cliView.showViewPlan(viewPlan());
-                        cliView.printLine();
                     }
                 } else if (input.equals("finalize")) {
                     saveToMap(getList(), intensity, key);
                     cliView.printLine();
                     cliView.showEditPlanSuccessful();
                     System.out.println(viewPlan());
-                    cliView.printLine();
                     break;
                 }
             }
@@ -356,14 +357,19 @@ public class MyPlan {
                            final String key) throws IOException {
         if (key.equals("0")) {
             int planNum = 1;
-            Set<String> keys = getMap().keySet();
-            for (String k : keys) {
-                if (k.contains(intensity)) {
-                    planNum++;
+            try {
+                Set<String> keys = getMap().keySet();
+                for (String k : keys) {
+                    if (k.contains(intensity)) {
+                        planNum++;
+                    }
                 }
+            } catch (NullPointerException e) {
+                System.out.println("");
+            } finally {
+                String k = createKey(intensity, planNum);
+                getMap().put(k, newList);
             }
-            String k = createKey(intensity, planNum);
-            getMap().put(k, newList);
         } else {
             getMap().put(key, newList);
         }
@@ -382,10 +388,10 @@ public class MyPlan {
             boolean inCreation = true;
             if (Intensity.contains(intensity)) {
                 while (inCreation) {
+                    cliView.printLine();
                     if (sc.hasNextLine()) {
                         String input = sc.nextLine();
                         if (input.equals("finalize")) {
-                            cliView.printLine();
                             cliView.showPlanCreated();
                             System.out.println(viewPlan());
                             cliView.printLine();
@@ -418,7 +424,6 @@ public class MyPlan {
                                         switchPos(Integer.parseInt(pos[0]),
                                                 Integer.parseInt(pos[1]));
                                         cliView.showPlanPrompt2();
-                                        cliView.printLine();
                                     } else {
                                         System.out.println("Input correct "
                                                 + "position numbers.");
@@ -442,7 +447,6 @@ public class MyPlan {
                             System.out.println("     "
                                     + getList().get(lastAdded).toString());
                             cliView.showPlanPrompt2();
-                            cliView.printLine();
                         }
                     }
                 }

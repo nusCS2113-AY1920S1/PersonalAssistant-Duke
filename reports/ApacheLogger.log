@@ -1,6 +1,15 @@
+<<<<<<< HEAD
+2019-11-13 15:07:06.391 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-13 15:07:06.479 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-13 15:07:06.479 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-13 15:07:06.479 DEBUG [ParseScheduleTable] - Correct Time
+2019-11-13 15:07:06.495 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-13 15:07:06.495 DEBUG [DateHandler] - Invalid time or format in convertTime
+=======
 2019-11-12 01:29:32.765 DEBUG [Schedule] - Wrong input format for adding to table
 2019-11-12 01:29:32.795 DEBUG [DateHandler] - Valid time and format in convertTime
 2019-11-12 01:29:32.796 DEBUG [DateHandler] - Valid time and format in convertTime
 2019-11-12 01:29:32.796 DEBUG [ParseScheduleTable] - Correct Time
 2019-11-12 01:29:32.805 DEBUG [DateHandler] - Valid time and format in convertTime
 2019-11-12 01:29:32.806 DEBUG [DateHandler] - Invalid time or format in convertTime
+>>>>>>> upstream/master
