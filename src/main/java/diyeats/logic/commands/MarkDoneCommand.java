@@ -75,6 +75,7 @@ public class MarkDoneCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         logger.setLevel(Level.OFF);
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             logger.log(Level.WARNING, "the index " + index + " is out of bound");
@@ -110,6 +111,7 @@ public class MarkDoneCommand extends Command {
                 ui.showAccountBalance(wallet);
             }
         }
+        ui.showLine();
     }
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {

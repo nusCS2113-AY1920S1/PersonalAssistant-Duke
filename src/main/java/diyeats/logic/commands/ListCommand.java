@@ -72,6 +72,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         if (!meals.checkDate(currentDate)) {
@@ -99,6 +100,7 @@ public class ListCommand extends Command {
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
         ui.showExerciseOnDate(meals.getExerciseList(), currentDate);
+        ui.showLine();
     }
 
     public void undo(MealList meals,  Storage storage, User user, Wallet wallet) {

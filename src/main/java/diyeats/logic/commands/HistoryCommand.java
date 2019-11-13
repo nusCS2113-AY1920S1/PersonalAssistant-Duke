@@ -55,6 +55,8 @@ public class HistoryCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         ui.showHistory(historyCommandsList);
+        ui.showLine();
     }
 }

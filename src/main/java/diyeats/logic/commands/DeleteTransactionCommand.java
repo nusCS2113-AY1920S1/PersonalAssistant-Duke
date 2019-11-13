@@ -71,6 +71,7 @@ public class DeleteTransactionCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         logger.setLevel(Level.OFF);
         if (index <= 0 || index > wallet.getTransactions().getTransactionList(currentDate).size()) {
             logger.log(Level.WARNING, "the index " + index + " is out of bound");
@@ -89,6 +90,7 @@ public class DeleteTransactionCommand extends Command {
             } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
+            ui.showLine();
         }
     }
 }

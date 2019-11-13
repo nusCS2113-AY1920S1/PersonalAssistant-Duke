@@ -58,7 +58,9 @@ public class ListTransactionsCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         ArrayList<Transaction> transactions = wallet.getTransactions().getTransactionList(currentDate);
         ui.showTransactions(transactions, currentDate, wallet);
+        ui.showLine();
     }
 }
