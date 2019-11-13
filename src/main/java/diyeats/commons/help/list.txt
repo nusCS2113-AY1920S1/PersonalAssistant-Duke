@@ -12,6 +12,11 @@ For example:
 
     list /date 26/12/2019
 
+3. You want to view your data from 11th of November, 2019 based on calorie (from largest calorie);
+
+    list /date 11/11/2019 /sort caloriedescending
+
 Note:
 - Current date is obtained from the system date in your computer
 - Dates should be entered in the following format: day/month/year
+- There are three sorting criteria: costascending, costdedscneding, calorieascending, and caloriedescending

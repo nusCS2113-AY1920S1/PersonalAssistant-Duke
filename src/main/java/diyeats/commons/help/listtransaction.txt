@@ -1,3 +1,17 @@
-Listing the transactions at a certain date
+Listing the transactions at a certain date.
 
     listtransaction [/date]<DATE>
+
+For Example:
+
+1. You want to list the transaction for today.
+
+    listtransacction
+
+2. You want to list the transaction on 1/1/2019.
+
+    listtransaction /date 1/1/2019.
+
+Note:
+- Current date is obtained from the system date in your computer.
+- Dates should be entered in the following format: dd/mm/yyyy and must be a valid date.

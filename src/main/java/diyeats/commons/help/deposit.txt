@@ -1,3 +1,20 @@
 Deposit money to your account.
 
     deposit AMOUNT [/date]<DATE>
+
+1. You deposited 100SGD today.
+
+    deposit 100
+
+2. You deposited 300 SGD on 1st January, 2019, but you are only adding the transaction now.
+
+    deposit 300 /date 1/1/2019
+
+Note:
+- Current date is obtained from the system date in your computer
+- Dates should be entered in the following format: dd/mm/yyyy.
+- Dates should be entered in the following format: day/month/year.
+- Adding deposit in the future does not work.
+- The AMOUNT is expressed in Singapore Dollar (SGD)
+- The AMOUNT should only go up to two decimal points (e.g. 2.50, 150.75).
+- The Account Balance must not exceed the max value of BigDecimal data type.

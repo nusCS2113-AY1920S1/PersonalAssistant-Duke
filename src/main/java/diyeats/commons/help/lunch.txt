@@ -10,9 +10,9 @@ For example:
 
     lunch hamburger
 
-2. You ate a hamburger that had 1000 calories and 10 grams of sodium
+2. You ate a hamburger that had 1000 calories and 10 grams of sodium costing 7.50 SGD
 
-    lunch hamburger /calories 1000 /sodium 10
+    lunch hamburger /calories 1000 /sodium 10 /cost 7.50
 
 3. You ate a hamburger that had 1000 calories and 10 grams of sodium on 1st of January, 2019,
    but you are only adding the item today
@@ -22,3 +22,4 @@ For example:
 Note:
 - Current date is obtained from the system date in your computer
 - Dates should be entered in the following format: day/month/year
+- Only meals recorded under default meals can be added without their nutritional values.

@@ -1,3 +1,15 @@
 Setting a nutritional goal to be met
 
     setgoal /start START_DATE /end END_DATE /activity ACTIVITY /weight WEIGHT
+
+For Example:
+
+1. You want to set a goal between 10th November 2019 to 10th November 2020, reaching your target
+weight of 50 kg and attaining a very active lifestyle by the end of the goal.
+
+    setgoal /start 10/11/2019 /end 10/11/2019 /activity 5 /weight 50
+
+2. You want to set a goal between 1st November 2019 to 28th January 2020, reaching your target weight of 50 kg
+and attaining an active lifestyle by the end of the goal
+
+    setgoal /start 1/11/2019 /end 28/1/2020 /activity 4 /weight 70
