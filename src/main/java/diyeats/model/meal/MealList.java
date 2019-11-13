@@ -11,9 +11,9 @@ import java.util.HashMap;
  * A MealList object encapsulates the ArrayList of meals.
  */
 public class MealList {
-    private HashMap<LocalDate, ArrayList<Meal>> mealTracker = new HashMap<>();
-    private HashMap<String, HashMap<String, Integer>> defaultValues = new HashMap<>();
-    private ExerciseList exerciseList = new ExerciseList();
+    protected HashMap<LocalDate, ArrayList<Meal>> mealTracker = new HashMap<>();
+    protected HashMap<String, HashMap<String, Integer>> defaultValues = new HashMap<>();
+    protected ExerciseList exerciseList = new ExerciseList();
 
     /**
      * This is the constructor of MealList object if there is no argument.

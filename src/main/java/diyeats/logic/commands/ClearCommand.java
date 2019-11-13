@@ -52,10 +52,10 @@ public class ClearCommand extends Command {
         undo.undoClearStage1();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             undo.undoClearStage2((ArrayList)meals.getMealsList(date).clone());
-            logger.log(Level.WARNING, "Before clear operation: Number of items in meals on " + date
+            logger.log(Level.FINE, "Before clear operation: Number of items in meals on " + date
                     + ": " + meals.getMealsList(date));
             meals.deleteAllMealsOnDate(date);
-            logger.log(Level.WARNING, "After clear operation: Number of items in meals on " + date
+            logger.log(Level.FINE, "After clear operation: Number of items in meals on " + date
                     + ": " + meals.getMealsList(date));
         }
         undo.undoClearStage3();

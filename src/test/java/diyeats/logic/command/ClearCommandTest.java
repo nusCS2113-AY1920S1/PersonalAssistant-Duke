@@ -14,6 +14,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//@@author HashirZahir
 public class ClearCommandTest {
     private ClearCommand clearCommand;
     private ClearCommandParser clearCommandParser;
@@ -39,20 +40,16 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void ClearCommandEmptyTest() {
+    public void clearCommandEmptyTest() {
         clearCommand = clearCommandParser.parse(inputStrs[0]);
         assertTrue(clearCommand.isFail());
     }
 
     @Test
-    public void ClearCommandRangeTest() {
+    public void clearCommandRangeTest() {
         clearCommand = clearCommandParser.parse(inputStrs[1]);
         assertTrue(!clearCommand.isFail());
-        assertTrue(clearCommand.startDate.equals(LocalDate.of(2019,11,1)));
         clearCommand.execute(meals, storage, user, wallet, undo);
-        System.out.println(meals.getMealsList(LocalDate.of(2019,1,11)));
-        meals.deleteAllMealsOnDate(LocalDate.of(2019,11,1));
-        System.out.println(meals.getMealsList(LocalDate.of(2019,1,11)));
 
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,1)).size() == clearedSize);
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,2)).size() == clearedSize);
@@ -65,13 +62,13 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void ClearCommandAfterBeforeTest() {
+    public void clearCommandAfterBeforeTest() {
         clearCommand = clearCommandParser.parse(inputStrs[2]);
         assertTrue(clearCommand.isFail());
     }
 
     @Test
-    public void ClearCommandOnDay() {
+    public void clearCommandOnDay() {
         clearCommand = clearCommandParser.parse(inputStrs[3]);
         assertTrue(!clearCommand.isFail());
 
@@ -85,6 +82,4 @@ public class ClearCommandTest {
         assertTrue(meals.getMealsList(LocalDate.of(2019,12,31)).size() == defaultSize);
         assertTrue(meals.getMealsList(LocalDate.of(2020,1,1)).size() == clearedSize);
     }
-
-
 }

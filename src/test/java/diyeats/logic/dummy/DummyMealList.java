@@ -13,9 +13,6 @@ import java.util.HashMap;
  * This is a stub mealList class for testing purposes.
  */
 public class DummyMealList extends MealList {
-    private HashMap<LocalDate, ArrayList<Meal>> mealTracker = new HashMap<>();
-    private HashMap<String, HashMap<String, Integer>> defaultValues = new HashMap<>();
-    private ExerciseList exerciseList = new ExerciseList();
 
     public DummyMealList(ExerciseList exerciseList) {
         exerciseList.addStoredExercises("Running, 8 mph (7.5 min/mile)", 8);
@@ -36,14 +33,14 @@ public class DummyMealList extends MealList {
         meals.add(new Meal("bread", nutritionInfoMap));
         meals.add(new Meal("eggs", nutritionInfoMap));
         meals.add(new Meal("chocolate", nutritionInfoMap));
-        mealTracker.put(LocalDate.of(2019, 11, 1), meals);
-        mealTracker.put(LocalDate.of(2019, 11, 2), meals);
-        mealTracker.put(LocalDate.of(2019, 11, 3), meals);
-        mealTracker.put(LocalDate.of(2019, 11, 4), meals);
-        mealTracker.put(LocalDate.of(2019, 11, 5), meals);
-        mealTracker.put(LocalDate.of(2019, 11, 10), meals);
-        mealTracker.put(LocalDate.of(2019, 12, 31), meals);
-        mealTracker.put(LocalDate.of(2020, 1, 1), meals);
+        mealTracker.put(LocalDate.of(2019, 11, 1), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2019, 11, 2), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2019, 11, 3), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2019, 11, 4), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2019, 11, 5), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2019, 11, 10), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2019, 12, 31), (ArrayList<Meal>) meals.clone());
+        mealTracker.put(LocalDate.of(2020, 1, 1), (ArrayList<Meal>) meals.clone());
     }
 
     @Override
