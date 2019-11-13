@@ -1,11 +1,11 @@
 package duke.parser;
 
 import duke.models.MyPlan;
-import duke.models.MyTraining;
 import duke.view.CliView;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import duke.data.Storage;
 
@@ -26,13 +26,28 @@ public class ParserTrainingPlan implements IParser {
     private MyPlan plan;
 
     /**
+     * Location of save file for plan.
+     */
+    private String userDir = System.getProperty("user.dir");
+    /**
+     * Filepath for the plan text file.
+     */
+    private String path = userDir + "/plan.txt";
+
+    /**
      * Constructor for ParserTrainingPlan.
      * @throws IOException IO
      */
     public ParserTrainingPlan() throws IOException {
         cliView = new CliView();
+        File file = new File(path);
+        if (!file.exists()) {
+            FileWriter fileWriter = new FileWriter(path);
+            fileWriter.flush();
+            fileWriter.close();
+        }
         plan = new MyPlan(new Storage(
-                ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
+                path).loadPlans());
         sc = new Scanner(System.in);
     }
 

@@ -8,7 +8,9 @@ import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Goal;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -76,6 +78,14 @@ public class ParserGoal {
     private ExitCommand exitCommand = new ExitCommand();
     //@@author nottherealedmund
     /**
+     * Location of saved file.
+     */
+    private String userDir = System.getProperty("user.dir");
+    /**
+     * Name of file path.
+     */
+    private String path = userDir + "/goals.txt";
+    /**
      * Constructor for ParserGoal.
      *
      * @throws FileNotFoundException if file does not exist
@@ -84,8 +94,16 @@ public class ParserGoal {
 
     public ParserGoal() throws IOException, ParseException {
         cliView = new CliView();
+        File file = new File(path);
+        if (!file.exists()) {
+            FileWriter fileWriter = new FileWriter(path);
+            fileWriter.flush();
+            fileWriter.close();
+        }
+        //goalStorage = new Storage(
+        //    ".\\src\\main\\java\\duke\\data\\goals.txt");
         goalStorage = new Storage(
-            ".\\src\\main\\java\\duke\\data\\goals.txt");
+            path);
         goal = new Goal(goalStorage.loadGoal());
         myGoalScan = new Scanner(System.in);
     }

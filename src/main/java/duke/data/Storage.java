@@ -403,79 +403,78 @@ public class Storage {
      */
     public Map<String, ArrayList<MyTraining>> loadPlans() {
         try {
-            File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
+            File f = new File(filePath);
             Map<String, ArrayList<MyTraining>> temp = new HashMap<>();
+            ArrayList<String> temp2 = new ArrayList<>();
 
             if (f.length() == 0) {
-                System.out.println("Plan file is empty. Loading failed.");
+                savePlans(temp, temp2);
                 return null;
-            } else {
-                String intensity = "";
-                int planNum = 0;
-                int counter = 0;
-                ArrayList<MyTraining> tempList = new ArrayList<>();
-                ArrayList<Integer> countList = new ArrayList<>();
-                ArrayList<String> keyList = new ArrayList<>();
-                while (fileInput.hasNextLine()) {
-                    String in = fileInput.nextLine();
-
-
-                    if (in.contains("Intensity")) {
-                        String[] line = in.split(": ");
-                        if (line[1].equals("high")) {
-                            MyPlan.Intensity x = MyPlan.Intensity.high;
-                            intensity = x.toString();
-                        } else if (line[1].equals("moderate")) {
-                            MyPlan.Intensity x = MyPlan.Intensity.moderate;
-                            intensity = x.toString();
-                        } else if (line[1].equals("relaxed")) {
-                            MyPlan.Intensity x = MyPlan.Intensity.relaxed;
-                            intensity = x.toString();
-                        }
-                    }
-                    if (in.contains("Plan")) {
-                        String[] line = in.split(": ");
-                        planNum = Integer.parseInt(line[1]);
-                    }
-                    if (in.contains(" | ")) {
-                        counter++;
-                        String[] line = in.split("\\s*\\|\\s*");
-                        MyTraining ac = new MyTraining(line[0],
-                                Integer.parseInt(line[1]),
-                                Integer.parseInt(line[2]));
-                        tempList.add(ac);
-
-                        final int endOfPlan = 4;
-                        if (line.length == endOfPlan) {
-                            countList.add(counter);
-                            counter = 0;
-                            if (line[endOfPlan - 1].equals("##")) {
-                                String key = intensity + planNum;
-                                keyList.add(key);
-                            }
-                        }
-                    }
-                }
-                fileInput.close();
-                int a = 0;
-                for (String s : keyList) {
-                    int size = countList.get(a);
-                    a++;
-                    ArrayList<MyTraining> tl = new ArrayList<>();
-                    for (int x = 0; x < size; x++) {
-                        tl.add(tempList.get(0));
-                        tempList.remove(0);
-                    }
-                    temp.put(s,tl);
-                }
-                Set<String> keys = temp.keySet();
-                ArrayList<String> kl = new ArrayList<>(keys);
-                for (String s : kl) {
-                    System.out.println(s);
-                }
-                return temp;
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+            String intensity = "";
+            int planNum = 0;
+            int counter = 0;
+            ArrayList<MyTraining> tempList = new ArrayList<>();
+            ArrayList<Integer> countList = new ArrayList<>();
+            ArrayList<String> keyList = new ArrayList<>();
+            while (fileInput.hasNextLine()) {
+                String in = fileInput.nextLine();
+
+                if (in.contains("Intensity")) {
+                    String[] line = in.split(": ");
+                    if (line[1].equals("high")) {
+                        MyPlan.Intensity x = MyPlan.Intensity.high;
+                        intensity = x.toString();
+                    } else if (line[1].equals("moderate")) {
+                        MyPlan.Intensity x = MyPlan.Intensity.moderate;
+                        intensity = x.toString();
+                    } else if (line[1].equals("relaxed")) {
+                        MyPlan.Intensity x = MyPlan.Intensity.relaxed;
+                        intensity = x.toString();
+                    }
+                }
+                if (in.contains("Plan")) {
+                    String[] line = in.split(": ");
+                    planNum = Integer.parseInt(line[1]);
+                }
+                if (in.contains(" | ")) {
+                    counter++;
+                    String[] line = in.split("\\s*\\|\\s*");
+                    MyTraining ac = new MyTraining(line[0],
+                            Integer.parseInt(line[1]),
+                            Integer.parseInt(line[2]));
+                    tempList.add(ac);
+
+                    final int endOfPlan = 4;
+                    if (line.length == endOfPlan) {
+                        countList.add(counter);
+                        counter = 0;
+                        if (line[endOfPlan - 1].equals("##")) {
+                            String key = intensity + planNum;
+                            keyList.add(key);
+                        }
+                    }
+                }
+            }
+            fileInput.close();
+            int a = 0;
+            for (String s : keyList) {
+                int size = countList.get(a);
+                a++;
+                ArrayList<MyTraining> tl = new ArrayList<>();
+                for (int x = 0; x < size; x++) {
+                    tl.add(tempList.get(0));
+                    tempList.remove(0);
+                }
+                temp.put(s,tl);
+            }
+            Set<String> keys = temp.keySet();
+            ArrayList<String> kl = new ArrayList<>(keys);
+            for (String s : kl) {
+                System.out.println(s);
+            }
+            return temp;
+        } catch (ArrayIndexOutOfBoundsException | IOException e) {
             return null;
         }
     }
@@ -489,13 +488,11 @@ public class Storage {
      */
     public void savePlans(final Map<String, ArrayList<MyTraining>> map,
                           final ArrayList<String> keys) throws IOException {
-        PrintWriter clear = new PrintWriter(
-            ".\\src\\main\\java\\duke\\data\\plan.txt");
+        PrintWriter clear = new PrintWriter(filePath);
         clear.close();
 
         BufferedWriter buffer = new BufferedWriter(
-            new FileWriter(".\\src\\main\\java\\duke\\data\\plan.txt",
-                true));
+            new FileWriter(filePath, true));
 
         for (int i = 1; i <= MyPlan.Intensity.values().length; i++) {
             MyPlan.Intensity x = MyPlan.Intensity.valueOf(i);
