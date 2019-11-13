@@ -21,6 +21,8 @@ import seedu.hustler.task.TaskList;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.TimerManager;
 import seedu.hustler.schedule.Scheduler;
+import java.util.ArrayList;
+import seedu.hustler.task.Task;
 
 import java.io.IOException;
 
@@ -34,7 +36,7 @@ public class Hustler extends Application {
      * TaskList instance that  stores all the tasks added by the
      * user and from storage.
      */
-    public static TaskList list;
+    public static TaskList list = new TaskList(new ArrayList<Task>());
     
     /**
      * Stores tasks, amount of time spent on them, their priority 

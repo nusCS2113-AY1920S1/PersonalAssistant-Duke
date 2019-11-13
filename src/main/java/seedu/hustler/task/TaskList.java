@@ -68,6 +68,7 @@ public class TaskList {
     public void add(Task task) {
         list.add(task);
         updateBusybeeAchievement();
+        Hustler.scheduler.update();
     }
 
     /**
@@ -103,6 +104,7 @@ public class TaskList {
             addEvent(splitInput, difficulty, tag);
         }
         updateBusybeeAchievement();
+        Hustler.scheduler.update();
     }
 
     /**
