@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import duke.view.CliView;
+import duke.view.CliViewSchedule;
 
 //@@ danisheddie
 public final class ParserManageStudents {
@@ -116,6 +117,10 @@ public final class ParserManageStudents {
         while (runProgress) {
             new CliView().studentProgressHeading();
             String cmd = sc.nextLine();
+            while (cmd.equals("")) {
+                cmd = sc.nextLine();
+            }
+            new CliViewSchedule().message("cmd: " + cmd);
             switch (cmd) {
             case "add":
                 System.out.print("Who do you want to add progress for?\n");
@@ -133,7 +138,7 @@ public final class ParserManageStudents {
                     } else {
                         System.out.println("Please insert progress description.");
                     }
-                } catch (InputMismatchException e) {
+                } catch (InputMismatchException | NumberFormatException e) {
                     new CliView().showCorrectCommand();
                 }
                 break;

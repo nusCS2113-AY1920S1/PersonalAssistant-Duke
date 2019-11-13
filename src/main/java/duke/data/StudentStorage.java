@@ -1,11 +1,9 @@
 package duke.data;
 
 import duke.models.students.Student;
+import duke.view.CliView;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -48,6 +46,15 @@ public class StudentStorage {
      */
     public void loadStudentListFile(final ArrayList<Student> student) {
         try {
+            File f = new File(filePath);
+            if (!f.exists()) {
+                try {
+                    FileWriter fileWriter = new FileWriter(filePath);
+                    fileWriter.write("");
+                } catch (IOException e) {
+                    new CliView().errMessage("File io error");
+                }
+            }
             FileReader file = new FileReader(filePath);
             Scanner scanner = new Scanner(file);
             Student newStudent;
