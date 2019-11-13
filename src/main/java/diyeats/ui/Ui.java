@@ -257,7 +257,6 @@ public class Ui {
     private void showStatsWithGoal(User user) {
         System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "These are your user statistics as of today:");
-        System.out.println(UI_PADDING + "Original weight: " + user.getOriginalWeight());
         System.out.println(UI_PADDING + "Current Weight: " + user.getWeight());
         System.out.println(UI_PADDING + "Target Weight: " + user.getWeightTarget());
         if (user.getDaysLeftToGoal() >= 0) {

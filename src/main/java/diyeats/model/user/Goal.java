@@ -44,7 +44,8 @@ public class Goal {
         startDate = LocalDate.parse(argumentsMap.get(START_DATE_ARG_STR), LOCAL_DATE_FORMATTER);
         endDate = LocalDate.parse(argumentsMap.get(END_DATE_ARG_STR), LOCAL_DATE_FORMATTER);
         weightTarget = Double.parseDouble(argumentsMap.get(WEIGHT_ARG_STR));
-        activityLevelTarget = Integer.parseInt(argumentsMap.get(ACTIVITY_ARG_STR));
+        //activity level is stored as a range from 0 - 4
+        activityLevelTarget = Integer.parseInt(argumentsMap.get(ACTIVITY_ARG_STR)) - 1;
     }
 
     /**
