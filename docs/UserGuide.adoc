@@ -133,7 +133,7 @@ Now that you have familiarized yourself with the command syntax that will be use
 If this is the first time you are launching our application on your computer, you will be prompted with the following
 text:
 
-image::startup1.PNG[]
+image::startup1.png[]
 
 If so, please enter the user initialisation command in the following format.
 
@@ -545,11 +545,11 @@ Examples:
 * You deposit 100SGD today
 ** `deposit 100`
 +
-image::deposit1.png[]
+image::Deposit_1.png[]
 * You deposited 300SGD on 1st January, 2019, but you are only adding the transaction now
 ** `deposit 300 /date 1/1/2019`
 +
-image::deposit2.png[]
+image::Deposit_2.png[]
 
 [NOTE]
 ====
