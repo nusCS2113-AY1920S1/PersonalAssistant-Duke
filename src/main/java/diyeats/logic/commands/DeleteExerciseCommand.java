@@ -146,7 +146,7 @@ public class DeleteExerciseCommand extends Command {
         undo.undoDeleteExercise(deleteCandidateKeys.get(deleteIdx - 1),
                 meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(deleteIdx - 1)));
         meals.getExerciseList().getStoredExercises().remove(deleteCandidateKeys.get(deleteIdx - 1));
-        
+
         try {
             storage.writeFile(meals);
         } catch (ProgramException e) {
