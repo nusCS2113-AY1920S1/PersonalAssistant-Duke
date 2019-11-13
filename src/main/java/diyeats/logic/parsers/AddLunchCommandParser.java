@@ -59,6 +59,7 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
                 }
             }
         }
+        nutritionInfoMap.remove("cost");
         return new AddCommand(new Lunch(mealNameAndInfo[0], localDate, nutritionInfoMap, foodCostStr));
     }
 }
