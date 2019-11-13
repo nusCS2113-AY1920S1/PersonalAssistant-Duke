@@ -23,7 +23,6 @@ import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 public class Ui {
     private static final String UI_PADDING = "     ";
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
-    public Scanner in = new Scanner(System.in);
     private static Logger logger = Logger.getLogger(Ui.class.getName());
 
     public void showLine() {
@@ -35,9 +34,7 @@ public class Ui {
     }
 
     public void showBye() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Bye. Hope to see you again soon!");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showList(ArrayList<Meal> meals, String messageStr) {
@@ -50,7 +47,7 @@ public class Ui {
         }
     }
 
-    public void showMealList(ArrayList<Meal> meals)  {
+    public void showMealList(ArrayList<Meal> meals) {
         String messageStr = "Here are the meals in your list: ";
         showList(meals, messageStr);
     }
@@ -58,11 +55,9 @@ public class Ui {
     public void showSuggestedMealList(ArrayList<Meal> meals, LocalDate date) {
         String messageStr = "Here are the suggested meals for " + date.format(LOCAL_DATE_FORMATTER);
         showList(meals, messageStr);
-        showLine();
         showMessage("Please select which meal you would like by providing "
                 + "index of meal item in the list above.");
         showMessage("Enter 0 to decline suggestions.");
-
     }
 
     public void showDone(Meal currentMeal) {
@@ -141,9 +136,7 @@ public class Ui {
 
 
     public void showMessage(String message) {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + message);
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showLoadingError() {
@@ -248,14 +241,11 @@ public class Ui {
     }
 
     public void goalNotFound() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "It appears that a diet plan has not been setup for this session of DIYeats.");
         System.out.println(UI_PADDING + "Please use the `setgoal` command to create a diet plan customized for you!");
-        System.out.println(UI_BOUNDARY);
     }
 
     private void showStatsWithGoal(User user) {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "These are your user statistics as of today:");
         System.out.println(UI_PADDING + "Current Weight: " + user.getWeight());
         System.out.println(UI_PADDING + "Target Weight: " + user.getWeightTarget());
@@ -270,7 +260,6 @@ public class Ui {
             System.out.println(UI_PADDING + "It appears the diet plan has expired or is expiring today.");
             System.out.println(UI_PADDING + "Use the setgoal command to set a new diet plan!");
         }
-        System.out.println(UI_BOUNDARY);
     }
 
     private void showOnTrack(User user) {
@@ -284,7 +273,6 @@ public class Ui {
     }
 
     public void showExerciseRequired(int calories, LocalDate date) {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "To meet your goals, you should do: " + calories + " calories");
         if (date.isEqual(LocalDate.now())) {
             System.out.println(UI_PADDING + "worth of exercises today.");
@@ -301,11 +289,9 @@ public class Ui {
             System.out.print(itr.getKey() + ": " + itr.getValue() + " mins \n");
             counter++;
         }
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showDeleteCandidateKeys(ArrayList<String> deleteCandidateKeys) {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Here are the items associated with the keyword provided:");
         int counter = 1;
         for (String itr : deleteCandidateKeys) {
@@ -314,7 +300,6 @@ public class Ui {
             counter++;
         }
         System.out.println(UI_PADDING + "Please enter the index of the item you wish to delete.");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showExerciseOnDate(ExerciseList exerciseList, LocalDate date) {

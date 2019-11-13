@@ -51,6 +51,7 @@ public class AddGoalCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         try {
             user.setGoal(goal);
             undo.undoSetGoal();
@@ -60,6 +61,7 @@ public class AddGoalCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {

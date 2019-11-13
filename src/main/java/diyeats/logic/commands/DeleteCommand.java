@@ -61,6 +61,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         if (index < 0 || index >= meals.getMealsList(deleteDate).size()) {
             String errorMsg = "Index provided out of bounds for list of meals on the indicated date. ";
             if (meals.getMealsList(deleteDate).size() == 0) {
@@ -79,6 +80,7 @@ public class DeleteCommand extends Command {
                 ui.showMessage(e.getMessage());
             }
         }
+        ui.showLine();
     }
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {

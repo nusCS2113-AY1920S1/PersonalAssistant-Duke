@@ -70,6 +70,7 @@ public class EditCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        ui.showLine();
         if (this.mealIndex >= meals.getMealsList(localDate).size()) {
             ui.showMessage("Edit meal index is out of bounds. Edit not performed");
             return;
@@ -86,5 +87,6 @@ public class EditCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 }
