@@ -19,11 +19,12 @@ public class GraphUi {
      * @param month month of the data collected
      * @param type type of the data collected
      */
+
     public void show(String[][] graph, int month, String type, int highest) {
         System.out.println(this.month[month - 1] + " \n" + type);
         int factor = findFactor(highest);
         for (int i = 0; i < graph.length; i += 1) {
-            int currentValue = (int)(((20.0 - i)/20.0) * highest);
+            int currentValue = (int)(((20.0 - i) / 20.0) * highest);
             for (int k = 0; k < (factor - findFactor(currentValue)); k += 1) {
                 System.out.print(" ");
             }
