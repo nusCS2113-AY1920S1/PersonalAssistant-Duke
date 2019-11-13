@@ -33,7 +33,6 @@ public class ClearCommandParser implements ParserInterface<ClearCommand> {
                     + "Start and End dates to clear meals from.");
         }
 
-        System.out.println(startAndEndDates.keySet());
         if (!startAndEndDates.containsKey("startdate")) {
             return new ClearCommand(false, "Please include a startdate"
                     + " using /startdate.");

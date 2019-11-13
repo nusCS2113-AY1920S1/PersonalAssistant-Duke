@@ -22,9 +22,9 @@ public class ClearCommandTest {
     private DummyUser user;
     private DummyWallet wallet;
     private Undo undo;
-    private String[] inputStrs = {"clear", "clear /startdate 1/11/2019 /enddate 5/11/2019",
-                                  "clear /startdate 3/11/2019 /enddate 2/11/2019",
-                                  "clear /startdate 1/1/2020 /enddate 1/1/2020"  };
+    private String[] inputStrs = {"", "/startdate 1/11/2019 /enddate 5/11/2019",
+                                  "/startdate 3/11/2019 /enddate 2/11/2019",
+                                  "/startdate 1/1/2020 /enddate 1/1/2020"  };
     private int clearedSize = 0;
     private int defaultSize = 4;
 
@@ -34,6 +34,7 @@ public class ClearCommandTest {
         storage = new DummyStorage();
         wallet = new DummyWallet();
         undo = new Undo();
+        user = new DummyUser();
         clearCommandParser = new ClearCommandParser();
     }
 
@@ -46,7 +47,13 @@ public class ClearCommandTest {
     @Test
     public void ClearCommandRangeTest() {
         clearCommand = clearCommandParser.parse(inputStrs[1]);
+        assertTrue(!clearCommand.isFail());
+        assertTrue(clearCommand.startDate.equals(LocalDate.of(2019,11,1)));
         clearCommand.execute(meals, storage, user, wallet, undo);
+        System.out.println(meals.getMealsList(LocalDate.of(2019,1,11)));
+        meals.deleteAllMealsOnDate(LocalDate.of(2019,11,1));
+        System.out.println(meals.getMealsList(LocalDate.of(2019,1,11)));
+
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,1)).size() == clearedSize);
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,2)).size() == clearedSize);
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,3)).size() == clearedSize);
@@ -66,6 +73,8 @@ public class ClearCommandTest {
     @Test
     public void ClearCommandOnDay() {
         clearCommand = clearCommandParser.parse(inputStrs[3]);
+        assertTrue(!clearCommand.isFail());
+
         clearCommand.execute(meals, storage, user, wallet, undo);
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,1)).size() == defaultSize);
         assertTrue(meals.getMealsList(LocalDate.of(2019,11,2)).size() == defaultSize);
