@@ -446,6 +446,7 @@ image::Add_Command_1.png[]
 * To override the existing defaults, simply run another default command with the same name, or override the existing
 tag within the `breakfast`, `lunch` or `dinner` command.
 * Assigning default values to a meal will also make DIYeats able to suggest it the next time you use the suggestmeal command
+* This function does not support addition of default cost. Doing so will treat "cost" as the name of a nutrient, and will not update actual cost of the meal.
 ====
 
 ==== Deleting default values to a meal: `deldefault`
