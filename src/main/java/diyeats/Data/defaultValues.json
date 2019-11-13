@@ -7,10 +7,6 @@
   "Roti Chanai": {
     "calorie": 400
   },
-  "burger": {
-    "cost": 2,
-    "calorie": 600
-  },
   "Fish burger": {
     "calorie": 400
   },
@@ -31,7 +27,7 @@
   "Kaya Toast": {
     "calorie": 300
   },
-  "chocolate": {
+  "Chocolate": {
     "calorie": 300
   },
   "Peach Tea": {
