@@ -53,7 +53,6 @@ public class SuggestMealCommand extends Command {
 
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
-        ui.showLine();
         switch (stage) {
             case 0:
                 execute_stage_0(meals, storage, user, wallet);
@@ -65,10 +64,10 @@ public class SuggestMealCommand extends Command {
             default:
                 isDone = true;
         }
-        ui.showLine();
     }
 
     public void execute_stage_0(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         MealSuggestionAnalytics mealSuggestionAnalytics = new MealSuggestionAnalytics();
         int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDate));
         suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
@@ -82,7 +81,7 @@ public class SuggestMealCommand extends Command {
             ui.showMessage("No meals could be suggested by DIYeats");
             isDone = true;
         }
-
+        ui.showLine();
     }
 
     // second stage user input execution

@@ -62,24 +62,18 @@ public class Ui {
     }
 
     public void showDone(Meal currentMeal) {
-        showLine();
         System.out.println(UI_PADDING + "Nice! I've marked this meal as done:");
         System.out.println(UI_PADDING + currentMeal);
-        showLine();
     }
 
     public void showNotDone(Meal currentMeal) {
-        showLine();
         System.out.println(UI_PADDING + "The meal will remain as it is:");
         System.out.println(UI_PADDING + currentMeal);
-        showLine();
     }
 
     public void showAlreadyMarkedDone(Meal currentMeal) {
-        showLine();
         System.out.println(UI_PADDING + "The meal is already marked done:");
         System.out.println(UI_PADDING + currentMeal);
-        showLine();
     }
 
     public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
