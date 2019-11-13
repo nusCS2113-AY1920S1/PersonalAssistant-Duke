@@ -42,9 +42,11 @@ public class UpdateActivityCommand extends Command {
             if (activityInt < 1) {
                 ui.showMessage("Activity Level cannot be less than 1");
                 ui.showActivityLevel();
+                ui.showLine();
             } else if (activityInt > 5) {
                 ui.showMessage("Activity Level cannot be more than 5");
                 ui.showActivityLevel();
+                ui.showLine();
             } else {
                 user.setActivityLevel(activityInt);
                 ui.showSuccess("Activity Level", description);

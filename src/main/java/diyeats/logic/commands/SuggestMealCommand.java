@@ -90,13 +90,17 @@ public class SuggestMealCommand extends Command {
         try {
             mealSelectedIndex = Integer.parseInt(this.responseStr);
         } catch (NumberFormatException e) {
+            ui.showLine();
             ui.showMessage("Could not parse " + responseStr + " as a number. Please input an integer.");
+            ui.showLine();
             return;
         }
 
         if (mealSelectedIndex == 0) {
+            ui.showLine();
             ui.showMessage("Declining suggestions.");
             isDone = true;
+            ui.showLine();
             return;
         } else if (mealSelectedIndex < 1 || mealSelectedIndex > suggestedMealList.size()) {
             ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)"

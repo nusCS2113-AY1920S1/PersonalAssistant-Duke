@@ -46,47 +46,62 @@ public class UserSetup {
      */
 
     public void initialise(String info) {
+        ui.showLine();
         HashMap<String, String> userInfo = ArgumentSplitter.splitForwardSlashArguments(info);
         if (userInfo.containsKey("name")) {
             UpdateNameCommand update = new UpdateNameCommand(userInfo.get("name"));
             update.updateUser(user);
+            ui.showLine();
         } else if (user.getName() == null) {
             ui.showLackName();
+            ui.showLine();
         }
         if (userInfo.containsKey("age")) {
             UpdateAgeCommand update = new UpdateAgeCommand(userInfo.get("age"));
             update.updateUser(user);
+            ui.showLine();
         } else if (user.getAge() == -1) {
             ui.showLackAge();
+            ui.showLine();
         }
         if (userInfo.containsKey("weight")) {
             UpdateWeightCommand update = new UpdateWeightCommand(userInfo.get("weight"));
             update.updateUser(user);
+            ui.showLine();
         } else if (user.getAllWeight().size() == 0) {
             ui.showLackWeight();
+            ui.showLine();
         }
         if (userInfo.containsKey("height")) {
             UpdateHeightCommand update = new UpdateHeightCommand(userInfo.get("height"));
             update.updateUser(user);
+            ui.showLine();
         } else if (user.getHeight() == -1) {
             ui.showLackHeight();
+            ui.showLine();
         }
         if (userInfo.containsKey("activity")) {
             UpdateActivityCommand update = new UpdateActivityCommand(userInfo.get("activity"));
             update.updateUser(user);
+            ui.showLine();
         } else if (user.getActivityLevel() == 5) {
             ui.showLackActivity();
+            ui.showLine();
         }
         if (userInfo.containsKey("gender")) {
             if (userInfo.get("gender").toLowerCase().charAt(0) == 'm') {
                 user.setGender(Gender.MALE);
+                ui.showLine();
             } else if (userInfo.get("gender").toLowerCase().charAt(0) == 'f') {
                 user.setGender(Gender.FEMALE);
+                ui.showLine();
             } else if (user.getGender() == null) {
                 ui.showWrongGenderInfo();
+                ui.showLine();
             }
         } else {
             ui.showLackGender();
+            ui.showLine();
         }
         if (user.isValid()) {
             isDone = true;

@@ -46,6 +46,7 @@ public class AddExerciseCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) throws ProgramException {
+        ui.showLine();
         ExerciseList exerciseList = meals.getExerciseList();
         if (exerciseList.getStoredExercises().containsKey(this.exerciseNameStr)) {
             undo.undoAddExercise(this.exerciseNameStr, exerciseList.getStoredExercises().get(this.exerciseNameStr));
@@ -60,6 +61,7 @@ public class AddExerciseCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         ui.showMessage("The add exercise command is successful!");
+        ui.showLine();
     }
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {

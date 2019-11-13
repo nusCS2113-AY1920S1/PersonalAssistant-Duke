@@ -54,10 +54,12 @@ public abstract class Command {
     // Called when command parsing fails
     public void failure() {
         // Support multi-line error messages with padding
+        ui.showLine();
         String[] errorStrList = this.errorStr.split("\n");
         for (String errorStr : errorStrList) {
             ui.showMessage(errorStr);
         }
+        ui.showLine();
     }
 
     public boolean isFail() {
