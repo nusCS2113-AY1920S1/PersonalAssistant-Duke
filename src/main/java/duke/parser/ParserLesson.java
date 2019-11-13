@@ -8,7 +8,9 @@ import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Lesson;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -76,6 +78,14 @@ public class ParserLesson {
     private ExitCommand exitCommand = new ExitCommand();
     //@@author nottherealedmund
     /**
+     * Location of saved file.
+     */
+    private String userDir = System.getProperty("user.dir");
+    /**
+     * Name of file path.
+     */
+    private String path = userDir + "/lessons.txt";
+    /**
      * Constructor for ParserLesson.
      *
      * @throws FileNotFoundException if file does not exist
@@ -84,8 +94,16 @@ public class ParserLesson {
 
     public ParserLesson() throws IOException, ParseException {
         cliView = new CliView();
+        File file = new File(path);
+        if (!file.exists()) {
+            FileWriter fileWriter = new FileWriter(path);
+            fileWriter.flush();
+            fileWriter.close();
+        }
+        //lessonStorage = new Storage(
+        //    ".\\src\\main\\java\\duke\\data\\lessons.txt");
         lessonStorage = new Storage(
-            ".\\src\\main\\java\\duke\\data\\lessons.txt");
+            path);
         lesson = new Lesson(lessonStorage.loadLesson());
         myLessonScan = new Scanner(System.in);
     }
