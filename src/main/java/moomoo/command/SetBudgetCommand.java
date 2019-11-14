@@ -62,21 +62,49 @@ public class SetBudgetCommand extends Command {
                 for (int j = 0; j < blank; j++) {
                     blank2 += " ";
                 }
-                String cow =
-                      ".__________________________________.\n"
-                       + "| ___ _   _ ___   ___ ___ _____    |\n"
-                       + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
-                       + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
-                       + "||___/\\___/|___/ \\___|___| |_|     |\n"
-                       + "|                                  |\n"
-                       + "|Category : " + categoryName + blankSpace + "|\n"
-                       + "|$" + df.format(categoryBudget) + blank2 + "|\n"
-                       + ".----------------------------------.\n"
-                       + "        \\   ^__^\n"
-                       + "         \\  (oo)\\_______\n"
-                       + "            (__)\\       )\\/\\\n"
-                       + "                ||----w |\n"
-                       + "                ||     ||\n";
+
+                if (categoryName.length() > 20) {
+                    categoryName = categoryName.substring(0, 19) + "...";
+                }
+
+                String printBudget = "";
+                String cow;
+                if (Double.toString(categoryBudget).length() > 20) {
+                    printBudget = Double.toString(categoryBudget).substring(0, 19) + "...";
+                }
+                if ("".equals(printBudget)) {
+                    cow =
+                        ".__________________________________.\n"
+                                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                                + "|                                  |\n"
+                                + "|Category : " + categoryName + blankSpace + "|\n"
+                                + "|$" + df.format(categoryBudget) + blank2 + "|\n"
+                                + ".----------------------------------.\n"
+                                + "        \\   ^__^\n"
+                                + "         \\  (oo)\\_______\n"
+                                + "            (__)\\       )\\/\\\n"
+                                + "                ||----w |\n"
+                                + "                ||     ||\n";
+                } else {
+                    cow =
+                        ".__________________________________.\n"
+                            + "| ___ _   _ ___   ___ ___ _____    |\n"
+                            + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                            + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                            + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                            + "|                                  |\n"
+                            + "|Category : " + categoryName + blankSpace + "|\n"
+                            + "|$" + printBudget + blank2 + "|\n"
+                            + ".----------------------------------.\n"
+                            + "        \\   ^__^\n"
+                            + "         \\  (oo)\\_______\n"
+                            + "            (__)\\       )\\/\\\n"
+                            + "                ||----w |\n"
+                            + "                ||     ||\n";
+                }
                 outputValue += cow;
             } else {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";

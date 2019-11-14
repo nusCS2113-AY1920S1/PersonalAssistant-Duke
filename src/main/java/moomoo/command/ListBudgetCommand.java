@@ -64,17 +64,17 @@ public class ListBudgetCommand extends Command {
                 if (currentBudget == 0) {
                     outputValue = "Budget for " + categoryName + " has not been set.";
                     outputArray.add(outputValue);
-                    outputValue = Ui.showInCowBox(outputArray);
                     continue;
                 }
                 outputValue = "Budget for " + categoryName + " is $"
                         + df.format(currentBudget);
                 outputArray.add(outputValue);
-                outputValue = Ui.showInCowBox(outputArray);
             } else {
-                outputValue = categoryName + " category does not exist. Please add it first.\n";
+                outputValue = categoryName + " category does not exist. Please add it first.";
+                outputArray.add(outputValue);
             }
         }
+        outputValue = Ui.showInCowBox(outputArray);
         Ui.setOutput(outputValue);
     }
 }

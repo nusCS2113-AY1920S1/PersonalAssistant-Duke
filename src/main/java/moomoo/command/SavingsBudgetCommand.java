@@ -70,11 +70,9 @@ public class SavingsBudgetCommand extends Command {
 
             if (end == null) {
                 outputArray = viewSingleMonthSavings(budget, iteratorCategory, currentCategory, outputValue);
-                //outputValue = outputArray[0];
                 array.add(outputArray[0]);
             } else {
                 outputArray = viewMultiMonthSaving(budget, iteratorCategory, currentCategory, outputValue);
-                //outputValue = outputArray[0];
                 array.add(outputArray[0]);
             }
 
