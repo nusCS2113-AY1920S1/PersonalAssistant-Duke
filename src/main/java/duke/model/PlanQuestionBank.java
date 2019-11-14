@@ -296,7 +296,7 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setAmount(phoneBill);
                     phoneBillExpenseBuilder.setDescription("Phone bill");
                     phoneBillExpenseBuilder.setRecurring(true);
-                    phoneBillExpenseBuilder.setTag("phone bill");
+                    phoneBillExpenseBuilder.setTag("PHONE BILL");
                     recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
@@ -309,7 +309,7 @@ public class PlanQuestionBank {
                     netflixExpenseBuilder.setAmount("4.25");
                     netflixExpenseBuilder.setDescription("Netflix");
                     netflixExpenseBuilder.setRecurring(true);
-                    netflixExpenseBuilder.setTag("netflix");
+                    netflixExpenseBuilder.setTag("NETFLIX");
                     recommendationExpenseList.add(netflixExpenseBuilder.build());
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
@@ -320,7 +320,7 @@ public class PlanQuestionBank {
                     spotifyExpenseBuilder.setAmount("5.00");
                     spotifyExpenseBuilder.setDescription("Spotify");
                     spotifyExpenseBuilder.setRecurring(true);
-                    spotifyExpenseBuilder.setTag("spotify");
+                    spotifyExpenseBuilder.setTag("SPOTIFY");
                     recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
                 if (Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {

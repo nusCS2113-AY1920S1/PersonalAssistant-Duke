@@ -22,6 +22,7 @@ public class ChangePaymentCommand extends Command {
 
     private static final String COMPLETE_MESSAGE = "Changed the payment!";
     private static final String EXCEPTION_WORD_INDEX = "index";
+    private static final int MAX_TAG_LENGTH = 30;
 
     /**
      * Contains all secondary parameters used by {@code ChangePaymentCommand}.
@@ -98,6 +99,11 @@ public class ChangePaymentCommand extends Command {
         }
 
         if (commandParams.containsParams(SecondaryParam.TAG.name)) {
+            String tag = commandParams.getParam(ChangePaymentCommand.SecondaryParam.TAG.name);
+            // The length of tag should not exceed 30 chars.
+            if (tag.length() > MAX_TAG_LENGTH) {
+                throw new DukeException(DukeException.MESSAGE_TAG_TOO_LONG);
+            }
             paymentBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 

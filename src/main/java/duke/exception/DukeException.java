@@ -36,6 +36,7 @@ public class DukeException extends Exception {
     public static final String MESSAGE_NUMBER_FORMAT_INVALID = "%s is not a valid index!";
     public static final String MESSAGE_PAYMENT_SCOPE_INVALID = "%s is not a valid time scope";
     public static final String MESSAGE_PLANBOT_INVALID_REPLY = "Please enter a valid reply!";
+    public static final String MESSAGE_TAG_TOO_LONG = "The maximum length of tag is 30 chars.";
 
     public DukeException(String message) {
         super(message);
