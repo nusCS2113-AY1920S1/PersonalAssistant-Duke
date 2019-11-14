@@ -1,5 +1,6 @@
 package executor.command;
 
+import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
 
@@ -10,7 +11,6 @@ public class CommandDiv extends Command {
 
     /**
      * Constructor for CommandDiv subCommand Class.
-     *
      * @param userInput String is the user input from the CLI
      */
     public CommandDiv(String userInput) {
@@ -26,9 +26,16 @@ public class CommandDiv extends Command {
         String stringTwo = Parser.parseForFlag("", userInput);
         try {
             this.entryOne = Double.parseDouble(stringOne);
+            if (entryOne == 0) {
+                throw new DukeException("The result is zero");
+            }
         } catch (NumberFormatException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr("Invalid input please enter in this Format: div <num1> / <num2>");
+            return;
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
             return;
         }
         try {

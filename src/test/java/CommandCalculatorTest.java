@@ -43,6 +43,11 @@ public class CommandCalculatorTest {
         String result3 = div2.getInfoCapsule().getOutputStr();
         assertEquals("2 / 0 = Infinity\n", result3);
 
+        CommandDiv div3 = new CommandDiv("0.0/-1");
+        div3.execute(storageManager);
+        String result4 = div3.getInfoCapsule().getOutputStr();
+        assertEquals("The result is zero", result4);
+
         CommandMul mul = new CommandMul("3/2.0");
         mul.execute(storageManager);
         String output3 = mul.getInfoCapsule().getOutputStr();

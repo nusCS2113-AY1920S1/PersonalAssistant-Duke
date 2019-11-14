@@ -10,7 +10,6 @@ public class CommandMajorExpense extends Command {
 
     /**
      * Constructor for CommandMajorExpense subCommand Class.
-     *
      * @param userInput The user input from the CLI
      */
     public CommandMajorExpense(String userInput) {

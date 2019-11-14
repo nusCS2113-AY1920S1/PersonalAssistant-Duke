@@ -14,7 +14,7 @@ public class CommandDisplayExpenditure extends Command {
         super();
         this.userInput = userInput;
         this.description = "Shows the total amount of money spent"
-                + "FORMAT :  ";
+                + "FORMAT: Expenses";
         this.commandType = CommandType.EXPENSES;
     }
 
