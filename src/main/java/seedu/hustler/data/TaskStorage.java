@@ -95,8 +95,8 @@ public class TaskStorage {
             }
             hustlerTxt.close();
         } catch (FileNotFoundException e) {
-            list = getTestList();
-            return list;
+            this.getTestList();
+            return Hustler.list.returnList();
         }
 
         try {
@@ -289,48 +289,46 @@ public class TaskStorage {
      * Creates a test task list for users to experiment.
      * @return The new test task with 20 preloaded tasks.
      */
-    private ArrayList<Task> getTestList() {
+    private void getTestList() {
         LocalDateTime now = LocalDateTime.now();
-        ArrayList<Task> taskList = new ArrayList<>();
-        taskList.add(new ToDo("Ask parents for lunch", "", "call", now));
-        taskList.add(new ToDo("Wash clothes", "H", "", now.plusNanos(10)));
-        taskList.add(new ToDo("Put laundry in dryer", "L", "", now.plusNanos(20)));
-        taskList.add(new ToDo("Prepare steak dinner", "H", "", now.plusNanos(30)));
-        taskList.add(new ToDo("Make bed", "", "", now.plusNanos(40)));
-        taskList.add(new ToDo("Go to the gym", "", "Bishan", now.plusNanos(50)));
-        taskList.add(new Deadline("Finish arts project", now.plusDays(10)
+        Hustler.list.add(new ToDo("Ask parents for lunch", "", "call", now));
+        Hustler.list.add(new ToDo("Wash clothes", "H", "", now.plusNanos(10)));
+        Hustler.list.add(new ToDo("Put laundry in dryer", "L", "", now.plusNanos(20)));
+        Hustler.list.add(new ToDo("Prepare steak dinner", "H", "", now.plusNanos(30)));
+        Hustler.list.add(new ToDo("Make bed", "", "", now.plusNanos(40)));
+        Hustler.list.add(new ToDo("Go to the gym", "", "Bishan", now.plusNanos(50)));
+        Hustler.list.add(new Deadline("Finish arts project", now.plusDays(10)
             .with(LocalTime.of(23, 59)),"H", "important", now.plusNanos(60)));
-        taskList.add(new Deadline("Complete math assignment 5", now.plusDays(4)
+        Hustler.list.add(new Deadline("Complete math assignment 5", now.plusDays(4)
             .with(LocalTime.of(23, 59)),"L", "", now.plusNanos(70)));
-        taskList.add(new Deadline("Submit documents to math office", now.plusDays(9)
+        Hustler.list.add(new Deadline("Submit documents to math office", now.plusDays(9)
             .with(LocalTime.of(10, 30)),"L", "", now.plusNanos(80)));
-        taskList.add(new Deadline("Collect JC graduation cert", now.plusDays(12)
+        Hustler.list.add(new Deadline("Collect JC graduation cert", now.plusDays(12)
             .with(LocalTime.of(12, 0)),"H", "", now.plusNanos(90)));
-        taskList.add(new Deadline("Submit sports proposal", now.plusDays(4)
+        Hustler.list.add(new Deadline("Submit sports proposal", now.plusDays(4)
             .with(LocalTime.of(23, 59)),"L", "", now.plusNanos(100)));
-        taskList.add(new Event("Attend Linkin Park concert", now.plusMonths(5)
+        Hustler.list.add(new Event("Attend Linkin Park concert", now.plusMonths(5)
             .with(LocalTime.of(17, 0)),"M", "buyTix", now.plusNanos(110)));
-        taskList.add(new Event("Go to build-yourself-workshop", now.plusDays(12)
+        Hustler.list.add(new Event("Go to build-yourself-workshop", now.plusDays(12)
             .with(LocalTime.of(12, 0)),"M", "", now.plusNanos(120)));
-        taskList.add(new Event("Attend hall talk", now.plusDays(3)
+        Hustler.list.add(new Event("Attend hall talk", now.plusDays(3)
             .with(LocalTime.of(10, 0)),"M", "", now.plusNanos(130)));
-        taskList.add(new Event("Go to one-off exam briefing", now.plusDays(2)
+        Hustler.list.add(new Event("Go to one-off exam briefing", now.plusDays(2)
             .with(LocalTime.of(14, 30)),"M", "", now.plusNanos(140)));
-        taskList.add(new RecurringEvent("Attend CS1010 lecture", now.plusDays(1)
+        Hustler.list.add(new RecurringEvent("Attend CS1010 lecture", now.plusDays(1)
             .with(LocalTime.of(9, 0)), "", "", now.plusNanos(150),"1 weeks",
             TaskList.convertToMinute("1 weeks"), false));
-        taskList.add(new RecurringEvent("Attend GET1022 lecture", now.plusDays(3)
+        Hustler.list.add(new RecurringEvent("Attend GET1022 lecture", now.plusDays(3)
             .with(LocalTime.of(10, 0)), "", "", now.plusNanos(160),"1 weeks",
             TaskList.convertToMinute("1 weeks"), false));
-        taskList.add(new RecurringEvent("Attend MA2111 lecture", now.plusDays(4)
+        Hustler.list.add(new RecurringEvent("Attend MA2111 lecture", now.plusDays(4)
             .with(LocalTime.of(12, 0)), "", "", now.plusNanos(170),"1 weeks",
             TaskList.convertToMinute("1 weeks"), false));
-        taskList.add(new RecurringDeadline("Finish monthly arts proposal", now.plusDays(2)
+        Hustler.list.add(new RecurringDeadline("Finish monthly arts proposal", now.plusDays(2)
             .with(LocalTime.of(23, 59)), "", "", now.plusNanos(180),"1 months",
             TaskList.convertToMinute("1 months"), false));
-        taskList.add(new RecurringDeadline("Finish daily reflections", now
+        Hustler.list.add(new RecurringDeadline("Finish daily reflections", now
             .with(LocalTime.of(23, 59)), "", "", now.plusNanos(190),"1 days",
             TaskList.convertToMinute("1 days"), false));
-        return taskList;
     }
 }
