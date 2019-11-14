@@ -38,7 +38,7 @@
          </children>
       </HBox>
       <ListView fx:id="paymentListView" layoutX="143.0" layoutY="94.0" prefHeight="546.0" prefWidth="1000.0" style="-fx-background-color: FFF8DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="94.0" />
-      <Label alignment="CENTER" layoutX="500.0" prefHeight="50.0" prefWidth="1000.0" text="Payments Reminder" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label alignment="CENTER" layoutX="500.0" prefHeight="50.0" prefWidth="1000.0" text="Payments Reminder" textFill="GOLD" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Helvetica Neue" size="36.0" />
          </font>

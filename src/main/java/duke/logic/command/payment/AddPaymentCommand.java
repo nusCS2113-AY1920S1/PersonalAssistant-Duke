@@ -23,6 +23,7 @@ public class AddPaymentCommand extends Command {
 
     private static final String COMPLETE_MESSAGE = "Added the payment!";
     private static final String PARAM_AMOUNT_NAME = "amount";
+    private static final int MAX_TAG_LENGTH = 30;
 
     /**
      * Contains all secondary parameters used by {@code AddPaymentCommand}.
@@ -98,6 +99,11 @@ public class AddPaymentCommand extends Command {
 
         // Tag is a optional field.
         if (commandParams.containsParams(SecondaryParam.TAG.name)) {
+            String tag = commandParams.getParam(SecondaryParam.TAG.name);
+            // The length of tag shouldn't exceed 30 chars.
+            if (tag.length() > MAX_TAG_LENGTH) {
+                throw new DukeException(DukeException.MESSAGE_TAG_TOO_LONG);
+            }
             paymentBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 

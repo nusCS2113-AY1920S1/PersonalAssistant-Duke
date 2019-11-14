@@ -20,7 +20,6 @@ public class BudgetCommand extends Command {
     private static final String DUPLICATE_MESSAGE = "Updated the budget!";
 
 
-
     private enum SecondaryParam {
         TAG("tag", "tags that we want a budget to be associated with");
 
@@ -58,10 +57,6 @@ public class BudgetCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_AMOUNT_INVALID,
                     commandParams.getMainParam()));
         }
-        if (model.getBudgetCategory().containsKey(commandParams.getParam(SecondaryParam.TAG.name))) {
-            return new CommandResult(DUPLICATE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
-        } else {
-            return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
-        }
+        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
     }
 }

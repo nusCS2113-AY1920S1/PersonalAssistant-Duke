@@ -150,6 +150,8 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = logic.execute(inputString);
             }
             console.setText(commandResult.getConsoleInfo());
+            paneStack.getChildren().clear();
+            fillInnerPart();
             showPane(commandResult);
 
             if (commandResult.isExit()) {
