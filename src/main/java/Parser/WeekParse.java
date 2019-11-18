@@ -65,4 +65,16 @@ public class WeekParse extends Parse {
         }
         return week;
     }
+
+    public static String getWeekCommandFormat(String selectedWeek) {
+        String week;
+        if((selectedWeek.startsWith("Recess") || selectedWeek.startsWith("Reading") || selectedWeek.startsWith("Exam")) && selectedWeek.contains("Week")) {
+            selectedWeek = selectedWeek.replace("Week", "");
+            selectedWeek = selectedWeek.trim();
+            week = "show/week " + selectedWeek.toLowerCase();
+        } else {
+            week = "show/"+selectedWeek.toLowerCase();//reading week got problem
+        }
+        return week;
+    }
 }
