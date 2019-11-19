@@ -65,7 +65,7 @@ public class GraphTotalCommand extends Command {
         }
         
         String topSpace = "";
-        for (int i = 0; i < categoryList.getLongestCategory(); i += 1) {
+        for (int i = 0; i <= categoryList.getLongestCategory(); i += 1) {
             topSpace += " ";
         }
         output += topSpace + horizontalAxisTop + "\n";
