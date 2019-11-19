@@ -83,7 +83,7 @@ public class GraphCategoryCommand extends Command {
         }
         
         String topSpace = "";
-        for (int i = 0; i < cat.getLongestExpenditure(); i += 1) {
+        for (int i = 0; i <= cat.getLongestExpenditure(); i += 1) {
             topSpace += " ";
         }
         output += topSpace + horizontalAxisTop + "\n";

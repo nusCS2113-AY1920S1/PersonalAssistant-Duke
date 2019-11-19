@@ -96,18 +96,18 @@ public class GraphCategoryCommandTest {
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
         
         if (!getOS.osName.contains("win")) {
-            assertEquals("       " + ANSI_YELLOW + completeTop
+            assertEquals("        " + ANSI_YELLOW + completeTop
                     + ANSI_RESET + "\n"
                     + ANSI_CYAN + "Value 6 " + completeBlock
                     + "  " + "100.0%\n" + ANSI_RESET
-                    + "       " + ANSI_YELLOW + completeBottom
+                    + "        " + ANSI_YELLOW + completeBottom
                     + ANSI_RESET + "\n", Ui.getOutput());
         } else {
-            assertEquals("       " + completeTop
+            assertEquals("        " + completeTop
                     + "\n"
                     + "Value 6 " + completeBlock
                     + "  " + "100.0%\n"
-                    + "       " + completeBottom
+                    + "        " + completeBottom
                     + "\n", Ui.getOutput());
         }
     }

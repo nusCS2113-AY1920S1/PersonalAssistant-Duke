@@ -82,17 +82,17 @@ public class GraphTotalCommandTest {
         Command testGraph = new GraphTotalCommand();
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
         if (!getOS.osName.contains("win")) {
-            assertEquals("              " + ANSI_YELLOW + "" + ANSI_RESET + "\n"
+            assertEquals("               " + ANSI_YELLOW + "" + ANSI_RESET + "\n"
                     + ANSI_CYAN + "shoes" + "            " + "0.0%\n" + ANSI_RESET
                     + "food" + "             " + "0.0%\n"
                     + ANSI_CYAN + "transportation" + "   " + "0.0%\n" + ANSI_RESET
-                    + "              " + ANSI_YELLOW + "" + ANSI_RESET + "\n", Ui.getOutput());
+                    + "               " + ANSI_YELLOW + "" + ANSI_RESET + "\n", Ui.getOutput());
         } else {
-            assertEquals("              " + "\n"
+            assertEquals("               " + "\n"
                     + "shoes" + "            " + "0.0%\n"
                     + "food" + "             " + "0.0%\n"
                     + "transportation" + "   " + "0.0%\n"
-                    + "              " + "\n", Ui.getOutput());
+                    + "               " + "\n", Ui.getOutput());
         }
     }
     
@@ -129,22 +129,22 @@ public class GraphTotalCommandTest {
         Command testGraph = new GraphTotalCommand();
         testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
         if (!getOS.osName.contains("win")) {
-            assertEquals("     " + ANSI_YELLOW + completeTop
+            assertEquals("      " + ANSI_YELLOW + completeTop
                     + ANSI_RESET + "\n"
                     + ANSI_CYAN + "shoes " + completeBlock
                     + "  " + "50.0%\n" + ANSI_RESET
                     + "food  " + completeBlock
                     + "  " + "50.0%\n"
-                    + "     " + ANSI_YELLOW + completeBottom
+                    + "      " + ANSI_YELLOW + completeBottom
                     + ANSI_RESET + "\n", Ui.getOutput());
         } else {
-            assertEquals("     " + completeTop
+            assertEquals("      " + completeTop
                     + "\n"
                     + "shoes " + completeBlock
                     + "  " + "50.0%\n"
                     + "food  " + completeBlock
                     + "  " + "50.0%\n"
-                    + "     " + completeBottom
+                    + "      " + completeBottom
                     + "\n", Ui.getOutput());
         }
     }
