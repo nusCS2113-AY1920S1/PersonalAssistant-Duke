@@ -27,7 +27,9 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_INVALID_ID = "Error: Id input does not exist!";
 
     public static final String COMMAND_PREFIX = "Noted. I have mark the below task as done: \n";
+    public static final String COMMAND_PREFIX1 = "Whoops. You already have marked the tasked below as done: \n";
     public static final String COMMAND_PREFIX2 = "Noted. I have mark the below task as not done: \n";
+    public static final String COMMAND_PREFIX3 = "Whoops. This tasks is still not completed done: \n";
     private int taskID;
     private String status;
 
@@ -48,13 +50,22 @@ public class DoneCommand extends Command {
         }
 
         if (status.equalsIgnoreCase("y")) {
-            task.markAsDone();
-            logger.info("Successfully executed done command");
-            return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
+            if (task.isDone) {
+                return new CommandResult(COMMAND_PREFIX1.concat(task.toString()), false);
+            } else {
+                task.markAsDone();
+                logger.info("Successfully executed done command");
+                return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
+            }
         } else if (status.equalsIgnoreCase("n")) {
-            task.markAsNotDone();
-            logger.info("Successfully executed done command");
-            return new CommandResult(COMMAND_PREFIX2.concat(task.toString()), true);
+            if (task.isDone) {
+                task.markAsNotDone();
+                logger.info("Successfully executed done command");
+                return new CommandResult(COMMAND_PREFIX2.concat(task.toString()), true);
+            } else {
+                return new CommandResult(COMMAND_PREFIX3.concat(task.toString()), false);
+            }
+
         } else {
             throw new CommandException(MESSAGE_INVALID_INPUT);
         }

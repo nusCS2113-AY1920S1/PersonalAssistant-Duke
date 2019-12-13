@@ -20,7 +20,6 @@ public class ParserManager {
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";
     public static final String CMD_VIEW_REMINDER = "view-reminder";
-    public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
     public static final String CMD_LIST = "list";

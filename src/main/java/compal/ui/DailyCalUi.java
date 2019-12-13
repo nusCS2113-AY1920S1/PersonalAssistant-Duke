@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -28,7 +27,7 @@ class DailyCalUi {
     private TaskStorageManager taskStorageManager;
 
     private String dateToDisplay;
-    private boolean[][] canStore = new boolean[25][5];
+    private boolean[][] canStore = new boolean[25][6];
     private ScrollPane sp = new ScrollPane();
     private Group groupRoot = new Group();
     private Line[] horizontalLines = new Line[50];
@@ -41,8 +40,8 @@ class DailyCalUi {
     private int horizontalLineCounter = 0;
     private double horizontalYLayout = 0;
     private double horizontalXLayout = 0;
-    private double[][] storedXAxis = new double[25][5];
-    private double[][] storedYAxis = new double[25][5];
+    private double[][] storedXAxis = new double[25][6];
+    private double[][] storedYAxis = new double[25][6];
     private int startTime = 8;
     private int endTime = 17;
     private ArrayList<Task> tempOriginalList;
@@ -87,7 +86,6 @@ class DailyCalUi {
      */
     private void createDailyArrayList() {
 
-        Comparator<Task> compareByStartTime = Comparator.comparing(Task::getPriority);
         for (Task t : tempOriginalList) {
             if (t.getStringMainDate().equals(dateToDisplay)) {
                 if (t.getSymbol().equals("D") && !t.getisDone()) {
@@ -106,14 +104,9 @@ class DailyCalUi {
             }
         }
         if ("E".equals(type)) {
-            dailyCalArrayList.sort(compareByStartTime);
             deadlineArrayList.clear();
         } else if ("D".equals(type)) {
-            deadlineArrayList.sort(compareByStartTime);
             dailyCalArrayList.clear();
-        } else {
-            dailyCalArrayList.sort(compareByStartTime);
-            deadlineArrayList.sort(compareByStartTime);
         }
 
     }
@@ -129,7 +122,7 @@ class DailyCalUi {
 
         int counter = 0;
         for (Task t : deadlineArrayList) {
-            if (counter == 6) {
+            if (counter ==  5) {
                 break;
             }
             Rectangle rectangle = new Rectangle(100, 50);

@@ -14,7 +14,7 @@ Project Team
 
 <img src="images/jaedonkey.png" alt="drawing" width="150"/>
 
-\[[github](http://github.com/jaedonkey)\] \[[portfolio](#jaedonkey#)\]
+\[[github](http://github.com/jaedonkey)\] \[[portfolio](teams/Jaedonkey.pdf)\]
 
 Role: Developer  
 Responsibilities: Edit & Find Command,Storage Component
@@ -25,7 +25,7 @@ Responsibilities: Edit & Find Command,Storage Component
 
 <img src="images/catherinetan99.png" alt="Catherine" width="150"/>
 
-\[[github](http://github.com/catherinetan99)\] \[[portfolio](#catherinetan99#)\]
+\[[github](http://github.com/catherinetan99)\] \[[portfolio](teams/Catherinetan99.pdf)\]
 
 Role: Developer  
 Responsibilities: Set-Reminders,View-Reminders & FindFreeTimeSlot Commands
@@ -35,7 +35,7 @@ Responsibilities: Set-Reminders,View-Reminders & FindFreeTimeSlot Commands
 
 <img src="images/ltpz.png" alt="Peize" width="150"/>
 
-\[[github](http://github.com/ltpz)\] \[[portfolio](#ltpz#)\]
+\[[github](http://github.com/ltpz)\] \[[portfolio](teams/LTPZ.pdf)\]
 
 Role: Developer  
 Responsibilities: Recurring Deadline & Help Command ,Model Component
@@ -46,7 +46,7 @@ Responsibilities: Recurring Deadline & Help Command ,Model Component
 
 <img src="images/yueyeah.png" alt="Jun Yi" width="150"/>
 
-\[[github](http://github.com/yueyeah)\] \[[portfolio](#johndoe#)\]
+\[[github](http://github.com/yueyeah)\] \[[portfolio](teams/yueyeah.pdf)\]
 
 Role: Developer  
 Responsibilities: Recurring Events & Delete Command,Model Component 

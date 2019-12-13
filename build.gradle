@@ -32,7 +32,7 @@ repositories {
 }
 
 application {
-    mainClassName = "compal.MainLauncer"
+    mainClassName = "compal.MainLauncher"
 }
 
 run {
@@ -75,7 +75,7 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'compal.MainLauncer'
+        attributes 'Main-Class': 'compal.MainLauncher'
     }
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
