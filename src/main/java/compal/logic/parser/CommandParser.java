@@ -5,20 +5,16 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
+import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
-import java.util.HashSet;
-
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,6 +40,8 @@ public interface CommandParser {
     String TOKEN_MIN = "/min";
     String TOKEN_INTERVAL = "/interval";
     String TOKEN_FILE_NAME = "/file-name";
+    String TOKEN_SEMSTART = "/semstart";
+    String TOKEN_NUSMODS_LINK = "/link";
 
 
     String EMPTY_INPUT_STRING = "";
@@ -73,6 +71,8 @@ public interface CommandParser {
     String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
     String MESSAGE_INVALID_INTERVAL = "Invalid interval input";
     String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!";
+    String MESSAGE_MISSING_NUSMODS_LINK = "Error: Missing NUSMODS link!";
+    String MESSAGE_INVALID_NUSMODS_LINK = "Invalid NUSMODS link!";
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -399,6 +399,77 @@ public interface CommandParser {
             return startDateList;
         } else {
             throw new ParserException(MESSAGE_MISSING_DATE_ARG);
+        }
+    }
+
+    //@@author yueyeah
+
+    /**
+     * Returns a date string for the start of the semester (Monday of Week 1).
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Semester Start Date in the form of a string.
+     * @throws ParserException If date field is empty, date or date format is invalid,
+     *                         date token (/semstart) is missing.
+     */
+    default String getTokenSemStart(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_SEMSTART)) {
+            int startPoint = restOfInput.indexOf(TOKEN_SEMSTART);
+            String semStartStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(semStartStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String semStartDateString = scanner.next();
+            if (isDateValid(semStartDateString)) {
+                return semStartDateString;
+            } else {
+                throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
+            }
+        } else {
+            throw new ParserException(MESSAGE_MISSING_DATE_ARG);
+        }
+    }
+
+    //@@author yueyeah
+
+    /**
+     * Returns an Arraylist of Module Details from the NUSMODS link provided.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return ArrayList of Module Details
+     * @throws ParserException If link field is empty, link format is invalid,
+     *                         NUSMODS link token (/link) is missing.
+     */
+    default ArrayList<String> getTokenNusmodsLink(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_NUSMODS_LINK)) {
+            int startPoint = restOfInput.indexOf(TOKEN_NUSMODS_LINK);
+            String nusmodsLinkStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(nusmodsLinkStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String nusmodsLinkString = scanner.next();
+
+            String regex = "^https://nusmods.com/timetable/sem-(1|2)/share[?].*";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(nusmodsLinkString);
+
+            if (!matcher.matches()) {
+                throw new ParserException(MESSAGE_INVALID_NUSMODS_LINK);
+            } else {
+                String moduleString = nusmodsLinkString.substring(42);
+                if (moduleString.isEmpty()) {
+                    throw new ParserException(MESSAGE_INVALID_NUSMODS_LINK);
+                } else {
+                    String[] moduleStringSplit = moduleString.split("&");
+                    return new ArrayList<>(Arrays.asList(moduleStringSplit));
+                }
+            }
+        } else {
+            throw new ParserException(MESSAGE_MISSING_NUSMODS_LINK);
         }
     }
 
