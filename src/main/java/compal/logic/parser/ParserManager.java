@@ -26,7 +26,7 @@ public class ParserManager {
     public static final String CMD_EXPORT = "export";
     public static final String CMD_IMPORT = "import";
     public static final String CMD_NUSMODS = "nusmods";
-    // todo: nusmods <link> <start date of first Monday of Week 1>
+    public static final String CMD_QUOTE = "quote";
 
 
     /**
@@ -76,6 +76,8 @@ public class ParserManager {
             return new ImportCommandParser().parseCommand(restOfInput);
         case CMD_NUSMODS:
             return new NusmodsCommandParser().parseCommand(restOfInput);
+        case CMD_QUOTE:
+            return new QuoteCommandParser().parseCommand(restOfInput);
         default:
             return new HelpCommandParser().parseCommand(commandWord + "_" + restOfInput);
         //suppose to return helpCommand();
