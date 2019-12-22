@@ -17,7 +17,15 @@ public class NusmodsCommand extends Command {
     /**
      * Public Constants.
      */
-    public static final String MESSAGE_USAGE = "NUSMODS \n\t";
+    public static final String MESSAGE_USAGE = "NUSMODS\n\t"
+            + "Format: nusmods /link NUSMODS_SHARE_LINK /semstart WEEK_1_MONDAY_DATE\n\n\t"
+            + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
+            + "content in CAP: need to be fulfilled by the user\n\t"
+            + "For WEEK_1_MONDAY_DATE: dd/mm/yyyy is the date format. e.g. 12/08/2019 for AY1920S1\n\t"
+            + "This command will add an event for each lesson slot in your NUSMODS timetable.\n"
+            + "Examples:\n\t"
+            + "nusmods /link https://nusmods.com/timetable/sem-1/share?CS2100=LAB:06,TUT:08,LEC:1 "
+            + "/semstart 12/08/2019\n\n";
     public static final String MESSAGE_INVALID_NUSMODS_LINK = "Invalid NUSMODS link!";
     public static final String MESSAGE_INVALID_SEM_START_DATE = "Please enter the date of the Monday of Week 1 of "
             + "your targeted semester.";

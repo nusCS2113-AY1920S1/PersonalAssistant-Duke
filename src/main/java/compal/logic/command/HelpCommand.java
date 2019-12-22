@@ -36,6 +36,7 @@ public class HelpCommand extends Command {
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
+    public static final String CMD_NUSMODS = "nusmods";
     public static final String HELP_STRING = "Seems like you need some help? Check these commands:\n\n\t"
             + "bye: exit the program\n\t"
             + "deadline: add deadline type tasks\n\t"
@@ -50,7 +51,8 @@ public class HelpCommand extends Command {
             + "list: list all the task stored in COMPal\n\t"
             + "set-reminder: set reminder for a task\n\t"
             + "view: get the daily/weekly/monthly view of timetable\n\t"
-            + "view-reminder: get all tasks with reminder\n\n"
+            + "view-reminder: get all tasks with reminder\n\t"
+            + "nusmods: import your timetable from NUSMODS\n\n"
             + "if you want to know how to use any of them\n"
             + "you can type \"help <name of command>\"  for further information!\n"
             + "e.g. \"help findfreeslot\", \"help deadline\"\n"
@@ -107,9 +109,10 @@ public class HelpCommand extends Command {
                 return new CommandResult(ImportCommand.MESSAGE_USAGE, false);
             case CMD_EXPORT:
                 return new CommandResult(ExportCommand.MESSAGE_USAGE, false);
+            case CMD_NUSMODS:
+                return new CommandResult(NusmodsCommand.MESSAGE_USAGE, false);
             default:
-                return new
-                        CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);
+                return new CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);
             }
         }
     }
