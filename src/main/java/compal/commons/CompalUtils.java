@@ -46,12 +46,24 @@ public class CompalUtils {
         return format.format(date);
     }
 
+    /**
+     * Get the month from a given date.
+     *
+     * @param date Date object.
+     * @return Month as integer. JANUARY is 0 (not 1) and so on.
+     */
     public static int getMonth(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.MONTH);
     }
 
+    /**
+     * Get the year from a given date.
+     *
+     * @param date Date object.
+     * @return Year as integer.
+     */
     public static int getYear(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

@@ -2,10 +2,8 @@ package compal.logic.parser;
 
 import compal.commons.LogUtils;
 import compal.logic.command.Command;
-import compal.logic.command.DeadlineCommand;
 import compal.logic.command.NusmodsCommand;
 import compal.logic.parser.exceptions.ParserException;
-import compal.model.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;

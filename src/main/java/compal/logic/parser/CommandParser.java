@@ -5,20 +5,34 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
-import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
-
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+/**
+ * If you accidentally let IntelliJ import java.util.* again, and checkstyle complains,
+ * this below is the list of imports that are most important. Feel free to add on.
+ * import java.util.Scanner;
+ * import java.util.Set;
+ * import java.util.HashSet;
+ * import java.util.Date;
+ * import java.util.Calendar;
+ * import java.util.ArrayList;
+ * import java.util.Arrays;
+ */
 
 public interface CommandParser {
 

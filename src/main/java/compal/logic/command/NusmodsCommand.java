@@ -19,10 +19,10 @@ public class NusmodsCommand extends Command {
      */
     public static final String MESSAGE_USAGE = "NUSMODS \n\t";
     public static final String MESSAGE_INVALID_NUSMODS_LINK = "Invalid NUSMODS link!";
-    public static final String MESSAGE_INVALID_SEM_START_DATE = "Please enter the date of the Monday of Week 1 of " +
-            "your targeted semester.";
-    public static final String MESSAGE_INVALID_MODULE = "We are unable to extract information from NUSMODS on this " +
-            "module: ";
+    public static final String MESSAGE_INVALID_SEM_START_DATE = "Please enter the date of the Monday of Week 1 of "
+            + "your targeted semester.";
+    public static final String MESSAGE_INVALID_MODULE = "We are unable to extract information from NUSMODS on this "
+            + "module: ";
     public static final String NUSMODS_URL_PREFIX = "https://api.nusmods.com/v2/";
     public static final String NUSMODS_URL_MIDDLE = "/modules/";
     public static final String NUSMODS_URL_JSON_TAIL = ".json";
@@ -48,6 +48,7 @@ public class NusmodsCommand extends Command {
     private static final int SEM1 = 1;
     private static final int SEM2 = 2;
     private static final int WEEK_1 = 1;
+    private static final int WEEK_6 = 6;
     private static final int DEFAULT_WEEK_INTERVAL = 7;
     private static final int MON_IDX = 1;
     private static final int TUE_IDX = 2;
@@ -86,12 +87,25 @@ public class NusmodsCommand extends Command {
     private int semesterNumber;
     private String academicYear;
 
+    /**
+     * Constructor for NusmodsCommand.
+     *
+     * @param semStartDateString Date of Monday of Week 1.
+     * @param moduleDetailsList Module Details parsed from the NUSMODS URL.
+     */
     public NusmodsCommand(String semStartDateString, ArrayList<String> moduleDetailsList) {
         this.semStartDateString = semStartDateString;
         this.moduleDetailsList = moduleDetailsList;
         this.semStartDate = CompalUtils.stringToDate(semStartDateString);
     }
 
+    /**
+     * Set the academic year and semester number.
+     *
+     * @param semStartMonth Month taken from the date of Monday of Week 1.
+     * @param semStartYear Year taken from the date of Monday of Week 1.
+     * @throws CommandException If the date given is not in the starting month of either Sem 1 or Sem 2.
+     */
     public void setAcadYearSemNum(int semStartMonth, int semStartYear) throws CommandException {
         String semStartYearString = String.valueOf(semStartYear);
         if (semStartMonth == JANUARY) {
@@ -168,11 +182,12 @@ public class NusmodsCommand extends Command {
 
     /**
      * Converts the lesson type provided in the NUSMODS URL to the equivalent JSON key.
-     * @param UrlLessonCode Lesson type provided in the NUSMODS URL.
+     *
+     * @param urlLessonCode Lesson type provided in the NUSMODS URL.
      * @return return The equivalent JSON key.
      */
-    public String convertUrlLessonCodeToJsonToken(String UrlLessonCode) throws CommandException {
-        switch (UrlLessonCode) {
+    public String convertUrlLessonCodeToJsonToken(String urlLessonCode) throws CommandException {
+        switch (urlLessonCode) {
         case TOKEN_LAB:
             return JSON_TOKEN_LAB;
         case TOKEN_LEC:
@@ -186,18 +201,32 @@ public class NusmodsCommand extends Command {
         }
     }
 
-    public ArrayList<ArrayList<Object>> searchJson (JSONArray timetableJson, String lessonType, String lessonNum)
+    /**
+     * Searches through the timetable JSON for the details relevant to the particular lesson.
+     *
+     * @param timetableJson Entire timetable for module in JSON.
+     * @param lessonType Type of lesson: tutorial, recitation, etc.
+     * @param lessonNum Number assigned to lesson.
+     * @return An Arraylist of Arraylist of Objects.
+     *      Inner Arraylist of Objects contain all the weeks for each lesson, the day
+     *      that the lesson is held on, the start time and end time for that lesson slot, lessonType and lessonNum.
+     *      Outer Arraylist to store multiple slots for certain lessons, like lectures that occur twice every week.
+     * @throws CommandException Invalid NUSMODS link provided.
+     */
+    public ArrayList<ArrayList<Object>> searchJson(JSONArray timetableJson, String lessonType, String lessonNum)
             throws CommandException {
         JSONObject lessonDetails;
-        boolean isLessonNoMatched = false;
+        boolean isLessonNumMatched = false;
         boolean isLessonTypeMatched = false;
         ArrayList<ArrayList<Object>> lessonDetailsJsonList = new ArrayList<>();
         for (int count = 0; count < timetableJson.length(); count++) {
             lessonDetails = timetableJson.getJSONObject(count);
-            isLessonNoMatched = ((String) lessonDetails.get(JSONTOKEN_CLASSNO)).equals(lessonNum);
-            isLessonTypeMatched = ((String) lessonDetails.get(JSONTOKEN_LESSONTYPE)).equals(
-                    convertUrlLessonCodeToJsonToken(lessonType));
-            if (isLessonNoMatched && isLessonTypeMatched) {
+            String jsonLessonNum = lessonDetails.getString(JSONTOKEN_CLASSNO);
+            isLessonNumMatched = jsonLessonNum.equals(lessonNum);
+            String jsonLessonType = lessonDetails.getString(JSONTOKEN_LESSONTYPE);
+            String convertedUrlLessonCode = convertUrlLessonCodeToJsonToken(lessonType);
+            isLessonTypeMatched = jsonLessonType.equals(convertedUrlLessonCode);
+            if (isLessonNumMatched && isLessonTypeMatched) {
                 ArrayList<Object> slotDetailsList = new ArrayList<>();
                 slotDetailsList.add(lessonDetails.getJSONArray(JSONTOKEN_LESSONWEEK)); // 0
                 slotDetailsList.add(lessonDetails.getString(JSONTOKEN_LESSONDAY)); // 1
@@ -208,15 +237,24 @@ public class NusmodsCommand extends Command {
                 lessonDetailsJsonList.add(slotDetailsList);
                 // do not break here. May have multiple lecture slots in one week, stored as separate JSONObjects.
             }
-            isLessonNoMatched = false;
+            isLessonNumMatched = false;
             isLessonTypeMatched = false;
         }
         return lessonDetailsJsonList;
     }
 
+    /**
+     * Create Event objects for each lesson, add them to tasklist and return string for CommandResult.
+     *
+     * @param taskList The tasklist to add lesson Events to.
+     * @param lessonDetailsJsonList The list of lessonDetails. (May contain details for more than 1 slot)
+     * @param moduleCode The module code. Required for description of Event.
+     * @return String to be displayed, send to CommandResult.
+     * @throws CommandException Invalid NUSMODS link.
+     */
     public String createAndAddEvents(TaskList taskList, ArrayList<ArrayList<Object>> lessonDetailsJsonList,
                                      String moduleCode) throws CommandException {
-        String finalList = new String();
+        String finalList = "";
         for (ArrayList<Object> slotDetailsList : lessonDetailsJsonList) {
             String lessonDay = (String) slotDetailsList.get(1);
             int daysToIncrementForEachSlot = daysDiffFromMon(lessonDay);
@@ -228,13 +266,16 @@ public class NusmodsCommand extends Command {
             Task.Priority defaultLessonPriority = Task.Priority.low; // area of improvement in the future
             for (int weekIdx = 0; weekIdx < lessonWeeks.length(); weekIdx++) {
                 int actualWeekNum = lessonWeeks.getInt(weekIdx);
+                if (actualWeekNum > WEEK_6) {
+                    actualWeekNum++;
+                }
                 Date currDate = CompalUtils.incrementDateByDays(firstLessonDate,
                         (actualWeekNum - WEEK_1) * DEFAULT_WEEK_INTERVAL);
                 String currDateString = CompalUtils.dateToString(currDate);
                 Event indivSlot = new Event(description, defaultLessonPriority, currDateString, currDateString,
                         lessonStartTime, lessonEndTime);
                 taskList.addTask(indivSlot);
-                finalList += MESSAGE_GREETING.concat(indivSlot.toString() + "\n");
+                finalList = finalList.concat(MESSAGE_GREETING.concat(indivSlot.toString() + "\n"));
             }
         }
         return finalList;
