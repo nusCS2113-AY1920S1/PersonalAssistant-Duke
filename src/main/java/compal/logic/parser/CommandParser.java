@@ -71,8 +71,9 @@ public interface CommandParser {
     String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
     String MESSAGE_INVALID_INTERVAL = "Invalid interval input";
     String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!";
-    String MESSAGE_MISSING_NUSMODS_LINK = "Error: Missing NUSMODS link!";
+    String MESSAGE_MISSING_NUSMODS_LINK = "ArgumentError: Missing /link";
     String MESSAGE_INVALID_NUSMODS_LINK = "Invalid NUSMODS link!";
+    String MESSAGE_MISSING_SEMSTART_ARG = "ArgumentError: Missing /semstart";
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -428,7 +429,7 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
             }
         } else {
-            throw new ParserException(MESSAGE_MISSING_DATE_ARG);
+            throw new ParserException(MESSAGE_MISSING_SEMSTART_ARG);
         }
     }
 

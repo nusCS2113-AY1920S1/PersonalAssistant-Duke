@@ -1,5 +1,15 @@
 package compal.commons;
 
+import netscape.javascript.JSObject;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,6 +46,18 @@ public class CompalUtils {
         return format.format(date);
     }
 
+    public static int getMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.MONTH);
+    }
+
+    public static int getYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR);
+    }
+
     //@@author yueyeah
     /**
      * Finds out if a start time is before an end time. If the start time is after end time,
@@ -64,5 +86,37 @@ public class CompalUtils {
         calendar.add(Calendar.DATE, numOfDays);
         Date finalDate = calendar.getTime();
         return finalDate;
+    }
+
+    /**
+     * Read the raw json from the json url given.
+     *
+     * @param url json url.
+     * @return Raw Json.
+     * @throws IOException To print out the entire stack trace of the exception.
+     * @throws JSONException To print out the entire stack trace of the exception.
+     */
+    public static JSONObject readJsonFromNusmods(String url) throws IOException {
+        InputStream inputStream = new URL(url).openStream();
+        JSONObject moduleJson = new JSONObject();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,
+                    Charset.defaultCharset()));
+            StringBuilder stringBuilder = new StringBuilder();
+            int currChar;
+            while (true) {
+                currChar = bufferedReader.read();
+                if (currChar == -1) {
+                    break;
+                }
+                stringBuilder.append((char) currChar);
+            }
+            moduleJson = new JSONObject(stringBuilder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            inputStream.close();
+        }
+        return moduleJson;
     }
 }

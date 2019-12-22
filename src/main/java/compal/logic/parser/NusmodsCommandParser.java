@@ -23,7 +23,7 @@ public class NusmodsCommandParser implements CommandParser {
         isValidKey(key, restOfInput,MESSAGE_INVALID_PARAM);
         String semStartDateString = getTokenSemStart(restOfInput);
         ArrayList<String> moduleDetailsList = getTokenNusmodsLink(restOfInput);
-        logger.info("Successfully parse deadline command");
+        logger.info("Successfully parse NUSMODS command");
         return new NusmodsCommand(semStartDateString, moduleDetailsList);
     }
 }
