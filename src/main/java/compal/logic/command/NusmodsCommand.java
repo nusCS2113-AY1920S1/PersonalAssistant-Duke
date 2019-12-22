@@ -173,9 +173,15 @@ public class NusmodsCommand extends Command {
                 resultString += createAndAddEvents(tasklist, lessonDetailsList, moduleCode);
             }
         }
-        return new CommandResult(resultString, false); // todo: change to true when debugging finished
+        return new CommandResult(resultString, true);
     }
 
+    /**
+     * Generates the JSON server url to query.
+     *
+     * @param moduleCode The module code for the module to query.
+     * @return JSON server url.
+     */
     public String getNusmodsUrlString(String moduleCode) {
         return NUSMODS_URL_PREFIX + academicYear + NUSMODS_URL_MIDDLE + moduleCode + NUSMODS_URL_JSON_TAIL;
     }
