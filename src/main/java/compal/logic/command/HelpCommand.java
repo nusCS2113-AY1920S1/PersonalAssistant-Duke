@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE = "help\n\t"
-            + "Format:1. help|TRASH_COMMAND\n\t"
+            + "Format: 1. help|TRASH_COMMAND\n\t"
             + "2. help COMMAND_NAME\n\n\t"
             + "Note: content in CAP: need to be fulfilled by the user\n\n\t"
             + "This command will tell you how to use command(s)\n"
@@ -37,6 +37,7 @@ public class HelpCommand extends Command {
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
     public static final String CMD_NUSMODS = "nusmods";
+    public static final String CMD_QUOTE = "quote";
     public static final String HELP_STRING = "Seems like you need some help? Check these commands:\n\n\t"
             + "bye: exit the program\n\t"
             + "deadline: add deadline type tasks\n\t"
@@ -52,7 +53,8 @@ public class HelpCommand extends Command {
             + "set-reminder: set reminder for a task\n\t"
             + "view: get the daily/weekly/monthly view of timetable\n\t"
             + "view-reminder: get all tasks with reminder\n\t"
-            + "nusmods: import your timetable from NUSMODS\n\n"
+            + "nusmods: import your timetable from NUSMODS\n\t"
+            + "quote: read some random quotes\n\n"
             + "if you want to know how to use any of them\n"
             + "you can type \"help <name of command>\"  for further information!\n"
             + "e.g. \"help findfreeslot\", \"help deadline\"\n"
@@ -111,6 +113,8 @@ public class HelpCommand extends Command {
                 return new CommandResult(ExportCommand.MESSAGE_USAGE, false);
             case CMD_NUSMODS:
                 return new CommandResult(NusmodsCommand.MESSAGE_USAGE, false);
+            case CMD_QUOTE:
+                return new CommandResult(QuoteCommand.MESSAGE_USAGE, false);
             default:
                 return new CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);
             }

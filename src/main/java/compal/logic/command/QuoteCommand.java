@@ -13,6 +13,23 @@ public class QuoteCommand extends Command {
      * Private Constants.
      */
     private static final String CMD_TEAM = "team";
+    public static final String MESSAGE_USAGE = "quote\n\t"
+            + "Format: 1. quote \n\t"
+            + "2. quote DEVELOPER_NAME\n\n\t"
+            + "content in CAP: need to be fulfilled by the user\n\t"
+            + "This command will display random quotes. Try it out when you are bored!!\n\n"
+            + "Examples:\n\n\t"
+            + "quote team \n\t\t"
+            + "Show random quotes from all members of the developer team\n\n\t"
+            + "quote sholihin\n\t"
+            + "quote peize\n\t"
+            + "quote catherine\n\t"
+            + "quote jaedon\n\t"
+            + "quote junyi\n\t\t"
+            + "Show random quotes from specified team member\n\n\t"
+            + "quote\n\t"
+            + "quote rtjentotn\n\t\t"
+            + "Show random quotes. Can be generic quotes or quotes from team members.";
 
     /**
      * Private attributes.
@@ -82,7 +99,6 @@ public class QuoteCommand extends Command {
             ArrayList<String> allQuotes = initialiseTeamQuotes();
             initialiseGenQuotes();
             allQuotes.addAll(genQuote);
-            int allSize = allQuotes.size();
             int index = randInt % allQuotes.size();
             return new CommandResult(allQuotes.get(index), false);
         }
