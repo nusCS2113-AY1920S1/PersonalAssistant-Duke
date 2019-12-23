@@ -168,6 +168,10 @@ public class NusmodsCommand extends Command {
                     break;
                 }
             }
+            // unable to insert feature for examDate.
+            // examDate is not present in schemas of modules without exams. For those that have examDate,
+            // examDuration is given but the start time of the exam is not given. It is possible to make
+            // examDate a deadline but does not make sense because exams are clearly fixed duration events.
 
             // {   TUT, 08   } for each lessonDetail, of course
             for (String lessonDetail : parsedLessonDetailsList) {
@@ -220,11 +224,12 @@ public class NusmodsCommand extends Command {
      *
      * @param timetableJson Entire timetable for module in JSON.
      * @param lessonType Type of lesson: tutorial, recitation, etc.
-     * @param lessonNum Number assigned to lesson.
+     * @param lessonNum Number assigned to lesson (Note that it is stored as a String not an int)
      * @return An Arraylist of Arraylist of Objects.
      *      Inner Arraylist of Objects contain all the weeks for each lesson, the day
      *      that the lesson is held on, the start time and end time for that lesson slot, lessonType and lessonNum.
-     *      Outer Arraylist to store multiple slots for certain lessons, like lectures that occur twice every week.
+     *      Outer Arraylist to store multiple slots for certain lessons. E.g. lectures that occur twice every week
+     *      will have 2 of the inner Arraylist of Objects.
      * @throws CommandException Invalid NUSMODS link provided.
      */
     public ArrayList<ArrayList<Object>> searchJson(JSONArray timetableJson, String lessonType, String lessonNum)
@@ -280,7 +285,7 @@ public class NusmodsCommand extends Command {
             Task.Priority defaultLessonPriority = Task.Priority.low; // area of improvement in the future
             for (int weekIdx = 0; weekIdx < lessonWeeks.length(); weekIdx++) {
                 int actualWeekNum = lessonWeeks.getInt(weekIdx);
-                if (actualWeekNum > WEEK_6) {
+                if (actualWeekNum > WEEK_6) { // Increment by one more week for weeks after Recess Week
                     actualWeekNum++;
                 }
                 Date currDate = CompalUtils.incrementDateByDays(firstLessonDate,
