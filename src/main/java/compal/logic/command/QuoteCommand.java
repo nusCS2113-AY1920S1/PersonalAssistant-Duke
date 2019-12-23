@@ -42,9 +42,11 @@ public class QuoteCommand extends Command {
         lpzSet.add("jerry");
         lpzSet.add("lpz");
         lpzSet.add("peize");
+        lpzSet.add("pz");
         catSet.add("cat");
         catSet.add("catherine");
         jaeSet.add("jaedon");
+        jaeSet.add("jae");
         yjySet.add("junyi");
         initialiseShoQuotes();
         initialiseLpzQuotes();
@@ -56,7 +58,7 @@ public class QuoteCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) {
         Random rand = new Random();
-        int randInt = rand.nextInt(1000);
+        int randInt = rand.nextInt(10000);
         if (shoSet.contains(restOfInput)) {
             int index = randInt % shoQuote.size();
             return new CommandResult(shoQuote.get(index), false);
@@ -80,6 +82,7 @@ public class QuoteCommand extends Command {
             ArrayList<String> allQuotes = initialiseTeamQuotes();
             initialiseGenQuotes();
             allQuotes.addAll(genQuote);
+            int allSize = allQuotes.size();
             int index = randInt % allQuotes.size();
             return new CommandResult(allQuotes.get(index), false);
         }
@@ -114,9 +117,9 @@ public class QuoteCommand extends Command {
         shoQuote.add("\n\nI've done my 2105 assig, I'll pass it to you guys later \n\n"
                     + " - Sholihin, Whatsapp message, being a total godsend");
         shoQuote.add("\n\nHosneslty idk why I can't sleep but I cmi TMR you guys know why \n\n"
-                    + " - Sholihin, Whatsapp message before consult, indicating clearly that he needs \n to sleep");
-        shoQuote.add("\n\n Today need stay back for anything after 2113t?\n\n"
-                    +  " If not fuck it\n\n"
+                    + " - Sholihin, Whatsapp message before consult, clearly indicating that he needs\n to sleep");
+        shoQuote.add("\n\nToday need stay back for anything after 2113t?\n\n"
+                    +  "If not fuck it\n\n"
                     +  " - Sholihin, Whatsapp message echoing everyone's thoughts");
         shoQuote.add("\n\nI did baby\n\n"
                     + "But if not we could hug it out and share body heat\n\n"
@@ -128,8 +131,20 @@ public class QuoteCommand extends Command {
         shoQuote.add("\n\nHey guys, i know this is abit late @ night but i got some important stuff to \n"
                     + "write down\n\n"
                     + " - Sholihin, usual introduction before unloading info via Whatsapp");
+        shoQuote.add("\n\nBtw evdyeone do your own junit ah\n\n"
+                    + "And only merge when Travis and codafy say can\n\n"
+                    + "And thanks for today guys\n\n"
+                    + "Hate the mod but atleast you guys made it easier\n\n"
+                    + " - Sholihin, sentimental Whatsapp message after second code restructure");
+        shoQuote.add("\n\nWe late\n\n"
+                    + "Bus got into accident\n\n"
+                    + " - Sholihin, the most unexpected Whatsapp message before CS2101 class");
         shoQuote.add("\n\nNo, I carry this around in my bag everyday.\n\n"
                     + " - Sholihin, on his Polaroid camera");
+        shoQuote.add("\n\nI think we have to stay back one day and restructure our code\n\n"
+                    + " - Sholihin, foreboding words before both code restructures");
+        shoQuote.add("\n\nCode until cannot think already\n\n"
+                    + " - Sholihin, feelings after first code restructure");
     }
 
     /**
@@ -148,8 +163,10 @@ public class QuoteCommand extends Command {
                     + " - Peize, frequent Whatsapp messages before Jun Yi breaks them the next day");
         lpzQuote.add("\n\nJun yi I just finished 2106 do u need it?\n\n"
                     + " - Peize, Whatsapp message after doing the impossible");
-        lpzQuote.add("\n\nOOOOOHHHHHHH, Cheong Long!!\n\n"
+        lpzQuote.add("\n\nOOOOOHHHHHHH, Cheng Long!!\n\n"
                     + " - Peize, after realising we were not talking about Jackie Chan");
+        lpzQuote.add("\n\nOOOOOOOOOOooooooooohhhhhhhhhh!!!\n\n"
+                    + " - Peize's trademark exclamation");
     }
 
     /**
@@ -169,10 +186,11 @@ public class QuoteCommand extends Command {
         catQuote.add("\n\nI really thought it was going to take only half an hour!\n\n"
                     + " - Catherine, famous remarks on the final rush to submission\n"
                     + " (we ended up spending the whole day)");
-        catQuote.add("\n\nCan you guys please follow the format that I've put in the User Guide?\n\n"
+        catQuote.add("\n\nCan you guys please follow the command syntax that I've put in the User Guide?\n\n"
                     + " - Catherine, wondering why no one did despite laying everything out clearly");
-        catQuote.add("\n\nI eat four to five small meals a day.\n\n"
-                    + " - Catherine");
+        catQuote.add("\n\nI think the amount of sugar I consume in a day is more than what you\n"
+                    + "consume in a month.\n\n"
+                    + " - Catherine on the amount of sugar Jun Yi consumes");
     }
 
     /**
@@ -193,6 +211,13 @@ public class QuoteCommand extends Command {
                     + " while trying to start a conversation in the Whatsapp group");
         jaeQuote.add("\n\ni can help to add later\n\n"
                     + " - Jaedon, ever helpful Whatsapp message");
+        jaeQuote.add("\n\nOkay im driving now ttyl\n\n"
+                    + " - Jaedon, Whatsapp message telling us he intends to take over the driver of \n"
+                    + " the bus after the accident");
+        jaeQuote.add("\n\nHey I brought herbal tea for everyone\n\n"
+                    + " - Jaedon, much-needed care and affection in hazy weather");
+        jaeQuote.add("\n\nI'll book the Discussion Room for the meeting tomorrow\n\n"
+                    + " - Jaedon, preparing for weekly team meetings");
     }
 
     /**
@@ -202,7 +227,7 @@ public class QuoteCommand extends Command {
         yjyQuote.add("\n\nEr guys i will be late today \n\n"
                     + "As in i will be extra late cos i REALLY overslept this time \n\n"
                     + " - Jun Yi, Whatsapp message on the day of pitch \n (but honestly should be a message he sends "
-                    + "everyday");
+                    + "everyday)");
         yjyQuote.add("\n\nHow about Candice? I heard Candice is coming \n\n"
                     + "Candice dick fit in your mouth \n\n"
                     + " - Jun Yi, Whatsapp message to counter 'Joe mama' joke");
@@ -215,13 +240,62 @@ public class QuoteCommand extends Command {
                     + "we have 235 commits \n\n"
                     + " - Jun Yi, Whatsapp message before he had any idea what was to come");
         yjyQuote.add("\n\nI don't eat lunch.\n\n"
-                    + " - Jun Yi");
+                    + " - Jun Yi, on lifestyle");
+        yjyQuote.add("\n\nEh frag already frag already!\n\n"
+                    + " - Jun Yi, watching Sholihin zone out while coding at the end of second code\n"
+                    + " restructure");
+        yjyQuote.add("\n\nGETDATE, GETTIME, GETDATE, GETTIME!!!\n\n"
+                    + " - Jun Yi, freaking out during first code restructure");
     }
 
     /**
      * Add all general quotes into genQuote Arraylist.
      */
     public void initialiseGenQuotes() {
-        genQuote.add("");
+        genQuote.add("\n\nEmpty your memory, with a free(), like a pointer.\n"
+                + "If you cast a pointer to a integer, it becomes the integer.\n"
+                + "If you cast a pointer to a struct, it becomes the struct.\n"
+                + "The pointer can crash, and can overflow.\n"
+                + "Be a pointer my friend.\n"
+                + " - Dennis Ritchie");
+        genQuote.add("\n\nAlways code as if the guy maintaining your code will be a violent psychopath\n"
+                + "who knows where you live.\n\n"
+                + " - John Woods");
+        genQuote.add("\n\nAny fool can write code that a computer can understand.\n"
+                + "Good programmers write code that humans can understand.\n\n"
+                + " - Martin Fowler");
+        genQuote.add("\n\nGive a man a program, frustrate him for a day.\n"
+                + "Teach a man how to program, frustrate him for a lifetime.\n\n"
+                + " - Muhammad Waseem");
+        genQuote.add("\n\nSometimes I'll start a sentence and I don't even know where it's going.\n"
+                + "I just hope I find it along the way\n\n"
+                + " - Michael Scott");
+        genQuote.add("\n\nThere's a lot of beauty in ordinary things. Isn't thant kind of the point?\n\n"
+                + " - Pam Beesly");
+        genQuote.add("\n\nWhy say lot word when few word do trick?\n\n"
+                + " - Kevin Malone");
+        genQuote.add("\n\nSoftware is like sex: It's better when it's free.\n\n"
+                + " - Linus Torvalds");
+        genQuote.add("\n\nTo iterate is human, to recurse divine.\n\n"
+                + " - L. Peter Deutsch");
+        genQuote.add("\n\nSometimes it pays to stay in bed on Monday, rather than spending the rest\n"
+                + "of the week debugging Monday's code."
+                + " - Christopher Thompson");
+        genQuote.add("\n\nFine, Java MIGHT be a good example of what a programming language should be\n"
+                + "like. But Java applications are good examples of what applications SHOULDN'T\n"
+                + "be like.\n\n"
+                + " - pixadel");
+        genQuote.add("\n\nJava is, in many ways, C++--.\n\n"
+                + " - Michael Feldman");
+        genQuote.add("\n\nIf you fall, I will be there.\n\n"
+                +  " - Floor");
+        genQuote.add("\n\nOnly 3 things are infinite: \n"
+                + " 1. Universe.\n"
+                + " 2. Human Stupidity\n"
+                + " 3. Winrar's free trial\n"
+                + " - Albert Einstein");
+        genQuote.add("\n\nSoftware and cathedrals are much the same - first we build them,\n"
+                + "then we pray.\n\n"
+                + " - Sam Redwine");
     }
 }
