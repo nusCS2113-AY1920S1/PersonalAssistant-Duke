@@ -16,7 +16,6 @@ import java.util.Arrays;
 /**
  * Below are the required import statements in case IntelliJ changes it back to
  * import java.util.* again. This helps to pass codacy static analysis. Cheers.
- *
  * import java.util.Date;
  * import java.util.ArrayList;
  * import java.util.Arrays;
@@ -242,7 +241,7 @@ public class NusmodsCommand extends Command {
      *                       lesson number provided from parsing of NUSMODS link. This function will make one pass
      *                       through the timetable json, looking for a lesson json that matches the lesson type and
      *                       lesson number of a String array. This is more efficient than making a pass through the
-     *                       timetable json for each String array (previous implementation). 
+     *                       timetable json for each String array (previous implementation).
      * @return An Arraylist of Arraylist of Objects.
      *      Inner Arraylist of Objects contain all the weeks for each lesson, the day
      *      that the lesson is held on, the start time and end time for that lesson slot, lessonType and lessonNum.
