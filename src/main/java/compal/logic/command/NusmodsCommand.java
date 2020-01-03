@@ -9,9 +9,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+
+/**
+ * Below are the required import statements in case IntelliJ changes it back to
+ * import java.util.* again. This helps to pass codacy static analysis. Cheers.
+ *
+ * import java.util.Date;
+ * import java.util.ArrayList;
+ * import java.util.Arrays;
+ */
 
 public class NusmodsCommand extends Command {
     /**
@@ -174,16 +183,21 @@ public class NusmodsCommand extends Command {
             // examDate a deadline but does not make sense because exams are clearly fixed duration events.
 
             // {   TUT, 08   } for each lessonDetail, of course
+            ArrayList<String[]> lessonPairList = new ArrayList<>();
             for (String lessonDetail : parsedLessonDetailsList) {
-                String[] parsedLessonList = lessonDetail.split(TOKEN_LESSON_NUM);
-                if (parsedLessonList.length != LESSON_TYPE_NUMBER_LENGTH) {
+                String[] parsedLessonPair = lessonDetail.split(TOKEN_LESSON_NUM);
+                if (parsedLessonPair.length != LESSON_TYPE_NUMBER_LENGTH) {
                     throw new CommandException(MESSAGE_INVALID_NUSMODS_LINK);
                 }
-                String lessonType = parsedLessonList[FIRST_IDX];
-                String lessonNum = parsedLessonList[SECOND_IDX];
-                ArrayList<ArrayList<Object>> lessonDetailsList = searchJson(timetable, lessonType, lessonNum);
-                resultString += createAndAddEvents(tasklist, lessonDetailsList, moduleCode);
+                parsedLessonPair[FIRST_IDX] = convertUrlLessonCodeToJsonToken(parsedLessonPair[FIRST_IDX]);
+                lessonPairList.add(parsedLessonPair);
+                // String lessonType = parsedLessonList[FIRST_IDX];
+                // String lessonNum = parsedLessonList[SECOND_IDX];
+                // ArrayList<ArrayList<Object>> lessonDetailsList = searchJson(timetable, lessonType, lessonNum);
+                // resultString += createAndAddEvents(tasklist, lessonDetailsList, moduleCode);
             }
+            ArrayList<ArrayList<Object>> lessonDetailsList = searchJson(timetable, lessonPairList);
+            resultString += createAndAddEvents(tasklist, lessonDetailsList, moduleCode);
         }
         return new CommandResult(resultString, true);
     }
@@ -199,7 +213,8 @@ public class NusmodsCommand extends Command {
     }
 
     /**
-     * Converts the lesson type provided in the NUSMODS URL to the equivalent JSON key.
+     * Converts the lesson type provided in the NUSMODS URL to the equivalent JSON key, so that it
+     * can be used for comparison.
      *
      * @param urlLessonCode Lesson type provided in the NUSMODS URL.
      * @return return The equivalent JSON key.
@@ -223,8 +238,11 @@ public class NusmodsCommand extends Command {
      * Searches through the timetable JSON for the details relevant to the particular lesson.
      *
      * @param timetableJson Entire timetable for module in JSON.
-     * @param lessonType Type of lesson: tutorial, recitation, etc.
-     * @param lessonNum Number assigned to lesson (Note that it is stored as a String not an int)
+     * @param lessonPairList An ArrayList of String Arrays. Each String array contains (converted) lesson type and
+     *                       lesson number provided from parsing of NUSMODS link. This function will make one pass
+     *                       through the timetable json, looking for a lesson json that matches the lesson type and
+     *                       lesson number of a String array. This is more efficient than making a pass through the
+     *                       timetable json for each String array (previous implementation). 
      * @return An Arraylist of Arraylist of Objects.
      *      Inner Arraylist of Objects contain all the weeks for each lesson, the day
      *      that the lesson is held on, the start time and end time for that lesson slot, lessonType and lessonNum.
@@ -232,34 +250,47 @@ public class NusmodsCommand extends Command {
      *      will have 2 of the inner Arraylist of Objects.
      * @throws CommandException Invalid NUSMODS link provided.
      */
-    public ArrayList<ArrayList<Object>> searchJson(JSONArray timetableJson, String lessonType, String lessonNum)
+    public ArrayList<ArrayList<Object>> searchJson(JSONArray timetableJson, ArrayList<String[]> lessonPairList)
             throws CommandException {
         JSONObject lessonDetails;
-        boolean isLessonNumMatched = false;
-        boolean isLessonTypeMatched = false;
         ArrayList<ArrayList<Object>> lessonDetailsJsonList = new ArrayList<>();
         for (int count = 0; count < timetableJson.length(); count++) {
             lessonDetails = timetableJson.getJSONObject(count);
             String jsonLessonNum = lessonDetails.getString(JSONTOKEN_CLASSNO);
-            isLessonNumMatched = jsonLessonNum.equals(lessonNum);
             String jsonLessonType = lessonDetails.getString(JSONTOKEN_LESSONTYPE);
-            String convertedUrlLessonCode = convertUrlLessonCodeToJsonToken(lessonType);
-            isLessonTypeMatched = jsonLessonType.equals(convertedUrlLessonCode);
-            if (isLessonNumMatched && isLessonTypeMatched) {
+            if (isJsonLessonMatched(lessonPairList, jsonLessonNum, jsonLessonType)) {
                 ArrayList<Object> slotDetailsList = new ArrayList<>();
                 slotDetailsList.add(lessonDetails.getJSONArray(JSONTOKEN_LESSONWEEK)); // 0
                 slotDetailsList.add(lessonDetails.getString(JSONTOKEN_LESSONDAY)); // 1
                 slotDetailsList.add(lessonDetails.getString(JSONTOKEN_LESSONSTARTTIME)); // 2
                 slotDetailsList.add(lessonDetails.getString(JSONTOKEN_LESSONENDTIME)); // 3
-                slotDetailsList.add(lessonType); // 4
-                slotDetailsList.add(lessonNum); // 5
+                slotDetailsList.add(jsonLessonType); // 4
+                slotDetailsList.add(jsonLessonNum); // 5
                 lessonDetailsJsonList.add(slotDetailsList);
                 // do not break here. May have multiple lecture slots in one week, stored as separate JSONObjects.
             }
-            isLessonNumMatched = false;
-            isLessonTypeMatched = false;
         }
         return lessonDetailsJsonList;
+    }
+
+    /**
+     * Checks through the lesson pair list to find a pair that matches the lesson number and lesson type
+     * provided by the Json from NUSMODS.
+     *
+     * @param lessonPairList ArrayList of lesson pairs. Each pair contains the lesson type and lesson number. Provided
+     *                       by the parsing of the NUSMODS link.
+     * @param jsonLessonNum Lesson number provided from the parsing of NUSMODS json.
+     * @param jsonLessonType Lesson Type provided from the parsing of NUSMODS json.
+     * @return true if there is a matching lesson pair in the list, false if not.
+     */
+    public boolean isJsonLessonMatched(ArrayList<String[]> lessonPairList, String jsonLessonNum,
+                                       String jsonLessonType) {
+        for (String[] lessonPair : lessonPairList) {
+            if (lessonPair[FIRST_IDX].equals(jsonLessonType) && lessonPair[SECOND_IDX].equals(jsonLessonNum)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
