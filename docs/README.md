@@ -1,5 +1,7 @@
 # Dukpital
 
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113-T13-2/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113-T13-2/main)
+
 Dukpital an application intended for nurses within hospitals—particularly nurses with many patients under their care. Users will be able to navigate the program through either the GUI or CLI, according to their own preferences.
 
 Dukepital’s purpose is to provide an organizational tool for these users, allowing them to categorize tasks/information based on their patients. This encourages timeliness and higher quality of provided care.
@@ -18,7 +20,7 @@ You may launch the program by
 1. Double clicking the downloaded jar file, or 
 2. run command `java -jar <file name>.jar` .
 
-## User Guide
+## [User Guide](userguide.md)
 
 [Click here for the detailed user guide](userguide.md)
 
