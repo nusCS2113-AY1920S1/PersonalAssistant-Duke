@@ -158,6 +158,9 @@ public class MainWindow extends UiPart<Stage> {
     private ScrollPane helpGuideScrollPane;
 
     @FXML
+    private TextField assignTaskFindAssignedTaskField;
+
+    @FXML
     private VBox firstDayBox;
     @FXML
     private VBox secondDayBox;
@@ -829,6 +832,21 @@ public class MainWindow extends UiPart<Stage> {
         assignTaskUuidField.clear();
 
     }
+
+    /**
+     * Action takes to after Delete Assign task button is being pressed.
+     */
+    @FXML
+    private void handleFindAssignTaskButton() {
+        String patientId = assignTaskFindAssignedTaskField.getText();
+
+        String input = "find assigned tasks :" + "#" + patientId;
+        executeDukeWithInput(input);
+        assignTaskFindAssignedTaskField.clear();
+
+    }
+
+
     //@@author
 
     //@@author lmtaek
@@ -885,8 +903,8 @@ public class MainWindow extends UiPart<Stage> {
             "delete assigned task :#", "find patient :#", "find patient :", "find task :#",
             "find task :", "find assigned tasks :#", "find assigned task :", "update patient :#",
             "update task :#", "show upcoming tasks","show patients","show tasks","show assigned tasks",
-            "show help guide","show today","filter", "clear filter","barchart", "help", "piechart", "bye", "undo",
-            "help"};
+            "show help guide","show tomorrow","show today","filter", "clear filter","barchart", "help",
+            "piechart", "bye", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
     }
 

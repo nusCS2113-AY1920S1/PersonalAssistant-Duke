@@ -43,14 +43,16 @@ public class UpdateTaskCommand implements Command {
                 id = Integer.parseInt(command[0].substring(1));
                 Task taskToBeUpdated = taskManager.getTask(id);
                 if (command[1].toLowerCase().equals("description")) {
-                    taskToBeUpdated.setDescription(command[2]);
+                    Task newTask = new Task(id, command[2]);
+                    taskManager.deleteTask(id);
+                    taskManager.addTask(newTask);
                 } else {
                     throw new DukeException(UpdateTaskCommand.class, "You can only update 'Description' of the task");
                 }
 
                 storageManager.saveTasks(taskManager.getTaskList());
                 dukeUi.showUpdatedSuccessfully();
-                dukeUi.showTaskInfo(taskToBeUpdated);
+                dukeUi.showTaskInfo(taskManager.getTask(id));
             } catch (Exception e) {
                 throw e;
             }

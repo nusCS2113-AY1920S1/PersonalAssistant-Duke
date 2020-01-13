@@ -27,9 +27,9 @@ public class PieChartCommand implements Command {
             ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
             final ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
             PieChartBox.showPieChartBox(frequencyList, commandNameList);
+            dukeUi.showPieChartResponse();
         } catch (DukeException e) {
             throw new DukeException(PieChartCommand.class,"No command has been entered yet.");
-
         }
 
 

@@ -58,7 +58,15 @@ public class UpdatePatientCommand implements Command {
                 } catch (Exception e) {
                     throw e;
                 }
-                patientToBeUpdated.setName(command[2]);
+                try {
+                    Patient newPatient = new Patient(id, command[2],
+                            patientToBeUpdated.getNric(), patientToBeUpdated.getRoom(),
+                            patientToBeUpdated.getRemark());
+                    patientManager.deletePatient(id);
+                    patientManager.addPatient(newPatient);
+                } catch (Exception e) {
+                    throw e;
+                }
             } else if (command[1].toLowerCase().equals("nric")) {
                 try {
                     if (command.length == 2) {
@@ -69,7 +77,15 @@ public class UpdatePatientCommand implements Command {
                 } catch (Exception e) {
                     throw e;
                 }
-                patientToBeUpdated.setNric(command[2]);
+                try {
+                    Patient newPatient = new Patient(id, patientToBeUpdated.getName(),
+                            command[2], patientToBeUpdated.getRoom(),
+                            patientToBeUpdated.getRemark());
+                    patientManager.deletePatient(id);
+                    patientManager.addPatient(newPatient);
+                } catch (Exception e) {
+                    throw e;
+                }
             } else if (command[1].toLowerCase().equals("room")) {
                 try {
                     if (command.length == 2) {
@@ -80,12 +96,28 @@ public class UpdatePatientCommand implements Command {
                 } catch (Exception e) {
                     throw e;
                 }
-                patientToBeUpdated.setRoom(command[2]);
+                try {
+                    Patient newPatient = new Patient(id, patientToBeUpdated.getName(),
+                            patientToBeUpdated.getNric(), command[2],
+                            patientToBeUpdated.getRemark());
+                    patientManager.deletePatient(id);
+                    patientManager.addPatient(newPatient);
+                } catch (Exception e) {
+                    throw e;
+                }
             } else if (command[1].toLowerCase().equals("remark")) {
                 if (command.length == 2) {
                     patientToBeUpdated.setRemark("");
                 } else {
-                    patientToBeUpdated.setRemark(command[2]);
+                    try {
+                        Patient newPatient = new Patient(id, patientToBeUpdated.getName(),
+                                patientToBeUpdated.getNric(), patientToBeUpdated.getRoom(),
+                                command[2]);
+                        patientManager.deletePatient(id);
+                        patientManager.addPatient(newPatient);
+                    } catch (Exception e) {
+                        throw e;
+                    }
                 }
             } else {
                 throw new DukeException(UpdatePatientCommand.class,
@@ -97,7 +129,7 @@ public class UpdatePatientCommand implements Command {
                 throw e;
             }
             dukeUi.showUpdatedSuccessfully();
-            dukeUi.showPatientInfo(patientToBeUpdated);
+            dukeUi.showPatientInfo(patientManager.getPatient(id));
         } else {
             throw new DukeException(UpdatePatientCommand.class,
                     "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> :<new information>'.");

@@ -138,8 +138,8 @@
                                                             <Font size="20.0" />
                                                         </font>
                                                     </Text>
-                                                    <TextField fx:id="addPatientNameField" alignment="CENTER" layoutX="75.0" layoutY="62.0" prefHeight="27.0" prefWidth="191.0" promptText="Enter Name Here" AnchorPane.leftAnchor="77.0" />
-                                                    <TextField fx:id="addPatientNricField" alignment="CENTER" layoutX="75.0" layoutY="93.0" prefHeight="24.0" prefWidth="192.0" promptText="Enter NRIC Here" AnchorPane.bottomAnchor="569.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="93.0" />
+                                                    <TextField fx:id="addPatientNameField" alignment="CENTER" layoutX="76.0" layoutY="62.0" prefHeight="27.0" prefWidth="188.0" promptText="Enter Name Here" AnchorPane.leftAnchor="76.0" />
+                                                    <TextField fx:id="addPatientNricField" alignment="CENTER" layoutX="75.0" layoutY="93.0" prefHeight="24.0" prefWidth="188.0" promptText="Enter NRIC Here" AnchorPane.bottomAnchor="569.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="93.0" />
                                                     <TextField fx:id="addPatientRoomField" alignment="CENTER" layoutX="76.0" layoutY="125.0" prefHeight="24.0" prefWidth="191.0" promptText="Enter Room No. Here" AnchorPane.bottomAnchor="537.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0" />
                                                     <TextField fx:id="addPatientRemarkField" alignment="CENTER" layoutX="77.0" layoutY="159.0" prefHeight="25.0" prefWidth="191.0" promptText="Any Remark?" AnchorPane.bottomAnchor="502.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="159.0" />
                                                     <Text layoutX="13.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="205.86328125">
@@ -164,7 +164,7 @@
                                                     </Text>
                                                     <Button fx:id="updatePatientButton" layoutX="9.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleUpdatePatientButton" prefHeight="28.0" prefWidth="259.0" text="Update Patient" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="392.0" />
                                                     <TextField fx:id="updatePatientIdField" layoutX="139.0" layoutY="269.0" prefHeight="24.0" prefWidth="133.0" promptText="Enter Patient ID Here" AnchorPane.bottomAnchor="393.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="269.0" />
-                                                    <TextField fx:id="updatePatientColumnField" layoutX="139.0" layoutY="304.0" prefHeight="32.0" prefWidth="133.0" promptText="e.g. name, NRIC etc" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="304.0" />
+                                                    <TextField fx:id="updatePatientColumnField" layoutX="139.0" layoutY="304.0" prefHeight="32.0" prefWidth="129.0" promptText="e.g. name, NRIC etc" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="304.0" />
                                                     <TextField fx:id="updatePatientContentField" layoutX="140.0" layoutY="347.0" prefHeight="28.0" prefWidth="128.0" promptText="Update to ?" AnchorPane.leftAnchor="140.0" />
                                                     <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID:" textAlignment="CENTER" wrappingWidth="105.13671875" AnchorPane.bottomAnchor="412.625" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="153.86328125" AnchorPane.topAnchor="272.375">
                                                         <font>
@@ -238,9 +238,9 @@
                                                     <DatePicker fx:id="assignDeadlineTaskDatePicker" layoutX="20.0" layoutY="388.0" prefHeight="27.0" prefWidth="158.0" promptText="Date" />
                                                     <Button layoutX="20.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleDeadlineTaskButton" prefHeight="27.0" prefWidth="234.0" text="Assign Deadline Task" />
                                                     <TextField fx:id="assignDeadlineTaskTimeField" layoutX="191.0" layoutY="388.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
-                                                    <Button layoutX="20.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleDeleteUuidTaskButton" prefHeight="22.0" prefWidth="233.0" text="Delete Assign Task " />
-                                                    <TextField fx:id="assignTaskUuidField" layoutX="94.0" layoutY="504.0" promptText="Enter UUID Here" />
-                                                    <Text layoutX="30.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UUID:" wrappingWidth="37.22900390625" />
+                                                    <Button layoutX="20.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleDeleteUuidTaskButton" prefHeight="22.0" prefWidth="233.0" text="Delete Assign Task " />
+                                                    <TextField fx:id="assignTaskUuidField" layoutX="94.0" layoutY="584.0" promptText="Enter UUID Here" />
+                                                    <Text layoutX="30.0" layoutY="602.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UUID:" wrappingWidth="37.22900390625" />
                                                     <Text layoutX="8.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Task Command Shortcut" wrappingWidth="274.22900390625">
                                                         <font>
                                                             <Font size="19.0" />
@@ -250,6 +250,10 @@
                                                     <Separator layoutX="37.0" layoutY="181.0" prefWidth="200.0" />
                                                     <Separator layoutX="45.0" layoutY="342.0" prefWidth="200.0" />
                                                     <Separator layoutX="45.0" layoutY="489.0" prefWidth="200.0" />
+                                          <TextField fx:id="assignTaskFindAssignedTaskField" layoutX="167.0" layoutY="500.0" prefHeight="27.0" prefWidth="86.0" promptText="Patient ID" />
+                                          <Text layoutX="20.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find assigned task from :" wrappingWidth="148.0" />
+                                          <Separator layoutX="36.0" layoutY="573.0" prefHeight="0.0" prefWidth="201.0" />
+                                          <Button layoutX="51.0" layoutY="537.0" mnemonicParsing="false" onAction="#handleFindAssignTaskButton" prefHeight="27.0" prefWidth="171.0" text="Find" />
                                                 </children>
                                             </AnchorPane>
                                         </content>

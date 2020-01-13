@@ -2,18 +2,22 @@
 
 package duke;
 
-import duke.models.tasks.TaskManager;
-import duke.util.DukeUi;
-import duke.util.mementopattern.Memento;
-import duke.util.mementopattern.MementoManager;
-import duke.util.mementopattern.MementoParser;
 import duke.commands.Command;
 import duke.commands.CommandManager;
 import duke.exceptions.DukeException;
-import duke.models.patients.PatientManager;
+import duke.models.assignedtasks.AssignedTask;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.counter.Counter;
+import duke.models.patients.Patient;
+import duke.models.patients.PatientManager;
+import duke.models.tasks.Task;
+import duke.models.tasks.TaskManager;
 import duke.storages.StorageManager;
+import duke.util.DukeUi;
+import duke.util.StartUpData;
+import duke.util.mementopattern.Memento;
+import duke.util.mementopattern.MementoManager;
+import duke.util.mementopattern.MementoParser;
 
 /**
  * Represents Duke, a Personal Assistant to help
@@ -36,7 +40,7 @@ public class Duke {
      * @param filePath A string that represents the path of the local file
      *                 used for storing tasks.
      */
-    public Duke(String filePath) {
+    public Duke(String filePath) throws DukeException {
         storageManager = new StorageManager(filePath);
         mementoManager = new MementoManager();
         dukeUi = new DukeUi();
@@ -51,6 +55,28 @@ public class Duke {
             dukeUi.showLoadingError();
             System.out.println(e.getMessage());
             taskManager = new TaskManager();
+        }
+
+        if ((assignedTaskManager.getAssignTasks().size() <= 0)
+            && (taskManager.getTaskList().size() <= 0)
+            && (patientManager.getPatientList().size() <= 0)) {
+            try {
+                StartUpData dataAdder = new StartUpData();
+                for (Patient patient : dataAdder.getPatients()) {
+                    patientManager.addPatient(patient);
+                }
+                for (Task task : dataAdder.getTasks()) {
+                    taskManager.addTask(task);
+                }
+                for (AssignedTask assignedTask : dataAdder.getAssignedTasks()) {
+                    assignedTaskManager.addPatientTask(assignedTask);
+                }
+                storageManager.savePatients(patientManager.getPatientList());
+                storageManager.saveTasks(taskManager.getTaskList());
+                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+            } catch (Exception e) {
+                throw new DukeException("Failed to generate pre-made data.");
+            }
         }
     }
 

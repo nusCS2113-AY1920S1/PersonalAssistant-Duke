@@ -42,6 +42,9 @@ public class HelpCommand implements Command {
                 + ":description :<new description>`");
         userCommandList.add("Undo an action:\n `undo`");
         userCommandList.add("Show upcoming tasks for the week:\n `show upcoming tasks`");
+        userCommandList.add("View bar chart for command frequency statistics:\n `barchart`");
+        userCommandList.add("View pie chart for command frequency statistics:\n `piechart`");
+
         userCommandList.add("View help guide:\n `help`");
         userCommandList.add("Exit the program:\n `bye`");
 
