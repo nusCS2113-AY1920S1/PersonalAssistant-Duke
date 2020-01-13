@@ -4,7 +4,7 @@ Dukpital an application intended for nurses within hospitals—particularly nurs
 
 Dukepital’s purpose is to provide an organizational tool for these users, allowing them to categorize tasks/information based on their patients. This encourages timeliness and higher quality of provided care.
 
-![gui_1](images/ui.png)
+![gui_1](images/UI.png)
 
 ## Installation
 
