@@ -2,9 +2,10 @@ package Model_Classes;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import Enums.Color;
 
 public class ProgressBar {
-    private String[] bar = new String[50];
+    private char[] bar = new char[50];
     private float total;
     private float done;
 
@@ -24,17 +25,16 @@ public class ProgressBar {
      */
     public String showBar() {
         for (int i = 0; i < 50; i++) {
-            bar[i] = " ";
+            bar[i] = ' ';
         }
         float percentage = 0;
         if (total >= 1) {
             percentage = done / total;
             for (int i = 0; i < (int)(percentage * 50); i++) {
-                bar[i] = "=";
+                bar[i] ='=';
             }
         }
-        DecimalFormat df = new DecimalFormat("#.#");
-        return Arrays.toString(bar).replace(",", "").trim()
-                + " " + Float.valueOf(df.format(percentage * 100)) + "%";
+        return "[" + Color.GREEN + new String(bar) + Color.RESET
+                 + "]" + Color.GREEN + String.format("%.1f", percentage*100) + " %" + Color.RESET;
     }
 }

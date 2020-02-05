@@ -4,10 +4,10 @@ import Enums.ExceptionType;
 
 public class RoomShareException extends Exception {
     private static final String LINE = "___________________________________________________________________________________\n";
+
     private static final String OUT_OF_BOUNDS_TEXT = "\tIndex is out of Bounds!\n";
     private static final String ANOMALY_TEXT = "\tAnomaly Detected\n";
     private static final String EMPTY_LIST_TEXT = "\tList is empty\n";
-
     private static final String WRONG_FORMAT_TEXT = "\tWrong Format Detected\n";
     private static final String WRONG_PRIORITY_TEXT = "\tYou've entered wrong format of priority\n";
     private static final String SUB_TASK_TEXT = "\tOnly Assignments are supported with Subtasks\n";
@@ -37,6 +37,7 @@ public class RoomShareException extends Exception {
     private static final String ASSIGNEE_SET_TO_EVERYONE = "\tThere might have been an error when setting the assignee\n"
             + "\tIt could be an error in your entry of the assignee field\n"
             + "\tHowever, if you had intended to set the assignee to 'everyone', then ignore this message\n";
+    public static final String INVALID_COMMAND_TEXT = "\tInvalid command! Type \"help\" to find out more about available commands\n";
 
     private String message;
 
@@ -154,6 +155,10 @@ public class RoomShareException extends Exception {
 
         case assigneeSetToEveyone:
             message = ASSIGNEE_SET_TO_EVERYONE;
+            break;
+
+        case invalidCommand:
+            message = INVALID_COMMAND_TEXT;
             break;
 
         default:

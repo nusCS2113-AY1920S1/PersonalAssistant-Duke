@@ -2,7 +2,8 @@ package CustomExceptions;
 
 public class DuplicateException extends Exception {
     private static final String LINE = "___________________________________________________________________________________\n";
-    public static final String DUPLICATE_TASK = "\tDuplicate task detected ";
+    private static final String DUPLICATE_TASK = "\tDuplicate task detected ";
+    private static final String RED = "\u001b[31m";
 
     private String message;
 
@@ -20,6 +21,6 @@ public class DuplicateException extends Exception {
      */
     @Override
     public String toString() {
-        return LINE + message + LINE;
+        return RED + LINE + message + LINE;
     }
 }

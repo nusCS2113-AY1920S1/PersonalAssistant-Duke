@@ -81,7 +81,6 @@ public class RoomShare {
             case help:
                 Ui.clearScreen();
                 ui.startUp();
-                help.helpCommandList();
                 help.showHelp(parser.getCommandLine());
                 break;
 
@@ -443,8 +442,8 @@ public class RoomShare {
             default:
                 Ui.clearScreen();
                 ui.startUp();
+                ui.showError(new RoomShareException(ExceptionType.invalidCommand));
                 listRoutine.list();
-                ui.showCommandError();
                 storage.writeFile(TaskList.getCurrentList(), "data.txt");
                 try {
                     storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");

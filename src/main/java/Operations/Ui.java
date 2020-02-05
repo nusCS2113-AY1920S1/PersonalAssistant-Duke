@@ -2,6 +2,8 @@ package Operations;
 
 import Enums.SortType;
 import Enums.TimeUnit;
+import Enums.Color;
+import Enums.HelpMessage;
 
 import java.io.IOException;
 
@@ -9,186 +11,36 @@ import java.io.IOException;
  * Class to tell user about errors and completion of operations.
  */
 public class Ui {
-    /**
-     * Constructor for Ui class.
-     */
-    public Ui() {
-    }
+    public static final String LOGO = Color.BLUE
+            + "    ******\n"
+            + "    ***  ****\n"
+            + "    ***     ***\n"
+            + "    *****    ***\n"
+            + "    ***  ********\n"
+            + "    ***    *****  ******\n"
+            + "     **    ***   ****   ****\n"
+            + "            ***   ***     * \n"
+            + "             ***    ***\n"
+            + "              ***      ***\n"
+            + "                  **     ***\n"
+            + "                    ***    ***\n"
+            + "                       *******\n"
+            + Color.RESET;
 
     /**
      * Shows the startup logo for RoomShare.
      */
     public void startUp() {
-        String logo = "    &@\n"
-                + "    #@&@@.\n"
-                + "    #&&  .@@,\n"
-                + "    %&&     %@,\n"
-                + "    #@&@%    %@#\n"
-                + "    %&&  @@@&&&&.\n"
-                + "    &&&    @@##/  @@@@@#\n"
-                + "     (@    .@&   .@@.   &@@.\n"
-                + "            /@%   (@(     * \n"
-                + "             @@*    #@%\n"
-                + "              #@,      @@#\n"
-                + "                  /*     *@@\n"
-                + "                    %@.    @@.\n"
-                + "                       #@@@&@*\n";
-        System.out.println("Hello from RoomShare!\n" + logo);
+        System.out.println("Hello from RoomShare!\n" + LOGO);
         System.out.println("Enter 'help' if you require assistance");
     }
 
-    public void helpList() {
-        System.out.println("Here are a list of commands you can input: " +
-                "\n add " +
-                "\n list " +
-                "\n update " +
-                "\n done " +
-                "\n delete " +
-                "\n find " +
-                "\n snooze " +
-                "\n sort " +
-                "\n subtask " +
-                "\n restore " +
-                "\n priority " +
-                "\n reorder " +
-                "\n completed " +
-                "\n overdue " +
-                "\n reschedule " +
-                "\n show " +
-                "\n removeoverdue " +
-                "\n log " +
-                "\n bye \n" +
-                "For more information about a specific command you can \nEnter help followed by a command, eg. help add\n");
-    }
-
-    void helpAdd() {
-        System.out.println("Adds a Meeting or Assignment to the list\n");
-        System.out.println("You must specify the description, type of task, and time of the task");
-        System.out.println("Each field has a particular format of entry\n");
-        System.out.println("Type of task must be either meeting or assignment, wrapped in '#'\n"
-                + "\te.g #meeting# # assignment#\n");
-        System.out.println("Description must be wrapped in parentheses\n "
-                + "\te.g (description)\n");
-        System.out.println("Priority must be either high medium or low, wrapped in asterisks '*'\n "
-                + "\te.g *low*\n");
-        System.out.println("Time must be specified, wrapped in '&'\n"
-                + "\te.g &22/12/2019 18:00&  &this friday 13:00&  &next monday 14:00&  &tmr 16:00&\n");
-        System.out.println("If time isn't specified, then the duration of the task must at least be specified\n");
-        System.out.println("Duration can be specified by wrapping in '^', in terms of number of hours or number of minutes");
-        System.out.println("\te.g ^2 hours^ ^1 minutes^\n");
-        System.out.println("Recurrence of the task can be specified by wrapping either days, weeks or months"
-                + "\nin '%'\n\te.g %day% %week% %month%\n");
-        System.out.println("Task can also be assigned to a name, by wrapping the name in '@'\n"
-                + "\te.g @Alice@\n");
-        System.out.println("You must specify the task type, description, and either time or duration");
-        System.out.println("The rest of the fields can still be changed later using other commands");
-    }
-
-    void helpDelete() {
-        System.out.println("Deletes the tasks in the index or the specified range");
-        System.out.println("\te.g delete 1");
-        System.out.println("\te.g delete 3 - 5");
-    }
-
-    void helperList() {
-        System.out.println("Shows the list of task that are currently in the Task list");
-        System.out.println("\teg. list");
-    }
-
-    void helpDone() {
-        System.out.println("Marks the specified task as done/completed");
-        System.out.println("\teg. done 1");
-        System.out.println("\teg. done 2 - 4");
-    }
-
-    void helpRestore() {
-        System.out.println("Restores a deleted task back into the task list based on its index");
-        System.out.println("\teg. restore 2");
-    }
-
-    void helpFind() {
-        System.out.println("Finds tasks in the task list based on keyword specified");
-        System.out.println("\teg. find maths");
-        System.out.println("\treturns all tasks that contains the 'maths' keyword");
-    }
-
-    void helpPriority() {
-        System.out.println("Changes the priority of the specified task");
-        System.out.println("\t3 levels of priority: 1 (High), 2 (Medium), 3 (Low)");
-        System.out.println("\teg. priority 1");
-        System.out.println("\tThis changes the priority of the task to high");
-    }
-
-    void helpSnooze() {
-        System.out.println("Snoozes a task for a specified amount of time");
-        System.out.println("Different time units include: hours, minutes");
-        System.out.println("\teg. snooze 1 2 hours");
-        System.out.println("\tThis snoozes task 1 for a period of 2 hours");
-    }
-
-    void helpReorder() {
-        System.out.println("Reorder 2 different tasks in the task list");
-        System.out.println("\teg. reorder 1 3");
-        System.out.println("\tThis will swap the order task 1 and task 3");
-    }
-
-
-    void helpSubtask() {
-        System.out.println("Adds subtasks to an assignment task type");
-        System.out.println("\teg. subtask 3 subtask1, subtask2");
-        System.out.println("\tThis will add 2 subtasks to the task at index 3, subtask1 and subtask2");
-    }
-
-    void helpUpdate() {
-        System.out.println("Updates the task details");
-        System.out.println("Fields that are updatable: ");
-        System.out.println("\tDescription: (new_description)");
-        System.out.println("\tDate Time: &20/09/2019 20:00&");
-        System.out.println("\tPriority: *high*");
-        System.out.println("\tDuration: ^3 hours^");
-        System.out.println("\tRecurrence: %day%");
-        System.out.println("\tAssignee: @joel@");
-    }
-
-    void helpSort() {
-        System.out.println("Sorts the tasks in the task list based on, deadline, priority and alphabetical order");
-        System.out.println("\teg. sort deadline");
-        System.out.println("\tThis will sort the tasks in the task list by their deadlines");
-    }
-
-    void helpLog() {
-        System.out.println("Logs the current task list into a saved file");
-    }
-
-    public void helpRemoveoverdue() {
-        System.out.println("Remove tasks from the overdue list if you do not want to reschedule it");
-        System.out.println("\teg. removeoverdue 2");
-    }
-
-    public void helpBye() {
-        System.out.println("Typing in 'bye' will exit the program");
-    }
-
-    public void helpCompleted() {
-        System.out.println("Shows the list of completed tasks");
-    }
-
-    public void helpOverdue() {
-        System.out.println("Shows the list of overdued tasks");
-    }
-
-    public void helpReschedule() {
-        System.out.println("Reschedules an overdued task by index to a later date by inputting a new date");
-        System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
-        System.out.println("This will reschedule the tasks specified by their index to the new date");
-    }
-
-    public void helpShow() {
-        System.out.println("Shows you the task tagged to each user in the task list");
-        System.out.println("\teg. show kelly");
-        System.out.println("This will list all the tasks assigned to kelly and everyone");
-        System.out.println("To show deleted tasks, you can type in 'show deleted'");
-        System.out.println("\te.g show deleted");
+    /**
+     * Print out a help message corresponding to the user's query
+     * @param message
+     */
+    public void showHelpMessage(HelpMessage message) {
+        System.out.println(message);
     }
 
     /**
@@ -244,9 +96,7 @@ public class Ui {
      * Tells the user that an invalid command has been input into RoomShare.
      */
     public void showCommandError() {
-        System.out.println("Sorry, I don't understand this command...");
-        System.out.println("Try type \"help add\" for instructions on how to add new task");
-        System.out.println("\tType list, find, done, delete to perform operations on your todo list");
+        System.out.println("Invalid command! Type \"help\" to find out more about available commands");
     }
 
     /**
@@ -294,7 +144,7 @@ public class Ui {
      * @param e the encountered error
      */
     public void showError(Exception e) {
-        System.out.println(e);
+        System.out.println(Color.RED.toString() + e + Color.RESET.toString());
     }
 
     public void showLogSuccess(String filePath) {
