@@ -1,10 +1,7 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
-import Enums.ExceptionType;
-import Enums.Priority;
-import Enums.SortType;
-import Enums.TimeUnit;
+import Enums.*;
 import Model_Classes.Assignment;
 import Model_Classes.Leave;
 import Model_Classes.Meeting;
@@ -105,7 +102,7 @@ public class TaskList {
      */
     public void showCompleted() throws RoomShareException {
         sortTasks();
-        System.out.println(COMPLETED_TASKS);
+        System.out.println(Color.GREEN + COMPLETED_TASKS);
         if (tasks.size() != 0) {
             int listCount = 1;
             for (Task output : tasks) {
@@ -115,6 +112,7 @@ public class TaskList {
                 }
                 listCount += 1;
             }
+            System.out.print(Color.RESET);
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }

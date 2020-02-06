@@ -16,8 +16,7 @@ public enum HelpMessage {
     LOG(Constants.HELP_LOG),
     REMOVE_OVERDUE(Constants.HELP_REMOVE_OVERDUE),
     BYE(Constants.HELP_BYE),
-    COMPLETED(Constants.HELP_COMPLETED),
-    OVERDUED(Constants.HELP_OVERDUED),
+    OVERDUE(Constants.HELP_OVERDUE),
     RESCHEDULE(Constants.HELP_RESCHEDULE);
 
 
@@ -43,12 +42,12 @@ public enum HelpMessage {
                 "Or you can key in the information in any different order and write date in short form:\n" +
                 "add &next tues 16:00& (product evaluation) #meeting# ^2 hours^";
         public static final String HELP_MENU = "Here are a list of commands you can input:\n" +
-                "add\t\t\t\tdelete\t\t\t\tupdate\n" +
+                "add\t\t\t\t\tdelete\t\t\t\tupdate\n" +
                 "restore\t\t\t\tsnooze\t\t\t\tdone\n" +
                 "list\t\t\t\tfind\t\t\t\tsort\n" +
-                "show\t\t\t\tcompleted\t\t\tsubtask\n" +
-                "overdued\t\t\tremoveoverdue\t\t\treschedule\n" +
-                "log\t\t\t\tbye\n" +
+                "show\t\t\t\toverdue\t\t\t\tsubtask\n" +
+                "removeoverdue\t\treschedule\t\t\tbye\n" +
+                "bye\n" +
                 "To know more about the commands, type help \"command\". Example: help add";
         public static final String HELP_DELETE = "This command deletes the tasks at the specified order number.\n" +
                 "Example: delete 1\n" +
@@ -89,9 +88,8 @@ public enum HelpMessage {
         public static final String HELP_REMOVE_OVERDUE = "This command removes tasks from the overdue list if you do not want to reschedule it\n" +
                 "Example: removeoverdue 2";
         public static final String HELP_BYE = "Typing in 'bye' will exit the program";
-        public static final String HELP_COMPLETED = "This command shows the list of completed tasks";
-        public static final String HELP_OVERDUED = "This command shows the list of overdued tasks";
-        public static final String HELP_RESCHEDULE = "This command reschedules an overdued task by index to a later date by inputting a new date\n" +
+        public static final String HELP_OVERDUE = "This command shows the list of overdue tasks";
+        public static final String HELP_RESCHEDULE = "This command reschedules an overdue task by index to a later date by inputting a new date\n" +
                 "Example reschedule 1 &20/11/2019 10:00&\n" +
                 "This will reschedule the tasks specified by their index to the new date";
     }

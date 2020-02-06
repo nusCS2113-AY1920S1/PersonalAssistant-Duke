@@ -44,7 +44,8 @@ public class TaskCreator {
                 c == '@' ||
                 c == '^' ||
                 c == '!' ||
-                c == '%';
+                c == '%' ||
+                c == '-';
     }
 
     /**
@@ -89,14 +90,10 @@ public class TaskCreator {
      * @throws RoomShareException when the task type is invalid
      */
     public String extractType(String input) throws RoomShareException {
-        String[] typeArray = input.split("#");
-        String type;
-        if (typeArray.length != 1) {
-            type = typeArray[1].toLowerCase();
-        } else {
+        String type = extractField(input,"#");
+        if (type == null)
             throw new RoomShareException(ExceptionType.emptyTaskType);
-        }
-        return type;
+        return type.trim();
     }
 
     /**
@@ -106,17 +103,9 @@ public class TaskCreator {
      * @throws RoomShareException when there's no description detected
      */
     public String extractDescription(String input) throws RoomShareException {
-        String[] descriptionArray = input.split("\\(");
-        String description;
-        if (descriptionArray.length != 1) {
-            String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
-            description = descriptionArray2[0].trim();
-        } else {
+        String description = extractField(input,"-");
+        if (description == null)
             throw new RoomShareException(ExceptionType.emptyDescription);
-        }
-        if (hasSpecialCharacters(description)) {
-            throw new RoomShareException(ExceptionType.invalidInputString);
-        }
         return description;
     }
 
@@ -126,21 +115,9 @@ public class TaskCreator {
      * @return the priority of the task
      */
     public Priority extractPriority(String input) throws RoomShareException {
-        // check for errors in the raw input for misleading characters
-        int count = 0;
-        char[] inputAsChar = input.toCharArray();
-        for (char c: inputAsChar) {
-            if (c == '*') {
-                count++;
-            }
-        }
-        if (count == 1) {
-            throw new RoomShareException(ExceptionType.invalidInputString);
-        }
-        String[] priorityArray = input.split("\\*");
         Priority priority;
-        if (priorityArray.length != 1) {
-            String inputPriority = priorityArray[1].trim();
+        String inputPriority = extractField(input,"!");
+        if (inputPriority != null) {
             try {
                 priority = Priority.valueOf(inputPriority);
             } catch (IllegalArgumentException e) {
@@ -168,13 +145,13 @@ public class TaskCreator {
                 count++;
             }
         }
-        String[] dateArray = input.trim().split("&");
+
         ArrayList<Date> dates = new ArrayList<>();
         Date currentDate = new Date();
         if (count > 0) {
-            if (count <= 2) {
+            if (count == 1) {
                 try {
-                    String dateInput = dateArray[1].trim();
+                    String dateInput = extractField(input,"&");
                     Date date;
                     date = parser.formatDate(dateInput);
                     if (date.before(currentDate)) {
@@ -186,8 +163,8 @@ public class TaskCreator {
                     throw new RoomShareException(ExceptionType.emptyDate);
                 }
             } else {
-                String fromInput = dateArray[1].trim();
-                String toInput = dateArray[2].trim();
+                String fromInput = extractField(input,"&");
+                String toInput = extractField(input.substring(input.lastIndexOf(fromInput)),"&");
                 Date from = new Date();
                 Date to = new Date();
 
@@ -226,28 +203,9 @@ public class TaskCreator {
      * @return the name of the assignee
      */
     public String extractAssignee(String input) throws RoomShareException {
-        // check for errors in the raw input for misleading characters
-        int count = 0;
-        char[] inputAsChar = input.toCharArray();
-        for (char c: inputAsChar) {
-            if (c == '@') {
-                count++;
-            }
-        }
-        if (count == 1) {
-            throw new RoomShareException(ExceptionType.invalidInputString);
-        }
-        String[] assigneeArray = input.split("@");
-        String assignee;
-        if (assigneeArray.length != 1) {
-            assignee = assigneeArray[1].trim();
-        } else {
+        String assignee = extractField(input,"@");
+        if (assignee == null)
             assignee = "everyone";
-        }
-        // check for special characters
-        if (hasSpecialCharacters(assignee)) {
-            throw new RoomShareException(ExceptionType.invalidInputString);
-        }
         return assignee;
     }
 
@@ -257,22 +215,10 @@ public class TaskCreator {
      * @return the recurrence schedule of the task
      */
     public RecurrenceScheduleType extractRecurrence(String input) throws RoomShareException {
-        // check for errors in the raw input for misleading characters
-        int count = 0;
-        char[] inputAsChar = input.toCharArray();
-        for (char c: inputAsChar) {
-            if (c == '%') {
-                count++;
-            }
-        }
-        if (count == 1) {
-            throw new RoomShareException(ExceptionType.invalidInputString);
-        }
-        String[] recurrenceArray = input.split("%");
         RecurrenceScheduleType recurrence;
-        if (recurrenceArray.length != 1) {
+        String inputRecurrence = extractField(input,"%");
+        if (inputRecurrence != null) {
             try {
-                String inputRecurrence = recurrenceArray[1].trim();
                 recurrence = RecurrenceScheduleType.valueOf(inputRecurrence);
             } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
                 System.out.println(RECURRENCE_FORMAT_ERROR);
@@ -291,25 +237,14 @@ public class TaskCreator {
      * @return the amount of time and unit of the duration as a Pair of Integer and TimeUnit
      */
     public Pair<Integer, TimeUnit> extractDuration(String input) throws RoomShareException {
-        // check for errors in the raw input for misleading characters
-        int count = 0;
-        char[] inputAsChar = input.toCharArray();
-        for (char c: inputAsChar) {
-            if (c == '^') {
-                count++;
-            }
-        }
-        if (count == 1) {
-            throw new RoomShareException(ExceptionType.invalidInputString);
-        }
-        String[] durationArray = input.split("\\^");
         int duration;
         TimeUnit unit;
-        if (durationArray.length != 1) {
+        String inputDuration = extractField(input,"^");
+        if (inputDuration != null) {
             try {
-                String[] inputDuration = durationArray[1].split(" ");
-                duration = Integer.parseInt(inputDuration[0].trim());
-                unit = TimeUnit.valueOf(inputDuration[1].trim());
+                String[] var = inputDuration.split(" ");
+                duration = Integer.parseInt(var[0].trim());
+                unit = TimeUnit.valueOf(var[1].trim());
             } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
                 System.out.println(DURATION_FORMAT_ERROR);
                 duration = 0;
@@ -359,9 +294,9 @@ public class TaskCreator {
      * @return the reminder flag of the task
      */
     public boolean extractReminder(String input) {
-        String[] reminderArray = input.split("!");
-        if (reminderArray.length != 1) {
-            return reminderArray[1].contains("R");
+        String reminder = extractField(input, "!");
+        if (reminder != null) {
+            return reminder.contains("R");
         } else {
             return false;
         }
@@ -415,7 +350,7 @@ public class TaskCreator {
         //extract reminder
         boolean remind = this.extractReminder(input);
 
-        if (type.equals("assignment")) {
+        if (type.equals("assignment") || type.equals("as")) {
             Assignment assignment = new Assignment(description, date);
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
@@ -430,7 +365,7 @@ public class TaskCreator {
             } else {
                 throw new DuplicateException(duplicateCheck);
             }
-        } else if (type.equals("leave")) {
+        } else if (type.equals("leave") || type.equals("lv")) {
             String user;
             String[] leaveUserArray = input.split("@");
             if (leaveUserArray.length != 1) {
@@ -447,7 +382,7 @@ public class TaskCreator {
             } else {
                 throw new DuplicateException(duplicateCheck);
             }
-        } else if (type.equals("meeting")) {
+        } else if (type.equals("meeting") || type.equals("mt")) {
             if (remind) {
                 if (unit.equals(TimeUnit.unDefined)) {
                     // duration was not specified or not correctly input

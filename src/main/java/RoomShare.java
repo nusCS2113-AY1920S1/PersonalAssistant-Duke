@@ -332,20 +332,6 @@ public class RoomShare {
                 }
                 break;
 
-            case completed:
-                Ui.clearScreen();
-                ui.startUp();
-                listRoutine.list();
-                try {
-                    taskList.showCompleted();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                } finally {
-                    storage.writeFile(TaskList.getCurrentList(), "data.txt");
-                    storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
-                }
-                break;
-
             case overdue:
                 Ui.clearScreen();
                 ui.startUp();

@@ -26,6 +26,7 @@ public class ListRoutine {
         ui.showList();
         try {
             taskList.list(overdueList);
+            taskList.showCompleted();
         } catch (RoomShareException e) {
             ui.showError(e);
         }
