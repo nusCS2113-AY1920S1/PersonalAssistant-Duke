@@ -32,6 +32,57 @@ public class TaskCreator {
     }
 
     /**
+     * Check if a character in a String is a flag
+     * @param c
+     * @return
+     */
+    public boolean isFlag(char c) {
+        return  c == '#' ||
+                c == '(' ||
+                c == '*' ||
+                c == '&' ||
+                c == '@' ||
+                c == '^' ||
+                c == '!' ||
+                c == '%';
+    }
+
+    /**
+     * Find the first flag of a given input String
+     * @param input
+     * @return
+     */
+    public String findFirstFlag(String input) {
+        char[] var = input.toCharArray();
+        Character firstFlag = null;
+        for (Character c: var) {
+            if (isFlag(c)) {
+                firstFlag = c;
+                break;
+            }
+        }
+        if (firstFlag == null) return null;
+        return firstFlag.toString();
+    }
+
+    /**
+     * Extract a field with the given input and the flag corresponding to such field
+     * @param input
+     * @param flag
+     * @return
+     */
+    public String extractField(String input, String flag) {
+        String[] fieldArray = input.split(flag);
+
+        if (fieldArray.length <= 1)
+            return null;
+
+        String nextFlag = findFirstFlag(fieldArray[1]);
+        if (nextFlag == null) return fieldArray[1];
+        return fieldArray[1].split(nextFlag)[0];
+    }
+
+    /**
      * Extract the task type from the user's input.
      * @param input user's input
      * @return the task type

@@ -18,7 +18,7 @@ public enum HelpMessage {
     BYE(Constants.HELP_BYE),
     COMPLETED(Constants.HELP_COMPLETED),
     OVERDUED(Constants.HELP_OVERDUED),
-    RESCHEDUAL(Constants.HELP_RESCHEDULE);
+    RESCHEDULE(Constants.HELP_RESCHEDULE);
 
 
     private String message;
@@ -77,8 +77,8 @@ public enum HelpMessage {
                 "Use \"@______@\" to specify the responsible person of a task. Example: @Harry@\n\n" +
                 "Now that you've familiar with the syntax. Here's an example on how to update a task:\n" +
                 "update 1 *high* &next mon 15:00&";
-        public static final String HELP_SORT = "This command sorts the tasks in the task list based on type, deadline, priority and alphabetical order" +
-                "Example: sort deadline" +
+        public static final String HELP_SORT = "This command sorts the tasks in the task list based on type, deadline, priority and alphabetical order\n" +
+                "Example: sort deadline\n" +
                 "This will sort the tasks in the task list by their deadlines";
         public static final String HELP_SHOW = "This command shows you the task tagged to each user in the task list\n" +
                 "Example 1: show kelly\n" +
