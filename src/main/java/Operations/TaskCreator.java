@@ -73,14 +73,14 @@ public class TaskCreator {
      * @return
      */
     public String extractField(String input, String flag) {
-        String[] fieldArray = input.split(flag);
+        String[] fieldArray = input.split("\\" + flag);
 
         if (fieldArray.length <= 1)
             return null;
 
-        String nextFlag = findFirstFlag(fieldArray[1]);
-        if (nextFlag == null) return fieldArray[1];
-        return fieldArray[1].split(nextFlag)[0];
+        String nextFlag = "\\" + findFirstFlag(fieldArray[1]);
+        if (nextFlag == null) return fieldArray[1].trim();
+        return fieldArray[1].split(nextFlag)[0].trim();
     }
 
     /**
@@ -116,7 +116,7 @@ public class TaskCreator {
      */
     public Priority extractPriority(String input) throws RoomShareException {
         Priority priority;
-        String inputPriority = extractField(input,"!");
+        String inputPriority = extractField(input,"*");
         if (inputPriority != null) {
             try {
                 priority = Priority.valueOf(inputPriority);
@@ -472,14 +472,11 @@ public class TaskCreator {
     public void updateTask(String input, Task oldTask) throws RoomShareException {
         boolean isNotUpdated = true;
         boolean isSetToEveryone = false;
-        try {
-            if (input.contains("(") && input.contains(")")) {
-                String description = this.extractDescription(input);
-                oldTask.setDescription(description);
-                isNotUpdated = false;
-            }
-        } catch (RoomShareException e) {
-            System.out.println(UPDATED_DESCRIPTION_ERROR);
+
+        String description = this.extractField(input,"-");
+        if (description != null) {
+            oldTask.setDescription(description);
+            isNotUpdated = false;
         }
 
         if (input.contains("&")) {

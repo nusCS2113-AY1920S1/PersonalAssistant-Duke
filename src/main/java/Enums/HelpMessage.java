@@ -31,16 +31,16 @@ public enum HelpMessage {
 
     private static class Constants {
         public static final String HELP_ADD = "Before you proceed please familiarize yourself with these notation:\n\n" +
-                "(must) Use \"#______#\" to specify the type of a task. Example: #assignment#\n\n" +
-                "(must) Use \"(______)\" to specify the description of a task. Example: (finish report)\n\n" +
-                "(must) Use \"&______&\" to specify the time of a task. Example: &next monday 14:00&\n\n" +
-                "Use \"*______*\" to specify the priority of a task. Example: *high*\n\n" +
-                "Use \"^______^\" to specify the duration of a task. Example: ^2 hours^\n\n" +
-                "Use \"@______@\" to specify the responsible person of a task. Example: @Harry@\n\n" +
+                "(must) Use \"#______\" to specify the type of a task. Example: #assignment\n\n" +
+                "(must) Use \"-______\" to specify the description of a task. Example: -finish report\n\n" +
+                "(must) Use \"&______\" to specify the time of a task. Example: &next monday 14:00\n\n" +
+                "Use \"*______\" to specify the priority of a task. Example: *high\n\n" +
+                "Use \"^______\" to specify the duration of a task. Example: ^2 hours\n\n" +
+                "Use \"@______\" to specify the responsible person of a task. Example: @Harry\n\n" +
                 "Now that you've familiar with the syntax. Here's an example on how to add an assignment:\n" +
-                "add #assignment# &12/2/2020 15:00& (finish report)\n\n" +
+                "add #assignment &12/2/2020 15:00 -finish report\n\n" +
                 "Or you can key in the information in any different order and write date in short form:\n" +
-                "add &next tues 16:00& (product evaluation) #meeting# ^2 hours^";
+                "add &next tues 16:00 -product evaluation #meeting ^2 hours";
         public static final String HELP_MENU = "Here are a list of commands you can input:\n" +
                 "add\t\t\t\t\tdelete\t\t\t\tupdate\n" +
                 "restore\t\t\t\tsnooze\t\t\t\tdone\n" +
@@ -68,14 +68,14 @@ public enum HelpMessage {
                 "Example: subtask 3 subtask1, subtask2\n" +
                 "This will add 2 subtasks to the task at index 3, subtask1 and subtask2";
         public static final String HELP_UPDATE = "Before you proceed please familiarize yourself with these notation:\n\n" +
-                "(must) Use \"#______#\" to specify the type of a task. Example: #assignment#\n\n" +
-                "(must) Use \"(______)\" to specify the description of a task. Example: (finish report)\n\n" +
-                "(must) Use \"&______&\" to specify the time of a task. Example: &next monday 14:00&\n\n" +
-                "Use \"*______*\" to specify the priority of a task. Example: *high*\n\n" +
-                "Use \"^______^\" to specify the duration of a task. Example: ^2 hours^\n\n" +
-                "Use \"@______@\" to specify the responsible person of a task. Example: @Harry@\n\n" +
+                "(must) Use \"#______\" to specify the type of a task. Example: #assignment\n\n" +
+                "(must) Use \"-______\" to specify the description of a task. Example: -finish report\n\n" +
+                "(must) Use \"&______\" to specify the time of a task. Example: &next monday 14:00\n\n" +
+                "Use \"*______\" to specify the priority of a task. Example: *high\n\n" +
+                "Use \"^______\" to specify the duration of a task. Example: ^2 hours\n\n" +
+                "Use \"@______\" to specify the responsible person of a task. Example: @Harry\n\n" +
                 "Now that you've familiar with the syntax. Here's an example on how to update a task:\n" +
-                "update 1 *high* &next mon 15:00&";
+                "update 1 *high &next mon 15:00";
         public static final String HELP_SORT = "This command sorts the tasks in the task list based on type, deadline, priority and alphabetical order\n" +
                 "Example: sort deadline\n" +
                 "This will sort the tasks in the task list by their deadlines";
