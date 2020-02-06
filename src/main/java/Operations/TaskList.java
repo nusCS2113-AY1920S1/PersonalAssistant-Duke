@@ -86,8 +86,15 @@ public class TaskList {
             for (Task output : tasks) {
                 if (!output.getDone() && !output.getOverdue()) {
                     String priorityLvl = indicatePriorityLevel(output);
+                    if (priorityLvl.trim().equals("*"))
+                        System.out.print(Color.BRIGHTYELLOW);
+                    else if(priorityLvl.trim().equals("**"))
+                        System.out.print(Color.ORANGE);
+                    else
+                        System.out.print(Color.RED);
                     System.out.println("\t" + listCount + ". " + output.toString() + priorityLvl);
                     showSubtasks(output);
+                    System.out.print(Color.RESET);
                 }
                 listCount += 1;
             }
