@@ -3,7 +3,7 @@ package compal;
 import compal.commons.LogUtils;
 import compal.logic.LogicManager;
 import compal.logic.command.CommandResult;
-import compal.logic.command.ListCommand;
+// import compal.logic.command.ListCommand;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
 import compal.ui.Ui;
@@ -49,14 +49,21 @@ public class Main extends Application {
         ui.start(primaryStage);
 
         CommandResult cmdResult = logicManager.logicExecute("list");
-        if (ListCommand.LIST_EMPTY.equals(cmdResult.feedbackToUser)) {
-            createData();
-        }
+        //if (ListCommand.LIST_EMPTY.equals(cmdResult.feedbackToUser)) {
+        //    createData();
+        //}
 
         cmdResult = logicManager.logicExecute("view week");
         uiUtil.printg("Hello there!\n\n" + cmdResult.feedbackToUser);
     }
 
+    /**
+     * Create default template data.
+     * The below exceptions should not be thrown, as the commands are supposed to be in correct syntax. 
+     * @throws ParseException Part of logicManager's throws.
+     * @throws ParserException Part of logicManager's throws.
+     * @throws CommandException Part of logicManager's throws.
+     */
     private void createData() throws ParseException, ParserException, CommandException {
 
         //monday

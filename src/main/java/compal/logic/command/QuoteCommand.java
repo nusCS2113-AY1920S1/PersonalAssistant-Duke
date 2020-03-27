@@ -130,8 +130,6 @@ public class QuoteCommand extends Command {
         shoQuote.add("\n\nanywas when you guys test,besides bugs please say things you dont like too or"
                     + "\nplaces of improvement\n\n"
                     + " - Sholihin, Whatsapp message nearing the end of project \n (Yes he made those typos too)");
-        shoQuote.add("\n\nI've done my 2105 assig, I'll pass it to you guys later \n\n"
-                    + " - Sholihin, Whatsapp message, being a total godsend");
         shoQuote.add("\n\nHosneslty idk why I can't sleep but I cmi TMR you guys know why \n\n"
                     + " - Sholihin, Whatsapp message before consult, clearly indicating that he needs\n to sleep");
         shoQuote.add("\n\nToday need stay back for anything after 2113t?\n\n"
@@ -177,8 +175,6 @@ public class QuoteCommand extends Command {
                     + " for the day");
         lpzQuote.add("\n\nI pushed some Junit testing classes\n\n"
                     + " - Peize, frequent Whatsapp messages before Jun Yi breaks them the next day");
-        lpzQuote.add("\n\nJun yi I just finished 2106 do u need it?\n\n"
-                    + " - Peize, Whatsapp message after doing the impossible");
         lpzQuote.add("\n\nOOOOOHHHHHHH, Cheng Long!!\n\n"
                     + " - Peize, after realising we were not talking about Jackie Chan");
         lpzQuote.add("\n\nOOOOOOOOOOooooooooohhhhhhhhhh!!!\n\n"
