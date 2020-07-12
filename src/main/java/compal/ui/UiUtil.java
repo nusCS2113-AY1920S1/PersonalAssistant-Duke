@@ -10,7 +10,7 @@ import javafx.scene.text.FontWeight;
 
 
 /**
- * Represents userinterface.
+ * Represents user interface.
  */
 public class UiUtil {
     public static ScrollPane mainWindow;

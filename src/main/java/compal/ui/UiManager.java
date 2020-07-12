@@ -48,7 +48,7 @@ public class UiManager implements Ui {
             uiUtil.setMainWindow(mainPane);
             Scene s1 = new Scene(ap);
             primaryStage.setScene(s1);
-            primaryStage.setTitle("ComPAL");
+            primaryStage.setTitle("COMPal");
             primaryStage.setOpacity(1);
             primaryStage.setResizable(false);
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
