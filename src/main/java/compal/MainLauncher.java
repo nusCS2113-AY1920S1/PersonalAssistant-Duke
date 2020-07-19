@@ -5,7 +5,6 @@ package compal;
  */
 public class MainLauncher {
     /**
-     *
      * The Java main method is the entry point of any Java program.
      * This is the Java main method for COMPal. This will call the main method
      * of the Main class.
