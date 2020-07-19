@@ -35,7 +35,9 @@ public class UiManager implements Ui {
             TabPane tabReference = (TabPane) ap.getChildren().get(2);
             uiUtil.setTabWindow(tabReference);
 
-            //Create MainWindow Pane
+            // Create MainWindow Pane
+            // Vertical Box is the main view superimposed on the TabPane, with the ScrollPane helping it to
+            // scroll automatically. 
             VBox root = new VBox();
             ScrollPane mainPane = new ScrollPane();
             mainPane.setContent(root);
