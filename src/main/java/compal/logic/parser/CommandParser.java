@@ -56,8 +56,6 @@ public interface CommandParser {
     String TOKEN_FILE_NAME = "/file-name";
     String TOKEN_SEMSTART = "/semstart";
     String TOKEN_NUSMODS_LINK = "/link";
-
-
     String EMPTY_INPUT_STRING = "";
     int DEFAULT_WEEK_NUMBER_OF_DAYS = 7;
     int INDEX_ZERO = 0;
