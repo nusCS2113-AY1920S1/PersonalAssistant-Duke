@@ -13,7 +13,7 @@ import java.text.ParseException;
 //@@author SholihinK
 /**
  * Handles GUI.
- * This is a JavaFXML Controller class.
+ * This is a JavaFXML Controller class for MainWindow.fxml.
  */
 public class MainWindow extends AnchorPane {
     //Class Properties/Variables
