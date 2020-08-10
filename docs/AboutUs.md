@@ -3,7 +3,7 @@
 About Us
 ============
 
-compal - A CLI (Command Line Interface) scheduling application that targets students who prefer to use a desktop application for managing their schedule easily with reminders!  
+**COMPal** - A CLI (Command Line Interface) scheduling application that targets students who prefer to use a desktop application for managing their schedule easily with reminders!  
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 Project Team
