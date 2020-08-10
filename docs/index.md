@@ -18,9 +18,9 @@ In addition, **COMPal** offers you the ***freedom to prioritise certain tasks***
 
 ## Useful Links
 It can be hard to navigate round new software, but we're happy to help:
-* [User Guide](docs/[CS2113T-W17-1][COMPal]UserGuide.pdf), for a guiding hand to show you the ropes
-* [Developer Guide](docs/[CS2113T-W17-1][COMPal]DeveloperGuide.pdf), to take a look backstage
-* [About Us](docs/AboutUs.md), to know more about the team pulling the strings
+* [User Guide]([CS2113T-W17-1][COMPal]UserGuide.pdf), for a guiding hand to show you the ropes
+* [Developer Guide]([CS2113T-W17-1][COMPal]DeveloperGuide.pdf), to take a look backstage
+* [About Us](AboutUs.md), to know more about the team pulling the strings
 
 ## Contributors
 **COMPal** is developed and maintained by a dedicated team of student developers. From our unique standpoint as both ***user*** and ***developer***, we strive to provide practical features that answer the needs of our target audience.
@@ -31,7 +31,7 @@ It can be hard to navigate round new software, but we're happy to help:
 * [Tan Kai Li Catherine](https://github.com/Catherinetan99/)
 * [Yue Jun Yi](https://github.com/yueyeah)
 
-Visit our [Project Team page](docs/AboutUs.md) or any of our Github profiles to find out more about us!
+Visit our [Project Team page](AboutUs.md) or any of our Github profiles to find out more about us!
 
 ## Acknowledgements
 * COMPal is developed with the goal of improving on the [Duke](https://github.com/se-edu/duke) 
